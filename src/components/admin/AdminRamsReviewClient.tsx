@@ -49,27 +49,27 @@ export function AdminRamsReviewClient({ initialRamsList }: Props) {
       {/* Metric Scorecard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">TOTAL SUBMISSIONS</span>
-          <div className="text-2xl font-mono font-light text-slate-900">{totalCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">All Contractor Packs</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">TOTAL SUBMISSIONS</span>
+          <div className="text-2xl font-light text-slate-900">{totalCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">All Contractor Packs</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">PENDING ENTIREFM VETTING</span>
-          <div className="text-2xl font-mono font-light text-cyan-600">{pendingCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Requires Review</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">PENDING ENTIREFM VETTING</span>
+          <div className="text-2xl font-light text-cyan-600">{pendingCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Requires Review</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">CLEARED FOR WORK</span>
-          <div className="text-2xl font-mono font-light text-emerald-600">{approvedCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Accepted by Safety Lead</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">CLEARED FOR WORK</span>
+          <div className="text-2xl font-light text-emerald-600">{approvedCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Accepted by Safety Lead</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">CHANGES REQUESTED</span>
-          <div className="text-2xl font-mono font-light text-amber-600">{changesCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Returned to Contractor</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">CHANGES REQUESTED</span>
+          <div className="text-2xl font-light text-amber-600">{changesCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Returned to Contractor</span>
         </div>
       </div>
 
@@ -82,11 +82,11 @@ export function AdminRamsReviewClient({ initialRamsList }: Props) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by ref, contractor, or site..."
-            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-mono focus:outline-none focus:border-slate-900"
+            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-normal focus:outline-none focus:border-slate-900"
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono">
+        <div className="flex items-center gap-2 text-xs font-normal">
           <span className="text-slate-500">Status:</span>
           <select
             value={selectedStatus}
@@ -104,7 +104,7 @@ export function AdminRamsReviewClient({ initialRamsList }: Props) {
       {/* Table */}
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono border-collapse">
+          <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10.5px]">
                 <th className="py-3 px-4">RAMS Ref</th>

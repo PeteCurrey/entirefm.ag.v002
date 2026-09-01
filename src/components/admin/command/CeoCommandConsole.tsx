@@ -91,13 +91,13 @@ export function CeoCommandConsole({ session, zeroData }: Props) {
             <div key={i} className="p-5 space-y-3">
               {/* Question */}
               <div className="flex items-start gap-3">
-                <span className="text-[10px] font-mono text-[#EA580C] pt-0.5 shrink-0 uppercase tracking-wider font-medium">YOU</span>
+                <span className="text-[10px] text-[#EA580C] pt-0.5 shrink-0 uppercase tracking-wider font-medium">YOU</span>
                 <span className="text-[13.5px] text-[#111111] font-normal">{turn.question}</span>
               </div>
 
               {/* Loading State */}
               {turn.loading && (
-                <div className="flex items-center gap-2 pl-8 text-[12px] font-mono text-[#9A9A95] animate-pulse">
+                <div className="flex items-center gap-2 pl-8 text-[12px] font-normal text-[#9A9A95] animate-pulse">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
                   <span>Computing deterministic enterprise brief…</span>
                 </div>
@@ -113,8 +113,8 @@ export function CeoCommandConsole({ session, zeroData }: Props) {
                 <div className="pl-8 space-y-3">
                   {/* Status header */}
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-[#111111] font-medium shrink-0">ENTIRECAFM INTELLIGENCE</span>
-                    <span className={`text-[9.5px] font-mono border rounded-[3px] px-1.5 py-0.2 ${DATA_STATUS_STYLE[turn.answer.data_status] || 'text-[#6D6D68]'}`}>
+                    <span className="text-[10px] text-[#111111] font-medium shrink-0">ENTIRECAFM INTELLIGENCE</span>
+                    <span className={`text-[9.5px] font-normal border rounded-[3px] px-1.5 py-0.2${DATA_STATUS_STYLE[turn.answer.data_status] || 'text-[#6D6D68]'}`}>
                       {turn.answer.data_status}
                     </span>
                   </div>
@@ -137,22 +137,22 @@ export function CeoCommandConsole({ session, zeroData }: Props) {
                   {/* Fact vs Interpretation Breakdown */}
                   {turn.answer.fact_vs_interpretation.facts.length > 0 && (
                     <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-3.5 space-y-2">
-                      <div className="text-[10px] font-mono text-[#6D6D68] uppercase tracking-wider">Deterministic Evidence Ledger</div>
+                      <div className="text-[10px] font-medium text-[#6D6D68] uppercase tracking-wider">Deterministic Evidence Ledger</div>
                       {turn.answer.fact_vs_interpretation.facts.map((f, j) => (
                         <div key={j} className="text-[11.5px] text-[#111111] flex gap-2">
-                          <span className="font-mono text-[9.5px] text-[#15803D] bg-[#F0FDF4] border border-[#BBF7D0] px-1 py-0.2 rounded shrink-0">FACT</span>
+                          <span className="font-normal text-[9.5px] text-[#15803D] bg-[#F0FDF4] border border-[#BBF7D0] px-1 py-0.2 rounded shrink-0">FACT</span>
                           <span>{f}</span>
                         </div>
                       ))}
                       {turn.answer.fact_vs_interpretation.calculations.map((c, j) => (
                         <div key={j} className="text-[11.5px] text-[#111111] flex gap-2">
-                          <span className="font-mono text-[9.5px] text-[#1D4ED8] bg-[#EFF6FF] border border-[#BFDBFE] px-1 py-0.2 rounded shrink-0">CALC</span>
+                          <span className="font-normal text-[9.5px] text-[#1D4ED8] bg-[#EFF6FF] border border-[#BFDBFE] px-1 py-0.2 rounded shrink-0">CALC</span>
                           <span>{c}</span>
                         </div>
                       ))}
                       {turn.answer.fact_vs_interpretation.recommendations.map((r, j) => (
                         <div key={j} className="text-[11.5px] text-[#111111] flex gap-2">
-                          <span className="font-mono text-[9.5px] text-[#EA580C] bg-[#FFF7ED] border border-[#FED7AA] px-1 py-0.2 rounded shrink-0">REC</span>
+                          <span className="font-normal text-[9.5px] text-[#EA580C] bg-[#FFF7ED] border border-[#FED7AA] px-1 py-0.2 rounded shrink-0">REC</span>
                           <span>{r}</span>
                         </div>
                       ))}
@@ -193,7 +193,7 @@ export function CeoCommandConsole({ session, zeroData }: Props) {
       {/* Suggested question chips */}
       {turns.length === 0 && (
         <div className="p-5 space-y-3">
-          <div className="text-[11px] font-mono text-[#6D6D68] uppercase tracking-wider">
+          <div className="text-[11px] font-medium text-[#6D6D68] uppercase tracking-wider">
             {zeroData
               ? 'Operational data not yet connected — suggested queries:'
               : 'Suggested executive queries:'}

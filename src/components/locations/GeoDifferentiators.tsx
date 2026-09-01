@@ -60,7 +60,7 @@ export function GeoDifferentiators({ city }: GeoDifferentiatorsProps) {
               />
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="font-mono text-2xl font-extralight text-brand-silver group-hover:text-brand-pink transition-colors">
+                  <span className="text-2xl font-extralight text-brand-silver group-hover:text-brand-pink transition-colors">
                     {p.num}
                   </span>
                   <span className="h-2 w-2 rounded-full bg-brand-pink/60" />
@@ -76,7 +76,7 @@ export function GeoDifferentiators({ city }: GeoDifferentiatorsProps) {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-brand-edge/60 flex items-center gap-1.5 text-xs text-brand-silver font-mono">
+              <div className="mt-6 pt-4 border-t border-brand-edge/60 flex items-center gap-1.5 text-xs text-brand-silver font-normal">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                 <span>Verified Operational Standard</span>
               </div>

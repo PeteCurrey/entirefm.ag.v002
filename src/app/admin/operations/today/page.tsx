@@ -13,7 +13,7 @@ export default async function OperationsTodayPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             DUTY MANAGER DAILY OPERATING SCREEN
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Today&rsquo;s Exceptions &amp; Actions</h1>
@@ -37,7 +37,7 @@ export default async function OperationsTodayPage() {
           </h3>
 
           {exceptions.length === 0 ? (
-            <div className="py-8 text-center text-zinc-500 text-xs font-mono">
+            <div className="py-8 text-center text-zinc-500 text-xs font-normal">
               Zero urgent operational exceptions detected today.
             </div>
           ) : (
@@ -46,10 +46,10 @@ export default async function OperationsTodayPage() {
                 <div key={exc.id} className="py-3 text-xs space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="font-light text-white">{exc.title}</span>
-                    <span className="text-[10px] font-mono text-red-400 uppercase font-light">{exc.severity}</span>
+                    <span className="text-[10px] text-red-400 uppercase font-light">{exc.severity}</span>
                   </div>
                   <div className="text-[11px] text-zinc-400">{exc.details}</div>
-                  <div className="text-[10px] text-zinc-500 font-mono">Owner: {exc.owner}</div>
+                  <div className="text-[10px] text-zinc-500 font-normal">Owner: {exc.owner}</div>
                 </div>
               ))}
             </div>
@@ -63,7 +63,7 @@ export default async function OperationsTodayPage() {
           </h3>
 
           {clientActions.length === 0 ? (
-            <div className="py-8 text-center text-zinc-500 text-xs font-mono">
+            <div className="py-8 text-center text-zinc-500 text-xs font-normal">
               Zero client approval or access bottlenecks currently outstanding.
             </div>
           ) : (
@@ -73,13 +73,13 @@ export default async function OperationsTodayPage() {
                   <div className="flex items-center justify-between">
                     <span className="font-light text-white">{act.title}</span>
                     {act.amount_gbp && (
-                      <span className="text-[11px] font-mono text-pink-400 font-light">
+                      <span className="text-[11px] text-pink-400 font-light">
                         £{act.amount_gbp.toLocaleString()}
                       </span>
                     )}
                   </div>
                   <div className="text-[11px] text-zinc-400">{act.description}</div>
-                  <div className="text-[10px] text-zinc-500 font-mono">
+                  <div className="text-[10px] text-zinc-500 font-normal">
                     Due: {new Date(act.due_date).toLocaleDateString('en-GB')} · Status: {act.status}
                   </div>
                 </div>

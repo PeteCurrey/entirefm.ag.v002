@@ -354,11 +354,11 @@ export default function FieldJobScreen({
     <div className="space-y-4 max-w-xl mx-auto pb-12">
       {/* Top Header */}
       <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-        <Link href="/engineer" className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-mono">
+        <Link href="/engineer" className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-normal">
           <ChevronLeft className="h-4 w-4" /> Today
         </Link>
-        <span className="text-xs font-mono font-bold text-brand-pink">{jobPack.work_order_number}</span>
-        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+        <span className="text-xs font-bold text-brand-pink">{jobPack.work_order_number}</span>
+        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
           visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'
             ? 'bg-emerald-100 text-emerald-800'
             : visit.status === 'IN_PROGRESS'
@@ -411,7 +411,7 @@ export default function FieldJobScreen({
       {visit.status === 'ARRIVED' && !visit.is_cancelled && (
         <div className="bg-purple-50 border border-purple-200 rounded p-4 flex items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] font-mono uppercase text-purple-700 font-bold block">CHECKED IN ON SITE</span>
+            <span className="text-[10px] uppercase text-purple-700 font-bold block">CHECKED IN ON SITE</span>
             <span className="text-xs text-purple-950 font-medium">Ready to commence site execution.</span>
           </div>
           <button
@@ -425,7 +425,7 @@ export default function FieldJobScreen({
       )}
 
       {/* Tab Navigation */}
-      <div className="flex border-b border-slate-200 text-xs font-mono">
+      <div className="flex border-b border-slate-200 text-xs font-normal">
         <button
           onClick={() => setActiveTab('WORK')}
           className={`py-2.5 px-3 border-b-2 font-bold ${
@@ -476,7 +476,7 @@ export default function FieldJobScreen({
             <h2 className="text-base font-bold text-slate-900">{jobPack.title}</h2>
             <p className="text-xs text-slate-600 font-sans">{jobPack.site.name} &bull; {jobPack.site.address_line1}</p>
 
-            <div className="flex items-center justify-between text-xs font-mono pt-2 border-t border-slate-100 text-slate-500">
+            <div className="flex items-center justify-between text-xs font-normal pt-2 border-t border-slate-100 text-slate-500">
               <span>Discipline: {jobPack.discipline}</span>
               <span>Workflow: {jobPack.workflow_type}</span>
             </div>
@@ -489,7 +489,7 @@ export default function FieldJobScreen({
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
                   Mandatory PPM Maintenance Tasks ({tasks.length})
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-normal text-slate-500">
                   {tasks.filter((t) => t.recorded_status || t.recorded_measurement !== undefined).length} / {tasks.length} Done
                 </span>
               </div>
@@ -500,7 +500,7 @@ export default function FieldJobScreen({
                     <div className="flex items-start justify-between gap-2">
                       <span className="font-bold text-slate-900 font-sans">{task.task_name}</span>
                       {task.is_mandatory && (
-                        <span className="text-[9.5px] font-mono text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded shrink-0">
+                        <span className="text-[9.5px] font-normal text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded shrink-0">
                           MANDATORY
                         </span>
                       )}
@@ -512,7 +512,7 @@ export default function FieldJobScreen({
                         <button
                           type="button"
                           onClick={() => handleUpdateTask(task.id, { recorded_status: 'PASS' })}
-                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                          className={`py-2 rounded text-xs font-bold transition-all ${
                             task.recorded_status === 'PASS'
                               ? 'bg-emerald-700 text-white'
                               : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -523,7 +523,7 @@ export default function FieldJobScreen({
                         <button
                           type="button"
                           onClick={() => handleUpdateTask(task.id, { recorded_status: 'FAIL' })}
-                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                          className={`py-2 rounded text-xs font-bold transition-all ${
                             task.recorded_status === 'FAIL'
                               ? 'bg-rose-700 text-white'
                               : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -534,7 +534,7 @@ export default function FieldJobScreen({
                         <button
                           type="button"
                           onClick={() => handleUpdateTask(task.id, { recorded_status: 'NOT_APPLICABLE' })}
-                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                          className={`py-2 rounded text-xs font-bold transition-all ${
                             task.recorded_status === 'NOT_APPLICABLE'
                               ? 'bg-slate-800 text-white'
                               : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -559,10 +559,10 @@ export default function FieldJobScreen({
                               })
                             }
                             placeholder={`e.g. ${task.expected_min || 18}`}
-                            className="w-32 p-2 border border-slate-300 rounded font-mono text-xs"
+                            className="w-32 p-2 border border-slate-300 rounded font-normal text-xs"
                           />
-                          <span className="font-mono font-bold text-slate-700">{task.measurement_unit}</span>
-                          <span className="text-[11px] text-slate-400 font-mono">
+                          <span className="font-bold text-slate-700">{task.measurement_unit}</span>
+                          <span className="text-[11px] text-slate-400 font-normal">
                             (Tolerance: {task.expected_min} &ndash; {task.expected_max} {task.measurement_unit})
                           </span>
                         </div>
@@ -642,7 +642,7 @@ export default function FieldJobScreen({
           <div className="pt-2">
             <button
               onClick={() => setNoAccessOpen(true)}
-              className="w-full py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-600 border border-slate-200 rounded text-xs font-mono font-bold text-center"
+              className="w-full py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-600 border border-slate-200 rounded text-xs font-bold text-center"
             >
               No Access / Unable to Attend Site
             </button>
@@ -663,7 +663,7 @@ export default function FieldJobScreen({
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-secondary text-[11px] py-1 px-2.5 flex items-center gap-1 font-mono text-brand-pink font-bold"
+                className="btn-secondary text-[11px] py-1 px-2.5 flex items-center gap-1 text-brand-pink font-bold"
               >
                 <Navigation className="h-3 w-3" /> Native Directions
               </a>
@@ -688,7 +688,7 @@ export default function FieldJobScreen({
               </div>
               <div>
                 <span className="text-slate-400 block text-[10.5px]">Access Telephone</span>
-                <a href={`tel:${jobPack.site.access_telephone}`} className="text-brand-pink font-bold font-mono">
+                <a href={`tel:${jobPack.site.access_telephone}`} className="text-brand-pink font-bold">
                   {jobPack.site.access_telephone}
                 </a>
               </div>
@@ -709,7 +709,7 @@ export default function FieldJobScreen({
               <span className="font-bold text-slate-900 text-sm block border-b border-slate-100 pb-2">
                 Target Asset Specification
               </span>
-              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div className="grid grid-cols-2 gap-2 text-xs font-normal">
                 <div>
                   <span className="text-slate-400 block font-sans text-[10.5px]">Asset Tag</span>
                   <span className="font-bold text-slate-900">{jobPack.asset.asset_tag}</span>
@@ -764,11 +764,11 @@ export default function FieldJobScreen({
                 Camera-First Photo Evidence
               </span>
               {unsyncedEvidenceCount > 0 ? (
-                <span className="text-[10px] font-mono text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                   <WifiOff className="h-3 w-3" /> {unsyncedEvidenceCount} Waiting for Sync
                 </span>
               ) : (
-                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
                   All Synced to Cloud
                 </span>
               )}
@@ -804,11 +804,11 @@ export default function FieldJobScreen({
                   <div key={ev.id} className="py-2.5 flex items-center justify-between text-xs">
                     <div>
                       <span className="font-bold text-slate-900">{ev.category} Photograph</span>
-                      <span className="text-slate-400 block font-mono text-[10.5px]">{ev.file_name}</span>
+                      <span className="text-slate-400 block font-normal text-[10.5px]">{ev.file_name}</span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                         ev.sync_state === 'SYNCED'
                           ? 'bg-emerald-100 text-emerald-800'
                           : ev.sync_state === 'SAVED_ON_DEVICE'
@@ -821,7 +821,7 @@ export default function FieldJobScreen({
                       {ev.sync_state !== 'SYNCED' && (
                         <button
                           onClick={() => handleRetryEvidenceSync(ev.id)}
-                          className="btn-secondary text-[10px] py-0.5 px-1.5 flex items-center gap-1 font-mono"
+                          className="btn-secondary text-[10px] py-0.5 px-1.5 flex items-center gap-1 font-medium"
                         >
                           <RefreshCw className="h-3 w-3" /> Retry
                         </button>
@@ -858,7 +858,7 @@ export default function FieldJobScreen({
                   <div key={d.id} className="py-2.5 space-y-1">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-slate-900">{d.title}</span>
-                      <span className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded ${
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                         d.severity === 'CRITICAL' || d.severity === 'UNSAFE' ? 'bg-rose-100 text-rose-900' : 'bg-amber-100 text-amber-900'
                       }`}>
                         {d.severity} &bull; {d.make_safe_status}
@@ -883,7 +883,7 @@ export default function FieldJobScreen({
               </button>
             </div>
 
-            <div className="bg-slate-50 p-2.5 rounded font-mono text-slate-600 flex justify-between items-center text-[11px]">
+            <div className="bg-slate-50 p-2.5 rounded font-normal text-slate-600 flex justify-between items-center text-[11px]">
               <span>Authorised NTE Ceiling:</span>
               <strong className="text-slate-900">£{jobPack.nte_limit_gbp || 500}.00</strong>
             </div>
@@ -892,7 +892,7 @@ export default function FieldJobScreen({
               <div key={v.id} className="p-3 bg-amber-50 border border-amber-200 rounded space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-900 font-sans">{v.reason}</span>
-                  <span className="text-amber-900 font-mono font-bold">£{v.total_variation_estimate_gbp.toFixed(2)}</span>
+                  <span className="text-amber-900 font-bold">£{v.total_variation_estimate_gbp.toFixed(2)}</span>
                 </div>
                 <p className="text-slate-700 text-[11px] font-sans">{v.additional_scope}</p>
               </div>
@@ -915,9 +915,9 @@ export default function FieldJobScreen({
               <div key={p.id} className="py-2 flex items-center justify-between border-b border-slate-100">
                 <div>
                   <span className="font-bold text-slate-900">{p.part_name}</span>
-                  <span className="text-slate-400 block font-mono text-[10.5px]">Qty: {p.quantity}</span>
+                  <span className="text-slate-400 block font-normal text-[10.5px]">Qty: {p.quantity}</span>
                 </div>
-                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                   p.is_awaiting_delivery ? 'bg-amber-100 text-amber-900' : 'bg-emerald-100 text-emerald-800'
                 }`}>
                   {p.is_awaiting_delivery ? 'AWAITING DELIVERY' : 'INSTALLED'}
@@ -939,11 +939,11 @@ export default function FieldJobScreen({
                   <ShieldCheck className="h-4 w-4 text-sky-400" />
                   EntireFM Controlled Field Reports (Rev 4.0)
                 </span>
-                <span className="text-[11px] text-slate-400 font-mono">
+                <span className="text-[11px] text-slate-400 font-normal">
                   Standard Operating Procedures &bull; MAR 2026
                 </span>
               </div>
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">
+              <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">
                 A4 PDF Ready
               </span>
             </div>
@@ -969,7 +969,7 @@ export default function FieldJobScreen({
                 }}
                 className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
               >
-                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-RJR-01</div>
+                <div className="text-[10px] text-sky-400 font-bold">ENT-RJR-01</div>
                 <div className="font-bold text-xs text-white group-hover:text-sky-300">Reactive Job Report</div>
                 <div className="text-[10px] text-slate-400 mt-1">Diagnosis, Labour &amp; Materials</div>
               </button>
@@ -994,7 +994,7 @@ export default function FieldJobScreen({
                 }}
                 className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
               >
-                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-PPM-01</div>
+                <div className="text-[10px] text-sky-400 font-bold">ENT-PPM-01</div>
                 <div className="font-bold text-xs text-white group-hover:text-sky-300">Weekly Fire Alarm Test</div>
                 <div className="text-[10px] text-slate-400 mt-1">BS 5839-1 Call Point Test</div>
               </button>
@@ -1019,7 +1019,7 @@ export default function FieldJobScreen({
                 }}
                 className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
               >
-                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-FLS-EL</div>
+                <div className="text-[10px] text-sky-400 font-bold">ENT-FLS-EL</div>
                 <div className="font-bold text-xs text-white group-hover:text-sky-300">Emergency Lighting Survey</div>
                 <div className="text-[10px] text-slate-400 mt-1">BS 5266 Luminaire Schedule</div>
               </button>
@@ -1031,7 +1031,7 @@ export default function FieldJobScreen({
               <div>
                 <span className="font-bold text-slate-900 text-sm block">Legacy Service Summary</span>
                 {report && (
-                  <span className="text-[10px] font-mono text-slate-500">
+                  <span className="text-[10px] font-normal text-slate-500">
                     {report.report_number} &bull; Revision {report.revision_number}
                   </span>
                 )}
@@ -1042,7 +1042,7 @@ export default function FieldJobScreen({
                   href={`/api/engineer/visits/${visit.id}/pdf`}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-secondary text-[10.5px] py-1 px-2.5 font-mono flex items-center gap-1"
+                  className="btn-secondary text-[10.5px] py-1 px-2.5 font-medium flex items-center gap-1"
                 >
                   <Download className="h-3.5 w-3.5" /> Download PDF
                 </a>
@@ -1296,7 +1296,7 @@ export default function FieldJobScreen({
                   type="number"
                   value={variationHours}
                   onChange={(e) => setVariationHours(parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+                  className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
                 />
               </div>
               <div>
@@ -1305,7 +1305,7 @@ export default function FieldJobScreen({
                   type="number"
                   value={variationPartsGbp}
                   onChange={(e) => setVariationPartsGbp(parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+                  className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
                 />
               </div>
             </div>
@@ -1355,7 +1355,7 @@ export default function FieldJobScreen({
                 value={partNumber}
                 onChange={(e) => setPartNumber(e.target.value)}
                 placeholder="e.g. D-CON-24V-01"
-                className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+                className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
               />
             </div>
 

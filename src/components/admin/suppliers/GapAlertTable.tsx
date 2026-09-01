@@ -17,7 +17,7 @@ export function GapAlertTable({ gaps }: { gaps: SupplyChainGapAlert[] }) {
             Deterministically generated alerts where actual approved supplier depth falls below operational targets.
           </p>
         </div>
-        <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
+        <span className="text-xs font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
           {gaps.length} Active Gaps
         </span>
       </div>
@@ -25,7 +25,7 @@ export function GapAlertTable({ gaps }: { gaps: SupplyChainGapAlert[] }) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-mono uppercase text-[10.5px]">
+            <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-normal uppercase text-[10.5px]">
               <th className="py-2.5 px-3">Severity</th>
               <th className="py-2.5 px-3">Deficit Type</th>
               <th className="py-2.5 px-3">Service Discipline</th>
@@ -46,22 +46,22 @@ export function GapAlertTable({ gaps }: { gaps: SupplyChainGapAlert[] }) {
               gaps.map((g) => (
                 <tr key={g.id} className="hover:bg-slate-50/50">
                   <td className="py-3 px-3">
-                    <span className={`inline-block text-[10.5px] font-mono font-light px-2 py-0.5 rounded ${
+                    <span className={`inline-block text-[10.5px] font-light px-2 py-0.5 rounded ${
                       g.severity === 'CRITICAL' ? 'bg-rose-600 text-white' : g.severity === 'HIGH' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'
                     }`}>
                       {g.severity}
                     </span>
                   </td>
-                  <td className="py-3 px-3 font-mono font-light text-slate-800">
+                  <td className="py-3 px-3 font-light text-slate-800">
                     {g.gap_type.replace(/_/g, ' ')}
                   </td>
                   <td className="py-3 px-3 font-light text-slate-900">
                     {g.service_name}
                   </td>
-                  <td className="py-3 px-3 font-mono text-slate-700">
+                  <td className="py-3 px-3 font-normal text-slate-700">
                     {g.location}
                   </td>
-                  <td className="py-3 px-3 font-mono">
+                  <td className="py-3 px-3 font-normal">
                     <span className="font-light text-slate-900">{g.approved_count}</span> / {g.target_approved}
                   </td>
                   <td className="py-3 px-3 text-slate-600 max-w-sm leading-relaxed">

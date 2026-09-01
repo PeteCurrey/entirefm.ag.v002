@@ -127,10 +127,10 @@ export default function ContentIntelligenceDashboard() {
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-normal text-white">{opp.query}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-mono">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-normal">
                     {opp.decision}
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-red-900/40 text-red-300 font-mono">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-red-900/40 text-red-300 font-normal">
                     {opp.priority}
                   </span>
                 </div>

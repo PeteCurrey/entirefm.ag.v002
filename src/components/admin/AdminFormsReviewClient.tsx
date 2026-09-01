@@ -47,27 +47,27 @@ export function AdminFormsReviewClient({ initialForms }: Props) {
       {/* Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">TOTAL SUBMISSIONS</span>
-          <div className="text-2xl font-mono font-light text-slate-900">{totalCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Live Field Records</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">TOTAL SUBMISSIONS</span>
+          <div className="text-2xl font-light text-slate-900">{totalCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Live Field Records</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">VARIATION REQUESTS</span>
-          <div className="text-2xl font-mono font-light text-cyan-600">{variationsCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Pending Authorisation</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">VARIATION REQUESTS</span>
+          <div className="text-2xl font-light text-cyan-600">{variationsCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Pending Authorisation</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">DEFECT NOTIFICATIONS</span>
-          <div className="text-2xl font-mono font-light text-amber-600">{defectsCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Asset Remedials</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">DEFECT NOTIFICATIONS</span>
+          <div className="text-2xl font-light text-amber-600">{defectsCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Asset Remedials</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">SAFETY &amp; RIDDOR</span>
-          <div className="text-2xl font-mono font-light text-rose-600">{incidentsCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Safety Escalations</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">SAFETY &amp; RIDDOR</span>
+          <div className="text-2xl font-light text-rose-600">{incidentsCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Safety Escalations</span>
         </div>
       </div>
 
@@ -80,11 +80,11 @@ export function AdminFormsReviewClient({ initialForms }: Props) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search forms by record ID, operative, work order..."
-            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-mono focus:outline-none focus:border-slate-900"
+            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-normal focus:outline-none focus:border-slate-900"
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono">
+        <div className="flex items-center gap-2 text-xs font-normal">
           <span className="text-slate-500">Category:</span>
           <select
             value={selectedCategory}
@@ -105,7 +105,7 @@ export function AdminFormsReviewClient({ initialForms }: Props) {
       {/* Table */}
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono border-collapse">
+          <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10.5px]">
                 <th className="py-3 px-4">Form Ref</th>

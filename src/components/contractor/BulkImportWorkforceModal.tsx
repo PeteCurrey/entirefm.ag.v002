@@ -96,7 +96,7 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               BULK WORKFORCE IMPORT
             </span>
             <h2 className="text-base font-light text-white">Import Engineers &amp; Operatives via CSV</h2>
@@ -107,7 +107,7 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
         </div>
 
         {/* Body */}
-        <div className="p-6 overflow-y-auto space-y-4 text-xs font-mono">
+        <div className="p-6 overflow-y-auto space-y-4 text-xs font-normal">
           {errorMsg && (
             <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
@@ -158,7 +158,7 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
                 placeholder="FirstName,LastName,Email,Phone,JobTitle,PrimaryTrade"
-                className="w-full p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-mono text-xs focus:border-brand-electric focus:outline-none"
+                className="w-full p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
               />
 
               <div className="flex justify-end">

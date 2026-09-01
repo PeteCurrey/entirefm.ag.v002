@@ -118,7 +118,7 @@ export function TemplateComplianceIntelligence() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Statutory Regulatory Desk
               </span>
             </div>
@@ -221,7 +221,7 @@ export function TemplateComplianceIntelligence() {
               
               {/* Micro badge on image */}
               <div className="absolute bottom-4 left-4 z-10">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 bg-black/60 backdrop-blur-sm text-white/80 border border-white/10 rounded-[3px]">
+                <span className="text-[10px] font-normal uppercase tracking-[0.2em] px-2.5 py-1 bg-black/60 backdrop-blur-sm text-white/80 border border-white/10 rounded-[3px]">
                   {leadRecord.jurisdiction} · {leadRecord.statuteCitation}
                 </span>
               </div>
@@ -231,7 +231,7 @@ export function TemplateComplianceIntelligence() {
             <div className="lg:col-span-6 p-6 sm:p-10 lg:p-14 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright font-light">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric-bright font-light">
                     The Change That Matters
                   </span>
 
@@ -250,7 +250,7 @@ export function TemplateComplianceIntelligence() {
 
                 {leadRecord.entirefmTake && (
                   <div className="border-l-2 border-brand-electric pl-4 py-1 space-y-1 bg-white/[0.02]">
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-brand-electric-bright">
+                    <span className="text-[10px] uppercase font-medium tracking-wider text-brand-electric-bright">
                       EntireFM Operational View
                     </span>
                     <p className="text-xs font-light text-neutral-300 leading-relaxed">
@@ -298,7 +298,7 @@ export function TemplateComplianceIntelligence() {
           {/* Section Header */}
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-neutral-200 pb-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Forward Statutory Agenda
               </span>
               <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -318,7 +318,7 @@ export function TemplateComplianceIntelligence() {
                 className="space-y-3 pb-6 border-b sm:border-b-0 sm:border-r border-neutral-200/80 pr-4 last:border-r-0"
               >
                 <div className="space-y-1">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400">
                     {item.month} {item.year}
                   </div>
                   <div className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -358,7 +358,7 @@ export function TemplateComplianceIntelligence() {
       <section className="bg-[#FAF9F7] py-10 px-4 sm:px-6 lg:px-8 border-b border-neutral-200/80 sticky top-14 z-30 backdrop-blur-md bg-[#FAF9F7]/95">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 mr-2 shrink-0">
+            <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 mr-2 shrink-0">
               Filter:
             </span>
             {DISCIPLINES.map((d) => (
@@ -402,7 +402,7 @@ export function TemplateComplianceIntelligence() {
           
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-neutral-200 pb-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Statutory Intelligence Index
               </span>
               <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -432,7 +432,7 @@ export function TemplateComplianceIntelligence() {
                 >
                   {/* Left Column: Metadata & Classification */}
                   <div className="lg:col-span-3 space-y-1.5">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-medium">
+                    <div className="text-[10px] uppercase tracking-wider text-brand-electric font-medium">
                       {rec.classification} · {rec.jurisdiction}
                     </div>
                     <div className="text-xs font-light text-neutral-500">
@@ -455,7 +455,7 @@ export function TemplateComplianceIntelligence() {
 
                     <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-light">
                       <span className="text-neutral-500">
-                        Statutory Citation: <span className="font-mono text-neutral-700 text-[11px]">{rec.statuteCitation}</span>
+                        Statutory Citation: <span className="font-normal text-neutral-700 text-[11px]">{rec.statuteCitation}</span>
                       </span>
 
                       {rec.relatedDiscussion && (
@@ -503,7 +503,7 @@ export function TemplateComplianceIntelligence() {
           {/* Left: Open Consultations */}
           <div className="lg:col-span-7 space-y-8">
             <div className="border-b border-neutral-200 pb-3">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Public Consultations
               </span>
               <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
@@ -546,7 +546,7 @@ export function TemplateComplianceIntelligence() {
           {/* Right: Recent Regulator Activity */}
           <div className="lg:col-span-5 space-y-8">
             <div className="border-b border-neutral-200 pb-3">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Regulator Stream
               </span>
               <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
@@ -590,7 +590,7 @@ export function TemplateComplianceIntelligence() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
         <div className="border-b border-neutral-200 pb-4 flex flex-wrap items-baseline justify-between gap-4">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
               Operational Tools &amp; Matrices
             </span>
             <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -606,7 +606,7 @@ export function TemplateComplianceIntelligence() {
           {/* Tool 1: Asset Register Builder */}
           <div className="space-y-4 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs flex flex-col justify-between">
             <div className="space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-wider text-brand-electric font-light">
                 Digital Golden Thread Tool
               </span>
               <h3 className="text-xl font-light text-neutral-900">
@@ -631,7 +631,7 @@ export function TemplateComplianceIntelligence() {
           {/* Tool 2: Statutory Compliance Matrix */}
           <div className="space-y-4 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs flex flex-col justify-between">
             <div className="space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-wider text-brand-electric font-light">
                 Commercial Matrix (.xlsx / PDF)
               </span>
               <h3 className="text-xl font-light text-neutral-900">
@@ -656,7 +656,7 @@ export function TemplateComplianceIntelligence() {
           {/* Tool 3: PPM Frequency Calculator */}
           <div className="space-y-4 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs flex flex-col justify-between">
             <div className="space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-wider text-brand-electric font-light">
                 Engineering Diagnostics
               </span>
               <h3 className="text-xl font-light text-neutral-900">

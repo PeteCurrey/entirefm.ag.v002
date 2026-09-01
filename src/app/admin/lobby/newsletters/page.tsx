@@ -57,10 +57,10 @@ export default async function LobbyDailyAdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-medium">
+            <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-medium">
               THE LOBBY DAILY
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300 border border-zinc-700">
+            <span className="px-2 py-0.5 rounded text-[10px] font-normal bg-zinc-800 text-zinc-300 border border-zinc-700">
               06:45 UK Weekday Edition
             </span>
           </div>
@@ -99,7 +99,7 @@ export default async function LobbyDailyAdminPage() {
         <div className="bg-rose-950/40 border border-rose-800/80 rounded-xl p-4 flex items-start gap-3 text-rose-200">
           <AlertTriangle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
           <div className="text-xs space-y-1">
-            <h4 className="font-semibold text-rose-300 uppercase tracking-wide font-mono">
+            <h4 className="font-semibold text-rose-300 uppercase tracking-wide">
               EMERGENCY KILL-SWITCH ACTIVE
             </h4>
             <p className="text-rose-200/80">
@@ -128,7 +128,7 @@ export default async function LobbyDailyAdminPage() {
             <span>Daily Subscribers</span>
             <Users className="h-4 w-4 text-emerald-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{dailySubscribers}</div>
+          <div className="mt-2 text-2xl font-light text-white">{dailySubscribers}</div>
           <div className="mt-1 text-[11px] text-zinc-500">
             {totalActiveSubscribers} total across all lists
           </div>
@@ -139,7 +139,7 @@ export default async function LobbyDailyAdminPage() {
             <span>Pending Approvals</span>
             <Clock className="h-4 w-4 text-amber-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">
+          <div className="mt-2 text-2xl font-light text-white">
             {scheduledEditions.length + draftEditions.length}
           </div>
           <div className="mt-1 text-[11px] text-zinc-500">
@@ -152,7 +152,7 @@ export default async function LobbyDailyAdminPage() {
             <span>Total Sent Editions</span>
             <CheckCircle2 className="h-4 w-4 text-blue-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{sentEditions.length}</div>
+          <div className="mt-2 text-2xl font-light text-white">{sentEditions.length}</div>
           <div className="mt-1 text-[11px] text-zinc-500">Weekday publishing history</div>
         </div>
 
@@ -161,7 +161,7 @@ export default async function LobbyDailyAdminPage() {
             <span>Approval Gate</span>
             <ShieldCheck className="h-4 w-4 text-purple-400" />
           </div>
-          <div className="mt-2 text-lg font-light text-white font-mono">
+          <div className="mt-2 text-lg font-light text-white">
             {settings.manualApprovalRequired ? 'MANUAL REQUIRED' : 'AUTO-SEND'}
           </div>
           <div className="mt-1 text-[11px] text-zinc-500">
@@ -199,20 +199,20 @@ export default async function LobbyDailyAdminPage() {
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${
+                      className={`text-[10px] font-normal px-2 py-0.5 rounded border uppercase ${
                         statusColor[edition.status] || 'bg-zinc-800 text-zinc-400 border-zinc-700'
                       }`}
                     >
                       {edition.status}
                     </span>
-                    <span className="text-xs font-mono text-zinc-500">#{edition.editionNumber}</span>
+                    <span className="text-xs font-normal text-zinc-500">#{edition.editionNumber}</span>
                     <span className="text-xs text-zinc-400">• {edition.masthead?.ukDateFormatted || edition.editionDate}</span>
                     {edition.validationPassed ? (
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-mono">
+                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-normal">
                         <CheckCircle2 className="h-3 w-3" /> QA Passed
                       </span>
                     ) : (
-                      <span className="text-[10px] text-amber-400 flex items-center gap-1 font-mono">
+                      <span className="text-[10px] text-amber-400 flex items-center gap-1 font-normal">
                         <AlertTriangle className="h-3 w-3" /> QA Issues
                       </span>
                     )}
@@ -223,7 +223,7 @@ export default async function LobbyDailyAdminPage() {
 
                 <div className="flex items-center gap-3 shrink-0">
                   {edition.status === 'SENT' && (
-                    <div className="text-right text-xs font-mono text-zinc-400 hidden md:block">
+                    <div className="text-right text-xs font-normal text-zinc-400 hidden md:block">
                       <div>{edition.totalDelivered} delivered</div>
                       <div className="text-[10px] text-zinc-500">{edition.totalOpened} opened</div>
                     </div>

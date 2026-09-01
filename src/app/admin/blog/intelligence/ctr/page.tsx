@@ -31,7 +31,7 @@ export default function CtrOptimizationPage() {
           <p className="text-xs text-zinc-400 max-w-md mx-auto">
             High Impression / Low CTR analysis requires real query impressions and click-through rates from Search Console. Zero placeholder metrics are rendered.
           </p>
-          <div className="text-xs text-zinc-500 font-mono">
+          <div className="text-xs text-zinc-500 font-normal">
             Requires: GOOGLE_SEARCH_CONSOLE_CLIENT_EMAIL &amp; GOOGLE_SEARCH_CONSOLE_PRIVATE_KEY
           </div>
         </div>

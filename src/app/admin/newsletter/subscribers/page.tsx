@@ -33,7 +33,7 @@ export default async function SubscribersPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Subscribers ({total})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">100% Opted-In · No Cold Scrapes</span>
+          <span className="text-xs text-zinc-500 font-normal">100% Opted-In · No Cold Scrapes</span>
         </div>
 
         {subscribers.length === 0 ? (
@@ -42,7 +42,7 @@ export default async function SubscribersPage() {
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Email</th>
                 <th className="py-3 px-4">Name / Company</th>
@@ -55,7 +55,7 @@ export default async function SubscribersPage() {
             <tbody className="divide-y divide-zinc-800">
               {subscribers.map((s) => (
                 <tr key={s.id} className="hover:bg-zinc-800/40 transition-colors">
-                  <td className="py-3 px-4 font-mono font-normal text-white">{s.email}</td>
+                  <td className="py-3 px-4 font-normal text-white">{s.email}</td>
                   <td className="py-3 px-4">
                     {s.firstName || s.company ? (
                       <div>
@@ -68,7 +68,7 @@ export default async function SubscribersPage() {
                   </td>
                   <td className="py-3 px-4">
                     <span
-                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
+                      className={`text-[10px] font-normal uppercase px-2 py-0.5 rounded border ${
                         s.status === 'ACTIVE'
                           ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                           : s.status === 'UNSUBSCRIBED'
@@ -79,9 +79,9 @@ export default async function SubscribersPage() {
                       {s.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 font-mono text-zinc-400">{s.signupPage}</td>
-                  <td className="py-3 px-4 font-mono text-pink-400">{s.consentTextVersion}</td>
-                  <td className="py-3 px-4 text-zinc-500 font-mono">
+                  <td className="py-3 px-4 font-normal text-zinc-400">{s.signupPage}</td>
+                  <td className="py-3 px-4 font-normal text-pink-400">{s.consentTextVersion}</td>
+                  <td className="py-3 px-4 text-zinc-500 font-normal">
                     {new Date(s.createdAt).toLocaleDateString('en-GB')}
                   </td>
                 </tr>

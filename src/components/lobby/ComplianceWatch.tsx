@@ -27,15 +27,15 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
         {/* Header Label */}
         <div className="space-y-3">
           <div className="flex items-center justify-between gap-4">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-emerald-400 font-medium">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-400 font-medium">
               COMPLIANCE WATCH
             </span>
-            <span className="text-xs text-white/50 font-mono">
+            <span className="text-xs text-white/50 font-normal">
               {data.effectiveDate || data.whenItMatters}
             </span>
           </div>
 
-          <p className="text-xs font-mono text-white/60 uppercase tracking-wider">
+          <p className="text-xs font-medium text-white/60 uppercase tracking-wider">
             {data.statute}
           </p>
 
@@ -47,7 +47,7 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
         {/* The Two Core Directives: What Changed + Action */}
         <div className="space-y-5 border-y border-white/10 py-6">
           <div className="space-y-1.5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 block">
+            <span className="text-[10px] font-medium uppercase tracking-widest text-white/40 block">
               What Changed
             </span>
             <p className="text-sm font-light text-white/85 leading-relaxed">
@@ -56,7 +56,7 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
           </div>
 
           <div className="space-y-1.5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400/90 block">
+            <span className="text-[10px] font-medium uppercase tracking-widest text-emerald-400/90 block">
               Action Required
             </span>
             <p className="text-sm font-light text-white/90 leading-relaxed">

@@ -38,7 +38,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
   const getStatusBadge = (status: CompetencyStatus, daysRemaining?: number | null) => {
     if (status === 'VALID') {
       return (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-normal">
           <CheckCircle2 className="w-3 h-3" />
           VALID
         </span>
@@ -46,7 +46,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
     }
     if (status === 'EXPIRING') {
       return (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-normal">
           <Clock className="w-3 h-3" />
           {daysRemaining !== null && daysRemaining !== undefined ? `${daysRemaining}d` : 'EXPIRING'}
         </span>
@@ -54,7 +54,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
     }
     if (status === 'EXPIRED') {
       return (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-mono font-bold">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-bold">
           <XCircle className="w-3 h-3" />
           EXPIRED
         </span>
@@ -62,13 +62,13 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
     }
     if (status === 'MISSING') {
       return (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-950/40 text-rose-300 border border-rose-800 text-[10px] font-mono">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-950/40 text-rose-300 border border-rose-800 text-[10px] font-normal">
           MISSING
         </span>
       );
     }
     return (
-      <span className="text-brand-mist/30 text-[10px] font-mono">
+      <span className="text-brand-mist/30 text-[10px] font-normal">
         —
       </span>
     );
@@ -90,12 +90,12 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono uppercase text-brand-mist/40">Trade:</span>
+          <span className="text-[10px] font-normal uppercase text-brand-mist/40">Trade:</span>
           {['ALL', 'ELECTRICAL', 'GAS', 'HVAC'].map((trade) => (
             <button
               key={trade}
               onClick={() => setSelectedTrade(trade)}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-colors ${
+              className={`px-2.5 py-1 rounded text-xs font-normal transition-colors ${
                 selectedTrade === trade
                   ? 'bg-brand-electric text-white font-medium'
                   : 'bg-brand-carbon border border-brand-edge-dark text-brand-mist/70 hover:text-white'
@@ -112,7 +112,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-mono text-[10px]">
+              <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-normal text-[10px]">
                 <th className="py-3 px-4 sticky left-0 bg-brand-void z-10">Operative</th>
                 {competencies.map((comp) => (
                   <th key={comp.code} className="py-3 px-3 min-w-[130px] text-center">
@@ -135,7 +135,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                       </div>
                       <div>
                         <span className="font-medium text-white block">{item.operativeName}</span>
-                        <span className="text-[10px] font-mono text-brand-mist/50 block">{item.jobTitle}</span>
+                        <span className="text-[10px] font-normal text-brand-mist/50 block">{item.jobTitle}</span>
                       </div>
                     </div>
                   </td>
@@ -170,7 +170,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-white">{item.operativeName}</h4>
-                  <p className="text-xs text-brand-mist/50 font-mono">{item.jobTitle}</p>
+                  <p className="text-xs text-brand-mist/50 font-normal">{item.jobTitle}</p>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                 if (compData.status === 'NOT_REQUIRED') return null;
                 return (
                   <div key={comp.code} className="p-2 rounded bg-brand-void border border-brand-edge-dark/40">
-                    <span className="text-[9.5px] font-mono text-brand-mist/50 block truncate">{comp.title || (comp as any).name}</span>
+                    <span className="text-[9.5px] font-normal text-brand-mist/50 block truncate">{comp.title || (comp as any).name}</span>
                     <div className="mt-1">{getStatusBadge(compData.status, compData.daysRemaining)}</div>
                   </div>
                 );

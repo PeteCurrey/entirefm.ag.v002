@@ -55,7 +55,7 @@ function SLABadge({ state, minsRemaining }: { state: string; minsRemaining: numb
       : `SLA ON TRACK — ${minsRemaining}m remaining`;
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border font-light ${colour}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] border font-light${colour}`}>
       <Clock className="h-3 w-3" />
       {label}
     </span>
@@ -72,7 +72,7 @@ function OwnerBadge({ owner }: { owner: string }) {
     SYSTEM: 'bg-zinc-800/60 text-zinc-300 border-zinc-700/40',
   };
   return (
-    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono border font-light ${colours[owner] || colours.SYSTEM}`}>
+    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] border font-light${colours[owner] || colours.SYSTEM}`}>
       <User className="h-3 w-3" />
       {owner}
     </span>
@@ -92,7 +92,7 @@ function BillingBadge({ state }: { state: string }) {
   };
   const { label, cls } = map[state] || { label: state, cls: 'bg-zinc-800/60 text-zinc-400 border-zinc-700/40' };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border font-light ${cls}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] border font-light${cls}`}>
       <Banknote className="h-3 w-3" />
       {label}
     </span>
@@ -152,16 +152,16 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-mist/50">
+          <span className="text-[10.5px] font-medium uppercase tracking-widest text-brand-mist/50">
             Work Order
           </span>
           <h1 className="text-xl font-extralight text-white mt-0.5">
             {snapshot.work_order_number} — {snapshot.title}
           </h1>
           <div className="flex flex-wrap items-center gap-2 mt-2">
-            <span className={`font-mono text-[11px] ${priorityColour}`}>{snapshot.priority}</span>
+            <span className={`font-normal text-[11px]${priorityColour}`}>{snapshot.priority}</span>
             <span className="text-zinc-600 text-[11px]">•</span>
-            <span className="text-brand-mist/60 text-[11px] font-mono">{snapshot.trade}</span>
+            <span className="text-brand-mist/60 text-[11px] font-normal">{snapshot.trade}</span>
             {snapshot.site_name && (
               <>
                 <span className="text-zinc-600 text-[11px]">•</span>
@@ -181,16 +181,16 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
         
         {/* Current Stage */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Current Stage</div>
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Current Stage</div>
           <div className="text-base font-light text-white">{snapshot.current_stage}</div>
-          <div className="text-[11px] text-brand-electric mt-1 font-mono">
+          <div className="text-[11px] text-brand-electric mt-1 font-normal">
             Client sees: {snapshot.client_status.replace(/_/g, ' ')}
           </div>
         </div>
 
         {/* Next Required Action */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Next Required Action</div>
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Next Required Action</div>
           <div className="text-sm font-light text-white leading-relaxed">{snapshot.next_required_action}</div>
           <div className="flex items-center gap-1.5 mt-2">
             <OwnerBadge owner={snapshot.action_owner} />
@@ -199,14 +199,14 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
 
         {/* Action Due */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Action Due</div>
-          <div className="text-sm font-light text-white font-mono">
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Action Due</div>
+          <div className="text-sm font-light text-white">
             {new Date(snapshot.action_due_at).toLocaleString('en-GB', {
               day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
             })}
           </div>
           {snapshot.chase_state.is_chase_due && (
-            <div className="mt-2 text-[11px] text-amber-400 font-mono flex items-center gap-1">
+            <div className="mt-2 text-[11px] text-amber-400 font-normal flex items-center gap-1">
               <AlertTriangle className="h-3 w-3" />
               Chase {snapshot.chase_state.chase_type?.replace(/_/g, ' ')} due
             </div>
@@ -215,7 +215,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
 
         {/* Assignment */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Assigned Provider</div>
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Assigned Provider</div>
           {snapshot.assigned_provider_name ? (
             <>
               <div className="text-sm font-light text-white">{snapshot.assigned_provider_name}</div>
@@ -230,7 +230,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
 
         {/* Evidence State */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Evidence State</div>
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Evidence State</div>
           <div className="flex items-center gap-2">
             {snapshot.evidence_state === 'VERIFIED' ? (
               <CheckCircle2 className="h-4 w-4 text-emerald-400" />
@@ -244,7 +244,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
           {snapshot.completion_gate.blocking_reasons.length > 0 && (
             <div className="mt-2 space-y-1">
               {snapshot.completion_gate.blocking_reasons.map((r, i) => (
-                <div key={i} className="text-[10.5px] text-red-400 font-mono">• {r}</div>
+                <div key={i} className="text-[10.5px] text-red-400 font-normal">• {r}</div>
               ))}
             </div>
           )}
@@ -252,14 +252,14 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
 
         {/* Commercial State */}
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-mono text-brand-mist/50 mb-2">Commercial State</div>
+          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Commercial State</div>
           {snapshot.billing_readiness.client_price_net_gbp ? (
             <>
               <div className="text-sm font-light text-white">
                 Net £{snapshot.billing_readiness.client_price_net_gbp?.toFixed(2)} / Gross £{snapshot.billing_readiness.client_price_gross_gbp?.toFixed(2)}
               </div>
               {snapshot.billing_readiness.expected_margin_pct !== undefined && (
-                <div className="text-[11px] text-emerald-400 mt-0.5 font-mono">
+                <div className="text-[11px] text-emerald-400 mt-0.5 font-normal">
                   Margin {snapshot.billing_readiness.expected_margin_pct}%
                 </div>
               )}
@@ -268,7 +268,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
             <div className="text-sm text-zinc-500 italic">Pricing not yet determined</div>
           )}
           {snapshot.billing_readiness.exceptions.map((e, i) => (
-            <div key={i} className="text-[10.5px] text-amber-400 mt-1 font-mono">• {e}</div>
+            <div key={i} className="text-[10.5px] text-amber-400 mt-1 font-normal">• {e}</div>
           ))}
         </div>
       </div>
@@ -285,7 +285,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
           ) : (
             snapshot.timeline.map((event, idx) => (
               <div key={idx} className="flex items-start gap-4 px-5 py-3.5 hover:bg-brand-void/30 transition-colors">
-                <div className="text-[10.5px] font-mono text-brand-mist/50 min-w-[90px] mt-0.5 tabular-nums">
+                <div className="text-[10.5px] font-normal text-brand-mist/50 min-w-[90px] mt-0.5 tabular-nums">
                   {new Date(event.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                 </div>
                 <div className="flex-1">
@@ -293,7 +293,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
                   {event.detail && <div className="text-[11px] text-brand-mist/60 mt-0.5">{event.detail}</div>}
                   {event.actor_name && <div className="text-[11px] text-brand-electric mt-0.5">{event.actor_name}</div>}
                 </div>
-                <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                <span className={`text-[10px] font-normal px-2 py-0.5 rounded ${
                   event.source === 'CLIENT' ? 'bg-blue-950/50 text-blue-400' :
                   event.source === 'ENGINEER' ? 'bg-violet-950/50 text-violet-400' :
                   event.source === 'CONTRACTOR' ? 'bg-amber-950/50 text-amber-400' :
@@ -315,11 +315,11 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
           <FileText className="h-4 w-4 text-brand-mist/50" />
           <span className="text-sm font-light text-white">Completion Gate</span>
           {snapshot.completion_gate.is_verified ? (
-            <span className="ml-auto text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+            <span className="ml-auto text-[11px] font-normal text-emerald-400 flex items-center gap-1">
               <CheckCircle2 className="h-3 w-3" /> VERIFIED
             </span>
           ) : (
-            <span className="ml-auto text-[11px] font-mono text-red-400 flex items-center gap-1">
+            <span className="ml-auto text-[11px] font-normal text-red-400 flex items-center gap-1">
               <AlertTriangle className="h-3 w-3" /> NOT VERIFIED
             </span>
           )}

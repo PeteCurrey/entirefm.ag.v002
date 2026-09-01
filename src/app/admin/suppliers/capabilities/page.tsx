@@ -7,7 +7,7 @@ export default function CapabilitiesAdminPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           CANONICAL TAXONOMY
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -22,16 +22,16 @@ export default function CapabilitiesAdminPage() {
         {CAPABILITY_DISCIPLINES.map((d) => (
           <div key={d.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">{d.eyebrow}</span>
+              <span className="text-[10px] uppercase tracking-widest text-brand-pink font-light">{d.eyebrow}</span>
               <h3 className="text-lg font-light text-slate-900">{d.title}</h3>
               <p className="text-xs text-slate-600 mt-1 font-light">{d.description}</p>
             </div>
 
             <div className="space-y-2 pt-3 border-t border-slate-100">
-              <span className="text-[10px] font-mono uppercase text-slate-400 block">GOVERNING TRADES</span>
+              <span className="text-[10px] font-normal uppercase text-slate-400 block">GOVERNING TRADES</span>
               <div className="flex flex-wrap gap-1.5">
                 {d.trades.map((t, idx) => (
-                  <span key={idx} className="text-[10.5px] font-mono bg-slate-50 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
+                  <span key={idx} className="text-[10.5px] font-normal bg-slate-50 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
                     {t}
                   </span>
                 ))}

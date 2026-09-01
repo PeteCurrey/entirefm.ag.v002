@@ -99,7 +99,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               WORKFORCE ONBOARDING
             </span>
             <h2 className="text-base font-light text-white">Add Field Operative / Engineer</h2>
@@ -110,7 +110,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
         </div>
 
         {/* Step Indicator */}
-        <div className="flex items-center justify-between px-6 py-2.5 bg-brand-void/30 border-b border-brand-edge-dark/50 text-[11px] font-mono">
+        <div className="flex items-center justify-between px-6 py-2.5 bg-brand-void/30 border-b border-brand-edge-dark/50 text-[11px] font-normal">
           <span className={step === 1 ? 'text-brand-electric font-semibold' : 'text-brand-mist/40'}>
             1. Identity &amp; Role
           </span>
@@ -125,7 +125,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
         </div>
 
         {/* Form Body */}
-        <div className="p-6 overflow-y-auto space-y-4 text-xs font-mono">
+        <div className="p-6 overflow-y-auto space-y-4 text-xs font-normal">
           {errorMsg && (
             <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
@@ -201,7 +201,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                   <select
                     value={employmentStatus}
                     onChange={(e) => setEmploymentStatus(e.target.value as EmploymentStatus)}
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-mono focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:border-brand-electric focus:outline-none"
                   >
                     <option value="EMPLOYED">Direct PAYE Employee</option>
                     <option value="DIRECTOR">Company Director / Partner</option>
@@ -272,7 +272,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                   value={homePostcode}
                   onChange={(e) => setHomePostcode(e.target.value)}
                   placeholder="e.g. M1 4BT"
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-mono text-xs focus:border-brand-electric focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
                 />
               </div>
             </div>
@@ -300,7 +300,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                     >
                       <div>
                         <span className="font-medium text-white block">{comp.title}</span>
-                        <span className="text-[10px] text-brand-mist/50 font-mono block mt-0.5">{comp.trade}</span>
+                        <span className="text-[10px] text-brand-mist/50 font-normal block mt-0.5">{comp.trade}</span>
                       </div>
                       {isSelected && <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />}
                     </button>

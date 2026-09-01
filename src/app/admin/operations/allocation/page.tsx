@@ -40,7 +40,7 @@ export default async function AllocationControlDashboardPage() {
       {/* Header Banner */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
             CAFM DISPATCH &amp; INTELLIGENT ALLOCATION
           </span>
           <h1 className="text-2xl font-bold text-slate-900 mt-1">
@@ -61,27 +61,27 @@ export default async function AllocationControlDashboardPage() {
       {/* Primary KPI Ribbon */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">ACTIVE REQUIREMENTS</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">{requirements.length}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Live operational requests</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">ACTIVE REQUIREMENTS</span>
+          <div className="text-2xl font-bold text-slate-900">{requirements.length}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Live operational requests</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">AWAITING SUPPLIER RESPONSES</span>
-          <div className="text-2xl font-mono font-bold text-amber-600">{awaitingResponses}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Issued opportunities</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">AWAITING SUPPLIER RESPONSES</span>
+          <div className="text-2xl font-bold text-amber-600">{awaitingResponses}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Issued opportunities</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">AVG TIME TO AWARD</span>
-          <div className="text-2xl font-mono font-bold text-emerald-600">{analytics.average_time_to_award_minutes}m</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Decision velocity</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">AVG TIME TO AWARD</span>
+          <div className="text-2xl font-bold text-emerald-600">{analytics.average_time_to_award_minutes}m</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Decision velocity</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">AWAITING ACKNOWLEDGEMENT</span>
-          <div className="text-2xl font-mono font-bold text-rose-600">{awaitingAck}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Dispatched work orders</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">AWAITING ACKNOWLEDGEMENT</span>
+          <div className="text-2xl font-bold text-rose-600">{awaitingAck}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Dispatched work orders</span>
         </div>
       </div>
 
@@ -93,12 +93,12 @@ export default async function AllocationControlDashboardPage() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
               Work Requirements Awaiting Allocation
             </h3>
-            <Link href="/admin/operations/allocation/candidates" className="text-xs font-mono text-brand-pink font-semibold underline font-sans">
+            <Link href="/admin/operations/allocation/candidates" className="text-xs text-brand-pink font-semibold underline font-sans">
               Match Candidates &rarr;
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {requirements.map((r) => (
               <div key={r.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="space-y-0.5">
@@ -129,12 +129,12 @@ export default async function AllocationControlDashboardPage() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
               Live Opportunities
             </h3>
-            <Link href="/admin/operations/allocation/opportunities" className="text-xs font-mono text-brand-pink font-semibold underline font-sans">
+            <Link href="/admin/operations/allocation/opportunities" className="text-xs text-brand-pink font-semibold underline font-sans">
               View All
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {opportunities.map((o) => (
               <div key={o.id} className="py-3 space-y-1">
                 <div className="flex justify-between font-bold">

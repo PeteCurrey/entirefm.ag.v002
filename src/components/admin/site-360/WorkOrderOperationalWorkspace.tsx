@@ -42,7 +42,7 @@ export function WorkOrderOperationalWorkspace({ workOrder }: WorkOrderOperationa
           >
             {workOrder.priority?.replace(/_/g, ' ') || 'TICKET'}
           </Badge>
-          <span className="font-mono text-[13px] font-normal text-[#101010]">
+          <span className="text-[13px] font-normal text-[#101010]">
             {workOrder.work_order_number}
           </span>
           <span className="text-[12px] text-[#686866]">
@@ -70,7 +70,7 @@ export function WorkOrderOperationalWorkspace({ workOrder }: WorkOrderOperationa
         </div>
 
         {/* 4-Box Telemetry Matrix */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-[12px]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 font-normal text-[12px]">
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3">
             <div className="text-[10px] text-[#9B9B97] uppercase">SLA Target Date</div>
             <div className="text-[13px] font-normal text-[#101010] mt-1 flex items-center gap-1">

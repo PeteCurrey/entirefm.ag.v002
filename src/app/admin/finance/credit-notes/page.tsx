@@ -34,7 +34,7 @@ export default async function CreditNotesPage() {
         />
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-mono text-brand-mist">
+          <table className="w-full text-left text-xs font-normal text-brand-mist">
             <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Ref</th>

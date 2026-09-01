@@ -48,7 +48,7 @@ export function SectorChallenges({
               <div className="space-y-4">
                 {/* Title with number */}
                 <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-sm bg-slate-100 text-slate-700 font-mono font-normal text-xs flex items-center justify-center shrink-0 border border-slate-200 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
+                  <div className="w-8 h-8 rounded-sm bg-slate-100 text-slate-700 font-normal text-xs flex items-center justify-center shrink-0 border border-slate-200 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
                     0{idx + 1}
                   </div>
                   <h3 className="text-lg font-light text-slate-900 group-hover:text-brand-pink-dark transition-colors">
@@ -58,7 +58,7 @@ export function SectorChallenges({
 
                 {/* Problem Statement */}
                 <div className="p-4 rounded-sm bg-rose-50/60 border border-rose-100 space-y-1.5">
-                  <div className="flex items-center gap-2 text-rose-700 font-mono text-[11px] uppercase tracking-wider font-light">
+                  <div className="flex items-center gap-2 text-rose-700 text-[11px] uppercase tracking-wider font-light">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>Operational Vulnerability</span>
                   </div>
@@ -69,7 +69,7 @@ export function SectorChallenges({
 
                 {/* EntireFM Engineered Solution */}
                 <div className="p-4 rounded-sm bg-emerald-50/60 border border-emerald-100 space-y-1.5">
-                  <div className="flex items-center gap-2 text-emerald-700 font-mono text-[11px] uppercase tracking-wider font-light">
+                  <div className="flex items-center gap-2 text-emerald-700 text-[11px] uppercase tracking-wider font-light">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                     <span>EntireFM Engineered Solution</span>
                   </div>
@@ -81,7 +81,7 @@ export function SectorChallenges({
 
               {/* Statutory Standard Footer */}
               {c.statutoryStandard && (
-                <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+                <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-normal">
                   <ShieldCheck className="w-3.5 h-3.5 text-brand-pink shrink-0" />
                   <span className="truncate">{c.statutoryStandard}</span>
                 </div>

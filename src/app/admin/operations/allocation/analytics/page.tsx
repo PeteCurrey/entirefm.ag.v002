@@ -10,7 +10,7 @@ export default async function AllocationAnalyticsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
           OPERATIONAL EFFICIENCY &amp; CONCENTRATION
         </span>
         <h1 className="text-2xl font-bold text-slate-900 mt-1">
@@ -27,7 +27,7 @@ export default async function AllocationAnalyticsPage() {
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200 font-sans">
             Supplier Allocation Share
           </h3>
-          <div className="space-y-3 font-mono text-xs">
+          <div className="space-y-3 font-normal text-xs">
             {analytics.supplier_allocation_share.map((s) => (
               <div key={s.supplier_name} className="space-y-1">
                 <div className="flex justify-between">
@@ -47,7 +47,7 @@ export default async function AllocationAnalyticsPage() {
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200 font-sans">
             Supplier Decline Reasons Breakdown
           </h3>
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {Object.entries(analytics.decline_reasons_breakdown).map(([reason, count]) => (
               <div key={reason} className="py-2.5 flex justify-between">
                 <span className="text-slate-700">{reason.replace(/_/g, ' ')}</span>

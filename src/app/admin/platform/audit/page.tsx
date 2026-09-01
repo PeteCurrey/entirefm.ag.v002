@@ -20,7 +20,7 @@ export default async function AuditLogPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Timestamp</th>
                 <th className="px-5 py-3">Event Type</th>
                 <th className="px-5 py-3">Actor / Source</th>
@@ -31,20 +31,20 @@ export default async function AuditLogPage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {events.map((e) => (
                 <tr key={e.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                     {new Date(e.created_at).toLocaleString('en-GB')}
                   </td>
                   <td className="px-5 py-4 font-light text-white">
                     {e.event_type}
                   </td>
                   <td className="px-5 py-4">
-                    <span className="font-mono text-[11px] text-white">{e.actor_type}</span>
+                    <span className="font-normal text-[11px] text-white">{e.actor_type}</span>
                     <div className="text-[11px] text-brand-mist/50">{e.source}</div>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px]">
+                  <td className="px-5 py-4 font-normal text-[11px]">
                     {e.object_type} · {e.object_id}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[10px] text-brand-mist/40">
+                  <td className="px-5 py-4 font-normal text-[10px] text-brand-mist/40">
                     {e.correlation_id}
                   </td>
                 </tr>

@@ -86,7 +86,7 @@ export default async function ImportCentrePage() {
       {/* Recent Import History */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">RECENT IMPORTS</h2>
+          <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">RECENT IMPORTS</h2>
           <Link href="/admin/platform/imports/history" className="text-[12px] font-normal text-[#FF6B24] hover:underline">
             View All →
           </Link>

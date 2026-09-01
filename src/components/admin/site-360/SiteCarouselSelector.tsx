@@ -33,7 +33,7 @@ export function SiteCarouselSelector({
 
   return (
     <div className="relative rounded-[14px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-      <div className="flex items-center justify-between px-2 pb-2 border-b border-[#E4E4E1] mb-2 font-mono text-[10.5px] uppercase tracking-wider text-[#686866]">
+      <div className="flex items-center justify-between px-2 pb-2 border-b border-[#E4E4E1] mb-2 font-medium text-[10.5px] uppercase tracking-wider text-[#686866]">
         <span>ESTATE PORTFOLIO SELECTOR · RAPID DOCK</span>
         <span>{sites.length} PROPERTIES REGISTERED</span>
       </div>
@@ -87,7 +87,7 @@ export function SiteCarouselSelector({
 
                 {/* Details */}
                 <div className="min-w-0 flex-1">
-                  <div className="font-mono text-[10px] text-[#FF6B24] font-light truncate">
+                  <div className="text-[10px] text-[#FF6B24] font-light truncate">
                     {site.site_code}
                   </div>
                   <div className="font-normal text-[12px] text-[#101010] truncate">
@@ -96,7 +96,7 @@ export function SiteCarouselSelector({
                   <div className="text-[10.5px] text-[#686866] truncate mt-0.5 flex items-center gap-1">
                     <span>{site.city}</span>
                     <span className="text-[#9B9B97]">·</span>
-                    <span className="font-mono text-[10px]">
+                    <span className="font-normal text-[10px]">
                       {site.openJobsCount || 0} jobs
                     </span>
                   </div>

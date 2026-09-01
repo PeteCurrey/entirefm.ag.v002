@@ -12,7 +12,7 @@ export default function AdminReviewPage() {
       <div className="container-wide">
         <div className="border-b border-white/10 pb-6 mb-8">
           <h1 className="text-2xl sm:text-3xl font-light text-white">Editorial Intelligence Review Queue</h1>
-          <p className="text-xs font-mono text-white/50 mt-1">
+          <p className="text-xs font-normal text-white/50 mt-1">
             Human-in-the-loop review for high-impact UK statutory instruments and compliance alerts.
           </p>
         </div>

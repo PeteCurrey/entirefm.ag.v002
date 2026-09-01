@@ -118,11 +118,11 @@ export default function ContractorWorkClient({
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm font-normal text-white">
+                  <span className="text-sm font-normal text-white">
                     {assignment.work_order_id ? `WO-${assignment.work_order_id.slice(0, 8)}` : assignment.id.slice(0, 8)}
                   </span>
                   <span
-                    className={`text-xs px-2.5 py-0.5 rounded font-mono font-light ${
+                    className={`text-xs px-2.5 py-0.5 rounded font-light ${
                       assignment.status === 'OFFERED'
                         ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                         : assignment.status === 'ACCEPTED'

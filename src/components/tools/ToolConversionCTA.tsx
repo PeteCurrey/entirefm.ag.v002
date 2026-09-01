@@ -29,7 +29,7 @@ export function ToolConversionCTA({
         <div className="max-w-2xl">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
-            <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+            <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
               Next Steps / Operational Delivery
             </span>
           </div>

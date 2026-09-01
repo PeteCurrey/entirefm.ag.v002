@@ -48,10 +48,10 @@ export function SectorEvidence({
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink font-light">
+                  <span className="text-[11px] uppercase tracking-wider text-brand-pink font-light">
                     {cs.sector}
                   </span>
-                  <span className="text-[11px] font-mono text-slate-500 bg-white px-2 py-0.5 rounded-sm border border-slate-200">
+                  <span className="text-[11px] font-normal text-slate-500 bg-white px-2 py-0.5 rounded-sm border border-slate-200">
                     {cs.location}
                   </span>
                 </div>
@@ -66,7 +66,7 @@ export function SectorEvidence({
               </div>
 
               <div className="pt-4 border-t border-slate-200/80 space-y-2">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                   VERIFIED OUTCOME //
                 </span>
                 <p className="text-xs sm:text-[13px] text-emerald-800 font-normal leading-snug">

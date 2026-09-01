@@ -599,7 +599,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 </div>
 
                 <div className="flex flex-col items-end shrink-0 text-right">
-                  <div className="font-mono text-xs text-slate-600">
+                  <div className="font-normal text-xs text-slate-600">
                     Questions Completed: <strong className="text-slate-900 font-light">{answeredCount}/{totalQuestions}</strong>
                   </div>
                   <div className="w-36 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
@@ -624,15 +624,15 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                       <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-[10.5px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
+                            <span className="text-[10.5px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                               {q.category}
                             </span>
-                            <span className="font-mono text-xs text-slate-500">
+                            <span className="font-normal text-xs text-slate-500">
                               Question {qIdx + 1} of {totalQuestions}
                             </span>
                           </div>
                           <h3 className="text-base sm:text-lg font-light text-slate-900">{q.title}</h3>
-                          <p className="text-xs text-slate-500 font-mono">{q.legislation}</p>
+                          <p className="text-xs text-slate-500 font-normal">{q.legislation}</p>
                         </div>
 
                         {selectedOptIdx !== undefined && (
@@ -716,7 +716,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-md space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                   <div>
-                    <span className="font-mono text-xs font-normal text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
+                    <span className="text-xs font-normal text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
                       Statutory Compliance Review
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-1">
@@ -739,7 +739,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 {/* Score and Risk Band Banner */}
                 <div className={`p-6 rounded-sm border ${results.riskColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
                   <div className="space-y-2 max-w-2xl">
-                    <div className="font-mono text-xs font-normal uppercase tracking-wider">
+                    <div className="text-xs font-normal uppercase tracking-wider">
                       Compliance Rating
                     </div>
                     <h3 className="text-xl sm:text-2xl font-extralight">{results.riskBandLabel}</h3>
@@ -747,10 +747,10 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   </div>
 
                   <div className="flex flex-col items-center justify-center p-5 rounded-sm bg-white border border-slate-200 shadow-sm shrink-0 min-w-[130px]">
-                    <span className="text-3xl sm:text-4xl font-light text-slate-900 font-mono tabular-nums">
+                    <span className="text-3xl sm:text-4xl font-light text-slate-900 tabular-nums">
                       {results.scoreOutOf100}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-medium mt-0.5">
+                    <span className="text-[10px] text-slate-500 uppercase tracking-wider font-medium mt-0.5">
                       out of 100
                     </span>
                   </div>
@@ -759,30 +759,30 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 {/* Findings Breakdown Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="p-4 rounded-sm bg-rose-50 border border-rose-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-normal">
+                    <div className="text-[10.5px] uppercase tracking-wider text-rose-700 font-normal">
                       Critical Gaps
                     </div>
-                    <div className="text-2xl font-light text-rose-700 mt-1 font-mono tabular-nums">
+                    <div className="text-2xl font-light text-rose-700 mt-1 tabular-nums">
                       {results.criticalFindings.length} Regimes
                     </div>
                     <div className="text-[11.5px] text-rose-800/80 mt-0.5 font-light">Immediate legal exposure</div>
                   </div>
 
                   <div className="p-4 rounded-sm bg-amber-50 border border-amber-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-normal">
+                    <div className="text-[10.5px] uppercase tracking-wider text-amber-800 font-normal">
                       Action Required
                     </div>
-                    <div className="text-2xl font-light text-amber-800 mt-1 font-mono tabular-nums">
+                    <div className="text-2xl font-light text-amber-800 mt-1 tabular-nums">
                       {results.actionRequiredFindings.length} Regimes
                     </div>
                     <div className="text-[11.5px] text-amber-900/80 mt-0.5 font-light">Remedial work required</div>
                   </div>
 
                   <div className="p-4 rounded-sm bg-emerald-50 border border-emerald-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-normal">
+                    <div className="text-[10.5px] uppercase tracking-wider text-emerald-700 font-normal">
                       Documented Control
                     </div>
-                    <div className="text-2xl font-light text-emerald-700 mt-1 font-mono tabular-nums">
+                    <div className="text-2xl font-light text-emerald-700 mt-1 tabular-nums">
                       {results.compliantFindings.length} Regimes
                     </div>
                     <div className="text-[11.5px] text-emerald-800/80 mt-0.5 font-light">Satisfactory evidence on file</div>
@@ -820,7 +820,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                             Critical Priority
                           </span>
                           <span className="font-normal text-sm text-slate-900">{f.title}</span>
-                          <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
+                          <span className="text-xs text-slate-500 font-normal ml-2">({f.legislation})</span>
                         </div>
                       </div>
                       <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>
@@ -839,7 +839,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                             Action Required
                           </span>
                           <span className="font-normal text-sm text-slate-900">{f.title}</span>
-                          <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
+                          <span className="text-xs text-slate-500 font-normal ml-2">({f.legislation})</span>
                         </div>
                       </div>
                       <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>

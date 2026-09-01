@@ -59,7 +59,7 @@ export function AdminJobPackOverrideModal({ isOpen, onClose, onSuccess, jobPack 
           <div className="flex items-center gap-2">
             <Lock className="w-5 h-5 text-amber-600 shrink-0" />
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
                 OPERATIONAL OVERRIDE
               </span>
               <h2 className="text-base font-light text-slate-900">Authorise Pre-Attendance Clearance</h2>
@@ -71,7 +71,7 @@ export function AdminJobPackOverrideModal({ isOpen, onClose, onSuccess, jobPack 
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-mono">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-normal">
           {errorMsg && (
             <div className="p-3 rounded bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
@@ -98,7 +98,7 @@ export function AdminJobPackOverrideModal({ isOpen, onClose, onSuccess, jobPack 
               required
               value={scope}
               onChange={(e) => setScope(e.target.value)}
-              className="w-full p-2 rounded border border-slate-200 text-xs font-mono"
+              className="w-full p-2 rounded border border-slate-200 text-xs font-normal"
             />
           </div>
 

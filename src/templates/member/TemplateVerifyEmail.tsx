@@ -65,7 +65,7 @@ function VerifyEmailContent() {
       <div className="space-y-2">
         <div className="inline-flex items-center gap-2">
           <span className="h-px w-5 bg-brand-electric" />
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
             Verification Required
           </span>
         </div>
@@ -121,7 +121,7 @@ function VerifyEmailContent() {
           </div>
           <div>
             <div className="text-xs font-light text-neutral-500 uppercase tracking-wider">Dispatched To</div>
-            <div className="font-mono text-sm font-light text-neutral-900">{maskedEmail}</div>
+            <div className="text-sm font-light text-neutral-900">{maskedEmail}</div>
           </div>
         </div>
 

@@ -84,7 +84,7 @@ export function BuildingNavPalette({
             <span>{tab.label}</span>
             {tab.count !== undefined && (
               <span
-                className={`ml-1 rounded-[4px] px-1 py-0.2 font-mono text-[9.5px] ${
+                className={`ml-1 rounded-[4px] px-1 py-0.2 font-normal text-[9.5px] ${
                   isActive ? 'bg-white/25 text-white' : 'bg-[#F0F0EE] text-[#686866]'
                 }`}
               >

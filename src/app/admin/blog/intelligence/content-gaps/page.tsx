@@ -40,7 +40,7 @@ export default function ContentGapsPage() {
                   </span>
                 </div>
               </div>
-              <span className="text-[10px] px-2 py-0.5 rounded font-mono bg-blue-900/40 text-blue-300">
+              <span className="text-[10px] px-2 py-0.5 rounded font-normal bg-blue-900/40 text-blue-300">
                 {gap.priority}
               </span>
             </div>

@@ -22,7 +22,7 @@ export function NeedsDecisionQueue({ session, needsDecisionCount }: Props) {
   if (accessible.length === 0) {
     return (
       <div className="rounded-[8px] border border-dashed border-[#E8E8E5] bg-[#FFFFFF] p-6 text-center">
-        <div className="text-[11px] font-mono text-[#9A9A95] uppercase">No decision queues assigned</div>
+        <div className="text-[11px] font-normal text-[#9A9A95] uppercase">No decision queues assigned</div>
         <div className="text-[12px] text-[#6D6D68] mt-1">You have no pending approval authority roles.</div>
       </div>
     );
@@ -31,11 +31,11 @@ export function NeedsDecisionQueue({ session, needsDecisionCount }: Props) {
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-[#6D6D68] uppercase tracking-wider">
+        <span className="text-[11px] font-medium text-[#6D6D68] uppercase tracking-wider">
           Decision Gateways
         </span>
         {needsDecisionCount > 0 && (
-          <span className="font-mono text-[10.5px] text-[#EA580C] bg-[#FFF7ED] border border-[#FED7AA] px-1.5 py-0.2 rounded-[4px]">
+          <span className="font-normal text-[10.5px] text-[#EA580C] bg-[#FFF7ED] border border-[#FED7AA] px-1.5 py-0.2 rounded-[4px]">
             {needsDecisionCount} pending action
           </span>
         )}

@@ -18,7 +18,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
       
       {/* Header Bar */}
       <header className="border-b border-neutral-200 bg-white py-4">
-        <div className="container-wide flex items-center justify-between text-xs font-mono">
+        <div className="container-wide flex items-center justify-between text-xs font-normal">
           <Link
             href="/lobby/news"
             className="inline-flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900 transition-colors uppercase tracking-wider"
@@ -40,7 +40,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
         
         {/* Article Meta Header */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-electric font-semibold uppercase tracking-widest">
+          <div className="flex items-center gap-2 text-xs text-brand-electric font-semibold uppercase tracking-widest">
             <span>{article.category.replace('-', ' ')}</span>
             <span>·</span>
             <span>{new Date(article.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
@@ -54,7 +54,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
             {article.standfirst}
           </p>
 
-          <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 text-xs text-neutral-500 font-mono">
+          <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 text-xs text-neutral-500 font-normal">
             <div>
               Source: <span className="text-neutral-800 font-medium">{article.sourceName}</span>
               {article.sourceUrl && (
@@ -91,7 +91,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
             className="object-cover brightness-90"
           />
           {article.provenance.credit && (
-            <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-sm text-[10px] font-mono text-white/70">
+            <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-sm text-[10px] font-normal text-white/70">
               Image: {article.provenance.credit}
             </div>
           )}
@@ -100,7 +100,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
         {/* EntireFM Editorial Viewpoint / Why It Matters Box */}
         {article.whyItMatters && (
           <div className="bg-white border-l-4 border-brand-electric p-6 sm:p-7 rounded-sm shadow-subtle space-y-2 border border-neutral-200/80">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric font-semibold block">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-brand-electric font-semibold block">
               ENTIREFM EDITORIAL INTERPRETATION · WHY IT MATTERS FOR FM
             </span>
             <p className="text-sm sm:text-base font-light text-neutral-800 leading-relaxed">
@@ -118,7 +118,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
           )}
 
           {article.contractValue && (
-            <div className="mt-6 pt-6 border-t border-neutral-100 grid sm:grid-cols-3 gap-4 text-xs font-mono">
+            <div className="mt-6 pt-6 border-t border-neutral-100 grid sm:grid-cols-3 gap-4 text-xs font-normal">
               <div>
                 <span className="text-neutral-400 block mb-1">CONTRACT VALUE</span>
                 <span className="text-sm text-neutral-900 font-semibold">{article.contractValue}</span>
@@ -139,7 +139,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
         {article.relatedDiscussionSlug && (
           <div className="bg-[#FAF9F7] border border-neutral-200 p-6 rounded-sm flex items-center justify-between gap-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric block mb-1">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-electric block mb-1">
                 COMMUNITY DISCUSSION
               </span>
               <p className="text-sm font-medium text-neutral-900">
@@ -148,7 +148,7 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
             </div>
             <Link
               href={`/lobby/community/discussion/${article.relatedDiscussionSlug}`}
-              className="px-4 py-2 bg-neutral-900 text-white rounded-sm text-xs font-mono uppercase tracking-wider hover:bg-brand-electric transition-colors shrink-0"
+              className="px-4 py-2 bg-neutral-900 text-white rounded-sm text-xs font-medium uppercase tracking-wider hover:bg-brand-electric transition-colors shrink-0"
             >
               Join Discussion &rarr;
             </Link>
@@ -168,13 +168,13 @@ export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsAr
                   href={`/lobby/news/article/${rel.slug}`}
                   className="bg-white p-5 rounded-sm border border-neutral-200 hover:border-neutral-400 transition-colors group block space-y-2"
                 >
-                  <span className="text-[10px] font-mono text-brand-electric uppercase tracking-wider block">
+                  <span className="text-[10px] font-medium text-brand-electric uppercase tracking-wider block">
                     {rel.category.replace('-', ' ')}
                   </span>
                   <h4 className="text-sm font-light text-neutral-900 group-hover:text-brand-electric leading-snug">
                     {rel.title}
                   </h4>
-                  <span className="text-xs text-neutral-400 font-mono block pt-1">
+                  <span className="text-xs text-neutral-400 font-normal block pt-1">
                     {new Date(rel.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                   </span>
                 </Link>

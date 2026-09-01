@@ -22,9 +22,9 @@ export default async function PlatformHealthPage() {
         {/* Database Connectivity */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">Database Engine</span>
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Database Engine</span>
             <span
-              className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+              className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                 dbConfigured
                   ? 'bg-emerald-500/20 text-emerald-400'
                   : 'bg-amber-500/20 text-amber-300'
@@ -34,7 +34,7 @@ export default async function PlatformHealthPage() {
             </span>
           </div>
           <div className="mt-3 text-lg font-light text-white">PostgreSQL / Supabase</div>
-          <p className="mt-1 font-mono text-[11px] text-brand-mist/50 truncate">
+          <p className="mt-1 font-normal text-[11px] text-brand-mist/50 truncate">
             {dbInfo?.url || 'Awaiting SUPABASE_SERVICE_ROLE_KEY'}
           </p>
         </div>
@@ -42,9 +42,9 @@ export default async function PlatformHealthPage() {
         {/* Auth Subsystem */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">Identity & Auth</span>
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Identity & Auth</span>
             <span
-              className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+              className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                 authConfigured
                   ? 'bg-emerald-500/20 text-emerald-400'
                   : 'bg-rose-500/20 text-rose-300'
@@ -62,8 +62,8 @@ export default async function PlatformHealthPage() {
         {/* Row Level Security */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">PostgreSQL RLS</span>
-            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">PostgreSQL RLS</span>
+            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               ENFORCED
             </span>
           </div>
@@ -76,8 +76,8 @@ export default async function PlatformHealthPage() {
         {/* Outbox & Automation */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">Event Outbox</span>
-            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Event Outbox</span>
+            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               IDEMPOTENT
             </span>
           </div>
@@ -90,8 +90,8 @@ export default async function PlatformHealthPage() {
         {/* AI Control Plane */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">AI Governance</span>
-            <span className="rounded bg-purple-500/20 px-2 py-0.5 font-mono text-[10px] text-purple-300">
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">AI Governance</span>
+            <span className="rounded bg-purple-500/20 px-2 py-0.5 font-normal text-[10px] text-purple-300">
               ASSIST MODE
             </span>
           </div>
@@ -104,8 +104,8 @@ export default async function PlatformHealthPage() {
         {/* Audit Immutability */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase text-brand-mist/50">Audit Engine</span>
-            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Audit Engine</span>
+            <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               IMMUTABLE
             </span>
           </div>

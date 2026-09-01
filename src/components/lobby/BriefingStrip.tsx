@@ -29,7 +29,7 @@ export function BriefingStrip({ items }: BriefingStripProps) {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 font-semibold">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-400 font-semibold">
                 TODAY IN FM · INDUSTRY NEWS WIRE
               </span>
             </div>
@@ -65,7 +65,7 @@ export function BriefingStrip({ items }: BriefingStripProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
 
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm">
                     {leadItem.category}
                   </span>
                 </div>
@@ -110,7 +110,7 @@ export function BriefingStrip({ items }: BriefingStripProps) {
                     </div>
 
                     <div className="flex-1 space-y-1.5">
-                      <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
+                      <div className="flex items-center justify-between text-[11px] font-normal text-neutral-400">
                         <span className="uppercase tracking-wider text-brand-electric font-medium">
                           {item.category}
                         </span>
@@ -140,7 +140,7 @@ export function BriefingStrip({ items }: BriefingStripProps) {
         <div className="pt-6 border-t border-neutral-200">
           <div className="bg-[#FAF9F7] border border-neutral-200/80 rounded-sm p-4 sm:p-5">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-widest shrink-0">
+              <div className="flex items-center gap-2 text-xs font-medium text-neutral-500 uppercase tracking-widest shrink-0">
                 <Radio className="w-3.5 h-3.5 text-brand-electric animate-pulse" />
                 <span className="font-semibold text-neutral-900">LATEST WIRE</span>
               </div>
@@ -152,7 +152,7 @@ export function BriefingStrip({ items }: BriefingStripProps) {
                     href={`/lobby/news/article/${item.slug}`}
                     className="group block pt-2 sm:pt-0 sm:px-3 first:pl-0 space-y-1 hover:text-brand-electric transition-colors"
                   >
-                    <span className="text-[10px] font-mono text-neutral-400 block uppercase">
+                    <span className="text-[10px] font-normal text-neutral-400 block uppercase">
                       {item.category.replace('-', ' ')}
                     </span>
                     <p className="font-light text-neutral-800 line-clamp-2 leading-snug group-hover:text-brand-electric">

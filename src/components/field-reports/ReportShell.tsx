@@ -45,11 +45,11 @@ export default function ReportShell({
             </Link>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-sky-400">{template.template_code}</span>
-                <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+                <span className="text-xs font-bold text-sky-400">{template.template_code}</span>
+                <span className="text-[10px] uppercase font-medium px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
                   REV 4.0
                 </span>
-                <span className={`text-[10px] font-mono uppercase px-1.5 py-0.5 rounded ${
+                <span className={`text-[10px] font-normal uppercase px-1.5 py-0.5 rounded ${
                   isIssued ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'
                 }`}>
                   {instance.status}
@@ -62,7 +62,7 @@ export default function ReportShell({
           <div className="flex items-center gap-2 shrink-0">
             {/* AUTOSAVE PILL */}
             <div className="text-right hidden sm:block">
-              <div className="text-[11px] font-mono">
+              <div className="text-[11px] font-normal">
                 {autosaveState === 'SAVING' && <span className="text-amber-400 animate-pulse">SAVING…</span>}
                 {autosaveState === 'SAVED' && <span className="text-emerald-400">✓ SAVED</span>}
                 {autosaveState === 'ERROR' && <span className="text-rose-400">SAVE FAILED</span>}
@@ -108,11 +108,11 @@ export default function ReportShell({
       <div className="bg-slate-900 border-b border-slate-800/80 px-4 py-2 text-xs">
         <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-2 text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-slate-300">WO: {instance.work_order?.work_order_number || 'N/A'}</span>
+            <span className="font-normal text-slate-300">WO: {instance.work_order?.work_order_number || 'N/A'}</span>
             <span>&bull;</span>
             <span className="truncate max-w-[260px]">{instance.work_order?.title || instance.title}</span>
           </div>
-          <div className="text-[11px] font-mono text-slate-400">
+          <div className="text-[11px] font-normal text-slate-400">
             REF: {instance.report_number}
           </div>
         </div>

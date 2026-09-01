@@ -43,7 +43,7 @@ export function DomainSummaryGrid({ metrics, session }: Props) {
         return (
           <a key={domain} href={href}
             className="block rounded-lg border border-brand-edge-dark/50 bg-brand-carbon/30 hover:bg-brand-carbon/50 hover:border-brand-edge-dark transition-colors p-4 group">
-            <div className="text-[9px] font-mono text-brand-mist/35 uppercase tracking-widest mb-2">
+            <div className="text-[9px] font-medium text-brand-mist/35 uppercase tracking-widest mb-2">
               {DOMAIN_LABELS[domain] || domain}
             </div>
             <div className="text-[13px] font-light text-white group-hover:text-brand-orange transition-colors">

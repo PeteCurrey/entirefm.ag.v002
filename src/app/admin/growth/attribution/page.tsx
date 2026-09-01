@@ -31,7 +31,7 @@ export default async function AttributionModelsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             MULTI-TOUCH ATTRIBUTION · NO SINGLE-TOUCH BIAS
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Multi-Touch Attribution Intelligence</h1>
@@ -65,8 +65,8 @@ export default async function AttributionModelsPage() {
             <div className="space-y-2">
               {topFirst.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
-                  <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-light text-pink-400 font-mono">{count} leads</span>
+                  <span className="font-normal text-zinc-300 truncate max-w-[200px]">{path}</span>
+                  <span className="font-light text-pink-400">{count} leads</span>
                 </div>
               ))}
             </div>
@@ -90,8 +90,8 @@ export default async function AttributionModelsPage() {
             <div className="space-y-2">
               {topAssisted.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
-                  <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-light text-purple-400 font-mono">{count} assists</span>
+                  <span className="font-normal text-zinc-300 truncate max-w-[200px]">{path}</span>
+                  <span className="font-light text-purple-400">{count} assists</span>
                 </div>
               ))}
             </div>
@@ -115,8 +115,8 @@ export default async function AttributionModelsPage() {
             <div className="space-y-2">
               {topLast.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
-                  <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-light text-blue-400 font-mono">{count} converts</span>
+                  <span className="font-normal text-zinc-300 truncate max-w-[200px]">{path}</span>
+                  <span className="font-light text-blue-400">{count} converts</span>
                 </div>
               ))}
             </div>

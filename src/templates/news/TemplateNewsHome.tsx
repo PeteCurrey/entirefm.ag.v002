@@ -45,7 +45,7 @@ export function TemplateNewsHome({
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-neutral-500 font-semibold">
+                <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-semibold">
                   THE LOBBY NEWS DESK · INDUSTRY WIRE
                 </span>
               </div>
@@ -60,7 +60,7 @@ export function TemplateNewsHome({
             <div className="flex items-center gap-3">
               <Link
                 href="/lobby"
-                className="text-xs font-mono uppercase tracking-wider text-neutral-600 hover:text-neutral-900 transition-colors"
+                className="text-xs font-medium uppercase tracking-wider text-neutral-600 hover:text-neutral-900 transition-colors"
               >
                 &larr; Return to The Lobby
               </Link>
@@ -72,7 +72,7 @@ export function TemplateNewsHome({
             <button
               type="button"
               onClick={() => setSelectedCategory('all')}
-              className={`px-3 py-1.5 rounded-sm text-xs font-mono whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-sm text-xs font-normal whitespace-nowrap transition-colors ${
                 selectedCategory === 'all'
                   ? 'bg-neutral-900 text-white font-medium'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -85,7 +85,7 @@ export function TemplateNewsHome({
                 key={cat.slug}
                 type="button"
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-mono whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-sm text-xs font-normal whitespace-nowrap transition-colors ${
                   selectedCategory === cat.slug
                     ? 'bg-neutral-900 text-white font-medium'
                     : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -116,7 +116,7 @@ export function TemplateNewsHome({
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               
               <div className="absolute top-4 left-4 z-10">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm">
+                <span className="text-[10px] font-medium uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm">
                   {leadStory.category.replace('-', ' ').toUpperCase()}
                 </span>
               </div>
@@ -129,7 +129,7 @@ export function TemplateNewsHome({
 
             <div className="flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <span className="text-[11px] font-mono text-brand-electric uppercase tracking-widest block font-medium">
+                <span className="text-[11px] text-brand-electric uppercase tracking-widest block font-medium">
                   LEAD EDITORIAL DISPATCH
                 </span>
 
@@ -145,7 +145,7 @@ export function TemplateNewsHome({
 
                 {leadStory.whyItMatters && (
                   <div className="border-l-2 border-brand-electric pl-3 py-1 space-y-1 bg-white p-3 rounded-sm border border-neutral-100">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric block font-medium">
+                    <span className="text-[10px] uppercase tracking-widest text-brand-electric block font-medium">
                       Why It Matters for FM
                     </span>
                     <p className="text-xs sm:text-sm font-light text-neutral-700 leading-relaxed italic">
@@ -164,7 +164,7 @@ export function TemplateNewsHome({
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                <span className="text-xs text-neutral-400 font-mono">
+                <span className="text-xs text-neutral-400 font-normal">
                   {leadStory.readingTimeMinutes} min read
                 </span>
               </div>
@@ -181,7 +181,7 @@ export function TemplateNewsHome({
               <h2 className="text-xl sm:text-2xl font-extralight text-neutral-900">
                 Latest Dispatches &amp; Regulatory Shifts
               </h2>
-              <span className="text-xs text-neutral-400 font-mono">
+              <span className="text-xs text-neutral-400 font-normal">
                 {filteredArticles.length} Stories
               </span>
             </div>
@@ -201,7 +201,7 @@ export function TemplateNewsHome({
                     </div>
 
                     <div className="flex-1 space-y-2">
-                      <div className="flex items-center justify-between text-xs font-mono text-neutral-400">
+                      <div className="flex items-center justify-between text-xs font-normal text-neutral-400">
                         <span className="uppercase text-brand-electric font-medium">
                           {article.category.replace('-', ' ')}
                         </span>
@@ -219,7 +219,7 @@ export function TemplateNewsHome({
                       </p>
 
                       <div className="pt-2 flex items-center justify-between text-xs text-neutral-500">
-                        <span className="font-mono">Source: {article.sourceName}</span>
+                        <span className="font-normal">Source: {article.sourceName}</span>
                         <Link
                           href={`/lobby/news/article/${article.slug}`}
                           className="text-neutral-900 font-medium hover:text-brand-electric transition-colors flex items-center gap-1"
@@ -240,17 +240,17 @@ export function TemplateNewsHome({
             {/* CONTRACTS & MOBILISATIONS */}
             <div className="bg-white border border-neutral-200/80 rounded-sm p-6 sm:p-7 space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric font-semibold">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-brand-electric font-semibold">
                   CONTRACTS &amp; MOBILISATIONS
                 </span>
-                <span className="text-xs text-neutral-400 font-mono">Recent Awards</span>
+                <span className="text-xs text-neutral-400 font-normal">Recent Awards</span>
               </div>
 
               <div className="space-y-4 divide-y divide-neutral-100">
                 {contractWins.map((contract) => (
                   <div key={contract.id} className="pt-3 first:pt-0 space-y-1.5">
                     {contract.contractValue && (
-                      <span className="inline-block text-[11px] font-mono font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-sm">
+                      <span className="inline-block text-[11px] font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-sm">
                         {contract.contractValue} · {contract.contractTermYears} Years
                       </span>
                     )}
@@ -259,7 +259,7 @@ export function TemplateNewsHome({
                         {contract.title}
                       </Link>
                     </h4>
-                    <p className="text-xs text-neutral-500 font-mono">
+                    <p className="text-xs text-neutral-500 font-normal">
                       Client: {contract.contractClient}
                     </p>
                   </div>
@@ -270,16 +270,16 @@ export function TemplateNewsHome({
             {/* PEOPLE & APPOINTMENTS */}
             <div className="bg-white border border-neutral-200/80 rounded-sm p-6 sm:p-7 space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 font-semibold">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-semibold">
                   INDUSTRY MOVES &amp; LEADERSHIP
                 </span>
-                <span className="text-xs text-neutral-400 font-mono">Appointments</span>
+                <span className="text-xs text-neutral-400 font-normal">Appointments</span>
               </div>
 
               <div className="space-y-4 divide-y divide-neutral-100">
                 {peopleMoves.map((item) => (
                   <div key={item.id} className="pt-3 first:pt-0 space-y-1.5">
-                    <div className="text-xs font-mono text-brand-electric">
+                    <div className="text-xs font-normal text-brand-electric">
                       {item.personName}
                     </div>
                     <h4 className="text-sm font-light text-neutral-900 leading-snug hover:text-brand-electric">
@@ -297,7 +297,7 @@ export function TemplateNewsHome({
 
             {/* AWARDS & RECOGNITION CALLOUT */}
             <div className="bg-[#111622] text-white rounded-sm p-6 sm:p-7 space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-400 block font-medium">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-amber-400 block font-medium">
                 INDUSTRY RECOGNITION
               </span>
               <h3 className="text-lg font-light text-white leading-snug">

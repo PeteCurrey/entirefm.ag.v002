@@ -95,7 +95,7 @@ export function OrgSetupForm() {
               <div className="space-y-1">
                 <div>{error}</div>
                 {correlationId && (
-                  <div className="text-[11px] text-slate-400 font-mono">
+                  <div className="text-[11px] text-slate-400 font-normal">
                     Ref: {correlationId}
                   </div>
                 )}

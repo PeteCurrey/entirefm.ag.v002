@@ -110,7 +110,7 @@ export function AuthSplitLayout({
           <div className="relative z-10 space-y-4">
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-5 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric-bright font-light">
                 {badgeText}
               </span>
             </div>

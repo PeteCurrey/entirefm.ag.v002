@@ -69,7 +69,7 @@ function SignInForm() {
       <div className="space-y-2">
         <div className="inline-flex items-center gap-2">
           <span className="h-px w-5 bg-brand-electric" />
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
             Lobby Access Desk
           </span>
         </div>
@@ -150,7 +150,7 @@ function SignInForm() {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••••••"
-              className="w-full px-4 py-3 pr-11 rounded-[6px] border border-neutral-300 bg-white text-neutral-900 placeholder:text-neutral-400 text-sm font-light focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors shadow-2xs font-mono"
+              className="w-full px-4 py-3 pr-11 rounded-[6px] border border-neutral-300 bg-white text-neutral-900 placeholder:text-neutral-400 text-sm font-light focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors shadow-2xs"
             />
             <button
               type="button"

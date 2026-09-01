@@ -10,7 +10,7 @@ export default async function CoverageMatrixPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           GEOGRAPHIC &amp; SERVICE CAPABILITY MATRIX
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">

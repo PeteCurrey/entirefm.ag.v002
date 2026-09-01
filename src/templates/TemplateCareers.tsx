@@ -155,10 +155,10 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   >
                     <div className="space-y-3 max-w-2xl">
                       <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="text-[11px] font-mono font-light uppercase px-2.5 py-0.5 rounded-sm bg-slate-100 text-slate-700">
+                        <span className="text-[11px] font-light uppercase px-2.5 py-0.5 rounded-sm bg-slate-100 text-slate-700">
                           {vac.reference}
                         </span>
-                        <span className="text-[11px] font-mono font-light uppercase px-2.5 py-0.5 rounded-sm bg-emerald-100 text-emerald-800">
+                        <span className="text-[11px] font-light uppercase px-2.5 py-0.5 rounded-sm bg-emerald-100 text-emerald-800">
                           {vac.department}
                         </span>
                         <span className="text-xs text-slate-500 flex items-center gap-1">
@@ -192,7 +192,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
                     <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
                       {vac.salaryGuide && (
-                        <span className="text-xs font-mono text-slate-600 font-light">
+                        <span className="text-xs text-slate-600 font-light">
                           {vac.salaryGuide}
                         </span>
                       )}
@@ -225,7 +225,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                 {selectedVacancy ? `Apply for: ${selectedVacancy.title}` : 'Submit a Career Application'}
               </h2>
               {selectedVacancy && (
-                <p className="text-xs font-mono text-slate-500 mt-1">
+                <p className="text-xs font-normal text-slate-500 mt-1">
                   Vacancy Ref: {selectedVacancy.reference} · Location: {selectedVacancy.location}
                 </p>
               )}

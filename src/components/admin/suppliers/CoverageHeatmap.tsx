@@ -41,7 +41,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
             Verified approved suppliers compared against minimum required coverage thresholds.
           </p>
         </div>
-        <Link href="/admin/suppliers/gaps" className="text-xs font-mono text-brand-pink font-light underline">
+        <Link href="/admin/suppliers/gaps" className="text-xs text-brand-pink font-light underline">
           View Gap Alerts
         </Link>
       </div>
@@ -49,7 +49,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
       <div className="overflow-x-auto">
         <table className="w-full text-center border-collapse text-xs">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-mono uppercase text-[10.5px]">
+            <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-normal uppercase text-[10.5px]">
               <th className="py-3 px-4 text-left">Service Discipline</th>
               {CITIES.map((c) => (
                 <th key={c} className="py-3 px-4">{c}</th>
@@ -59,7 +59,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
           <tbody className="divide-y divide-slate-100">
             {SERVICES.map((srv) => (
               <tr key={srv.slug} className="hover:bg-slate-50/50">
-                <td className="py-3 px-4 text-left font-light text-slate-900 font-mono">
+                <td className="py-3 px-4 text-left font-light text-slate-900">
                   {srv.name}
                 </td>
                 {CITIES.map((city) => {
@@ -70,7 +70,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
                   const isHealthy = count >= target;
 
                   return (
-                    <td key={city} className="py-3 px-4 font-mono">
+                    <td key={city} className="py-3 px-4 font-normal">
                       <span className={`inline-block px-3 py-1 rounded text-xs font-normal ${
                         isZero
                           ? 'bg-rose-100 text-rose-800 border border-rose-200'
@@ -91,7 +91,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
         </table>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-500">
+      <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between text-[11px] font-normal text-slate-500">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded bg-emerald-500" /> Healthy Coverage

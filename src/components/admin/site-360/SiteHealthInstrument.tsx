@@ -68,7 +68,7 @@ export function SiteHealthInstrument({
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
       <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
         <div>
-          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+          <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             SITE HEALTH TELEMETRY MATRIX
           </h3>
           <p className="text-[11.5px] text-[#686866]">
@@ -76,7 +76,7 @@ export function SiteHealthInstrument({
           </p>
         </div>
         <span
-          className={`font-mono text-[10px] px-2 py-0.5 rounded-[4px] font-light border ${
+          className={`text-[10px] px-2 py-0.5 rounded-[4px] font-light border ${
             aggregateScore >= 90
               ? 'bg-[#F0FDF4] border-[#BBF7D0] text-[#15803D]'
               : 'bg-[#FFF7ED] border-[#FED7AA] text-[#C2410C]'
@@ -86,7 +86,7 @@ export function SiteHealthInstrument({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-normal">
         {dimensions.map((dim) => (
           <div
             key={dim.label}

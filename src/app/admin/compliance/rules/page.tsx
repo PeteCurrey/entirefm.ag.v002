@@ -29,7 +29,7 @@ export default async function ComplianceRulesPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Rule Code & Title</th>
                 <th className="px-5 py-3">Rule Family</th>
                 <th className="px-5 py-3">Source Reference</th>
@@ -42,20 +42,20 @@ export default async function ComplianceRulesPage() {
                 <tr key={r.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
                     <div className="font-light text-white">{r.title}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">{r.code}</div>
+                    <div className="font-normal text-[11px] text-brand-mist/50">{r.code}</div>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-electric">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-electric">
                     {r.rule_family || r.category}
                   </td>
                   <td className="px-5 py-4 text-brand-mist/70">
                     {r.source?.name || 'Statutory Source'}
                   </td>
                   <td className="px-5 py-4">
-                    <span className="rounded bg-rose-500/10 px-2 py-0.5 font-mono text-[10px] text-rose-300">
+                    <span className="rounded bg-rose-500/10 px-2 py-0.5 font-normal text-[10px] text-rose-300">
                       {r.statutory_level}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {r.default_responsibility || 'ENTIREFM'}
                   </td>
                 </tr>

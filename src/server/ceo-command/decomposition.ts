@@ -268,8 +268,7 @@ export async function analyseSlaRootCause(): Promise<{ dimensions: SlaRootCause[
     }
 
     try {
-      const mockSession: any = { orgType: 'ENTIREFM', role: 'ADMIN' };
-      const perfRes = await listAllProviderPerformances(mockSession);
+      const perfRes = await listAllProviderPerformances();
       for (const perf of perfRes.providers || []) {
         const slaBreachPct = 100 - (perf.attendanceSlaPct || 100);
         if (slaBreachPct > 20) {

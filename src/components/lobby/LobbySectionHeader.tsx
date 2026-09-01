@@ -23,7 +23,7 @@ export function LobbySectionHeader({
     <div className={`mb-8 sm:mb-12 ${align === 'center' ? 'text-center mx-auto max-w-3xl' : 'max-w-4xl'}`}>
       <div className={`flex items-center gap-3 mb-3 ${align === 'center' ? 'justify-center' : ''}`}>
         {number && (
-          <span className={`text-[11px] font-mono tracking-widest ${dark ? 'text-brand-electric-bright' : 'text-brand-electric'}`}>
+          <span className={`text-[11px] font-normal tracking-widest${dark ? 'text-brand-electric-bright' : 'text-brand-electric'}`}>
             [{number}]
           </span>
         )}

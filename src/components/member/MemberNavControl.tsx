@@ -105,7 +105,7 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-normal text-white truncate">{state.member.displayName}</p>
                 <p className="text-[10.5px] font-light text-neutral-400 truncate">{state.member.email}</p>
-                <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-mono uppercase tracking-wider text-emerald-400">
+                <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-medium uppercase tracking-wider text-emerald-400">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                   Lobby Member
                 </span>
@@ -150,7 +150,7 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
                 onClick={() => setDropdownOpen(false)}
                 className="flex items-center gap-2 px-4 py-2 text-xs font-light text-neutral-300 hover:text-white hover:bg-white/5 transition-colors"
               >
-                <span className="w-3.5 h-3.5 text-center text-xs text-neutral-400 font-mono">#</span>
+                <span className="w-3.5 h-3.5 text-center text-xs text-neutral-400 font-normal">#</span>
                 <span>Lobby Archive</span>
               </Link>
             </div>

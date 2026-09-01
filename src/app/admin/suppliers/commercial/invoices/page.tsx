@@ -12,7 +12,7 @@ export default async function PartnerInvoicesPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
             RECEIVABLES &amp; BILLING
           </span>
           <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -46,7 +46,7 @@ export default async function PartnerInvoicesPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-mono uppercase text-[10.5px]">
+              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-normal uppercase text-[10.5px]">
                 <th className="py-3 px-4">Invoice #</th>
                 <th className="py-3 px-4">Supplier / Customer</th>
                 <th className="py-3 px-4">Issue Date</th>
@@ -58,7 +58,7 @@ export default async function PartnerInvoicesPage() {
                 <th className="py-3 px-4 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-mono">
+            <tbody className="divide-y divide-slate-100 font-normal">
               {invoices.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="py-8 text-center text-slate-500 text-xs font-light font-sans">

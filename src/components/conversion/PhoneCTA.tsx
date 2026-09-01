@@ -20,7 +20,7 @@ export function PhoneCTA({
           <Phone className="w-6 h-6" />
         </div>
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{location} Engineering & Helpdesk</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-brand-electric block">{location} Engineering & Helpdesk</span>
           <span className="text-lg font-light text-white block mt-0.5">Speak with our Operations Team</span>
           <span className="text-xs text-slate-400">Direct technical triage and emergency contractor dispatch</span>
         </div>
@@ -111,7 +111,7 @@ export function ProposalSection({
 
             <div className="p-3.5 sm:p-4 border border-dashed border-brand-edge-dark rounded-sm bg-brand-carbon/40 text-xs text-slate-400">
               <span className="text-brand-electric font-light block mb-1">Direct Technical Consultation:</span>
-              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-light hover:text-brand-electric">{CONTACT_CONFIG.mainPhone.display}</a>.
+              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-light hover:text-brand-electric">{CONTACT_CONFIG.mainPhone.display}</a>.
             </div>
           </div>
 

@@ -55,25 +55,25 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
       {/* Metrics Scorecard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">TOTAL RAMS PACKS</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">TOTAL RAMS PACKS</span>
           <p className="text-2xl font-light text-white mt-1">{totalCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Job-specific safety packs</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">ACCEPTED &amp; ISSUED</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACCEPTED &amp; ISSUED</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{issuedCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Active work clearance</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">UNDER REVIEW</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">UNDER REVIEW</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{underReviewCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Awaiting compliance check</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">CHANGES REQUESTED</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">CHANGES REQUESTED</span>
           <p className={`text-2xl font-light mt-1 ${changesRequestedCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {changesRequestedCount}
           </p>
@@ -83,7 +83,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
 
       {/* Action Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-3">
-        <div className="flex items-center gap-1.5 text-xs font-mono">
+        <div className="flex items-center gap-1.5 text-xs font-normal">
           <button
             onClick={() => setFilterType('ALL')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
@@ -138,7 +138,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono">
+        <div className="flex items-center gap-2 text-xs font-normal">
           <span className="text-brand-mist/50">Status:</span>
           <select
             value={selectedStatus}
@@ -158,7 +158,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
       {/* RAMS Table */}
       <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono border-collapse">
+          <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
               <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
                 <th className="py-3 px-4">Document Ref</th>

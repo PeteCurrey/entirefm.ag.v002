@@ -13,7 +13,7 @@ export default async function OpportunitiesManagerPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
             SUPPLIER OPPORTUNITIES &amp; RFQ-LITE
           </span>
           <h1 className="text-2xl font-bold text-slate-900 mt-1">
@@ -39,7 +39,7 @@ export default async function OpportunitiesManagerPage() {
       </div>
 
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 space-y-4">
-        <div className="divide-y divide-slate-100 font-mono text-xs">
+        <div className="divide-y divide-slate-100 font-normal text-xs">
           {opps.map((o) => (
             <div key={o.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1">

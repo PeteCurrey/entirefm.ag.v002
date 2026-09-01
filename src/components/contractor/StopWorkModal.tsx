@@ -59,7 +59,7 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
           <div className="flex items-center gap-2.5">
             <AlertOctagon className="w-6 h-6 text-rose-400 shrink-0" />
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-rose-300 font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-rose-300 font-bold">
                 SAFETY ESCALATION
               </span>
               <h2 className="text-base font-light text-white">Stop Work &bull; {workOrderNumber}</h2>
@@ -71,7 +71,7 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-mono">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-normal">
           {errorMsg && (
             <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
@@ -88,7 +88,7 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
             <select
               value={reasonCategory}
               onChange={(e) => setReasonCategory(e.target.value)}
-              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-mono focus:outline-none focus:border-rose-500"
+              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-rose-500"
             >
               <option value="UNSAFE_SITE_CONDITION">Unsafe Site / Structural Condition</option>
               <option value="ASBESTOS_SUSPECTED">Suspect Asbestos Material Identified</option>

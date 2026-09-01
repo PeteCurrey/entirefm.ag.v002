@@ -28,7 +28,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
         <div className="max-w-4xl mx-auto text-center space-y-8" data-reveal>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-pink-light">
               {contact.coverageLabel}
             </span>
           </div>
@@ -70,7 +70,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
           </div>
 
           {/* Key Assurance Indicators */}
-          <div className="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto text-xs text-brand-mist/75 font-mono">
+          <div className="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto text-xs text-brand-mist/75 font-normal">
             <div className="flex items-center gap-2.5 bg-white/5 p-3 rounded-sm border border-white/5">
               <ShieldCheck className="h-4 w-4 text-brand-pink-light shrink-0" />
               <span>Named Technical Account Lead</span>

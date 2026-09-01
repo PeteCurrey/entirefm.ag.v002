@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getStripeClient } from '@/lib/stripe/client';
 import {
   getSupplierOnboardingDraft,
+  saveSupplierOnboardingDraft,
   recordAssurancePayment,
   submitSupplierOnboardingApplication,
 } from '@/server/suppliers/store';
@@ -62,19 +63,21 @@ export async function POST(req: NextRequest) {
               authDraft.updatedAt = new Date().toISOString();
               await saveApplicationDraft(supplierId, authDraft);
             }
+          } else {
+            // Non-membership session (Initial Assurance Review product).
+            // Record commercial payment transaction
+            await recordAssurancePayment(supplierId, 'CARD', {
+              transactionRef: session.payment_intent || session.id,
+            });
+
+            // Formally submit application into EntireFM assurance queue
+            await submitSupplierOnboardingApplication(supplierId);
+
+            // Update status to UNDER_REVIEW
+            const draft = await getSupplierOnboardingDraft(supplierId);
+            draft.status = 'UNDER_REVIEW';
+            await saveSupplierOnboardingDraft(supplierId, draft);
           }
-
-          // Record commercial payment transaction
-          await recordAssurancePayment(supplierId, 'CARD', {
-            transactionRef: session.payment_intent || session.id,
-          });
-
-          // Formally submit application into EntireFM assurance queue
-          await submitSupplierOnboardingApplication(supplierId);
-
-          // Update status to UNDER_REVIEW
-          const draft = await getSupplierOnboardingDraft(supplierId);
-          draft.status = 'UNDER_REVIEW';
         }
         break;
       }
@@ -85,6 +88,7 @@ export async function POST(req: NextRequest) {
         if (supplierId) {
           const draft = await getSupplierOnboardingDraft(supplierId);
           draft.status = 'AWAITING_PAYMENT';
+          await saveSupplierOnboardingDraft(supplierId, draft);
         }
         break;
       }

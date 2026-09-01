@@ -386,7 +386,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                               <h4 className="text-xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
                                 {city.name}
                               </h4>
-                              <span className="text-[11px] font-mono font-light uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
+                              <span className="text-[11px] font-light uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
                                 Active Hub
                               </span>
                             </div>
@@ -396,7 +396,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                           </div>
 
                           <div className="mt-6 pt-5 border-t border-slate-200 space-y-2">
-                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-light block">
+                            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-light block">
                               Key Landing Pages:
                             </span>
                             <div className="flex flex-wrap gap-1.5">
@@ -463,7 +463,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                     >
                       <div>
                         {item.category && (
-                          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink font-light block mb-2">
+                          <span className="text-[11px] uppercase tracking-wider text-brand-pink font-light block mb-2">
                             {item.category}
                           </span>
                         )}

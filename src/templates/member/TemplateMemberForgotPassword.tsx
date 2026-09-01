@@ -46,7 +46,7 @@ export function TemplateMemberForgotPassword() {
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2">
             <span className="h-px w-5 bg-brand-electric" />
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
               Security &amp; Credentials
             </span>
           </div>
@@ -84,7 +84,7 @@ export function TemplateMemberForgotPassword() {
                 </h3>
                 <p className="text-xs sm:text-sm font-extralight text-neutral-600 leading-relaxed">
                   If an active account exists for{' '}
-                  <span className="font-mono text-xs text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-normal text-xs text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-[4px]">
                     {email}
                   </span>
                   , you will receive password reset instructions within a few moments.

@@ -225,7 +225,7 @@ export default function ReactiveJobForm({
       {/* ── 01 ISSUE REPORTED ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             01
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">Issue Reported</h2>
@@ -266,7 +266,7 @@ export default function ReactiveJobForm({
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               02
             </span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">Attendance &amp; Site Access</h2>
@@ -349,7 +349,7 @@ export default function ReactiveJobForm({
       {/* ── 03 DIAGNOSIS / WORKS CARRIED OUT ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             03
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -373,7 +373,7 @@ export default function ReactiveJobForm({
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               04
             </span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">Labour Allocation</h2>
@@ -444,7 +444,7 @@ export default function ReactiveJobForm({
                       copy[idx].hours_total = parseFloat(e.target.value) || 0;
                       setLabour(copy);
                     }}
-                    className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-mono"
+                    className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-normal"
                   />
                 </div>
                 <div className="flex items-end">
@@ -475,7 +475,7 @@ export default function ReactiveJobForm({
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               05
             </span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">Materials &amp; Parts</h2>
@@ -535,7 +535,7 @@ export default function ReactiveJobForm({
                         copy[idx].quantity = parseInt(e.target.value, 10) || 1;
                         setMaterials(copy);
                       }}
-                      className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-mono"
+                      className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-normal"
                     />
                   </div>
                   <div>
@@ -550,7 +550,7 @@ export default function ReactiveJobForm({
                         setMaterials(copy);
                       }}
                       placeholder="e.g. V-BELT-A42"
-                      className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-mono"
+                      className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-white font-normal"
                     />
                   </div>
                   <div className="flex items-end">
@@ -581,7 +581,7 @@ export default function ReactiveJobForm({
       {/* ── 06 OUTCOME ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             06
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">Job Outcome *</h2>
@@ -619,7 +619,7 @@ export default function ReactiveJobForm({
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               07
             </span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">

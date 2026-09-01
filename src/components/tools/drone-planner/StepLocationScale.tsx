@@ -25,7 +25,7 @@ export function StepLocationScale({ site, onChange }: StepLocationScaleProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="sm:col-span-1 space-y-1.5">
-            <label htmlFor="siteName" className="block text-xs font-mono font-light uppercase text-slate-300">
+            <label htmlFor="siteName" className="block text-xs font-light uppercase text-slate-300">
               Site / Building Name (Optional)
             </label>
             <input
@@ -39,7 +39,7 @@ export function StepLocationScale({ site, onChange }: StepLocationScaleProps) {
           </div>
 
           <div className="sm:col-span-1 space-y-1.5">
-            <label htmlFor="siteCity" className="block text-xs font-mono font-light uppercase text-slate-300">
+            <label htmlFor="siteCity" className="block text-xs font-light uppercase text-slate-300">
               Town / City <span className="text-brand-pink">*</span>
             </label>
             <input
@@ -53,7 +53,7 @@ export function StepLocationScale({ site, onChange }: StepLocationScaleProps) {
           </div>
 
           <div className="sm:col-span-1 space-y-1.5">
-            <label htmlFor="sitePostcode" className="block text-xs font-mono font-light uppercase text-slate-300">
+            <label htmlFor="sitePostcode" className="block text-xs font-light uppercase text-slate-300">
               Postcode (Optional)
             </label>
             <input

@@ -35,7 +35,7 @@ export default async function NewsletterDashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-pink-400 font-light">
             AUDIENCE &amp; CONTENT DISTRIBUTION
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">The FM Briefing Dashboard</h1>
@@ -79,7 +79,7 @@ export default async function NewsletterDashboardPage() {
             <span>Active Subscribers</span>
             <Users className="h-4 w-4 text-pink-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">{activeSubscribers}</div>
+          <div className="mt-2 text-2xl font-extralight text-white">{activeSubscribers}</div>
           <div className="mt-1 text-[11px] text-zinc-500">
             {unsubscribedCount > 0 ? `${unsubscribedCount} unsubscribed` : 'Zero spam complaints'}
           </div>
@@ -90,7 +90,7 @@ export default async function NewsletterDashboardPage() {
             <span>Draft Briefings</span>
             <FileText className="h-4 w-4 text-blue-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">{draftCampaigns.length}</div>
+          <div className="mt-2 text-2xl font-extralight text-white">{draftCampaigns.length}</div>
           <div className="mt-1 text-[11px] text-zinc-500">
             {draftCampaigns.length > 0 ? 'Ready for editorial review' : 'No pending drafts'}
           </div>
@@ -156,7 +156,7 @@ export default async function NewsletterDashboardPage() {
                 {draftCampaigns.map((camp) => (
                   <div key={camp.id} className="py-4 flex items-center justify-between gap-4">
                     <div>
-                      <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-pink-950/60 text-pink-300 border border-pink-800/40">
+                      <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-pink-950/60 text-pink-300 border border-pink-800/40">
                         {camp.status}
                       </span>
                       <h4 className="text-sm font-normal text-white mt-1.5">{camp.name}</h4>
@@ -237,19 +237,19 @@ export default async function NewsletterDashboardPage() {
             <div className="space-y-2 text-xs">
               <div className="flex justify-between py-1 border-b border-zinc-800">
                 <span className="text-zinc-400">/fm-briefing Landing</span>
-                <span className="text-white font-mono font-light">Active</span>
+                <span className="text-white font-light">Active</span>
               </div>
               <div className="flex justify-between py-1 border-b border-zinc-800">
                 <span className="text-zinc-400">Article Footers</span>
-                <span className="text-white font-mono font-light">Active</span>
+                <span className="text-white font-light">Active</span>
               </div>
               <div className="flex justify-between py-1 border-b border-zinc-800">
                 <span className="text-zinc-400">In-Article Inline Cards</span>
-                <span className="text-white font-mono font-light">Active</span>
+                <span className="text-white font-light">Active</span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-zinc-400">PPM / Health Check Tools</span>
-                <span className="text-white font-mono font-light">Optional</span>
+                <span className="text-white font-light">Optional</span>
               </div>
             </div>
           </div>

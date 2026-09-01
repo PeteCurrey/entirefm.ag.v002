@@ -33,19 +33,19 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
           <div className="bg-[#FFFFFF] border border-[#E8E8E5] rounded-[8px] max-w-3xl w-full p-6 space-y-6 shadow-xl my-auto">
             <div className="flex items-start justify-between border-b border-[#E8E8E5] pb-4">
               <div>
-                <div className="text-[10px] font-mono text-[#EA580C] uppercase tracking-wider mb-0.5">
+                <div className="text-[10px] font-medium text-[#EA580C] uppercase tracking-wider mb-0.5">
                   EXECUTIVE BRIEFING · DETERMINISTIC AUDIT
                 </div>
                 <h2 className="text-xl font-extralight text-[#111111]">EntireFM Estate — Current Operational State</h2>
                 {brief && (
-                  <div className="text-[11.5px] text-[#6D6D68] mt-0.5 font-mono">
+                  <div className="text-[11.5px] text-[#6D6D68] mt-0.5 font-normal">
                     Generated: {new Date(brief.generated_at).toLocaleString('en-GB', { timeZone: 'Europe/London' })}
                   </div>
                 )}
               </div>
               <div className="flex items-center gap-3">
                 {brief && (
-                  <span className="font-mono text-[11px] uppercase tracking-wider px-2 py-0.5 rounded border border-[#E8E8E5] bg-[#FAFAF8] text-[#111111]">
+                  <span className="font-medium text-[11px] uppercase tracking-wider px-2 py-0.5 rounded border border-[#E8E8E5] bg-[#FAFAF8] text-[#111111]">
                     {brief.overall_status}
                   </span>
                 )}
@@ -59,7 +59,7 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
             </div>
 
             {isGenerating && (
-              <div className="py-12 text-center text-[#6D6D68] font-mono text-[12px] animate-pulse">
+              <div className="py-12 text-center text-[#6D6D68] font-normal text-[12px] animate-pulse">
                 Synthesising deterministic executive metrics across 408 estate data streams…
               </div>
             )}
@@ -74,13 +74,13 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
 
                 {brief.sections && brief.sections.length > 0 && (
                   <div className="space-y-3">
-                    <div className="text-[11px] font-mono text-[#6D6D68] uppercase tracking-wider">Domain Observations</div>
+                    <div className="text-[11px] font-medium text-[#6D6D68] uppercase tracking-wider">Domain Observations</div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {brief.sections.map((section, i) => (
                         <div key={i} className="p-3.5 rounded-[6px] border border-[#E8E8E5] bg-[#FFFFFF] space-y-1.5 shadow-xs">
                           <div className="flex items-center justify-between">
                             <span className="font-medium text-[12.5px] text-[#111111]">{section.title}</span>
-                            <span className="font-mono text-[9.5px] uppercase tracking-wider px-1.5 py-0.2 rounded border border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68]">
+                            <span className="font-medium text-[9.5px] uppercase tracking-wider px-1.5 py-0.2 rounded border border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68]">
                               {section.status}
                             </span>
                           </div>
@@ -91,7 +91,7 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
                   </div>
                 )}
 
-                <div className="text-[10.5px] font-mono text-[#9A9A95] border-t border-[#E8E8E5] pt-3 flex items-center justify-between">
+                <div className="text-[10.5px] font-normal text-[#9A9A95] border-t border-[#E8E8E5] pt-3 flex items-center justify-between">
                   <span>{brief.signal_count} signal{brief.signal_count === 1 ? '' : 's'} detected · {brief.critical_signal_count} critical</span>
                   <button
                     onClick={() => setOpen(false)}

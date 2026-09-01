@@ -128,7 +128,7 @@ export function OperationalJourney() {
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`font-mono text-xs ${isSelected ? 'text-brand-pink font-semibold' : 'text-slate-400'}`}>
+                  <span className={`font-normal text-xs${isSelected ? 'text-brand-pink font-semibold' : 'text-slate-400'}`}>
                     {step.number}
                   </span>
                   {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-brand-pink" />}
@@ -147,7 +147,7 @@ export function OperationalJourney() {
             {/* Left / Editorial Step Content */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono text-brand-pink mb-2">
+                <div className="flex items-center gap-2 text-xs font-normal text-brand-pink mb-2">
                   <span>STAGE {activeStep.number}</span>
                   <span className="text-slate-300">/</span>
                   <span className="text-slate-500 uppercase">{activeStep.subtitle}</span>
@@ -163,7 +163,7 @@ export function OperationalJourney() {
 
               {/* Step Deliverables */}
               <div className="pt-3 border-t border-slate-100 space-y-2.5">
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block font-light">
+                <span className="text-xs uppercase tracking-wider text-slate-400 block font-light">
                   Standard Operational Deliverables:
                 </span>
                 <div className="space-y-2">
@@ -200,10 +200,10 @@ export function OperationalJourney() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                  <span className="text-xs font-mono uppercase tracking-wider text-brand-pink-light">
+                  <span className="text-xs font-medium uppercase tracking-wider text-brand-pink-light">
                     {activeStep.subtitle}
                   </span>
-                  <span className="text-xl font-mono text-white/40">
+                  <span className="text-xl font-normal text-white/40">
                     {activeStep.number}
                   </span>
                 </div>

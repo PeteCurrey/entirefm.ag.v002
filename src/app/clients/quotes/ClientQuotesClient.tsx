@@ -66,7 +66,7 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-brand-edge-dark/60 pb-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
             COMMERCIAL &bull; EXTRA WORKS AUTHORISATIONS
           </span>
           <h1 className="text-2xl font-light text-white mt-1">Quotes &amp; Approvals</h1>
@@ -74,7 +74,7 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
             Review scopes of work, authorised rates, and approve quotations for {clientName}.
           </p>
         </div>
-        <div className="text-xs font-mono text-brand-mist/70 bg-brand-carbon/60 px-3 py-1.5 rounded-lg border border-brand-edge-dark">
+        <div className="text-xs font-normal text-brand-mist/70 bg-brand-carbon/60 px-3 py-1.5 rounded-lg border border-brand-edge-dark">
           {pendingCount} Awaiting Decision
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
         {/* Quotes Table (2 cols) */}
         <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
           <table className="w-full text-left text-[13px]">
-            <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
+            <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
               <tr>
                 <th className="px-5 py-3">Quote Ref</th>
                 <th className="px-5 py-3">Scope / Title</th>
@@ -111,21 +111,21 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
                         isSelected ? 'bg-brand-electric/10' : 'hover:bg-brand-void/40'
                       }`}
                     >
-                      <td className="px-5 py-3.5 font-mono text-brand-electric-bright font-medium">
+                      <td className="px-5 py-3.5 text-brand-electric-bright font-medium">
                         {q.quote_number}
                       </td>
                       <td className="px-5 py-3.5 font-normal text-white">
                         <div>{q.title}</div>
                         {q.site_name && (
-                          <span className="text-[11px] text-brand-mist/50 font-mono">{q.site_name}</span>
+                          <span className="text-[11px] text-brand-mist/50 font-normal">{q.site_name}</span>
                         )}
                       </td>
-                      <td className="px-5 py-3.5 font-mono font-medium">
+                      <td className="px-5 py-3.5 font-medium">
                         £{Number(q.total_price_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
                       </td>
                       <td className="px-5 py-3.5">
                         <span
-                          className={`rounded px-2 py-0.5 font-mono text-[10px] border ${
+                          className={`rounded px-2 py-0.5 font-normal text-[10px] border ${
                             q.status === 'APPROVED'
                               ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
                               : isPending
@@ -159,30 +159,30 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
           ) : (
             <div className="space-y-4">
               <div className="border-b border-brand-edge-dark/60 pb-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/50 font-bold">
+                <span className="text-[10px] uppercase tracking-widest text-brand-mist/50 font-bold">
                   PROPOSAL DETAILS
                 </span>
                 <h3 className="text-base font-medium text-white mt-0.5">{selectedQuote.title}</h3>
-                <p className="text-xs font-mono text-brand-electric-bright mt-0.5">{selectedQuote.quote_number}</p>
+                <p className="text-xs font-normal text-brand-electric-bright mt-0.5">{selectedQuote.quote_number}</p>
               </div>
 
               {/* Price Breakdown */}
               <div className="rounded-lg bg-brand-void/80 border border-brand-edge-dark p-3 space-y-2">
                 <div className="flex justify-between text-xs text-brand-mist/70">
                   <span>Net Price:</span>
-                  <span className="font-mono text-white">
+                  <span className="font-normal text-white">
                     £{Number(selectedQuote.total_price_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs text-brand-mist/70">
                   <span>VAT (20%):</span>
-                  <span className="font-mono text-white">
+                  <span className="font-normal text-white">
                     £{(Number(selectedQuote.total_price_gbp || 0) * 0.2).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm font-semibold border-t border-brand-edge-dark pt-2 text-white">
                   <span>Total Gross:</span>
-                  <span className="font-mono text-emerald-400">
+                  <span className="font-normal text-emerald-400">
                     £{(Number(selectedQuote.total_price_gbp || 0) * 1.2).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -198,7 +198,7 @@ export default function ClientQuotesClient({ initialQuotes, clientName }: Props)
               {/* Optional Client Notes Input */}
               {['DRAFT', 'ISSUED', 'PENDING_APPROVAL'].includes(selectedQuote.status) && !actionSuccess && (
                 <div className="space-y-3 pt-2">
-                  <label className="block text-[11px] font-mono text-brand-mist/60 uppercase">
+                  <label className="block text-[11px] font-normal text-brand-mist/60 uppercase">
                     Approval / Query Notes (Optional)
                   </label>
                   <textarea

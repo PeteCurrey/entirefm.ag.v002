@@ -31,7 +31,7 @@ export default async function CommercialExceptionsPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-mono text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
             Exceptions Queue ({exceptions?.length || 0})
           </h3>
         </div>
@@ -46,7 +46,7 @@ export default async function CommercialExceptionsPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] font-normal ${
+                      className={`rounded px-2 py-0.5 text-[10px] font-normal ${
                         e.severity === 'BLOCKING'
                           ? 'bg-rose-500/20 text-rose-300'
                           : e.severity === 'WARNING'
@@ -56,7 +56,7 @@ export default async function CommercialExceptionsPage() {
                     >
                       {e.severity}
                     </span>
-                    <span className="font-mono text-[11px] text-brand-mist/60">
+                    <span className="font-normal text-[11px] text-brand-mist/60">
                       {e.object_type} · Ref: {e.object_id.slice(0, 8)}
                     </span>
                   </div>
@@ -64,10 +64,10 @@ export default async function CommercialExceptionsPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-[11px] text-brand-mist/40">
+                  <span className="font-normal text-[11px] text-brand-mist/40">
                     {new Date(e.created_at).toLocaleDateString('en-GB')}
                   </span>
-                  <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-mono text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric">
+                  <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-normal text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric">
                     Resolve
                   </button>
                 </div>

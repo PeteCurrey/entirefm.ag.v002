@@ -131,7 +131,7 @@ export function TemplateOpportunities() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 FM Commercial Intelligence Desk
               </span>
             </div>
@@ -232,7 +232,7 @@ export function TemplateOpportunities() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Strategic Procurement
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -259,7 +259,7 @@ export function TemplateOpportunities() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent" />
                 
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/90 bg-black/70 backdrop-blur-sm px-2.5 py-1 rounded-[3px] border border-white/10">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-white/90 bg-black/70 backdrop-blur-sm px-2.5 py-1 rounded-[3px] border border-white/10">
                     {featuredOpportunity.estimatedValue?.isFormatted || 'Value on Application'}
                   </span>
                 </div>
@@ -338,7 +338,7 @@ export function TemplateOpportunities() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-700 font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-amber-700 font-light">
                   Time-Sensitive
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -358,7 +358,7 @@ export function TemplateOpportunities() {
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono text-[10px] uppercase text-brand-electric">{tender.serviceCategory}</span>
+                      <span className="font-medium text-[10px] uppercase text-brand-electric">{tender.serviceCategory}</span>
                       <span className="text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-[2px] font-light text-[10px]">
                         Closes {tender.closingDate ? new Date(tender.closingDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'}
                       </span>
@@ -401,7 +401,7 @@ export function TemplateOpportunities() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-200 pb-3">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Procurement Stream
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -449,7 +449,7 @@ export function TemplateOpportunities() {
                       
                       <div className="space-y-2 flex-1">
                         <div className="flex flex-wrap items-center gap-2 text-xs font-light">
-                          <span className="text-brand-electric font-mono text-[10px] uppercase tracking-wider">
+                          <span className="text-brand-electric font-medium text-[10px] uppercase tracking-wider">
                             {tender.serviceCategory}
                           </span>
                           <span className="text-neutral-300">·</span>
@@ -538,7 +538,7 @@ export function TemplateOpportunities() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Market Awards Wire
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -557,7 +557,7 @@ export function TemplateOpportunities() {
                 <div className="lg:col-span-6 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-5 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
-                      <span className="font-mono text-[10px] uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[2px]">
+                      <span className="font-medium text-[10px] uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[2px]">
                         Featured Major Award
                       </span>
                       <span>{featuredAward.awardDetails?.awardedDate || '27 Aug 2026'}</span>
@@ -625,7 +625,7 @@ export function TemplateOpportunities() {
 
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500 pt-2 border-t border-neutral-100">
                       <span>{award.buyerName} · {award.buyerRegion}</span>
-                      <span className="font-mono text-[11px] text-neutral-800 font-medium">{award.estimatedValue?.isFormatted || 'Awarded'}</span>
+                      <span className="text-[11px] text-neutral-800 font-medium">{award.estimatedValue?.isFormatted || 'Awarded'}</span>
                     </div>
                   </div>
                 ))}

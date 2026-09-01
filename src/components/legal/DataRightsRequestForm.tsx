@@ -143,7 +143,7 @@ export function DataRightsRequestForm() {
             <h3 className="text-xl font-light text-emerald-950">
               Data Subject Rights Request Formally Registered
             </h3>
-            <p className="text-xs text-emerald-800 font-mono">
+            <p className="text-xs text-emerald-800 font-normal">
               Statutory Reference: {submissionResult.reference}
             </p>
           </div>

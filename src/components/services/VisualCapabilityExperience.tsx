@@ -70,7 +70,7 @@ export function VisualCapabilityExperience({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/20" />
                 {featured.tag && (
-                  <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-light rounded-sm backdrop-blur-md">
+                  <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-light rounded-sm backdrop-blur-md">
                     {featured.tag}
                   </div>
                 )}
@@ -109,7 +109,7 @@ export function VisualCapabilityExperience({
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 ) : (
-                  <div className="text-xs text-slate-400 font-mono pt-4 border-t border-slate-100">
+                  <div className="text-xs text-slate-400 font-normal pt-4 border-t border-slate-100">
                     Standardised SFG20 & Statutory Delivery
                   </div>
                 )}
@@ -136,7 +136,7 @@ export function VisualCapabilityExperience({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                       {cap.tag && (
-                        <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-light rounded-sm backdrop-blur-sm">
+                        <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-light rounded-sm backdrop-blur-sm">
                           {cap.tag}
                         </div>
                       )}
@@ -176,7 +176,7 @@ export function VisualCapabilityExperience({
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   ) : (
-                    <div className="text-[11px] font-mono text-slate-400">
+                    <div className="text-[11px] font-normal text-slate-400">
                       EntireFM Certified Delivery
                     </div>
                   )}

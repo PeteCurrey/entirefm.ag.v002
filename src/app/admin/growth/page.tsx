@@ -29,7 +29,7 @@ export default async function GrowthOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-pink-400 font-light">
             COMMERCIAL PERFORMANCE &amp; ATTRIBUTION
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Growth &amp; Conversion Intelligence</h1>
@@ -58,11 +58,11 @@ export default async function GrowthOverviewPage() {
         <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-between text-xs">
           <span className="text-zinc-400 font-normal">Google Search Console Integration:</span>
           {gsc.status === 'CONNECTED' ? (
-            <span className="text-emerald-400 font-mono font-light flex items-center gap-1">
+            <span className="text-emerald-400 font-light flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5" /> CONNECTED
             </span>
           ) : (
-            <span className="text-amber-400 font-mono font-light flex items-center gap-1">
+            <span className="text-amber-400 font-light flex items-center gap-1">
               <AlertTriangle className="h-3.5 w-3.5" /> NOT CONNECTED
             </span>
           )}
@@ -70,11 +70,11 @@ export default async function GrowthOverviewPage() {
         <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-between text-xs">
           <span className="text-zinc-400 font-normal">Google Analytics 4 API:</span>
           {ga4.status === 'CONNECTED' ? (
-            <span className="text-emerald-400 font-mono font-light flex items-center gap-1">
+            <span className="text-emerald-400 font-light flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5" /> CONNECTED
             </span>
           ) : (
-            <span className="text-amber-400 font-mono font-light flex items-center gap-1">
+            <span className="text-amber-400 font-light flex items-center gap-1">
               <AlertTriangle className="h-3.5 w-3.5" /> NOT CONNECTED
             </span>
           )}
@@ -88,7 +88,7 @@ export default async function GrowthOverviewPage() {
             <span>Total Enquiries</span>
             <Users className="h-4 w-4 text-pink-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">{metrics.totalEnquiries}</div>
+          <div className="mt-2 text-2xl font-extralight text-white">{metrics.totalEnquiries}</div>
           <div className="mt-1 text-[11px] text-zinc-500">Inbound website RFQs &amp; contacts</div>
         </div>
 
@@ -97,7 +97,7 @@ export default async function GrowthOverviewPage() {
             <span>Qualified Leads</span>
             <Target className="h-4 w-4 text-emerald-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">{metrics.qualifiedLeads}</div>
+          <div className="mt-2 text-2xl font-extralight text-white">{metrics.qualifiedLeads}</div>
           <div className="mt-1 text-[11px] text-emerald-400/80">
             {metrics.qualificationRatePct.toFixed(1)}% commercial qualification rate
           </div>
@@ -108,7 +108,7 @@ export default async function GrowthOverviewPage() {
             <span>Organic Search Leads</span>
             <TrendingUp className="h-4 w-4 text-blue-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">{metrics.organicLeads}</div>
+          <div className="mt-2 text-2xl font-extralight text-white">{metrics.organicLeads}</div>
           <div className="mt-1 text-[11px] text-zinc-500">First touch via organic search</div>
         </div>
 
@@ -117,7 +117,7 @@ export default async function GrowthOverviewPage() {
             <span>Pipeline Value</span>
             <Zap className="h-4 w-4 text-purple-400" />
           </div>
-          <div className="mt-2 text-2xl font-extralight text-white font-mono">
+          <div className="mt-2 text-2xl font-extralight text-white">
             {metrics.hasRealRevenueData ? `£${metrics.pipelineValueGbp.toLocaleString()}` : 'NO DATA YET'}
           </div>
           <div className="mt-1 text-[11px] text-zinc-500">

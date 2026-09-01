@@ -92,12 +92,12 @@ function PreferencesContent() {
       <div className="space-y-2 border-b border-white/10 pb-6">
         <Link
           href="/lobby"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-white/50 hover:text-[#00E599] transition-colors mb-2"
+          className="inline-flex items-center gap-1.5 text-xs font-normal text-white/50 hover:text-[#00E599] transition-colors mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to The Lobby</span>
         </Link>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-[#00E599] font-semibold block">
+        <span className="text-[10px] uppercase tracking-widest text-[#00E599] font-semibold block">
           ENTIREFM AUDIENCE PREFERENCE CENTRE
         </span>
         <h1 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
@@ -109,21 +109,21 @@ function PreferencesContent() {
       </div>
 
       {status === 'saved' && (
-        <div className="bg-emerald-950/40 border border-emerald-800/80 rounded-sm p-4 flex items-center gap-3 text-emerald-300 text-xs font-mono">
+        <div className="bg-emerald-950/40 border border-emerald-800/80 rounded-sm p-4 flex items-center gap-3 text-emerald-300 text-xs font-normal">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
           <span>Your preferences have been saved successfully.</span>
         </div>
       )}
 
       {status === 'unsubscribed' && (
-        <div className="bg-amber-950/40 border border-amber-800/80 rounded-sm p-4 flex items-center gap-3 text-amber-300 text-xs font-mono">
+        <div className="bg-amber-950/40 border border-amber-800/80 rounded-sm p-4 flex items-center gap-3 text-amber-300 text-xs font-normal">
           <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0" />
           <span>You have been unsubscribed from all EntireFM publications.</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="bg-rose-950/40 border border-rose-800/80 rounded-sm p-4 flex items-center gap-3 text-rose-300 text-xs font-mono">
+        <div className="bg-rose-950/40 border border-rose-800/80 rounded-sm p-4 flex items-center gap-3 text-rose-300 text-xs font-normal">
           <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
           <span>{errorMessage}</span>
         </div>
@@ -132,7 +132,7 @@ function PreferencesContent() {
       <form onSubmit={handleSave} className="space-y-6">
         {/* Email Address */}
         <div className="space-y-1.5">
-          <label className="text-xs font-mono uppercase text-white/70 tracking-wider block">
+          <label className="text-xs font-normal uppercase text-white/70 tracking-wider block">
             Work Email Address *
           </label>
           <input
@@ -147,7 +147,7 @@ function PreferencesContent() {
 
         {/* Checkbox Options */}
         <div className="space-y-4 pt-2">
-          <label className="text-xs font-mono uppercase text-white/70 tracking-wider block">
+          <label className="text-xs font-normal uppercase text-white/70 tracking-wider block">
             Select Publications
           </label>
 
@@ -229,7 +229,7 @@ function PreferencesContent() {
           <button
             type="button"
             onClick={handleUnsubscribeAll}
-            className="text-xs text-white/40 hover:text-white/80 underline font-mono transition-colors"
+            className="text-xs text-white/40 hover:text-white/80 underline font-normal transition-colors"
           >
             Unsubscribe from all EntireFM emails
           </button>

@@ -30,7 +30,7 @@ export default function TopicClustersPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-normal text-white">{c.name}</h3>
-                <span className="text-xs text-zinc-500 font-mono">{c.cluster}</span>
+                <span className="text-xs text-zinc-500 font-normal">{c.cluster}</span>
               </div>
               <span className="text-xs bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-full">
                 {c.totalPages} URLs

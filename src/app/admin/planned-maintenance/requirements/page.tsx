@@ -51,14 +51,14 @@ export default async function MaintenanceRequirementsPage() {
 
       {/* Knowledge Sources Section */}
       <div>
-        <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
           Maintenance Knowledge Sources
         </h2>
         {sources.length > 0 ? (
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Code</th>
                   <th className="px-5 py-3">Source Name</th>
                   <th className="px-5 py-3">Provider</th>
@@ -70,13 +70,13 @@ export default async function MaintenanceRequirementsPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {sources.map((s) => (
                   <tr key={s.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white">{s.code}</td>
+                    <td className="px-5 py-4 font-normal text-[11px] text-white">{s.code}</td>
                     <td className="px-5 py-4 font-light text-white">{s.name}</td>
                     <td className="px-5 py-4 text-brand-mist/70">{s.provider}</td>
-                    <td className="px-5 py-4 font-mono text-[10px] text-brand-mist/50">{s.source_type}</td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">{s.version}</td>
+                    <td className="px-5 py-4 font-normal text-[10px] text-brand-mist/50">{s.source_type}</td>
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/70">{s.version}</td>
                     <td className="px-5 py-4">
-                      <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${LICENSING_COLOURS[s.licensing_status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${LICENSING_COLOURS[s.licensing_status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                         {s.licensing_status.replace(/_/g, ' ')}
                       </span>
                     </td>
@@ -92,14 +92,14 @@ export default async function MaintenanceRequirementsPage() {
 
       {/* Maintenance Requirements Section */}
       <div>
-        <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
           Standard Maintenance Requirements
         </h2>
         {requirements.length > 0 ? (
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full min-w-[56rem] border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Code</th>
                   <th className="px-5 py-3">Asset Class</th>
                   <th className="px-5 py-3">Title</th>
@@ -112,19 +112,19 @@ export default async function MaintenanceRequirementsPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {requirements.map((r) => (
                   <tr key={r.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white">{r.requirement_code}</td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/60">{r.asset_class}</td>
+                    <td className="px-5 py-4 font-normal text-[11px] text-white">{r.requirement_code}</td>
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">{r.asset_class}</td>
                     <td className="px-5 py-4 font-light text-white">{r.title}</td>
                     <td className="px-5 py-4">
-                      <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${FREQ_COLOURS[r.frequency] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${FREQ_COLOURS[r.frequency] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                         {r.frequency.replace(/_/g, ' ')}
                       </span>
                     </td>
                     <td className="px-5 py-4 text-brand-mist/70">{r.required_trade}</td>
-                    <td className="px-4 py-4 text-right font-mono text-[11px] text-brand-mist/70">{r.expected_duration_hours}h</td>
+                    <td className="px-4 py-4 text-right font-normal text-[11px] text-brand-mist/70">{r.expected_duration_hours}h</td>
                     <td className="px-5 py-4">
                       {r.statutory_relevance ? (
-                        <span className="rounded bg-red-950/40 px-1.5 py-0.5 font-mono text-[10px] text-red-300 border border-red-900/40">
+                        <span className="rounded bg-red-950/40 px-1.5 py-0.5 font-normal text-[10px] text-red-300 border border-red-900/40">
                           {r.statutory_relevance}
                         </span>
                       ) : (

@@ -75,7 +75,7 @@ export function BusinessToolsHub() {
                   {item.label}
                 </span>
                 {item.badge && (
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-brand-electric/20 text-brand-electric-bright font-mono font-bold">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-brand-electric/20 text-brand-electric-bright font-bold">
                     {item.badge}
                   </span>
                 )}

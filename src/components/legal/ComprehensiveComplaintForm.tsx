@@ -264,7 +264,7 @@ export function ComprehensiveComplaintForm() {
                 <p className="text-xs font-normal uppercase tracking-wider text-slate-500">
                   Your Case Tracking Reference
                 </p>
-                <p className="text-xl font-mono font-light text-slate-900">
+                <p className="text-xl font-light text-slate-900">
                   {successData.reference}
                 </p>
                 <p className="text-[11px] text-slate-500 mt-0.5">

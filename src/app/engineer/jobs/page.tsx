@@ -34,7 +34,7 @@ export default async function EngineerJobsPage() {
               className="block bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 hover:border-brand-electric/50 transition-colors"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-brand-mist text-xs font-mono">{visit.work_order?.reference || visit.id.slice(0, 8)}</span>
+                <span className="text-brand-mist text-xs font-normal">{visit.work_order?.reference || visit.id.slice(0, 8)}</span>
                 <span className="text-xs px-2 py-0.5 rounded font-medium bg-brand-void text-brand-electric">
                   {visit.status}
                 </span>

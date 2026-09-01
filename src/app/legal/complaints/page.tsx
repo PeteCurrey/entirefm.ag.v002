@@ -160,7 +160,7 @@ export default function ComplaintsResolutionPage() {
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
             <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">1</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-light">1</span>
               Stage 1: Operational Review & Root Cause Analysis
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -170,7 +170,7 @@ export default function ComplaintsResolutionPage() {
 
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
             <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">2</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-light">2</span>
               Stage 2: Director-Level Executive Escalation
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -180,7 +180,7 @@ export default function ComplaintsResolutionPage() {
 
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
             <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">3</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-light">3</span>
               Stage 3: Independent Mediation & Alternative Dispute Resolution
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">

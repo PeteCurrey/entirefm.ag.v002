@@ -95,7 +95,7 @@ export function DocumentUploadModal({
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               DOCUMENT VAULT 2.0
             </span>
             <h2 className="text-lg font-light text-white">Upload Compliance Document</h2>
@@ -138,7 +138,7 @@ export function DocumentUploadModal({
               {selectedFile ? (
                 <div>
                   <p className="text-sm font-normal text-white">{selectedFile.name}</p>
-                  <p className="text-xs text-brand-mist/50 mt-0.5 font-mono">
+                  <p className="text-xs text-brand-mist/50 mt-0.5 font-normal">
                     {(selectedFile.size / 1024).toFixed(1)} KB &bull; Click or drop to replace
                   </p>
                 </div>

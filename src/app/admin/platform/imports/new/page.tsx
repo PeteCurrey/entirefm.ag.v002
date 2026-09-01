@@ -94,7 +94,7 @@ function NewImportForm() {
 
       {/* 1. Entity Type Selection */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 1 — SELECT DATA TYPE</h2>
+        <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 1 — SELECT DATA TYPE</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {ENTITY_TYPES.map(({ id, label, icon: Icon, description, color }) => (
             <button
@@ -120,7 +120,7 @@ function NewImportForm() {
 
       {/* 2. Source System Selection */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 2 — SOURCE SYSTEM</h2>
+        <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 2 — SOURCE SYSTEM</h2>
         <div className="flex flex-wrap gap-2">
           {SOURCE_SYSTEMS.map(({ id, label }) => (
             <button
@@ -140,7 +140,7 @@ function NewImportForm() {
 
       {/* 3. File Upload */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 3 — UPLOAD CSV FILE</h2>
+        <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 3 — UPLOAD CSV FILE</h2>
         <div
           onDrop={handleDrop}
           onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}

@@ -23,7 +23,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-2">
         <div className="flex items-center gap-2">
           <AlertCircle className="h-4.5 w-4.5 text-[#686866]" />
-          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+          <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             VALIDATION ISSUES
           </h3>
         </div>
@@ -78,19 +78,19 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-[11px] font-normal text-[#686866]">Row {issue.row_index}</span>
+                    <span className="text-[11px] font-normal text-[#686866]">Row {issue.row_index}</span>
                     {issue.field_name && (
-                      <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-mono text-[10px] text-[#686866]">
+                      <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-normal text-[10px] text-[#686866]">
                         {issue.field_name}
                       </span>
                     )}
-                    <span className="rounded-[4px] bg-[#F5F5F3] border border-[#E4E4E1] px-1.5 py-0.5 font-mono text-[10px] text-[#9B9B97]">
+                    <span className="rounded-[4px] bg-[#F5F5F3] border border-[#E4E4E1] px-1.5 py-0.5 font-normal text-[10px] text-[#9B9B97]">
                       {issue.issue_code}
                     </span>
                   </div>
                   <p className="text-[12.5px] text-[#101010] mt-0.5">{issue.message}</p>
                   {issue.raw_value && (
-                    <p className="font-mono text-[11px] text-[#9B9B97] mt-0.5">Value: "{issue.raw_value}"</p>
+                    <p className="font-normal text-[11px] text-[#9B9B97] mt-0.5">Value: "{issue.raw_value}"</p>
                   )}
                 </div>
               </div>

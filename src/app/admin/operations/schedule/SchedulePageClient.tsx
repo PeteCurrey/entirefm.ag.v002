@@ -20,7 +20,7 @@ export function SchedulePageClient({ initialVisits }: Props) {
       accessor: (row) => (
         <div>
           <div className="font-medium text-[#101010]">Visit #{row.visit_number}</div>
-          <div className="font-mono text-[11px] text-[#686866]">
+          <div className="font-normal text-[11px] text-[#686866]">
             {row.scheduled_start_at
               ? new Date(row.scheduled_start_at).toLocaleDateString('en-GB', {
                   day: '2-digit',
@@ -46,7 +46,7 @@ export function SchedulePageClient({ initialVisits }: Props) {
     {
       header: 'Status',
       accessor: (row) => (
-        <span className="rounded-[4px] bg-[#FAFAF8] px-2 py-0.5 font-mono text-[10px] text-[#101010] border border-[#E4E4E1]">
+        <span className="rounded-[4px] bg-[#FAFAF8] px-2 py-0.5 font-normal text-[10px] text-[#101010] border border-[#E4E4E1]">
           {row.status}
         </span>
       ),

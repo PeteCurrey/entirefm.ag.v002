@@ -170,7 +170,7 @@ export function TemplateLobbyToday() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 The Daily FM Briefing
               </span>
             </div>
@@ -218,7 +218,7 @@ export function TemplateLobbyToday() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Priority Briefing
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -247,7 +247,7 @@ export function TemplateLobbyToday() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent" />
                     
                     <div className="absolute top-4 left-4 z-10">
-                      <span className="text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 bg-black/70 backdrop-blur-sm text-white/90 border border-white/10 rounded-[3px]">
+                      <span className="text-[10px] font-normal uppercase tracking-[0.2em] px-2.5 py-1 bg-black/70 backdrop-blur-sm text-white/90 border border-white/10 rounded-[3px]">
                         {data.threeThingsThatMatter.lead.time} · {data.threeThingsThatMatter.lead.discipline}
                       </span>
                     </div>
@@ -295,7 +295,7 @@ export function TemplateLobbyToday() {
                   <div className="p-6 sm:p-7 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
-                        <span className="font-mono text-[10px] uppercase text-brand-electric font-medium tracking-wider">
+                        <span className="text-[10px] uppercase text-brand-electric font-medium tracking-wider">
                           {data.threeThingsThatMatter.secondary1.discipline}
                         </span>
                         <span>{data.threeThingsThatMatter.secondary1.time}</span>
@@ -332,7 +332,7 @@ export function TemplateLobbyToday() {
                   <div className="p-6 sm:p-7 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
-                        <span className="font-mono text-[10px] uppercase text-brand-electric font-medium tracking-wider">
+                        <span className="text-[10px] uppercase text-brand-electric font-medium tracking-wider">
                           {data.threeThingsThatMatter.secondary2.discipline}
                         </span>
                         <span>{data.threeThingsThatMatter.secondary2.time}</span>
@@ -371,7 +371,7 @@ export function TemplateLobbyToday() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Statutory &amp; Technical Wire
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -389,7 +389,7 @@ export function TemplateLobbyToday() {
                   key={item.id}
                   className="py-5 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start group"
                 >
-                  <div className="lg:col-span-2 text-xs font-mono text-neutral-500">
+                  <div className="lg:col-span-2 text-xs font-normal text-neutral-500">
                     <span className="text-neutral-900 font-light block">{item.time}</span>
                     <span className="text-[10px] uppercase text-brand-electric tracking-wider">{item.discipline}</span>
                   </div>
@@ -424,7 +424,7 @@ export function TemplateLobbyToday() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Commercial Market Wire
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -443,7 +443,7 @@ export function TemplateLobbyToday() {
                 <div className="lg:col-span-6 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-5 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
-                      <span className="font-mono text-[10px] uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[3px]">
+                      <span className="font-medium text-[10px] uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[3px]">
                         Featured Major Award
                       </span>
                       <span>{data.whoWonWhat.featuredAward.publishedAt}</span>
@@ -509,7 +509,7 @@ export function TemplateLobbyToday() {
 
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500 pt-2 border-t border-neutral-100">
                       <span>{award.buyer} · {award.region}</span>
-                      <span className="font-mono text-[11px] text-neutral-700">{award.term}</span>
+                      <span className="font-normal text-[11px] text-neutral-700">{award.term}</span>
                     </div>
                   </div>
                 ))}
@@ -521,7 +521,7 @@ export function TemplateLobbyToday() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Forward Timeline
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -540,7 +540,7 @@ export function TemplateLobbyToday() {
                   className="p-6 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3"
                 >
                   <div className="space-y-0.5">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">
+                    <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400">
                       {item.month} {item.year}
                     </div>
                     <div className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -571,7 +571,7 @@ export function TemplateLobbyToday() {
             {/* Left: From The Industry News */}
             <div className="lg:col-span-7 space-y-6">
               <div className="border-b border-neutral-200 pb-3">
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Industry News
                 </span>
                 <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
@@ -583,7 +583,7 @@ export function TemplateLobbyToday() {
                 {data.fromTheIndustry.map((story) => (
                   <div key={story.id} className="pt-6 first:pt-0 space-y-2">
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
-                      <span className="font-mono text-[10px] uppercase text-brand-electric">{story.category}</span>
+                      <span className="font-medium text-[10px] uppercase text-brand-electric">{story.category}</span>
                       <span>{story.date}</span>
                     </div>
 
@@ -611,7 +611,7 @@ export function TemplateLobbyToday() {
             {data.theConversation && (
               <div className="lg:col-span-5 space-y-6">
                 <div className="border-b border-neutral-200 pb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                     Community Roundtable
                   </span>
                   <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
@@ -621,7 +621,7 @@ export function TemplateLobbyToday() {
 
                 <div className="p-6 sm:p-8 bg-[#0B1220] text-white rounded-[6px] shadow-sm space-y-5 flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-xs text-brand-electric-bright font-mono">
+                    <div className="flex items-center gap-2 text-xs text-brand-electric-bright font-normal">
                       <MessageSquare className="w-3.5 h-3.5" />
                       <span>{data.theConversation.repliesCount} Practitioner Responses</span>
                     </div>
@@ -658,7 +658,7 @@ export function TemplateLobbyToday() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="p-8 sm:p-10 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-medium">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-medium">
                     {data.oneUsefulThing.category}
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">

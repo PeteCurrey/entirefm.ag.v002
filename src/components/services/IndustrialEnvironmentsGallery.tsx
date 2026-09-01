@@ -124,7 +124,7 @@ export function IndustrialEnvironmentsGallery() {
                 }`}
               >
                 <span
-                  className={`text-[10px] font-mono font-medium block mb-1 uppercase tracking-wider ${
+                  className={`text-[10px] font-medium block mb-1 uppercase tracking-wider ${
                     isActive ? 'text-brand-pink' : 'text-slate-400'
                   }`}
                 >
@@ -150,7 +150,7 @@ export function IndustrialEnvironmentsGallery() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/40" />
-            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-normal rounded-sm backdrop-blur-md">
               {activeEnv.category}
             </div>
           </div>
@@ -169,7 +169,7 @@ export function IndustrialEnvironmentsGallery() {
               </p>
 
               <div className="mb-6 p-3.5 bg-slate-800/80 border border-slate-700/60 rounded-sm">
-                <span className="text-[11px] font-mono text-brand-pink-light uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-medium text-brand-pink-light uppercase tracking-wider block mb-1">
                   Access Equipment & Method
                 </span>
                 <span className="text-xs font-normal text-white">
@@ -190,7 +190,7 @@ export function IndustrialEnvironmentsGallery() {
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+            <div className="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-normal">
               <span>Safety: RAMS & COSHH Assessed</span>
               <span className="text-brand-pink-light font-light">Zero Plant Interruption</span>
             </div>

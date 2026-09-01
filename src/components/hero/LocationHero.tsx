@@ -45,7 +45,7 @@ export function LocationHero({
               {defaultIntro}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-300 font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-300 font-normal">
               <div>
                 <span className="text-slate-400 block">Coverage Scope:</span>
                 <span className="text-white font-normal text-sm">{coverageZones}</span>
@@ -73,7 +73,7 @@ export function LocationHero({
 
           <div className="lg:col-span-4 hidden lg:block">
             <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
-              <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{city} Service Summary</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-brand-electric block">{city} Service Summary</span>
               <h3 className="text-base font-light text-white">Commercial Properties Supported</h3>
               <ul className="space-y-2 text-xs text-slate-300">
                 {supportedProperties.map((prop, idx) => (
@@ -131,10 +131,10 @@ export function SectorHero({
           </p>
 
           <div className="pt-2">
-            <span className="text-xs font-mono uppercase text-slate-400 block mb-2">Critical Assets & Environments Managed:</span>
+            <span className="text-xs font-normal uppercase text-slate-400 block mb-2">Critical Assets & Environments Managed:</span>
             <div className="flex flex-wrap gap-2">
               {criticalAssets.map((asset, idx) => (
-                <span key={idx} className="px-3 py-1 bg-brand-carbon border border-brand-edge-dark rounded-sm text-xs font-mono text-brand-electric">
+                <span key={idx} className="px-3 py-1 bg-brand-carbon border border-brand-edge-dark rounded-sm text-xs font-normal text-brand-electric">
                   {asset}
                 </span>
               ))}

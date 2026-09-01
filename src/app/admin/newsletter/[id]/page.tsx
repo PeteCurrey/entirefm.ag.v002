@@ -233,7 +233,7 @@ export default function CampaignComposerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             CAMPAIGN COMPOSER · THE FM BRIEFING
           </span>
           <h1 className="text-2xl font-extralight text-white mt-0.5">{campaign.name}</h1>
@@ -352,7 +352,7 @@ export default function CampaignComposerPage() {
                   type="text"
                   value={campaign.utmCampaign}
                   onChange={(e) => setCampaign({ ...campaign, utmCampaign: e.target.value })}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-pink-400"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs font-normal text-pink-400"
                 />
               </div>
             </div>
@@ -424,7 +424,7 @@ export default function CampaignComposerPage() {
                   className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3 relative group"
                 >
                   <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-light">
+                    <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-light">
                       {block.type}
                     </span>
                     <button
@@ -438,21 +438,21 @@ export default function CampaignComposerPage() {
 
                   {block.eyebrow !== undefined && (
                     <div>
-                      <label className="block text-[10px] text-zinc-400 uppercase font-mono mb-1">
+                      <label className="block text-[10px] text-zinc-400 uppercase font-normal mb-1">
                         Eyebrow
                       </label>
                       <input
                         type="text"
                         value={block.eyebrow}
                         onChange={(e) => updateBlock(idx, { eyebrow: e.target.value })}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs text-white font-mono"
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs text-white font-normal"
                       />
                     </div>
                   )}
 
                   {block.heading !== undefined && (
                     <div>
-                      <label className="block text-[10px] text-zinc-400 uppercase font-mono mb-1">
+                      <label className="block text-[10px] text-zinc-400 uppercase font-normal mb-1">
                         Heading
                       </label>
                       <input
@@ -465,7 +465,7 @@ export default function CampaignComposerPage() {
                   )}
 
                   <div>
-                    <label className="block text-[10px] text-zinc-400 uppercase font-mono mb-1">
+                    <label className="block text-[10px] text-zinc-400 uppercase font-normal mb-1">
                       Body Text
                     </label>
                     <textarea
@@ -479,18 +479,18 @@ export default function CampaignComposerPage() {
                   {block.linkUrl !== undefined && (
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-[10px] text-zinc-400 uppercase font-mono mb-1">
+                        <label className="block text-[10px] text-zinc-400 uppercase font-normal mb-1">
                           Link URL
                         </label>
                         <input
                           type="text"
                           value={block.linkUrl}
                           onChange={(e) => updateBlock(idx, { linkUrl: e.target.value })}
-                          className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs font-mono text-blue-400"
+                          className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs font-normal text-blue-400"
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] text-zinc-400 uppercase font-mono mb-1">
+                        <label className="block text-[10px] text-zinc-400 uppercase font-normal mb-1">
                           Button / Link Text
                         </label>
                         <input
@@ -539,13 +539,13 @@ export default function CampaignComposerPage() {
                 Plain Text
               </button>
             </div>
-            <span className="text-xs text-zinc-500 font-mono">
+            <span className="text-xs text-zinc-500 font-normal">
               Rendered with EntireFM Responsive Email Engine
             </span>
           </div>
 
           {previewMode === 'text' ? (
-            <pre className="p-6 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-300 font-mono whitespace-pre-wrap overflow-x-auto">
+            <pre className="p-6 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-300 font-normal whitespace-pre-wrap overflow-x-auto">
               {renderedText}
             </pre>
           ) : (
@@ -611,14 +611,14 @@ export default function CampaignComposerPage() {
 
             {qaResults.linkChecks && qaResults.linkChecks.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-xs font-normal text-zinc-400 uppercase font-mono">
+                <h4 className="text-xs font-normal text-zinc-400 uppercase">
                   Verified Destination Links ({qaResults.linkChecks.length})
                 </h4>
                 <div className="divide-y divide-zinc-800 border border-zinc-800 rounded-lg overflow-hidden">
                   {qaResults.linkChecks.map((link, i) => (
                     <div key={i} className="p-3 text-xs flex items-center justify-between">
-                      <span className="font-mono text-zinc-300">{link.url}</span>
-                      <span className="text-[10px] font-mono text-emerald-400 font-light">
+                      <span className="font-normal text-zinc-300">{link.url}</span>
+                      <span className="text-[10px] text-emerald-400 font-light">
                         ✓ {link.message || 'VALID'}
                       </span>
                     </div>

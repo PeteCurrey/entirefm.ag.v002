@@ -132,13 +132,13 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
           <div className="flex items-center gap-2 mb-1">
             <Link
               href="/admin"
-              className="inline-flex items-center gap-1 font-mono text-[11px] text-[#686866] hover:text-[#101010] transition-colors"
+              className="inline-flex items-center gap-1 font-normal text-[11px] text-[#686866] hover:text-[#101010] transition-colors"
             >
               <ArrowLeft className="h-3 w-3" />
               <span>Back to Control Centre</span>
             </Link>
             <span className="text-[#9B9B97]">/</span>
-            <span className="font-mono text-[11px] text-[#FF6B24] uppercase font-light">
+            <span className="text-[11px] text-[#FF6B24] uppercase font-light">
               Platform Configuration
             </span>
           </div>
@@ -185,7 +185,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
             {previewFirstName.charAt(0)}
           </div>
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-wider text-[#C2410C] font-light">
+            <div className="text-[10.5px] uppercase tracking-wider text-[#C2410C] font-light">
               Live Dashboard Greeting Preview
             </div>
             <div className="text-[16px] font-light text-[#101010]">
@@ -193,13 +193,13 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
             </div>
           </div>
         </div>
-        <div className="font-mono text-[11px] text-[#686866] bg-[#FFFFFF] border border-[#FED7AA] px-3 py-1.5 rounded-[8px]">
+        <div className="font-normal text-[11px] text-[#686866] bg-[#FFFFFF] border border-[#FED7AA] px-3 py-1.5 rounded-[8px]">
           Authenticated Role: <strong className="text-[#101010]">{session.role}</strong>
         </div>
       </div>
 
       {/* Main Settings Navigation Tabs */}
-      <div className="flex items-center gap-1 overflow-x-auto border-b border-[#E4E4E1] pb-2 font-mono text-[12px]">
+      <div className="flex items-center gap-1 overflow-x-auto border-b border-[#E4E4E1] pb-2 font-normal text-[12px]">
         {[
           { id: 'profile', label: 'Profile & Contact Info', icon: User },
           { id: 'system', label: 'System & CAFM Rules', icon: Settings },
@@ -391,20 +391,20 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
           <div className="space-y-4 text-[13px]">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4">
-                <div className="font-mono text-[10px] uppercase text-[#686866]">Authority Tier</div>
+                <div className="font-medium text-[10px] uppercase text-[#686866]">Authority Tier</div>
                 <div className="text-xl font-light text-[#101010] mt-1">SUPER_ADMIN</div>
                 <div className="text-[11px] text-[#15803D] mt-0.5">Unrestricted System Scope</div>
               </div>
 
               <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4">
-                <div className="font-mono text-[10px] uppercase text-[#686866]">Session Token Signature</div>
-                <div className="text-xl font-light text-[#101010] mt-1 font-mono">HMAC-SHA256</div>
+                <div className="font-medium text-[10px] uppercase text-[#686866]">Session Token Signature</div>
+                <div className="text-xl font-light text-[#101010] mt-1">HMAC-SHA256</div>
                 <div className="text-[11px] text-[#686866] mt-0.5">Cryptographically Sealed</div>
               </div>
 
               <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4">
-                <div className="font-mono text-[10px] uppercase text-[#686866]">Session Validity</div>
-                <div className="text-xl font-light text-[#101010] mt-1 font-mono">7 Days</div>
+                <div className="font-medium text-[10px] uppercase text-[#686866]">Session Validity</div>
+                <div className="text-xl font-light text-[#101010] mt-1">7 Days</div>
                 <div className="text-[11px] text-[#686866] mt-0.5">Auto-refreshed on activity</div>
               </div>
             </div>

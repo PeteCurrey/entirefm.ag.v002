@@ -28,7 +28,7 @@ export default async function SupplierControlCentrePage() {
       {/* Top Banner */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
             SUPPLY CHAIN INTELLIGENCE &amp; PROCUREMENT PLANNING
           </span>
           <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -43,7 +43,7 @@ export default async function SupplierControlCentrePage() {
           <Link href="/admin/suppliers/targets" className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
             <UserPlus className="h-3.5 w-3.5" /> Target Partner Board
           </Link>
-          <Link href="/admin/suppliers/commercial" className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-mono font-light rounded transition-colors">
+          <Link href="/admin/suppliers/commercial" className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-light rounded transition-colors">
             Commercial Hub
           </Link>
         </div>
@@ -64,7 +64,7 @@ export default async function SupplierControlCentrePage() {
               <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 Active Supplier Landscape Snapshot
               </h3>
-              <Link href="/admin/suppliers/landscape" className="text-xs font-mono text-brand-pink font-light underline">
+              <Link href="/admin/suppliers/landscape" className="text-xs text-brand-pink font-light underline">
                 Open Full Matrix
               </Link>
             </div>
@@ -79,7 +79,7 @@ export default async function SupplierControlCentrePage() {
               <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 Inbound Applications
               </h3>
-              <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+              <span className="text-xs font-light px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
                 {supplierApplications.length} New
               </span>
             </div>
@@ -94,12 +94,12 @@ export default async function SupplierControlCentrePage() {
                   <div key={app.id} className="py-3 space-y-1">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-normal text-slate-900">{app.company || app.name}</span>
-                      <span className="text-[10px] font-mono text-slate-400">{app.location || 'UK'}</span>
+                      <span className="text-[10px] font-normal text-slate-400">{app.location || 'UK'}</span>
                     </div>
                     <p className="text-[11.5px] text-slate-600 line-clamp-1">{app.service}</p>
                     <Link
                       href={`/admin/suppliers/applications`}
-                      className="text-[11px] font-mono text-brand-pink font-light hover:underline inline-block pt-1"
+                      className="text-[11px] text-brand-pink font-light hover:underline inline-block pt-1"
                     >
                       Review &amp; Convert &rarr;
                     </Link>
@@ -111,7 +111,7 @@ export default async function SupplierControlCentrePage() {
             <div className="pt-2 border-t border-slate-100">
               <Link
                 href="/admin/suppliers/applications"
-                className="text-xs font-mono text-slate-700 hover:text-slate-900 underline block text-center"
+                className="text-xs font-normal text-slate-700 hover:text-slate-900 underline block text-center"
               >
                 View all applications ({supplierApplications.length})
               </Link>
@@ -124,7 +124,7 @@ export default async function SupplierControlCentrePage() {
               <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 Priority Targets
               </h3>
-              <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+              <span className="text-xs font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
                 {targets.length} Active
               </span>
             </div>
@@ -134,11 +134,11 @@ export default async function SupplierControlCentrePage() {
                 <div key={t.id} className="py-3 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-normal text-slate-900">{t.company_name}</span>
-                    <span className="text-[10px] font-mono font-light px-1.5 py-0.5 rounded bg-amber-100 text-amber-900">
+                    <span className="text-[10px] font-light px-1.5 py-0.5 rounded bg-amber-100 text-amber-900">
                       {t.priority}
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-500 font-mono">
+                  <p className="text-[11px] text-slate-500 font-normal">
                     {t.services.join(', ')} &middot; {t.geography.join(', ')}
                   </p>
                   <p className="text-xs text-slate-600 font-light italic">
@@ -151,7 +151,7 @@ export default async function SupplierControlCentrePage() {
             <div className="pt-2 border-t border-slate-100">
               <Link
                 href="/admin/suppliers/targets"
-                className="text-xs font-mono text-slate-700 hover:text-slate-900 underline block text-center"
+                className="text-xs font-normal text-slate-700 hover:text-slate-900 underline block text-center"
               >
                 Open Target Recruitment Board
               </Link>

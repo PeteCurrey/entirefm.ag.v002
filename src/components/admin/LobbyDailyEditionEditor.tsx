@@ -126,9 +126,9 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
               <ArrowLeft className="h-3.5 w-3.5" /> Back to Editions
             </Link>
             <span className="text-zinc-600">•</span>
-            <span className="font-mono text-xs text-zinc-400">Edition #{edition.editionNumber}</span>
+            <span className="font-normal text-xs text-zinc-400">Edition #{edition.editionNumber}</span>
             <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${
+              className={`text-[10px] font-normal px-2 py-0.5 rounded border uppercase ${
                 edition.status === 'SCHEDULED'
                   ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800'
                   : edition.status === 'SENT'
@@ -142,7 +142,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
 
           <h1 className="text-xl font-medium text-white">{edition.subjectLine}</h1>
           <p className="text-xs text-zinc-400">
-            {edition.masthead?.ukDateFormatted || edition.editionDate} • Slug: <code className="text-zinc-300 font-mono">{edition.slug}</code>
+            {edition.masthead?.ukDateFormatted || edition.editionDate} • Slug: <code className="text-zinc-300 font-normal">{edition.slug}</code>
           </p>
         </div>
 
@@ -286,7 +286,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
         <div className="space-y-4">
           {/* Masthead */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-            <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 1</span>
+            <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 1</span>
             <h3 className="text-base font-medium text-white">Masthead & Metadata</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-zinc-300 mt-2">
               <div><strong className="text-zinc-400">Publication:</strong> {edition.masthead?.publicationName || 'THE LOBBY DAILY'}</div>
@@ -299,12 +299,12 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Lead Story */}
           {edition.leadStory && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 2</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 2</span>
               <h3 className="text-base font-medium text-white">Lead Intelligence Story</h3>
               <div className="text-sm font-medium text-zinc-100">{edition.leadStory.headline}</div>
               <p className="text-xs text-zinc-300 leading-relaxed">{edition.leadStory.summary}</p>
               <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs">
-                <span className="text-zinc-500 block uppercase font-mono text-[10px]">Why It Matters</span>
+                <span className="text-zinc-500 block uppercase font-normal text-[10px]">Why It Matters</span>
                 <span className="text-emerald-300">{edition.leadStory.whyItMatters}</span>
               </div>
             </div>
@@ -313,14 +313,14 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Morning Brief */}
           {edition.morningBrief && edition.morningBrief.length > 0 && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 3</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 3</span>
               <h3 className="text-base font-medium text-white">The Morning Brief ({edition.morningBrief.length} Items)</h3>
               <div className="space-y-2">
                 {edition.morningBrief.map((item, idx) => (
                   <div key={idx} className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs">
                     <div className="flex items-center gap-2">
                       {item.category && (
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 bg-zinc-800 text-zinc-300 rounded">
+                        <span className="text-[10px] font-normal px-1.5 py-0.5 bg-zinc-800 text-zinc-300 rounded">
                           {item.category}
                         </span>
                       )}
@@ -336,12 +336,12 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* What Changed / Regulatory */}
           {edition.whatChangedToday && edition.whatChangedToday.length > 0 && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 4</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 4</span>
               <h3 className="text-base font-medium text-white">What Changed Today</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {edition.whatChangedToday.map((item, idx) => (
                   <div key={idx} className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
-                    <span className="text-[10px] font-mono text-blue-400">{item.category}</span>
+                    <span className="text-[10px] font-normal text-blue-400">{item.category}</span>
                     <div className="font-medium text-zinc-200">{item.headline}</div>
                     <p className="text-zinc-400">{item.summary}</p>
                   </div>
@@ -353,7 +353,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Compliance Watch */}
           {edition.complianceWatch && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 5</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 5</span>
               <h3 className="text-base font-medium text-white">Compliance Watch</h3>
               <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
                 <div className="font-medium text-amber-300">{edition.complianceWatch.regulationOrStandard}</div>
@@ -370,7 +370,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Contracts & Commercial */}
           {edition.contractsMobilisations && edition.contractsMobilisations.length > 0 && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 6</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 6</span>
               <h3 className="text-base font-medium text-white">Contracts &amp; Mobilisations</h3>
               <div className="space-y-2">
                 {edition.contractsMobilisations.map((item, idx) => (
@@ -389,12 +389,12 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Engineer's Note */}
           {edition.engineersNote && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 7</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 7</span>
               <h3 className="text-base font-medium text-white">Engineer’s Field Note</h3>
               <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
                 <div className="font-medium text-emerald-300">{edition.engineersNote.title}</div>
                 <p className="text-zinc-300 leading-relaxed">{edition.engineersNote.observation}</p>
-                <div className="text-[10px] text-zinc-500 font-mono mt-2">
+                <div className="text-[10px] text-zinc-500 font-normal mt-2">
                   By {edition.engineersNote.authorName} ({edition.engineersNote.authorRole})
                 </div>
               </div>
@@ -404,10 +404,10 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           {/* Horizon Events */}
           {edition.onTheHorizon && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 8</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 8</span>
               <h3 className="text-base font-medium text-white">On the Horizon: Key FM Milestone</h3>
               <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
-                <span className="text-[10px] font-mono text-purple-400">{edition.onTheHorizon.dateOrDeadline}</span>
+                <span className="text-[10px] font-normal text-purple-400">{edition.onTheHorizon.dateOrDeadline}</span>
                 <div className="font-medium text-zinc-200">{edition.onTheHorizon.title}</div>
                 <p className="text-zinc-400">{edition.onTheHorizon.description}</p>
               </div>
@@ -418,7 +418,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {edition.oneUsefulThing && (
               <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-                <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 9</span>
+                <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 9</span>
                 <h3 className="text-base font-medium text-white">Curated FM Resource</h3>
                 <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
                   <div className="font-medium text-zinc-200">{edition.oneUsefulThing.title}</div>
@@ -436,11 +436,11 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
             )}
 
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase">Section 10</span>
+              <span className="text-[10px] font-normal text-emerald-400 uppercase">Section 10</span>
               <h3 className="text-base font-medium text-white">Sponsor Block (Optional)</h3>
               {edition.sponsorBlock?.enabled ? (
                 <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 text-xs space-y-1">
-                  <span className="text-[10px] font-mono text-amber-400 uppercase">Sponsored</span>
+                  <span className="text-[10px] font-normal text-amber-400 uppercase">Sponsored</span>
                   <div className="font-medium text-zinc-200">{edition.sponsorBlock.sponsorName}</div>
                   <p className="text-zinc-400">{edition.sponsorBlock.body}</p>
                 </div>
@@ -460,11 +460,11 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           <div className="flex items-center justify-between">
             <h3 className="text-base font-medium text-white">Quality Assurance & Compliance Checklist</h3>
             {edition.validationPassed ? (
-              <span className="px-3 py-1 bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-mono rounded-lg flex items-center gap-1.5">
+              <span className="px-3 py-1 bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-normal rounded-lg flex items-center gap-1.5">
                 <CheckCircle2 className="h-3.5 w-3.5" /> All 10 Checks Passed
               </span>
             ) : (
-              <span className="px-3 py-1 bg-amber-950 border border-amber-800 text-amber-300 text-xs font-mono rounded-lg flex items-center gap-1.5">
+              <span className="px-3 py-1 bg-amber-950 border border-amber-800 text-amber-300 text-xs font-normal rounded-lg flex items-center gap-1.5">
                 <AlertTriangle className="h-3.5 w-3.5" /> Action Required
               </span>
             )}
@@ -533,7 +533,7 @@ export function LobbyDailyEditionEditor({ edition: propEdition, initialEdition }
           <iframe
             title="Plain Text Preview"
             src={`/api/admin/lobby-daily/preview?id=${edition.id}&format=text`}
-            className="w-full min-h-[500px] bg-zinc-950 rounded-lg border border-zinc-800 text-xs font-mono text-zinc-300"
+            className="w-full min-h-[500px] bg-zinc-950 rounded-lg border border-zinc-800 text-xs font-normal text-zinc-300"
           />
         </div>
       )}

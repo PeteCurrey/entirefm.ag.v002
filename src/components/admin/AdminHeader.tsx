@@ -26,13 +26,13 @@ export function AdminHeader({ session }: { session: UserSession }) {
         >
           <Search className="h-3.5 w-3.5 text-[#9A9A95] shrink-0" />
           <span className="truncate">Search sites, assets, jobs, engineers, documents…</span>
-          <kbd className="ml-auto shrink-0 rounded-[4px] border border-[#E8E8E5] bg-[#FFFFFF] px-1.5 py-0.5 font-mono text-[10px] text-[#9A9A95]">
+          <kbd className="ml-auto shrink-0 rounded-[4px] border border-[#E8E8E5] bg-[#FFFFFF] px-1.5 py-0.5 font-normal text-[10px] text-[#9A9A95]">
             ⌘K
           </kbd>
         </button>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <span className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#BBF7D0] bg-[#F0FDF4] px-2 py-0.5 font-mono text-[10px] text-[#15803D] font-normal">
+          <span className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#BBF7D0] bg-[#F0FDF4] px-2 py-0.5 text-[10px] text-[#15803D] font-normal">
             <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] animate-pulse" />
             TELEMETRY ACTIVE
           </span>

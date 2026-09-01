@@ -26,10 +26,10 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
       {/* Header */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-brand-electric font-semibold">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-brand-electric font-semibold">
             THE PULSE · INDUSTRY DATA
           </span>
-          <span className="text-xs text-neutral-400 font-mono">
+          <span className="text-xs text-neutral-400 font-normal">
             {totalVotes.toLocaleString()} Responses
           </span>
         </div>
@@ -84,7 +84,7 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
                     <span className="text-neutral-800 font-medium">
                       {option.label}
                     </span>
-                    <span className="text-neutral-500 font-mono">
+                    <span className="text-neutral-500 font-normal">
                       {percentage}%
                     </span>
                   </div>
@@ -110,7 +110,7 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
         )}
       </div>
 
-      <div className="pt-4 border-t border-neutral-100 text-[11px] text-neutral-400 font-mono flex items-center justify-between">
+      <div className="pt-4 border-t border-neutral-100 text-[11px] text-neutral-400 font-normal flex items-center justify-between">
         <span>WEEKLY PULSE SURVEY</span>
         <span>ANONYMOUS &amp; INDEPENDENT</span>
       </div>

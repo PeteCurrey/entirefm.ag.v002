@@ -22,7 +22,7 @@ export default async function SeoConversionPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             SEARCH &rarr; LANDING &rarr; INBOUND LEAD
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">SEO Conversion Intelligence</h1>
@@ -55,7 +55,7 @@ export default async function SeoConversionPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Converting Landing Pages ({landingEntries.length})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">No Fake Query Linkage</span>
+          <span className="text-xs text-zinc-500 font-normal">No Fake Query Linkage</span>
         </div>
 
         {landingEntries.length === 0 ? (
@@ -64,7 +64,7 @@ export default async function SeoConversionPage() {
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Landing Page Path</th>
                 <th className="py-3 px-4">Impressions (GSC)</th>
@@ -76,15 +76,15 @@ export default async function SeoConversionPage() {
             <tbody className="divide-y divide-zinc-800">
               {landingEntries.map(([path, count]) => (
                 <tr key={path} className="hover:bg-zinc-800/40">
-                  <td className="py-3.5 px-4 font-mono font-normal text-white">{path}</td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">
+                  <td className="py-3.5 px-4 font-normal text-white">{path}</td>
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">
                     {gsc.status === 'CONNECTED' ? '1,420' : 'NOT CONNECTED'}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">
                     {gsc.status === 'CONNECTED' ? '12.4' : 'NOT CONNECTED'}
                   </td>
-                  <td className="py-3.5 px-4 font-light text-pink-400 font-mono">{count}</td>
-                  <td className="py-3.5 px-4 font-mono text-emerald-400">3.2%</td>
+                  <td className="py-3.5 px-4 font-light text-pink-400">{count}</td>
+                  <td className="py-3.5 px-4 font-normal text-emerald-400">3.2%</td>
                 </tr>
               ))}
             </tbody>

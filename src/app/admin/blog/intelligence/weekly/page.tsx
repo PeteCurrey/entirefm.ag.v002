@@ -22,7 +22,7 @@ export default function WeeklyBriefingPage() {
     <main className="p-6 max-w-5xl mx-auto space-y-8">
       <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
         <div>
-          <span className="text-xs font-mono text-blue-400 uppercase tracking-wider">Automated Executive Briefing</span>
+          <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">Automated Executive Briefing</span>
           <h1 className="text-2xl font-extralight text-white mt-1">Weekly Editorial Intelligence Brief</h1>
           <p className="text-xs text-zinc-400 mt-0.5">
             Week Starting: {new Date(brief.weekStarting).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -53,11 +53,11 @@ export default function WeeklyBriefingPage() {
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-zinc-500 font-mono">#{i + 1}</span>
+                    <span className="text-xs text-zinc-500 font-normal">#{i + 1}</span>
                     <h3 className="text-sm font-normal text-white">{rec.title}</h3>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
-                    <span className={`text-[10px] px-2 py-0.5 rounded font-mono ${categoryBadge(rec.mixCategory)}`}>
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-normal${categoryBadge(rec.mixCategory)}`}>
                       {rec.mixCategory.replace(/_/g, ' ')}
                     </span>
                     <span className="text-zinc-500">·</span>

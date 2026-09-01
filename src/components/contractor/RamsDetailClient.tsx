@@ -84,7 +84,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       <div className="flex items-center justify-between">
         <Link
           href="/contractor/rams"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-mono"
+          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to RAMS Dashboard
         </Link>
@@ -94,11 +94,11 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
               {rams.id} &bull; v{rams.version}
             </span>
             <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+              className={`text-[10px] font-normal px-2 py-0.5 rounded border ${
                 rams.status === 'ACCEPTED_FOR_WORK' || rams.status === 'ISSUED'
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : rams.status === 'CHANGES_REQUESTED'
@@ -109,13 +109,13 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
               {rams.status.replace(/_/g, ' ')}
             </span>
             {rams.workOrderNumber && (
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
+              <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
                 WO: {rams.workOrderNumber}
               </span>
             )}
           </div>
           <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{rams.title}</h1>
-          <p className="text-xs text-brand-mist/70 font-mono">
+          <p className="text-xs text-brand-mist/70 font-normal">
             {rams.siteName} &bull; {rams.clientName} &bull; {rams.workCategory}
           </p>
         </div>
@@ -126,7 +126,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
             type="button"
             onClick={handleDuplicate}
             disabled={isDuplicating}
-            className="px-3.5 py-2 rounded-lg border border-brand-edge-dark bg-brand-carbon hover:bg-brand-edge-dark text-white text-xs font-mono flex items-center gap-1.5 transition-colors disabled:opacity-50"
+            className="px-3.5 py-2 rounded-lg border border-brand-edge-dark bg-brand-carbon hover:bg-brand-edge-dark text-white text-xs font-normal flex items-center gap-1.5 transition-colors disabled:opacity-50"
           >
             <Copy className="w-3.5 h-3.5" />
             {isDuplicating ? 'Copying...' : 'Duplicate RAMS'}
@@ -146,7 +146,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
 
       {/* Review Feedback Alert if Changes Requested */}
       {rams.status === 'CHANGES_REQUESTED' && rams.entirefmReview && (
-        <div className="p-4 rounded-xl border border-amber-500/40 bg-amber-950/20 text-amber-300 space-y-2 text-xs font-mono">
+        <div className="p-4 rounded-xl border border-amber-500/40 bg-amber-950/20 text-amber-300 space-y-2 text-xs font-normal">
           <div className="flex items-center gap-2 font-bold text-white">
             <AlertTriangle className="w-4 h-4 text-amber-400" />
             <span>EntireFM Safety Review — Changes Requested</span>
@@ -161,7 +161,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       )}
 
       {/* Navigation Tabs */}
-      <div className="flex items-center gap-1 border-b border-brand-edge-dark overflow-x-auto pb-2 text-xs font-mono">
+      <div className="flex items-center gap-1 border-b border-brand-edge-dark overflow-x-auto pb-2 text-xs font-normal">
         {[
           { key: 'SCOPE', label: '1. Scope & Site' },
           { key: 'PEOPLE', label: '2. People & Competency' },
@@ -194,7 +194,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
               <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
                 Job Context &amp; Location
               </h3>
-              <div className="space-y-2 text-xs font-mono">
+              <div className="space-y-2 text-xs font-normal">
                 <div>
                   <span className="text-brand-mist/50 block">Site Location</span>
                   <span className="text-white block mt-0.5">{rams.siteName}</span>
@@ -230,7 +230,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
             </h3>
             <div className="divide-y divide-brand-edge-dark/30">
               {rams.assignedOperatives.map((op) => (
-                <div key={op.operativeId} className="py-3 flex items-center justify-between text-xs font-mono">
+                <div key={op.operativeId} className="py-3 flex items-center justify-between text-xs font-normal">
                   <div>
                     <span className="text-white font-medium block">{op.fullName}</span>
                     <span className="text-[11px] text-brand-mist/50 block">{op.role} &bull; {op.trade}</span>
@@ -258,7 +258,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
             </h3>
             <div className="space-y-3">
               {rams.hazards.map((h) => (
-                <div key={h.id} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-2 text-xs font-mono">
+                <div key={h.id} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-2 text-xs font-normal">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <span className="text-white font-bold font-sans text-sm block">{h.hazard}</span>
@@ -300,13 +300,13 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
               {methodStepsFromRams(rams).map((s) => (
                 <div key={s.sequence} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-1.5 text-xs">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-mono">
+                    <div className="flex items-center gap-2 font-normal">
                       <span className="w-5 h-5 rounded bg-brand-electric/20 text-brand-electric flex items-center justify-center font-bold text-xs">
                         {s.sequence}
                       </span>
                       <span className="text-white font-bold">{s.title}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-brand-mist/50 uppercase">{s.responsibleRole}</span>
+                    <span className="text-[10px] font-normal text-brand-mist/50 uppercase">{s.responsibleRole}</span>
                   </div>
                   <p className="text-brand-mist/80 font-light leading-relaxed pl-7">{s.description}</p>
                 </div>
@@ -331,7 +331,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
                   type="button"
                   onClick={handleSignBriefing}
                   disabled={isSigningBriefing}
-                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-semibold transition-colors disabled:opacity-50 shrink-0 flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors disabled:opacity-50 shrink-0 flex items-center gap-1.5"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   {isSigningBriefing ? 'Signing...' : 'Sign Briefing (Read & Understood)'}
@@ -339,7 +339,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
               )}
             </div>
 
-            <div className="divide-y divide-brand-edge-dark/30 text-xs font-mono">
+            <div className="divide-y divide-brand-edge-dark/30 text-xs font-normal">
               {rams.operativeBriefings.length === 0 ? (
                 <div className="py-6 text-center text-brand-mist/50">
                   No operative briefings recorded yet for version {rams.version}.

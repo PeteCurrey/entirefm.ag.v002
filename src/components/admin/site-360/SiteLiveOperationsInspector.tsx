@@ -31,7 +31,7 @@ export function SiteLiveOperationsInspector({
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       {/* Header */}
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 flex items-center justify-between">
-        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+        <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           LIVE OPERATIONS & ACTIVE RISKS
         </h3>
         <span
@@ -44,7 +44,7 @@ export function SiteLiveOperationsInspector({
       <div className="p-5 space-y-5">
         {/* SECTION 1: OPEN JOBS */}
         <div className="space-y-2.5">
-          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
+          <div className="flex items-center justify-between text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
             <span>ACTIVE WORK ORDERS</span>
             <span>{activeJobs.length} ACTIVE</span>
           </div>
@@ -66,7 +66,7 @@ export function SiteLiveOperationsInspector({
               >
                 <div className="flex items-center justify-between">
                   <span
-                    className={`font-mono text-[10px] font-normal ${
+                    className={`text-[10px] font-normal ${
                       wo.priority === 'P1_CRITICAL' ? 'text-[#B91C1C]' : 'text-[#686866]'
                     }`}
                   >
@@ -87,7 +87,7 @@ export function SiteLiveOperationsInspector({
 
         {/* SECTION 2: COMPLIANCE RISKS */}
         <div className="space-y-2 pt-2 border-t border-[#E4E4E1]">
-          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
+          <div className="flex items-center justify-between text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
             <span>SITE COMPLIANCE STATUS</span>
             <span
               className={

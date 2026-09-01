@@ -332,11 +332,11 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
                   {/* Progress Header */}
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono font-light text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
                       {currentQ.category}
                     </span>
-                    <span className="font-mono text-xs text-slate-500">
+                    <span className="font-normal text-xs text-slate-500">
                       Discipline <strong className="text-slate-900">{currentStep + 1}</strong> of {QUESTIONS.length}
                     </span>
                   </div>
@@ -349,7 +349,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                       {currentQ.explanation}
                     </p>
-                    <div className="text-[11.5px] font-mono text-slate-500 pt-1 flex items-center gap-1.5">
+                    <div className="text-[11.5px] font-normal text-slate-500 pt-1 flex items-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
                       <span className="text-slate-700 font-light">Statutory Basis:</span> {currentQ.statutoryBasis}
                     </div>
@@ -399,7 +399,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-8 space-y-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                     <div>
-                      <span className="font-mono text-xs text-emerald-700 font-light uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200 inline-block mb-1.5">
+                      <span className="text-xs text-emerald-700 font-light uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200 inline-block mb-1.5">
                         Diagnostic Assessment Complete
                       </span>
                       <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
@@ -422,20 +422,20 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                   {/* Scoreboard Metrics Strip */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2 border-b border-slate-100">
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-slate-500 font-normal uppercase block">Assurance Rating</span>
-                      <div className="text-3xl sm:text-4xl font-light text-slate-900 font-mono tabular-nums mt-1">{percentage}%</div>
+                      <span className="text-[11px] text-slate-500 font-normal uppercase block">Assurance Rating</span>
+                      <div className="text-3xl sm:text-4xl font-light text-slate-900 tabular-nums mt-1">{percentage}%</div>
                       <span className="text-xs text-slate-600 font-normal">{levelLabel}</span>
                     </div>
 
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-emerald-700 font-normal uppercase block">Verified Strong</span>
-                      <div className="text-3xl sm:text-4xl font-light text-emerald-600 font-mono tabular-nums mt-1">{strongAreas.length} / 7</div>
+                      <span className="text-[11px] text-emerald-700 font-normal uppercase block">Verified Strong</span>
+                      <div className="text-3xl sm:text-4xl font-light text-emerald-600 tabular-nums mt-1">{strongAreas.length} / 7</div>
                       <span className="text-xs text-slate-600 font-light">Documented Controls</span>
                     </div>
 
                     <div>
-                      <span className="text-[11px] font-mono text-rose-700 font-medium uppercase block">Remedial Attention</span>
-                      <div className="text-3xl sm:text-4xl font-light text-rose-600 font-mono tabular-nums mt-1">{priorityGaps.length + reviewAreas.length}</div>
+                      <span className="text-[11px] text-rose-700 font-medium uppercase block">Remedial Attention</span>
+                      <div className="text-3xl sm:text-4xl font-light text-rose-600 tabular-nums mt-1">{priorityGaps.length + reviewAreas.length}</div>
                       <span className="text-xs text-slate-600 font-light">Statutory / Standard Gaps</span>
                     </div>
                   </div>
@@ -461,10 +461,10 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                         <div key={q.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <span className="font-light text-slate-900 text-sm block">{q.category}</span>
-                            <span className="text-[11px] font-mono text-slate-500">{q.statutoryBasis}</span>
+                            <span className="text-[11px] font-normal text-slate-500">{q.statutoryBasis}</span>
                           </div>
                           <span
-                            className={`px-2.5 py-1 border text-[10.5px] font-mono font-light uppercase rounded-sm self-start sm:self-center ${
+                            className={`px-2.5 py-1 border text-[10.5px] font-light uppercase rounded-sm self-start sm:self-center ${
                               score === 2
                                 ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
                                 : score === 1

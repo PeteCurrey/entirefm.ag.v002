@@ -20,7 +20,7 @@ export default async function LobbyDailySettingsPage() {
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to Editions
         </Link>
-        <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-medium">
+        <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-medium">
           THE LOBBY DAILY
         </span>
         <h1 className="text-2xl font-light text-white">Publishing &amp; Distribution Settings</h1>

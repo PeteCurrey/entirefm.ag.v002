@@ -175,7 +175,7 @@ export function TemplateLobby() {
           
           {/* Transition Strip: Editorial Edition Header */}
           <div className="border-b border-neutral-200/80 bg-white py-3.5 px-4 sm:px-8">
-            <div className="container-wide flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+            <div className="container-wide flex flex-wrap items-center justify-between gap-4 text-xs font-normal text-neutral-500">
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-neutral-900 font-medium">EDITION 2026.35</span>
@@ -202,7 +202,7 @@ export function TemplateLobby() {
           <div className="border-b border-neutral-200/80 bg-[#FAF9F7] py-5 px-4 sm:px-8">
             <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold bg-brand-electric/10 px-2.5 py-1 rounded-sm">
+                <span className="text-[10px] uppercase tracking-widest text-brand-electric font-semibold bg-brand-electric/10 px-2.5 py-1 rounded-sm">
                   ASK THE LOBBY
                 </span>
                 <span className="text-xs text-neutral-600 font-light hidden sm:inline">
@@ -249,7 +249,7 @@ export function TemplateLobby() {
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-6 border-b border-neutral-200">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-[11px] font-mono font-semibold uppercase tracking-[0.2em] text-brand-electric">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-electric">
                       COMMUNITY ROUNDTABLE
                     </span>
                     <span className="text-xs text-neutral-400 font-light">· Practitioner peer network</span>
@@ -290,7 +290,7 @@ export function TemplateLobby() {
                           <p className="text-[11px] text-neutral-500 font-light">CEO · EntireFM</p>
                         </div>
                       </Link>
-                      <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-sm">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-normal text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-sm">
                         <CheckCircle2 className="w-3 h-3" />
                         Accepted Solution
                       </span>
@@ -323,7 +323,7 @@ export function TemplateLobby() {
                   
                   {/* Secondary Discussion Link */}
                   <div className="bg-white border border-neutral-200/80 rounded-sm p-6 space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
+                    <div className="flex items-center justify-between text-[11px] font-normal text-neutral-400">
                       <span className="uppercase tracking-wider text-brand-electric">M&amp;E Engineering</span>
                       <span className="text-emerald-600">✓ Solved</span>
                     </div>
@@ -342,7 +342,7 @@ export function TemplateLobby() {
                     href="/lobby/rooms/building-safety"
                     className="relative overflow-hidden rounded-sm p-6 bg-[#080C14] text-white flex flex-col justify-between group min-h-[180px] border border-white/10"
                   >
-                    <div className="flex items-center justify-between text-[10px] font-mono z-10">
+                    <div className="flex items-center justify-between text-[10px] font-normal z-10">
                       <span className="font-bold text-rose-400 flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
                         LIVE TECHNICAL ROOM
@@ -360,7 +360,7 @@ export function TemplateLobby() {
                     </div>
 
                     <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs z-10">
-                      <span className="text-white/40 font-mono">Realtime audio &amp; text</span>
+                      <span className="text-white/40 font-normal">Realtime audio &amp; text</span>
                       <span className="text-rose-400 font-semibold group-hover:underline flex items-center gap-1">
                         <span>Join Room</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -422,7 +422,7 @@ export function TemplateLobby() {
               
               <div className="mb-10 pb-6 border-b border-neutral-300/80 flex items-end justify-between">
                 <div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                  <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-neutral-400 block mb-1">
                     INDUSTRY PARTICIPATION
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
@@ -453,7 +453,7 @@ export function TemplateLobby() {
             <div className="container-wide">
               <div className="flex items-center justify-between pb-6 mb-8 border-b border-neutral-200">
                 <div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                  <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-neutral-400 block mb-1">
                     INDUSTRY CALENDAR · CPD CERTIFIED
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
@@ -472,7 +472,7 @@ export function TemplateLobby() {
           <section className="py-12 bg-[#F6F5F2] border-b border-neutral-200 text-neutral-900">
             <div className="container-wide flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-neutral-900 text-white text-xs font-mono">
+                <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-neutral-900 text-white text-xs font-normal">
                   <Layers className="w-5 h-5" />
                 </span>
                 <div>
@@ -483,7 +483,7 @@ export function TemplateLobby() {
 
               <Link
                 href="/lobby/search"
-                className="px-6 py-3 rounded-sm bg-neutral-900 hover:bg-brand-electric text-white text-xs font-mono tracking-wider uppercase transition-colors flex items-center gap-2 shrink-0"
+                className="px-6 py-3 rounded-sm bg-neutral-900 hover:bg-brand-electric text-white text-xs font-normal tracking-wider uppercase transition-colors flex items-center gap-2 shrink-0"
               >
                 <span>Search Intelligence Archive</span>
                 <ArrowRight className="w-3.5 h-3.5" />

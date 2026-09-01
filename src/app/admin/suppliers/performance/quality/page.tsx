@@ -12,7 +12,7 @@ export default async function QualityDefectsPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
             WORKMANSHIP &amp; DEFECT LOGS
           </span>
           <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -42,7 +42,7 @@ export default async function QualityDefectsPage() {
             No supplier quality defects logged. High workmanship standards maintained.
           </p>
         ) : (
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {defects.map((d) => (
               <div key={d.id} className="py-3 space-y-1">
                 <div className="flex justify-between font-light">

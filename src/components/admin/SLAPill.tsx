@@ -37,7 +37,7 @@ export function SLAPill({ resolutionDueAt, isCompleted = false, compact = false 
   if (compact) {
     return (
       <span
-        className={`inline-flex items-center rounded-[5px] border px-1.5 py-0.5 font-mono text-[10px] font-normal tracking-wider ${getBadgeStyle()}`}
+        className={`inline-flex items-center rounded-[5px] border px-1.5 py-0.5 text-[10px] font-normal tracking-wider${getBadgeStyle()}`}
       >
         {status}
       </span>
@@ -47,11 +47,11 @@ export function SLAPill({ resolutionDueAt, isCompleted = false, compact = false 
   return (
     <div className="flex flex-col items-start gap-0.5">
       <span
-        className={`inline-flex items-center rounded-[5px] border px-2 py-0.5 font-mono text-[10px] font-normal tracking-wider ${getBadgeStyle()}`}
+        className={`inline-flex items-center rounded-[5px] border px-2 py-0.5 text-[10px] font-normal tracking-wider${getBadgeStyle()}`}
       >
         {status}
       </span>
-      <span className="font-mono text-[10.5px] text-[#686866] tabular-nums">
+      <span className="font-normal text-[10.5px] text-[#686866] tabular-nums">
         {formatRemaining()}
       </span>
     </div>

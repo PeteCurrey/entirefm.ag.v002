@@ -29,7 +29,7 @@ export default async function ComplianceExceptionsPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Site / Scope</th>
                 <th className="px-5 py-3">Exception Type & Reason</th>
                 <th className="px-5 py-3">Severity</th>
@@ -53,7 +53,7 @@ export default async function ComplianceExceptionsPage() {
                   </td>
                   <td className="px-5 py-4">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+                      className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                         exc.severity === 'CRITICAL'
                           ? 'bg-rose-500/20 text-rose-300'
                           : exc.severity === 'MAJOR'
@@ -64,13 +64,13 @@ export default async function ComplianceExceptionsPage() {
                       {exc.severity}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-electric">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-electric">
                     {exc.state || 'OPEN'}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {exc.remediation_due_date || 'TBD'}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                     {new Date(exc.opened_at || exc.created_at).toLocaleDateString()}
                   </td>
                 </tr>

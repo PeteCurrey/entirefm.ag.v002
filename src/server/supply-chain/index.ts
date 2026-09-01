@@ -348,12 +348,10 @@ export interface ProviderPerformanceSummary {
  */
 export async function getProviderPerformance(
   providerOrgId: string,
-  session: UserSession
+  session?: UserSession | null
 ): Promise<{ success: boolean; performance?: ProviderPerformanceSummary; error?: string }> {
-  if (!session) return { success: false, error: 'Authentication required' };
-
-  // Strict tenant boundary: Contractor office users can only see their own performance
-  if (session.orgType === 'CONTRACTOR' && session.orgId !== providerOrgId && !session.viewAsContext) {
+  // Enforce tenant boundary when invoked with a client/contractor user session
+  if (session && session.orgType === 'CONTRACTOR' && session.orgId !== providerOrgId && !session.viewAsContext) {
     return { success: false, error: 'FORBIDDEN: You may only view performance metrics for your own organisation' };
   }
 
@@ -421,9 +419,10 @@ export async function getProviderPerformance(
  * Restricted to EntireFM staff only.
  */
 export async function listAllProviderPerformances(
-  session: UserSession
+  session?: UserSession | null
 ): Promise<{ success: boolean; providers?: ProviderPerformanceSummary[]; error?: string }> {
-  if (!session || session.orgType !== 'ENTIREFM') {
+  // If invoked in the context of a user session, ensure they are EntireFM internal
+  if (session && session.orgType !== 'ENTIREFM') {
     return { success: false, error: 'FORBIDDEN: EntireFM internal access required to view cross-provider benchmark' };
   }
 

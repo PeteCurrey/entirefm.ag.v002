@@ -50,7 +50,7 @@ export default async function OperativeProfilePage({
       <div>
         <Link
           href="/contractor/workforce"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-mono mb-2"
+          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Workforce
         </Link>
@@ -64,11 +64,11 @@ export default async function OperativeProfilePage({
           </div>
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
                 OPERATIVE RECORD &bull; {operative.internalReference}
               </span>
               <span
-                className={`text-[10.5px] font-mono px-2 py-0.5 rounded border ${
+                className={`text-[10.5px] font-normal px-2 py-0.5 rounded border ${
                   operative.isEligibleForDispatch
                     ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                     : 'bg-rose-500/10 text-rose-400 border-rose-500/20 font-bold'
@@ -78,7 +78,7 @@ export default async function OperativeProfilePage({
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{operative.fullName}</h1>
-            <p className="text-xs text-brand-mist/70 font-mono">
+            <p className="text-xs text-brand-mist/70 font-normal">
               {operative.jobTitle} &bull; {operative.employmentStatus} {operative.isSupervisor && '• Lead Supervisor'}
             </p>
           </div>
@@ -87,7 +87,7 @@ export default async function OperativeProfilePage({
         {/* Digital ID Block */}
         <div className="p-4 rounded-xl bg-brand-void/80 border border-brand-edge-dark flex items-center gap-4 shrink-0">
           <QrCode className="w-8 h-8 text-brand-electric" />
-          <div className="text-xs font-mono">
+          <div className="text-xs font-normal">
             <span className="text-[10px] text-brand-mist/50 block">EntireFM Contractor ID</span>
             <span className="text-white font-bold block mt-0.5">{operative.entirefmContractorIdNumber}</span>
             <span className="text-[10.5px] text-emerald-400 block mt-0.5">Verified Network Pass</span>
@@ -113,15 +113,15 @@ export default async function OperativeProfilePage({
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Work Mobile</span>
-                <span className="text-white font-mono mt-0.5 block">{operative.phone || 'Not recorded'}</span>
+                <span className="text-white font-normal mt-0.5 block">{operative.phone || 'Not recorded'}</span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Home / Base Postcode</span>
-                <span className="text-white font-mono mt-0.5 block">{operative.homePostcode || 'Local Hub'}</span>
+                <span className="text-white font-normal mt-0.5 block">{operative.homePostcode || 'Local Hub'}</span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Start Date</span>
-                <span className="text-white font-mono mt-0.5 block">{operative.startDate || '—'}</span>
+                <span className="text-white font-normal mt-0.5 block">{operative.startDate || '—'}</span>
               </div>
             </div>
           </div>
@@ -162,12 +162,12 @@ export default async function OperativeProfilePage({
                 <div key={q.id} className="py-3 flex items-center justify-between gap-3 text-xs">
                   <div className="space-y-0.5">
                     <span className="text-white font-normal block">{q.name}</span>
-                    <span className="text-[11px] font-mono text-brand-mist/50 block">
+                    <span className="text-[11px] font-normal text-brand-mist/50 block">
                       {q.awardingBody} &bull; Ref: {q.certificateNumber || 'Verified'} &bull; Exp: {q.expiryDate || 'No Expiry'}
                     </span>
                   </div>
                   <span
-                    className={`px-2 py-0.5 rounded text-[10.5px] font-mono border ${
+                    className={`px-2 py-0.5 rounded text-[10.5px] font-normal border ${
                       q.status === 'VALID'
                         ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                         : 'bg-rose-500/10 text-rose-400 border-rose-500/20 font-bold'
@@ -194,12 +194,12 @@ export default async function OperativeProfilePage({
                 <div key={t.id} className="py-3 flex items-center justify-between gap-3 text-xs">
                   <div className="space-y-0.5">
                     <span className="text-white font-normal block">{t.courseName}</span>
-                    <span className="text-[11px] font-mono text-brand-mist/50 block">
+                    <span className="text-[11px] font-normal text-brand-mist/50 block">
                       Provider: {t.provider} &bull; Completed: {t.completionDate} {t.expiryDate && `&bull; Exp: ${t.expiryDate}`}
                     </span>
                   </div>
                   <span
-                    className={`px-2 py-0.5 rounded text-[10.5px] font-mono border ${
+                    className={`px-2 py-0.5 rounded text-[10.5px] font-normal border ${
                       t.status === 'VALID'
                         ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                         : 'bg-rose-500/10 text-rose-400 border-rose-500/20'

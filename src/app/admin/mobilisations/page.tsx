@@ -27,7 +27,7 @@ export default async function MobilisationsOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-pink-400 font-light">
             ENTIRECAFM OPERATIONAL MOBILISATION ENGINE
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Contract Mobilisation Control</h1>
@@ -48,33 +48,33 @@ export default async function MobilisationsOverviewPage() {
       {/* KPI Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">AWAITING HANDOFF</div>
-          <div className="mt-1 text-xl font-light text-amber-400 font-mono">{metrics.awaitingHandoffCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">AWAITING HANDOFF</div>
+          <div className="mt-1 text-xl font-light text-amber-400">{metrics.awaitingHandoffCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">ACTIVE MOBILISATIONS</div>
-          <div className="mt-1 text-xl font-light text-white font-mono">{metrics.activeMobilisationsCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">ACTIVE MOBILISATIONS</div>
+          <div className="mt-1 text-xl font-light text-white">{metrics.activeMobilisationsCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">AT RISK</div>
-          <div className="mt-1 text-xl font-light text-red-400 font-mono">{metrics.atRiskCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">AT RISK</div>
+          <div className="mt-1 text-xl font-light text-red-400">{metrics.atRiskCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">TASKS OVERDUE</div>
-          <div className="mt-1 text-xl font-light text-zinc-300 font-mono">{metrics.tasksOverdueCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">TASKS OVERDUE</div>
+          <div className="mt-1 text-xl font-light text-zinc-300">{metrics.tasksOverdueCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">READY FOR GO-LIVE</div>
-          <div className="mt-1 text-xl font-light text-pink-400 font-mono">{metrics.readyForGoLiveCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">READY FOR GO-LIVE</div>
+          <div className="mt-1 text-xl font-light text-pink-400">{metrics.readyForGoLiveCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">LIVE / STABILISATION</div>
-          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">{metrics.goLivesThisMonthCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">LIVE / STABILISATION</div>
+          <div className="mt-1 text-xl font-light text-emerald-400">{metrics.goLivesThisMonthCount}</div>
         </div>
       </div>
 
@@ -84,16 +84,16 @@ export default async function MobilisationsOverviewPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Contract Mobilisations ({mobilisations.length})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">12-Phase Operational Gate</span>
+          <span className="text-xs text-zinc-500 font-normal">12-Phase Operational Gate</span>
         </div>
 
         {mobilisations.length === 0 ? (
-          <div className="p-12 text-center text-zinc-500 text-xs font-mono">
+          <div className="p-12 text-center text-zinc-500 text-xs font-normal">
             Zero active mobilisations. When commercial opportunities are marked WON, they initiate here for operational onboarding.
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Client / Mobilisation</th>
                 <th className="py-3 px-4">Template</th>
@@ -110,14 +110,14 @@ export default async function MobilisationsOverviewPage() {
                     <div className="font-light text-white">{mob.client_name}</div>
                     <div className="text-[11px] text-zinc-500">{mob.name}</div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">{mob.template_type}</td>
-                  <td className="py-3.5 px-4 font-mono text-pink-400 font-normal">
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">{mob.template_type}</td>
+                  <td className="py-3.5 px-4 text-pink-400 font-normal">
                     {new Date(mob.target_go_live_date).toLocaleDateString('en-GB')}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">{mob.operations_owner}</td>
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">{mob.operations_owner}</td>
                   <td className="py-3.5 px-4">
                     <span
-                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border ${
+                      className={`text-[10px] uppercase px-2 py-0.5 rounded font-light border ${
                         mob.status === 'LIVE_STABILISATION' || mob.status === 'COMPLETE'
                           ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                           : mob.status === 'GO_LIVE_REVIEW' || mob.status === 'READY'

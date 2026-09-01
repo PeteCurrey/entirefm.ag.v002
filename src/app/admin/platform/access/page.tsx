@@ -66,7 +66,7 @@ export default async function PlatformAccessPage() {
         <div key={group.label} className={`rounded-lg border ${group.badge} p-6`}>
           <div className="flex items-center gap-3 mb-5">
             <h2 className={`text-[15px] font-normal ${group.colour}`}>{group.label}</h2>
-            <span className="font-mono text-[11px] text-brand-mist/50">→ {group.portal}</span>
+            <span className="font-normal text-[11px] text-brand-mist/50">→ {group.portal}</span>
           </div>
 
           <div className="space-y-4">
@@ -75,14 +75,14 @@ export default async function PlatformAccessPage() {
               return (
                 <div key={role} className="rounded border border-brand-edge-dark/60 bg-brand-void/60 p-4">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className={`font-mono text-[13px] font-normal ${group.colour}`}>{role}</span>
-                    <span className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-2 py-0.5 font-mono text-[10px] text-brand-mist/50">
+                    <span className={`text-[13px] font-normal${group.colour}`}>{role}</span>
+                    <span className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-2 py-0.5 font-normal text-[10px] text-brand-mist/50">
                       {perms.length} permissions
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {perms.map((p) => (
-                      <span key={p} className="rounded bg-brand-carbon/80 border border-brand-edge-dark/40 px-1.5 py-0.5 font-mono text-[10px] text-brand-mist/50">
+                      <span key={p} className="rounded bg-brand-carbon/80 border border-brand-edge-dark/40 px-1.5 py-0.5 font-normal text-[10px] text-brand-mist/50">
                         {p}
                       </span>
                     ))}

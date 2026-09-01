@@ -43,7 +43,7 @@ export default async function ImportsPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[80rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Batch</th>
                 <th className="px-5 py-3">File Name</th>
                 <th className="px-5 py-3">Format</th>
@@ -59,24 +59,24 @@ export default async function ImportsPage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {batches.map((b) => (
                 <tr key={b.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">{b.batch_number}</td>
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">{b.batch_number}</td>
                   <td className="px-5 py-4 text-brand-mist/80">{b.file_name}</td>
                   <td className="px-5 py-4">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${FORMAT_COLOURS[b.source_format] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${FORMAT_COLOURS[b.source_format] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                       {b.source_format}
                     </span>
                   </td>
                   <td className="px-5 py-4">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${STATUS_COLOURS[b.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${STATUS_COLOURS[b.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                       {b.status}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-right font-mono text-[11px] text-brand-mist/70">{b.total_rows}</td>
-                  <td className="px-4 py-4 text-right font-mono text-[11px] text-emerald-400">{b.ready_rows}</td>
-                  <td className="px-4 py-4 text-right font-mono text-[11px] text-amber-400">{b.review_rows}</td>
-                  <td className="px-4 py-4 text-right font-mono text-[11px] text-orange-400">{b.duplicate_rows}</td>
-                  <td className="px-4 py-4 text-right font-mono text-[11px] text-blue-400">{b.imported_rows}</td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                  <td className="px-4 py-4 text-right font-normal text-[11px] text-brand-mist/70">{b.total_rows}</td>
+                  <td className="px-4 py-4 text-right font-normal text-[11px] text-emerald-400">{b.ready_rows}</td>
+                  <td className="px-4 py-4 text-right font-normal text-[11px] text-amber-400">{b.review_rows}</td>
+                  <td className="px-4 py-4 text-right font-normal text-[11px] text-orange-400">{b.duplicate_rows}</td>
+                  <td className="px-4 py-4 text-right font-normal text-[11px] text-blue-400">{b.imported_rows}</td>
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                     {new Date(b.created_at).toLocaleDateString('en-GB')}
                   </td>
                 </tr>

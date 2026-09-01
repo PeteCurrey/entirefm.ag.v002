@@ -456,7 +456,7 @@ export function DroneInspectionPlanner() {
               <button
                 type="button"
                 onClick={handleStartAgain}
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-white mr-2"
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-normal text-slate-400 hover:text-white mr-2"
                 title="Reset brief"
               >
                 <RotateCcw className="w-3.5 h-3.5" />

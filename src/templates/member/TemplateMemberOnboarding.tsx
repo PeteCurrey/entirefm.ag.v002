@@ -82,7 +82,7 @@ export function TemplateMemberOnboarding() {
           {/* Header */}
           <div className="space-y-3 text-center sm:text-left">
             <div className="inline-flex items-center gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light bg-brand-electric/10 px-2.5 py-1 rounded-[4px]">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light bg-brand-electric/10 px-2.5 py-1 rounded-[4px]">
                 WELCOME TO THE LOBBY
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -100,7 +100,7 @@ export function TemplateMemberOnboarding() {
 
           {/* Professional Interests Grid */}
           <div className="space-y-4">
-            <label className="block text-xs uppercase tracking-wider text-neutral-500 font-mono">
+            <label className="block text-xs uppercase tracking-wider text-neutral-500 font-medium">
               Select your FM focus areas
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
@@ -127,7 +127,7 @@ export function TemplateMemberOnboarding() {
 
           {/* Professional Context Form */}
           <div className="space-y-4 bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8">
-            <h2 className="text-sm uppercase tracking-wider text-neutral-500 font-mono">
+            <h2 className="text-sm uppercase tracking-wider text-neutral-500 font-medium">
               Professional Details (Optional)
             </h2>
 

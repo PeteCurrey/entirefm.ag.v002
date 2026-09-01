@@ -43,7 +43,7 @@ export function DynamicRiskReviewModal({ isOpen, onClose, onSuccess, workOrderNu
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-300 font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-amber-300 font-bold">
                 DYNAMIC RISK ASSESSMENT
               </span>
               <h2 className="text-base font-light text-white">Site Conditions Differ &bull; {workOrderNumber}</h2>
@@ -55,7 +55,7 @@ export function DynamicRiskReviewModal({ isOpen, onClose, onSuccess, workOrderNu
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-mono">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-normal">
           <p className="text-brand-mist/80 font-sans leading-relaxed">
             Record changes between planned RAMS and actual physical site conditions before commencing work.
           </p>
@@ -65,7 +65,7 @@ export function DynamicRiskReviewModal({ isOpen, onClose, onSuccess, workOrderNu
             <select
               value={changedCondition}
               onChange={(e) => setChangedCondition(e.target.value)}
-              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-mono focus:outline-none focus:border-brand-electric"
+              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
             >
               <option value="UNEXPECTED_SERVICES">Unexpected Live Services / Pipework</option>
               <option value="WATER_INGRESS">Water Ingress / Damp Electrical Area</option>

@@ -160,7 +160,7 @@ export default function EmergencyLightingScheduleForm({
         <div>
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-indigo-400" />
-            <span className="text-xs uppercase font-mono tracking-widest text-indigo-300">
+            <span className="text-xs uppercase font-normal tracking-widest text-indigo-300">
               EMERGENCY LIGHTING ASSET SURVEY
             </span>
           </div>
@@ -195,7 +195,7 @@ export default function EmergencyLightingScheduleForm({
       {/* ── 01 SURVEY HEADER ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             01
           </span>
           <h3 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -220,7 +220,7 @@ export default function EmergencyLightingScheduleForm({
               type="text"
               disabled
               value="BS 5266-1:2016 / BS EN 1838 (3-Hour Duration Standard)"
-              className="w-full bg-slate-950/60 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-400 font-mono"
+              className="w-full bg-slate-950/60 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-400 font-normal"
             />
           </div>
         </div>
@@ -230,14 +230,14 @@ export default function EmergencyLightingScheduleForm({
       <section className="space-y-4">
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               02
             </span>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Emergency Luminaire Schedule
             </h3>
           </div>
-          <span className="text-xs text-slate-400 font-mono">
+          <span className="text-xs text-slate-400 font-normal">
             {assets.length} items logged
           </span>
         </div>
@@ -251,7 +251,7 @@ export default function EmergencyLightingScheduleForm({
               {/* Row Header */}
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-slate-500">#{idx + 1}</span>
+                  <span className="text-xs font-normal text-slate-500">#{idx + 1}</span>
                   <input
                     type="text"
                     value={asset.asset_reference}
@@ -262,7 +262,7 @@ export default function EmergencyLightingScheduleForm({
                       setAssets(copy);
                     }}
                     placeholder="Ref (e.g. EL-001)"
-                    className="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm font-mono font-bold text-sky-400 focus:outline-none focus:border-indigo-500"
+                    className="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm font-bold text-sky-400 focus:outline-none focus:border-indigo-500"
                   />
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                     asset.is_operational
@@ -402,7 +402,7 @@ export default function EmergencyLightingScheduleForm({
                       setAssets(copy);
                     }}
                     placeholder="e.g. KS-01"
-                    className="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-mono"
+                    className="w-full bg-slate-950 border border-slate-800 rounded p-2 text-white font-normal"
                   />
                 </div>
               </div>
@@ -434,7 +434,7 @@ export default function EmergencyLightingScheduleForm({
       {/* ── 03 OVERALL ASSESSMENT ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             03
           </span>
           <h3 className="text-sm font-bold text-white uppercase tracking-wider">

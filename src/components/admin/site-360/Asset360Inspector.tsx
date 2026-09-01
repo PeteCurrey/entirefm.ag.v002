@@ -51,7 +51,7 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
       <div className="space-y-6 text-[12.5px]">
         {/* Technical Specs Card */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 space-y-3">
-          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
+          <h4 className="text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
             NAMEPLATE & SPECIFICATION
           </h4>
           <div className="grid grid-cols-2 gap-3">
@@ -63,13 +63,13 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Model Number</span>
-              <span className="font-mono text-[#101010]">
+              <span className="font-normal text-[#101010]">
                 {asset.model_number || '—'}
               </span>
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Serial Number</span>
-              <span className="font-mono text-[#101010]">
+              <span className="font-normal text-[#101010]">
                 {asset.serial_number || '—'}
               </span>
             </div>
@@ -84,24 +84,24 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
 
         {/* Condition & Lifecycle */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 space-y-3">
-          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
+          <h4 className="text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
             CONDITION & LIFECYCLE
           </h4>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Condition Grade</span>
-              <span className="font-mono text-[#101010]">{asset.condition || 'UNASSESSED'}</span>
+              <span className="font-normal text-[#101010]">{asset.condition || 'UNASSESSED'}</span>
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Install Date</span>
-              <span className="font-mono text-[#101010]">{asset.install_date || '—'}</span>
+              <span className="font-normal text-[#101010]">{asset.install_date || '—'}</span>
             </div>
           </div>
         </div>
 
         {/* Chronological Maintenance History */}
         <div className="space-y-3">
-          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
+          <h4 className="text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
             SERVICE RECORD & AUDIT
           </h4>
           <div className="rounded-[8px] bg-[#F9F9F8] border border-[#E4E4E1] p-3 text-[#686866] text-center text-[12px]">

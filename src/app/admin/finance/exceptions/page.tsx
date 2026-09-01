@@ -39,17 +39,17 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <ShieldAlert className="h-4 w-4 text-red-400" />
-          <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-white">
             Bank Detail Change Alerts ({bankList.length})
           </h2>
         </div>
         {bankList.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-mono text-brand-mist/60">
+          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
             No active bank detail change alerts.
           </div>
         ) : (
           <div className="bg-brand-carbon border border-red-900/40 rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-mono text-brand-mist">
+            <table className="w-full text-left text-xs font-normal text-brand-mist">
               <thead className="bg-red-950/40 uppercase text-[10.5px] font-normal text-red-300 border-b border-red-900/40">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>
@@ -89,17 +89,17 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-amber-400" />
-          <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-white">
             Possible Duplicate Invoices ({dupList.length})
           </h2>
         </div>
         {dupList.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-mono text-brand-mist/60">
+          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
             No duplicate invoices detected.
           </div>
         ) : (
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-mono text-brand-mist">
+            <table className="w-full text-left text-xs font-normal text-brand-mist">
               <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>

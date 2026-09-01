@@ -69,7 +69,7 @@ export function SiteInspectorDrawer({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-3 left-4 right-4 text-white">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-white/80">
+            <div className="font-medium text-[11px] uppercase tracking-wider text-white/80">
               {site.site_type.replace(/_/g, ' ')}
             </div>
             <div className="text-[14px] font-normal text-white">{site.address_line1}</div>
@@ -77,7 +77,7 @@ export function SiteInspectorDrawer({
         </div>
 
         {/* Live Operational Metrics Matrix */}
-        <div className="grid grid-cols-3 gap-2.5 font-mono text-[12px]">
+        <div className="grid grid-cols-3 gap-2.5 font-normal text-[12px]">
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] p-3 text-center">
             <div className="text-[10px] text-[#686866] uppercase">Open Jobs</div>
             <div className="text-2xl font-light text-[#101010] mt-1 tabular-nums">
@@ -113,7 +113,7 @@ export function SiteInspectorDrawer({
 
         {/* Site Profile & Access Rules */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 space-y-3">
-          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
+          <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             FACILITY PROFILE &amp; ACCESS PROTOCOLS
           </h3>
           <div className="grid grid-cols-2 gap-3 text-[12.5px]">
@@ -131,7 +131,7 @@ export function SiteInspectorDrawer({
             </div>
             <div>
               <span className="text-[#9B9B97] text-[11px] block">Coordinates</span>
-              <span className="font-mono text-[11.5px] text-[#101010]">
+              <span className="font-normal text-[11.5px] text-[#101010]">
                 {(site as any).latitude
                   ? `${Number((site as any).latitude).toFixed(4)}, ${Number((site as any).longitude).toFixed(4)}`
                   : '—'}
@@ -147,10 +147,10 @@ export function SiteInspectorDrawer({
         {/* Active Work Orders — no fake data */}
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
-            <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
+            <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">
               ACTIVE INCIDENTS &amp; WORK ORDERS
             </h3>
-            <span className="font-mono text-[11px] text-[#9B9B97]">
+            <span className="font-normal text-[11px] text-[#9B9B97]">
               {site.openJobsCount ?? 0} active
             </span>
           </div>

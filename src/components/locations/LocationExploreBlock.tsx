@@ -112,7 +112,7 @@ export function LocationExploreBlock({
               className="bg-slate-950/80 border border-slate-800 rounded-sm p-6 flex flex-col justify-between hover:border-brand-pink/40 transition-all group"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink-light font-light block mb-1">
+                <span className="text-[10px] uppercase tracking-wider text-brand-pink-light font-light block mb-1">
                   {group.category}
                 </span>
                 <h3 className="text-base font-light text-white mb-4 pb-3 border-b border-slate-800/80 group-hover:text-brand-pink-light transition-colors">

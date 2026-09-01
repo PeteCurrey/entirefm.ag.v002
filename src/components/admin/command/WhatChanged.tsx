@@ -23,7 +23,7 @@ export function WhatChanged({ items }: Props) {
   if (items.length === 0) {
     return (
       <div className="rounded-[8px] border border-dashed border-[#E8E8E5] bg-[#FFFFFF] p-6 text-center">
-        <div className="text-[11px] font-mono text-[#9A9A95] uppercase">No operational changes reported</div>
+        <div className="text-[11px] font-normal text-[#9A9A95] uppercase">No operational changes reported</div>
         <div className="text-[12px] text-[#6D6D68] mt-1">No operational records are currently loaded. Changes across work orders, SLAs, and compliance will record here.</div>
       </div>
     );
@@ -37,7 +37,7 @@ export function WhatChanged({ items }: Props) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 mb-1">
                 <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${SEVERITY_DOT[item.severity] || 'bg-[#9A9A95]'}`} />
-                <span className="text-[10.5px] font-mono uppercase tracking-wider text-[#6D6D68] truncate">
+                <span className="text-[10.5px] font-medium uppercase tracking-wider text-[#6D6D68] truncate">
                   {item.type}
                 </span>
               </div>
@@ -51,7 +51,7 @@ export function WhatChanged({ items }: Props) {
                 </div>
               )}
             </div>
-            <div className="text-[10.5px] font-mono text-[#9A9A95] shrink-0 pt-0.5">
+            <div className="text-[10.5px] font-normal text-[#9A9A95] shrink-0 pt-0.5">
               {new Date(item.occurred_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>

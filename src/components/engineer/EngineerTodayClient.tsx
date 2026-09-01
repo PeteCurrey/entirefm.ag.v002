@@ -76,10 +76,10 @@ export function EngineerTodayClient({ initialVisits, operativeId }: Props) {
             {/* Header: Time, Discipline & Priority */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <div className="flex items-center gap-2">
-                <span className="text-base font-bold font-mono text-slate-900">{v.scheduled_time}</span>
-                <span className="text-xs font-mono text-slate-400">&bull; {v.work_order_id}</span>
+                <span className="text-base font-bold text-slate-900">{v.scheduled_time}</span>
+                <span className="text-xs font-normal text-slate-400">&bull; {v.work_order_id}</span>
               </div>
-              <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                 v.job_pack.priority === 'P1_CRITICAL'
                   ? 'bg-rose-100 text-rose-900'
                   : v.job_pack.priority === 'P2_HIGH'
@@ -102,7 +102,7 @@ export function EngineerTodayClient({ initialVisits, operativeId }: Props) {
             </div>
 
             {/* SLA & Status Pill */}
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded text-[11px] font-mono">
+            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded text-[11px] font-normal">
               <div className="text-slate-600">
                 <span>SLA Target: </span>
                 <strong className="text-slate-900">

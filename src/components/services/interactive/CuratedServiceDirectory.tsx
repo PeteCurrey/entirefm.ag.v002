@@ -112,7 +112,7 @@ export function CuratedServiceDirectory() {
               Showing <strong className="font-normal text-slate-900">{filteredServices.length}</strong> of {CURATED_SERVICES.length} commercial service lines
             </span>
             {searchQuery && (
-              <span className="text-brand-pink font-mono">
+              <span className="text-brand-pink font-normal">
                 Filtered by &quot;{searchQuery}&quot;
               </span>
             )}
@@ -133,7 +133,7 @@ export function CuratedServiceDirectory() {
                 >
                   <div className="space-y-1 sm:max-w-md">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs text-slate-400 group-hover:text-brand-pink transition-colors">
+                      <span className="font-normal text-xs text-slate-400 group-hover:text-brand-pink transition-colors">
                         {svc.number}
                       </span>
                       <h3 className="text-base font-normal text-slate-900 group-hover:text-brand-pink transition-colors">
@@ -146,7 +146,7 @@ export function CuratedServiceDirectory() {
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
-                    <span className="text-[10.5px] font-mono uppercase bg-slate-100 text-slate-700 px-2.5 py-1 rounded-xs border border-slate-200">
+                    <span className="text-[10.5px] font-normal uppercase bg-slate-100 text-slate-700 px-2.5 py-1 rounded-xs border border-slate-200">
                       {svc.categoryLabel}
                     </span>
                     <div className="flex items-center gap-1 text-xs font-normal text-slate-500 group-hover:text-brand-pink transition-colors">
@@ -184,14 +184,14 @@ export function CuratedServiceDirectory() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-3">
-                    <span className="text-[10px] font-mono uppercase bg-brand-pink text-white px-2 py-0.5 rounded-xs">
+                    <span className="text-[10px] font-normal uppercase bg-brand-pink text-white px-2 py-0.5 rounded-xs">
                       {activeHoveredService.categoryLabel}
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="text-[11px] font-normal text-slate-400">
                     SERVICE {activeHoveredService.number}
                   </span>
                   <h4 className="text-lg font-normal text-slate-900 mt-0.5">
@@ -204,7 +204,7 @@ export function CuratedServiceDirectory() {
 
                 {/* Capabilities Preview */}
                 <div className="space-y-1.5 pt-3 border-t border-slate-200">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-400 block font-light">
+                  <span className="text-[10.5px] uppercase text-slate-400 block font-light">
                     Deliverables Include:
                   </span>
                   {activeHoveredService.capabilities.slice(0, 3).map((cap, idx) => (

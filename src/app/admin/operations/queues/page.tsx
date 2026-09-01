@@ -78,13 +78,13 @@ function QueueStrip({ icon, label, count, items, color, href, priority }: QueueS
         <div className="flex items-center gap-2.5">
           <span className={countCls}>{icon}</span>
           <div>
-            <div className="text-[10px] uppercase font-mono text-brand-mist/50">{label}</div>
-            <div className={`text-lg font-extralight font-mono ${countCls}`}>{count}</div>
+            <div className="text-[10px] uppercase font-medium text-brand-mist/50">{label}</div>
+            <div className={`text-lg font-extralight${countCls}`}>{count}</div>
           </div>
         </div>
         <Link
           href={href}
-          className="text-[10.5px] font-mono text-brand-electric hover:text-white flex items-center gap-1 transition-colors"
+          className="text-[10.5px] font-normal text-brand-electric hover:text-white flex items-center gap-1 transition-colors"
         >
           View all <ArrowRight className="h-3 w-3" />
         </Link>
@@ -104,7 +104,7 @@ function QueueStrip({ icon, label, count, items, color, href, priority }: QueueS
                 <div className="text-[11.5px] font-light text-white truncate">
                   {item.work_order_number || item.id?.slice(0, 8)?.toUpperCase()} — {item.title || item.description || 'Work Order'}
                 </div>
-                <div className="text-[10.5px] text-brand-mist/50 font-mono mt-0.5">
+                <div className="text-[10.5px] text-brand-mist/50 font-normal mt-0.5">
                   {item.priority || 'P3'} · {item.trade || 'GENERAL'} · {item.sites?.name || item.site_id?.slice(0, 8)}
                 </div>
               </div>
@@ -112,7 +112,7 @@ function QueueStrip({ icon, label, count, items, color, href, priority }: QueueS
             </Link>
           ))}
           {count > 4 && (
-            <div className="px-4 py-2 text-[10.5px] text-zinc-500 font-mono">
+            <div className="px-4 py-2 text-[10.5px] text-zinc-500 font-normal">
               + {count - 4} more
             </div>
           )}
@@ -191,7 +191,7 @@ export default async function OperationalQueuesPage() {
             <span className="text-sm font-light text-red-300">
               {totalActionRequired} item{totalActionRequired !== 1 ? 's' : ''} require immediate action
             </span>
-            <span className="text-[11px] text-red-400/60 ml-2 font-mono">Untriaged · Unassigned · Unacknowledged · SLA At Risk</span>
+            <span className="text-[11px] text-red-400/60 ml-2 font-normal">Untriaged · Unassigned · Unacknowledged · SLA At Risk</span>
           </div>
         </div>
       )}

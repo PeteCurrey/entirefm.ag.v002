@@ -167,7 +167,7 @@ export function AdminUsersDirectoryTable({
         <div className="flex flex-wrap items-center gap-4">
           {/* Lobby Filter */}
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-mono uppercase text-brand-mist/50 tracking-wider">Lobby:</span>
+            <span className="text-[11px] font-normal uppercase text-brand-mist/50 tracking-wider">Lobby:</span>
             {[
               { label: 'All', value: '' },
               { label: 'Members', value: 'member' },
@@ -190,7 +190,7 @@ export function AdminUsersDirectoryTable({
 
           {/* Operational Role Filter */}
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-mono uppercase text-brand-mist/50 tracking-wider">Operational:</span>
+            <span className="text-[11px] font-normal uppercase text-brand-mist/50 tracking-wider">Operational:</span>
             {[
               { label: 'All', value: '' },
               { label: 'Contractors', value: 'CONTRACTOR' },
@@ -218,7 +218,7 @@ export function AdminUsersDirectoryTable({
       <div className="rounded-xl border border-white/10 bg-brand-carbon/40 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-white/10 bg-brand-void/80 text-brand-mist/60 font-mono text-[10px] uppercase tracking-wider">
+            <thead className="border-b border-white/10 bg-brand-void/80 text-brand-mist/60 font-medium text-[10px] uppercase tracking-wider">
               <tr>
                 <th className="px-5 py-3.5">Name & Email</th>
                 <th className="px-4 py-3.5 text-center">Email Verified</th>
@@ -253,7 +253,7 @@ export function AdminUsersDirectoryTable({
                           <div className="font-normal text-white text-sm group-hover:text-brand-electric transition">
                             {user.display_name}
                           </div>
-                          <div className="font-mono text-[11px] text-brand-mist/60">
+                          <div className="font-normal text-[11px] text-brand-mist/60">
                             {user.email}
                           </div>
                         </div>
@@ -263,11 +263,11 @@ export function AdminUsersDirectoryTable({
                     {/* Email Verified */}
                     <td className="px-4 py-3.5 text-center">
                       {user.email_verified ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-normal text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                           ✓ Verified
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-normal text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
                           Unconfirmed
                         </span>
                       )}
@@ -278,7 +278,7 @@ export function AdminUsersDirectoryTable({
                       {user.is_lobby_member ? (
                         <div className="space-y-1">
                           <span
-                            className={`inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded border ${
+                            className={`inline-flex items-center gap-1 text-[11px] font-normal px-2 py-0.5 rounded border ${
                               user.lobby_member_status === 'active'
                                 ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
                                 : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
@@ -298,7 +298,7 @@ export function AdminUsersDirectoryTable({
                           )}
                         </div>
                       ) : (
-                        <span className="text-[11px] font-mono text-brand-mist/40">
+                        <span className="text-[11px] font-normal text-brand-mist/40">
                           Non-Member
                         </span>
                       )}
@@ -307,19 +307,19 @@ export function AdminUsersDirectoryTable({
                     {/* Operational Identity */}
                     <td className="px-5 py-3.5">
                       {user.operational_identity_type === 'CONTRACTOR' ? (
-                        <span className="inline-flex items-center text-[11px] font-mono bg-blue-500/15 text-blue-300 px-2.5 py-0.5 rounded border border-blue-500/30">
+                        <span className="inline-flex items-center text-[11px] font-normal bg-blue-500/15 text-blue-300 px-2.5 py-0.5 rounded border border-blue-500/30">
                           Contractor ({user.operational_status || 'Active'})
                         </span>
                       ) : user.operational_identity_type === 'CLIENT' ? (
-                        <span className="inline-flex items-center text-[11px] font-mono bg-indigo-500/15 text-indigo-300 px-2.5 py-0.5 rounded border border-indigo-500/30">
+                        <span className="inline-flex items-center text-[11px] font-normal bg-indigo-500/15 text-indigo-300 px-2.5 py-0.5 rounded border border-indigo-500/30">
                           Client ({user.operational_status || 'Active'})
                         </span>
                       ) : user.operational_identity_type === 'ENGINEER' ? (
-                        <span className="inline-flex items-center text-[11px] font-mono bg-purple-500/15 text-purple-300 px-2.5 py-0.5 rounded border border-purple-500/30">
+                        <span className="inline-flex items-center text-[11px] font-normal bg-purple-500/15 text-purple-300 px-2.5 py-0.5 rounded border border-purple-500/30">
                           Field Engineer
                         </span>
                       ) : (
-                        <span className="text-[11px] font-mono text-brand-mist/40">
+                        <span className="text-[11px] font-normal text-brand-mist/40">
                           None (Lobby Only)
                         </span>
                       )}
@@ -331,7 +331,7 @@ export function AdminUsersDirectoryTable({
                         {user.organisation_name || <span className="text-brand-mist/40">—</span>}
                       </div>
                       {user.organisation_id && (
-                        <div className="text-[10px] font-mono text-brand-mist/40">
+                        <div className="text-[10px] font-normal text-brand-mist/40">
                           {user.organisation_id}
                         </div>
                       )}
@@ -342,7 +342,7 @@ export function AdminUsersDirectoryTable({
                       <div className="text-brand-mist/80 text-[11px]">
                         Joined {new Date(user.auth_created_at).toLocaleDateString('en-GB')}
                       </div>
-                      <div className="text-[10px] font-mono text-brand-mist/40">
+                      <div className="text-[10px] font-normal text-brand-mist/40">
                         {user.last_sign_in_at
                           ? `Active ${new Date(user.last_sign_in_at).toLocaleDateString('en-GB')}`
                           : 'Never signed in'}
@@ -379,13 +379,13 @@ export function AdminUsersDirectoryTable({
                 <div className="flex items-center gap-2">
                   <h2 className="text-xl font-light text-white">{selectedUser.display_name}</h2>
                   {selectedUser.email_verified && (
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-normal text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
                       Verified
                     </span>
                   )}
                 </div>
-                <p className="text-xs font-mono text-brand-mist/60 mt-0.5">{selectedUser.email}</p>
-                <p className="text-[10px] font-mono text-brand-mist/40 mt-1">
+                <p className="text-xs font-normal text-brand-mist/60 mt-0.5">{selectedUser.email}</p>
+                <p className="text-[10px] font-normal text-brand-mist/40 mt-1">
                   Canonical Auth UUID: <code className="text-brand-electric">{selectedUser.auth_user_id}</code>
                 </p>
               </div>
@@ -435,7 +435,7 @@ export function AdminUsersDirectoryTable({
             <div className="p-6 overflow-y-auto space-y-6">
               {actionFeedback && (
                 <div
-                  className={`p-3 rounded-lg text-xs font-mono ${
+                  className={`p-3 rounded-lg text-xs font-normal ${
                     actionFeedback.type === 'success'
                       ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                       : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
@@ -450,7 +450,7 @@ export function AdminUsersDirectoryTable({
                 <div className="space-y-4 text-xs">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-brand-void/60 p-3.5 rounded-lg border border-white/5 space-y-1">
-                      <span className="text-[10px] font-mono uppercase text-brand-mist/50 block">Lobby Axis</span>
+                      <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Lobby Axis</span>
                       <div className="text-sm font-normal text-white">
                         {selectedUser.is_lobby_member ? 'Active Lobby Member' : 'Non-Member'}
                       </div>
@@ -465,7 +465,7 @@ export function AdminUsersDirectoryTable({
                     </div>
 
                     <div className="bg-brand-void/60 p-3.5 rounded-lg border border-white/5 space-y-1">
-                      <span className="text-[10px] font-mono uppercase text-brand-mist/50 block">Operational Axis</span>
+                      <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Operational Axis</span>
                       <div className="text-sm font-normal text-white">
                         {selectedUser.operational_identity_type}
                       </div>
@@ -479,7 +479,7 @@ export function AdminUsersDirectoryTable({
                   </div>
 
                   <div className="bg-brand-void/40 p-4 rounded-lg border border-white/5 space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-brand-mist/50 block">Exclusivity Guarantee</span>
+                    <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Exclusivity Guarantee</span>
                     <p className="text-brand-mist/80 font-light leading-relaxed">
                       This user is backed by a single canonical Supabase Auth user ID. Database constraints strictly prohibit simultaneous Client, Engineer, or Contractor operational identities while preserving optional Lobby membership.
                     </p>
@@ -498,7 +498,7 @@ export function AdminUsersDirectoryTable({
                     </p>
 
                     <div className="space-y-2 pt-2">
-                      <label className="text-[11px] font-mono uppercase text-brand-mist/60 block">
+                      <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
                         Target Operational Identity:
                       </label>
                       <select
@@ -515,7 +515,7 @@ export function AdminUsersDirectoryTable({
 
                     {newOpType !== 'NONE' && (
                       <div className="space-y-2 pt-2">
-                        <label className="text-[11px] font-mono uppercase text-brand-mist/60 block">
+                        <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
                           Organisation Name:
                         </label>
                         <input
@@ -544,7 +544,7 @@ export function AdminUsersDirectoryTable({
                     <div className="space-y-3 bg-brand-void/60 p-4 rounded-xl border border-white/10">
                       <h3 className="text-sm font-normal text-white">Lobby Membership Status</h3>
                       <div className="space-y-2">
-                        <label className="text-[11px] font-mono uppercase text-brand-mist/60 block">
+                        <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
                           Status:
                         </label>
                         <select
@@ -582,7 +582,7 @@ export function AdminUsersDirectoryTable({
                       {auditTrail.map((ev, idx) => (
                         <div
                           key={ev.id || idx}
-                          className="p-3 bg-brand-void/60 rounded-lg border border-white/5 font-mono text-[11px] space-y-1"
+                          className="p-3 bg-brand-void/60 rounded-lg border border-white/5 font-normal text-[11px] space-y-1"
                         >
                           <div className="flex items-center justify-between text-brand-electric">
                             <span>{ev.action}</span>

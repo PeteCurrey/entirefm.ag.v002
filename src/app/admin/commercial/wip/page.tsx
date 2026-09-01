@@ -43,41 +43,41 @@ export default async function CommercialWIPPage() {
       {/* KPI Cards Strip */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Approved WIP Revenue</div>
-          <div className="mt-1 font-mono text-[22px] font-normal text-white">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Approved WIP Revenue</div>
+          <div className="mt-1 text-[22px] font-normal text-white">
             £{summary.approvedRevenueGbp.toFixed(2)}
           </div>
-          <div className="mt-1 font-mono text-[11px] text-brand-mist/60">
+          <div className="mt-1 font-normal text-[11px] text-brand-mist/60">
             Across {quotes?.length || 0} active approved quotes
           </div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Committed Direct Cost</div>
-          <div className="mt-1 font-mono text-[22px] font-normal text-brand-mist/90">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Committed Direct Cost</div>
+          <div className="mt-1 text-[22px] font-normal text-brand-mist/90">
             £{summary.committedCostGbp.toFixed(2)}
           </div>
-          <div className="mt-1 font-mono text-[11px] text-brand-mist/40">
+          <div className="mt-1 font-normal text-[11px] text-brand-mist/40">
             Actual Invoiced: £{summary.actualCostGbp.toFixed(2)}
           </div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Expected WIP Margin</div>
-          <div className="mt-1 font-mono text-[22px] font-normal text-emerald-400">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Expected WIP Margin</div>
+          <div className="mt-1 text-[22px] font-normal text-emerald-400">
             £{summary.expectedMarginGbp.toFixed(2)} ({summary.expectedMarginPct}%)
           </div>
-          <div className="mt-1 font-mono text-[11px] text-emerald-400/60">
+          <div className="mt-1 font-normal text-[11px] text-emerald-400/60">
             Remaining Cost: £{summary.estimatedRemainingCostGbp.toFixed(2)}
           </div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Unbilled Completed Work</div>
-          <div className="mt-1 font-mono text-[22px] font-normal text-amber-400">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Unbilled Completed Work</div>
+          <div className="mt-1 text-[22px] font-normal text-amber-400">
             {unbilled.length} Jobs
           </div>
-          <div className="mt-1 font-mono text-[11px] text-amber-400/60">
+          <div className="mt-1 font-normal text-[11px] text-amber-400/60">
             Ready for client sales invoice staging
           </div>
         </div>
@@ -86,7 +86,7 @@ export default async function CommercialWIPPage() {
       {/* Unbilled Completed Jobs Desk */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-mono text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
             Completed Work Orders Pending Invoicing ({unbilled.length})
           </h3>
         </div>
@@ -94,7 +94,7 @@ export default async function CommercialWIPPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[60rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">WO Number</th>
                 <th className="px-5 py-3">Title</th>
                 <th className="px-5 py-3">Completed On</th>
@@ -108,28 +108,28 @@ export default async function CommercialWIPPage() {
               {unbilled.length > 0 ? (
                 unbilled.map((w) => (
                   <tr key={w.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white font-light">
+                    <td className="px-5 py-4 text-[11px] text-white font-light">
                       {w.work_order_number}
                     </td>
                     <td className="px-5 py-4 text-[12.5px] text-brand-mist/90 max-w-xs truncate">
                       {w.title}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                       {w.actual_completion_at ? new Date(w.actual_completion_at).toLocaleDateString('en-GB') : '—'}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-brand-mist/70">
+                    <td className="px-5 py-4 font-normal text-[12px] text-brand-mist/70">
                       £{Number(w.total_cost_gbp || 0).toFixed(2)}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-emerald-400 font-normal">
+                    <td className="px-5 py-4 text-[12px] text-emerald-400 font-normal">
                       £{Number(w.total_revenue_gbp || 0).toFixed(2)}
                     </td>
                     <td className="px-5 py-4">
-                      <span className="rounded bg-amber-500/10 px-2 py-0.5 font-mono text-[10px] text-amber-400 font-light">
+                      <span className="rounded bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-400 font-light">
                         {w.billing_status}
                       </span>
                     </td>
                     <td className="px-5 py-4 text-right">
-                      <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-mono text-[11px] text-white hover:bg-brand-electric">
+                      <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-normal text-[11px] text-white hover:bg-brand-electric">
                         Stage to Invoice →
                       </button>
                     </td>

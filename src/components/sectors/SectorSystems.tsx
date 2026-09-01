@@ -48,10 +48,10 @@ export function SectorSystems({
               <div>
                 {/* Category Header */}
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded-full bg-brand-pink/10 text-brand-pink font-mono font-light text-[11px] flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-pink/10 text-brand-pink font-light text-[11px] flex items-center justify-center shrink-0">
                     {idx + 1}
                   </div>
-                  <span className="text-[11px] font-mono font-light uppercase tracking-wider text-brand-pink truncate">
+                  <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink truncate">
                     {group.category}
                   </span>
                 </div>
@@ -72,7 +72,7 @@ export function SectorSystems({
               </div>
 
               {/* Bottom footer badge */}
-              <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+              <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500 font-normal">
                 <span>Self-Delivered</span>
                 <span className="text-emerald-600 font-light font-sans">SFG20 Care</span>
               </div>

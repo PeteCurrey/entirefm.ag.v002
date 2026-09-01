@@ -72,19 +72,19 @@ export function ContractorWorkforceClient({
       {/* Top Controls & Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active Operatives</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Active Operatives</span>
           <p className="text-2xl font-light text-white mt-1">{operatives.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Registered team</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Fully Compliant</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Fully Compliant</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{fullyCompliantCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Eligible for work allocation</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Action Required</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Action Required</span>
           <p className={`text-2xl font-light mt-1 ${actionRequiredCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {actionRequiredCount}
           </p>
@@ -92,7 +92,7 @@ export function ContractorWorkforceClient({
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Competency Matrix</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Competency Matrix</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{competencies.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Tracked qualifications</span>
         </div>
@@ -187,12 +187,12 @@ export function ContractorWorkforceClient({
                         <h4 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
                           {op.fullName}
                         </h4>
-                        <p className="text-xs text-brand-mist/50 font-mono">{op.jobTitle}</p>
+                        <p className="text-xs text-brand-mist/50 font-normal">{op.jobTitle}</p>
                       </div>
                     </div>
 
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                      className={`text-[10px] font-normal px-2 py-0.5 rounded border ${
                         op.isEligibleForDispatch
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                           : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
@@ -204,7 +204,7 @@ export function ContractorWorkforceClient({
 
                   {op.trades && op.trades.length > 0 && (
                     <div className="space-y-1.5 pt-2 border-t border-brand-edge-dark/50">
-                      <span className="text-[10px] font-mono uppercase text-brand-mist/40 block">Approved Trades</span>
+                      <span className="text-[10px] font-normal uppercase text-brand-mist/40 block">Approved Trades</span>
                       <div className="flex flex-wrap gap-1">
                         {op.trades.map((t) => (
                           <span
@@ -218,7 +218,7 @@ export function ContractorWorkforceClient({
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-[11px] font-mono text-brand-mist/40 pt-2 border-t border-brand-edge-dark/30">
+                  <div className="flex items-center justify-between text-[11px] font-normal text-brand-mist/40 pt-2 border-t border-brand-edge-dark/30">
                     <span>{op.employmentStatus}</span>
                     <span className="text-brand-electric-bright hover:underline">View Profile &rarr;</span>
                   </div>

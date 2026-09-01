@@ -23,7 +23,7 @@ export default async function CandidateDryRunPage({
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
           DETERMINISTIC EVALUATION
         </span>
         <h1 className="text-2xl font-bold text-slate-900 mt-1">
@@ -35,7 +35,7 @@ export default async function CandidateDryRunPage({
       </div>
 
       {/* Requirement Selector */}
-      <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-3 font-mono text-xs">
+      <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-3 font-normal text-xs">
         <span className="font-bold text-slate-900 font-sans block uppercase tracking-wider text-xs">
           Select Work Requirement for Candidate Matching:
         </span>
@@ -58,7 +58,7 @@ export default async function CandidateDryRunPage({
 
       {/* Selected Requirement Card */}
       {selectedReq && (
-        <div className="bg-slate-50 border border-slate-200 p-5 rounded-sm text-xs font-mono space-y-2">
+        <div className="bg-slate-50 border border-slate-200 p-5 rounded-sm text-xs font-normal space-y-2">
           <div className="flex justify-between items-center pb-2 border-b border-slate-200">
             <span className="font-bold text-slate-900 font-sans text-sm">{selectedReq.site_name} &middot; {selectedReq.site_city}</span>
             <span className="text-rose-700 font-bold">{selectedReq.priority}</span>
@@ -79,7 +79,7 @@ export default async function CandidateDryRunPage({
           Evaluated Candidates ({candidates.length})
         </div>
 
-        <div className="divide-y divide-slate-100 font-mono text-xs">
+        <div className="divide-y divide-slate-100 font-normal text-xs">
           {candidates.map((c) => (
             <div key={c.supplier_id} className="p-5 flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div className="space-y-2 max-w-2xl">

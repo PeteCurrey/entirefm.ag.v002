@@ -77,13 +77,13 @@ export default async function UserDetailPage({
             <h1 className="text-xl font-extralight text-white">
               {person.first_name} {person.last_name}
             </h1>
-            <div className="mt-1 font-mono text-[12.5px] text-brand-mist/60">{person.email}</div>
+            <div className="mt-1 font-normal text-[12.5px] text-brand-mist/60">{person.email}</div>
             {person.mobile && (
-              <div className="mt-0.5 font-mono text-[12px] text-brand-mist/40">{person.mobile}</div>
+              <div className="mt-0.5 font-normal text-[12px] text-brand-mist/40">{person.mobile}</div>
             )}
           </div>
           <div className="flex items-center gap-3">
-            <span className={`rounded border px-2.5 py-1 font-mono text-[11px] ${
+            <span className={`rounded border px-2.5 py-1 font-normal text-[11px] ${
               person.status === 'ACTIVE'
                 ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                 : 'bg-rose-500/10 border-rose-500/20 text-rose-300'
@@ -95,7 +95,7 @@ export default async function UserDetailPage({
 
         {/* Memberships */}
         <div>
-          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
             Organisation Memberships
           </div>
           <div className="space-y-2">
@@ -103,11 +103,11 @@ export default async function UserDetailPage({
               <div key={m.id} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-3">
                 <div>
                   <span className="text-[13px] font-normal text-white">{m.organisation?.name || 'Organisation'}</span>
-                  <span className="ml-2 font-mono text-[10px] text-brand-mist/50">{m.organisation?.org_type}</span>
+                  <span className="ml-2 font-normal text-[10px] text-brand-mist/50">{m.organisation?.org_type}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-[11px] text-brand-electric-bright">{m.role?.code}</span>
-                  <span className={`rounded border px-1.5 py-0.5 font-mono text-[9px] ${
+                  <span className="font-normal text-[11px] text-brand-electric-bright">{m.role?.code}</span>
+                  <span className={`rounded border px-1.5 py-0.5 font-normal text-[9px] ${
                     m.status === 'ACTIVE' ? 'border-emerald-500/30 text-emerald-400' : 'border-rose-500/30 text-rose-300'
                   }`}>{m.status}</span>
                 </div>
@@ -119,12 +119,12 @@ export default async function UserDetailPage({
         {/* Scope Summary */}
         {scopes.length > 0 && (
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
+            <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
               Active Scopes ({scopes.length})
             </div>
             <div className="flex flex-wrap gap-2">
               {scopes.map((s: any, idx: number) => (
-                <span key={idx} className="rounded border border-brand-edge-dark bg-brand-void/60 px-2.5 py-1 font-mono text-[11px] text-brand-mist/60">
+                <span key={idx} className="rounded border border-brand-edge-dark bg-brand-void/60 px-2.5 py-1 font-normal text-[11px] text-brand-mist/60">
                   {s.type}: {s.id.split('-')[0]}…
                 </span>
               ))}
@@ -142,7 +142,7 @@ export default async function UserDetailPage({
             return (
               <div key={res.permission} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-2.5">
                 <span className="text-[13px] text-brand-mist/80">{res.label}</span>
-                <span className={`font-mono text-[11px] font-normal ${canAccess ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <span className={`text-[11px] font-normal${canAccess ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {canAccess ? '✓ CAN VIEW' : '✗ BLOCKED'}
                 </span>
               </div>

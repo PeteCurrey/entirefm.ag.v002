@@ -43,7 +43,7 @@ export function Badge({
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 font-mono uppercase tracking-wider font-medium border ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center gap-1.5 uppercase tracking-wider font-medium border${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
       {pulse && (
         <span className="relative flex h-1.5 w-1.5">

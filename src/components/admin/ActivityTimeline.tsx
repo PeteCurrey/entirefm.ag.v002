@@ -30,11 +30,11 @@ export function ActivityTimeline({ events }: ActivityTimelineProps) {
               <div className="flex items-center gap-2">
                 <span className="font-medium text-[13px] text-[#101010]">{evt.event_type}</span>
                 {evt.is_ai && (
-                  <span className="rounded-[4px] bg-[#F5F3FF] border border-[#DDD6FE] px-1 py-0.2 font-mono text-[9px] text-[#7C3AED] font-light">
+                  <span className="rounded-[4px] bg-[#F5F3FF] border border-[#DDD6FE] px-1 py-0.2 text-[9px] text-[#7C3AED] font-light">
                     AI AGENT
                   </span>
                 )}
-                <span className="font-mono text-[10.5px] text-[#9B9B97] tabular-nums">
+                <span className="font-normal text-[10.5px] text-[#9B9B97] tabular-nums">
                   {new Date(evt.created_at).toLocaleTimeString('en-GB', {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -46,7 +46,7 @@ export function ActivityTimeline({ events }: ActivityTimelineProps) {
                 <div className="mt-0.5 text-[12px] text-[#686866]">{evt.reason}</div>
               )}
 
-              <div className="mt-1 font-mono text-[10px] text-[#9B9B97]">
+              <div className="mt-1 font-normal text-[10px] text-[#9B9B97]">
                 Actor: {evt.actor_type} · Obj: {evt.object_type}
               </div>
             </div>

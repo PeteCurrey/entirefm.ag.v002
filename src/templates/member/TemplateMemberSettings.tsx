@@ -290,7 +290,7 @@ export function TemplateMemberSettings() {
         <main className="flex-1 flex items-center justify-center py-32">
           <div className="flex flex-col items-center gap-3">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-brand-electric" />
-            <span className="text-xs font-mono text-brand-mist/50 tracking-wider uppercase">
+            <span className="text-xs font-normal text-brand-mist/50 tracking-wider uppercase">
               Loading Member Settings…
             </span>
           </div>
@@ -350,7 +350,7 @@ export function TemplateMemberSettings() {
           <div className="mb-6">
             <Link
               href="/member/profile"
-              className="inline-flex items-center gap-2 text-[11px] font-mono tracking-widest text-brand-mist/60 hover:text-white transition-colors uppercase group"
+              className="inline-flex items-center gap-2 text-[11px] font-normal tracking-widest text-brand-mist/60 hover:text-white transition-colors uppercase group"
             >
               <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
               <span>Return to Profile</span>
@@ -361,7 +361,7 @@ export function TemplateMemberSettings() {
           <div className="border-b border-brand-edge-dark pb-8 mb-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright block mb-1">
+                <span className="text-[10px] font-normal uppercase tracking-[0.25em] text-brand-electric-bright block mb-1">
                   Member Preferences
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
@@ -398,7 +398,7 @@ export function TemplateMemberSettings() {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-white truncate">{memberName}</span>
                     {member.username && (
-                      <span className="text-xs font-mono text-brand-mist/50 truncate hidden sm:inline">
+                      <span className="text-xs font-normal text-brand-mist/50 truncate hidden sm:inline">
                         @{member.username}
                       </span>
                     )}
@@ -410,7 +410,7 @@ export function TemplateMemberSettings() {
                 </div>
               </div>
 
-              <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-800/40 px-2.5 py-1 rounded">
+              <div className="hidden sm:flex items-center gap-2 text-xs font-normal text-emerald-400 bg-emerald-950/30 border border-emerald-800/40 px-2.5 py-1 rounded">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Active Member</span>
               </div>
@@ -422,7 +422,7 @@ export function TemplateMemberSettings() {
             {/* Left Sidebar Navigation (Desktop) */}
             <aside className="sticky top-28 space-y-8 hidden lg:block">
               <div>
-                <span className="text-[9px] font-mono tracking-[0.25em] text-brand-mist/40 uppercase block mb-3 pl-3.5">
+                <span className="text-[9px] font-normal tracking-[0.25em] text-brand-mist/40 uppercase block mb-3 pl-3.5">
                   Navigation
                 </span>
                 <nav className="space-y-1">
@@ -455,7 +455,7 @@ export function TemplateMemberSettings() {
               </div>
 
               {/* Account Governance Card */}
-              <div className="p-4 rounded border border-brand-edge-dark bg-brand-carbon/40 space-y-2.5 text-[11px] font-mono text-brand-mist/60">
+              <div className="p-4 rounded border border-brand-edge-dark bg-brand-carbon/40 space-y-2.5 text-[11px] font-normal text-brand-mist/60">
                 <div className="flex items-center gap-1.5 text-white">
                   <ShieldCheck className="h-3.5 w-3.5 text-brand-electric" />
                   <span className="font-sans font-medium text-xs">Security &amp; Data</span>
@@ -476,7 +476,7 @@ export function TemplateMemberSettings() {
               {/* Section 1: Communications */}
               <section id="communications" className="scroll-mt-28 space-y-5">
                 <div className="border-b border-brand-edge-dark pb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
+                  <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
                     Section 01
                   </span>
                   <h2 className="text-xl font-light text-white tracking-tight">
@@ -520,7 +520,7 @@ export function TemplateMemberSettings() {
               {/* Section 2: Notifications */}
               <section id="notifications" className="scroll-mt-28 space-y-5">
                 <div className="border-b border-brand-edge-dark pb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
+                  <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
                     Section 02
                   </span>
                   <h2 className="text-xl font-light text-white tracking-tight">
@@ -564,7 +564,7 @@ export function TemplateMemberSettings() {
               {/* Section 3: Profile Visibility */}
               <section id="visibility" className="scroll-mt-28 space-y-5">
                 <div className="border-b border-brand-edge-dark pb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
+                  <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
                     Section 03
                   </span>
                   <h2 className="text-xl font-light text-white tracking-tight">
@@ -617,7 +617,7 @@ export function TemplateMemberSettings() {
                           <div className="flex items-center gap-2">
                             <span className="text-sm font-medium text-white">{label}</span>
                             {isSelected && (
-                              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric-bright">
+                              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-electric-bright">
                                 Active Selection
                               </span>
                             )}
@@ -633,7 +633,7 @@ export function TemplateMemberSettings() {
               {/* Section 4: Privacy & Governance */}
               <section id="privacy" className="scroll-mt-28 space-y-4">
                 <div className="border-b border-brand-edge-dark pb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
+                  <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
                     Section 04
                   </span>
                   <h2 className="text-xl font-light text-white tracking-tight">
@@ -680,7 +680,7 @@ export function TemplateMemberSettings() {
                         privacy@entirefm.com
                       </a>
                     </span>
-                    <span className="font-mono text-[10px]">EntireFM Ltd &bull; UK DPA 2018</span>
+                    <span className="font-normal text-[10px]">EntireFM Ltd &bull; UK DPA 2018</span>
                   </div>
                 </div>
               </section>
@@ -707,14 +707,14 @@ export function TemplateMemberSettings() {
                 {/* Feedback notifications */}
                 <div className="flex items-center">
                   {saveSuccess && (
-                    <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded animate-in fade-in duration-200">
+                    <div className="flex items-center gap-2 text-xs font-normal text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded animate-in fade-in duration-200">
                       <CheckCircle2 className="h-4 w-4 shrink-0" />
                       <span>Preferences saved successfully</span>
                     </div>
                   )}
 
                   {saveError && (
-                    <div className="flex items-center gap-2 text-xs font-mono text-rose-300 bg-rose-950/40 border border-rose-800/50 px-3 py-1.5 rounded animate-in fade-in duration-200">
+                    <div className="flex items-center gap-2 text-xs font-normal text-rose-300 bg-rose-950/40 border border-rose-800/50 px-3 py-1.5 rounded animate-in fade-in duration-200">
                       <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
                       <span>{saveError}</span>
                     </div>

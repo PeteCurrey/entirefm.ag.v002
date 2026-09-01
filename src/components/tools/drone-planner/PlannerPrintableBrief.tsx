@@ -38,12 +38,12 @@ export function PlannerPrintableBrief({
           <h1 className="text-xl font-light uppercase tracking-tight text-slate-900">
             ENTIRE FACILITIES MANAGEMENT
           </h1>
-          <span className="font-mono text-xs text-pink-600 font-light uppercase tracking-wider block mt-0.5">
+          <span className="text-xs text-pink-600 font-light uppercase tracking-wider block mt-0.5">
             DRONE SERVICES DIVISION &bull; COMMERCIAL INSPECTION BRIEF
           </span>
         </div>
 
-        <div className="text-right font-mono text-[11px]">
+        <div className="text-right font-normal text-[11px]">
           <div><strong>REF:</strong> {referenceNumber}</div>
           <div><strong>DATE:</strong> {currentDate}</div>
         </div>
@@ -52,7 +52,7 @@ export function PlannerPrintableBrief({
       {/* Property & Client Summary */}
       <div className="grid grid-cols-2 gap-6 bg-slate-50 p-4 rounded border border-slate-200">
         <div className="space-y-1">
-          <strong className="text-[10px] font-mono uppercase text-slate-500 block">Site / Property Details:</strong>
+          <strong className="text-[10px] font-normal uppercase text-slate-500 block">Site / Property Details:</strong>
           <div><strong>Property Type:</strong> {site.siteType === 'Other' ? site.siteTypeOther : site.siteType}</div>
           <div><strong>Location:</strong> {site.siteName ? `${site.siteName}, ` : ''}{site.city || 'United Kingdom'} {site.postcode || ''}</div>
           <div><strong>Scale &amp; Height:</strong> {site.siteScale} ({inspection.heightBand || 'Standard'})</div>
@@ -60,7 +60,7 @@ export function PlannerPrintableBrief({
         </div>
 
         <div className="space-y-1">
-          <strong className="text-[10px] font-mono uppercase text-slate-500 block">Client / Contact:</strong>
+          <strong className="text-[10px] font-normal uppercase text-slate-500 block">Client / Contact:</strong>
           <div><strong>Contact Name:</strong> {contact.firstName ? `${contact.firstName} ${contact.lastName}` : 'Provisional Assessment'}</div>
           <div><strong>Company:</strong> {contact.company || 'Not specified'}</div>
           <div><strong>Email:</strong> {contact.email || 'Not specified'}</div>
@@ -70,7 +70,7 @@ export function PlannerPrintableBrief({
 
       {/* Primary Recommended Service & Package */}
       <div className="p-4 border-2 border-pink-600 rounded space-y-2 bg-pink-50/20">
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase font-light text-pink-700">
+        <div className="flex items-center justify-between text-[10px] uppercase font-light text-pink-700">
           <span>RECOMMENDED SERVICE</span>
           <span>SCOPE: {recommendation.scopeCategory.toUpperCase()}</span>
         </div>
@@ -83,7 +83,7 @@ export function PlannerPrintableBrief({
 
         {recommendation.inspectionPack && (
           <div className="mt-2 pt-2 border-t border-pink-200">
-            <strong className="text-[10px] font-mono uppercase text-pink-800 block">Recommended Pack:</strong>
+            <strong className="text-[10px] font-normal uppercase text-pink-800 block">Recommended Pack:</strong>
             <span className="font-light text-slate-900">{recommendation.inspectionPack.title}</span> — {recommendation.inspectionPack.description}
           </div>
         )}
@@ -92,7 +92,7 @@ export function PlannerPrintableBrief({
       {/* Deliverables & Remediation Grid */}
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-2">
-          <h3 className="font-mono text-[10px] uppercase font-light text-slate-700 border-b pb-1">
+          <h3 className="text-[10px] uppercase font-light text-slate-700 border-b pb-1">
             Suggested Deliverables
           </h3>
           <ul className="space-y-1 text-slate-700 list-disc list-inside">
@@ -103,7 +103,7 @@ export function PlannerPrintableBrief({
         </div>
 
         <div className="space-y-2">
-          <h3 className="font-mono text-[10px] uppercase font-light text-slate-700 border-b pb-1">
+          <h3 className="text-[10px] uppercase font-light text-slate-700 border-b pb-1">
             EntireFM Remedial Works Alignment
           </h3>
           <div className="space-y-1.5 text-slate-700">
@@ -125,7 +125,7 @@ export function PlannerPrintableBrief({
       </div>
 
       {/* Footer Contact */}
-      <div className="flex items-center justify-between border-t border-slate-300 pt-3 text-[10.5px] font-mono text-slate-600">
+      <div className="flex items-center justify-between border-t border-slate-300 pt-3 text-[10.5px] font-normal text-slate-600">
         <div>EntireFM &bull; Nationwide UK Delivery</div>
         <div>Tel: {CONTACT_CONFIG.mainPhone.display} &bull; Web: entirefm.com</div>
       </div>

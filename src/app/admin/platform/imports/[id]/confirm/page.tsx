@@ -54,7 +54,7 @@ export default function ConfirmImportPage() {
           <ShieldCheck className="h-6 w-6 text-[#15803D]" />
           <h2 className="font-extralight text-[#101010] text-[15px]">Import Summary</h2>
         </div>
-        <div className="grid grid-cols-2 gap-3 font-mono">
+        <div className="grid grid-cols-2 gap-3 font-normal">
           {[
             { label: 'Entity Type', value: batch?.entity_type },
             { label: 'Source System', value: batch?.source_system },

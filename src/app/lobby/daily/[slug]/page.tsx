@@ -43,7 +43,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
       <div className="max-w-[640px] mx-auto bg-white border border-[#E2E2DE] shadow-sm rounded-sm overflow-hidden">
         
         {/* Navigation Strip */}
-        <div className="bg-[#0A0D14] border-b border-[#222734] px-6 py-3 flex items-center justify-between text-xs font-mono text-white/70">
+        <div className="bg-[#0A0D14] border-b border-[#222734] px-6 py-3 flex items-center justify-between text-xs font-normal text-white/70">
           <Link
             href="/lobby/daily"
             className="inline-flex items-center gap-1.5 text-white/80 hover:text-[#00E599] transition-colors"
@@ -62,7 +62,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
                 E
               </div>
               <div>
-                <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-[#00E599] block uppercase">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#00E599] block uppercase">
                   ENTIREFM
                 </span>
                 <span className="text-xl font-light tracking-wide text-white block">
@@ -70,7 +70,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
                 </span>
               </div>
             </div>
-            <div className="text-right text-xs font-mono text-white/60">
+            <div className="text-right text-xs font-normal text-white/60">
               <span className="block text-white/80 uppercase">{edition.masthead.ukDateFormatted}</span>
               <span className="block text-[11px] text-white/40">{edition.readingTimeMinutes} min read</span>
             </div>
@@ -100,7 +100,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
             </div>
           )}
 
-          <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0284C7] block">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#0284C7] block">
             {edition.leadStory.categoryLabel}
           </span>
 
@@ -113,7 +113,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
           </p>
 
           <div className="bg-[#F8FAFC] border-l-4 border-[#00E599] p-4 space-y-1">
-            <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-[#0F172A] block">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0F172A] block">
               WHY IT MATTERS:
             </span>
             <p className="text-sm text-[#334155] leading-relaxed">
@@ -140,7 +140,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 3. THE MORNING BRIEF ── */}
         {edition.morningBrief && edition.morningBrief.length > 0 && (
           <section className="p-6 sm:p-8 border-b border-[#E2E2DE] space-y-4">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0F172A] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#0F172A] block">
               THE MORNING BRIEF
             </span>
 
@@ -172,14 +172,14 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 4. WHAT CHANGED TODAY ── */}
         {edition.whatChangedToday && edition.whatChangedToday.length > 0 && (
           <section className="p-6 sm:p-8 border-b border-[#E2E2DE] space-y-6">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0F172A] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#0F172A] block">
               WHAT CHANGED TODAY
             </span>
 
             <div className="space-y-6 divide-y divide-[#F1F1EF]">
               {edition.whatChangedToday.map((story, idx) => (
                 <div key={story.id || idx} className={idx > 0 ? 'pt-6 space-y-2' : 'space-y-2'}>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0284C7] block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#0284C7] block">
                     {story.category}
                   </span>
                   <h3 className="text-lg font-semibold text-[#0F172A] leading-snug">
@@ -216,7 +216,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 5. COMPLIANCE WATCH ── */}
         {edition.complianceWatch && (
           <section className="p-6 sm:p-8 bg-[#FFFBEB] border-b border-[#E2E2DE] space-y-3">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#B45309] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#B45309] block">
               COMPLIANCE WATCH · STATUTORY DIRECTIVE
             </span>
             <h3 className="text-lg font-semibold text-[#78350F] leading-snug">
@@ -244,7 +244,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 6. CONTRACTS & MOBILISATIONS ── */}
         {edition.contractsMobilisations && edition.contractsMobilisations.length > 0 && (
           <section className="p-6 sm:p-8 border-b border-[#E2E2DE] space-y-4">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0F172A] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#0F172A] block">
               CONTRACTS, AWARDS &amp; MOBILISATIONS
             </span>
 
@@ -271,7 +271,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 7. THE ENGINEER'S NOTE ── */}
         {edition.engineersNote && (
           <section className="p-6 sm:p-8 bg-[#F8FAFC] border-b border-[#E2E2DE] space-y-3">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#00E599] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#00E599] block">
               THE ENGINEER’S NOTE · OPERATIONAL INSIGHT
             </span>
             <h3 className="text-base sm:text-lg font-semibold text-[#0F172A]">
@@ -289,7 +289,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── 8. ON THE HORIZON ── */}
         {edition.onTheHorizon && (
           <section className="p-6 sm:p-8 border-b border-[#E2E2DE] space-y-2">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#64748B] block">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#64748B] block">
               ON THE HORIZON
             </span>
             <h4 className="text-base font-semibold text-[#0F172A]">
@@ -308,7 +308,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {edition.oneUsefulThing && (
           <section className="p-6 sm:p-8 border-b border-[#E2E2DE]">
             <div className="border border-[#E2E2DE] bg-[#FAFAFA] rounded-sm p-5 space-y-2">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#00E599] block">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#00E599] block">
                 ONE USEFUL THING · ENTIREFM RESOURCES
               </span>
               <h3 className="text-base font-semibold text-[#0F172A]">
@@ -330,7 +330,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
         {/* ── OPTIONAL SPONSOR ── */}
         {edition.sponsorBlock && edition.sponsorBlock.enabled && (
           <section className="p-6 bg-[#F8FAFC] border-b border-[#E2E2DE] space-y-2 text-xs">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-[#94A3B8] block font-bold">
+            <span className="text-[9px] uppercase tracking-widest text-[#94A3B8] block font-bold">
               SPONSORED
             </span>
             <h4 className="font-semibold text-sm text-[#0F172A]">
@@ -356,7 +356,7 @@ export default async function LobbyDailyEditionViewPage({ params }: Props) {
             </p>
           </div>
 
-          <div className="pt-3 border-t border-[#1E293B] flex flex-wrap gap-4 text-xs font-mono">
+          <div className="pt-3 border-t border-[#1E293B] flex flex-wrap gap-4 text-xs font-normal">
             <Link href="/lobby/preferences" className="text-[#00E599] hover:underline">
               Manage Preferences
             </Link>

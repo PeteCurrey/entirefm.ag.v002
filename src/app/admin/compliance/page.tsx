@@ -40,29 +40,29 @@ export default async function ComplianceCommandPage() {
       {/* KPI Cards Strip */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-brand-mist/60">Applicable Obligations</div>
+          <div className="text-[11px] font-normal uppercase text-brand-mist/60">Applicable Obligations</div>
           <div className="mt-1 text-2xl font-light text-white">{kpis.APPLICABLE_OBLIGATIONS}</div>
-          <div className="mt-1 text-[11.5px] text-emerald-400 font-mono">{kpis.COMPLIANT_OBLIGATIONS} Compliant</div>
+          <div className="mt-1 text-[11.5px] text-emerald-400 font-normal">{kpis.COMPLIANT_OBLIGATIONS} Compliant</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-rose-300">Overdue Obligations</div>
+          <div className="text-[11px] font-normal uppercase text-rose-300">Overdue Obligations</div>
           <div className="mt-1 text-2xl font-light text-rose-400">{kpis.OVERDUE_OBLIGATIONS}</div>
           <div className="mt-1 text-[11.5px] text-brand-mist/60">Requires urgent work</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-amber-300">Certs Expiring (30d)</div>
+          <div className="text-[11px] font-normal uppercase text-amber-300">Certs Expiring (30d)</div>
           <div className="mt-1 text-2xl font-light text-amber-400">{kpis.CERTIFICATES_EXPIRING_30D}</div>
           <div className="mt-1 text-[11.5px] text-brand-mist/60">{kpis.CERTIFICATES_EXPIRED} expired</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-brand-mist/60">Open Exceptions</div>
+          <div className="text-[11px] font-normal uppercase text-brand-mist/60">Open Exceptions</div>
           <div className="mt-1 text-2xl font-light text-white">{kpis.OPEN_COMPLIANCE_EXCEPTIONS}</div>
-          <div className="mt-1 text-[11.5px] text-rose-400 font-mono">{kpis.CRITICAL_COMPLIANCE_EXCEPTIONS} Critical</div>
+          <div className="mt-1 text-[11.5px] text-rose-400 font-normal">{kpis.CRITICAL_COMPLIANCE_EXCEPTIONS} Critical</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-brand-mist/60">Evidence Pending</div>
+          <div className="text-[11px] font-normal uppercase text-brand-mist/60">Evidence Pending</div>
           <div className="mt-1 text-2xl font-light text-white">{kpis.EVIDENCE_PENDING}</div>
-          <div className="mt-1 text-[11.5px] text-brand-mist/60 font-mono">{kpis.VALIDATION_PENDING} Review Req</div>
+          <div className="mt-1 text-[11.5px] text-brand-mist/60 font-normal">{kpis.VALIDATION_PENDING} Review Req</div>
         </div>
       </div>
 
@@ -86,7 +86,7 @@ export default async function ComplianceCommandPage() {
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
             <h3 className="text-[14px] font-normal text-white">Overdue Statutory Duties</h3>
-            <span className="rounded bg-rose-500/10 px-2 py-0.5 font-mono text-[11px] text-rose-400">
+            <span className="rounded bg-rose-500/10 px-2 py-0.5 font-normal text-[11px] text-rose-400">
               {overdueObs.length} Action Required
             </span>
           </div>
@@ -101,7 +101,7 @@ export default async function ComplianceCommandPage() {
                     <div className="text-[11.5px] text-brand-mist/60">{ob.asset?.name || 'Statutory System Duty'}</div>
                   </div>
                   <div className="text-right">
-                    <div className="font-mono text-[11px] text-rose-400">Due: {ob.next_due_at}</div>
+                    <div className="font-normal text-[11px] text-rose-400">Due: {ob.next_due_at}</div>
                     <span className="text-[10.5px] text-brand-mist/40">{ob.responsible_party}</span>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ export default async function ComplianceCommandPage() {
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
             <h3 className="text-[14px] font-normal text-white">Active Compliance Exceptions</h3>
-            <span className="rounded bg-amber-500/10 px-2 py-0.5 font-mono text-[11px] text-amber-400">
+            <span className="rounded bg-amber-500/10 px-2 py-0.5 font-normal text-[11px] text-amber-400">
               {exceptions.length} Open
             </span>
           </div>
@@ -129,10 +129,10 @@ export default async function ComplianceCommandPage() {
                     <div className="text-[11.5px] text-brand-mist/60">{exc.reason}</div>
                   </div>
                   <div className="text-right">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${exc.severity === 'CRITICAL' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${exc.severity === 'CRITICAL' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>
                       {exc.severity}
                     </span>
-                    <div className="mt-1 text-[10.5px] text-brand-mist/40 font-mono">{exc.state}</div>
+                    <div className="mt-1 text-[10.5px] text-brand-mist/40 font-normal">{exc.state}</div>
                   </div>
                 </div>
               ))}

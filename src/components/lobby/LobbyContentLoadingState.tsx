@@ -189,14 +189,14 @@ export function LobbyContentLoadingState({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-electric opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-electric" />
               </span>
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-brand-electric font-medium">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-brand-electric font-medium">
                 Live Intelligence Feed
               </span>
             </div>
 
             {/* Cycling Activity Stage Indicator */}
             <div className="text-xs font-extralight text-neutral-500 flex items-center gap-2 transition-all duration-300">
-              <span className="text-neutral-400 font-mono text-[10px]">Status:</span>
+              <span className="text-neutral-400 font-normal text-[10px]">Status:</span>
               <span className="font-light text-neutral-800 animate-in fade-in duration-300 key={currentStageIndex}">
                 {stages[currentStageIndex]}…
               </span>

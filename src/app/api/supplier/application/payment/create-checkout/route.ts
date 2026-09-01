@@ -39,17 +39,17 @@ export async function POST(req: NextRequest) {
       'finance@supplier.example.co.uk';
 
     // 1. Zero-Value Checkout Bypass Check:
-    // If the membership fee was already waived by a valid EntireFM Invitation Code, bypass Stripe completely!
+    // Gate is ONLY on authDraft.membershipPaymentStatus — the canonical Supabase-persisted field
+    // for the membership fee (£295/£695). storeDraft.assurance_payment tracks a completely
+    // different product (Initial Assurance Review, £350+VAT) and must never influence this guard.
     if (
       authDraft?.membershipPaymentStatus === 'WAIVED' ||
-      authDraft?.membershipPaymentStatus === 'PAID' ||
-      storeDraft?.assurance_payment?.status === 'WAIVED' ||
-      storeDraft?.assurance_payment?.status === 'PAID'
+      authDraft?.membershipPaymentStatus === 'PAID'
     ) {
       return NextResponse.json({
         zeroValueBypass: true,
         alreadyPaidOrWaived: true,
-        status: authDraft?.membershipPaymentStatus || storeDraft?.assurance_payment?.status || 'WAIVED',
+        status: authDraft.membershipPaymentStatus,
         applicationRef,
         message: 'Membership fee is fully waived or settled. Zero payment required.',
       });

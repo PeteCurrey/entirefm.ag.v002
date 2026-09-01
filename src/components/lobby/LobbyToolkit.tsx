@@ -19,7 +19,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-10 border-b border-neutral-200">
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+            <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-neutral-400 block mb-1">
               FM CALCULATORS &amp; MATRICES
             </span>
             <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
@@ -54,7 +54,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-sm">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-sm">
                     {mainTool.category}
                   </span>
                 </div>
@@ -81,7 +81,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
                     <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
 
-                  <span className="text-xs text-neutral-400 font-mono">
+                  <span className="text-xs text-neutral-400 font-normal">
                     Free for FM Teams
                   </span>
                 </div>
@@ -113,7 +113,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
                     </div>
 
                     <div className="space-y-1 flex-1">
-                      <span className="text-[10px] font-mono text-brand-electric uppercase tracking-wider block">
+                      <span className="text-[10px] font-medium text-brand-electric uppercase tracking-wider block">
                         {tool.category}
                       </span>
                       <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
@@ -128,7 +128,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
                   </div>
 
                   <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
-                    <span className="text-[11px] text-neutral-400 font-mono">
+                    <span className="text-[11px] text-neutral-400 font-normal">
                       Online Calculator
                     </span>
                     <Link

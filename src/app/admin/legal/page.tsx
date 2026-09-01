@@ -168,13 +168,13 @@ export default async function AdminLegalPage() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800 pb-3">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60 mr-2">
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60 mr-2">
                       {item.category}
                     </span>
                     <span className="font-light text-white text-sm">{item.claimId}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-400 font-mono">
+                    <span className="text-[11px] text-slate-400 font-normal">
                       State: {item.status}
                     </span>
                   </div>
@@ -195,7 +195,7 @@ export default async function AdminLegalPage() {
                     </div>
                     <div>
                       <span className="text-slate-500 block">Affected Public Pages:</span>
-                      <span className="text-teal-400 font-mono">
+                      <span className="text-teal-400 font-normal">
                         {item.affectedPages?.join(', ') || 'N/A'}
                       </span>
                     </div>
@@ -253,7 +253,7 @@ export default async function AdminLegalPage() {
             <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-light text-white">{claim.claimId}</span>
-                <span className="text-[10px] font-mono bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-normal bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">
                   CONFIG_REQUIRED
                 </span>
               </div>
@@ -286,7 +286,7 @@ export default async function AdminLegalPage() {
             <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-light text-white">{claim.claimId}</span>
-                <span className="text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-normal bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">
                   LEGAL_REVIEW_REQUIRED
                 </span>
               </div>
@@ -329,7 +329,7 @@ export default async function AdminLegalPage() {
                   <td className="px-4 py-3 font-light text-white">{sub.name}</td>
                   <td className="px-4 py-3 text-slate-400">{sub.contractualEntity}</td>
                   <td className="px-4 py-3 text-slate-400">{sub.category}</td>
-                  <td className="px-4 py-3 font-mono text-[11px]">{sub.primaryHostingRegion}</td>
+                  <td className="px-4 py-3 font-normal text-[11px]">{sub.primaryHostingRegion}</td>
                   <td className="px-4 py-3 text-slate-400 max-w-[220px] truncate" title={sub.internationalTransferAssessment}>
                     {sub.transferSafeguard}
                   </td>
@@ -393,7 +393,7 @@ export default async function AdminLegalPage() {
               <tbody className="divide-y divide-slate-800">
                 {dataRightsRequests.map((r) => (
                   <tr key={r.reference} className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-mono font-light text-white">{r.reference}</td>
+                    <td className="px-4 py-3 font-light text-white">{r.reference}</td>
                     <td className="px-4 py-3 font-light text-teal-400">{r.right_type}</td>
                     <td className="px-4 py-3">
                       <div className="font-light text-white">{r.full_name}</div>
@@ -405,7 +405,7 @@ export default async function AdminLegalPage() {
                         {r.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">
+                    <td className="px-4 py-3 text-slate-400 font-normal text-[11px]">
                       {new Date(r.clock.finalStatutoryDueDate).toLocaleDateString('en-GB')}
                     </td>
                   </tr>
@@ -459,7 +459,7 @@ export default async function AdminLegalPage() {
               <tbody className="divide-y divide-slate-800">
                 {complaints.map((c) => (
                   <tr key={c.reference} className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-mono font-light text-white">{c.reference}</td>
+                    <td className="px-4 py-3 font-light text-white">{c.reference}</td>
                     <td className="px-4 py-3 capitalize">{c.category.replace('_', ' ')}</td>
                     <td className="px-4 py-3">
                       <div className="font-light text-white">{c.full_name}</div>
@@ -532,7 +532,7 @@ export default async function AdminLegalPage() {
                       {p.title}
                     </Link>
                   </td>
-                  <td className="px-4 py-2.5 font-mono text-slate-400">{p.policy_slug}</td>
+                  <td className="px-4 py-2.5 font-normal text-slate-400">{p.policy_slug}</td>
                   <td className="px-4 py-2.5 font-light text-teal-400">v{p.version}</td>
                   <td className="px-4 py-2.5">
                     <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded text-[10px] font-normal">
@@ -550,7 +550,7 @@ export default async function AdminLegalPage() {
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-2.5 font-mono text-[10px] text-slate-500 truncate max-w-[180px]">
+                  <td className="px-4 py-2.5 font-normal text-[10px] text-slate-500 truncate max-w-[180px]">
                     {p.sha256_hash}
                   </td>
                 </tr>

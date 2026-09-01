@@ -19,7 +19,7 @@ export function AdminPageHeader({
     <div className="flex flex-col gap-4 border-b border-[#E4E4E1] pb-6 sm:flex-row sm:items-center sm:justify-between">
       <div>
         {breadcrumbs && breadcrumbs.length > 0 ? (
-          <div className="flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] mb-1">
+          <div className="flex items-center gap-1.5 font-medium text-[10.5px] uppercase tracking-wider text-[#9B9B97] mb-1">
             {breadcrumbs.map((b, i) => (
               <React.Fragment key={i}>
                 {i > 0 && <span>/</span>}
@@ -34,7 +34,7 @@ export function AdminPageHeader({
             ))}
           </div>
         ) : (
-          <div className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#FF6B24]">
+          <div className="text-[10.5px] font-normal uppercase tracking-wider text-[#FF6B24]">
             {category}
           </div>
         )}

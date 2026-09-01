@@ -105,7 +105,7 @@ export function GeoSectorPanels({ city, sectors }: GeoSectorPanelsProps) {
                   <div className="w-8 h-8 rounded-sm bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center text-white">
                     <Icon className="h-4 w-4 text-brand-pink-light" />
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/80 bg-black/40 px-2 py-0.5 rounded border border-white/10">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/80 bg-black/40 px-2 py-0.5 rounded border border-white/10">
                     {city.toUpperCase()}
                   </span>
                 </div>

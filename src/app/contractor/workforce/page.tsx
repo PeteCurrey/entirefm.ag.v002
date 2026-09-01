@@ -30,7 +30,7 @@ export default async function ContractorWorkforcePage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
           SUPPLY CHAIN WORKFORCE INFRASTRUCTURE
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

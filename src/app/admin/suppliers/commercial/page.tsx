@@ -19,7 +19,7 @@ export default async function PartnerCommercialHubPage() {
       {/* Top Banner */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
             PARTNER NETWORK COMMERCIAL GOVERNANCE
           </span>
           <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -34,7 +34,7 @@ export default async function PartnerCommercialHubPage() {
           <Link href="/admin/suppliers/commercial/invoices" className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
             <CreditCard className="h-3.5 w-3.5" /> Invoices &amp; Billing
           </Link>
-          <Link href="/admin/suppliers/commercial/products" className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-mono font-light rounded transition-colors">
+          <Link href="/admin/suppliers/commercial/products" className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-light rounded transition-colors">
             Pricing &amp; Products
           </Link>
         </div>
@@ -62,7 +62,7 @@ export default async function PartnerCommercialHubPage() {
             <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
               Active Network Memberships
             </h3>
-            <Link href="/admin/suppliers/commercial/memberships" className="text-xs font-mono text-brand-pink font-light underline">
+            <Link href="/admin/suppliers/commercial/memberships" className="text-xs text-brand-pink font-light underline">
               View All
             </Link>
           </div>
@@ -74,11 +74,11 @@ export default async function PartnerCommercialHubPage() {
                 <div key={prod.id} className="py-3 flex items-center justify-between">
                   <div>
                     <span className="font-light text-slate-900">{prod.public_name}</span>
-                    <span className="text-slate-500 block font-mono text-[11px]">
+                    <span className="text-slate-500 block font-normal text-[11px]">
                       £{prod.price_gbp.toLocaleString()} + VAT / {prod.billing_frequency.toLowerCase()}
                     </span>
                   </div>
-                  <span className="font-mono font-light text-slate-900 bg-slate-100 px-2.5 py-1 rounded">
+                  <span className="font-light text-slate-900 bg-slate-100 px-2.5 py-1 rounded">
                     {count} Members
                   </span>
                 </div>
@@ -93,7 +93,7 @@ export default async function PartnerCommercialHubPage() {
             <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
               Recent Partner Invoices
             </h3>
-            <Link href="/admin/suppliers/commercial/invoices" className="text-xs font-mono text-brand-pink font-light underline">
+            <Link href="/admin/suppliers/commercial/invoices" className="text-xs text-brand-pink font-light underline">
               View All Invoices
             </Link>
           </div>
@@ -108,11 +108,11 @@ export default async function PartnerCommercialHubPage() {
                 <div key={inv.id} className="py-3 flex items-center justify-between">
                   <div>
                     <div className="font-light text-slate-900">{inv.invoice_number}</div>
-                    <span className="text-slate-500 font-mono text-[11px]">{inv.supplier_name}</span>
+                    <span className="text-slate-500 font-normal text-[11px]">{inv.supplier_name}</span>
                   </div>
                   <div className="text-right">
-                    <span className="font-light text-slate-900 block font-mono">£{inv.total_gbp.toLocaleString()}</span>
-                    <span className={`text-[10px] font-mono font-light px-1.5 py-0.5 rounded ${
+                    <span className="font-light text-slate-900 block">£{inv.total_gbp.toLocaleString()}</span>
+                    <span className={`text-[10px] font-light px-1.5 py-0.5 rounded ${
                       inv.status === 'PAID' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                     }`}>
                       {inv.status}

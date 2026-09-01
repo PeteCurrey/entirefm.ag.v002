@@ -107,14 +107,14 @@ export function TechnologyCafmSection({
                     <span className="text-xs font-normal text-white block">
                       EntireCAFM Operational Portal
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <span className="text-[10px] text-slate-400 font-normal">
                       Asset Intelligence & Compliance Engine
                     </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-mono font-light text-emerald-400">
+                  <span className="text-[11px] font-light text-emerald-400">
                     LIVE SYSTEM
                   </span>
                 </div>
@@ -124,22 +124,22 @@ export function TechnologyCafmSection({
               <div className="space-y-3.5 text-xs">
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Statutory Certificate Archival</span>
-                  <strong className="text-white font-mono text-emerald-400 font-light">100% Up to Date</strong>
+                  <strong className="text-white text-emerald-400 font-light">100% Up to Date</strong>
                 </div>
 
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Asset Verification Standard</span>
-                  <strong className="text-white font-mono text-brand-pink-light font-light">SFG20 Certified</strong>
+                  <strong className="text-white text-brand-pink-light font-light">SFG20 Certified</strong>
                 </div>
 
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Live Work Order Dispatch</span>
-                  <strong className="text-white font-mono text-slate-200">Real-Time Mobile Sync</strong>
+                  <strong className="text-white font-normal text-slate-200">Real-Time Mobile Sync</strong>
                 </div>
 
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Audit History Retention</span>
-                  <strong className="text-white font-mono text-slate-200">Full Contract Lifetime</strong>
+                  <strong className="text-white font-normal text-slate-200">Full Contract Lifetime</strong>
                 </div>
               </div>
 

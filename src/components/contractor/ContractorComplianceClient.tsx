@@ -172,11 +172,11 @@ export default function ContractorComplianceClient({
               {docs.map(doc => (
                 <tr key={doc.id} className="hover:bg-brand-edge-dark/30 transition-colors">
                   <td className="p-4 font-light text-white">{doc.document_title}</td>
-                  <td className="p-4 text-xs font-mono">{doc.document_type}</td>
-                  <td className="p-4 text-xs font-mono">{doc.expiry_date || 'No Expiry'}</td>
+                  <td className="p-4 text-xs font-normal">{doc.document_type}</td>
+                  <td className="p-4 text-xs font-normal">{doc.expiry_date || 'No Expiry'}</td>
                   <td className="p-4">
                     <span
-                      className={`text-xs px-2.5 py-0.5 rounded font-mono font-light inline-flex items-center gap-1 ${
+                      className={`text-xs px-2.5 py-0.5 rounded font-light inline-flex items-center gap-1 ${
                         doc.review_status === 'VERIFIED'
                           ? 'bg-green-500/10 text-green-400 border border-green-500/20'
                           : doc.review_status === 'REJECTED'

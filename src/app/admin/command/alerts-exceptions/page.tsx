@@ -28,10 +28,10 @@ export default async function AlertsExceptionsPage() {
                     <div className="text-[11.5px] text-brand-mist/60">{exc.reason}</div>
                   </div>
                   <div className="text-right">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${exc.severity === 'CRITICAL' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${exc.severity === 'CRITICAL' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>
                       {exc.severity}
                     </span>
-                    <div className="text-[10px] text-brand-mist/50 mt-1 font-mono">{exc.state}</div>
+                    <div className="text-[10px] text-brand-mist/50 mt-1 font-normal">{exc.state}</div>
                   </div>
                 </div>
               ))}

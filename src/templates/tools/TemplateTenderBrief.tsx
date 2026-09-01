@@ -174,7 +174,7 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
                 <div className="border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       01 / Contract Scope &amp; Parameters
                     </span>
                   </div>
@@ -296,15 +296,15 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
             <div className="lg:col-span-6 space-y-6 sticky top-24">
               <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-mono text-[11px] font-normal text-slate-500 uppercase tracking-wider">
+                  <span className="text-[11px] font-normal text-slate-500 uppercase tracking-wider">
                     02 / Tender Document Preview
                   </span>
-                  <span className="text-[11px] font-mono font-light text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                  <span className="text-[11px] font-light text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
                     Live Markdown Preview
                   </span>
                 </div>
 
-                <div className="p-5 bg-slate-900 text-slate-100 font-mono text-xs max-h-[400px] overflow-y-auto whitespace-pre-wrap leading-relaxed rounded-sm border border-slate-800 shadow-inner scrollbar-thin">
+                <div className="p-5 bg-slate-900 text-slate-100 font-normal text-xs max-h-[400px] overflow-y-auto whitespace-pre-wrap leading-relaxed rounded-sm border border-slate-800 shadow-inner scrollbar-thin">
                   {tenderMarkdown}
                 </div>
 

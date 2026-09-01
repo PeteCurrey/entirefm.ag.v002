@@ -82,7 +82,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-5">
         <div>
-          <div className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#EA580C]">
+          <div className="text-[10.5px] font-normal uppercase tracking-wider text-[#EA580C]">
             COMMERCIAL PIPELINE &amp; QUALIFICATION
           </div>
           <h1 className="text-2xl font-extralight text-[#111111] tracking-tight mt-0.5">
@@ -120,7 +120,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
               >
                 <span>{tab.label}</span>
                 <span
-                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${
+                  className={`text-[10px] font-normal px-1.5 py-0.2 rounded ${
                     isActive ? 'bg-white/20 text-white' : 'bg-[#E8E8E5] text-[#6D6D68]'
                   }`}
                 >
@@ -157,7 +157,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
             />
           </div>
 
-          <span className="font-mono text-[11.5px] text-[#9A9A95] whitespace-nowrap">
+          <span className="font-normal text-[11.5px] text-[#9A9A95] whitespace-nowrap">
             {filteredLeads.length} {filteredLeads.length === 1 ? 'lead' : 'leads'}
           </span>
         </div>
@@ -166,7 +166,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
       {/* Enterprise Data Table */}
       {filteredLeads.length === 0 ? (
         <div className="rounded-[8px] border border-dashed border-[#E8E8E5] bg-[#FFFFFF] p-12 text-center">
-          <div className="font-mono text-[11px] text-[#9A9A95] uppercase">No matching inbound records</div>
+          <div className="font-normal text-[11px] text-[#9A9A95] uppercase">No matching inbound records</div>
           <p className="text-[12.5px] text-[#6D6D68] mt-1 max-w-sm mx-auto">
             Submissions via geographic, service, and interactive tool pages will populate here with multi-touch attribution.
           </p>
@@ -201,7 +201,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
                     key={l.id || l.enquiry_id}
                     className="hover:bg-[#FAFAF8] transition-colors group"
                   >
-                    <td className="py-3.5 px-4 font-mono text-[11.5px] text-[#6D6D68] whitespace-nowrap">
+                    <td className="py-3.5 px-4 font-normal text-[11.5px] text-[#6D6D68] whitespace-nowrap">
                       {new Date(l.received_at).toLocaleDateString('en-GB', {
                         day: '2-digit',
                         month: 'short',
@@ -226,10 +226,10 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
                       </div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <div className="font-mono text-[11px] text-[#6D6D68] truncate max-w-xs">
+                      <div className="font-normal text-[11px] text-[#6D6D68] truncate max-w-xs">
                         {l.first_touch_url || l.landing_page || '/'}
                       </div>
-                      <div className="text-[10.5px] text-[#9A9A95] font-mono mt-0.5">
+                      <div className="text-[10.5px] text-[#9A9A95] font-normal mt-0.5">
                         {l.marketing_channel || 'ORGANIC_SEARCH'}
                       </div>
                     </td>
@@ -237,7 +237,7 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
                       <StatusDot
                         status={statusType}
                         label={
-                          <span className="font-mono text-[11px] uppercase tracking-wider text-[#111111]">
+                          <span className="font-medium text-[11px] uppercase tracking-wider text-[#111111]">
                             {status}
                           </span>
                         }

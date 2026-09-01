@@ -62,7 +62,7 @@ export default async function EngineerTalkPage() {
                     <Clock className="w-3.5 h-3.5" />
                     {new Date(c.captured_at).toLocaleString('en-GB')}
                   </span>
-                  <span className="bg-brand-void px-2 py-0.5 rounded text-white font-mono">
+                  <span className="bg-brand-void px-2 py-0.5 rounded text-white font-normal">
                     {c.ai_proposed_action_type || 'NOTE'}
                   </span>
                 </div>

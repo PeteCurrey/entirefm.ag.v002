@@ -48,7 +48,7 @@ export default async function DiagnosticsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             TRACKING QA · ERROR MONITORING · FRESHNESS
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Tracking Diagnostics &amp; Health</h1>
@@ -69,7 +69,7 @@ export default async function DiagnosticsPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Diagnostic Health Checks ({checks.length})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">Real-Time Verification</span>
+          <span className="text-xs text-zinc-500 font-normal">Real-Time Verification</span>
         </div>
 
         <div className="divide-y divide-zinc-800">
@@ -80,7 +80,7 @@ export default async function DiagnosticsPage() {
                 <p className="text-xs text-zinc-400 mt-0.5">{c.detail}</p>
               </div>
               <span
-                className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded font-light border ${
+                className={`text-[10px] uppercase px-2.5 py-1 rounded font-light border ${
                   c.status === 'PASS'
                     ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                     : 'bg-amber-950/60 text-amber-300 border-amber-800/40'

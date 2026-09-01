@@ -25,7 +25,7 @@ export default async function ClientInvoicesPage() {
 
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
         <table className="w-full text-left text-[13px]">
-          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
+          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
             <tr>
               <th className="px-6 py-3">Invoice Number</th>
               <th className="px-6 py-3">Net Subtotal</th>
@@ -44,12 +44,12 @@ export default async function ClientInvoicesPage() {
             ) : (
               list.map((inv) => (
                 <tr key={inv.id} className="hover:bg-brand-void/30 transition-colors">
-                  <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{inv.invoice_number}</td>
-                  <td className="px-6 py-3.5 font-mono">£{Number(inv.subtotal_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
-                  <td className="px-6 py-3.5 font-mono font-normal text-white">£{Number(inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
-                  <td className="px-6 py-3.5 font-mono text-[12px]">{inv.due_date || '—'}</td>
+                  <td className="px-6 py-3.5 font-normal text-brand-electric-bright">{inv.invoice_number}</td>
+                  <td className="px-6 py-3.5 font-normal">£{Number(inv.subtotal_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">£{Number(inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-6 py-3.5 font-normal text-[12px]">{inv.due_date || '—'}</td>
                   <td className="px-6 py-3.5">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] border ${
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px] border ${
                       inv.payment_status === 'PAID'
                         ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                         : 'bg-amber-500/10 border-amber-500/20 text-amber-300'

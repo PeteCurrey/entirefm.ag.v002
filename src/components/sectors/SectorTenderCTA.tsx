@@ -26,7 +26,7 @@ export function SectorTenderCTA({
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-light">
+              <span className="text-[11px] uppercase tracking-wider text-emerald-400 font-light">
                 {eyebrow}
               </span>
             </div>

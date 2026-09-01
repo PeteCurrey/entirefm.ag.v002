@@ -20,14 +20,14 @@ export function CommunicationsPageClient({ initialThreads }: Props) {
       accessor: (row) => (
         <div>
           <div className="font-medium text-[#101010]">{row.subject}</div>
-          <div className="font-mono text-[11px] text-[#686866]">Type: {row.thread_type}</div>
+          <div className="font-normal text-[11px] text-[#686866]">Type: {row.thread_type}</div>
         </div>
       ),
     },
     {
       header: 'Linked Entity',
       accessor: (row) => (
-        <div className="font-mono text-[11px] text-[#686866]">
+        <div className="font-normal text-[11px] text-[#686866]">
           {row.related_object_type ? `${row.related_object_type} · ${row.related_object_id}` : 'General'}
         </div>
       ),
@@ -36,7 +36,7 @@ export function CommunicationsPageClient({ initialThreads }: Props) {
       header: 'Status',
       accessor: (row) => (
         <span
-          className={`rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-medium ${
+          className={`rounded-[4px] px-2 py-0.5 text-[10px] font-medium ${
             row.status === 'OPEN'
               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               : 'bg-[#FAFAF8] text-[#686866] border border-[#E4E4E1]'
@@ -49,7 +49,7 @@ export function CommunicationsPageClient({ initialThreads }: Props) {
     {
       header: 'Last Active',
       accessor: (row) => (
-        <div className="font-mono text-[11px] text-[#686866]">
+        <div className="font-normal text-[11px] text-[#686866]">
           {new Date(row.updated_at).toLocaleDateString('en-GB', {
             day: '2-digit',
             month: 'short',

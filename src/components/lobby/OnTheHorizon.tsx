@@ -13,7 +13,7 @@ export function OnTheHorizon() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-neutral-200">
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+            <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-neutral-400 block mb-1">
               INDUSTRY TIMELINE · KEY DATES
             </span>
             <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
@@ -41,11 +41,11 @@ export function OnTheHorizon() {
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-1 rounded-sm bg-neutral-900 text-white font-mono text-xs font-medium">
+                  <span className="px-2.5 py-1 rounded-sm bg-neutral-900 text-white text-xs font-medium">
                     {item.dateBadge}
                   </span>
                   {item.statusBadge && (
-                    <span className="text-[10px] font-mono text-brand-electric uppercase tracking-wider">
+                    <span className="text-[10px] font-medium text-brand-electric uppercase tracking-wider">
                       {item.statusBadge}
                     </span>
                   )}
@@ -55,12 +55,12 @@ export function OnTheHorizon() {
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-neutral-500 font-mono">
+                <p className="text-xs text-neutral-500 font-normal">
                   {item.organizerOrAuthority}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-mono text-neutral-400">
+              <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-normal text-neutral-400">
                 <span className="uppercase tracking-wider">{item.category}</span>
                 <span className="text-neutral-900 group-hover:text-brand-electric flex items-center gap-1">
                   <span>Details</span>

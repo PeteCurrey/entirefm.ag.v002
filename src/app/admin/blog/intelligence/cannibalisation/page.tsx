@@ -30,10 +30,10 @@ export default function CannibalisationPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-normal text-white">&ldquo;{item.query}&rdquo;</h3>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-mono">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-normal">
                   {item.type.replace(/_/g, ' ')}
                 </span>
-                <span className={`text-[10px] px-2 py-0.5 rounded font-mono ${item.isProblem ? 'bg-red-900/40 text-red-300' : 'bg-emerald-900/40 text-emerald-300'}`}>
+                <span className={`text-[10px] px-2 py-0.5 rounded font-normal${item.isProblem ? 'bg-red-900/40 text-red-300' : 'bg-emerald-900/40 text-emerald-300'}`}>
                   {item.isProblem ? 'CONFLICT DETECTED' : 'SAFE / INTENTIONAL'}
                 </span>
               </div>

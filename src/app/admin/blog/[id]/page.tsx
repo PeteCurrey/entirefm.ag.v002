@@ -161,7 +161,7 @@ export default function EditPostPage() {
                 rows={18}
                 value={post.content || ''}
                 onChange={(e) => setPost({ ...post, content: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white font-mono text-xs leading-relaxed focus:outline-none focus:border-blue-500"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white font-normal text-xs leading-relaxed focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>

@@ -9,7 +9,7 @@ export default async function ProductsPricingPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           COMMERCIAL PRODUCT CATALOGUE
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -24,7 +24,7 @@ export default async function ProductsPricingPage() {
         {products.map((p) => (
           <div key={p.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col justify-between space-y-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
+              <span className="text-[10px] uppercase tracking-widest text-brand-pink font-light">
                 {p.category.replace(/_/g, ' ')}
               </span>
               <h3 className="text-base font-light text-slate-900 mt-1">{p.public_name}</h3>
@@ -33,10 +33,10 @@ export default async function ProductsPricingPage() {
 
             <div className="pt-3 border-t border-slate-100 flex items-baseline justify-between">
               <div>
-                <span className="text-2xl font-mono font-light text-slate-900">£{p.price_gbp.toLocaleString()}</span>
-                <span className="text-xs text-slate-500 font-mono block">+ VAT / {p.billing_frequency.toLowerCase()}</span>
+                <span className="text-2xl font-light text-slate-900">£{p.price_gbp.toLocaleString()}</span>
+                <span className="text-xs text-slate-500 font-normal block">+ VAT / {p.billing_frequency.toLowerCase()}</span>
               </div>
-              <span className="text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+              <span className="text-[10.5px] font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
                 ACTIVE
               </span>
             </div>

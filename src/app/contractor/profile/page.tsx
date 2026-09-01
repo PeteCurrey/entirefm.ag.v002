@@ -68,15 +68,15 @@ export default async function ContractorProfilePage() {
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               VERIFIED PARTNER PROFILE
             </span>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-[11px] font-normal px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               ACTIVE PROVIDER
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{legalName}</h1>
-          <p className="text-xs text-brand-mist/70 font-mono">
+          <p className="text-xs text-brand-mist/70 font-normal">
             Company No: {companyNumber} &bull; VAT: {vatNumber}
           </p>
         </div>
@@ -84,11 +84,11 @@ export default async function ContractorProfilePage() {
         {/* Profile Completeness Gauge */}
         <div className="p-4 rounded-xl bg-brand-void/60 border border-brand-edge-dark flex items-center gap-4 shrink-0">
           <div>
-            <span className="text-[10px] font-mono uppercase text-brand-mist/50 block">Profile Completeness</span>
+            <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Profile Completeness</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-3xl font-light text-white font-mono">{profileCompletenessPct}%</span>
+              <span className="text-3xl font-light text-white">{profileCompletenessPct}%</span>
             </div>
-            <span className="text-[10.5px] font-mono text-emerald-400/80 block mt-0.5">
+            <span className="text-[10.5px] font-normal text-emerald-400/80 block mt-0.5">
               {completenessFieldsFilled} of {totalProfileFields} sections complete
             </span>
           </div>
@@ -115,11 +115,11 @@ export default async function ContractorProfilePage() {
             </div>
             <div>
               <span className="text-brand-mist/50 block">Companies House No.</span>
-              <span className="text-white font-mono mt-0.5 block">{companyNumber}</span>
+              <span className="text-white font-normal mt-0.5 block">{companyNumber}</span>
             </div>
             <div>
               <span className="text-brand-mist/50 block">VAT Registration</span>
-              <span className="text-white font-mono mt-0.5 block">{vatNumber}</span>
+              <span className="text-white font-normal mt-0.5 block">{vatNumber}</span>
             </div>
             <div>
               <span className="text-brand-mist/50 block">Business Structure</span>
@@ -127,7 +127,7 @@ export default async function ContractorProfilePage() {
             </div>
             <div>
               <span className="text-brand-mist/50 block">Years Established</span>
-              <span className="text-white font-mono mt-0.5 block">{draft.year_established || '2018'}</span>
+              <span className="text-white font-normal mt-0.5 block">{draft.year_established || '2018'}</span>
             </div>
           </div>
         </div>
@@ -157,11 +157,11 @@ export default async function ContractorProfilePage() {
             <div className="grid grid-cols-2 gap-4 pt-2 border-t border-brand-edge-dark/40">
               <div>
                 <span className="text-brand-mist/50 block">Coverage Model</span>
-                <span className="text-white font-mono mt-0.5 block">{draft.coverage_type || 'REGIONAL'}</span>
+                <span className="text-white font-normal mt-0.5 block">{draft.coverage_type || 'REGIONAL'}</span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Emergency 24/7 Coverage</span>
-                <span className="text-emerald-400 font-mono mt-0.5 block">
+                <span className="text-emerald-400 font-normal mt-0.5 block">
                   {draft.has_247 ? 'ACTIVE (24/7/365)' : 'STANDARD HOURS'}
                 </span>
               </div>

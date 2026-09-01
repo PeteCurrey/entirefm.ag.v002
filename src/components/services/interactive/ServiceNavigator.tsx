@@ -185,7 +185,7 @@ export function ServiceNavigator() {
                       className="group text-left p-5 bg-white border border-slate-200/90 rounded-sm shadow-xs hover:border-brand-pink hover:shadow-md transition-all duration-200 flex flex-col justify-between"
                     >
                       <div>
-                        <span className="text-[10.5px] font-mono uppercase text-brand-pink block mb-1">
+                        <span className="text-[10.5px] font-normal uppercase text-brand-pink block mb-1">
                           {req.discipline}
                         </span>
                         <div className="font-normal text-slate-900 text-base group-hover:text-brand-pink transition-colors">
@@ -237,7 +237,7 @@ export function ServiceNavigator() {
                     <div>
                       <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-xs bg-emerald-50 border border-emerald-200 mb-3">
                         <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        <span className="text-[11px] font-mono uppercase text-emerald-800">
+                        <span className="text-[11px] font-normal uppercase text-emerald-800">
                           RECOMMENDED OPERATING SCOPE
                         </span>
                       </div>
@@ -252,7 +252,7 @@ export function ServiceNavigator() {
                     {/* Primary Service Core Capabilities */}
                     {primaryService && (
                       <div className="p-4 bg-[#FAF9FB] border border-slate-200/80 rounded-sm space-y-3">
-                        <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-xs uppercase tracking-wider text-slate-400 block font-light">
                           Key Deliverables in this Scope:
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -269,7 +269,7 @@ export function ServiceNavigator() {
                     {/* Supporting Service Links */}
                     {supportingServices.length > 0 && (
                       <div>
-                        <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block font-light mb-2.5">
+                        <span className="text-xs uppercase tracking-wider text-slate-400 block font-light mb-2.5">
                           Integrated Supporting Capabilities:
                         </span>
                         <div className="flex flex-wrap gap-2">
@@ -292,7 +292,7 @@ export function ServiceNavigator() {
                   <div className="lg:col-span-5 bg-[#FAF9FB] p-6 rounded-sm border border-slate-200 flex flex-col justify-between space-y-6">
                     <div className="space-y-5">
                       <div>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                           Delivery Model
                         </span>
                         <p className="mt-1 text-xs text-slate-700 leading-relaxed font-normal">
@@ -301,12 +301,12 @@ export function ServiceNavigator() {
                       </div>
 
                       <div className="border-t border-slate-200 pt-4">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                           Statutory &amp; Compliance Focus
                         </span>
                         <div className="mt-2 flex flex-wrap gap-1.5">
                           {recommendation.complianceFocus.map((c, idx) => (
-                            <span key={idx} className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-700 bg-white px-2.5 py-0.5 rounded-xs border border-slate-200">
+                            <span key={idx} className="inline-flex items-center gap-1 text-[11px] font-normal text-slate-700 bg-white px-2.5 py-0.5 rounded-xs border border-slate-200">
                               <ShieldCheck className="w-3 h-3 text-brand-pink" />
                               {c}
                             </span>

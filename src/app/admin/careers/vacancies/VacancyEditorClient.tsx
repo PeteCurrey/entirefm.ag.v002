@@ -254,7 +254,7 @@ export function VacancyEditorClient({ initialVacancy, isNew = false }: VacancyEd
                   required
                   value={formData.reference || ''}
                   onChange={(e) => handleChange('reference', e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-[#E8E8E5] rounded text-[#111111] focus:outline-none focus:border-[#111111] font-mono"
+                  className="w-full px-3 py-2 text-xs border border-[#E8E8E5] rounded text-[#111111] focus:outline-none focus:border-[#111111] font-normal"
                 />
               </div>
 
@@ -567,7 +567,7 @@ export function VacancyEditorClient({ initialVacancy, isNew = false }: VacancyEd
                         >
                           {m.candidate.firstName} {m.candidate.lastName}
                         </Link>
-                        <span className="text-xs font-mono font-medium text-[#059669]">
+                        <span className="text-xs font-medium text-[#059669]">
                           {m.score}% Match
                         </span>
                       </div>

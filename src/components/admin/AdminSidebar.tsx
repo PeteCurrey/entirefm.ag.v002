@@ -349,13 +349,13 @@ export function AdminSidebar({
                             <span className="truncate">{item.name}</span>
                             <span className="flex items-center gap-1">
                               {liveCount !== null && (
-                                <span className="rounded-[4px] px-1.5 py-0.5 font-mono text-[9px] font-bold bg-rose-100 text-rose-700">
+                                <span className="rounded-[4px] px-1.5 py-0.5 text-[9px] font-bold bg-rose-100 text-rose-700">
                                   {liveCount}
                                 </span>
                               )}
                               {item.badge && !liveCount && (
                                 <span
-                                  className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-normal ${
+                                  className={`rounded-[4px] px-1.5 py-0.2 text-[9px] font-normal ${
                                     isActive
                                       ? 'bg-[#EA580C]/10 text-[#EA580C]'
                                       : 'bg-[#F0F0EE] text-[#6D6D68]'

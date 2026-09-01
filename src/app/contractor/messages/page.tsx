@@ -41,12 +41,12 @@ export default async function ContractorMessagesPage() {
             >
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-light text-white">{thread.subject || 'Dispatch Communication'}</h2>
-                <span className="text-xs text-brand-mist flex items-center gap-1 font-mono">
+                <span className="text-xs text-brand-mist flex items-center gap-1 font-normal">
                   <Clock className="w-3.5 h-3.5" />
                   {new Date(thread.updated_at || thread.created_at).toLocaleDateString('en-GB')}
                 </span>
               </div>
-              <p className="text-xs text-brand-mist font-mono">
+              <p className="text-xs text-brand-mist font-normal">
                 Thread: {thread.id.slice(0, 8)} {thread.work_order_id ? `| Work Order: WO-${thread.work_order_id.slice(0, 8)}` : ''}
               </p>
             </div>

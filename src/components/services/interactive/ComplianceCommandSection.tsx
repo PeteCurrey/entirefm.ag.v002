@@ -153,7 +153,7 @@ export function ComplianceCommandSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left / Register Table */}
           <div className="lg:col-span-7 bg-[#FAF9FB] border border-slate-200 rounded-sm overflow-hidden shadow-xs">
-            <div className="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between text-xs font-mono uppercase tracking-wider">
+            <div className="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between text-xs font-medium uppercase tracking-wider">
               <span>Statutory Testing Discipline</span>
               <span>Operating Status</span>
             </div>
@@ -177,13 +177,13 @@ export function ComplianceCommandSection() {
                       <div className="text-sm font-medium text-slate-900 group-hover:text-brand-pink transition-colors">
                         {d.name}
                       </div>
-                      <div className="text-[11px] font-mono text-slate-500">
+                      <div className="text-[11px] font-normal text-slate-500">
                         {d.standard}
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded-xs border uppercase ${badgeStyle}`}>
+                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded-xs border uppercase${badgeStyle}`}>
                         {d.status}
                       </span>
                       <ChevronRight className={`w-4 h-4 transition-transform ${
@@ -200,10 +200,10 @@ export function ComplianceCommandSection() {
           <div className="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
             <div className="border-b border-slate-200 pb-4 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-brand-pink">
                   LEGAL SPECIFICATION
                 </span>
-                <span className={`text-[10.5px] font-mono font-medium px-2 py-0.5 rounded-xs border uppercase ${STATUS_COLOR_MAP[active.status]}`}>
+                <span className={`text-[10.5px] font-medium px-2 py-0.5 rounded-xs border uppercase${STATUS_COLOR_MAP[active.status]}`}>
                   {active.status}
                 </span>
               </div>
@@ -214,7 +214,7 @@ export function ComplianceCommandSection() {
 
             <div className="space-y-4 text-xs sm:text-sm">
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                   Governing Legislation
                 </span>
                 <p className="text-slate-800 font-normal mt-0.5">
@@ -223,7 +223,7 @@ export function ComplianceCommandSection() {
               </div>
 
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                   Statutory Test Frequency
                 </span>
                 <p className="text-slate-800 font-normal mt-0.5">
@@ -232,7 +232,7 @@ export function ComplianceCommandSection() {
               </div>
 
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                   Dutyholder Obligation
                 </span>
                 <p className="text-slate-600 font-light mt-0.5 leading-relaxed">
@@ -241,7 +241,7 @@ export function ComplianceCommandSection() {
               </div>
 
               <div className="p-3.5 bg-[#FAF9FB] border border-slate-200 rounded-xs space-y-1">
-                <span className="text-[10.5px] font-mono uppercase text-brand-pink block">
+                <span className="text-[10.5px] font-normal uppercase text-brand-pink block">
                   EntireCAFM Evidence Deliverable:
                 </span>
                 <p className="text-xs text-slate-700 leading-relaxed">

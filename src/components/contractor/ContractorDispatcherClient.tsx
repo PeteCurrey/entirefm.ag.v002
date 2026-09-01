@@ -90,7 +90,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
             filterStatus === 'UNASSIGNED' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 hover:border-slate-300'
           }`}
         >
-          <span className="text-[10px] font-mono uppercase tracking-wider block opacity-70">Unassigned</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider block opacity-70">Unassigned</span>
           <span className="text-2xl font-bold mt-1 block">{unassigned.length}</span>
         </button>
 
@@ -100,7 +100,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
             filterStatus === 'ACTIVE' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 hover:border-slate-300'
           }`}
         >
-          <span className="text-[10px] font-mono uppercase tracking-wider block opacity-70">In Field / Active</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider block opacity-70">In Field / Active</span>
           <span className="text-2xl font-bold mt-1 block">{inProgress.length}</span>
         </button>
 
@@ -110,7 +110,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
             filterStatus === 'AWAITING_PARTS' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 hover:border-slate-300'
           }`}
         >
-          <span className="text-[10px] font-mono uppercase tracking-wider block opacity-70">Awaiting Parts</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider block opacity-70">Awaiting Parts</span>
           <span className="text-2xl font-bold mt-1 block text-amber-600">{awaitingParts.length}</span>
         </button>
 
@@ -120,7 +120,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
             filterStatus === 'COMPLETED' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 hover:border-slate-300'
           }`}
         >
-          <span className="text-[10px] font-mono uppercase tracking-wider block opacity-70">Completed / Validated</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider block opacity-70">Completed / Validated</span>
           <span className="text-2xl font-bold mt-1 block text-emerald-600">{completed.length}</span>
         </button>
       </div>
@@ -132,7 +132,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
             <Users className="h-4 w-4 text-slate-700" />
             <span>Field Operative Team &bull; Competency Matrix ({operatives.length})</span>
           </h3>
-          <span className="text-[11px] font-mono text-slate-500">Verified Credentials</span>
+          <span className="text-[11px] font-normal text-slate-500">Verified Credentials</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -142,7 +142,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
                 <span className="font-bold text-slate-900">
                   {op.first_name} {op.last_name}
                 </span>
-                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded">
+                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">
                   {op.role.replace('_', ' ')}
                 </span>
               </div>
@@ -166,7 +166,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
           {filterStatus !== 'ALL' && (
             <button
               onClick={() => setFilterStatus('ALL')}
-              className="text-xs text-slate-500 hover:text-slate-900 underline font-mono"
+              className="text-xs text-slate-500 hover:text-slate-900 underline font-normal"
             >
               Show All ({visits.length})
             </button>
@@ -179,9 +179,9 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-brand-pink">{v.work_order_id}</span>
-                    <span className="text-xs text-slate-400 font-mono">&bull; {v.scheduled_time}</span>
-                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                    <span className="text-xs font-bold text-brand-pink">{v.work_order_id}</span>
+                    <span className="text-xs text-slate-400 font-normal">&bull; {v.scheduled_time}</span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                       v.job_pack.priority === 'P1_CRITICAL'
                         ? 'bg-rose-100 text-rose-900'
                         : v.job_pack.priority === 'P2_HIGH'
@@ -198,7 +198,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
                 </div>
 
                 <div className="flex items-center gap-2 self-start sm:self-auto">
-                  <span className={`text-xs font-mono px-2.5 py-1 rounded font-bold ${
+                  <span className={`text-xs px-2.5 py-1 rounded font-bold ${
                     v.status === 'VALIDATED'
                       ? 'bg-emerald-100 text-emerald-800'
                       : v.status === 'IN_PROGRESS'
@@ -227,7 +227,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono text-slate-600 bg-slate-50 p-3 rounded">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-normal text-slate-600 bg-slate-50 p-3 rounded">
                 <div>
                   <span className="text-slate-400 block font-sans text-[10px]">Assigned Operative</span>
                   <span className="text-slate-900 font-bold">{v.assigned_engineer_name || 'Unassigned'}</span>
@@ -251,7 +251,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded border border-slate-200 max-w-md w-full p-6 space-y-4 shadow-xl">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
                 DISPATCH OPERATIVE ASSIGNMENT
               </span>
               <h3 className="text-base font-bold text-slate-900 mt-0.5">
@@ -295,7 +295,7 @@ export function ContractorDispatcherClient({ initialVisits, operatives, provider
                         />
                         <span>{op.first_name} {op.last_name}</span>
                       </div>
-                      <span className="text-[10.5px] opacity-75 font-mono">{op.role}</span>
+                      <span className="text-[10.5px] opacity-75 font-normal">{op.role}</span>
                     </div>
                     <div className="text-[10.5px] opacity-75 mt-1 pl-5">
                       Competencies: {op.competencies.map((c) => c.code).join(', ') || 'General Only'}

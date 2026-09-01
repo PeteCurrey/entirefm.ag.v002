@@ -103,7 +103,7 @@ export function SupportedAssetsGrid({
                 </ul>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-brand-edge-dark/40 text-[11px] font-mono text-slate-400">
+              <div className="mt-6 pt-3 border-t border-brand-edge-dark/40 text-[11px] font-normal text-slate-400">
                 Statutory & SFG20 Aligned
               </div>
             </div>

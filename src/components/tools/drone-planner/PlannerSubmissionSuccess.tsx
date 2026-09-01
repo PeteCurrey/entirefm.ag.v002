@@ -35,7 +35,7 @@ export function PlannerSubmissionSuccess({
       </div>
 
       <div className="space-y-3">
-        <span className="font-mono text-xs font-normal uppercase tracking-widest text-emerald-400">
+        <span className="text-xs font-normal uppercase tracking-widest text-emerald-400">
           INSPECTION BRIEF RECEIVED
         </span>
         <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
@@ -46,7 +46,7 @@ export function PlannerSubmissionSuccess({
         </p>
       </div>
 
-      <div className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark inline-block font-mono text-left space-y-1">
+      <div className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark inline-block font-normal text-left space-y-1">
         <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Your Reference Identifier:</span>
         <span className="text-lg font-light text-brand-pink tracking-wider">{referenceNumber}</span>
       </div>

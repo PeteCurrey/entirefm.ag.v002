@@ -208,7 +208,7 @@ export function EnquiryForm({
 
         {enquiryId && (
           <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-normal mb-6 ${
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs font-normal mb-6 ${
               isLight
                 ? 'bg-slate-100 border border-slate-200 text-slate-800'
                 : 'bg-brand-graphite border border-brand-edge-dark text-brand-pink-light'
@@ -234,7 +234,7 @@ export function EnquiryForm({
           </p>
           <a
             href={CONTACT_CONFIG.mainPhone.href}
-            className="text-brand-pink font-mono font-normal text-sm hover:underline inline-flex items-center gap-1.5"
+            className="text-brand-pink font-normal text-sm hover:underline inline-flex items-center gap-1.5"
           >
             {CONTACT_CONFIG.mainPhone.display}
           </a>

@@ -74,7 +74,7 @@ export function TemplateMemberResearchLibrary() {
             <div>
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="h-px w-6 bg-brand-electric" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric-bright font-light">
                   My Research Library
                 </span>
               </div>
@@ -112,7 +112,7 @@ export function TemplateMemberResearchLibrary() {
                   key={tab.value}
                   type="button"
                   onClick={() => setFilterMode(tab.value)}
-                  className={`px-3.5 py-1.5 rounded-[4px] text-xs font-mono uppercase tracking-wider transition-colors ${
+                  className={`px-3.5 py-1.5 rounded-[4px] text-xs font-medium uppercase tracking-wider transition-colors ${
                     filterMode === tab.value
                       ? 'bg-neutral-900 text-white font-medium'
                       : 'bg-white border border-neutral-200 text-neutral-600 hover:text-neutral-900'
@@ -137,7 +137,7 @@ export function TemplateMemberResearchLibrary() {
 
           {/* Research Items List */}
           {loading ? (
-            <div className="py-20 text-center text-xs font-mono text-neutral-400">
+            <div className="py-20 text-center text-xs font-normal text-neutral-400">
               Loading your research library...
             </div>
           ) : items.length === 0 ? (
@@ -175,12 +175,12 @@ export function TemplateMemberResearchLibrary() {
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-100 pb-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+                        <span className="text-[11px] font-medium uppercase tracking-wider text-neutral-400">
                           {dateStr}
                         </span>
                         <span>·</span>
                         <span
-                          className={`px-2.5 py-0.5 rounded-[4px] text-[10px] font-mono uppercase tracking-wider ${
+                          className={`px-2.5 py-0.5 rounded-[4px] text-[10px] font-medium uppercase tracking-wider ${
                             item.mode === 'deep_research'
                               ? 'bg-purple-100 text-purple-900 border border-purple-200'
                               : 'bg-neutral-100 text-neutral-800 border border-neutral-200'
@@ -189,7 +189,7 @@ export function TemplateMemberResearchLibrary() {
                           {item.mode === 'deep_research' ? 'Deep Research' : 'Quick Ask'}
                         </span>
                         <span>·</span>
-                        <span className="text-[11px] font-mono text-brand-electric">
+                        <span className="text-[11px] font-normal text-brand-electric">
                           {item.sourceCount} sources cited
                         </span>
                       </div>
@@ -245,7 +245,7 @@ export function TemplateMemberResearchLibrary() {
             <div className="bg-white border border-neutral-300 rounded-[8px] w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-2xl space-y-6 relative">
               <div className="flex items-start justify-between border-b border-neutral-200 pb-4">
                 <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric mb-1">
+                  <div className="text-[10px] font-medium uppercase tracking-widest text-brand-electric mb-1">
                     SAVED RESEARCH BRIEF · {selectedSnapshot.mode.toUpperCase()}
                   </div>
                   <h2 className="text-2xl font-light text-neutral-900 leading-snug">
@@ -269,7 +269,7 @@ export function TemplateMemberResearchLibrary() {
 
                 {selectedSnapshot.officialPosition && (
                   <div>
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-rose-800 font-semibold mb-1">
+                    <h4 className="text-xs uppercase tracking-wider text-rose-800 font-semibold mb-1">
                       Official Position &amp; Statutory Framework
                     </h4>
                     <p className="text-xs font-extralight text-neutral-700">{selectedSnapshot.officialPosition}</p>
@@ -278,7 +278,7 @@ export function TemplateMemberResearchLibrary() {
 
                 {selectedSnapshot.technicalGuidance && (
                   <div>
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-electric font-semibold mb-1">
+                    <h4 className="text-xs uppercase tracking-wider text-brand-electric font-semibold mb-1">
                       Technical Standards &amp; Industry Guidance
                     </h4>
                     <p className="text-xs font-extralight text-neutral-700">{selectedSnapshot.technicalGuidance}</p>
@@ -287,7 +287,7 @@ export function TemplateMemberResearchLibrary() {
 
                 {selectedSnapshot.citations && selectedSnapshot.citations.length > 0 && (
                   <div className="pt-4 border-t border-neutral-200 space-y-2">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+                    <h4 className="text-xs uppercase tracking-wider text-neutral-500 font-semibold">
                       Sourced Citations ({selectedSnapshot.citations.length})
                     </h4>
                     <div className="space-y-2">

@@ -36,13 +36,13 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3">
-        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+        <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           IMPORT HISTORY — {batches.length} BATCH{batches.length !== 1 ? 'ES' : ''}
         </h3>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-[12.5px]">
-          <thead className="border-b border-[#E4E4E1] bg-[#F9F9F8] font-mono text-[10.5px] uppercase text-[#686866]">
+          <thead className="border-b border-[#E4E4E1] bg-[#F9F9F8] font-normal text-[10.5px] uppercase text-[#686866]">
             <tr>
               <th className="px-5 py-3">Reference</th>
               <th className="px-4 py-3">Entity</th>
@@ -60,15 +60,15 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
               const Icon = sc.icon;
               return (
                 <tr key={batch.id} className="hover:bg-[#FAFAF9] transition-colors">
-                  <td className="px-5 py-3.5 font-mono text-[12px] font-normal text-[#101010]">
+                  <td className="px-5 py-3.5 text-[12px] font-normal text-[#101010]">
                     {batch.batch_reference}
                   </td>
                   <td className="px-4 py-3.5">
-                    <span className="rounded-[5px] bg-[#F0F0EE] px-2 py-0.5 font-mono text-[10.5px] text-[#686866]">
+                    <span className="rounded-[5px] bg-[#F0F0EE] px-2 py-0.5 font-normal text-[10.5px] text-[#686866]">
                       {batch.entity_type}
                     </span>
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[11px] text-[#686866]">
+                  <td className="px-4 py-3.5 font-normal text-[11px] text-[#686866]">
                     {batch.source_system}
                   </td>
                   <td className="px-4 py-3.5">
@@ -77,13 +77,13 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
                       <span className="text-[12px] font-normal">{sc.label}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3.5 font-mono tabular-nums text-[#686866]">
+                  <td className="px-4 py-3.5 font-normal tabular-nums text-[#686866]">
                     {batch.total_rows}
                   </td>
-                  <td className="px-4 py-3.5 font-mono tabular-nums text-[#15803D]">
+                  <td className="px-4 py-3.5 font-normal tabular-nums text-[#15803D]">
                     {batch.imported_rows}
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[11px] text-[#9B9B97]">
+                  <td className="px-4 py-3.5 font-normal text-[11px] text-[#9B9B97]">
                     {new Date(batch.created_at).toLocaleDateString('en-GB', {
                       day: '2-digit', month: 'short', year: 'numeric',
                     })}

@@ -18,14 +18,14 @@ export function ApprovalsPageClient({ initialApprovals }: Props) {
       accessor: (row) => (
         <div>
           <div className="font-medium text-[#101010]">{row.approval_type}</div>
-          <div className="font-mono text-[11px] text-[#686866]">Obj: {row.object_type}</div>
+          <div className="font-normal text-[11px] text-[#686866]">Obj: {row.object_type}</div>
         </div>
       ),
     },
     {
       header: 'Amount / Threshold',
       accessor: (row) => (
-        <div className="font-mono text-[12px] font-medium text-[#101010]">
+        <div className="text-[12px] font-medium text-[#101010]">
           {row.threshold_amount_gbp ? `£${Number(row.threshold_amount_gbp).toFixed(2)}` : '—'}
         </div>
       ),
@@ -33,7 +33,7 @@ export function ApprovalsPageClient({ initialApprovals }: Props) {
     {
       header: 'Requested Date',
       accessor: (row) => (
-        <div className="font-mono text-[11px] text-[#686866]">
+        <div className="font-normal text-[11px] text-[#686866]">
           {new Date(row.requested_at).toLocaleDateString('en-GB', {
             day: '2-digit',
             month: 'short',

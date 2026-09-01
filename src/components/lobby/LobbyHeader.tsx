@@ -199,7 +199,7 @@ export function LobbyHeader() {
                 : 'bg-[#080C14]/95 backdrop-blur-xl border-white/10 text-white'
             }`}
           >
-            <div className={`text-xs font-mono uppercase tracking-wider px-2 pb-1 border-b ${isLight ? 'text-neutral-400 border-neutral-100' : 'text-neutral-400 border-white/10'}`}>
+            <div className={`text-xs font-medium uppercase tracking-wider px-2 pb-1 border-b${isLight ? 'text-neutral-400 border-neutral-100' : 'text-neutral-400 border-white/10'}`}>
               Lobby Intelligence &amp; Desk
             </div>
 

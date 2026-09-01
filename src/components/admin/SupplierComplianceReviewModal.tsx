@@ -78,7 +78,7 @@ export function SupplierComplianceReviewModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
               ENTIREFM COMPLIANCE VERIFICATION
             </span>
             <h2 className="text-base font-light text-slate-900">Review Supplier Document Evidence</h2>
@@ -89,7 +89,7 @@ export function SupplierComplianceReviewModal({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-mono">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-normal">
           {errorMessage && (
             <div className="p-3 rounded bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />

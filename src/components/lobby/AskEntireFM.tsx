@@ -71,7 +71,7 @@ export function AskEntireFM({ data }: AskEntireFMProps) {
           <div className="mt-10 pt-6 border-t border-brand-edge/50 flex flex-wrap items-center justify-between gap-4">
             {/* Responder */}
             <div className="flex items-center gap-3">
-              <div className="h-6 w-6 rounded-sm bg-brand-graphite text-white flex items-center justify-center text-[9px] font-mono tracking-tighter">
+              <div className="h-6 w-6 rounded-sm bg-brand-graphite text-white flex items-center justify-center text-[9px] font-normal tracking-tighter">
                 EFM
               </div>
               <div className="flex flex-col">

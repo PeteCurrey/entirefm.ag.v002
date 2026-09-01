@@ -71,7 +71,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
 
         <div className="p-8 bg-brand-carbon border border-brand-edge-dark rounded-sm shadow-elevated grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex flex-wrap gap-2 text-xs font-mono text-slate-400">
+            <div className="flex flex-wrap gap-2 text-xs font-normal text-slate-400">
               <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-brand-electric">{sector}</span>
               <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-slate-300">{location}</span>
               <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-slate-300">{clientType}</span>
@@ -81,12 +81,12 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
 
             <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-edge-dark">
               <div>
-                <strong className="text-brand-electric uppercase tracking-wider font-mono block text-[10px] mb-0.5">The Challenge</strong>
+                <strong className="text-brand-electric uppercase tracking-wider font-medium block text-[10px] mb-0.5">The Challenge</strong>
                 <p className="leading-relaxed">{challenge}</p>
               </div>
 
               <div>
-                <strong className="text-brand-electric uppercase tracking-wider font-mono block text-[10px] mb-0.5">EntireFM Solution</strong>
+                <strong className="text-brand-electric uppercase tracking-wider font-medium block text-[10px] mb-0.5">EntireFM Solution</strong>
                 <p className="leading-relaxed">{solution}</p>
               </div>
             </div>
@@ -94,7 +94,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
 
           <div className="lg:col-span-5 flex flex-col justify-between p-6 bg-brand-graphite border border-brand-edge-dark rounded-sm">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric block mb-3 font-light">
+              <span className="text-[10px] uppercase tracking-wider text-brand-electric block mb-3 font-light">
                 Outcomes &amp; Value Delivered
               </span>
               <ul className="space-y-2.5 text-xs text-slate-200">
@@ -144,7 +144,7 @@ export function RelatedLinks({
                 className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-graphite hover:text-brand-electric hover:border-brand-electric/60 transition-all flex flex-col gap-1 shadow-subtle group"
               >
                 {displayCategory && (
-                  <span className="text-[10px] font-mono text-brand-electric/80 uppercase tracking-wider">{displayCategory}</span>
+                  <span className="text-[10px] font-medium text-brand-electric/80 uppercase tracking-wider">{displayCategory}</span>
                 )}
                 <div className="flex items-center justify-between">
                   <span>{displayTitle}</span>

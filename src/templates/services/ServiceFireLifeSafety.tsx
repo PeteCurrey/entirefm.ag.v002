@@ -303,7 +303,7 @@ export function ServiceFireLifeSafety({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
               <div className="mb-10 text-center">
-                <span className="text-[10.5px] font-mono uppercase tracking-widest text-hero-pink block mb-2">
+                <span className="text-[10.5px] font-medium uppercase tracking-widest text-hero-pink block mb-2">
                   STATUTORY CLARITY
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-light text-white">

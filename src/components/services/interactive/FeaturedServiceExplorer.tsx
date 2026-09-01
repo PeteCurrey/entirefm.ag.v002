@@ -38,7 +38,7 @@ export function FeaturedServiceExplorer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Discipline Selectors */}
           <div className="lg:col-span-4 space-y-2">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block px-2 mb-2">
+            <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400 block px-2 mb-2">
               Select Discipline ({explorerServices.length})
             </span>
             <div className="flex flex-col gap-1.5">
@@ -55,7 +55,7 @@ export function FeaturedServiceExplorer() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`font-mono text-xs ${isSelected ? 'text-brand-pink-light' : 'text-slate-500'}`}>
+                      <span className={`font-normal text-xs${isSelected ? 'text-brand-pink-light' : 'text-slate-500'}`}>
                         {service.number}
                       </span>
                       <span className="text-sm font-normal tracking-tight">
@@ -88,7 +88,7 @@ export function FeaturedServiceExplorer() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                      <span className="text-[11px] font-mono uppercase bg-black/60 px-2.5 py-1 rounded-xs text-brand-pink-light border border-white/10 backdrop-blur-xs">
+                      <span className="text-[11px] font-normal uppercase bg-black/60 px-2.5 py-1 rounded-xs text-brand-pink-light border border-white/10 backdrop-blur-xs">
                         {activeService.categoryLabel}
                       </span>
                     </div>
@@ -98,7 +98,7 @@ export function FeaturedServiceExplorer() {
                 {/* Technical Overview & Capabilities */}
                 <div className="md:col-span-6 space-y-5">
                   <div>
-                    <span className="text-xs font-mono text-brand-pink-light uppercase tracking-wider block">
+                    <span className="text-xs font-medium text-brand-pink-light uppercase tracking-wider block">
                       Discipline Specification
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-light text-white mt-1">
@@ -112,7 +112,7 @@ export function FeaturedServiceExplorer() {
 
                   {/* Core Deliverables */}
                   <div className="space-y-2 pt-2 border-t border-white/10">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                    <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                       Core Maintainable Scope:
                     </span>
                     <div className="space-y-1.5">
@@ -127,12 +127,12 @@ export function FeaturedServiceExplorer() {
 
                   {/* Compliance Baselines */}
                   <div className="space-y-2 pt-2">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                    <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                       Governing Compliance Baselines:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {activeService.complianceTags.map((tag, idx) => (
-                        <span key={idx} className="inline-flex items-center gap-1 text-[10.5px] font-mono text-white/90 bg-white/10 px-2.5 py-0.5 rounded-xs border border-white/10">
+                        <span key={idx} className="inline-flex items-center gap-1 text-[10.5px] font-normal text-white/90 bg-white/10 px-2.5 py-0.5 rounded-xs border border-white/10">
                           <ShieldCheck className="w-3 h-3 text-brand-pink-light" />
                           {tag}
                         </span>

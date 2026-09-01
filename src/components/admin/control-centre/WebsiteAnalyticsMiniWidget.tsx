@@ -20,7 +20,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
     if (changePct === null) return null;
     return (
       <span
-        className={`inline-flex items-center gap-0.5 text-[10.5px] font-mono font-light ${
+        className={`inline-flex items-center gap-0.5 text-[10.5px] font-light ${
           trend === 'up' ? 'text-[#15803D]' : trend === 'down' ? 'text-[#DC2626]' : 'text-[#686866]'
         }`}
       >
@@ -77,7 +77,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
       <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#E4E4E1] bg-[#FBFBFA]">
         {/* Users */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
+          <span className="text-[10px] uppercase font-light text-[#686866] block">
             Website Users
           </span>
           <div className="flex items-baseline gap-2">
@@ -86,14 +86,14 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
             </span>
             {integrations.ga4.connected && renderTrend(kpis.users.changePct, kpis.users.trend)}
           </div>
-          <span className="text-[10px] text-[#9B9B97] block font-mono">
+          <span className="text-[10px] text-[#9B9B97] block font-normal">
             {integrations.ga4.connected ? 'GA4 verified' : 'Requires GA4'}
           </span>
         </div>
 
         {/* Inbound Enquiries */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
+          <span className="text-[10px] uppercase font-light text-[#686866] block">
             Inbound Enquiries
           </span>
           <div className="flex items-baseline gap-2">
@@ -102,14 +102,14 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
             </span>
             {renderTrend(kpis.enquiries.changePct, kpis.enquiries.trend)}
           </div>
-          <span className="text-[10px] text-[#9B9B97] block font-mono">
+          <span className="text-[10px] text-[#9B9B97] block font-normal">
             EntireFM DB Verified
           </span>
         </div>
 
         {/* Conversion Rate */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
+          <span className="text-[10px] uppercase font-light text-[#686866] block">
             Conversion Rate
           </span>
           <div className="flex items-baseline gap-2">
@@ -118,14 +118,14 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
             </span>
             {renderTrend(kpis.conversionRate.changePct, kpis.conversionRate.trend)}
           </div>
-          <span className="text-[10px] text-[#9B9B97] block font-mono">
+          <span className="text-[10px] text-[#9B9B97] block font-normal">
             Enquiries ÷ Sessions
           </span>
         </div>
 
         {/* Organic Search Clicks */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
+          <span className="text-[10px] uppercase font-light text-[#686866] block">
             Organic Search Clicks
           </span>
           <div className="flex items-baseline gap-2">
@@ -134,7 +134,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
             </span>
             {integrations.searchConsole.connected && renderTrend(kpis.organicClicks.changePct, kpis.organicClicks.trend)}
           </div>
-          <span className="text-[10px] text-[#9B9B97] block font-mono">
+          <span className="text-[10px] text-[#9B9B97] block font-normal">
             {integrations.searchConsole.connected ? 'Search Console' : 'Requires GSC'}
           </span>
         </div>

@@ -76,7 +76,7 @@ export function ContractsPageClient({ initialContracts }: Props) {
 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E4E4E1] text-[11.5px]">
-            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-mono">Scope:</span>
+            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-medium">Scope:</span>
             {['ALL', 'TOTAL_FM', 'HARD_FM', 'PPM_ONLY'].map((type) => (
               <button
                 key={type}
@@ -128,7 +128,7 @@ export function ContractsPageClient({ initialContracts }: Props) {
                     <div className="font-medium text-[#101010] group-hover:text-[#EA580C] transition-colors">
                       {c.name}
                     </div>
-                    <div className="font-mono text-[11px] text-[#686866]">
+                    <div className="font-normal text-[11px] text-[#686866]">
                       Ref: {c.contract_reference} &bull; Type: <strong>{c.contract_type}</strong>
                     </div>
                   </td>
@@ -136,22 +136,22 @@ export function ContractsPageClient({ initialContracts }: Props) {
                     <div className="font-medium text-[#101010]">
                       {c.client_account?.name || '—'}
                     </div>
-                    <div className="font-mono text-[11px] text-[#686866]">
+                    <div className="font-normal text-[11px] text-[#686866]">
                       {c.client_account?.account_number}
                     </div>
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[11.5px] text-[#101010]">
+                  <td className="px-4 py-3.5 font-normal text-[11.5px] text-[#101010]">
                     {c.start_date} &rarr; {c.end_date}
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[12px] font-medium text-[#101010]">
+                  <td className="px-4 py-3.5 text-[12px] font-medium text-[#101010]">
                     {c.annual_value_gbp ? `£${c.annual_value_gbp.toLocaleString()}/yr` : '—'}
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[11px] text-[#686866]">
+                  <td className="px-4 py-3.5 font-normal text-[11px] text-[#686866]">
                     {c.billing_method.replace(/_/g, ' ')}
                   </td>
                   <td className="px-4 py-3.5">
                     <span
-                      className={`font-mono text-[10.5px] px-2 py-0.5 rounded font-medium inline-flex items-center gap-1 ${
+                      className={`text-[10.5px] px-2 py-0.5 rounded font-medium inline-flex items-center gap-1 ${
                         c.status === 'ACTIVE'
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : 'bg-amber-50 text-amber-700 border border-amber-200'

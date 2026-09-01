@@ -17,7 +17,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]"
+            className="block text-[11px] font-normal uppercase tracking-wider text-[#686866]"
           >
             {label}
           </label>

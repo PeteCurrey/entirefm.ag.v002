@@ -102,11 +102,11 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
+                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
                     {content.eyebrow || (isLondon ? 'ENTIREFM LONDON · REGIONAL OPERATIONS HUB' : `${geo.name.toUpperCase()} REGIONAL HUB`)}
                   </span>
-                  <span className="font-mono text-[11px] text-[#686866]">
+                  <span className="font-normal text-[11px] text-[#686866]">
                     {geo.region}
                   </span>
                 </div>
@@ -157,7 +157,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                 </div>
 
                 {/* Micro facts */}
-                <div className="flex flex-wrap items-center gap-4 pt-2 font-mono text-[11px] text-[#686866]">
+                <div className="flex flex-wrap items-center gap-4 pt-2 font-normal text-[11px] text-[#686866]">
                   <span className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#059669]" />
                     Direct Mobile Engineering
@@ -186,7 +186,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                       className="object-cover object-center"
                     />
                   </div>
-                  <div className="mt-2.5 px-2 flex items-center justify-between font-mono text-[10.5px] text-[#686866]">
+                  <div className="mt-2.5 px-2 flex items-center justify-between font-normal text-[10.5px] text-[#686866]">
                     <span>{isLondon ? 'Greater London Operational Footprint' : `${geo.name} Operations Area`}</span>
                     <span className="text-[#059669] font-medium flex items-center gap-1">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#059669]" />
@@ -204,10 +204,10 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
               <div className="rounded-[14px] border-2 border-[#EA580C]/25 bg-white p-6 sm:p-7 shadow-[0_4px_20px_rgba(234,88,12,0.06)] flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
                 <div className="space-y-1.5 max-w-2xl">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-[4px] bg-[#EA580C]/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#EA580C] uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1.5 rounded-[4px] bg-[#EA580C]/10 px-2 py-0.5 text-[10px] font-semibold text-[#EA580C] uppercase tracking-wider">
                       Commercial Flagship
                     </span>
-                    <span className="font-mono text-[11px] text-[#686866]">
+                    <span className="font-normal text-[11px] text-[#686866]">
                       Broad London Proposition
                     </span>
                   </div>
@@ -238,7 +238,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           <section className="mb-16">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-3xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   {isLondon ? 'REGIONAL OPERATIONS & LOGISTICS' : 'COMMERCIAL PROFILE'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -292,7 +292,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           <section className="mb-16">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
               <div>
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   {isLondon ? 'LONDON REGIONAL GATEWAY' : 'LOCAL DELIVERY'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -315,14 +315,14 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   className="rounded-[10px] border border-[#E4E4E1] bg-white p-5 flex flex-col justify-between hover:border-[#D1D1CD] hover:shadow-md transition-all group"
                 >
                   <div>
-                    <span className="font-mono text-[10px] font-normal uppercase tracking-wider text-[#9B9B97] block mb-1">
+                    <span className="text-[10px] font-normal uppercase tracking-wider text-[#9B9B97] block mb-1">
                       {svc.isExistingLegacy ? 'SPECIALIST SERVICE' : 'FM CAPABILITY'}
                     </span>
                     <h3 className="text-[15px] font-normal text-[#101010] group-hover:text-[#EA580C] transition-colors">
                       {svc.serviceName}
                     </h3>
                   </div>
-                  <div className="pt-4 border-t border-[#F0F0EE] mt-4 flex items-center justify-between text-[11.5px] font-mono text-[#686866]">
+                  <div className="pt-4 border-t border-[#F0F0EE] mt-4 flex items-center justify-between text-[11.5px] font-normal text-[#686866]">
                     <span>Active in {geo.name}</span>
                     <ArrowUpRight className="h-3.5 w-3.5 text-[#9B9B97] group-hover:text-[#EA580C] transition-colors" />
                   </div>
@@ -333,7 +333,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             {/* Existing Legacy Landing Pages Strip */}
             {geo.legacyUrls.length > 0 && (
               <div className="mt-8 rounded-[12px] border border-[#E4E4E1] bg-[#FBFBFA] p-5">
-                <p className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#686866] mb-3">
+                <p className="text-[10.5px] font-normal uppercase tracking-wider text-[#686866] mb-3">
                   {isLondon ? 'London Service & Discipline Specific Pages' : `Dedicated ${geo.name} Service & Sector Landing Pages`}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -362,7 +362,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           <section className="mb-16">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-6">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   SECTOR EXPERTISE
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -391,7 +391,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-6 space-y-4">
-                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
+                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C]">
                     TECHNOLOGY PLATFORM
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -441,7 +441,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           <section className="mb-16">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-6">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   {isLondon ? 'REGIONAL FOOTPRINT' : 'AREAS COVERED'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -470,7 +470,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           <section className="mb-16">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   FREQUENTLY ASKED QUESTIONS
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -499,7 +499,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
           {/* ── 8. RELATED LOCATIONS ──────────────────────────────────── */}
           <section className="mb-16">
             <div className="max-w-2xl mb-6">
-              <span className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#9B9B97] block mb-1">
+              <span className="text-[10.5px] font-normal uppercase tracking-wider text-[#9B9B97] block mb-1">
                 REGIONAL NETWORK
               </span>
               <h2 className="text-xl font-light text-[#101010]">

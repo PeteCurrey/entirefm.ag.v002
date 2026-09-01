@@ -69,7 +69,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
       <div className="flex items-center justify-between">
         <Link
           href={`/contractor/work`}
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-mono"
+          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Work Orders
         </Link>
@@ -79,11 +79,11 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
               {pack.id} &bull; v{pack.version}
             </span>
             <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+              className={`text-[10px] font-normal px-2 py-0.5 rounded border ${
                 isReady
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : 'bg-rose-500/10 text-rose-400 border-rose-500/20 font-bold'
@@ -91,17 +91,17 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
             >
               {isReady ? 'READY FOR ATTENDANCE' : 'ACTION REQUIRED'}
             </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
+            <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
               WO: {pack.workOrderNumber}
             </span>
             {pack.readiness.gatingPolicy === 'EMERGENCY_BYPASS' && (
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold">
                 EMERGENCY P1 BYPASS
               </span>
             )}
           </div>
           <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{pack.workOrderNumber} &bull; {pack.trade}</h1>
-          <p className="text-xs text-brand-mist/70 font-mono">
+          <p className="text-xs text-brand-mist/70 font-normal">
             {pack.siteName} &bull; {pack.clientName} &bull; Planned: {pack.plannedAttendanceDate} ({pack.plannedAttendanceTime})
           </p>
         </div>
@@ -111,7 +111,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
           <button
             type="button"
             onClick={() => setIsStopWorkOpen(true)}
-            className="px-3.5 py-2 rounded-lg border border-rose-800/60 bg-rose-950/20 hover:bg-rose-950/40 text-rose-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-lg border border-rose-800/60 bg-rose-950/20 hover:bg-rose-950/40 text-rose-300 text-xs font-normal flex items-center gap-1.5 transition-colors"
           >
             <AlertOctagon className="w-3.5 h-3.5" />
             Stop Work
@@ -131,7 +131,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
 
       {/* Stop Work Safety Alert if Active */}
       {pack.stoppedWorkEvent && (
-        <div className="p-4 rounded-xl border border-rose-700 bg-rose-950/40 text-rose-300 space-y-2 text-xs font-mono">
+        <div className="p-4 rounded-xl border border-rose-700 bg-rose-950/40 text-rose-300 space-y-2 text-xs font-normal">
           <div className="flex items-center gap-2 font-bold text-white">
             <AlertOctagon className="w-5 h-5 text-rose-400" />
             <span>SAFETY STOP WORK ENGAGED: {pack.stoppedWorkEvent.reasonCategory}</span>
@@ -147,7 +147,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
 
       {/* Blocking Reasons Alert if Not Ready */}
       {!isReady && blockers.length > 0 && (
-        <div className="p-4 rounded-xl border border-rose-800/50 bg-rose-950/20 text-xs font-mono space-y-2">
+        <div className="p-4 rounded-xl border border-rose-800/50 bg-rose-950/20 text-xs font-normal space-y-2">
           <div className="flex items-center gap-2 text-rose-300 font-bold text-sm">
             <AlertTriangle className="w-4 h-4 text-rose-400" />
             <span>Pre-Attendance Action Required ({blockers.length} Items):</span>
@@ -157,7 +157,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               <div key={idx} className="text-rose-200/90 font-sans flex items-start justify-between gap-4">
                 <span>&bull; <strong className="text-white">{b.title}:</strong> {b.detail}</span>
                 {b.actionUrl && (
-                  <Link href={b.actionUrl} className="text-brand-electric-bright hover:underline shrink-0 font-mono text-[11px]">
+                  <Link href={b.actionUrl} className="text-brand-electric-bright hover:underline shrink-0 font-normal text-[11px]">
                     Resolve &rarr;
                   </Link>
                 )}
@@ -169,7 +169,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
 
       {/* Site Access Conflict Warning */}
       {pack.siteInstructions?.accessConflictDetected && (
-        <div className="p-3.5 rounded-lg border border-amber-500/40 bg-amber-950/20 text-amber-300 text-xs font-mono flex items-center gap-2">
+        <div className="p-3.5 rounded-lg border border-amber-500/40 bg-amber-950/20 text-amber-300 text-xs font-normal flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
           <span>{pack.siteInstructions.conflictDetail}</span>
         </div>
@@ -185,7 +185,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               <MapPin className="w-4 h-4 text-brand-electric" />
               1. Work Scope &amp; Site Information
             </h3>
-            <div className="space-y-2 text-xs font-mono">
+            <div className="space-y-2 text-xs font-normal">
               <div>
                 <span className="text-brand-mist/50 block">Scope Description</span>
                 <p className="text-white font-sans text-xs mt-0.5 leading-relaxed">{pack.scopeDescription}</p>
@@ -214,7 +214,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               2. Assigned Operative &amp; Verified Competency (CP-04)
             </h3>
             {pack.assignedOperative ? (
-              <div className="space-y-3 text-xs font-mono">
+              <div className="space-y-3 text-xs font-normal">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-white font-bold font-sans text-sm block">{pack.assignedOperative.fullName}</span>
@@ -245,7 +245,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
                 </div>
               </div>
             ) : (
-              <div className="py-4 text-center text-brand-mist/50 text-xs font-mono">
+              <div className="py-4 text-center text-brand-mist/50 text-xs font-normal">
                 No operative assigned to this work order.
               </div>
             )}
@@ -258,7 +258,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               3. Risk Assessment &amp; Method Statement (CP-05)
             </h3>
             {pack.ramsRecord ? (
-              <div className="flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center justify-between text-xs font-normal">
                 <div>
                   <span className="text-white font-medium block">{pack.ramsRecord.title}</span>
                   <span className="text-brand-mist/50 text-[11px] block">
@@ -284,7 +284,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
                 </div>
               </div>
             ) : (
-              <div className="flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center justify-between text-xs font-normal">
                 <span className="text-brand-mist/50">No RAMS linked yet.</span>
                 <Link
                   href={`/contractor/rams/create?workOrderId=${encodeURIComponent(pack.workOrderId)}`}
@@ -302,7 +302,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               <Camera className="w-4 h-4 text-cyan-400" />
               4. Mandatory Field Evidence Checklist
             </h3>
-            <div className="divide-y divide-brand-edge-dark/30 text-xs font-mono">
+            <div className="divide-y divide-brand-edge-dark/30 text-xs font-normal">
               {pack.evidenceChecklist.map((ev) => (
                 <div key={ev.id} className="py-2.5 flex items-start justify-between gap-3">
                   <div>
@@ -326,7 +326,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
         {/* Right Column: Safety, Emergency & Briefing Register */}
         <div className="space-y-6">
           {/* Section 5: PPE & Access Plant */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-mono">
+          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-normal">
             <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2 font-sans">
               <Wrench className="w-4 h-4 text-brand-electric" />
               5. PPE &amp; Equipment
@@ -354,7 +354,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
           </div>
 
           {/* Section 6: Emergency & Hospital */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-mono">
+          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-normal">
             <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2 font-sans">
               <Phone className="w-4 h-4 text-emerald-400" />
               6. Emergency Arrangements
@@ -384,7 +384,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               </h3>
             </div>
 
-            <div className="space-y-3 text-xs font-mono">
+            <div className="space-y-3 text-xs font-normal">
               {!isBriefed ? (
                 <div className="space-y-3">
                   <p className="text-brand-mist/80 font-sans leading-relaxed">

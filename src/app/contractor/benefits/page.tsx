@@ -64,7 +64,7 @@ export default async function ContractorBenefitsPage() {
       {/* Header */}
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 space-y-2 shadow-xl">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
             SUPPLY CHAIN COMMERCIAL PROGRAMME
           </span>
         </div>
@@ -90,7 +90,7 @@ export default async function ContractorBenefitsPage() {
                   <div className="w-10 h-10 rounded-lg bg-brand-electric/10 text-brand-electric flex items-center justify-center">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[9.5px] font-mono text-brand-mist/50 bg-brand-void px-2 py-0.5 rounded border border-brand-edge-dark">
+                  <span className="text-[9.5px] font-normal text-brand-mist/50 bg-brand-void px-2 py-0.5 rounded border border-brand-edge-dark">
                     {item.status}
                   </span>
                 </div>
@@ -102,7 +102,7 @@ export default async function ContractorBenefitsPage() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-brand-edge-dark/40 text-[11px] font-mono text-brand-electric-bright">
+              <div className="pt-3 border-t border-brand-edge-dark/40 text-[11px] font-normal text-brand-electric-bright">
                 Available to all approved network contractors &rarr;
               </div>
             </div>

@@ -24,19 +24,19 @@ export default async function AIControlPage() {
       {/* Autonomy Level Summary */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-mono text-[10px] uppercase text-brand-mist/50">Active Agents</div>
+          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Active Agents</div>
           <div className="mt-1 text-2xl font-light text-white">{agents.length}</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-mono text-[10px] uppercase text-brand-mist/50">Policy Mode</div>
+          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Policy Mode</div>
           <div className="mt-1 text-2xl font-light text-purple-300">ASSIST</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-mono text-[10px] uppercase text-brand-mist/50">Pending Approvals</div>
+          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Pending Approvals</div>
           <div className="mt-1 text-2xl font-light text-brand-electric-bright">{pendingActions.length}</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-mono text-[10px] uppercase text-brand-mist/50">Escalations</div>
+          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Escalations</div>
           <div className="mt-1 text-2xl font-light text-amber-300">{escalations.length}</div>
         </div>
       </div>
@@ -45,7 +45,7 @@ export default async function AIControlPage() {
         {/* Active Agents Card */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               Agent Registry ({agents.length})
             </h2>
           </div>
@@ -55,12 +55,12 @@ export default async function AIControlPage() {
                 <div key={ag.id} className="rounded border border-brand-edge-dark bg-brand-void p-3 text-[12.5px]">
                   <div className="flex items-center justify-between">
                     <span className="font-light text-white">{ag.name}</span>
-                    <span className="rounded bg-purple-500/20 px-1.5 py-0.2 font-mono text-[9px] text-purple-300">
+                    <span className="rounded bg-purple-500/20 px-1.5 py-0.2 font-normal text-[9px] text-purple-300">
                       {ag.autonomy_level}
                     </span>
                   </div>
                   <div className="mt-1 text-[11.5px] text-brand-mist/60">{ag.role_description}</div>
-                  <div className="mt-2 font-mono text-[10px] text-brand-mist/40">
+                  <div className="mt-2 font-normal text-[10px] text-brand-mist/40">
                     Confidence: &ge; {ag.confidence_threshold} · Budget: £{ag.max_daily_budget_gbp}/day
                   </div>
                 </div>
@@ -76,7 +76,7 @@ export default async function AIControlPage() {
         {/* Pending Human Approvals & Escalations */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 lg:col-span-2">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               Human Override & Escalation Queue
             </h2>
           </div>

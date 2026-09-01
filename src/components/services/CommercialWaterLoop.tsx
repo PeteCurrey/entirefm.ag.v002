@@ -152,7 +152,7 @@ export function CommercialWaterLoop() {
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-2">
-                  <span className={`text-[11px] font-mono ${isActive ? 'text-brand-electric-bright' : 'text-brand-mist/40'}`}>
+                  <span className={`text-[11px] font-normal${isActive ? 'text-brand-electric-bright' : 'text-brand-mist/40'}`}>
                     {stage.number}
                   </span>
                   {isActive && <span className="h-1.5 w-1.5 rounded-full bg-brand-electric-bright animate-pulse" />}
@@ -180,7 +180,7 @@ export function CommercialWaterLoop() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#09111F] via-[#09111F]/40 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#09111F]" />
               
               <div className="absolute bottom-4 left-4 right-4 p-3 bg-black/60 backdrop-blur-md rounded-sm border border-white/10 flex items-center justify-between">
-                <span className="text-[10.5px] font-mono text-brand-electric-bright uppercase tracking-wider">
+                <span className="text-[10.5px] font-medium text-brand-electric-bright uppercase tracking-wider">
                   {activeStage.category}
                 </span>
                 <span className="text-[10px] font-light text-brand-mist/70">
@@ -193,7 +193,7 @@ export function CommercialWaterLoop() {
             <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono text-brand-electric-bright px-2 py-0.5 rounded-xs bg-brand-electric/15 border border-brand-electric/30">
+                  <span className="text-xs font-normal text-brand-electric-bright px-2 py-0.5 rounded-xs bg-brand-electric/15 border border-brand-electric/30">
                     STAGE {activeStage.number}
                   </span>
                   <span className="text-xs font-light text-brand-mist/50 uppercase tracking-wider">
@@ -230,7 +230,7 @@ export function CommercialWaterLoop() {
               {/* Statutory Framework & Compliance Strip */}
               <div className="pt-4 border-t border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase tracking-wider block">
+                  <span className="text-[10.5px] font-medium text-brand-mist/50 uppercase tracking-wider block">
                     Statutory Framework
                   </span>
                   <p className="text-xs font-normal text-white flex items-center gap-1.5">
@@ -239,7 +239,7 @@ export function CommercialWaterLoop() {
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase tracking-wider block">
+                  <span className="text-[10.5px] font-medium text-brand-mist/50 uppercase tracking-wider block">
                     Recommended PPM Frequency
                   </span>
                   <p className="text-xs font-normal text-brand-mist/90 flex items-center gap-1.5">

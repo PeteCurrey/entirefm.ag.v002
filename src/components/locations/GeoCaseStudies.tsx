@@ -48,7 +48,7 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
               <div>
                 {/* Sector / Feature Banner */}
                 <div className="p-6 pb-4 border-b border-brand-edge bg-brand-surface">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-brand-silver uppercase tracking-wider mb-1">
+                  <div className="flex items-center justify-between text-[11px] font-medium text-brand-silver uppercase tracking-wider mb-1">
                     <span>{cs.sector}</span>
                     <span className="text-emerald-700 font-light">{cs.services[0] || 'Integrated FM'}</span>
                   </div>

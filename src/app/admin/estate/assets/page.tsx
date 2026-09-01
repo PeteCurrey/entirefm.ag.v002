@@ -33,7 +33,7 @@ export default async function AssetsPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Asset Ref</th>
                 <th className="px-5 py-3">Name / Category</th>
                 <th className="px-5 py-3">Site Location</th>
@@ -44,7 +44,7 @@ export default async function AssetsPage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {assets.map((a) => (
                 <tr key={a.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {a.asset_reference}
                   </td>
                   <td className="px-5 py-4">
@@ -55,18 +55,18 @@ export default async function AssetsPage() {
                   </td>
                   <td className="px-5 py-4">
                     <div className="font-normal text-white">{a.site?.name || '—'}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">
+                    <div className="font-normal text-[11px] text-brand-mist/50">
                       {a.site?.site_code}
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-mono text-[11px]">{a.condition}</div>
-                    <span className="rounded bg-brand-edge-dark px-1.5 py-0.2 font-mono text-[9px] text-brand-mist/70">
+                    <div className="font-normal text-[11px]">{a.condition}</div>
+                    <span className="rounded bg-brand-edge-dark px-1.5 py-0.2 font-normal text-[9px] text-brand-mist/70">
                       {a.criticality}
                     </span>
                   </td>
                   <td className="px-5 py-4">
-                    <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+                    <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                       {a.status}
                     </span>
                   </td>

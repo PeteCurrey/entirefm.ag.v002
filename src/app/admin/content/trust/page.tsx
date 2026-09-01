@@ -83,7 +83,7 @@ export default function TrustVerificationAdminPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM TRUST, PROJECT PROOF &amp; VERIFICATION REGISTER
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Trust &amp; Verification Register</h1>
@@ -105,27 +105,27 @@ export default function TrustVerificationAdminPage() {
       {/* KPI Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">PUBLISHED CASE STUDIES</div>
-          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">{caseStudies.length}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">PUBLISHED CASE STUDIES</div>
+          <div className="mt-1 text-xl font-light text-emerald-400">{caseStudies.length}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">VERIFIED CLAIMS</div>
-          <div className="mt-1 text-xl font-light text-white font-mono">
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">VERIFIED CLAIMS</div>
+          <div className="mt-1 text-xl font-light text-white">
             {VERIFICATION_REGISTER.filter((v) => v.status === 'VERIFIED').length}
           </div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">AWAITING VERIFICATION</div>
-          <div className="mt-1 text-xl font-light text-amber-400 font-mono">
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">AWAITING VERIFICATION</div>
+          <div className="mt-1 text-xl font-light text-amber-400">
             {VERIFICATION_REGISTER.filter((v) => v.status === 'AWAITING_VERIFICATION').length}
           </div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">SYNTHETIC CLAIMS</div>
-          <div className="mt-1 text-xl font-light text-purple-400 font-mono">0 (Strictly Prohibited)</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">SYNTHETIC CLAIMS</div>
+          <div className="mt-1 text-xl font-light text-purple-400">0 (Strictly Prohibited)</div>
         </div>
       </div>
 
@@ -135,11 +135,11 @@ export default function TrustVerificationAdminPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Canonical Trust &amp; Verification Register
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">Claims Governance Active</span>
+          <span className="text-xs text-zinc-500 font-normal">Claims Governance Active</span>
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Asset / Entity / Claim</th>
               <th className="py-3 px-4">Category</th>
@@ -152,10 +152,10 @@ export default function TrustVerificationAdminPage() {
             {VERIFICATION_REGISTER.map((v) => (
               <tr key={v.id} className="hover:bg-zinc-800/40">
                 <td className="py-3.5 px-4 font-normal text-white">{v.name}</td>
-                <td className="py-3.5 px-4 font-mono text-zinc-400">{v.category}</td>
+                <td className="py-3.5 px-4 font-normal text-zinc-400">{v.category}</td>
                 <td className="py-3.5 px-4">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border ${
+                    className={`text-[10px] uppercase px-2 py-0.5 rounded font-light border ${
                       v.status === 'VERIFIED'
                         ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                         : v.status === 'ANONYMISED_APPROVED'
@@ -166,7 +166,7 @@ export default function TrustVerificationAdminPage() {
                     {v.status}
                   </span>
                 </td>
-                <td className="py-3.5 px-4 font-mono text-zinc-300">{v.evidence}</td>
+                <td className="py-3.5 px-4 font-normal text-zinc-300">{v.evidence}</td>
                 <td className="py-3.5 px-4 text-zinc-400">{v.usageRule}</td>
               </tr>
             ))}

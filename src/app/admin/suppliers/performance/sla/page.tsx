@@ -10,7 +10,7 @@ export default async function SlaPerformancePage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           TIME-CRITICAL EXECUTION
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -22,7 +22,7 @@ export default async function SlaPerformancePage() {
       </div>
 
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 space-y-4">
-        <div className="divide-y divide-slate-100 font-mono text-xs">
+        <div className="divide-y divide-slate-100 font-normal text-xs">
           {scorecards.map((s) => (
             <div key={s.supplier_id} className="py-3 flex items-center justify-between">
               <div>

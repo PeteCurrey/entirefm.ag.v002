@@ -10,7 +10,7 @@ export default async function OemDirectoryPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           MANUFACTURER &amp; OEM ECOSYSTEM
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -26,10 +26,10 @@ export default async function OemDirectoryPage() {
           <div key={o.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col justify-between space-y-4">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
+                <span className="text-[10px] uppercase tracking-widest text-brand-pink font-light">
                   {o.product_category}
                 </span>
-                <span className="text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-slate-900 text-white">
+                <span className="text-[10.5px] font-light px-2 py-0.5 rounded bg-slate-900 text-white">
                   {o.relationship_level.replace(/_/g, ' ')}
                 </span>
               </div>
@@ -38,7 +38,7 @@ export default async function OemDirectoryPage() {
               <p className="text-xs text-slate-600 font-light leading-relaxed">{o.ecosystem_description}</p>
 
               <div className="pt-3 border-t border-slate-100 space-y-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+                <span className="text-[10px] font-medium uppercase tracking-wider text-slate-400 block">
                   CAPABILITIES &amp; CHANNELS
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-xs text-slate-700">
@@ -62,7 +62,7 @@ export default async function OemDirectoryPage() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 text-[11.5px] text-slate-500 font-mono">
+            <div className="pt-4 border-t border-slate-100 text-[11.5px] text-slate-500 font-normal">
               {o.strategic_notes}
             </div>
           </div>

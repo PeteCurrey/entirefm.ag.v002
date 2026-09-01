@@ -63,7 +63,7 @@ export function SectorOperationalReality({
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
               {imageCaption && (
                 <div className="absolute bottom-0 left-0 right-0 p-5 text-xs font-light text-slate-300 backdrop-blur-sm bg-slate-950/40 border-t border-white/10">
-                  <span className="text-brand-pink-light block text-[10.5px] uppercase tracking-wider mb-1 font-mono">
+                  <span className="text-brand-pink-light block text-[10.5px] uppercase tracking-wider mb-1 font-medium">
                     ESTATE CONTEXT
                   </span>
                   {imageCaption}
@@ -83,7 +83,7 @@ export function SectorOperationalReality({
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-baseline">
                     <div className="sm:col-span-2">
-                      <span className="font-mono text-sm text-slate-400 font-light block">
+                      <span className="text-sm text-slate-400 font-light block">
                         {numStr}
                       </span>
                     </div>

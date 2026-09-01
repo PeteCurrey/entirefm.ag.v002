@@ -142,7 +142,7 @@ export function ClientsPageClient({ initialClients }: Props) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-[11.5px] font-mono uppercase tracking-wider text-[#686866]">
+            <span className="text-[11.5px] font-medium uppercase tracking-wider text-[#686866]">
               Total Client Accounts
             </span>
             <Users className="h-4 w-4 text-[#686866]" />
@@ -155,7 +155,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
         <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-[11.5px] font-mono uppercase tracking-wider text-[#686866]">
+            <span className="text-[11.5px] font-medium uppercase tracking-wider text-[#686866]">
               Active FM Contracts
             </span>
             <CheckCircle2 className="h-4 w-4 text-emerald-600" />
@@ -168,7 +168,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
         <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-[11.5px] font-mono uppercase tracking-wider text-[#686866]">
+            <span className="text-[11.5px] font-medium uppercase tracking-wider text-[#686866]">
               Enterprise Tier
             </span>
             <Building2 className="h-4 w-4 text-[#EA580C]" />
@@ -181,7 +181,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
         <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-[11.5px] font-mono uppercase tracking-wider text-[#686866]">
+            <span className="text-[11.5px] font-medium uppercase tracking-wider text-[#686866]">
               Onboarding / Inflight
             </span>
             <Clock className="h-4 w-4 text-amber-600" />
@@ -210,7 +210,7 @@ export function ClientsPageClient({ initialClients }: Props) {
         {/* Tier & Status Pills */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E4E4E1] text-[11.5px]">
-            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-mono">Tier:</span>
+            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-medium">Tier:</span>
             {['ALL', 'ENTERPRISE', 'CORPORATE', 'REGIONAL', 'SME'].map((tier) => (
               <button
                 key={tier}
@@ -227,7 +227,7 @@ export function ClientsPageClient({ initialClients }: Props) {
           </div>
 
           <div className="flex items-center gap-1 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E4E4E1] text-[11.5px]">
-            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-mono">Status:</span>
+            <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-medium">Status:</span>
             {['ALL', 'ACTIVE', 'ONBOARDING', 'PROSPECT'].map((status) => (
               <button
                 key={status}
@@ -291,14 +291,14 @@ export function ClientsPageClient({ initialClients }: Props) {
                     <div className="font-medium text-[#101010] group-hover:text-[#EA580C] transition-colors">
                       {c.name}
                     </div>
-                    <div className="font-mono text-[11px] text-[#686866]">
+                    <div className="font-normal text-[11px] text-[#686866]">
                       Org Code: {c.organisation?.code || '—'}
                     </div>
                   </td>
 
                   {/* Account Ref */}
                   <td className="px-4 py-3.5">
-                    <span className="font-mono text-[11.5px] font-medium text-[#101010] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
+                    <span className="text-[11.5px] font-medium text-[#101010] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
                       {c.account_number}
                     </span>
                   </td>
@@ -306,7 +306,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                   {/* Tier */}
                   <td className="px-4 py-3.5">
                     <span
-                      className={`font-mono text-[10px] px-2 py-0.5 rounded uppercase font-bold ${
+                      className={`text-[10px] px-2 py-0.5 rounded uppercase font-bold ${
                         c.account_tier === 'ENTERPRISE'
                           ? 'bg-purple-100 text-purple-800 border border-purple-200'
                           : c.account_tier === 'CORPORATE'
@@ -323,7 +323,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                   {/* Status */}
                   <td className="px-4 py-3.5">
                     <span
-                      className={`font-mono text-[10.5px] px-2 py-0.5 rounded font-medium inline-flex items-center gap-1 ${
+                      className={`text-[10.5px] px-2 py-0.5 rounded font-medium inline-flex items-center gap-1 ${
                         c.account_status === 'ACTIVE'
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : c.account_status === 'ONBOARDING'
@@ -356,7 +356,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                         : 'Unassigned'}
                     </div>
                     {c.account_manager?.email && (
-                      <div className="font-mono text-[10.5px] text-[#686866]">
+                      <div className="font-normal text-[10.5px] text-[#686866]">
                         {c.account_manager.email}
                       </div>
                     )}
@@ -364,11 +364,11 @@ export function ClientsPageClient({ initialClients }: Props) {
 
                   {/* Contact */}
                   <td className="px-4 py-3.5">
-                    <div className="font-mono text-[11px] text-[#101010]">
+                    <div className="font-normal text-[11px] text-[#101010]">
                       {c.organisation?.email || '—'}
                     </div>
                     {c.organisation?.phone && (
-                      <div className="font-mono text-[10.5px] text-[#686866]">
+                      <div className="font-normal text-[10.5px] text-[#686866]">
                         {c.organisation.phone}
                       </div>
                     )}
@@ -401,12 +401,12 @@ export function ClientsPageClient({ initialClients }: Props) {
             {/* Drawer Header */}
             <div className="p-6 border-b border-[#E4E4E1] flex items-start justify-between">
               <div>
-                <span className="font-mono text-[10.5px] uppercase font-medium text-[#EA580C]">
+                <span className="text-[10.5px] uppercase font-medium text-[#EA580C]">
                   Client Account Profile
                 </span>
                 <h2 className="text-xl font-light text-[#101010] mt-1">{selectedClient.name}</h2>
                 <div className="flex items-center gap-2 mt-1.5">
-                  <span className="font-mono text-[11px] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
+                  <span className="font-normal text-[11px] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
                     {selectedClient.account_number}
                   </span>
                   <span className="text-[11px] text-[#686866]">
@@ -436,32 +436,32 @@ export function ClientsPageClient({ initialClients }: Props) {
             <div className="p-6 space-y-6 flex-1 text-xs">
               {/* Org Details */}
               <div className="space-y-3">
-                <h3 className="font-mono text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
+                <h3 className="text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
                   Organisation Information
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <span className="text-[#9B9B97] block text-[11px]">Organisation Code</span>
-                    <span className="font-mono font-medium text-[#101010]">
+                    <span className="font-medium text-[#101010]">
                       {selectedClient.organisation?.code || '—'}
                     </span>
                   </div>
                   <div>
                     <span className="text-[#9B9B97] block text-[11px]">Established / Registered</span>
-                    <span className="font-mono text-[#101010]">
+                    <span className="font-normal text-[#101010]">
                       {new Date(selectedClient.created_at).toLocaleDateString('en-GB')}
                     </span>
                   </div>
                   <div>
                     <span className="text-[#9B9B97] block text-[11px]">Primary Email</span>
-                    <span className="font-mono text-[#101010] flex items-center gap-1 mt-0.5">
+                    <span className="font-normal text-[#101010] flex items-center gap-1 mt-0.5">
                       <Mail className="h-3 w-3 text-[#9B9B97]" />
                       {selectedClient.organisation?.email || '—'}
                     </span>
                   </div>
                   <div>
                     <span className="text-[#9B9B97] block text-[11px]">Primary Phone</span>
-                    <span className="font-mono text-[#101010] flex items-center gap-1 mt-0.5">
+                    <span className="font-normal text-[#101010] flex items-center gap-1 mt-0.5">
                       <Phone className="h-3 w-3 text-[#9B9B97]" />
                       {selectedClient.organisation?.phone || '—'}
                     </span>
@@ -471,7 +471,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
               {/* Account Management */}
               <div className="space-y-3">
-                <h3 className="font-mono text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
+                <h3 className="text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
                   EntireFM Account Team
                 </h3>
                 <div className="p-3 bg-[#FAFAF8] rounded-[8px] border border-[#E4E4E1] flex items-center justify-between">
@@ -483,7 +483,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                         : 'Unassigned'}
                     </span>
                     {selectedClient.account_manager?.email && (
-                      <span className="font-mono text-[11px] text-[#686866] block">
+                      <span className="font-normal text-[11px] text-[#686866] block">
                         {selectedClient.account_manager.email}
                       </span>
                     )}
@@ -496,7 +496,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
               {/* Connected Estate Hub Links */}
               <div className="space-y-3">
-                <h3 className="font-mono text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
+                <h3 className="text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
                   Connected CAFM Workspaces
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
@@ -557,7 +557,7 @@ export function ClientsPageClient({ initialClients }: Props) {
 
             {/* Drawer Footer */}
             <div className="p-4 border-t border-[#E4E4E1] bg-[#FAFAF8] flex items-center justify-between">
-              <span className="font-mono text-[11px] text-[#9B9B97]">ID: {selectedClient.id}</span>
+              <span className="font-normal text-[11px] text-[#9B9B97]">ID: {selectedClient.id}</span>
               <Button variant="secondary" size="sm" onClick={() => setSelectedClient(null)}>
                 Close Drawer
               </Button>
@@ -608,7 +608,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                     value={newOrgCode}
                     onChange={(e) => setNewOrgCode(e.target.value)}
                     placeholder="e.g. BL-PROP"
-                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-mono focus:border-[#EA580C] focus:outline-none"
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-normal focus:border-[#EA580C] focus:outline-none"
                   />
                 </div>
 

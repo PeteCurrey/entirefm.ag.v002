@@ -37,26 +37,26 @@ export default async function AssetIntelligencePage() {
       {/* KPI Overview Strip */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50">Active Assets</div>
-          <div className="mt-1 font-mono text-2xl font-light text-white">{summary.total_assets}</div>
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50">Active Assets</div>
+          <div className="mt-1 text-2xl font-light text-white">{summary.total_assets}</div>
           <div className="mt-1 text-[11px] text-brand-mist/60">Registered in estate</div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50">Assets With Signals</div>
-          <div className="mt-1 font-mono text-2xl font-light text-amber-400">{summary.assets_with_signals}</div>
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50">Assets With Signals</div>
+          <div className="mt-1 text-2xl font-light text-amber-400">{summary.assets_with_signals}</div>
           <div className="mt-1 text-[11px] text-brand-mist/60">{summary.critical_signals} critical severity</div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50">Repeat Failures (90d)</div>
-          <div className="mt-1 font-mono text-2xl font-light text-rose-400">{summary.repeat_failure_assets.length}</div>
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50">Repeat Failures (90d)</div>
+          <div className="mt-1 text-2xl font-light text-rose-400">{summary.repeat_failure_assets.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/60">≥3 same-category failures</div>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50">Replacement Candidates</div>
-          <div className="mt-1 font-mono text-2xl font-light text-brand-electric">{summary.replacement_candidates.length}</div>
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50">Replacement Candidates</div>
+          <div className="mt-1 text-2xl font-light text-brand-electric">{summary.replacement_candidates.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/60">Multi-signal review recommended</div>
         </div>
       </div>
@@ -84,10 +84,10 @@ export default async function AssetIntelligencePage() {
                 {summary.repeat_failure_assets.map((rf) => (
                   <div key={rf.asset_id} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/40 p-3">
                     <div>
-                      <div className="font-mono text-[11.5px] font-normal text-white">{rf.asset_reference} — {rf.asset_name}</div>
+                      <div className="text-[11.5px] font-normal text-white">{rf.asset_reference} — {rf.asset_name}</div>
                       <div className="text-[11px] text-brand-mist/60">{rf.site_name} · {rf.failure_categories.join(', ')}</div>
                     </div>
-                    <span className="rounded bg-rose-500/20 px-2 py-0.5 font-mono text-[11px] font-normal text-rose-300">
+                    <span className="rounded bg-rose-500/20 px-2 py-0.5 text-[11px] font-normal text-rose-300">
                       {rf.failure_count} failures
                     </span>
                   </div>
@@ -105,7 +105,7 @@ export default async function AssetIntelligencePage() {
               <div>
                 <div className="flex justify-between text-[11.5px]">
                   <span className="text-brand-mist/80">Install Date Coverage</span>
-                  <span className="font-mono text-white">{summary.data_quality.install_date_coverage_pct}%</span>
+                  <span className="font-normal text-white">{summary.data_quality.install_date_coverage_pct}%</span>
                 </div>
                 <div className="mt-1 h-1.5 w-full rounded-full bg-brand-void">
                   <div className="h-1.5 rounded-full bg-brand-electric" style={{ width: `${summary.data_quality.install_date_coverage_pct}%` }} />
@@ -115,7 +115,7 @@ export default async function AssetIntelligencePage() {
               <div>
                 <div className="flex justify-between text-[11.5px]">
                   <span className="text-brand-mist/80">Manufacturer / Model Coverage</span>
-                  <span className="font-mono text-white">{summary.data_quality.manufacturer_coverage_pct}%</span>
+                  <span className="font-normal text-white">{summary.data_quality.manufacturer_coverage_pct}%</span>
                 </div>
                 <div className="mt-1 h-1.5 w-full rounded-full bg-brand-void">
                   <div className="h-1.5 rounded-full bg-brand-electric" style={{ width: `${summary.data_quality.manufacturer_coverage_pct}%` }} />
@@ -125,7 +125,7 @@ export default async function AssetIntelligencePage() {
               <div>
                 <div className="flex justify-between text-[11.5px]">
                   <span className="text-brand-mist/80">Condition Assessed Coverage</span>
-                  <span className="font-mono text-white">{summary.data_quality.condition_assessed_pct}%</span>
+                  <span className="font-normal text-white">{summary.data_quality.condition_assessed_pct}%</span>
                 </div>
                 <div className="mt-1 h-1.5 w-full rounded-full bg-brand-void">
                   <div className="h-1.5 rounded-full bg-amber-400" style={{ width: `${summary.data_quality.condition_assessed_pct}%` }} />
@@ -135,7 +135,7 @@ export default async function AssetIntelligencePage() {
               <div>
                 <div className="flex justify-between text-[11.5px]">
                   <span className="text-brand-mist/80">Expected Life Configured</span>
-                  <span className="font-mono text-white">{summary.data_quality.expected_life_coverage_pct}%</span>
+                  <span className="font-normal text-white">{summary.data_quality.expected_life_coverage_pct}%</span>
                 </div>
                 <div className="mt-1 h-1.5 w-full rounded-full bg-brand-void">
                   <div className="h-1.5 rounded-full bg-brand-indigo" style={{ width: `${summary.data_quality.expected_life_coverage_pct}%` }} />

@@ -41,7 +41,7 @@ export default function AutomationJobsPage() {
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Job Type</th>
               <th className="py-3 px-4">Status</th>
@@ -53,15 +53,15 @@ export default function AutomationJobsPage() {
           <tbody className="divide-y divide-zinc-800">
             {jobs.map((j) => (
               <tr key={j.id} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-mono font-light text-white">{j.jobType}</td>
+                <td className="py-3.5 px-4 font-light text-white">{j.jobType}</td>
                 <td className="py-3.5 px-4">
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40">
+                  <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40">
                     {j.status}
                   </span>
                 </td>
                 <td className="py-3.5 px-4 font-light text-zinc-200">{j.target}</td>
                 <td className="py-3.5 px-4 text-zinc-400">{j.details}</td>
-                <td className="py-3.5 px-4 text-zinc-500 font-mono">
+                <td className="py-3.5 px-4 text-zinc-500 font-normal">
                   {new Date(j.time).toLocaleString('en-GB')}
                 </td>
               </tr>

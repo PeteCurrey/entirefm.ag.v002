@@ -44,7 +44,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
     <div className="min-h-screen bg-brand-void text-brand-mist">
       {/* View-As Banner */}
       {isViewAs && (
-        <div className="bg-amber-500/20 border-b border-amber-500/30 px-4 py-2 text-center text-[12px] font-mono text-amber-300">
+        <div className="bg-amber-500/20 border-b border-amber-500/30 px-4 py-2 text-center text-[12px] font-normal text-amber-300">
           ⚠️ AUDITED VIEW-AS · Operator: {session.viewAsContext?.operatorEmail}
         </div>
       )}
@@ -56,7 +56,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
             <span className="text-[15px] font-light text-white">
               Entire<span className="font-light text-brand-electric">FM</span>
             </span>
-            <span className="rounded border border-brand-edge-dark px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-brand-mist/50">
+            <span className="rounded border border-brand-edge-dark px-1.5 py-0.5 font-medium text-[9px] uppercase tracking-widest text-brand-mist/50">
               Field
             </span>
           </Link>
@@ -73,7 +73,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
             >
               {item.name}
               {item.badge && (
-                <span className="rounded bg-brand-electric/20 border border-brand-electric/40 px-1 py-0.2 font-mono text-[9px] text-brand-electric-bright">
+                <span className="rounded bg-brand-electric/20 border border-brand-electric/40 px-1 py-0.2 font-normal text-[9px] text-brand-electric-bright">
                   {item.badge}
                 </span>
               )}

@@ -84,7 +84,7 @@ export function GeoCrossLinks({ currentCity }: GeoCrossLinksProps) {
               className="group rounded-sm border border-brand-edge bg-white p-4 transition-all duration-300 hover:border-brand-electric/40 hover:shadow-xs flex flex-col justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase text-brand-silver block mb-1">
+                <span className="text-[10px] font-normal uppercase text-brand-silver block mb-1">
                   {link.label}
                 </span>
                 <span className="text-xs font-normal text-brand-graphite group-hover:text-brand-pink transition-colors line-clamp-2">

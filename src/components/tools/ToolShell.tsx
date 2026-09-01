@@ -53,7 +53,7 @@ export function ToolShell({
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
             <Breadcrumbs items={breadcrumbs} className="text-xs text-slate-400" />
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-normal text-slate-300">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-pulse" />
               <span className="tracking-wider uppercase">{eyebrow}</span>
             </div>

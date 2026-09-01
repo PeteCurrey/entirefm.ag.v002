@@ -164,25 +164,25 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
     switch (severity) {
       case 'CRITICAL':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-red-100 text-red-700 border border-red-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase bg-red-100 text-red-700 border border-red-200">
             Critical
           </span>
         );
       case 'WARNING':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-amber-100 text-amber-700 border border-amber-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase bg-amber-100 text-amber-700 border border-amber-200">
             Warning
           </span>
         );
       case 'ATTENTION':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-orange-100 text-orange-700 border border-orange-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase bg-orange-100 text-orange-700 border border-orange-200">
             Attention
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase bg-slate-100 text-slate-700 border border-slate-200">
             Info
           </span>
         );
@@ -203,7 +203,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
       >
         <Bell className="h-4 w-4" />
         {unreadTotal > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#DC2626] px-1 font-mono text-[10px] font-normal text-white shadow-sm ring-2 ring-white">
+          <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#DC2626] px-1 text-[10px] font-normal text-white shadow-sm ring-2 ring-white">
             {unreadTotal > 99 ? '99+' : unreadTotal}
           </span>
         )}
@@ -217,7 +217,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
             <div className="flex items-center gap-2">
               <span className="font-normal text-sm text-[#101010]">Notifications</span>
               {unreadTotal > 0 && (
-                <span className="rounded-full bg-red-100 px-2 py-0.5 font-mono text-[11px] font-normal text-red-700">
+                <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-normal text-red-700">
                   {unreadTotal} unread
                 </span>
               )}
@@ -261,7 +261,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                   <span>{cat.charAt(0) + cat.slice(1).toLowerCase()}</span>
                   {count > 0 && (
                     <span
-                      className={`h-4 min-w-[14px] rounded-full px-1 flex items-center justify-center text-[9px] font-mono font-light ${
+                      className={`h-4 min-w-[14px] rounded-full px-1 flex items-center justify-center text-[9px] font-light ${
                         isActive ? 'bg-white text-black' : 'bg-red-100 text-red-700'
                       }`}
                     >
@@ -320,7 +320,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                       <div className="flex items-center justify-between pt-1">
                         <span
                           title={exactTime ? `Exact time: ${exactTime}` : undefined}
-                          className="font-mono text-[10.5px] text-[#9B9B97] hover:text-[#101010] transition-colors"
+                          className="font-normal text-[10.5px] text-[#9B9B97] hover:text-[#101010] transition-colors"
                         >
                           {relativeTime}
                         </span>
@@ -350,7 +350,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
             >
               View Inbound Leads Directory →
             </Link>
-            <span className="font-mono text-[10px] text-[#9B9B97]">Operational Sync Active</span>
+            <span className="font-normal text-[10px] text-[#9B9B97]">Operational Sync Active</span>
           </div>
         </div>
       )}

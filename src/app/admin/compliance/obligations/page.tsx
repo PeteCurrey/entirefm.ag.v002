@@ -29,7 +29,7 @@ export default async function ComplianceObligationsPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Site / Scope</th>
                 <th className="px-5 py-3">Statutory Rule / Version</th>
                 <th className="px-5 py-3">Responsible Party</th>
@@ -49,27 +49,27 @@ export default async function ComplianceObligationsPage() {
                   </td>
                   <td className="px-5 py-4">
                     <div className="font-normal text-white">{ob.rule_version?.rule?.title || 'Statutory Standard'}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">
+                    <div className="font-normal text-[11px] text-brand-mist/50">
                       {ob.rule_version?.rule?.code || 'RULE-001'} (v{ob.rule_version?.version_number || '1'})
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <span className="font-mono text-[11.5px] text-brand-electric">
+                    <span className="font-normal text-[11.5px] text-brand-electric">
                       {ob.responsible_party || 'ENTIREFM'}
                     </span>
                     <div className="text-[10.5px] text-brand-mist/40">
                       {ob.entirefm_contracted ? 'EntireFM Contracted' : 'Client Retained'}
                     </div>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px]">
+                  <td className="px-5 py-4 font-normal text-[11px]">
                     Every {ob.frequency_days} days
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {ob.next_due_at}
                   </td>
                   <td className="px-5 py-4">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+                      className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                         ob.status === 'COMPLIANT'
                           ? 'bg-emerald-500/20 text-emerald-400'
                           : ob.status === 'OVERDUE'

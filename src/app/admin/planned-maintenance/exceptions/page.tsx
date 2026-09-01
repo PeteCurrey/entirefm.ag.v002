@@ -29,14 +29,14 @@ export default async function PPMExceptionsPage() {
 
       {/* Missed Occurrences Section */}
       <div>
-        <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
           Missed Maintenance Occurrences
         </h2>
         {missedOccurrences.length > 0 ? (
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Occurrence Code</th>
                   <th className="px-5 py-3">Planned Date</th>
                   <th className="px-5 py-3">Window End</th>
@@ -46,11 +46,11 @@ export default async function PPMExceptionsPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {missedOccurrences.map((o) => (
                   <tr key={o.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white">{o.occurrence_code}</td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/60">
+                    <td className="px-5 py-4 font-normal text-[11px] text-white">{o.occurrence_code}</td>
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
                       {new Date(o.planned_date).toLocaleDateString('en-GB')}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-red-400">
+                    <td className="px-5 py-4 font-normal text-[11px] text-red-400">
                       {new Date(o.window_end_date).toLocaleDateString('en-GB')}
                     </td>
                     <td className="px-5 py-4 text-brand-mist/70">
@@ -71,7 +71,7 @@ export default async function PPMExceptionsPage() {
       {/* Pending Asset Candidates Section */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+          <h2 className="font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
             Pending Asset Candidates
           </h2>
           {pendingCandidates.length > 0 && (

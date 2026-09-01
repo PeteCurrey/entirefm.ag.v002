@@ -111,7 +111,7 @@ export function DataTable<T extends { id?: string | number }>({
                     <span>{tab.label}</span>
                     {tab.count !== undefined && (
                       <span
-                        className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9.5px] ${
+                        className={`rounded-[4px] px-1.5 py-0.2 font-normal text-[9.5px] ${
                           isActive
                             ? 'bg-[#EA580C]/10 text-[#EA580C]'
                             : 'bg-[#F0F0EE] text-[#6D6D68]'
@@ -145,7 +145,7 @@ export function DataTable<T extends { id?: string | number }>({
               </div>
             )}
             {toolbarActions}
-            <div className="text-[11.5px] text-[#9A9A95] font-mono whitespace-nowrap">
+            <div className="text-[11.5px] text-[#9A9A95] font-normal whitespace-nowrap">
               {filteredData.length} {filteredData.length === 1 ? 'record' : 'records'}
             </div>
           </div>
@@ -211,7 +211,7 @@ export function DataTable<T extends { id?: string | number }>({
       {/* Table Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between pt-1">
-          <span className="font-mono text-[11px] text-[#686866]">
+          <span className="font-normal text-[11px] text-[#686866]">
             Page {currentPage} of {totalPages}
           </span>
           <div className="flex items-center gap-1.5">

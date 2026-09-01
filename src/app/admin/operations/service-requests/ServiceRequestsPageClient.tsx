@@ -65,7 +65,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
       accessor: (row) => (
         <div>
           <div className="font-medium text-[#101010]">{row.title}</div>
-          <div className="font-mono text-[11px] text-[#686866]">{row.reference}</div>
+          <div className="font-normal text-[11px] text-[#686866]">{row.reference}</div>
         </div>
       ),
     },
@@ -74,7 +74,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
       accessor: (row) => (
         <div className="text-[12px] text-[#101010]">
           <div>{row.site?.name || 'Unassigned Site'}</div>
-          <div className="font-mono text-[11px] text-[#686866]">{row.site?.postcode || ''}</div>
+          <div className="font-normal text-[11px] text-[#686866]">{row.site?.postcode || ''}</div>
         </div>
       ),
     },
@@ -83,7 +83,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
       accessor: (row) => (
         <div>
           <span
-            className={`inline-block rounded-[4px] px-1.5 py-0.5 font-mono text-[9.5px] font-medium ${
+            className={`inline-block rounded-[4px] px-1.5 py-0.5 text-[9.5px] font-medium ${
               row.priority === 'P1_CRITICAL'
                 ? 'bg-rose-50 text-rose-700 border border-rose-200'
                 : row.priority === 'P2_HIGH'
@@ -93,7 +93,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
           >
             {row.priority}
           </span>
-          <div className="font-mono text-[10.5px] text-[#686866]">{row.source}</div>
+          <div className="font-normal text-[10.5px] text-[#686866]">{row.source}</div>
         </div>
       ),
     },
@@ -101,7 +101,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
       header: 'Status',
       accessor: (row) => (
         <span
-          className={`rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-medium ${
+          className={`rounded-[4px] px-2 py-0.5 text-[10px] font-medium ${
             row.status === 'NEW'
               ? 'bg-blue-50 text-blue-700 border border-blue-200'
               : row.status === 'TRIAGED'
@@ -116,7 +116,7 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
     {
       header: 'Reported',
       accessor: (row) => (
-        <div className="font-mono text-[11px] text-[#686866]">
+        <div className="font-normal text-[11px] text-[#686866]">
           {new Date(row.created_at).toLocaleDateString('en-GB', {
             day: '2-digit',
             month: 'short',

@@ -52,7 +52,7 @@ export function CommandHeader({
           <h1 className="text-2xl lg:text-3xl font-light tracking-tight text-[#111111]">
             Good morning, <span className="font-light">{firstName}</span>
           </h1>
-          <span className="inline-flex items-center gap-1 rounded-[4px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] text-[#C2410C] font-light">
+          <span className="inline-flex items-center gap-1 rounded-[4px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 text-[10px] text-[#C2410C] font-light">
             LIVE DESK
           </span>
         </div>

@@ -38,10 +38,10 @@ export default function OpportunitiesPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm font-normal text-white">&ldquo;{opp.query}&rdquo;</h3>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${decisionBadge(opp.decision)}`}>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-normal${decisionBadge(opp.decision)}`}>
                     {opp.decision}
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-red-900/40 text-red-300">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full font-normal bg-red-900/40 text-red-300">
                     {opp.priority}
                   </span>
                 </div>

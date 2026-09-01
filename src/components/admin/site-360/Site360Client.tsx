@@ -141,7 +141,7 @@ export function Site360Client({
       {activeTab === 'assets' && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
-            <h3 className="font-mono text-[12px] font-normal uppercase tracking-wider text-[#101010]">
+            <h3 className="text-[12px] font-normal uppercase tracking-wider text-[#101010]">
               SITE ASSET REGISTER ({assets.length} UNITS)
             </h3>
             <span className="text-[12px] text-[#686866]">
@@ -150,7 +150,7 @@ export function Site360Client({
           </div>
 
           {assets.length === 0 ? (
-            <div className="py-12 text-center text-[#686866] font-mono text-[12px]">
+            <div className="py-12 text-center text-[#686866] font-normal text-[12px]">
               No physical assets registered for this site.
             </div>
           ) : (
@@ -162,11 +162,11 @@ export function Site360Client({
                   className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 hover:border-[#FF6B24] hover:bg-[#FFFFFF] transition-all cursor-pointer space-y-2"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10.5px] text-[#FF6B24] font-light">
+                    <span className="text-[10.5px] text-[#FF6B24] font-light">
                       {a.asset_reference}
                     </span>
                     <span
-                      className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] ${
+                      className={`rounded-[4px] px-1.5 py-0.2 font-normal text-[9px] ${
                         a.criticality === 'CRITICAL'
                           ? 'bg-[#FEF2F2] text-[#B91C1C] font-light'
                           : 'bg-[#EFF6FF] text-[#1D4ED8]'
@@ -187,13 +187,13 @@ export function Site360Client({
       {activeTab === 'compliance' && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
-            <h3 className="font-mono text-[12px] font-normal uppercase tracking-wider text-[#101010]">
+            <h3 className="text-[12px] font-normal uppercase tracking-wider text-[#101010]">
               STATUTORY COMPLIANCE OBLIGATIONS ({complianceObligations.length})
             </h3>
           </div>
 
           {complianceObligations.length === 0 ? (
-            <div className="py-12 text-center text-[#686866] font-mono text-[12px]">
+            <div className="py-12 text-center text-[#686866] font-normal text-[12px]">
               No compliance obligations assigned to this site.
             </div>
           ) : (
@@ -207,12 +207,12 @@ export function Site360Client({
                     <div className="font-normal text-[#101010]">
                       {c.rule_version?.rule?.title || 'Statutory Obligation'}
                     </div>
-                    <div className="text-[11px] text-[#686866] font-mono">
+                    <div className="text-[11px] text-[#686866] font-normal">
                       Category: {c.rule_version?.rule?.rule_family || 'STATUTORY'} · Due: {c.next_due_at || 'Periodic'}
                     </div>
                   </div>
                   <span
-                    className={`font-mono text-[10px] px-2 py-0.5 rounded-[4px] font-light ${
+                    className={`text-[10px] px-2 py-0.5 rounded-[4px] font-light ${
                       c.status === 'COMPLIANT'
                         ? 'bg-[#F0FDF4] text-[#15803D]'
                         : c.status === 'OVERDUE'

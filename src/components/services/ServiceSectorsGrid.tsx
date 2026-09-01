@@ -117,7 +117,7 @@ export function ServiceSectorsGrid({
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-light rounded-sm backdrop-blur-sm">
+                  <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-light rounded-sm backdrop-blur-sm">
                     {sec.category}
                   </div>
                 </div>

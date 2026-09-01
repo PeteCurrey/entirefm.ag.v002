@@ -24,10 +24,10 @@ export default async function DispatchPage() {
         {/* Unassigned Work Queue */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 lg:col-span-2">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               Unassigned Work Orders ({unassignedJobs.length})
             </h2>
-            <span className="font-mono text-[11px] text-brand-mist/50">Human-Operated Dispatch</span>
+            <span className="font-normal text-[11px] text-brand-mist/50">Human-Operated Dispatch</span>
           </div>
 
           <div className="mt-4 space-y-3">
@@ -40,11 +40,11 @@ export default async function DispatchPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] text-brand-mist/50">
+                        <span className="font-normal text-[11px] text-brand-mist/50">
                           {job.work_order_number}
                         </span>
                         <span
-                          className={`rounded px-1.5 py-0.2 font-mono text-[9px] ${
+                          className={`rounded px-1.5 py-0.2 font-normal text-[9px] ${
                             job.priority === 'P1_CRITICAL'
                               ? 'bg-rose-500/20 text-rose-300'
                               : 'bg-brand-edge-dark text-brand-mist/70'
@@ -63,7 +63,7 @@ export default async function DispatchPage() {
                   </div>
 
                   <div className="mt-3 flex items-center justify-between border-t border-brand-edge-dark/60 pt-3">
-                    <span className="font-mono text-[11px] text-brand-mist/40">
+                    <span className="font-normal text-[11px] text-brand-mist/40">
                       Type: {job.work_type}
                     </span>
                     <button className="rounded bg-brand-electric px-3 py-1 text-[11.5px] font-normal text-white hover:bg-brand-indigo">
@@ -83,7 +83,7 @@ export default async function DispatchPage() {
         {/* Candidate Contractors / Provider Directory */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               Supply Chain Network ({providers.length})
             </h2>
           </div>
@@ -94,7 +94,7 @@ export default async function DispatchPage() {
                 <div key={p.id} className="rounded border border-brand-edge-dark bg-brand-void p-3 text-[12.5px]">
                   <div className="flex items-center justify-between">
                     <span className="font-light text-white">{p.organisation?.name}</span>
-                    <span className="rounded bg-emerald-500/20 px-1.5 py-0.2 font-mono text-[9px] text-emerald-400">
+                    <span className="rounded bg-emerald-500/20 px-1.5 py-0.2 font-normal text-[9px] text-emerald-400">
                       {p.vetting_status}
                     </span>
                   </div>

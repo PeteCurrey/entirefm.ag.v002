@@ -107,7 +107,7 @@ export default async function InboundApplicationsPage({
       {/* Header */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
             SUPPLIER ASSURANCE REVIEW QUEUE
           </span>
           <h1 className="text-2xl font-bold text-slate-900 mt-1">
@@ -120,12 +120,12 @@ export default async function InboundApplicationsPage({
 
         <div className="flex items-center gap-2 flex-wrap">
           {pendingAction > 0 && (
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-bold flex items-center gap-1">
+            <span className="text-xs px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-bold flex items-center gap-1">
               <AlertCircle className="h-3 w-3" />
               {pendingAction} Require Action
             </span>
           )}
-          <span className="text-xs font-mono px-2.5 py-1 rounded bg-slate-900 text-white font-bold">
+          <span className="text-xs px-2.5 py-1 rounded bg-slate-900 text-white font-bold">
             {counts.total} Total
           </span>
         </div>
@@ -144,7 +144,7 @@ export default async function InboundApplicationsPage({
         ].map((k) => (
           <div key={k.label} className={`${k.bg} border border-slate-200 p-3 rounded-sm text-center`}>
             <div className={`text-xl font-bold ${k.text}`}>{k.value}</div>
-            <div className="text-[10px] text-slate-500 font-mono uppercase mt-0.5">{k.label}</div>
+            <div className="text-[10px] text-slate-500 font-normal uppercase mt-0.5">{k.label}</div>
           </div>
         ))}
       </div>
@@ -158,7 +158,7 @@ export default async function InboundApplicationsPage({
               <Link
                 key={tab.key}
                 href={`/admin/suppliers/applications?status=${tab.key}${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ''}`}
-                className={`px-4 py-2.5 text-xs font-mono font-bold whitespace-nowrap border-b-2 transition-colors ${
+                className={`px-4 py-2.5 text-xs font-bold whitespace-nowrap border-b-2 transition-colors ${
                   isActive
                     ? 'border-brand-pink text-brand-pink bg-rose-50/50'
                     : 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -192,20 +192,20 @@ export default async function InboundApplicationsPage({
                     {/* Left: Identity */}
                     <div className="space-y-1 flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-mono text-brand-pink font-bold">{app.applicationReference}</span>
+                        <span className="text-[10px] text-brand-pink font-bold">{app.applicationReference}</span>
                         <span
-                          className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded flex items-center gap-1 ${statusConf.bg} ${statusConf.text}`}
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1${statusConf.bg} ${statusConf.text}`}
                         >
                           {statusConf.icon}
                           {statusConf.label}
                         </span>
                         {app.recordOrigin === 'RECOVERED_FROM_CONTRACTOR_SIGNUP' && (
-                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-600">
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-600">
                             RECOVERED
                           </span>
                         )}
                         {app.pendingRfiCount > 0 && (
-                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-orange-100 text-orange-800 flex items-center gap-1">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-100 text-orange-800 flex items-center gap-1">
                             <AlertCircle className="h-3 w-3" />
                             {app.pendingRfiCount} RFI Open
                           </span>
@@ -221,11 +221,11 @@ export default async function InboundApplicationsPage({
                       <div className="flex items-center gap-3 text-xs text-slate-500">
                         <span>{app.applicantName}</span>
                         <span className="text-slate-300">·</span>
-                        <span className="font-mono">{app.applicantEmail}</span>
+                        <span className="font-normal">{app.applicantEmail}</span>
                         {app.companyNumber && (
                           <>
                             <span className="text-slate-300">·</span>
-                            <span className="font-mono">Co. {app.companyNumber}</span>
+                            <span className="font-normal">Co. {app.companyNumber}</span>
                           </>
                         )}
                       </div>
@@ -251,7 +251,7 @@ export default async function InboundApplicationsPage({
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="text-right text-[10px] text-slate-400 font-mono hidden sm:block">
+                      <div className="text-right text-[10px] text-slate-400 font-normal hidden sm:block">
                         <div>{new Date(app.createdAt).toLocaleDateString('en-GB')}</div>
                         <div>Step {app.currentStep}/12</div>
                       </div>

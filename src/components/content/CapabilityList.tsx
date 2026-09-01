@@ -33,7 +33,7 @@ export function CapabilityList({
               <div className="flex items-center gap-2">
                 <h4 className="text-sm font-normal text-brand-graphite">{item.name}</h4>
                 {item.tag && (
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 bg-white border border-brand-edge text-slate-500 rounded-sm">
+                  <span className="text-[10px] font-normal px-1.5 py-0.5 bg-white border border-brand-edge text-slate-500 rounded-sm">
                     {item.tag}
                   </span>
                 )}

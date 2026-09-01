@@ -33,20 +33,20 @@ export default async function AccountingSyncPage() {
           <div className="flex items-center gap-3">
             <Building2 className="h-6 w-6 text-brand-electric" />
             <div>
-              <h2 className="text-base font-light text-white font-mono">
+              <h2 className="text-base font-light text-white">
                 {adapter.provider}
               </h2>
-              <p className="text-xs text-brand-mist/60 font-mono">
+              <p className="text-xs text-brand-mist/60 font-normal">
                 Statutory Accounting Integration Provider
               </p>
             </div>
           </div>
-          <span className={`px-3 py-1 rounded text-xs font-mono border ${adapter.isConfigured ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40' : 'bg-zinc-900 text-zinc-400 border-zinc-800'}`}>
+          <span className={`px-3 py-1 rounded text-xs font-normal border${adapter.isConfigured ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40' : 'bg-zinc-900 text-zinc-400 border-zinc-800'}`}>
             {adapter.isConfigured ? 'CONFIGURED' : 'NOT CONFIGURED'}
           </span>
         </div>
 
-        <div className="text-xs font-mono text-brand-mist/70 border-t border-brand-edge-dark/60 pt-4 space-y-2">
+        <div className="text-xs font-normal text-brand-mist/70 border-t border-brand-edge-dark/60 pt-4 space-y-2">
           <p>
             EntireFM is the authoritative source for operational work, commercial provenance, supplier commitments, and billing readiness.
             The external accounting platform remains authoritative for general ledger, balance sheet, and statutory accounts.
@@ -61,16 +61,16 @@ export default async function AccountingSyncPage() {
 
       {/* FAILURES */}
       <div className="space-y-3">
-        <h3 className="text-xs font-normal uppercase tracking-wider text-white font-mono">
+        <h3 className="text-xs font-normal uppercase tracking-wider text-white">
           Recent Sync Failures ({failures.length})
         </h3>
         {failures.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-mono text-brand-mist/60">
+          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
             No active accounting sync failures.
           </div>
         ) : (
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-mono text-brand-mist">
+            <table className="w-full text-left text-xs font-normal text-brand-mist">
               <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
                 <tr>
                   <th className="p-3.5">Entity Type</th>
@@ -85,7 +85,7 @@ export default async function AccountingSyncPage() {
                   <tr key={f.id} className="hover:bg-brand-edge-dark/20">
                     <td className="p-3.5 font-light text-white">{f.entity_type}</td>
                     <td className="p-3.5">{f.entity_id?.slice(0, 8)}</td>
-                    <td className="p-3.5 text-zinc-500 font-mono text-[11px]">{f.idempotency_key}</td>
+                    <td className="p-3.5 text-zinc-500 font-normal text-[11px]">{f.idempotency_key}</td>
                     <td className="p-3.5 text-red-300">{f.error_message || 'Unknown error'}</td>
                     <td className="p-3.5">{new Date(f.created_at).toLocaleString('en-GB')}</td>
                   </tr>

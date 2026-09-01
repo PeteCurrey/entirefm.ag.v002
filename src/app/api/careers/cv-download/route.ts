@@ -42,15 +42,7 @@ export async function GET(req: NextRequest) {
     const fullPath = join(process.cwd(), 'private_storage', safeRelPath);
 
     if (!existsSync(fullPath)) {
-      // Mock demo fallback: return a placeholder sample CV text if file is virtual demo
-      const filename = basename(safeRelPath);
-      const mockPdfContent = `%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 612 792]/Parent 2 0 R/Resources<<>>>>endobj\nxref\n0 4\n0000000000 65535 f\n0000000010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxref\n185\n%%EOF`;
-      return new NextResponse(mockPdfContent, {
-        headers: {
-          'Content-Type': 'application/pdf',
-          'Content-Disposition': `attachment; filename="${filename.endsWith('.pdf') ? filename : filename + '.pdf'}"`,
-        },
-      });
+      return NextResponse.json({ error: 'CV document not found in storage' }, { status: 404 });
     }
 
     const fileBuffer = await readFile(fullPath);

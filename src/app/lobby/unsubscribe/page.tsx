@@ -54,7 +54,7 @@ function UnsubscribeContent() {
   return (
     <div className="max-w-md mx-auto bg-[#111622] border border-white/15 rounded-sm p-6 sm:p-8 space-y-6 text-center">
       <div className="space-y-2">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-[#00E599] font-semibold block">
+        <span className="text-[10px] uppercase tracking-widest text-[#00E599] font-semibold block">
           THE LOBBY BY ENTIREFM
         </span>
         <h1 className="text-2xl font-light text-white tracking-tight">
@@ -73,7 +73,7 @@ function UnsubscribeContent() {
           <p className="text-xs text-white/50">
             Your suppression record is active. You will not receive further scheduled dispatches.
           </p>
-          <div className="pt-4 border-t border-white/10 flex items-center justify-center gap-4 text-xs font-mono">
+          <div className="pt-4 border-t border-white/10 flex items-center justify-center gap-4 text-xs font-normal">
             <Link href="/lobby" className="text-[#00E599] hover:underline">
               Return to The Lobby
             </Link>
@@ -89,7 +89,7 @@ function UnsubscribeContent() {
           </p>
 
           <div>
-            <label className="text-[11px] font-mono uppercase text-white/60 block mb-1">
+            <label className="text-[11px] font-normal uppercase text-white/60 block mb-1">
               Email Address
             </label>
             <input

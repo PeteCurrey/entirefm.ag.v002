@@ -58,7 +58,7 @@ export function SectorEstateAnatomy({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
             <div className="absolute bottom-4 left-6 sm:left-8 text-xs font-light text-slate-300">
-              <span className="text-brand-pink font-mono uppercase tracking-wider text-[11px] block">
+              <span className="text-brand-pink font-medium uppercase tracking-wider text-[11px] block">
                 PHYSICAL ESTATE INFRASTRUCTURE //
               </span>
               Comprehensive building services &amp; hard FM boundary management
@@ -69,7 +69,7 @@ export function SectorEstateAnatomy({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-200">
             {callouts.map((item, idx) => (
               <div key={idx} className="pt-6 md:pt-0 md:px-6 first:pl-0 space-y-2">
-                <span className="font-mono text-[11px] text-brand-pink uppercase tracking-wider block font-light">
+                <span className="text-[11px] text-brand-pink uppercase tracking-wider block font-light">
                   ZONE {String(idx + 1).padStart(2, '0')} // {item.area}
                 </span>
                 <h3 className="text-base font-light text-slate-900 tracking-tight leading-snug">

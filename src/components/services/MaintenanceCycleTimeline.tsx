@@ -133,7 +133,7 @@ export function MaintenanceCycleTimeline() {
               >
                 <div className="flex items-center justify-between mb-1">
                   <span
-                    className={`text-xs font-mono font-medium ${
+                    className={`text-xs font-medium ${
                       isActive ? 'text-brand-pink' : 'text-slate-500'
                     }`}
                   >
@@ -165,7 +165,7 @@ export function MaintenanceCycleTimeline() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-brand-carbon/60" />
-            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-normal rounded-sm backdrop-blur-md">
               STAGE {activeStage.step}: {activeStage.name}
             </div>
           </div>

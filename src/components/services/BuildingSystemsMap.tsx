@@ -145,7 +145,7 @@ export function BuildingSystemsMap() {
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink-light block">
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-brand-pink-light block">
                         {system.category}
                       </span>
                       <strong className="text-sm font-normal block truncate mt-0.5">
@@ -176,7 +176,7 @@ export function BuildingSystemsMap() {
                 className="object-cover object-center transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-brand-carbon/40 to-transparent" />
-              <div className="absolute top-4 left-4 bg-brand-graphite/90 border border-brand-edge-dark px-3 py-1 text-xs font-mono text-brand-pink-light rounded-sm backdrop-blur-md">
+              <div className="absolute top-4 left-4 bg-brand-graphite/90 border border-brand-edge-dark px-3 py-1 text-xs font-normal text-brand-pink-light rounded-sm backdrop-blur-md">
                 {activeSystem.category}
               </div>
             </div>
@@ -211,7 +211,7 @@ export function BuildingSystemsMap() {
 
               <div className="pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400">
                 <span>Statutory Governance:</span>
-                <span className="text-brand-pink-light font-mono font-light text-right">
+                <span className="text-brand-pink-light font-light text-right">
                   {activeSystem.statutoryStandard}
                 </span>
               </div>

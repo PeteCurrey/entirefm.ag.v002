@@ -9,7 +9,7 @@ export default async function PartnerEventsAdminPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           CONVENING &amp; INDUSTRY FORUMS
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -24,10 +24,10 @@ export default async function PartnerEventsAdminPage() {
         {events.map((e) => (
           <div key={e.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
+              <span className="text-[10px] uppercase tracking-widest text-brand-pink font-light">
                 {e.event_type.replace(/_/g, ' ')}
               </span>
-              <span className="text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+              <span className="text-[10.5px] font-light px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
                 {e.status.replace(/_/g, ' ')}
               </span>
             </div>
@@ -37,7 +37,7 @@ export default async function PartnerEventsAdminPage() {
               <p className="text-xs text-slate-600 mt-1 font-light">{e.description}</p>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded border border-slate-200 text-xs font-mono space-y-1 text-slate-700">
+            <div className="p-3 bg-slate-50 rounded border border-slate-200 text-xs font-normal space-y-1 text-slate-700">
               <div>Date: {e.event_date} ({e.start_time} - {e.end_time})</div>
               <div>Venue: {e.venue_name}, {e.venue_address}</div>
               <div>Registered: {e.registered_count} / {e.capacity} capacity</div>

@@ -58,11 +58,11 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             CONTRACT MOBILISATION DOSSIER · ENTIRECAFM
           </span>
           <h1 className="text-2xl font-extralight text-white mt-0.5">{mob.client_name}</h1>
-          <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1 font-mono">
+          <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1 font-normal">
             <span>Template: {mob.template_type}</span>
             <span>·</span>
             <span>Target Go-Live: {new Date(mob.target_go_live_date).toLocaleDateString('en-GB')}</span>
@@ -90,7 +90,7 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
             <div key={idx} className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs space-y-1">
               <span className="font-light text-zinc-300 block text-[11px] truncate">{d.name}</span>
               <span
-                className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light inline-block ${
+                className={`text-[10px] uppercase px-2 py-0.5 rounded font-light inline-block ${
                   d.state === 'READY'
                     ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/40'
                     : d.state === 'IN_PROGRESS'
@@ -113,11 +113,11 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             12-Phase Mobilisation Action Plan ({tasks.length} Milestones)
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">Operations Delivery Framework</span>
+          <span className="text-xs text-zinc-500 font-normal">Operations Delivery Framework</span>
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Phase &amp; Milestone</th>
               <th className="py-3 px-4">Owner</th>
@@ -133,22 +133,22 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
                   <div className="font-light text-white">{t.title}</div>
                   <div className="text-[11px] text-zinc-500">{t.phase_name}</div>
                 </td>
-                <td className="py-3.5 px-4 font-mono text-zinc-400">{t.owner}</td>
-                <td className="py-3.5 px-4 font-mono text-pink-400">
+                <td className="py-3.5 px-4 font-normal text-zinc-400">{t.owner}</td>
+                <td className="py-3.5 px-4 font-normal text-pink-400">
                   {new Date(t.due_date).toLocaleDateString('en-GB')}
                 </td>
                 <td className="py-3.5 px-4">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
+                    className={`text-[10px] uppercase px-2 py-0.5 rounded font-light ${
                       t.is_blocking ? 'bg-red-950/60 text-red-300 border border-red-800/40' : 'bg-zinc-800 text-zinc-400'
                     }`}
                   >
                     {t.is_blocking ? 'BLOCKING GATE' : 'NON-BLOCKING'}
                   </span>
                 </td>
-                <td className="py-3.5 px-4 font-mono">
+                <td className="py-3.5 px-4 font-normal">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
+                    className={`text-[10px] uppercase px-2 py-0.5 rounded font-light ${
                       t.status === 'COMPLETE'
                         ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/40'
                         : t.status === 'IN_PROGRESS'

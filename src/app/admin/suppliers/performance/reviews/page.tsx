@@ -10,7 +10,7 @@ export default async function PerformanceReviewsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           STRATEGIC PARTNER REVIEWS
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -27,7 +27,7 @@ export default async function PerformanceReviewsPage() {
             No formal QBR records on file.
           </p>
         ) : (
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {reviews.map((r) => (
               <div key={r.id} className="py-4 space-y-2">
                 <div className="flex justify-between items-center">

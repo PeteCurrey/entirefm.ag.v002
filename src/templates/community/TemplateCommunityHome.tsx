@@ -133,7 +133,7 @@ export function TemplateCommunityHome() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 The Professional Common Room
               </span>
             </div>
@@ -247,7 +247,7 @@ export function TemplateCommunityHome() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                   Roundtable Spotlight
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -274,7 +274,7 @@ export function TemplateCommunityHome() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-[3px] border border-white/10">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-[3px] border border-white/10">
                     {featuredDiscussion.categoryName}
                   </span>
                 </div>
@@ -293,7 +293,7 @@ export function TemplateCommunityHome() {
                   
                   {/* Author Identity */}
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-xs font-semibold shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-semibold shrink-0">
                       {featuredDiscussion.authorName
                         ? featuredDiscussion.authorName.split(' ').map((n: string) => n[0]).join('')
                         : 'PC'}
@@ -302,7 +302,7 @@ export function TemplateCommunityHome() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-900">{featuredDiscussion.authorName}</span>
                         {featuredDiscussion.authorBadge && (
-                          <span className="text-[9px] font-mono uppercase text-brand-electric bg-brand-electric/10 px-2 py-0.5 rounded-[2px]">
+                          <span className="text-[9px] font-normal uppercase text-brand-electric bg-brand-electric/10 px-2 py-0.5 rounded-[2px]">
                             {featuredDiscussion.authorBadge}
                           </span>
                         )}
@@ -352,7 +352,7 @@ export function TemplateCommunityHome() {
             <div className="lg:col-span-8 space-y-6">
               <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                     Roundtable Index
                   </span>
                   <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
@@ -377,7 +377,7 @@ export function TemplateCommunityHome() {
                           
                           {/* Discipline pill + Solved signal */}
                           <div className="flex items-center gap-2 text-xs font-light">
-                            <span className="text-brand-electric font-mono text-[10px] uppercase tracking-wider">
+                            <span className="text-brand-electric font-medium text-[10px] uppercase tracking-wider">
                               {disc.categoryName}
                             </span>
                             {disc.solved && (
@@ -449,7 +449,7 @@ export function TemplateCommunityHome() {
                 <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-rose-300">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-rose-300">
                       Live Room
                     </span>
                   </div>
@@ -476,7 +476,7 @@ export function TemplateCommunityHome() {
 
               {/* 05. THE CONTRACTOR DESK */}
               <div className="bg-white border border-neutral-200/90 p-6 sm:p-7 rounded-[6px] space-y-3 shadow-2xs">
-                <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-brand-electric font-medium">
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-brand-electric font-medium">
                   <HardHat className="w-3.5 h-3.5" />
                   <span>The Contractor Desk</span>
                 </div>
@@ -502,7 +502,7 @@ export function TemplateCommunityHome() {
 
               {/* 06. ASK THE LOBBY PROMPT */}
               <div className="bg-neutral-100/80 border border-neutral-200 p-6 rounded-[6px] space-y-3">
-                <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-neutral-600">
+                <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-widest text-neutral-600">
                   <Sparkles className="w-3.5 h-3.5 text-brand-electric" />
                   <span>Statutory Grounding</span>
                 </div>
@@ -534,7 +534,7 @@ export function TemplateCommunityHome() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-700 font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-amber-700 font-light">
                   Practitioner Knowledge Network
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -553,7 +553,7 @@ export function TemplateCommunityHome() {
                   className="bg-white border border-neutral-200/90 p-6 rounded-[6px] flex flex-col justify-between space-y-4 shadow-2xs hover:border-neutral-400 transition-colors"
                 >
                   <div className="space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-brand-electric">
+                    <span className="text-[10px] font-normal uppercase text-brand-electric">
                       {item.categoryName}
                     </span>
                     <h4 className="text-sm font-light text-neutral-900 leading-snug hover:text-brand-electric transition-colors">
@@ -588,7 +588,7 @@ export function TemplateCommunityHome() {
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-emerald-700 font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-emerald-700 font-light">
                   Verified Solutions
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -608,7 +608,7 @@ export function TemplateCommunityHome() {
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono text-[10px] uppercase text-brand-electric">{solvedItem.categoryName}</span>
+                      <span className="font-medium text-[10px] uppercase text-brand-electric">{solvedItem.categoryName}</span>
                       <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[2px] flex items-center gap-1 text-[10px]">
                         <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                         Accepted Answer
@@ -646,7 +646,7 @@ export function TemplateCommunityHome() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Professional Taxonomy
               </span>
               <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -669,7 +669,7 @@ export function TemplateCommunityHome() {
                   <h4 className="text-base font-light text-neutral-900 group-hover:text-brand-electric transition-colors">
                     {cat.name}
                   </h4>
-                  <span className="text-xs text-neutral-400 font-mono group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs text-neutral-400 font-normal group-hover:translate-x-1 transition-transform">
                     &rarr;
                   </span>
                 </div>
@@ -685,7 +685,7 @@ export function TemplateCommunityHome() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Practitioner Network
               </span>
               <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
@@ -704,7 +704,7 @@ export function TemplateCommunityHome() {
                 className="p-6 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-4"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-xs font-medium">
+                  <div className="w-10 h-10 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-medium">
                     {member.initials}
                   </div>
                   <div>
@@ -715,7 +715,7 @@ export function TemplateCommunityHome() {
 
                 <div className="space-y-1 text-xs">
                   <div className="text-neutral-700 font-light">{member.specialism}</div>
-                  <div className="text-[11px] font-mono text-brand-electric pt-1">{member.signal}</div>
+                  <div className="text-[11px] font-normal text-brand-electric pt-1">{member.signal}</div>
                 </div>
               </div>
             ))}

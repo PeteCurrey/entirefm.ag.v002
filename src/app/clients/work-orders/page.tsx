@@ -28,7 +28,7 @@ export default async function ClientWorkOrdersPage() {
 
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
         <table className="w-full text-left text-[13px]">
-          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
+          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
             <tr>
               <th className="px-6 py-3">WO Number</th>
               <th className="px-6 py-3">Title / Description</th>
@@ -47,12 +47,12 @@ export default async function ClientWorkOrdersPage() {
             ) : (
               list.map((wo) => (
                 <tr key={wo.id} className="hover:bg-brand-void/30 transition-colors">
-                  <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{wo.work_order_number}</td>
+                  <td className="px-6 py-3.5 font-normal text-brand-electric-bright">{wo.work_order_number}</td>
                   <td className="px-6 py-3.5 font-normal text-white">{wo.title}</td>
                   <td className="px-6 py-3.5">{wo.site?.name || '—'}</td>
-                  <td className="px-6 py-3.5 font-mono text-[11px]">{wo.priority}</td>
+                  <td className="px-6 py-3.5 font-normal text-[11px]">{wo.priority}</td>
                   <td className="px-6 py-3.5">
-                    <span className="rounded bg-brand-electric/10 border border-brand-electric/20 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">
+                    <span className="rounded bg-brand-electric/10 border border-brand-electric/20 px-2 py-0.5 font-normal text-[10px] text-brand-electric-bright">
                       {wo.status}
                     </span>
                   </td>

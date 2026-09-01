@@ -111,7 +111,7 @@ export default function SectorAdminDashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM SECTOR AUTHORITY &amp; CONTENT GOVERNANCE
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Sector Content &amp; Buyer Journeys</h1>
@@ -133,25 +133,25 @@ export default function SectorAdminDashboard() {
       {/* KPI Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">SECTORS MONITORED</div>
-          <div className="mt-1 text-xl font-light text-white font-mono">{SECTORS_MATRIX.length}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">SECTORS MONITORED</div>
+          <div className="mt-1 text-xl font-light text-white">{SECTORS_MATRIX.length}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">P0 CORE BLUEPRINTS</div>
-          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">4 (DEEP)</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">P0 CORE BLUEPRINTS</div>
+          <div className="mt-1 text-xl font-light text-emerald-400">4 (DEEP)</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">PROOF COVERAGE</div>
-          <div className="mt-1 text-xl font-light text-blue-400 font-mono">
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">PROOF COVERAGE</div>
+          <div className="mt-1 text-xl font-light text-blue-400">
             {SECTORS_MATRIX.filter((s) => s.proofStatus === 'VERIFIED').length} / {SECTORS_MATRIX.length}
           </div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">PROOF GAPS TRACKED</div>
-          <div className="mt-1 text-xl font-light text-amber-400 font-mono">
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">PROOF GAPS TRACKED</div>
+          <div className="mt-1 text-xl font-light text-amber-400">
             {SECTORS_MATRIX.filter((s) => s.proofStatus === 'PROOF_GAP').length}
           </div>
         </div>
@@ -163,11 +163,11 @@ export default function SectorAdminDashboard() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Sector Content &amp; Procurement Architecture
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">Claims &amp; Proof Governance Enforced</span>
+          <span className="text-xs text-zinc-500 font-normal">Claims &amp; Proof Governance Enforced</span>
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Sector Name</th>
               <th className="py-3 px-4">URL</th>
@@ -181,14 +181,14 @@ export default function SectorAdminDashboard() {
             {SECTORS_MATRIX.map((s) => (
               <tr key={s.id} className="hover:bg-zinc-800/40">
                 <td className="py-3.5 px-4 font-normal text-white">{s.name}</td>
-                <td className="py-3.5 px-4 font-mono text-zinc-400">
+                <td className="py-3.5 px-4 font-normal text-zinc-400">
                   <Link href={s.url} target="_blank" className="hover:text-emerald-400 underline">
                     {s.url}
                   </Link>
                 </td>
                 <td className="py-3.5 px-4">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border ${
+                    className={`text-[10px] uppercase px-2 py-0.5 rounded font-light border ${
                       s.contentDepth === 'DEEP'
                         ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                         : 'bg-zinc-800 text-zinc-300 border-zinc-700'
@@ -199,7 +199,7 @@ export default function SectorAdminDashboard() {
                 </td>
                 <td className="py-3.5 px-4">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border ${
+                    className={`text-[10px] uppercase px-2 py-0.5 rounded font-light border ${
                       s.proofStatus === 'VERIFIED'
                         ? 'bg-blue-950/60 text-blue-300 border-blue-800/40'
                         : 'bg-amber-950/60 text-amber-300 border-amber-800/40'
@@ -209,7 +209,7 @@ export default function SectorAdminDashboard() {
                   </span>
                 </td>
                 <td className="py-3.5 px-4 text-zinc-300">{s.relatedServices.join(', ')}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400">{s.procurementTool}</td>
+                <td className="py-3.5 px-4 font-normal text-emerald-400">{s.procurementTool}</td>
               </tr>
             ))}
           </tbody>

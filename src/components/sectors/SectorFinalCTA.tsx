@@ -113,7 +113,7 @@ export function SectorFinalCTA({
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block mb-1">
+                    <span className="text-[11px] font-medium uppercase tracking-wider text-brand-pink block mb-1">
                       PROPOSAL REQUEST // {serviceName}
                     </span>
                     <h3 className="text-xl font-light text-white">

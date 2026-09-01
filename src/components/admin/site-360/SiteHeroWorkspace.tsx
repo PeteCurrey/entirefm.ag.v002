@@ -86,11 +86,11 @@ export function SiteHeroWorkspace({
                   : 'bg-[#16A34A]'
               }`}
             />
-            <span className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+            <span className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               SITE 360 · PHYSICAL ASSET CANVAS
             </span>
           </div>
-          <span className="font-mono text-[10px] text-[#686866] bg-[#FFFFFF] border border-[#E4E4E1] px-2 py-0.5 rounded-[4px]">
+          <span className="font-normal text-[10px] text-[#686866] bg-[#FFFFFF] border border-[#E4E4E1] px-2 py-0.5 rounded-[4px]">
             {site.site_code}
           </span>
         </div>
@@ -146,7 +146,7 @@ export function SiteHeroWorkspace({
                   <span className="font-medium text-[11.5px] leading-tight whitespace-nowrap">
                     {marker.label}
                   </span>
-                  <span className="font-mono text-[9.5px] text-white/70">
+                  <span className="font-normal text-[9.5px] text-white/70">
                     {marker.location}
                   </span>
                 </div>
@@ -156,7 +156,7 @@ export function SiteHeroWorkspace({
 
           {/* Overlay Top Right: Live Telemetry HUD */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
-            <div className="rounded-[8px] bg-black/75 backdrop-blur-md border border-white/15 px-3 py-1.5 font-mono text-[11px] text-white flex items-center gap-2">
+            <div className="rounded-[8px] bg-black/75 backdrop-blur-md border border-white/15 px-3 py-1.5 font-normal text-[11px] text-white flex items-center gap-2">
               <Radio
                 className={`h-3.5 w-3.5 ${
                   site.status === 'ACTIVE' ? 'text-[#16A34A] animate-pulse' : 'text-[#9B9B97]'
@@ -173,7 +173,7 @@ export function SiteHeroWorkspace({
                 <Badge variant="orange" size="xs">
                   {site.site_type?.replace(/_/g, ' ') || 'FACILITY'}
                 </Badge>
-                <span className="font-mono text-[11px] text-white/80">
+                <span className="font-normal text-[11px] text-white/80">
                   {site.postcode}
                 </span>
               </div>
@@ -189,7 +189,7 @@ export function SiteHeroWorkspace({
             </div>
 
             {/* Quick Metrics Overlay Badge Bar */}
-            <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/20 rounded-[10px] p-2 font-mono text-[11px]">
+            <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/20 rounded-[10px] p-2 font-normal text-[11px]">
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">GIA Area</div>
                 <div className="font-light text-white">
@@ -221,13 +221,13 @@ export function SiteHeroWorkspace({
         /* Floor Plan CAD Mode */
         <div className="relative min-h-[480px] w-full bg-[#F5F5F3] p-6 flex flex-col justify-between overflow-hidden">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
-            <div className="font-mono text-[11px] text-[#101010] font-light">
+            <div className="text-[11px] text-[#101010] font-light">
               SCHEMATIC SPACES & ZONES ({spaces.length} REGISTERED)
             </div>
           </div>
 
           {spaces.length === 0 ? (
-            <div className="py-16 text-center text-[#686866] font-mono text-[12px]">
+            <div className="py-16 text-center text-[#686866] font-normal text-[12px]">
               <Building2 className="h-8 w-8 text-[#9B9B97] mx-auto mb-2" />
               No internal spaces or floor zones configured for this site.
             </div>
@@ -239,19 +239,19 @@ export function SiteHeroWorkspace({
                   className="border border-[#E4E4E1] bg-[#FFFFFF] rounded-[8px] p-4 flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[#FF6B24] font-light">
+                    <span className="text-[10px] text-[#FF6B24] font-light">
                       {sp.space_code}
                     </span>
-                    <span className="font-mono text-[9px] text-[#686866]">{sp.space_type}</span>
+                    <span className="font-normal text-[9px] text-[#686866]">{sp.space_type}</span>
                   </div>
                   <div className="font-normal text-[13px] text-[#101010] mt-1">{sp.name}</div>
-                  <div className="mt-2 text-[10px] text-[#15803D] font-mono">{sp.status}</div>
+                  <div className="mt-2 text-[10px] text-[#15803D] font-normal">{sp.status}</div>
                 </div>
               ))}
             </div>
           )}
 
-          <div className="flex items-center justify-between font-mono text-[11px] text-[#686866] pt-2 border-t border-[#E4E4E1]">
+          <div className="flex items-center justify-between font-normal text-[11px] text-[#686866] pt-2 border-t border-[#E4E4E1]">
             <span>Space topology mapped to building hierarchy</span>
             <span>SCALE 1:200 · CAD ALIGNED</span>
           </div>
@@ -259,12 +259,12 @@ export function SiteHeroWorkspace({
       ) : mode === 'ASSETS' ? (
         /* Asset Hierarchy Explorer */
         <div className="min-h-[480px] w-full bg-[#FFFFFF] p-6 overflow-y-auto cafm-scroll">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[#686866] mb-3">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#686866] mb-3">
             REGISTERED ASSETS & EQUIPMENT ({assets.length} UNITS)
           </div>
 
           {assets.length === 0 ? (
-            <div className="py-16 text-center text-[#686866] font-mono text-[12px]">
+            <div className="py-16 text-center text-[#686866] font-normal text-[12px]">
               <Layers className="h-8 w-8 text-[#9B9B97] mx-auto mb-2" />
               No mechanical or electrical assets registered for this site yet.
             </div>
@@ -277,7 +277,7 @@ export function SiteHeroWorkspace({
                   className="rounded-[10px] border border-[#E4E4E1] p-3.5 hover:border-[#FF6B24] transition-all cursor-pointer bg-[#F9F9F8] hover:bg-[#FFFFFF]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[#FF6B24] font-light">
+                    <span className="text-[10px] text-[#FF6B24] font-light">
                       {a.asset_reference}
                     </span>
                     <Badge variant={a.criticality === 'CRITICAL' ? 'red' : 'blue'} size="xs">
@@ -287,7 +287,7 @@ export function SiteHeroWorkspace({
                   <div className="font-normal text-[13px] text-[#101010] mt-1 truncate">{a.name}</div>
                   <div className="mt-2 text-[11px] text-[#686866] flex items-center justify-between">
                     <span>{a.system_category || 'GENERAL'}</span>
-                    <span className="font-mono text-[#15803D] font-medium">{a.condition || 'NOMINAL'}</span>
+                    <span className="text-[#15803D] font-medium">{a.condition || 'NOMINAL'}</span>
                   </div>
                 </div>
               ))}
@@ -304,11 +304,11 @@ export function SiteHeroWorkspace({
               {site.address_line1}, {site.city} {site.postcode}
             </p>
             {site.access_instructions ? (
-              <div className="pt-2 text-[12px] font-mono text-[#101010] bg-[#F5F5F3] p-3 rounded-[8px] text-left">
+              <div className="pt-2 text-[12px] font-normal text-[#101010] bg-[#F5F5F3] p-3 rounded-[8px] text-left">
                 <strong>Access Instructions:</strong> {site.access_instructions}
               </div>
             ) : (
-              <div className="pt-2 text-[12px] font-mono text-[#686866]">
+              <div className="pt-2 text-[12px] font-normal text-[#686866]">
                 Standard site access protocols apply.
               </div>
             )}

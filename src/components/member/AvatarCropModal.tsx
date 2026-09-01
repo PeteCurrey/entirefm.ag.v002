@@ -263,7 +263,7 @@ export function AvatarCropModal({
 
             {/* Live Circular Output Preview */}
             <div className="flex flex-col items-center space-y-2 shrink-0">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-400">
                 Preview
               </span>
               <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-neutral-300 shadow-sm relative bg-[#121826]">
@@ -298,7 +298,7 @@ export function AvatarCropModal({
               <span className="flex items-center gap-1">
                 <ZoomOut className="w-3.5 h-3.5" /> Scale
               </span>
-              <span className="font-mono text-[11px]">{Math.round(zoom * 100)}%</span>
+              <span className="font-normal text-[11px]">{Math.round(zoom * 100)}%</span>
             </div>
             <div className="flex items-center gap-3">
               <input

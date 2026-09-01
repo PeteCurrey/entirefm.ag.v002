@@ -25,7 +25,7 @@ export function EngineersNote({ data }: EngineersNoteProps) {
         <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-transparent via-transparent to-[#090C12]" />
 
         <div className="absolute top-6 left-6 z-10">
-          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
+          <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
             THE ENGINEER’S NOTE · {data.discipline}
           </span>
         </div>
@@ -34,7 +34,7 @@ export function EngineersNote({ data }: EngineersNoteProps) {
       {/* 35% Editorial Reading Column */}
       <div className="relative w-full lg:w-[35%] bg-[#090C12] p-8 sm:p-10 lg:p-12 flex flex-col justify-between z-10 space-y-6">
         <div className="space-y-4">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-brand-electric block">
+          <span className="text-[11px] font-medium uppercase tracking-widest text-brand-electric block">
             MECHANICAL DIAGNOSTIC
           </span>
 
@@ -49,7 +49,7 @@ export function EngineersNote({ data }: EngineersNoteProps) {
 
         {/* Practical Field Rule Callout */}
         <div className="border-l-2 border-brand-electric pl-4 py-1 space-y-1 bg-white/[0.02]">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric block">
+          <span className="text-[10px] font-medium uppercase tracking-widest text-brand-electric block">
             Field Rule of Thumb
           </span>
           <p className="text-xs sm:text-sm font-light text-white/90 leading-relaxed italic">

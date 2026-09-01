@@ -29,7 +29,7 @@ export default async function ComplianceCertificatesPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Certificate Type & Ref</th>
                 <th className="px-5 py-3">Site / Scope</th>
                 <th className="px-5 py-3">Issued By</th>
@@ -43,7 +43,7 @@ export default async function ComplianceCertificatesPage() {
                 <tr key={c.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
                     <div className="font-light text-white">{c.certificate_type}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">#{c.certificate_number}</div>
+                    <div className="font-normal text-[11px] text-brand-mist/50">#{c.certificate_number}</div>
                   </td>
                   <td className="px-5 py-4">
                     <div className="font-normal text-white">{c.site?.name || 'Site'}</div>
@@ -51,15 +51,15 @@ export default async function ComplianceCertificatesPage() {
                   <td className="px-5 py-4 text-brand-mist/70">
                     {c.issued_by_org}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px]">
+                  <td className="px-5 py-4 font-normal text-[11px]">
                     {c.issued_date}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {c.expiry_date}
                   </td>
                   <td className="px-5 py-4">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+                      className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                         c.status === 'VALID'
                           ? 'bg-emerald-500/20 text-emerald-400'
                           : c.status === 'EXPIRING_SOON'

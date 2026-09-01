@@ -76,7 +76,7 @@ export function SectorSystemsNavigator({
                   }`}
                 >
                   <div className="flex items-center gap-4 min-w-0">
-                    <span className={`font-mono text-xs ${isActive ? 'text-brand-pink font-medium' : 'text-slate-400'}`}>
+                    <span className={`font-normal text-xs${isActive ? 'text-brand-pink font-medium' : 'text-slate-400'}`}>
                       {numStr}
                     </span>
                     <span className={`text-base font-light tracking-tight truncate ${isActive ? 'text-slate-900 font-normal' : 'text-slate-700'}`}>
@@ -92,7 +92,7 @@ export function SectorSystemsNavigator({
           {/* Right Column: Active Discipline Showcase with Photo & Structured Tasks */}
           <div className="col-span-7 bg-white border border-slate-200 rounded-sm p-8 sm:p-10 shadow-sm relative space-y-6">
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-brand-pink block mb-2">
                 DISCIPLINE {String(activeIndex + 1).padStart(2, '0')} // {currentGroup.category}
               </span>
               <h3 className="text-2xl font-light text-slate-900 tracking-tight leading-snug">
@@ -119,7 +119,7 @@ export function SectorSystemsNavigator({
                 <Wrench className="w-3.5 h-3.5 text-brand-pink" />
                 Self-Delivered Engineering
               </span>
-              <span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm">
+              <span className="font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm">
                 SFG20 Certified Routine
               </span>
             </div>
@@ -142,7 +142,7 @@ export function SectorSystemsNavigator({
                   className="w-full p-4 flex items-center justify-between text-left text-slate-900 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-brand-pink font-medium">
+                    <span className="text-xs text-brand-pink font-medium">
                       {numStr}
                     </span>
                     <span className="text-sm font-light text-slate-900">

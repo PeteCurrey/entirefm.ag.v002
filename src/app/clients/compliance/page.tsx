@@ -36,19 +36,19 @@ export default async function ClientCompliancePage() {
       {/* Assurance Summary Strip */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-brand-mist/60">Total Statutory Duties</div>
+          <div className="text-[11px] font-normal uppercase text-brand-mist/60">Total Statutory Duties</div>
           <div className="mt-1 text-2xl font-light text-white">{obligations.length}</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-emerald-400">Compliant Duties</div>
+          <div className="text-[11px] font-normal uppercase text-emerald-400">Compliant Duties</div>
           <div className="mt-1 text-2xl font-light text-emerald-400">{compliantCount}</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-amber-300">Due Soon (30d)</div>
+          <div className="text-[11px] font-normal uppercase text-amber-300">Due Soon (30d)</div>
           <div className="mt-1 text-2xl font-light text-amber-400">{dueSoonCount}</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="text-[11px] font-mono uppercase text-rose-300">Overdue</div>
+          <div className="text-[11px] font-normal uppercase text-rose-300">Overdue</div>
           <div className="mt-1 text-2xl font-light text-rose-400">{overdueCount}</div>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default async function ClientCompliancePage() {
           <h2 className="text-sm font-normal text-white">Statutory Obligation Register</h2>
         </div>
         <table className="w-full text-left text-[13px]">
-          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
+          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
             <tr>
               <th className="px-6 py-3">Site / Scope</th>
               <th className="px-6 py-3">Obligation & Standard</th>
@@ -84,12 +84,12 @@ export default async function ClientCompliancePage() {
                   </td>
                   <td className="px-6 py-3.5">
                     <div className="text-white">{ob.rule_version?.rule?.title || 'Statutory Inspection'}</div>
-                    <div className="font-mono text-[11.5px] text-brand-mist/60">{ob.rule_version?.rule?.code || 'STATUTORY-001'}</div>
+                    <div className="font-normal text-[11.5px] text-brand-mist/60">{ob.rule_version?.rule?.code || 'STATUTORY-001'}</div>
                   </td>
                   <td className="px-6 py-3.5 text-brand-mist/80">{ob.responsible_party || 'EntireFM'}</td>
-                  <td className="px-6 py-3.5 font-mono text-[12px] text-white">{ob.next_due_at || '—'}</td>
+                  <td className="px-6 py-3.5 font-normal text-[12px] text-white">{ob.next_due_at || '—'}</td>
                   <td className="px-6 py-3.5">
-                    <span className={`rounded border px-2 py-0.5 font-mono text-[10px] ${
+                    <span className={`rounded border px-2 py-0.5 font-normal text-[10px] ${
                       ob.status === 'COMPLIANT'
                         ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                         : ob.status === 'OVERDUE'

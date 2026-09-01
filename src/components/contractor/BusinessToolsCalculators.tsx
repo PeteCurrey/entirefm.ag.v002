@@ -41,15 +41,15 @@ function fmt(v: number, decimals = 2) {
 function CurrencyInput({ label, value, onChange, note }: { label: string; value: number; onChange: (v: number) => void; note?: string }) {
   return (
     <div className="space-y-0.5">
-      <label className="text-[11px] font-mono text-brand-mist/60 uppercase tracking-wide block">{label}</label>
+      <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">{label}</label>
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-mono">£</span>
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-normal">£</span>
         <input
           type="number"
           value={value}
           min={0}
           onChange={(e) => onChange(Number(e.target.value) || 0)}
-          className="w-full pl-6 pr-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-mono text-sm focus:outline-none focus:border-brand-electric"
+          className="w-full pl-6 pr-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
         />
       </div>
       {note && <p className="text-[10.5px] text-brand-mist/40 font-sans">{note}</p>}
@@ -60,16 +60,16 @@ function CurrencyInput({ label, value, onChange, note }: { label: string; value:
 function NumberInput({ label, value, onChange, suffix, note }: { label: string; value: number; onChange: (v: number) => void; suffix?: string; note?: string }) {
   return (
     <div className="space-y-0.5">
-      <label className="text-[11px] font-mono text-brand-mist/60 uppercase tracking-wide block">{label}</label>
+      <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">{label}</label>
       <div className="relative">
         <input
           type="number"
           value={value}
           min={0}
           onChange={(e) => onChange(Number(e.target.value) || 0)}
-          className="w-full pl-3 pr-8 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-mono text-sm focus:outline-none focus:border-brand-electric"
+          className="w-full pl-3 pr-8 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
         />
-        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-mono">{suffix}</span>}
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-normal">{suffix}</span>}
       </div>
       {note && <p className="text-[10.5px] text-brand-mist/40 font-sans">{note}</p>}
     </div>
@@ -79,8 +79,8 @@ function NumberInput({ label, value, onChange, suffix, note }: { label: string; 
 function ResultRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className={`flex items-center justify-between py-2 ${highlight ? 'border-t border-brand-edge-dark' : ''}`}>
-      <span className="text-[11.5px] font-mono text-brand-mist/70">{label}</span>
-      <span className={`font-mono text-sm font-semibold ${highlight ? 'text-brand-electric-bright' : 'text-white'}`}>{value}</span>
+      <span className="text-[11.5px] font-normal text-brand-mist/70">{label}</span>
+      <span className={`text-sm font-semibold${highlight ? 'text-brand-electric-bright' : 'text-white'}`}>{value}</span>
     </div>
   );
 }
@@ -246,14 +246,14 @@ export function BusinessToolsCalculators() {
             return (
               <React.Fragment key={group}>
                 <div className="flex items-center gap-1.5 mr-3">
-                  <span className="text-[9px] font-mono uppercase tracking-widest text-brand-mist/30 hidden sm:inline">
+                  <span className="text-[9px] font-medium uppercase tracking-widest text-brand-mist/30 hidden sm:inline">
                     {group}
                   </span>
                   {groupTools.map((tool) => (
                     <button
                       key={tool.id}
                       onClick={() => setActiveTool(tool.id)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-colors whitespace-nowrap ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-normal flex items-center gap-1.5 transition-colors whitespace-nowrap ${
                         activeTool === tool.id
                           ? 'bg-brand-electric text-white font-semibold'
                           : 'border border-brand-edge-dark text-brand-mist/70 hover:text-white hover:border-brand-mist/30'
@@ -282,7 +282,7 @@ export function BusinessToolsCalculators() {
             </h3>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Employment Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Employment Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <CurrencyInput label="Annual Base Salary" value={lSalary} onChange={setLSalary} />
                 <NumberInput label="Employer NI Rate" value={lNiPct} onChange={setLNiPct} suffix="%" note="Current: 13.8%" />
@@ -292,7 +292,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Working Time</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Working Time</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <NumberInput label="Contracted Hrs/Week" value={lHoursWeek} onChange={setLHoursWeek} suffix="hrs" />
                 <NumberInput label="Working Weeks/Year" value={lWeeksYear} onChange={setLWeeksYear} suffix="wks" />
@@ -305,7 +305,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Vehicle & Direct Operative Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Vehicle & Direct Operative Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <CurrencyInput label="Van Lease & Insurance /Mo" value={lVanMonthly} onChange={setLVanMonthly} />
                 <CurrencyInput label="Annual Fuel" value={lFuelAnnual} onChange={setLFuelAnnual} />
@@ -317,7 +317,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Overhead & Target</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Overhead & Target</div>
               <div className="grid grid-cols-2 gap-3">
                 <CurrencyInput label="Annual Overhead Allocation" value={lOverhead} onChange={setLOverhead} note="Office, management, admin etc." />
                 <NumberInput label="Target Gross Margin" value={lTargetMargin} onChange={setLTargetMargin} suffix="%" note="Margin ≠ Markup" />
@@ -327,7 +327,7 @@ export function BusinessToolsCalculators() {
             {/* Expandable explainer */}
             <button
               onClick={() => setShowHowCalc(!showHowCalc)}
-              className="flex items-center gap-1.5 text-[11px] text-brand-mist/50 hover:text-brand-mist font-mono transition-colors"
+              className="flex items-center gap-1.5 text-[11px] text-brand-mist/50 hover:text-brand-mist font-normal transition-colors"
             >
               <Info className="w-3.5 h-3.5" />
               Why productive hours matter
@@ -351,16 +351,16 @@ export function BusinessToolsCalculators() {
           {/* Results */}
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
             <div className="space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+              <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
                 CHARGE-OUT RATE — {lTargetMargin}% MARGIN
               </span>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-5xl font-light text-white font-mono">£{fmt(labourResult.chargeOutRateAtTargetMargin, 2)}</span>
-                  <span className="text-brand-mist/50 text-sm font-mono">/hr + VAT</span>
+                  <span className="text-5xl font-light text-white">£{fmt(labourResult.chargeOutRateAtTargetMargin, 2)}</span>
+                  <span className="text-brand-mist/50 text-sm font-normal">/hr + VAT</span>
                 </div>
                 <p className="text-xs text-brand-mist/60 mt-1">
-                  Day rate (8h): <strong className="text-white font-mono">£{fmt(labourResult.equivalentDayRate)}</strong>
+                  Day rate (8h): <strong className="text-white font-normal">£{fmt(labourResult.equivalentDayRate)}</strong>
                 </p>
               </div>
 
@@ -374,11 +374,11 @@ export function BusinessToolsCalculators() {
 
               {/* Scenarios */}
               <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-mono uppercase text-brand-mist/40 tracking-wide">Utilisation Scenarios</div>
+                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">Utilisation Scenarios</div>
                 {(['conservative', 'base', 'target'] as const).map((s) => {
                   const row = labourResult.scenarios[s];
                   return (
-                    <div key={s} className="flex items-center justify-between text-xs font-mono">
+                    <div key={s} className="flex items-center justify-between text-xs font-normal">
                       <span className="text-brand-mist/50 capitalize">{s}</span>
                       <span className="text-white">{row.billableHours.toLocaleString()}h → <span className="text-brand-electric-bright">£{fmt(row.targetRate)}/hr</span></span>
                     </div>
@@ -405,7 +405,7 @@ export function BusinessToolsCalculators() {
             </h3>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Revenue</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Revenue</div>
               <div className="grid grid-cols-2 gap-3">
                 <CurrencyInput label="Quoted Sell Price (Net)" value={mSell} onChange={setMSell} />
                 <NumberInput label="Target Gross Margin" value={mTargetMargin} onChange={setMTargetMargin} suffix="%" />
@@ -413,7 +413,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Direct Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Direct Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <NumberInput label="Labour Hours" value={mLabourHrs} onChange={setMLabourHrs} suffix="hrs" />
                 <CurrencyInput label="Labour Cost Rate /Hr" value={mLabourRate} onChange={setMLabourRate} note="Use Labour Rate calc output" />
@@ -431,17 +431,17 @@ export function BusinessToolsCalculators() {
           {/* Results */}
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
             <div className="space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+              <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
                 JOB ECONOMICS
               </span>
 
               {marginResult.isLossMaking ? (
-                <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800/50 flex items-center gap-2 text-rose-300 text-xs font-mono">
+                <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800/50 flex items-center gap-2 text-rose-300 text-xs font-normal">
                   <TrendingDown className="w-4 h-4 text-rose-400 shrink-0" />
                   <span>Estimated Loss — Cost exceeds sell price.</span>
                 </div>
               ) : marginResult.isBelowTargetMargin ? (
-                <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-800/40 flex items-center gap-2 text-amber-300 text-xs font-mono">
+                <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-800/40 flex items-center gap-2 text-amber-300 text-xs font-normal">
                   <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
                   <span>Below your {mTargetMargin}% target margin.</span>
                 </div>
@@ -450,7 +450,7 @@ export function BusinessToolsCalculators() {
               <div>
                 <div className="flex items-baseline gap-1">
                   <span
-                    className={`text-5xl font-light font-mono ${
+                    className={`text-5xl font-light ${
                       marginResult.isLossMaking
                         ? 'text-rose-400'
                         : marginResult.isBelowTargetMargin
@@ -475,13 +475,13 @@ export function BusinessToolsCalculators() {
               </div>
 
               <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-mono uppercase text-brand-mist/40 tracking-wide">To Achieve {mTargetMargin}% Margin</div>
-                <div className="text-xl font-mono font-semibold text-brand-electric-bright">£{fmt(marginResult.targetSellPriceForDesiredMargin)}</div>
+                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">To Achieve {mTargetMargin}% Margin</div>
+                <div className="text-xl font-semibold text-brand-electric-bright">£{fmt(marginResult.targetSellPriceForDesiredMargin)}</div>
               </div>
 
               <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-mono uppercase text-brand-mist/40 tracking-wide">Sensitivity</div>
-                <div className="space-y-1.5 text-xs font-mono">
+                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">Sensitivity</div>
+                <div className="space-y-1.5 text-xs font-normal">
                   <div className="flex justify-between">
                     <span className="text-brand-mist/60">+4 hrs labour:</span>
                     <span className="text-amber-400">{fmt(marginResult.sensitivity.ifExtra4HoursLabour.newMarginPct, 1)}%</span>
@@ -512,11 +512,11 @@ export function BusinessToolsCalculators() {
               <NumberInput label="Travel Time" value={coTravelHrs} onChange={setCoTravelHrs} suffix="hrs" />
               <NumberInput label="On-Site Time" value={coOnSiteHrs} onChange={setCoOnSiteHrs} suffix="hrs" />
               <div className="space-y-0.5">
-                <label className="text-[11px] font-mono text-brand-mist/60 uppercase tracking-wide block">Rate Type Multiplier</label>
+                <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Rate Type Multiplier</label>
                 <select
                   value={coMultiplier}
                   onChange={(e) => setCoMultiplier(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-mono focus:outline-none focus:border-brand-electric"
+                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
                 >
                   <option value={1.0}>1.0× — Standard Daytime</option>
                   <option value={1.5}>1.5× — Evening / Saturday</option>
@@ -532,13 +532,13 @@ export function BusinessToolsCalculators() {
           </div>
 
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               CALL-OUT PRICING
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white font-mono">£{fmt(callOutResult.recommendedSellPrice, 0)}</span>
-                <span className="text-brand-mist/50 text-sm font-mono">+ VAT</span>
+                <span className="text-5xl font-light text-white">£{fmt(callOutResult.recommendedSellPrice, 0)}</span>
+                <span className="text-brand-mist/50 text-sm font-normal">+ VAT</span>
               </div>
               <p className="text-xs text-brand-mist/60 mt-1">Recommended sell price at {coMargin}% margin</p>
             </div>
@@ -576,12 +576,12 @@ export function BusinessToolsCalculators() {
           </div>
 
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               VISIT TRAVEL COST
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white font-mono">£{fmt(travelResult.totalTrueTravelCost, 0)}</span>
+                <span className="text-5xl font-light text-white">£{fmt(travelResult.totalTrueTravelCost, 0)}</span>
               </div>
               <p className="text-xs text-brand-mist/60 mt-1">True total cost to send this engineer</p>
             </div>
@@ -621,15 +621,15 @@ export function BusinessToolsCalculators() {
           </div>
 
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               TEAM DELIVERY CAPACITY
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white font-mono">
+                <span className="text-5xl font-light text-white">
                   {utilisationResult.targetBillableHoursAnnual.toLocaleString()}
                 </span>
-                <span className="text-brand-mist/50 text-sm font-mono">billable hrs/yr</span>
+                <span className="text-brand-mist/50 text-sm font-normal">billable hrs/yr</span>
               </div>
               <p className="text-xs text-brand-mist/60 mt-1">
                 Across {uEngineers} engineer{uEngineers > 1 ? 's' : ''} at {uTargetPct}% utilisation
@@ -664,11 +664,11 @@ export function BusinessToolsCalculators() {
               <CurrencyInput label="Amount" value={vatAmount} onChange={setVatAmount} />
               <NumberInput label="VAT Rate" value={vatRate} onChange={setVatRate} suffix="%" note="Standard: 20%" />
               <div className="space-y-0.5">
-                <label className="text-[11px] font-mono text-brand-mist/60 uppercase tracking-wide block">Direction</label>
+                <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Direction</label>
                 <select
                   value={vatDirection}
                   onChange={(e) => setVatDirection(e.target.value as 'ADD' | 'REMOVE')}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-mono focus:outline-none focus:border-brand-electric"
+                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
                 >
                   <option value="ADD">Add VAT to Net Amount</option>
                   <option value="REMOVE">Remove VAT from Gross Amount</option>
@@ -678,12 +678,12 @@ export function BusinessToolsCalculators() {
           </div>
 
           <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold block">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               VAT BREAKDOWN
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white font-mono">£{fmt(vatResult.grossAmount)}</span>
+                <span className="text-5xl font-light text-white">£{fmt(vatResult.grossAmount)}</span>
               </div>
               <p className="text-xs text-brand-mist/60 mt-1">Gross (Inc. VAT)</p>
             </div>

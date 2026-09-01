@@ -69,7 +69,7 @@ export default function SEOPriorityDashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM SEARCH PERFORMANCE &amp; TECHNICAL SEO GOVERNANCE
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">SEO Priority Queue &amp; Health Architecture</h1>
@@ -98,23 +98,23 @@ export default function SEOPriorityDashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">TOTAL REGISTERED ROUTES</div>
-          <div className="mt-1 text-xl font-light text-white font-mono">326 Routes</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">TOTAL REGISTERED ROUTES</div>
+          <div className="mt-1 text-xl font-light text-white">326 Routes</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">HISTORIC PROTECTED 200s</div>
-          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">229 / 229 (100%)</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">HISTORIC PROTECTED 200s</div>
+          <div className="mt-1 text-xl font-light text-emerald-400">229 / 229 (100%)</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">CANONICAL CONSISTENCY</div>
-          <div className="mt-1 text-xl font-light text-blue-400 font-mono">100% www.entirefm.com</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">CANONICAL CONSISTENCY</div>
+          <div className="mt-1 text-xl font-light text-blue-400">100% www.entirefm.com</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">BROKEN INTERNAL LINKS</div>
-          <div className="mt-1 text-xl font-light text-purple-400 font-mono">0 Clean</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">BROKEN INTERNAL LINKS</div>
+          <div className="mt-1 text-xl font-light text-purple-400">0 Clean</div>
         </div>
       </div>
 
@@ -124,11 +124,11 @@ export default function SEOPriorityDashboard() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Consolidated Priority Queue
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">Automated CI/CD Validated</span>
+          <span className="text-xs text-zinc-500 font-normal">Automated CI/CD Validated</span>
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Priority</th>
               <th className="py-3 px-4">Category</th>
@@ -140,7 +140,7 @@ export default function SEOPriorityDashboard() {
           <tbody className="divide-y divide-zinc-800">
             {priorities.map((p) => (
               <tr key={p.id} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-mono font-light">
+                <td className="py-3.5 px-4 font-light">
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] ${
                       p.priority === 'P0'
@@ -157,7 +157,7 @@ export default function SEOPriorityDashboard() {
                 <td className="py-3.5 px-4 font-normal text-white">{p.title}</td>
                 <td className="py-3.5 px-4 text-zinc-300 max-w-md">{p.action}</td>
                 <td className="py-3.5 px-4">
-                  <span className="inline-flex items-center gap-1 text-emerald-400 font-normal font-mono text-[11px]">
+                  <span className="inline-flex items-center gap-1 text-emerald-400 font-normal text-[11px]">
                     <CheckCircle2 className="h-3.5 w-3.5" /> {p.status}
                   </span>
                 </td>

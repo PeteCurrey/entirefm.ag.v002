@@ -31,7 +31,7 @@ export default function ContentDecayPage() {
           <p className="text-xs text-zinc-400 max-w-md mx-auto">
             Content decay detection relies on real period-over-period click and impression drops from Google Search Console. Zero mock data is generated.
           </p>
-          <div className="text-xs text-zinc-500 font-mono">
+          <div className="text-xs text-zinc-500 font-normal">
             Requires: GOOGLE_SEARCH_CONSOLE_CLIENT_EMAIL &amp; GOOGLE_SEARCH_CONSOLE_PRIVATE_KEY
           </div>
         </div>

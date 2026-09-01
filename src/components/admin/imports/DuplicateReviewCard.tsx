@@ -28,9 +28,9 @@ export function DuplicateReviewCard({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[11px] font-normal text-[#B45309]">ROW #{row.row_index}</span>
+              <span className="text-[11px] font-normal text-[#B45309]">ROW #{row.row_index}</span>
               {extId && (
-                <span className="rounded-[4px] bg-[#FEF3C7] border border-[#FDE68A] px-1.5 py-0.5 font-mono text-[10px] text-[#92400E]">
+                <span className="rounded-[4px] bg-[#FEF3C7] border border-[#FDE68A] px-1.5 py-0.5 font-normal text-[10px] text-[#92400E]">
                   ID: {extId}
                 </span>
               )}
@@ -38,7 +38,7 @@ export function DuplicateReviewCard({
             <h4 className="font-light text-[13.5px] text-[#92400E] mt-0.5">{displayName}</h4>
           </div>
         </div>
-        <span className="rounded-[5px] bg-[#FEF3C7] border border-[#FDE68A] px-2 py-0.5 font-mono text-[10px] font-normal text-[#92400E]">
+        <span className="rounded-[5px] bg-[#FEF3C7] border border-[#FDE68A] px-2 py-0.5 text-[10px] font-normal text-[#92400E]">
           DUPLICATE
         </span>
       </div>
@@ -50,7 +50,7 @@ export function DuplicateReviewCard({
         </div>
         <div className="flex items-center justify-between text-[#686866]">
           <span>Action on Commit:</span>
-          <span className="font-mono text-[11px] text-[#B45309]">Will be skipped (idempotent protection)</span>
+          <span className="font-normal text-[11px] text-[#B45309]">Will be skipped (idempotent protection)</span>
         </div>
       </div>
 

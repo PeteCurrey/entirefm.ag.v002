@@ -88,13 +88,13 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
                 <div className="space-y-4 pt-2 border-t border-brand-edge-dark text-xs">
                   <div>
                     <span className="text-slate-400 block">Emergency Helpdesk Line:</span>
-                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric font-mono text-base font-light hover:underline">
+                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric text-base font-light hover:underline">
                       {CONTACT_CONFIG.mainPhone.display}
                     </a>
                   </div>
                   <div>
                     <span className="text-slate-400 block">Operations Email:</span>
-                    <a href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`} className="text-white font-mono hover:text-brand-electric">
+                    <a href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`} className="text-white font-normal hover:text-brand-electric">
                       {CONTACT_CONFIG.helpdeskEmail}
                     </a>
                   </div>

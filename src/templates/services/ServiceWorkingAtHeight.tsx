@@ -235,7 +235,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D] animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
+                <span className="text-[11px] uppercase tracking-widest text-white/90 font-light">
                   SPECIALIST ACCESS & FAÇADE CARE
                 </span>
               </div>
@@ -272,7 +272,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               </div>
 
               {/* Trust Supporting Bar */}
-              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-white/70">
+              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-normal text-white/70">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-[#16A34A]" />
                   IRATA-Trained Operatives
@@ -305,7 +305,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     STRATEGIC ACCESS METHODOLOGIES
                   </span>
                 </div>
@@ -349,7 +349,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                    <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block font-medium">
+                    <span className="text-[11px] text-white/80 uppercase tracking-wider block font-medium">
                       PRECISION RIGGING &amp; ANCHOR PROTOCOLS
                     </span>
                     <h3 className="text-lg font-light text-white">
@@ -373,7 +373,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   COMPREHENSIVE CAPABILITY
                 </span>
               </div>
@@ -398,7 +398,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                         <div className="h-10 w-10 rounded-[10px] bg-[#FAF9FB] border border-slate-200 flex items-center justify-center text-[#FF3E9D] group-hover:bg-[#FF3E9D] group-hover:text-white transition-colors">
                           <Icon className="h-5 w-5" />
                         </div>
-                        <span className="font-mono text-[9.5px] uppercase font-light text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                        <span className="text-[9.5px] uppercase font-light text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                           {srv.badge}
                         </span>
                       </div>
@@ -447,7 +447,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-6 space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
                   <Sparkles className="h-3.5 w-3.5 text-[#FF3E9D]" />
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
+                  <span className="text-[11px] uppercase tracking-widest text-white font-light">
                     COMMERCIAL POSITIONING
                   </span>
                 </div>
@@ -487,7 +487,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-[#FF3E9D] font-light block">
+                    <span className="text-[10.5px] uppercase tracking-wider text-[#FF3E9D] font-light block">
                       TECHNICAL BUILDING ENVELOPE CARE
                     </span>
                     <h3 className="text-base font-light text-white">
@@ -536,7 +536,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                    <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block">
+                    <span className="font-medium text-[11px] text-white/80 uppercase tracking-wider block">
                       ENGINEERED CRADLE OPERATIONS
                     </span>
                     <h3 className="text-lg font-light text-white">
@@ -552,7 +552,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     INTEGRATED PLANT &amp; CRADLES
                   </span>
                 </div>
@@ -612,7 +612,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#16A34A]" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#16A34A]">
+                <span className="text-xs font-normal uppercase tracking-wider text-[#16A34A]">
                   HEALTH, SAFETY &amp; GOVERNANCE
                 </span>
               </div>
@@ -677,7 +677,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="space-y-2 max-w-2xl">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                     RISK REDUCTION &amp; INITIAL SURVEYS
                   </span>
                 </div>
@@ -715,7 +715,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   ESTATE PORTFOLIO RELEVANCE
                 </span>
               </div>
@@ -753,7 +753,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 mb-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     THE ENTIREFM ADVANTAGE
                   </span>
                 </div>
@@ -765,7 +765,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-normal text-xs">
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
                   <h4 className="font-light text-slate-900 uppercase font-sans text-sm">One Integrated Provider</h4>
                   <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
@@ -797,7 +797,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
         <section className="py-20 bg-white border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+              <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                 FREQUENTLY ASKED QUESTIONS
               </span>
               <h2 className="text-3xl font-light text-slate-900">
@@ -819,7 +819,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
+                <span className="text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   CONNECTED CAPABILITIES
                 </span>
               </div>
@@ -837,7 +837,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     FABRIC CARE
                   </span>
                   <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
@@ -858,7 +858,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     SPECIALIST CLEANING
                   </span>
                   <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
@@ -879,7 +879,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     HARD FM
                   </span>
                   <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
@@ -900,7 +900,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     STATUTORY CARE
                   </span>
                   <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
@@ -926,7 +926,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
           <div className="container-custom max-w-4xl text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 mx-auto">
               <span className="h-2 w-2 rounded-full bg-[#FF3E9D] animate-pulse" />
-              <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
+              <span className="text-[11px] uppercase tracking-widest text-white/90 font-light">
                 SAFE HIGH-LEVEL ACCESS
               </span>
             </div>
@@ -958,7 +958,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               </Link>
             </div>
 
-            <div className="pt-6 border-t border-white/15 text-xs text-slate-400 font-mono">
+            <div className="pt-6 border-t border-white/15 text-xs text-slate-400 font-normal">
               Direct technical consultation with EntireFM Operations Directors · National UK Coverage
             </div>
           </div>

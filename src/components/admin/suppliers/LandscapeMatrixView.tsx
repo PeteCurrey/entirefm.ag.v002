@@ -67,7 +67,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
           </select>
         </div>
 
-        <span className="text-xs font-mono text-slate-500">
+        <span className="text-xs font-normal text-slate-500">
           Showing {filtered.length} suppliers
         </span>
       </div>
@@ -77,7 +77,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-mono uppercase text-[10.5px]">
+              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-normal uppercase text-[10.5px]">
                 <th className="py-3 px-4">Organisation</th>
                 <th className="py-3 px-4">Supplier Type</th>
                 <th className="py-3 px-4">Relationship Tier</th>
@@ -106,37 +106,37 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                     <td className="py-3 px-4">
                       <div className="font-light text-slate-900">{s.legal_name}</div>
                       {s.trading_name && (
-                        <span className="text-[10.5px] text-slate-400 font-mono">t/a {s.trading_name}</span>
+                        <span className="text-[10.5px] text-slate-400 font-normal">t/a {s.trading_name}</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 font-mono text-[11px] text-slate-600">
+                    <td className="py-3 px-4 font-normal text-[11px] text-slate-600">
                       {s.supplier_types.join(', ').replace(/_/g, ' ')}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-slate-900 text-white font-normal">
+                      <span className="inline-block text-[10.5px] px-2 py-0.5 rounded bg-slate-900 text-white font-normal">
                         {s.relationship_level.replace(/_/g, ' ')}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-block text-[10.5px] font-mono px-2 py-0.5 rounded ${
+                      <span className={`inline-block text-[10.5px] font-normal px-2 py-0.5 rounded ${
                         s.compliance_status === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {s.compliance_status.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-slate-700">
+                    <td className="py-3 px-4 font-normal text-slate-700">
                       {s.headquarters_city} {s.is_national && <span className="text-brand-pink font-light">(UK National)</span>}
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex flex-wrap gap-1 max-w-xs">
                         {s.services.map((srv, idx) => (
-                          <span key={idx} className="text-[10px] font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">
+                          <span key={idx} className="text-[10px] font-normal bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">
                             {srv.service_name}
                           </span>
                         ))}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-center font-mono font-light">
+                    <td className="py-3 px-4 text-center font-light">
                       {s.emergency_24_7 ? (
                         <span className="text-emerald-600">YES</span>
                       ) : (
@@ -146,7 +146,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                     <td className="py-3 px-4 text-right">
                       <Link
                         href={`/admin/suppliers/${s.id}`}
-                        className="text-[11px] font-mono text-slate-700 hover:text-brand-pink underline inline-flex items-center gap-1"
+                        className="text-[11px] font-normal text-slate-700 hover:text-brand-pink underline inline-flex items-center gap-1"
                       >
                         Profile <ArrowUpRight className="h-3 w-3" />
                       </Link>

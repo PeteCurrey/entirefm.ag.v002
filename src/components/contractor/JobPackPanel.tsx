@@ -43,7 +43,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
 
   if (loading) {
     return (
-      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 text-xs font-mono text-brand-mist/50">
+      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 text-xs font-normal text-brand-mist/50">
         Loading Job Pack readiness and pre-attendance safety checks...
       </div>
     );
@@ -51,7 +51,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
 
   if (!pack) {
     return (
-      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 flex items-center justify-between text-xs font-mono">
+      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 flex items-center justify-between text-xs font-normal">
         <span className="text-brand-mist/70">Job Pack has not been assembled yet.</span>
         <button
           onClick={async () => {
@@ -80,11 +80,11 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-edge-dark/60 pb-3">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
               WORK-READY JOB PACK &bull; {pack.id}
             </span>
             <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+              className={`text-[10px] font-normal px-2 py-0.5 rounded border ${
                 isReady
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : 'bg-rose-500/10 text-rose-400 border-rose-500/20 font-bold'
@@ -119,7 +119,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
 
       {/* Blocking Items Banner if Not Ready */}
       {!isReady && blockers.length > 0 && (
-        <div className="p-3.5 rounded-lg bg-rose-950/20 border border-rose-800/40 text-xs font-mono space-y-1.5">
+        <div className="p-3.5 rounded-lg bg-rose-950/20 border border-rose-800/40 text-xs font-normal space-y-1.5">
           <div className="flex items-center gap-1.5 text-rose-300 font-bold">
             <AlertTriangle className="w-4 h-4 text-rose-400" />
             <span>{blockers.length} Item(s) Must Be Resolved Before Site Attendance:</span>
@@ -129,7 +129,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
               <div key={idx} className="text-[11px] text-rose-200/80 font-sans flex items-start justify-between gap-2">
                 <span>&bull; {b.title}: {b.detail}</span>
                 {b.actionUrl && (
-                  <Link href={b.actionUrl} className="text-brand-electric-bright hover:underline shrink-0 font-mono text-[10.5px]">
+                  <Link href={b.actionUrl} className="text-brand-electric-bright hover:underline shrink-0 font-normal text-[10.5px]">
                     Resolve &rarr;
                   </Link>
                 )}
@@ -140,7 +140,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
       )}
 
       {/* Section Summary Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-normal">
         {Object.entries(pack.readiness.sections).map(([key, s]) => {
           const isSatisfied = s.status === 'SATISFIED' || s.status === 'NOT_REQUIRED';
           return (

@@ -26,7 +26,7 @@ export function LeadBriefing({ data }: LeadBriefingProps) {
 
         {/* Floating Category Label */}
         <div className="absolute top-6 left-6 z-10">
-          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/90 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
+          <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-white/90 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
             {data.franchise}
           </span>
         </div>

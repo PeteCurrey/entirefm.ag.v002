@@ -104,7 +104,7 @@ export function CommandPalette() {
             placeholder="Search sites, assets, jobs, engineers, documents…"
             className="ml-3 w-full bg-transparent text-[14px] text-[#101010] placeholder-[#9B9B97] focus:outline-none"
           />
-          <kbd className="hidden sm:inline-block rounded-[4px] border border-[#E4E4E1] bg-[#F5F5F3] px-1.5 py-0.5 font-mono text-[10px] text-[#9B9B97]">
+          <kbd className="hidden sm:inline-block rounded-[4px] border border-[#E4E4E1] bg-[#F5F5F3] px-1.5 py-0.5 font-normal text-[10px] text-[#9B9B97]">
             ESC
           </kbd>
         </div>
@@ -148,7 +148,7 @@ export function CommandPalette() {
                   <div className="flex items-center gap-2 shrink-0">
                     {item.badge && (
                       <span
-                        className={`rounded-[4px] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
+                        className={`rounded-[4px] px-1.5 py-0.5 font-medium text-[9px] uppercase tracking-wider ${
                           idx === selectedIndex
                             ? 'bg-white/20 text-white'
                             : 'border border-[#E4E4E1] bg-[#F0F0EE] text-[#686866]'
@@ -168,7 +168,7 @@ export function CommandPalette() {
 
           {!loading && query.length < 2 && (
             <div className="px-4 py-4 text-[12px] text-[#686866]">
-              <div className="font-mono uppercase tracking-wider text-[10px] text-[#9B9B97] mb-2.5">
+              <div className="font-medium uppercase tracking-wider text-[10px] text-[#9B9B97] mb-2.5">
                 Quick Navigation
               </div>
               <div className="grid grid-cols-2 gap-2">
@@ -208,7 +208,7 @@ export function CommandPalette() {
         {/* Footer */}
         <div className="flex items-center justify-between border-t border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[11px] text-[#686866]">
           <span>Tip: Use ↑ ↓ to navigate, Enter to select</span>
-          <span className="font-mono text-[10px] text-[#9B9B97]">EntireFM Core Search</span>
+          <span className="font-normal text-[10px] text-[#9B9B97]">EntireFM Core Search</span>
         </div>
       </div>
     </div>

@@ -93,7 +93,7 @@ export function PlannedVsReactiveSplit({
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
+            <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-normal">
               <span>Goal: Zero Plant Stoppages</span>
               <span className="text-brand-pink font-light">Scheduled Visits</span>
             </div>
@@ -132,7 +132,7 @@ export function PlannedVsReactiveSplit({
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400 font-mono">
+            <div className="mt-8 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400 font-normal">
               <span>Direct Helpdesk: {CONTACT_CONFIG.mainPhone.display}</span>
               <span className="text-brand-electric-bright font-light">Priority Triage</span>
             </div>

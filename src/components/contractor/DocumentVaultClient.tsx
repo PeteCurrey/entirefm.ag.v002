@@ -142,10 +142,10 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
 
         {/* Expiry Horizon Pills */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-[10px] font-mono uppercase text-brand-mist/40 mr-1">Horizon:</span>
+          <span className="text-[10px] font-normal uppercase text-brand-mist/40 mr-1">Horizon:</span>
           <button
             onClick={() => setExpiryFilter('ALL')}
-            className={`px-2.5 py-1 rounded text-[11px] font-mono ${
+            className={`px-2.5 py-1 rounded text-[11px] font-normal ${
               expiryFilter === 'ALL' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
             }`}
           >
@@ -154,7 +154,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           {expiredCount > 0 && (
             <button
               onClick={() => setExpiryFilter('EXPIRED')}
-              className={`px-2.5 py-1 rounded text-[11px] font-mono border ${
+              className={`px-2.5 py-1 rounded text-[11px] font-normal border ${
                 expiryFilter === 'EXPIRED'
                   ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
                   : 'bg-rose-950/20 text-rose-400 border-rose-500/20 hover:bg-rose-950/40'
@@ -166,7 +166,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           {expiringCount > 0 && (
             <button
               onClick={() => setExpiryFilter('NEXT_30')}
-              className={`px-2.5 py-1 rounded text-[11px] font-mono border ${
+              className={`px-2.5 py-1 rounded text-[11px] font-normal border ${
                 expiryFilter === 'NEXT_30'
                   ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
                   : 'bg-amber-950/20 text-amber-400 border-amber-500/20 hover:bg-amber-950/40'
@@ -177,7 +177,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           )}
           <button
             onClick={() => setExpiryFilter('31_60')}
-            className={`px-2.5 py-1 rounded text-[11px] font-mono ${
+            className={`px-2.5 py-1 rounded text-[11px] font-normal ${
               expiryFilter === '31_60' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
             }`}
           >
@@ -185,7 +185,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           </button>
           <button
             onClick={() => setExpiryFilter('61_90')}
-            className={`px-2.5 py-1 rounded text-[11px] font-mono ${
+            className={`px-2.5 py-1 rounded text-[11px] font-normal ${
               expiryFilter === '61_90' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
             }`}
           >
@@ -216,7 +216,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-brand-void/80 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-mono text-[10.5px]">
+                <tr className="bg-brand-void/80 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-normal text-[10.5px]">
                   <th className="py-3 px-4">Document Title</th>
                   <th className="py-3 px-4">Category</th>
                   <th className="py-3 px-4">Insurer / Authority</th>
@@ -243,14 +243,14 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                             <span className="font-normal text-white group-hover:text-brand-electric-bright transition-colors">
                               {doc.documentTitle}
                             </span>
-                            <span className="text-[10.5px] font-mono text-brand-mist/40 block">
+                            <span className="text-[10.5px] font-normal text-brand-mist/40 block">
                               {doc.fileName} &bull; {(doc.fileSizeBytes / 1024).toFixed(0)} KB
                             </span>
                           </div>
                         </div>
                       </td>
                       <td className="py-3.5 px-4 text-brand-mist/70">
-                        <span className="font-mono text-[10.5px] uppercase">{doc.category}</span>
+                        <span className="font-normal text-[10.5px] uppercase">{doc.category}</span>
                       </td>
                       <td className="py-3.5 px-4 text-brand-mist">
                         {doc.insurerOrIssuer || '—'}
@@ -259,7 +259,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                         {doc.expiryDate ? (
                           <div>
                             <span
-                              className={`font-mono text-xs ${
+                              className={`font-normal text-xs ${
                                 isExp
                                   ? 'text-rose-400 font-bold'
                                   : isExpSoon
@@ -270,18 +270,18 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                               {doc.expiryDate}
                             </span>
                             {doc.daysRemaining !== null && doc.daysRemaining !== undefined && (
-                              <span className="text-[10px] text-brand-mist/40 block font-mono">
+                              <span className="text-[10px] text-brand-mist/40 block font-normal">
                                 {isExp ? `Expired ${Math.abs(doc.daysRemaining)}d ago` : `${doc.daysRemaining} days remaining`}
                               </span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-brand-mist/40 font-mono">No Expiry</span>
+                          <span className="text-brand-mist/40 font-normal">No Expiry</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4">
                         <span
-                          className={`px-2 py-0.5 rounded text-[11px] font-medium border font-mono ${
+                          className={`px-2 py-0.5 rounded text-[11px] font-medium border ${
                             doc.verificationState === 'VERIFIED'
                               ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                               : doc.verificationState === 'REJECTED'

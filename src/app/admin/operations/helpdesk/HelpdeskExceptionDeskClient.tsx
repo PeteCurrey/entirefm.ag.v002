@@ -193,7 +193,7 @@ export default function HelpdeskExceptionDeskClient() {
                         <p className="text-xs text-gray-500 mt-0.5 truncate">{ex.site} · {ex.trade} · {ex.channel}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-[10px] font-mono text-gray-400">{ex.reference}</p>
+                        <p className="text-[10px] font-normal text-gray-400">{ex.reference}</p>
                         {ex.sla_due_at && (
                           <p className={`text-[10px] font-medium mt-0.5 ${
                             new Date(ex.sla_due_at) < new Date() ? 'text-red-600' : 'text-gray-500'

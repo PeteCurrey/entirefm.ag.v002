@@ -35,17 +35,17 @@ export default async function BillingReadyPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-mono">
+        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-normal">
           <div className="text-[11px] uppercase text-brand-mist/60">Ready to Invoice</div>
           <div className="text-2xl font-extralight text-emerald-400 mt-1">{queue.length} items</div>
           <div className="text-xs text-brand-mist/70 mt-0.5">£{totalBillable.toFixed(2)} total value</div>
         </div>
-        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-mono">
+        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-normal">
           <div className="text-[11px] uppercase text-brand-mist/60">Unbilled Completed Work</div>
           <div className="text-2xl font-extralight text-amber-400 mt-1">{leakage.length} jobs</div>
           <div className="text-xs text-brand-mist/70 mt-0.5">Requires billing item creation</div>
         </div>
-        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-mono">
+        <div className="bg-brand-carbon border border-brand-edge-dark p-4 rounded-xl font-normal">
           <div className="text-[11px] uppercase text-brand-mist/60">Aged Unbilled (&gt;30d)</div>
           <div className="text-2xl font-extralight text-red-400 mt-1">
             {leakage.filter(l => l.ageingDays > 30).length} jobs
@@ -62,7 +62,7 @@ export default async function BillingReadyPage() {
         />
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-mono text-brand-mist">
+          <table className="w-full text-left text-xs font-normal text-brand-mist">
             <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Work Order</th>

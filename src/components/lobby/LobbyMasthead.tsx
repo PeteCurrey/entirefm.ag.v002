@@ -133,7 +133,7 @@ export function LobbyMasthead() {
 
               {/* Submit Action */}
               <div className="flex items-center gap-3">
-                <span className="hidden sm:inline text-[10px] font-extralight text-neutral-400 font-mono">
+                <span className="hidden sm:inline text-[10px] font-extralight text-neutral-400">
                   Enter ↵ to submit
                 </span>
                 <button
@@ -173,7 +173,7 @@ export function LobbyMasthead() {
         <div className="border-t border-white/[0.10] pt-4 flex items-center justify-between text-xs text-brand-mist/70 font-extralight">
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
-            <span className="font-mono text-[11px] tracking-wider uppercase text-brand-mist/80 font-extralight">
+            <span className="text-[11px] tracking-wider uppercase text-brand-mist/80 font-extralight">
               Daily Intelligence Edition 2026.35
             </span>
           </div>

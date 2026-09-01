@@ -52,19 +52,19 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
       {/* Metric Scorecard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">ACTIVE JOB PACKS</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACTIVE JOB PACKS</span>
           <p className="text-2xl font-light text-white mt-1">{totalCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Allocated work orders</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">READY FOR ATTENDANCE</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">READY FOR ATTENDANCE</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{readyCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">All gates cleared</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">ACTION REQUIRED</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACTION REQUIRED</span>
           <p className={`text-2xl font-light mt-1 ${actionRequiredCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {actionRequiredCount}
           </p>
@@ -72,7 +72,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">READINESS RATE</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">READINESS RATE</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">
             {totalCount > 0 ? `${Math.round((readyCount / totalCount) * 100)}%` : '100%'}
           </p>
@@ -93,7 +93,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono">
+        <div className="flex items-center gap-2 text-xs font-normal">
           <span className="text-brand-mist/50">Readiness:</span>
           <select
             value={selectedStatus}
@@ -110,7 +110,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
       {/* Table */}
       <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono border-collapse">
+          <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
               <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
                 <th className="py-3 px-4">Job Pack Ref</th>

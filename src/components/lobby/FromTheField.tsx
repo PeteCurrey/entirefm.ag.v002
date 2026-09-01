@@ -30,14 +30,14 @@ export function FromTheField({ data }: FromTheFieldProps) {
 
           {/* Badge over image */}
           <div className="absolute top-6 left-6 z-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/70 backdrop-blur-md text-white text-[11px] font-mono tracking-widest uppercase border border-white/10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/70 backdrop-blur-md text-white text-[11px] font-normal tracking-widest uppercase border border-white/10">
               <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
               FROM THE FIELD · SITE DIAGNOSTIC
             </span>
           </div>
 
           <div className="absolute bottom-6 left-6 right-6 z-10 p-4 rounded-sm bg-black/75 backdrop-blur-md border border-white/10 text-xs font-light text-white/90 space-y-1 max-w-md">
-            <div className="flex items-center gap-1.5 text-white/60 text-[11px] font-mono">
+            <div className="flex items-center gap-1.5 text-white/60 text-[11px] font-normal">
               <MapPin className="w-3.5 h-3.5 text-brand-electric shrink-0" />
               <span>{data.locationContext}</span>
             </div>
@@ -48,7 +48,7 @@ export function FromTheField({ data }: FromTheFieldProps) {
         {/* Narrative & Inspection Challenge */}
         <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6 bg-[#080C14]">
           <div className="space-y-4">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric block">
+            <span className="text-[10px] font-normal uppercase tracking-[0.25em] text-brand-electric block">
               CAN YOU SPOT THE DEFECT?
             </span>
 
@@ -64,7 +64,7 @@ export function FromTheField({ data }: FromTheFieldProps) {
           {/* Interactive Inspection Reveal */}
           <div className="border-t border-white/10 pt-6 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-white/40">
                 ENGINEERING FINDINGS
               </span>
               <button
@@ -80,7 +80,7 @@ export function FromTheField({ data }: FromTheFieldProps) {
             {revealed ? (
               <div className="space-y-4 pt-3 transition-all duration-500">
                 <div className="border-l-2 border-amber-400 pl-3.5 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 block">
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 block">
                     Observed Problem
                   </span>
                   <p className="text-xs sm:text-sm font-light text-white/90 leading-relaxed">
@@ -89,7 +89,7 @@ export function FromTheField({ data }: FromTheFieldProps) {
                 </div>
 
                 <div className="border-l-2 border-emerald-400 pl-3.5 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 block">
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-emerald-400 block">
                     Remedial Closeout
                   </span>
                   <p className="text-xs sm:text-sm font-light text-white/90 leading-relaxed">

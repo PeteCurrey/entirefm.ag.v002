@@ -185,7 +185,7 @@ export function TemplateCommunityCompose() {
                 placeholder="Describe the operational challenge, statutory considerations, or technical measurements..."
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                className="w-full p-4 bg-brand-void border border-white/10 rounded-lg text-white placeholder-brand-silver focus:outline-none focus:border-brand-electric font-mono text-xs leading-relaxed"
+                className="w-full p-4 bg-brand-void border border-white/10 rounded-lg text-white placeholder-brand-silver focus:outline-none focus:border-brand-electric font-normal text-xs leading-relaxed"
               />
             </div>
 

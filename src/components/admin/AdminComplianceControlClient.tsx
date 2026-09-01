@@ -51,7 +51,7 @@ export function AdminComplianceControlClient({
       {/* 1. Header */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
             STATUTORY ASSURANCE &amp; CONTINUOUS COMPLIANCE
           </span>
           <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -66,29 +66,29 @@ export function AdminComplianceControlClient({
       {/* 2. Top Metric Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">APPROVED SUPPLIERS</span>
-          <div className="text-2xl font-mono font-light text-emerald-600">
+          <span className="text-[10px] font-normal uppercase text-slate-400">APPROVED SUPPLIERS</span>
+          <div className="text-2xl font-light text-emerald-600">
             {suppliers.filter((s) => s.compliance_status === 'APPROVED').length}
           </div>
-          <span className="text-[10.5px] font-mono text-slate-500">Active Work Eligible</span>
+          <span className="text-[10.5px] font-normal text-slate-500">Active Work Eligible</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">DOCUMENTS AWAITING REVIEW</span>
-          <div className="text-2xl font-mono font-light text-cyan-600">{pendingDocs.length}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Verification Queue</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">DOCUMENTS AWAITING REVIEW</span>
+          <div className="text-2xl font-light text-cyan-600">{pendingDocs.length}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Verification Queue</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">ACTIVE COMPLIANCE HOLDS</span>
-          <div className="text-2xl font-mono font-light text-rose-600">{activeHolds.length}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Operational Restrictions</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">ACTIVE COMPLIANCE HOLDS</span>
+          <div className="text-2xl font-light text-rose-600">{activeHolds.length}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Operational Restrictions</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">OPEN REMEDIATION</span>
-          <div className="text-2xl font-mono font-light text-amber-600">{openRemediation.length}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Actions Pending</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">OPEN REMEDIATION</span>
+          <div className="text-2xl font-light text-amber-600">{openRemediation.length}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Actions Pending</span>
         </div>
       </div>
 
@@ -102,11 +102,11 @@ export function AdminComplianceControlClient({
                 Documents Awaiting EntireFM Verification ({pendingDocs.length})
               </h3>
             </div>
-            <span className="text-xs font-mono text-slate-500">Review &amp; Verify</span>
+            <span className="text-xs font-normal text-slate-500">Review &amp; Verify</span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs font-mono">
+            <table className="w-full text-left border-collapse text-xs font-normal">
               <thead>
                 <tr className="bg-cyan-50/50 border-b border-cyan-100 text-slate-600 uppercase text-[10.5px]">
                   <th className="py-2.5 px-3">Supplier</th>
@@ -125,7 +125,7 @@ export function AdminComplianceControlClient({
                     </td>
                     <td className="py-3 px-3 text-slate-800">{doc.documentTitle || doc.file_name}</td>
                     <td className="py-3 px-3 text-slate-500 uppercase text-[10px]">{doc.category}</td>
-                    <td className="py-3 px-3 font-mono">{doc.expiry_date || '—'}</td>
+                    <td className="py-3 px-3 font-normal">{doc.expiry_date || '—'}</td>
                     <td className="py-3 px-3 text-slate-500">
                       {new Date(doc.uploaded_at || doc.created_at).toLocaleDateString('en-GB')}
                     </td>
@@ -151,7 +151,7 @@ export function AdminComplianceControlClient({
           <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
             Active Compliance Holds &amp; Service Restrictions
           </h3>
-          <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
+          <span className="text-xs font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
             {activeHolds.length} Active
           </span>
         </div>
@@ -162,7 +162,7 @@ export function AdminComplianceControlClient({
           </p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs font-mono">
+            <table className="w-full text-left border-collapse text-xs font-normal">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10.5px]">
                   <th className="py-2.5 px-3">Supplier ID</th>

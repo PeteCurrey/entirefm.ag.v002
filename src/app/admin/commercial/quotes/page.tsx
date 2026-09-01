@@ -73,7 +73,7 @@ export default async function QuotesPage({
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[70rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Quote Ref</th>
                 <th className="px-5 py-3">Ver</th>
                 <th className="px-5 py-3">Description / Scope</th>
@@ -91,19 +91,19 @@ export default async function QuotesPage({
 
                 return (
                   <tr key={q.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white font-light">
+                    <td className="px-5 py-4 text-[11px] text-white font-light">
                       {q.quote_number}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                       v{q.version || 1}
                     </td>
                     <td className="px-5 py-4 max-w-xs truncate text-[12px] text-brand-mist/90">
                       {q.scope_description || 'Standard remedial quote'}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-white font-normal">
+                    <td className="px-5 py-4 text-[12px] text-white font-normal">
                       £{Number(q.total_amount_gbp || 0).toFixed(2)}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11.5px]">
+                    <td className="px-5 py-4 font-normal text-[11.5px]">
                       {q.expected_margin_gbp !== undefined ? (
                         <span className={isHealthyMargin ? 'text-emerald-400' : 'text-amber-400'}>
                           £{Number(q.expected_margin_gbp).toFixed(2)} ({marginPct}%)
@@ -112,7 +112,7 @@ export default async function QuotesPage({
                         <span className="text-brand-mist/40">—</span>
                       )}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px]">
+                    <td className="px-5 py-4 font-normal text-[11px]">
                       {q.client_po_ref ? (
                         <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-emerald-400 font-normal">
                           {q.client_po_ref}
@@ -127,7 +127,7 @@ export default async function QuotesPage({
                     </td>
                     <td className="px-5 py-4">
                       <span
-                        className={`rounded px-2 py-0.5 font-mono text-[10px] font-normal ${
+                        className={`rounded px-2 py-0.5 text-[10px] font-normal ${
                           q.status === 'APPROVED' || (q.internal_status as string) === 'ACCEPTED'
                             ? 'bg-emerald-500/20 text-emerald-300'
                             : q.status === 'REJECTED' || (q.internal_status as string) === 'REJECTED'
@@ -145,7 +145,7 @@ export default async function QuotesPage({
                     <td className="px-5 py-4 text-right">
                       <Link
                         href={`/admin/commercial/quotes/${q.id}`}
-                        className="rounded bg-brand-edge-dark/80 px-2.5 py-1 font-mono text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric"
+                        className="rounded bg-brand-edge-dark/80 px-2.5 py-1 font-normal text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric"
                       >
                         View & Manage →
                       </Link>

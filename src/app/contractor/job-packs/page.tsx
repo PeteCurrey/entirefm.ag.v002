@@ -28,7 +28,7 @@ export default async function ContractorJobPacksPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="space-y-1">
-        <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           OPERATIONAL READINESS &bull; CP-06
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

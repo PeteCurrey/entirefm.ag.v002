@@ -7,7 +7,7 @@ export default function PerformanceSettingsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           CONFIGURATION
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -18,7 +18,7 @@ export default function PerformanceSettingsPage() {
         </p>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 space-y-4 text-xs font-mono">
+      <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 space-y-4 text-xs font-normal">
         <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200 font-sans">
           Configured Baseline Thresholds
         </h3>

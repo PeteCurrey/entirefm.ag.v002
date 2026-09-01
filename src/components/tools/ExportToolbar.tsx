@@ -45,7 +45,7 @@ export function ExportToolbar({
     <div className="flex flex-wrap items-center justify-between gap-4 py-3.5 px-5 bg-white border border-slate-200 text-slate-900 rounded-sm shadow-sm">
       <div className="flex items-center gap-2.5">
         <span className="h-2 w-2 rounded-full bg-brand-electric" />
-        <span className="font-mono text-xs uppercase tracking-wider text-slate-600 font-light">
+        <span className="text-xs uppercase tracking-wider text-slate-600 font-light">
           Export Document &amp; Data
         </span>
       </div>

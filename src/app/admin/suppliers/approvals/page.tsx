@@ -13,7 +13,7 @@ export default async function ScopedApprovalsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           GRANULAR OPERATIONAL SCOPE
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -31,7 +31,7 @@ export default async function ScopedApprovalsPage() {
             Active Service-Specific Approvals ({serviceApprovals.length})
           </h3>
 
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {serviceApprovals.map((sa) => (
               <div key={sa.id} className="py-3 space-y-1">
                 <div className="flex items-center justify-between">
@@ -53,7 +53,7 @@ export default async function ScopedApprovalsPage() {
             Active Regional Approvals ({geoApprovals.length})
           </h3>
 
-          <div className="divide-y divide-slate-100 font-mono text-xs">
+          <div className="divide-y divide-slate-100 font-normal text-xs">
             {geoApprovals.map((ga) => (
               <div key={ga.id} className="py-3 flex items-center justify-between">
                 <div>

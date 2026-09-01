@@ -29,7 +29,7 @@ export default async function ImportTemplatesPage() {
 
       {/* System Presets */}
       <div className="space-y-3">
-        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
+        <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">
           SYSTEM PRESETS (SIMPRO STANDARD FORMATS)
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -40,7 +40,7 @@ export default async function ImportTemplatesPage() {
                   <FileSpreadsheet className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-mono text-[10px] text-[#686866]">
+                  <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-normal text-[10px] text-[#686866]">
                     {preset.entityType}
                   </span>
                   <h3 className="font-light text-[13.5px] text-[#101010] mt-0.5">{preset.name}</h3>
@@ -50,7 +50,7 @@ export default async function ImportTemplatesPage() {
                 {Object.keys(preset.mappings).length} mapped columns configured.
               </p>
               <div className="pt-2 border-t border-[#E4E4E1] flex items-center justify-between">
-                <span className="font-mono text-[10.5px] text-[#9B9B97]">Source: {preset.sourceSystem}</span>
+                <span className="font-normal text-[10.5px] text-[#9B9B97]">Source: {preset.sourceSystem}</span>
                 <Link
                   href={`/admin/platform/imports/new?type=${preset.entityType}`}
                   className="inline-flex items-center gap-1 text-[12px] font-normal text-[#FF6B24] hover:underline"
@@ -66,7 +66,7 @@ export default async function ImportTemplatesPage() {
       {/* User Templates */}
       {userTemplates.length > 0 && (
         <div className="space-y-3 pt-4">
-          <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
+          <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             SAVED CUSTOM TEMPLATES
           </h2>
           <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden">

@@ -66,7 +66,7 @@ export function JobDetailPageClient({ vacancy }: JobDetailPageClientProps) {
                 <span className="text-[11px] font-light uppercase tracking-wider px-2.5 py-1 rounded-xs bg-white/[0.04] text-brand-mist/70 border border-white/[0.08]">
                   {vacancy.workingArrangement}
                 </span>
-                <span className="text-[11px] font-mono text-brand-mist/40 ml-auto">
+                <span className="text-[11px] font-normal text-brand-mist/40 ml-auto">
                   Ref: {vacancy.reference}
                 </span>
               </div>

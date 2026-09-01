@@ -45,7 +45,7 @@ export default async function ClientInvoicesPage() {
       />
 
       {/* SUMMARY */}
-      <div className="flex items-center justify-between text-xs font-mono text-brand-mist/60 bg-brand-void/40 p-3.5 rounded-lg border border-brand-edge-dark/50">
+      <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60 bg-brand-void/40 p-3.5 rounded-lg border border-brand-edge-dark/50">
         <div>Total Issued Invoices: <span className="text-white font-light">{invoices.length}</span></div>
         <div>Total Invoiced: <span className="text-brand-electric font-light">£{totalBilled.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
@@ -58,7 +58,7 @@ export default async function ClientInvoicesPage() {
         />
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-mono text-brand-mist">
+          <table className="w-full text-left text-xs font-normal text-brand-mist">
             <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Invoice Number</th>

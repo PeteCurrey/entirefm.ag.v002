@@ -127,7 +127,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       01 / Parameter Baseline
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Annual Reactive Repairs &amp; Callout Spend
                     </label>
-                    <span className="font-mono text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       £{reactiveSpend.toLocaleString()} / yr
                     </span>
                   </div>
@@ -169,7 +169,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Annual Planned Maintenance (PPM) Contracts
                     </label>
-                    <span className="font-mono text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       £{currentPpmSpend.toLocaleString()} / yr
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Number of Independent FM Contractors
                     </label>
-                    <span className="font-mono text-sm font-normal text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
+                    <span className="text-sm font-normal text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
                       {supplierCount} Contractors
                     </span>
                   </div>
@@ -214,7 +214,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Internal Management &amp; Invoicing Overhead
                     </label>
-                    <span className="font-mono text-sm font-normal text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
+                    <span className="text-sm font-normal text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
                       {adminHoursPerMonth} hrs / mo (~£{calculation.annualAdminCost.toLocaleString()}/yr)
                     </span>
                   </div>
@@ -238,7 +238,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Unplanned Asset Outages / Disruptions
                     </label>
-                    <span className="font-mono text-sm font-normal text-rose-700 bg-rose-50 px-2.5 py-1 rounded-sm border border-rose-100">
+                    <span className="text-sm font-normal text-rose-700 bg-rose-50 px-2.5 py-1 rounded-sm border border-rose-100">
                       {unplannedOutages} Events (~£{calculation.annualOutageCost.toLocaleString()}/yr)
                     </span>
                   </div>
@@ -259,7 +259,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
             <div className="lg:col-span-5 space-y-6 sticky top-24">
               <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-mono text-[11px] font-normal text-slate-500 uppercase tracking-wider">
+                  <span className="text-[11px] font-normal text-slate-500 uppercase tracking-wider">
                     02 / Financial Model Output
                   </span>
                   <span className="inline-flex items-center gap-1 text-[11px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
@@ -277,15 +277,15 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                       backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
                     }}
                   />
-                  <span className="text-[11px] font-normal uppercase tracking-wider text-slate-300 font-mono block">
+                  <span className="text-[11px] font-normal uppercase tracking-wider text-slate-300 block">
                     Projected Annual TCO Reduction
                   </span>
-                  <p className="text-3xl sm:text-4xl font-light text-emerald-400 tracking-tight font-mono tabular-nums">
+                  <p className="text-3xl sm:text-4xl font-light text-emerald-400 tracking-tight tabular-nums">
                     £{calculation.totalPotentialSavings.toLocaleString()}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">
                     <span>5-Year Cumulative Value:</span>
-                    <strong className="text-white font-mono text-sm">£{calculation.fiveYearSavings.toLocaleString()}</strong>
+                    <strong className="text-white font-normal text-sm">£{calculation.fiveYearSavings.toLocaleString()}</strong>
                   </div>
                 </div>
 
@@ -299,35 +299,35 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                       <span className="text-slate-700 font-normal">Reactive Spend</span>
                       <div className="text-right">
                         <span className="text-slate-600 line-through text-[11px] mr-2">£{reactiveSpend.toLocaleString()}</span>
-                        <strong className="text-slate-900 font-mono font-light">£{calculation.projectedReactiveSpend.toLocaleString()}</strong>
+                        <strong className="text-slate-900 font-light">£{calculation.projectedReactiveSpend.toLocaleString()}</strong>
                       </div>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">PPM Maintenance</span>
                       <div className="text-right">
                         <span className="text-slate-600 line-through text-[11px] mr-2">£{currentPpmSpend.toLocaleString()}</span>
-                        <strong className="text-slate-900 font-mono font-light">£{calculation.projectedPpmSpend.toLocaleString()}</strong>
+                        <strong className="text-slate-900 font-light">£{calculation.projectedPpmSpend.toLocaleString()}</strong>
                       </div>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Contract Administration</span>
                       <div className="text-right">
                         <span className="text-slate-600 line-through text-[11px] mr-2">£{calculation.annualAdminCost.toLocaleString()}</span>
-                        <strong className="text-slate-900 font-mono font-light">£{calculation.projectedAdminCost.toLocaleString()}</strong>
+                        <strong className="text-slate-900 font-light">£{calculation.projectedAdminCost.toLocaleString()}</strong>
                       </div>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Outage Disruption Risk</span>
                       <div className="text-right">
                         <span className="text-slate-600 line-through text-[11px] mr-2">£{calculation.annualOutageCost.toLocaleString()}</span>
-                        <strong className="text-slate-900 font-mono font-light">£{calculation.projectedOutageCost.toLocaleString()}</strong>
+                        <strong className="text-slate-900 font-light">£{calculation.projectedOutageCost.toLocaleString()}</strong>
                       </div>
                     </div>
                     <div className="p-3 bg-blue-50/70 flex items-center justify-between font-light">
                       <span className="text-slate-900">Total Estate TCO</span>
                       <div className="text-right">
                         <span className="text-slate-600 line-through text-[11px] mr-2 font-normal">£{calculation.currentTotalTco.toLocaleString()}</span>
-                        <strong className="text-brand-electric font-mono text-sm">£{calculation.projectedTotalTco.toLocaleString()}</strong>
+                        <strong className="text-brand-electric font-normal text-sm">£{calculation.projectedTotalTco.toLocaleString()}</strong>
                       </div>
                     </div>
                   </div>

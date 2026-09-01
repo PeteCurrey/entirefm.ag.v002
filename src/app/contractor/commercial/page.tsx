@@ -47,17 +47,17 @@ export default async function ContractorCommercialPage() {
             <tbody className="divide-y divide-brand-edge-dark">
               {purchaseOrders.map(po => (
                 <tr key={po.id} className="hover:bg-brand-edge-dark/30 transition-colors">
-                  <td className="p-4 font-mono font-light text-white">{po.po_number || po.id.slice(0, 8)}</td>
-                  <td className="p-4 font-mono text-white">{po.work_order_id ? po.work_order_id.slice(0, 8) : '—'}</td>
-                  <td className="p-4 font-mono text-brand-electric font-light">
+                  <td className="p-4 font-light text-white">{po.po_number || po.id.slice(0, 8)}</td>
+                  <td className="p-4 font-normal text-white">{po.work_order_id ? po.work_order_id.slice(0, 8) : '—'}</td>
+                  <td className="p-4 text-brand-electric font-light">
                     £{(po.amount_net_gbp || po.total_amount_gbp || 0).toFixed(2)}
                   </td>
                   <td className="p-4">
-                    <span className="text-xs px-2.5 py-0.5 rounded font-mono bg-brand-void text-brand-mist border border-brand-edge-dark">
+                    <span className="text-xs px-2.5 py-0.5 rounded font-normal bg-brand-void text-brand-mist border border-brand-edge-dark">
                       {po.status || 'ISSUED'}
                     </span>
                   </td>
-                  <td className="p-4 text-xs font-mono">
+                  <td className="p-4 text-xs font-normal">
                     {new Date(po.created_at).toLocaleDateString('en-GB')}
                   </td>
                 </tr>

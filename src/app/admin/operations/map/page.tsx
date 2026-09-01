@@ -23,10 +23,10 @@ export default async function OperationsMapPage() {
         {/* Map Canvas / Visual Radar */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 lg:col-span-2">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               UK Operational Estate Radar ({sites.length} Managed Sites)
             </h2>
-            <span className="font-mono text-[11px] text-emerald-400">Live Telemetry</span>
+            <span className="font-normal text-[11px] text-emerald-400">Live Telemetry</span>
           </div>
 
           <div className="mt-4 flex h-[400px] flex-col items-center justify-center rounded-lg border border-dashed border-brand-edge-dark/60 bg-brand-void/80 p-8 text-center">
@@ -46,7 +46,7 @@ export default async function OperationsMapPage() {
         {/* Active Site Feeds */}
         <div className="space-y-4">
           <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
-            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
+            <h2 className="text-[12px] font-normal uppercase tracking-wider text-white">
               Active Regional Hubs
             </h2>
             <div className="mt-3 space-y-2.5">
@@ -54,7 +54,7 @@ export default async function OperationsMapPage() {
                 sites.slice(0, 5).map((s) => (
                   <div key={s.id} className="rounded border border-brand-edge-dark bg-brand-void p-2.5 text-[12px]">
                     <div className="font-light text-white">{s.name}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">
+                    <div className="font-normal text-[11px] text-brand-mist/50">
                       {s.city} · {s.postcode}
                     </div>
                   </div>

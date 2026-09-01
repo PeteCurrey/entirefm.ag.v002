@@ -24,7 +24,7 @@ export function WorthAttending({ data }: WorthAttendingProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
           <div className="absolute top-4 left-4 z-10">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm border border-white/10">
+            <span className="text-[10px] font-medium uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm border border-white/10">
               CURATED EVENT · {data.eventType}
             </span>
           </div>
@@ -38,7 +38,7 @@ export function WorthAttending({ data }: WorthAttendingProps) {
         {/* Editorial Event Details */}
         <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6 bg-white">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs text-neutral-500 font-mono">
+            <div className="flex items-center justify-between text-xs text-neutral-500 font-normal">
               <span className="text-brand-electric font-medium uppercase tracking-wider">{data.date}</span>
               <span>{data.organizer}</span>
             </div>
@@ -48,7 +48,7 @@ export function WorthAttending({ data }: WorthAttendingProps) {
             </h3>
 
             <div className="space-y-1 pt-1">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-neutral-400 block">
                 Why It’s Worth Your Time
               </span>
               <p className="text-sm font-light text-neutral-600 leading-relaxed">
@@ -66,7 +66,7 @@ export function WorthAttending({ data }: WorthAttendingProps) {
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
             </Link>
 
-            <span className="text-xs text-neutral-400 font-mono">
+            <span className="text-xs text-neutral-400 font-normal">
               CPD Certified
             </span>
           </div>

@@ -159,7 +159,7 @@ export default async function ModelsPage() {
                     <div className="space-y-1">
                       {versions.slice(0, 5).map((v) => (
                         <div key={v.id} className="flex items-center gap-3 text-xs text-brand-mist/60">
-                          <span className="font-mono text-[10px]">v{v.version}</span>
+                          <span className="font-normal text-[10px]">v{v.version}</span>
                           <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase ${STATUS_STYLES[v.status] ?? ''}`}>
                             {v.status}
                           </span>

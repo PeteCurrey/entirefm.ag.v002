@@ -81,7 +81,7 @@ export function GeoEditorialStory({
                 <p className="text-lg font-light leading-snug tracking-tight text-white">
                   Engineering-led facilities delivery across {region || `${city} and conurbation`}
                 </p>
-                <div className="mt-4 flex items-center gap-2 text-xs text-brand-mist/80 font-mono">
+                <div className="mt-4 flex items-center gap-2 text-xs text-brand-mist/80 font-normal">
                   <ShieldCheck className="h-4 w-4 text-brand-pink" />
                   <span>Direct Mobile Engineering Network</span>
                 </div>
@@ -114,7 +114,7 @@ export function GeoEditorialStory({
                 className="group relative rounded-sm border border-brand-edge bg-brand-surface p-6 sm:p-7 transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:bg-white hover:shadow-sm"
               >
                 <div className="flex items-start gap-4 sm:gap-5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-brand-edge bg-white font-mono text-xs font-normal text-brand-graphite transition-colors duration-300 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 group-hover:text-brand-pink">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-brand-edge bg-white text-xs font-normal text-brand-graphite transition-colors duration-300 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 group-hover:text-brand-pink">
                     0{idx + 1}
                   </span>
                   <div className="space-y-2 flex-1">
@@ -126,7 +126,7 @@ export function GeoEditorialStory({
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 pt-3 border-t border-brand-edge/60 flex items-center justify-between text-[11px] text-brand-silver font-mono">
+                <div className="mt-4 pt-3 border-t border-brand-edge/60 flex items-center justify-between text-[11px] text-brand-silver font-normal">
                   <span className="flex items-center gap-1.5 text-emerald-700">
                     <CheckCircle2 className="h-3.5 w-3.5" />
                     EntireFM Protocol Active

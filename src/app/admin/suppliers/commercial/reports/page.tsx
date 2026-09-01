@@ -9,7 +9,7 @@ export default async function CommercialReportsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light">
           FINANCIAL INTELLIGENCE
         </span>
         <h1 className="text-2xl font-extralight text-slate-900 mt-1">
@@ -23,7 +23,7 @@ export default async function CommercialReportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">
           <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">Revenue Stream Breakdown</h3>
-          <div className="space-y-2 text-xs font-mono">
+          <div className="space-y-2 text-xs font-normal">
             <div className="flex justify-between py-1.5 border-b border-slate-100">
               <span className="text-slate-600">Supplier Memberships (ARR)</span>
               <span className="font-light text-slate-900">£{metrics.annualRecurringRevenueGbp.toLocaleString()}</span>
@@ -45,7 +45,7 @@ export default async function CommercialReportsPage() {
 
         <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">
           <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">Collection &amp; Receivables Health</h3>
-          <div className="space-y-2 text-xs font-mono">
+          <div className="space-y-2 text-xs font-normal">
             <div className="flex justify-between py-1.5 border-b border-slate-100">
               <span className="text-slate-600">Outstanding Invoices</span>
               <span className="font-light text-slate-900">£{metrics.outstandingInvoicesValueGbp.toLocaleString()}</span>

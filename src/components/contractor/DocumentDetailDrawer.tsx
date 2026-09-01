@@ -35,11 +35,11 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
         {/* Drawer Header */}
         <div className="flex items-start justify-between p-6 border-b border-brand-edge-dark bg-brand-void/50">
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               {document.category} &bull; VAULT ASSET
             </span>
             <h2 className="text-xl font-light text-white leading-snug">{document.documentTitle}</h2>
-            <p className="text-xs font-mono text-brand-mist/50">{document.fileName}</p>
+            <p className="text-xs font-normal text-brand-mist/50">{document.fileName}</p>
           </div>
           <button
             onClick={onClose}
@@ -54,7 +54,7 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
           {/* Status Banner */}
           <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void/60 flex items-center justify-between gap-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-mist/50 block">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-mist/50 block">
                 Verification State
               </span>
               <div className="flex items-center gap-2 mt-1">
@@ -80,9 +80,9 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
             {/* Expiry Pill */}
             {document.expiryDate && (
               <div className="text-right">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-mist/50 block">Expiry</span>
+                <span className="text-[10px] font-medium uppercase tracking-wider text-brand-mist/50 block">Expiry</span>
                 <span
-                  className={`text-xs font-mono font-medium block mt-1 ${
+                  className={`text-xs font-medium block mt-1 ${
                     isExpired
                       ? 'text-rose-400 font-bold'
                       : isExpiring
@@ -99,7 +99,7 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
           {/* Rejection / Review Feedback */}
           {document.contractorVisibleNote && (
             <div className="p-4 rounded-xl border border-rose-500/30 bg-rose-950/20 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-bold block">
+              <span className="text-[10px] uppercase tracking-wider text-rose-400 font-bold block">
                 Verification Feedback
               </span>
               <p className="text-xs text-rose-200/90 leading-relaxed">{document.contractorVisibleNote}</p>
@@ -118,21 +118,21 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Policy / Reg Number</span>
-                <span className="text-white font-mono mt-0.5 block">{document.policyNumber || '—'}</span>
+                <span className="text-white font-normal mt-0.5 block">{document.policyNumber || '—'}</span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Cover Limit</span>
-                <span className="text-brand-electric-bright font-mono mt-0.5 block">
+                <span className="text-brand-electric-bright font-normal mt-0.5 block">
                   {document.coverLimitGbp ? `£${document.coverLimitGbp.toLocaleString()}` : '—'}
                 </span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">Issue Date</span>
-                <span className="text-white font-mono mt-0.5 block">{document.issueDate || '—'}</span>
+                <span className="text-white font-normal mt-0.5 block">{document.issueDate || '—'}</span>
               </div>
               <div>
                 <span className="text-brand-mist/50 block">File Size</span>
-                <span className="text-brand-mist font-mono mt-0.5 block">
+                <span className="text-brand-mist font-normal mt-0.5 block">
                   {(document.fileSizeBytes / 1024).toFixed(1)} KB
                 </span>
               </div>
@@ -152,17 +152,17 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
             <div className="space-y-2 text-xs">
               <div className="flex items-center justify-between py-1.5 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">Uploaded to Vault</span>
-                <span className="text-brand-mist font-mono">
+                <span className="text-brand-mist font-normal">
                   {new Date(document.uploadedAt).toLocaleDateString('en-GB')}
                 </span>
               </div>
               <div className="flex items-center justify-between py-1.5 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">Lifecycle State</span>
-                <span className="text-brand-mist font-mono">{document.lifecycleState}</span>
+                <span className="text-brand-mist font-normal">{document.lifecycleState}</span>
               </div>
               <div className="flex items-center justify-between py-1.5">
                 <span className="text-brand-mist/60">Linked Requirement</span>
-                <span className="text-white font-mono text-[11px]">{document.linkedRequirementCode || 'GENERAL_VAULT'}</span>
+                <span className="text-white font-normal text-[11px]">{document.linkedRequirementCode || 'GENERAL_VAULT'}</span>
               </div>
             </div>
           </div>

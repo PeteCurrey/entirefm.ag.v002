@@ -133,7 +133,7 @@ export function AdminIntelligenceClient({
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">Autonomous Ingestion Scheduler</h2>
           </div>
-          <span className="text-xs text-slate-400 font-mono">Vercel Production Crons Active</span>
+          <span className="text-xs text-slate-400 font-normal">Vercel Production Crons Active</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
@@ -145,7 +145,7 @@ export function AdminIntelligenceClient({
               </span>
             </div>
             <p className="text-slate-300 text-[11px]">GOV.UK, legislation.gov.uk, HSE, OPSS</p>
-            <div className="pt-2 text-[10.5px] text-slate-400 font-mono flex items-center justify-between">
+            <div className="pt-2 text-[10.5px] text-slate-400 font-normal flex items-center justify-between">
               <span>Schedule: 0 */4 * * *</span>
               <span className="text-slate-300">Every 4h</span>
             </div>
@@ -159,7 +159,7 @@ export function AdminIntelligenceClient({
               </span>
             </div>
             <p className="text-slate-300 text-[11px]">Contracts Finder &amp; Find a Tender OCDS</p>
-            <div className="pt-2 text-[10.5px] text-slate-400 font-mono flex items-center justify-between">
+            <div className="pt-2 text-[10.5px] text-slate-400 font-normal flex items-center justify-between">
               <span>Schedule: 20 */12 * * *</span>
               <span className="text-slate-300">Every 12h</span>
             </div>
@@ -173,7 +173,7 @@ export function AdminIntelligenceClient({
               </span>
             </div>
             <p className="text-slate-300 text-[11px]">Live REST API statutory check</p>
-            <div className="pt-2 text-[10.5px] text-slate-400 font-mono flex items-center justify-between">
+            <div className="pt-2 text-[10.5px] text-slate-400 font-normal flex items-center justify-between">
               <span>Schedule: 40 4 * * *</span>
               <span className="text-slate-300">Daily 04:40 UTC</span>
             </div>

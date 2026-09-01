@@ -99,11 +99,11 @@ export default async function ContractorDashboardPage() {
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               ENTIREFM NETWORK &bull; {session.orgName}
             </span>
             <span
-              className={`text-[11px] font-mono px-2.5 py-0.5 rounded border ${
+              className={`text-[11px] font-normal px-2.5 py-0.5 rounded border ${
                 complianceSummary.operationalStatus === 'COMPLIANT'
                   ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
                   : complianceSummary.operationalStatus === 'RESTRICTED'
@@ -147,7 +147,7 @@ export default async function ContractorDashboardPage() {
         <div className="rounded-2xl border border-brand-electric/30 bg-brand-carbon/60 p-6 space-y-4 shadow-lg">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
                 PARTNER ONBOARDING ESSENTIALS
               </span>
               <h3 className="text-base font-light text-white">
@@ -157,7 +157,7 @@ export default async function ContractorDashboardPage() {
                 Your supplier application has been approved. Complete these initial setup milestones to enable automated work dispatch.
               </p>
             </div>
-            <span className="text-xs font-mono text-emerald-400 font-bold px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 self-start sm:self-auto">
+            <span className="text-xs text-emerald-400 font-bold px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 self-start sm:self-auto">
               ✓ Approved Partner
             </span>
           </div>
@@ -240,7 +240,7 @@ export default async function ContractorDashboardPage() {
       {/* Action-Oriented Metric Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">New Job Offers</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">New Job Offers</span>
           <p className={`text-3xl font-light mt-1 ${newOffers.length > 0 ? 'text-amber-400 font-normal' : 'text-white'}`}>
             {newOffers.length}
           </p>
@@ -248,13 +248,13 @@ export default async function ContractorDashboardPage() {
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active / In Field</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Active / In Field</span>
           <p className="text-3xl font-light text-brand-electric-bright mt-1">{activeJobs.length}</p>
           <span className="text-[11px] text-brand-mist/40 mt-0.5 block">Attending operations</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Compliance Score</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Compliance Score</span>
           <p
             className={`text-3xl font-light mt-1 ${
               complianceSummary.complianceScorePct >= 90
@@ -272,7 +272,7 @@ export default async function ContractorDashboardPage() {
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Field Engineers</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Field Engineers</span>
           <p className="text-3xl font-light text-cyan-400 mt-1">{operatives.length}</p>
           <span className="text-[11px] text-brand-mist/40 mt-0.5 block">Registered operatives</span>
         </div>
@@ -299,7 +299,7 @@ export default async function ContractorDashboardPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
+                      className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
                         act.priority === 'CRITICAL'
                           ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                           : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
@@ -335,14 +335,14 @@ export default async function ContractorDashboardPage() {
               <span className="text-[11px] text-brand-mist/50">Personalised statutory and trade intelligence</span>
             </div>
           </div>
-          <Link href="/contractor/intelligence" className="text-xs text-brand-electric-bright hover:underline font-mono">
+          <Link href="/contractor/intelligence" className="text-xs text-brand-electric-bright hover:underline font-normal">
             Open Intelligence Centre →
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
-            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Pending Updates</span>
+            <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Pending Updates</span>
             <p className="text-2xl font-light text-white mt-1">{intelligenceFeed.pendingActionCount}</p>
             <span className="text-[11px] text-brand-mist/60 mt-0.5 block">
               {intelligenceFeed.unacknowledgedCriticalCount > 0
@@ -352,7 +352,7 @@ export default async function ContractorDashboardPage() {
           </div>
 
           <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
-            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Company Status</span>
+            <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Company Status</span>
             <p className={`text-2xl font-light mt-1 ${companyWatch.companyStatus === 'ACTIVE' ? 'text-emerald-400' : 'text-amber-400'}`}>
               {companyWatch.companyStatus}
             </p>
@@ -364,7 +364,7 @@ export default async function ContractorDashboardPage() {
           </div>
 
           <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
-            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Credential Surveillance</span>
+            <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Credential Surveillance</span>
             <p className={`text-2xl font-light mt-1 ${credentialWatch.expiringWithin90DaysCount > 0 ? 'text-amber-400' : 'text-cyan-400'}`}>
               {credentialWatch.expiringWithin90DaysCount > 0 ? `${credentialWatch.expiringWithin90DaysCount} Expiring` : 'All Current'}
             </p>
@@ -395,7 +395,7 @@ export default async function ContractorDashboardPage() {
               <div key={offer.id} className="py-3 flex items-center justify-between">
                 <div>
                   <div className="text-sm font-normal text-white">{offer.work_order?.title || 'Maintenance Request'}</div>
-                  <div className="text-xs font-mono text-brand-mist/50 mt-0.5">
+                  <div className="text-xs font-normal text-brand-mist/50 mt-0.5">
                     {offer.work_order?.work_order_number || offer.id} &bull; Priority {offer.work_order?.priority || 'P3_MEDIUM'}
                   </div>
                 </div>
@@ -434,11 +434,11 @@ export default async function ContractorDashboardPage() {
                 <div key={job.id} className="py-3 flex items-center justify-between">
                   <div>
                     <div className="text-sm font-normal text-white">{job.work_order?.title || 'Work Order'}</div>
-                    <div className="text-xs font-mono text-brand-mist/50 mt-0.5">
+                    <div className="text-xs font-normal text-brand-mist/50 mt-0.5">
                       {job.work_order?.work_order_number} &bull; {job.status}
                     </div>
                   </div>
-                  <span className="rounded bg-brand-electric/10 border border-brand-electric/30 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">
+                  <span className="rounded bg-brand-electric/10 border border-brand-electric/30 px-2 py-0.5 font-normal text-[10px] text-brand-electric-bright">
                     ACTIVE
                   </span>
                 </div>
@@ -469,9 +469,9 @@ export default async function ContractorDashboardPage() {
                 <div key={op.id} className="py-3 flex items-center justify-between">
                   <div>
                     <div className="text-sm font-normal text-white">{op.first_name} {op.last_name}</div>
-                    <div className="text-xs font-mono text-brand-mist/50 mt-0.5">{op.job_title || 'Field Engineer'}</div>
+                    <div className="text-xs font-normal text-brand-mist/50 mt-0.5">{op.job_title || 'Field Engineer'}</div>
                   </div>
-                  <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+                  <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                     AUTHORISED
                   </span>
                 </div>

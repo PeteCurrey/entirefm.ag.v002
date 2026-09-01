@@ -56,7 +56,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
     <div className="min-h-screen bg-brand-void text-brand-mist selection:bg-brand-electric selection:text-white">
       {/* Top Banner for Audited View-As Mode */}
       {isViewAs && (
-        <div className="bg-amber-500/20 border-b border-amber-500/30 px-6 py-2 text-center text-[12px] font-mono text-amber-300">
+        <div className="bg-amber-500/20 border-b border-amber-500/30 px-6 py-2 text-center text-[12px] font-normal text-amber-300">
           ⚠️ AUDITED SUPPORT VIEW-AS: Viewing as {session.name} ({session.orgName}) · Operator: {session.viewAsContext?.operatorEmail}
         </div>
       )}
@@ -69,21 +69,21 @@ export default async function ClientsLayout({ children }: { children: React.Reac
               <span className="text-[16px] font-light tracking-tight text-white">
                 Entire<span className="font-light text-brand-electric">FM</span>
               </span>
-              <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-brand-mist/70">
+              <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-medium text-[10px] uppercase tracking-widest text-brand-mist/70">
                 Client Portal
               </span>
             </Link>
-            <span className="rounded-full bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 font-mono text-[11px] text-brand-electric-bright">
+            <span className="rounded-full bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 font-normal text-[11px] text-brand-electric-bright">
               {session.orgName}
             </span>
-            <span className="hidden sm:inline-block rounded border border-brand-edge-dark bg-brand-void/60 px-2 py-0.5 font-mono text-[10.5px] text-brand-mist/50">
+            <span className="hidden sm:inline-block rounded border border-brand-edge-dark bg-brand-void/60 px-2 py-0.5 font-normal text-[10.5px] text-brand-mist/50">
               {scopeLabel}
             </span>
           </div>
 
           <div className="flex items-center gap-4 text-[13px]">
             <span className="hidden md:inline text-brand-mist/70">
-              {session.name} <span className="font-mono text-[11px] text-brand-mist/40">({session.role})</span>
+              {session.name} <span className="font-normal text-[11px] text-brand-mist/40">({session.role})</span>
             </span>
             <form action="/api/auth/logout" method="post">
               <button type="submit" className="rounded border border-brand-edge-dark px-3 py-1 text-[12px] text-brand-mist hover:bg-brand-void hover:text-white transition-colors">

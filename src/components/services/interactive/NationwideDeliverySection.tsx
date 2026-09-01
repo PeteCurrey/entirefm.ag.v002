@@ -64,11 +64,11 @@ export function NationwideDeliverySection() {
                     <h3 className="text-base font-normal text-slate-900 group-hover:text-brand-pink transition-colors">
                       {hub.city}
                     </h3>
-                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200 uppercase">
+                    <span className="text-[10px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200 uppercase">
                       Active Hub
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-slate-400 block font-light">
+                  <span className="text-[11px] text-slate-400 block font-light">
                     {hub.region}
                   </span>
                   <p className="text-xs text-slate-500 font-light mt-2 leading-relaxed">

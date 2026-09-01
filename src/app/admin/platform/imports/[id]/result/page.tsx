@@ -105,7 +105,7 @@ export default function ImportResultPage() {
       </div>
 
       {/* Stats Matrix */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-normal">
         {[
           { label: 'Total Rows', value: batch?.total_rows, color: 'text-[#101010]' },
           { label: 'Imported', value: batch?.imported_rows, color: 'text-[#15803D]' },
@@ -122,7 +122,7 @@ export default function ImportResultPage() {
       {/* Navigation to imported entities */}
       {isSuccess && !isRolledBack && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-3">
-          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
+          <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             VIEW IMPORTED DATA IN ENTIRECAFM
           </h3>
           <div className="flex flex-wrap gap-3">

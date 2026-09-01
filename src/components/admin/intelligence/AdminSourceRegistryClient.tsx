@@ -111,7 +111,7 @@ export function AdminSourceRegistryClient({
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${healthColor}`}>
                       {src.healthStatus.replace(/_/g, ' ')}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">ID: {src.id}</span>
+                    <span className="text-xs text-gray-400 font-normal">ID: {src.id}</span>
                   </div>
 
                   <h3 className="text-sm font-bold text-gray-900">{src.name}</h3>
@@ -147,7 +147,7 @@ export function AdminSourceRegistryClient({
 
                     <div>
                       <span className="text-[9.5px] uppercase tracking-wider text-gray-400 font-semibold block">Credential Status</span>
-                      <span className="font-mono text-gray-700">
+                      <span className="font-normal text-gray-700">
                         {src.credentialEnvKey
                           ? (src.credentialEnvKey === 'COMPANIES_HOUSE_API_KEY' ? 'CONFIGURED ✓' : 'NOT CONFIGURED')
                           : 'Open / No Key'}

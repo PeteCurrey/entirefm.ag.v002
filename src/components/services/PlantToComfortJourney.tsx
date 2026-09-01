@@ -107,7 +107,7 @@ export function PlantToComfortJourney() {
                 }`}
               >
                 <span
-                  className={`text-xs font-mono font-medium block mb-1 ${
+                  className={`text-xs font-medium block mb-1 ${
                     isActive ? 'text-brand-pink' : 'text-slate-400'
                   }`}
                 >
@@ -133,7 +133,7 @@ export function PlantToComfortJourney() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/40" />
-            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-normal rounded-sm backdrop-blur-md">
               STAGE {activeStep.step}: {activeStep.stage}
             </div>
           </div>

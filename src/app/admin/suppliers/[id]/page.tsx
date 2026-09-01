@@ -84,7 +84,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
   return (
     <div className="space-y-6">
       {/* Back Link */}
-      <Link href="/admin/suppliers/landscape" className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-slate-900">
+      <Link href="/admin/suppliers/landscape" className="inline-flex items-center gap-1.5 text-xs font-normal text-slate-500 hover:text-slate-900">
         <ArrowLeft className="h-3.5 w-3.5" /> Back to Supplier Landscape
       </Link>
 
@@ -93,21 +93,21 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pb-6 border-b border-slate-200">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10.5px] font-mono px-2 py-0.5 rounded bg-slate-900 text-white font-normal">
+              <span className="text-[10.5px] px-2 py-0.5 rounded bg-slate-900 text-white font-normal">
                 {supplier.relationship_level.replace(/_/g, ' ')}
               </span>
-              <span className={`text-[10.5px] font-mono px-2 py-0.5 rounded ${
+              <span className={`text-[10.5px] font-normal px-2 py-0.5 rounded ${
                 supplier.compliance_status === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
               }`}>
                 COMPLIANCE: {supplier.compliance_status.replace(/_/g, ' ')}
               </span>
-              <span className={`text-[10.5px] font-mono px-2 py-0.5 rounded ${
+              <span className={`text-[10.5px] font-normal px-2 py-0.5 rounded ${
                 supplier.risk_level === 'CRITICAL' ? 'bg-rose-600 text-white' : supplier.risk_level === 'HIGH' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'
               }`}>
                 RISK: {supplier.risk_level}
               </span>
               {activeHolds.length > 0 && (
-                <span className="text-[10.5px] font-mono px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-light flex items-center gap-1">
+                <span className="text-[10.5px] px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-light flex items-center gap-1">
                   <ShieldAlert className="h-3 w-3" /> {activeHolds.length} COMPLIANCE HOLD
                 </span>
               )}
@@ -117,11 +117,11 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               {supplier.legal_name}
             </h1>
             {supplier.trading_name && (
-              <span className="text-xs font-mono text-slate-500 block">Trading as {supplier.trading_name}</span>
+              <span className="text-xs font-normal text-slate-500 block">Trading as {supplier.trading_name}</span>
             )}
           </div>
 
-          <div className="text-right space-y-1 font-mono text-xs text-slate-600">
+          <div className="text-right space-y-1 font-normal text-xs text-slate-600">
             <div>ID: <span className="font-light text-slate-900">{supplier.id}</span></div>
             <div>Company Reg: <span className="font-light">{supplier.company_number || '—'}</span></div>
             <div>VAT: <span className="font-light">{supplier.vat_number || '—'}</span></div>
@@ -129,7 +129,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
         </div>
 
         {/* Contact & Location Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono text-slate-700">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-normal text-slate-700">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-slate-400" />
             <span>{supplier.headquarters_city}, {supplier.headquarters_postcode}</span>
@@ -161,18 +161,18 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                   <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                     Operational Performance Scorecard
                   </h3>
-                  <span className="text-xs text-slate-500 font-mono">
+                  <span className="text-xs text-slate-500 font-normal">
                     Window: {scorecard.measurement_window.replace('_', ' ')} &middot; {scorecard.total_completed_jobs} Completed Jobs
                   </span>
                 </div>
-                <span className={`text-xs font-mono font-light px-2.5 py-1 rounded ${
+                <span className={`text-xs font-light px-2.5 py-1 rounded ${
                   scorecard.overall_status === 'EXCELLENT' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-800'
                 }`}>
                   STATUS: {scorecard.overall_status}
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-normal">
                 <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">
                   <span className="text-slate-400 text-[10px] uppercase block">SLA ATTENDANCE</span>
                   <div className="text-xl font-light text-emerald-700">{scorecard.sla_attendance_rate.value}%</div>
@@ -203,7 +203,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 Dynamic Assurance Requirements ({onboardingPlan?.completion_percentage || 0}% Complete)
               </h3>
-              <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+              <span className="text-xs font-light px-2 py-0.5 rounded bg-slate-100 text-slate-800">
                 {onboardingPlan?.completed_mandatory_items || 0} / {onboardingPlan?.total_mandatory_items || 0} Mandatory Accepted
               </span>
             </div>
@@ -214,13 +214,13 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
                       <span className="font-light text-slate-900 font-sans">{item.title}</span>
-                      {item.is_mandatory && <span className="text-[9.5px] font-mono text-rose-600 font-light">MANDATORY</span>}
+                      {item.is_mandatory && <span className="text-[9.5px] text-rose-600 font-light">MANDATORY</span>}
                     </div>
                     <p className="text-slate-500 text-[11.5px] font-light">{item.description}</p>
-                    {item.expiry_date && <span className="text-[10.5px] font-mono text-slate-400">Expires: {item.expiry_date}</span>}
+                    {item.expiry_date && <span className="text-[10.5px] font-normal text-slate-400">Expires: {item.expiry_date}</span>}
                   </div>
 
-                  <span className={`inline-block text-[10px] font-mono font-light px-2 py-0.5 rounded shrink-0 ${
+                  <span className={`inline-block text-[10px] font-light px-2 py-0.5 rounded shrink-0 ${
                     item.status === 'ACCEPTED' ? 'bg-emerald-100 text-emerald-800' : item.status === 'REJECTED' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
                   }`}>
                     {item.status}
@@ -238,12 +238,12 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 bg-slate-50 border border-slate-200 rounded space-y-2">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-light block">APPROVED DISCIPLINES</span>
+                <span className="text-[10px] uppercase text-slate-400 font-light block">APPROVED DISCIPLINES</span>
                 {serviceApprovals.length === 0 ? (
                   <p className="text-xs text-slate-500 font-light">No services approved yet.</p>
                 ) : (
                   serviceApprovals.map((sa) => (
-                    <div key={sa.id} className="flex items-center justify-between text-xs font-mono">
+                    <div key={sa.id} className="flex items-center justify-between text-xs font-normal">
                       <span className="font-light text-slate-800">{sa.service_name}</span>
                       <span className="text-emerald-700 font-light">APPROVED</span>
                     </div>
@@ -252,12 +252,12 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               </div>
 
               <div className="p-4 bg-slate-50 border border-slate-200 rounded space-y-2">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-light block">APPROVED GEOGRAPHY</span>
+                <span className="text-[10px] uppercase text-slate-400 font-light block">APPROVED GEOGRAPHY</span>
                 {geoApprovals.length === 0 ? (
                   <p className="text-xs text-slate-500 font-light">No regional approvals on file.</p>
                 ) : (
                   geoApprovals.map((ga) => (
-                    <div key={ga.id} className="flex items-center justify-between text-xs font-mono">
+                    <div key={ga.id} className="flex items-center justify-between text-xs font-normal">
                       <span className="font-light text-slate-800">{ga.region_or_city}</span>
                       <span className="text-emerald-700 font-light">AUTHORISED</span>
                     </div>
@@ -273,7 +273,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               Verified Compliance Documents ({documents.length})
             </h3>
 
-            <div className="divide-y divide-slate-100 text-xs font-mono">
+            <div className="divide-y divide-slate-100 text-xs font-normal">
               {documents.length === 0 ? (
                 <p className="py-4 text-center text-slate-500 font-light">No documents uploaded.</p>
               ) : (
@@ -304,7 +304,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                   Bank Remittance (Masked)
                 </h3>
               </div>
-              <span className={`text-[10px] font-mono font-light px-1.5 py-0.5 rounded ${
+              <span className={`text-[10px] font-light px-1.5 py-0.5 rounded ${
                 bankDetails?.verification_status === 'VERIFIED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
               }`}>
                 {bankDetails?.verification_status || 'NOT_SUBMITTED'}
@@ -312,7 +312,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
             </div>
 
             {bankDetails ? (
-              <div className="space-y-1.5 text-xs font-mono">
+              <div className="space-y-1.5 text-xs font-normal">
                 <div><span className="text-slate-400">Account: </span><span className="font-light text-slate-800">{bankDetails.account_name}</span></div>
                 <div><span className="text-slate-400">Bank: </span><span className="text-slate-700">{bankDetails.bank_name}</span></div>
                 <div><span className="text-slate-400">Sort Code: </span><span className="font-light">{bankDetails.sort_code_masked}</span></div>
@@ -332,13 +332,13 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                   Commercial &amp; Membership
                 </h3>
               </div>
-              <span className="text-[9.5px] font-mono font-light px-1.5 py-0.5 rounded bg-slate-100 text-slate-800">
+              <span className="text-[9.5px] font-light px-1.5 py-0.5 rounded bg-slate-100 text-slate-800">
                 FIREWALL ISOLATED
               </span>
             </div>
 
             {authDraft?.selectedMembershipTier ? (
-              <div className="space-y-2 text-xs font-mono">
+              <div className="space-y-2 text-xs font-normal">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Tier:</span>
                   <span className="font-light text-slate-900">
@@ -389,7 +389,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                 </div>
               </div>
             ) : membership ? (
-              <div className="space-y-2 text-xs font-mono">
+              <div className="space-y-2 text-xs font-normal">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Tier:</span>
                   <span className="font-light text-slate-900">{membership.product_name}</span>
@@ -417,7 +417,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               <p className="text-xs text-slate-500 font-light">No active remediation actions.</p>
             ) : (
               remediationActions.map((r) => (
-                <div key={r.id} className="p-2.5 bg-slate-50 rounded border border-slate-200 text-xs font-mono space-y-1">
+                <div key={r.id} className="p-2.5 bg-slate-50 rounded border border-slate-200 text-xs font-normal space-y-1">
                   <div className="flex justify-between font-light">
                     <span className="text-slate-900">{r.issue_summary}</span>
                     <span className="text-amber-800">{r.status}</span>
@@ -433,7 +433,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
             <h3 className="text-xs font-normal uppercase tracking-wider text-slate-900 pb-2 border-b border-slate-200">
               Audit Trail ({auditLogs.length})
             </h3>
-            <div className="divide-y divide-slate-100 text-xs font-mono">
+            <div className="divide-y divide-slate-100 text-xs font-normal">
               {auditLogs.slice(0, 4).map((a) => (
                 <div key={a.id} className="py-2 space-y-0.5">
                   <div className="font-light text-slate-800">{a.action}</div>

@@ -17,7 +17,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       {/* Header */}
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 flex items-center justify-between">
-        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+        <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           SITE PROFILE & SPECIFICATION
         </h3>
         <Badge variant={site.status === 'ACTIVE' ? 'green' : 'neutral'} size="xs">
@@ -30,7 +30,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
         <div className="space-y-3">
           <div className="flex items-center justify-between py-1 border-b border-[#E4E4E1]/60">
             <span className="text-[#686866]">Reference Code</span>
-            <span className="font-mono font-medium text-[#101010]">{site.site_code}</span>
+            <span className="font-medium text-[#101010]">{site.site_code}</span>
           </div>
 
           <div className="flex items-center justify-between py-1 border-b border-[#E4E4E1]/60">
@@ -42,7 +42,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
 
           <div className="flex items-center justify-between py-1 border-b border-[#E4E4E1]/60">
             <span className="text-[#686866]">Gross Internal Area</span>
-            <span className="font-mono font-medium text-[#101010]">
+            <span className="font-medium text-[#101010]">
               {totalGia > 0 ? `${totalGia.toLocaleString()} m²` : '—'}
             </span>
           </div>
@@ -56,7 +56,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
 
           <div className="flex items-center justify-between py-1 border-b border-[#E4E4E1]/60">
             <span className="text-[#686866]">Security Clearance</span>
-            <span className="font-mono text-[#101010]">
+            <span className="font-normal text-[#101010]">
               {site.security_clearance_required ? 'MANDATORY' : 'STANDARD'}
             </span>
           </div>
@@ -64,7 +64,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
 
         {/* Access Instructions */}
         <div className="space-y-2 pt-1">
-          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
+          <h4 className="text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
             ACCESS & SITE PROTOCOLS
           </h4>
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 text-[12px] text-[#686866] leading-relaxed">

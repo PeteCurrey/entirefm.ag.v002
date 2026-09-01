@@ -353,14 +353,14 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-sm shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div>
-                    <span className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-light">
+                    <span className="text-[11px] text-slate-500 uppercase tracking-widest font-light">
                       Scheduled Testing
                     </span>
                     <h3 className="text-xl font-light text-slate-900 mt-0.5">
                       {MONTH_NAMES[activeMonth - 1]} 2026 — Statutory Milestones
                     </h3>
                   </div>
-                  <span className="text-xs font-mono font-light text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                  <span className="text-xs font-light text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                     {monthEvents.length} Active Obligations
                   </span>
                 </div>
@@ -371,12 +371,12 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       <div className="space-y-1.5 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="font-light text-slate-900 text-sm">{evt.title}</span>
-                          <span className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 font-mono text-[10px] font-normal uppercase rounded-sm">
+                          <span className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-normal uppercase rounded-sm">
                             {evt.frequency}
                           </span>
                         </div>
                         <p className="text-slate-600 leading-snug">{evt.rationale}</p>
-                        <div className="text-[11.5px] font-mono text-slate-500 flex flex-wrap items-center gap-x-3 gap-y-1 pt-0.5">
+                        <div className="text-[11.5px] font-normal text-slate-500 flex flex-wrap items-center gap-x-3 gap-y-1 pt-0.5">
                           <span className="text-brand-electric font-light">{evt.system}</span>
                           <span>·</span>
                           <span>{evt.legislation}</span>
@@ -402,8 +402,8 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   return (
                     <div key={name} className="p-5 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="font-mono text-sm font-normal text-slate-900">{name}</span>
-                        <span className="text-[11px] font-mono font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{events.length} Tasks</span>
+                        <span className="text-sm font-normal text-slate-900">{name}</span>
+                        <span className="text-[11px] font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{events.length} Tasks</span>
                       </div>
                       <div className="space-y-2 max-h-48 overflow-y-auto pr-1 scrollbar-thin">
                         {events.map((e) => (
@@ -437,8 +437,8 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       <tr key={evt.id} className="hover:bg-slate-50/80 transition-colors">
                         <td className="p-3.5 font-light text-slate-900 whitespace-nowrap">{evt.system}</td>
                         <td className="p-3.5 font-normal text-slate-800">{evt.title}</td>
-                        <td className="p-3.5 text-center font-mono font-light text-slate-700">{evt.frequency}</td>
-                        <td className="p-3.5 font-mono text-[11px] text-slate-500">{evt.legislation}</td>
+                        <td className="p-3.5 text-center font-light text-slate-700">{evt.frequency}</td>
+                        <td className="p-3.5 font-normal text-[11px] text-slate-500">{evt.legislation}</td>
                         <td className="p-3.5 text-slate-600 font-normal">{evt.dutyHolder}</td>
                       </tr>
                     ))}

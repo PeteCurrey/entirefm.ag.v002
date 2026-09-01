@@ -43,7 +43,7 @@ export default async function NewsletterAnalyticsPage() {
                   <h4 className="text-sm font-normal text-white">{c.name}</h4>
                   <div className="text-xs text-zinc-400 mt-0.5">{c.subject}</div>
                 </div>
-                <div className="flex gap-6 text-xs text-zinc-300 font-mono">
+                <div className="flex gap-6 text-xs text-zinc-300 font-normal">
                   <div>
                     <span className="text-zinc-500 block text-[10px]">RECIPIENTS</span>
                     {c.totalRecipients}

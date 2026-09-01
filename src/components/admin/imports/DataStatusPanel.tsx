@@ -24,19 +24,19 @@ export function DataStatusPanel({ status }: DataStatusPanelProps) {
           <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#101010] text-white">
             <Database className="h-3.5 w-3.5" />
           </div>
-          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+          <h3 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             LIVE DATA STATUS — PRODUCTION RECORDS
           </h3>
         </div>
         {status.mockRecordsCount > 0 && (
-          <span className="rounded-[5px] bg-[#FEF2F2] border border-[#FECACA] px-2.5 py-1 font-mono text-[10px] font-normal text-[#DC2626]">
+          <span className="rounded-[5px] bg-[#FEF2F2] border border-[#FECACA] px-2.5 py-1 text-[10px] font-normal text-[#DC2626]">
             {status.mockRecordsCount} MOCK RECORDS DETECTED
           </span>
         )}
       </div>
 
       <div className="p-5 space-y-4">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-normal">
           {metrics.map(({ label, value, icon: Icon, href }) => (
             <Link
               key={label}

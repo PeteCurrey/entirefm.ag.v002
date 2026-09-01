@@ -29,7 +29,7 @@ export function TemplateLobbyTopic({ topic }: TemplateLobbyTopicProps) {
 
             <div className="inline-flex items-center gap-2">
               <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-brand-electric-bright">
+              <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright">
                 Topic Intelligence Index
               </span>
             </div>
@@ -48,7 +48,7 @@ export function TemplateLobbyTopic({ topic }: TemplateLobbyTopicProps) {
         <section className="py-12 sm:py-16">
           <div className="container-custom">
             <div className="flex items-center justify-between border-b border-brand-edge pb-4 mb-8">
-              <span className="text-xs font-mono text-brand-silver">
+              <span className="text-xs font-normal text-brand-silver">
                 {articles.length} {articles.length === 1 ? 'article' : 'articles'} in this topic
               </span>
               <Link href="/lobby" className="text-xs text-brand-electric hover:underline">
@@ -66,7 +66,7 @@ export function TemplateLobbyTopic({ topic }: TemplateLobbyTopicProps) {
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-medium">
+                        <span className="text-[10px] uppercase tracking-wider text-brand-electric font-medium">
                           {article.franchise.replace(/-/g, ' ')}
                         </span>
                         <span className="text-[10.5px] text-brand-silver font-light">
@@ -105,7 +105,7 @@ export function TemplateLobbyTopic({ topic }: TemplateLobbyTopicProps) {
 
             {/* Other Topics Navigation */}
             <div className="border-t border-brand-edge pt-12 mt-16 space-y-4">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-brand-silver">
+              <h3 className="text-xs font-medium uppercase tracking-wider text-brand-silver">
                 Explore Other Topics
               </h3>
               <div className="flex flex-wrap gap-2">

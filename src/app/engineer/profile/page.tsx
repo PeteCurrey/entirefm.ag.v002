@@ -31,7 +31,7 @@ export default async function EngineerProfilePage() {
         <h3 className="text-white text-sm font-normal">Field Application</h3>
         <div className="flex justify-between text-xs text-brand-mist py-1 border-b border-brand-edge-dark">
           <span>Version</span>
-          <span className="font-mono text-white">EntireFM Field 0.3.0</span>
+          <span className="font-normal text-white">EntireFM Field 0.3.0</span>
         </div>
         <div className="flex justify-between text-xs text-brand-mist py-1 border-b border-brand-edge-dark">
           <span>Offline Support</span>

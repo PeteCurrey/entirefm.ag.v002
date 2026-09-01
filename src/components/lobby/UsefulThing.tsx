@@ -24,13 +24,13 @@ export function UsefulThing({ data }: UsefulThingProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/30" />
 
           <div className="absolute top-6 left-6 z-10">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/15">
+            <span className="text-[11px] font-normal uppercase tracking-[0.2em] text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/15">
               ONE USEFUL THING · OPERATIONAL TOOL
             </span>
           </div>
 
           <div className="absolute bottom-6 left-6 z-10">
-            <span className="text-xs font-mono text-white/90 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-sm">
+            <span className="text-xs font-normal text-white/90 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-sm">
               Format: {data.format || 'Spreadsheet (.xlsx)'}
             </span>
           </div>
@@ -39,7 +39,7 @@ export function UsefulThing({ data }: UsefulThingProps) {
         {/* Text Editorial Panel */}
         <div className="p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-6 bg-[#FAF9F7]">
           <div className="space-y-4">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-electric block">
+            <span className="text-[11px] font-medium uppercase tracking-widest text-brand-electric block">
               ESTATE MOBILISATION
             </span>
 
@@ -61,7 +61,7 @@ export function UsefulThing({ data }: UsefulThingProps) {
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
             </Link>
 
-            <span className="text-xs text-neutral-400 font-mono">
+            <span className="text-xs text-neutral-400 font-normal">
               Direct download · No registration
             </span>
           </div>

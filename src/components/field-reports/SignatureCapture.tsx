@@ -146,7 +146,7 @@ export default function SignatureCapture({
           </p>
         </div>
         {isSaved && (
-          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1">
+          <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1">
             <Check className="w-3 h-3" /> Signed
           </span>
         )}
@@ -203,7 +203,7 @@ export default function SignatureCapture({
               className="w-full h-[140px] cursor-crosshair"
             />
             {!hasDrawn && (
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-xs text-slate-500 font-mono">
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-xs text-slate-500 font-normal">
                 Sign here with finger or stylus
               </div>
             )}
@@ -233,7 +233,7 @@ export default function SignatureCapture({
           <div>
             <span className="font-semibold text-white">{name}</span>
             <span className="text-slate-400 ml-2">({position || 'Signatory'})</span>
-            <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+            <div className="text-[10px] text-slate-500 font-normal mt-0.5">
               Signed at: {existingSignature?.signed_at ? new Date(existingSignature.signed_at).toLocaleString('en-GB') : 'Recorded in audit vault'}
             </div>
           </div>

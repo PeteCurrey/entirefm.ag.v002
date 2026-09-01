@@ -461,7 +461,7 @@ function CompanyWatchView({ companyWatch }: { companyWatch: CompanyWatchRecord }
             <div className="flex items-center gap-2">
               <span className={`w-2.5 h-2.5 rounded-full ${isHealthy ? 'bg-emerald-500' : 'bg-amber-500'}`} />
               <h2 className="text-lg font-bold text-gray-900">{companyWatch.companyName}</h2>
-              <span className="text-xs text-gray-500 font-mono">({companyWatch.companyNumber})</span>
+              <span className="text-xs text-gray-500 font-normal">({companyWatch.companyNumber})</span>
             </div>
             <p className="text-xs text-gray-600 mt-1">
               Live corporate status monitored via Companies House UK Public Data API.

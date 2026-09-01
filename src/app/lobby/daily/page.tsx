@@ -36,7 +36,7 @@ export default async function LobbyDailyArchivePage() {
         <div className="border-b border-white/10 pb-8 space-y-4">
           <div className="inline-flex items-center gap-2">
             <span className="h-px w-6 bg-[#00E599]" />
-            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#00E599] font-semibold">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#00E599] font-semibold">
               EXECUTIVE INTELLIGENCE BRIEFING
             </span>
             <span className="h-px w-6 bg-[#00E599]" />
@@ -50,7 +50,7 @@ export default async function LobbyDailyArchivePage() {
             What changed. Why it matters. What to do next in UK facilities management and commercial estate operations.
           </p>
 
-          <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono text-white/60">
+          <div className="pt-2 flex flex-wrap gap-4 text-xs font-normal text-white/60">
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-[#00E599]" /> Weekday 06:45 dispatch
             </span>
@@ -66,7 +66,7 @@ export default async function LobbyDailyArchivePage() {
         {/* Latest Edition Feature Card */}
         {latestEdition && (
           <div className="bg-[#111622] border border-white/15 rounded-sm p-6 sm:p-8 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-normal">
               <span className="text-[#00E599] uppercase tracking-wider font-semibold">
                 LATEST EDITION · #{latestEdition.editionNumber}
               </span>
@@ -74,7 +74,7 @@ export default async function LobbyDailyArchivePage() {
             </div>
 
             <div className="space-y-3">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-sky-400">
+              <span className="text-[11px] font-medium uppercase tracking-widest text-sky-400">
                 {latestEdition.leadStory?.categoryLabel}
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-white leading-snug">
@@ -96,7 +96,7 @@ export default async function LobbyDailyArchivePage() {
               </span>
               <Link
                 href={`/lobby/daily/${latestEdition.slug}`}
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#00E599] hover:underline"
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-[#00E599] hover:underline"
               >
                 <span>Read Full Edition</span>
                 <ArrowRight className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default async function LobbyDailyArchivePage() {
 
         {/* Edition Archive List */}
         <div className="space-y-6">
-          <h3 className="text-xs font-mono uppercase tracking-widest text-white/50">
+          <h3 className="text-xs font-medium uppercase tracking-widest text-white/50">
             PREVIOUS EDITIONS
           </h3>
 
@@ -120,7 +120,7 @@ export default async function LobbyDailyArchivePage() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs text-white/50 font-mono">
+                    <div className="flex items-center gap-2 text-xs text-white/50 font-normal">
                       <span>Edition #{ed.editionNumber}</span>
                       <span>·</span>
                       <span>{ed.masthead?.ukDateFormatted || ed.editionDate}</span>
@@ -129,7 +129,7 @@ export default async function LobbyDailyArchivePage() {
                       {ed.leadStory?.headline || ed.subjectLine}
                     </h4>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-mono text-[#00E599] shrink-0">
+                  <div className="flex items-center gap-1 text-xs font-normal text-[#00E599] shrink-0">
                     <span>View Edition</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>

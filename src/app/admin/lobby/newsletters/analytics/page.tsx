@@ -48,7 +48,7 @@ export default async function LobbyDailyAnalyticsPage() {
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to Editions
         </Link>
-        <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-medium">
+        <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-medium">
           THE LOBBY DAILY
         </span>
         <h1 className="text-2xl font-light text-white">Audience &amp; Delivery Analytics</h1>
@@ -64,7 +64,7 @@ export default async function LobbyDailyAnalyticsPage() {
             <span>Total Active Audience</span>
             <Users className="h-4 w-4 text-emerald-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{activeSubscribers.length}</div>
+          <div className="mt-2 text-2xl font-light text-white">{activeSubscribers.length}</div>
           <div className="mt-1 text-[11px] text-zinc-500">Across Daily &amp; Weekly channels</div>
         </div>
 
@@ -73,7 +73,7 @@ export default async function LobbyDailyAnalyticsPage() {
             <span>The Lobby Daily Audience</span>
             <Send className="h-4 w-4 text-blue-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{dailyOnly + bothFrequencies}</div>
+          <div className="mt-2 text-2xl font-light text-white">{dailyOnly + bothFrequencies}</div>
           <div className="mt-1 text-[11px] text-zinc-500">
             {dailyOnly} daily only • {bothFrequencies} both
           </div>
@@ -84,7 +84,7 @@ export default async function LobbyDailyAnalyticsPage() {
             <span>Total Delivered Briefings</span>
             <MailCheck className="h-4 w-4 text-purple-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{totalSentDispatches}</div>
+          <div className="mt-2 text-2xl font-light text-white">{totalSentDispatches}</div>
           <div className="mt-1 text-[11px] text-zinc-500">{sentEditions.length} editions dispatched</div>
         </div>
 
@@ -93,7 +93,7 @@ export default async function LobbyDailyAnalyticsPage() {
             <span>Suppression List</span>
             <ShieldAlert className="h-4 w-4 text-amber-400" />
           </div>
-          <div className="mt-2 text-2xl font-light text-white font-mono">{suppressions.length}</div>
+          <div className="mt-2 text-2xl font-light text-white">{suppressions.length}</div>
           <div className="mt-1 text-[11px] text-zinc-500">
             {unsubscribed} unsubscribed • {bounced} bounced
           </div>
@@ -109,20 +109,20 @@ export default async function LobbyDailyAnalyticsPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
           <div className="p-4 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-            <span className="text-[10px] font-mono uppercase text-emerald-400">The Lobby Daily Only</span>
-            <div className="text-xl font-mono text-white">{dailyOnly}</div>
+            <span className="text-[10px] font-normal uppercase text-emerald-400">The Lobby Daily Only</span>
+            <div className="text-xl font-normal text-white">{dailyOnly}</div>
             <p className="text-[11px] text-zinc-500">06:45 UK weekday morning briefings</p>
           </div>
 
           <div className="p-4 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-            <span className="text-[10px] font-mono uppercase text-blue-400">Both Daily &amp; Weekly</span>
-            <div className="text-xl font-mono text-white">{bothFrequencies}</div>
+            <span className="text-[10px] font-normal uppercase text-blue-400">Both Daily &amp; Weekly</span>
+            <div className="text-xl font-normal text-white">{bothFrequencies}</div>
             <p className="text-[11px] text-zinc-500">Weekday briefings + Thursday digest</p>
           </div>
 
           <div className="p-4 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-            <span className="text-[10px] font-mono uppercase text-purple-400">Weekly Briefing Only</span>
-            <div className="text-xl font-mono text-white">{weeklyOnly}</div>
+            <span className="text-[10px] font-normal uppercase text-purple-400">Weekly Briefing Only</span>
+            <div className="text-xl font-normal text-white">{weeklyOnly}</div>
             <p className="text-[11px] text-zinc-500">Thursday 07:00 UK weekly digest</p>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default async function LobbyDailyAnalyticsPage() {
                   <div className="text-zinc-400 text-[11px] truncate max-w-md">{edition.subjectLine}</div>
                 </div>
 
-                <div className="flex items-center gap-6 font-mono text-zinc-300 shrink-0">
+                <div className="flex items-center gap-6 font-normal text-zinc-300 shrink-0">
                   <div>
                     <span className="text-zinc-500 block text-[10px]">Delivered</span>
                     {edition.totalDelivered || 0}

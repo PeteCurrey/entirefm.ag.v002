@@ -275,11 +275,11 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+            <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-semibold">
               ISSUE SUCCESSFULLY LOGGED
             </span>
             <h2 className="text-2xl font-light text-white mt-1">{sr.title}</h2>
-            <p className="text-sm text-brand-mist/70 mt-1 font-mono">
+            <p className="text-sm text-brand-mist/70 mt-1 font-normal">
               Canonical Reference: <span className="text-brand-electric-bright font-bold">{sr.reference}</span>
             </p>
           </div>
@@ -287,19 +287,19 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           {/* Key Ticket Attributes */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left pt-4 border-t border-brand-edge-dark/60">
             <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Priority</span>
+              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Priority</span>
               <p className="text-sm font-semibold text-white mt-0.5">{sr.priority}</p>
             </div>
             <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Contractual SLA</span>
+              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Contractual SLA</span>
               <p className="text-sm font-semibold text-emerald-400 mt-0.5">{sr.sla_hours} Hours Target</p>
             </div>
             <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Work Order</span>
-              <p className="text-sm font-mono text-brand-electric-bright mt-0.5">{wo?.work_order_number || 'Generated'}</p>
+              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Work Order</span>
+              <p className="text-sm font-normal text-brand-electric-bright mt-0.5">{wo?.work_order_number || 'Generated'}</p>
             </div>
             <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Current Status</span>
+              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Current Status</span>
               <p className="text-sm font-semibold text-white mt-0.5">{wo?.status || 'LOGGED'}</p>
             </div>
           </div>
@@ -340,7 +340,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
       {/* Header & Mode Switcher */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-brand-edge-dark/60 pb-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
             ENTIREFM HELPDESK &bull; CLIENT ISSUE INTAKE
           </span>
           <h1 className="text-2xl font-light text-white mt-1">Report a Maintenance Issue</h1>
@@ -403,7 +403,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
                   >
                     {m.text}
                   </div>
-                  <span className="text-[10px] font-mono text-brand-mist/40 mt-1 px-1">{m.timestamp}</span>
+                  <span className="text-[10px] font-normal text-brand-mist/40 mt-1 px-1">{m.timestamp}</span>
 
                   {/* Suggestion Chips */}
                   {m.chips && m.chips.length > 0 && (
@@ -462,7 +462,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="border-b border-brand-edge-dark/60 pb-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/50 font-bold">
+                <span className="text-[10px] uppercase tracking-widest text-brand-mist/50 font-bold">
                   STRUCTURED SERVICE REQUEST
                 </span>
                 <h3 className="text-base font-normal text-white mt-0.5">Issue Summary</h3>
@@ -470,7 +470,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
               {/* Site */}
               <div>
-                <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Site</span>
+                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Site</span>
                 <p className="text-sm font-medium text-white">
                   {state.site_name || <span className="text-amber-400/80 italic text-xs">Pending location selection</span>}
                 </p>
@@ -479,7 +479,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
               {/* Location */}
               {state.floor_or_location && (
                 <div>
-                  <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Location on Site</span>
+                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Location on Site</span>
                   <p className="text-sm text-brand-mist">{state.floor_or_location}</p>
                 </div>
               )}
@@ -487,11 +487,11 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
               {/* Trade & Priority */}
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Trade</span>
-                  <p className="text-xs font-mono text-white mt-0.5">{state.trade || 'PLUMBING'}</p>
+                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Trade</span>
+                  <p className="text-xs font-normal text-white mt-0.5">{state.trade || 'PLUMBING'}</p>
                 </div>
                 <div>
-                  <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Priority</span>
+                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Priority</span>
                   <p className={`text-xs font-bold mt-0.5 ${
                     state.suggested_priority === 'P1_CRITICAL' ? 'text-red-400' : 'text-brand-electric-bright'
                   }`}>
@@ -502,15 +502,15 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
               {/* Canonical SLA */}
               <div>
-                <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Target Response SLA</span>
-                <p className="text-xs font-mono text-emerald-400 mt-0.5">
+                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Target Response SLA</span>
+                <p className="text-xs font-normal text-emerald-400 mt-0.5">
                   {state.canonical_sla_hours ? `${state.canonical_sla_hours} Hours Response` : '24 Hours Response'}
                 </p>
               </div>
 
               {/* Issue Description */}
               <div>
-                <span className="text-[10.5px] font-mono text-brand-mist/50 uppercase">Extracted Fault</span>
+                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Extracted Fault</span>
                 <p className="text-xs text-brand-mist/90 bg-brand-void/60 p-2.5 rounded border border-brand-edge-dark/60 mt-1 line-clamp-3">
                   {state.issue_summary || state.issue_description || <span className="italic text-brand-mist/40">Awaiting issue details...</span>}
                 </p>
@@ -553,7 +553,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           >
             {/* Site Select */}
             <div>
-              <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Select Site *</label>
+              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Select Site *</label>
               <select
                 value={formSiteId}
                 onChange={(e) => setFormSiteId(e.target.value)}
@@ -571,7 +571,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Location within Site */}
             <div>
-              <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Location on Site</label>
+              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Location on Site</label>
               <input
                 type="text"
                 value={formLocation}
@@ -583,7 +583,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Issue Title */}
             <div>
-              <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Issue Title / Headline *</label>
+              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Issue Title / Headline *</label>
               <input
                 type="text"
                 value={formTitle}
@@ -596,7 +596,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Detailed Description *</label>
+              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Detailed Description *</label>
               <textarea
                 value={formDescription}
                 onChange={(e) => setFormDescription(e.target.value)}
@@ -610,7 +610,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
             {/* Trade & Priority Grid */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Trade Category</label>
+                <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Trade Category</label>
                 <select
                   value={formTrade}
                   onChange={(e) => setFormTrade(e.target.value)}
@@ -628,7 +628,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Urgency / Priority</label>
+                <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Urgency / Priority</label>
                 <select
                   value={formPriority}
                   onChange={(e) => setFormPriority(e.target.value)}
@@ -644,7 +644,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Access notes */}
             <div>
-              <label className="block text-xs font-mono text-brand-mist/70 uppercase mb-1">Access Instructions / Hours</label>
+              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Access Instructions / Hours</label>
               <input
                 type="text"
                 value={formAccessNotes}

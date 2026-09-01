@@ -77,7 +77,7 @@ export function ServiceUniverse() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
-                  <span className={`font-mono text-[11px] ${isActive ? 'text-brand-pink' : 'text-slate-400'}`}>
+                  <span className={`font-normal text-[11px]${isActive ? 'text-brand-pink' : 'text-slate-400'}`}>
                     {family.number}
                   </span>
                   <span>{family.shortName}</span>
@@ -116,7 +116,7 @@ export function ServiceUniverse() {
                       {/* Operational Proof Badge Overlay */}
                       <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white">
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink block">
+                          <span className="text-[10px] font-medium uppercase tracking-wider text-brand-pink block">
                             {family.statLabel}
                           </span>
                           <span className="text-sm sm:text-base font-light tracking-tight text-white">
@@ -124,7 +124,7 @@ export function ServiceUniverse() {
                           </span>
                         </div>
                         <div className="text-right">
-                          <span className="text-2xl font-light font-mono text-white/40">
+                          <span className="text-2xl font-light text-white/40">
                             {family.number}
                           </span>
                         </div>
@@ -136,11 +136,11 @@ export function ServiceUniverse() {
                   <div className={`lg:col-span-6 space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-mono text-brand-pink font-normal">
+                        <span className="text-xs text-brand-pink font-normal">
                           FAMILY {family.number}
                         </span>
                         <span className="text-slate-300">/</span>
-                        <span className="text-xs font-mono uppercase text-slate-400">
+                        <span className="text-xs font-normal uppercase text-slate-400">
                           {family.tagline}
                         </span>
                       </div>
@@ -155,7 +155,7 @@ export function ServiceUniverse() {
 
                     {/* Featured Capabilities List */}
                     <div className="pt-2">
-                      <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block font-light mb-3">
+                      <span className="text-xs uppercase tracking-wider text-slate-400 block font-light mb-3">
                         Core Service Capabilities:
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -170,7 +170,7 @@ export function ServiceUniverse() {
 
                     {/* Curated Service Links */}
                     <div className="pt-4 border-t border-slate-200 space-y-3">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                      <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                         Explore Specialized Service Lines:
                       </span>
                       <div className="flex flex-wrap gap-2">

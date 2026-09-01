@@ -61,7 +61,7 @@ export function TemplateCommunityCategory({ categorySlug }: { categorySlug: stri
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="space-y-3 max-w-3xl">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
                 Discipline Roundtable
               </span>
               <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-neutral-900 leading-tight">

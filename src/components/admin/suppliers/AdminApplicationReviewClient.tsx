@@ -175,12 +175,12 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
           <div className="flex items-center gap-2">
             <Link
               href="/admin/suppliers/applications"
-              className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-mono"
+              className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-normal"
             >
               <ArrowLeft className="h-3 w-3" /> Back to Application Queue
             </Link>
             <span className="text-slate-300">&bull;</span>
-            <span className="text-xs font-mono text-brand-pink font-bold">
+            <span className="text-xs text-brand-pink font-bold">
               {draft.applicationReference || draft.application_reference || 'SUP-APP-2026'}
             </span>
           </div>
@@ -198,7 +198,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`text-xs font-mono px-3 py-1 rounded font-bold ${
+            className={`text-xs px-3 py-1 rounded font-bold ${
               status === 'APPROVED'
                 ? 'bg-emerald-100 text-emerald-800'
                 : status === 'CONDITIONALLY_APPROVED'
@@ -258,7 +258,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
       {/* Review Flags Banner */}
       {reviewFlags.length > 0 && (
         <div className="bg-slate-50 border border-slate-200 rounded-sm p-4 space-y-2">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold block">
+          <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold block">
             ASSURANCE REVIEW FLAGS &amp; AUDIT ALERTS ({reviewFlags.length})
           </span>
           <div className="space-y-1.5">
@@ -286,7 +286,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
       )}
 
       {/* Submission Status Bar */}
-      <div className="bg-white border border-slate-200 p-4 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+      <div className="bg-white border border-slate-200 p-4 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-normal">
         <div className="flex items-center gap-2">
           <ShieldCheck className="h-4 w-4 text-emerald-700" />
           <span className="text-slate-900 font-bold font-sans">Technical Assurance Queue:</span>
@@ -308,11 +308,11 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
           <div className="grid grid-cols-2 gap-2 text-slate-600">
             <div>
               <span className="text-slate-400 block text-[10.5px]">Companies House No</span>
-              <span className="font-mono font-bold text-slate-900">{draft.companyNumber || draft.company_number || '—'}</span>
+              <span className="font-bold text-slate-900">{draft.companyNumber || draft.company_number || '—'}</span>
             </div>
             <div>
               <span className="text-slate-400 block text-[10.5px]">VAT Number</span>
-              <span className="font-mono text-slate-900">{draft.vatNumber || draft.vat_number || '—'}</span>
+              <span className="font-normal text-slate-900">{draft.vatNumber || draft.vat_number || '—'}</span>
             </div>
             <div>
               <span className="text-slate-400 block text-[10.5px]">Year Established</span>
@@ -350,7 +350,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
               <span className="text-slate-400 block text-[10.5px]">Declared Trades ({declaredServices.length})</span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {declaredServices.map((s: string) => (
-                  <span key={s} className="px-2 py-0.5 bg-slate-100 text-slate-800 rounded text-[11px] font-mono">
+                  <span key={s} className="px-2 py-0.5 bg-slate-100 text-slate-800 rounded text-[11px] font-normal">
                     {s}
                   </span>
                 ))}
@@ -422,7 +422,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
             </div>
             <div>
               <span className="text-slate-400 block text-[10.5px]">Field Operatives Headcount</span>
-              <span className="font-mono text-slate-900">{draft.fieldOperativesCount || draft.directEngineers || 8} Operatives</span>
+              <span className="font-normal text-slate-900">{draft.fieldOperativesCount || draft.directEngineers || 8} Operatives</span>
             </div>
             <div>
               <span className="text-slate-400 block text-[10.5px]">Uses Subcontractors?</span>
@@ -453,12 +453,12 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
             <div className="grid grid-cols-2 gap-2 text-slate-600">
               <div>
                 <span className="text-slate-400 block text-[10.5px]">Public Liability</span>
-                <span className="font-mono font-bold text-slate-900">{draft.plCoverLimit || '£10,000,000'}</span>
+                <span className="font-bold text-slate-900">{draft.plCoverLimit || '£10,000,000'}</span>
                 <span className="text-[10px] block text-slate-500">{draft.plInsurer || 'Aviva'} ({draft.plPolicyNumber || 'PL-0099'})</span>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10.5px]">Employers Liability</span>
-                <span className="font-mono font-bold text-slate-900">{draft.elCoverLimit || '£10,000,000'}</span>
+                <span className="font-bold text-slate-900">{draft.elCoverLimit || '£10,000,000'}</span>
                 <span className="text-[10px] block text-slate-500">{draft.elInsurer || 'Zurich'}</span>
               </div>
             </div>
@@ -466,7 +466,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
               <span className="text-slate-400 block text-[10.5px]">Accreditation Registrations</span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {(draft.selectedAccreditations || ['SafeContractor', 'CHAS', 'Gas Safe Register']).map((acc: string) => (
-                  <span key={acc} className="px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded text-[11px] font-mono font-bold border border-emerald-200">
+                  <span key={acc} className="px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded text-[11px] font-bold border border-emerald-200">
                     {acc}
                   </span>
                 ))}
@@ -534,7 +534,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                 {documentVault.map((doc: any) => (
                   <tr key={doc.id} className="hover:bg-slate-50">
                     <td className="p-2.5 font-bold text-slate-900">{doc.documentType}</td>
-                    <td className="p-2.5 font-mono text-[10.5px] text-slate-600">{doc.category}</td>
+                    <td className="p-2.5 font-normal text-[10.5px] text-slate-600">{doc.category}</td>
                     <td className="p-2.5 text-slate-600">{doc.fileName}</td>
                     <td className="p-2.5 text-slate-500">{doc.uploadedAt?.slice(0, 10)}</td>
                     <td className="p-2.5 text-slate-500">{doc.expiryDate || '—'}</td>
@@ -579,7 +579,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-900">{rfi.title}</span>
                   <span
-                    className={`font-mono font-bold text-[10.5px] px-2 py-0.5 rounded ${
+                    className={`font-bold text-[10.5px] px-2 py-0.5 rounded ${
                       rfi.status === 'RESOLVED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'
                     }`}
                   >

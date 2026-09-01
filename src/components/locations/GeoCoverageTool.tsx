@@ -78,7 +78,7 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
                 value={postcode}
                 onChange={(e) => setPostcode(e.target.value)}
                 placeholder={`Enter commercial postcode (e.g. ${city === 'London' ? 'EC2A 4NE' : city === 'Manchester' ? 'M1 1AD' : 'B3 2BJ'})`}
-                className="w-full bg-transparent pl-11 pr-4 py-3.5 text-sm text-white placeholder:text-brand-mist/45 focus:outline-hidden font-mono"
+                className="w-full bg-transparent pl-11 pr-4 py-3.5 text-sm text-white placeholder:text-brand-mist/45 focus:outline-hidden font-normal"
               />
             </div>
             <button
@@ -100,12 +100,12 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
                     <span className="font-light text-white text-sm sm:text-base">
                       Confirmed Active Service Area: {result.region}
                     </span>
-                    <p className="text-xs text-emerald-300/80 font-mono">
+                    <p className="text-xs text-emerald-300/80 font-normal">
                       Priority Response Tier: {result.priorityTier}
                     </p>
                   </div>
                 </div>
-                <span className="hidden sm:inline-block px-2.5 py-1 rounded text-[10px] font-mono font-light uppercase bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded text-[10px] font-light uppercase bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
                   READY FOR ONBOARDING
                 </span>
               </div>

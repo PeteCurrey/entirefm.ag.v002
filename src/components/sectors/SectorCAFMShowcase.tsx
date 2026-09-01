@@ -61,11 +61,11 @@ export function SectorCAFMShowcase({
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-              <span className="text-[11px] font-mono text-slate-500 ml-2 font-light">
+              <span className="text-[11px] text-slate-500 ml-2 font-light">
                 entirecafm.com // estate-operations-live
               </span>
             </div>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
+            <div className="flex items-center gap-2 text-[11px] font-normal text-emerald-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>LIVE TELEMETRY</span>
             </div>
@@ -87,7 +87,7 @@ export function SectorCAFMShowcase({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-800 border-t border-slate-800 pt-10">
           {features.map((feat, idx) => (
             <div key={idx} className="pt-6 sm:pt-0 sm:px-6 first:pl-0 space-y-2">
-              <span className="font-mono text-xs text-brand-pink block font-light">
+              <span className="text-xs text-brand-pink block font-light">
                 0{idx + 1} //
               </span>
               <h3 className="text-base font-light text-white tracking-tight">

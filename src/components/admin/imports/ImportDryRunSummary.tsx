@@ -14,7 +14,7 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
   return (
     <div className="space-y-4">
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-normal">
         {[
           { label: 'Total Rows', value: preview.totalRows, color: 'text-[#101010]' },
           { label: 'Valid → Import', value: preview.validRows, color: 'text-[#15803D]' },
@@ -62,7 +62,7 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
       {preview.sampleMappedRows.length > 0 && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
           <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3">
-            <h4 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+            <h4 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               IMPORT PREVIEW — FIRST {preview.sampleMappedRows.length} ROWS
             </h4>
           </div>
@@ -80,7 +80,7 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-normal text-[13px] text-[#101010] truncate">{row.displayName}</p>
-                    <span className={`shrink-0 rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-normal ${
+                    <span className={`shrink-0 rounded-[4px] px-2 py-0.5 text-[10px] font-normal ${
                       row.status === 'VALID' ? 'bg-[#F0FDF4] text-[#15803D]' :
                       row.status === 'INVALID' ? 'bg-[#FEF2F2] text-[#DC2626]' :
                       row.status === 'DUPLICATE' ? 'bg-[#FFFBEB] text-[#D97706]' :

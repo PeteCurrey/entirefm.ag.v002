@@ -53,7 +53,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
         <StatusDot
           status={statusType}
           label={
-            <span className="font-mono text-[11px] uppercase tracking-wider text-[#111111]">
+            <span className="font-medium text-[11px] uppercase tracking-wider text-[#111111]">
               {status}
             </span>
           }

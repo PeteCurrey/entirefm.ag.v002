@@ -46,7 +46,7 @@ export default async function CampaignsListPage() {
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Campaign Name</th>
                 <th className="py-3 px-4">Status</th>
@@ -62,7 +62,7 @@ export default async function CampaignsListPage() {
                   <td className="py-3.5 px-4 font-light text-white">{c.name}</td>
                   <td className="py-3.5 px-4">
                     <span
-                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
+                      className={`text-[10px] font-normal uppercase px-2 py-0.5 rounded border ${
                         c.status === 'SENT'
                           ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                           : c.status === 'SCHEDULED'
@@ -74,7 +74,7 @@ export default async function CampaignsListPage() {
                     </span>
                   </td>
                   <td className="py-3.5 px-4 max-w-xs truncate text-zinc-400">{c.subject}</td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-500">{c.utmCampaign}</td>
+                  <td className="py-3.5 px-4 font-normal text-zinc-500">{c.utmCampaign}</td>
                   <td className="py-3.5 px-4">
                     {c.validationPassed ? (
                       <span className="text-emerald-400 flex items-center gap-1 font-light">

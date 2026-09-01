@@ -29,7 +29,7 @@ export default async function CommercialPoliciesPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-mono text-[12px] uppercase tracking-wider text-brand-mist/60">Active Policy Rules</h3>
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">Active Policy Rules</h3>
         </div>
 
         {policies && policies.length > 0 ? (
@@ -41,17 +41,17 @@ export default async function CommercialPoliciesPage() {
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="rounded bg-brand-edge-dark px-2 py-0.5 font-mono text-[10.5px] text-brand-electric-bright">
+                    <span className="rounded bg-brand-edge-dark px-2 py-0.5 font-normal text-[10.5px] text-brand-electric-bright">
                       {p.scope_level}
                     </span>
                     <h4 className="mt-2 text-[14px] font-light text-white">{p.name}</h4>
                   </div>
-                  <span className="rounded bg-emerald-500/15 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+                  <span className="rounded bg-emerald-500/15 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                     {p.is_active ? 'ACTIVE' : 'INACTIVE'}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 rounded border border-brand-edge-dark/60 bg-brand-void/30 p-3 text-[11.5px] font-mono">
+                <div className="grid grid-cols-2 gap-3 rounded border border-brand-edge-dark/60 bg-brand-void/30 p-3 text-[11.5px] font-normal">
                   <div>
                     <span className="text-brand-mist/40 block text-[10px]">Min Margin Floor</span>
                     <span className="text-emerald-400 font-light">{p.min_margin_pct}% (Target {p.target_margin_pct}%)</span>

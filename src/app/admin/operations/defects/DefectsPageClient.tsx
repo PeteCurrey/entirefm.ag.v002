@@ -20,7 +20,7 @@ export function DefectsPageClient({ initialDefects }: Props) {
       accessor: (row) => (
         <div>
           <div className="font-medium text-[#101010]">{row.description}</div>
-          <div className="font-mono text-[11px] text-[#686866]">{row.category}</div>
+          <div className="font-normal text-[11px] text-[#686866]">{row.category}</div>
         </div>
       ),
     },
@@ -28,7 +28,7 @@ export function DefectsPageClient({ initialDefects }: Props) {
       header: 'Severity',
       accessor: (row) => (
         <span
-          className={`rounded-[4px] px-1.5 py-0.5 font-mono text-[10px] font-medium ${
+          className={`rounded-[4px] px-1.5 py-0.5 text-[10px] font-medium ${
             row.severity === 'CRITICAL'
               ? 'bg-rose-50 text-rose-700 border border-rose-200'
               : row.severity === 'MAJOR'
@@ -51,7 +51,7 @@ export function DefectsPageClient({ initialDefects }: Props) {
     {
       header: 'Current State',
       accessor: (row) => (
-        <span className="rounded-[4px] bg-[#FAFAF8] px-2 py-0.5 font-mono text-[10.5px] text-[#101010] border border-[#E4E4E1]">
+        <span className="rounded-[4px] bg-[#FAFAF8] px-2 py-0.5 font-normal text-[10.5px] text-[#101010] border border-[#E4E4E1]">
           {row.current_state}
         </span>
       ),
@@ -59,7 +59,7 @@ export function DefectsPageClient({ initialDefects }: Props) {
     {
       header: 'Discovered',
       accessor: (row) => (
-        <div className="font-mono text-[11px] text-[#686866]">
+        <div className="font-normal text-[11px] text-[#686866]">
           {new Date(row.discovered_at).toLocaleDateString('en-GB')}
         </div>
       ),

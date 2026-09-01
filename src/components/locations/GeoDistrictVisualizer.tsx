@@ -37,7 +37,7 @@ export function GeoDistrictVisualizer({
               Assigned mobile engineering teams cover all major business districts, business parks, and logistics corridors across {region || city}.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-brand-silver font-mono bg-brand-surface px-4 py-2 rounded-sm border border-brand-edge">
+          <div className="flex items-center gap-2 text-xs text-brand-silver font-normal bg-brand-surface px-4 py-2 rounded-sm border border-brand-edge">
             <Navigation className="h-3.5 w-3.5 text-brand-pink shrink-0" />
             <span>Regional Travel Pattern: {travelPattern || `${city} & Wider Conurbation`}</span>
           </div>
@@ -58,7 +58,7 @@ export function GeoDistrictVisualizer({
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-brand-pink shrink-0" />
-                    <span className="text-[11px] font-mono text-brand-silver/80">ZONE 0{idx + 1}</span>
+                    <span className="text-[11px] font-normal text-brand-silver/80">ZONE 0{idx + 1}</span>
                   </div>
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" title="Active Engineering Coverage" />
                 </div>
@@ -70,7 +70,7 @@ export function GeoDistrictVisualizer({
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-brand-edge/60 flex items-center justify-between text-[11px] font-mono text-brand-silver">
+              <div className="mt-4 pt-3 border-t border-brand-edge/60 flex items-center justify-between text-[11px] font-normal text-brand-silver">
                 <span>Active Coverage</span>
                 <span className="text-emerald-700 font-light">24/7 Response</span>
               </div>

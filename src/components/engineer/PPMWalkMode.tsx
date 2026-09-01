@@ -48,16 +48,16 @@ export function PPMWalkMode({
       <div className="flex items-center justify-between border-b border-brand-edge-dark pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="rounded bg-brand-electric/20 px-2 py-0.5 font-mono text-[10px] font-normal text-brand-electric border border-brand-electric/30">
+            <span className="rounded bg-brand-electric/20 px-2 py-0.5 text-[10px] font-normal text-brand-electric border border-brand-electric/30">
               PPM WALK MODE
             </span>
-            <span className="font-mono text-xs text-brand-mist/60">{workOrderRef}</span>
+            <span className="font-normal text-xs text-brand-mist/60">{workOrderRef}</span>
           </div>
           <h2 className="mt-1 text-base font-light text-white">Multi-Asset Maintenance Walk</h2>
         </div>
 
         <div className="text-right">
-          <div className="font-mono text-sm font-normal text-white">
+          <div className="text-sm font-normal text-white">
             {completedAssets} / {totalAssets}
           </div>
           <div className="text-[11px] text-brand-mist/50">Assets Done</div>
@@ -66,7 +66,7 @@ export function PPMWalkMode({
 
       {/* Progress Bar */}
       <div className="space-y-1.5">
-        <div className="flex justify-between text-[11px] font-mono text-brand-mist/60">
+        <div className="flex justify-between text-[11px] font-normal text-brand-mist/60">
           <span>Walk Progress</span>
           <span>{progressPercent}%</span>
         </div>
@@ -83,7 +83,7 @@ export function PPMWalkMode({
         <div className="space-y-4 rounded-lg border border-brand-edge-dark bg-brand-void/50 p-4">
           <div className="flex items-start justify-between">
             <div>
-              <span className="font-mono text-[11px] text-brand-electric font-light">
+              <span className="text-[11px] text-brand-electric font-light">
                 Asset {activeAssetIndex + 1} of {totalAssets}
               </span>
               <h3 className="text-base font-light text-white">{currentAsset.name}</h3>
@@ -106,7 +106,7 @@ export function PPMWalkMode({
 
           {/* Asset Tasks */}
           <div className="space-y-2 border-t border-brand-edge-dark pt-3">
-            <div className="text-[11px] font-mono uppercase tracking-wider text-brand-mist/50">
+            <div className="text-[11px] font-medium uppercase tracking-wider text-brand-mist/50">
               Maintenance Tasks
             </div>
             {currentAsset.tasks.map((t) => (
@@ -123,7 +123,7 @@ export function PPMWalkMode({
                   <span>{t.title}</span>
                 </div>
                 {t.isMandatory && (
-                  <span className="rounded bg-red-950/40 px-1.5 py-0.5 text-[9.5px] font-mono text-red-300 border border-red-900/40">
+                  <span className="rounded bg-red-950/40 px-1.5 py-0.5 text-[9.5px] font-normal text-red-300 border border-red-900/40">
                     Mandatory
                   </span>
                 )}
@@ -154,7 +154,7 @@ export function PPMWalkMode({
 
       {/* Asset Overview List */}
       <div className="space-y-2">
-        <div className="text-[11px] font-mono uppercase tracking-wider text-brand-mist/50">
+        <div className="text-[11px] font-medium uppercase tracking-wider text-brand-mist/50">
           All Walk Assets
         </div>
         <div className="divide-y divide-brand-edge-dark/60 rounded-lg border border-brand-edge-dark bg-brand-void/30">

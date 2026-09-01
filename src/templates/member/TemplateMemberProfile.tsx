@@ -317,7 +317,7 @@ export function TemplateMemberProfile() {
             <div>
               <div className="inline-flex items-center gap-2 mb-1">
                 <span className="h-px w-6 bg-brand-electric" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright font-light">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric-bright font-light">
                   Lobby Member Identity
                 </span>
               </div>
@@ -376,7 +376,7 @@ export function TemplateMemberProfile() {
                     {member.badges?.map((badge, idx) => (
                       <span
                         key={idx}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[4px] bg-neutral-100 border border-neutral-200 text-[10px] uppercase font-mono tracking-wider text-neutral-700"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[4px] bg-neutral-100 border border-neutral-200 text-[10px] uppercase font-medium tracking-wider text-neutral-700"
                       >
                         <ShieldCheck className="w-3 h-3 text-brand-electric" />
                         <span>{badge}</span>
@@ -477,7 +477,7 @@ export function TemplateMemberProfile() {
             {/* Bio section if present */}
             {member.bio && (
               <div className="mt-8 pt-6 border-t border-neutral-100 max-w-4xl">
-                <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-2">About</h2>
+                <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-2">About</h2>
                 <p className="text-sm sm:text-base font-extralight text-neutral-700 leading-relaxed whitespace-pre-line">
                   {member.bio}
                 </p>
@@ -525,7 +525,7 @@ export function TemplateMemberProfile() {
                 {/* ── PROFILE PHOTO SECTION ── */}
                 <div className="border border-neutral-200/90 rounded-[6px] p-5 bg-[#FAF9F7] space-y-3">
                   <div>
-                    <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-800 font-medium">
+                    <h3 className="text-xs uppercase tracking-wider text-neutral-800 font-medium">
                       Profile photo
                     </h3>
                     <p className="text-xs font-extralight text-neutral-500 mt-0.5">
@@ -747,7 +747,7 @@ export function TemplateMemberProfile() {
               <div className="space-y-8">
                 {/* Focus Areas */}
                 <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8 space-y-4">
-                  <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                  <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400">
                     Professional Focus Areas
                   </h2>
                   {member.disciplines && member.disciplines.length > 0 ? (
@@ -770,7 +770,7 @@ export function TemplateMemberProfile() {
 
                 {/* Community Reputation & Standing */}
                 <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8 space-y-4">
-                  <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                  <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400">
                     Community Standing
                   </h2>
                   <div className="grid sm:grid-cols-3 gap-4 pt-1">
@@ -797,7 +797,7 @@ export function TemplateMemberProfile() {
               {/* Right Column: Quick Destination Cards (Professional, Not Generic SaaS) */}
               <div className="space-y-6">
                 <div className="bg-[#121826] text-white rounded-[8px] p-6 space-y-4 border border-neutral-800">
-                  <div className="flex items-center gap-2 text-brand-electric text-[10px] font-mono uppercase tracking-wider">
+                  <div className="flex items-center gap-2 text-brand-electric text-[10px] font-medium uppercase tracking-wider">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Lobby Workspace</span>
                   </div>
@@ -829,7 +829,7 @@ export function TemplateMemberProfile() {
 
           {activeTab === 'contributions' && (
             <div className="bg-white border border-neutral-200/90 rounded-[8px] p-8 space-y-6">
-              <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+              <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400">
                 Community Contributions
               </h2>
               <div className="space-y-4">
@@ -866,7 +866,7 @@ export function TemplateMemberProfile() {
 
           {activeTab === 'activity' && (
             <div className="bg-white border border-neutral-200/90 rounded-[8px] p-8 space-y-6">
-              <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+              <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400">
                 Recent Community Activity
               </h2>
               <div className="relative pl-6 border-l border-neutral-200 space-y-6">

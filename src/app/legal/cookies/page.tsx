@@ -97,7 +97,7 @@ export default function CookiesPage() {
                   <tbody className="divide-y divide-slate-100">
                     {COOKIE_INVENTORY.map((item) => (
                       <tr key={item.id} className="hover:bg-slate-50/50">
-                        <td className="px-3 py-2.5 font-mono font-light text-slate-900">
+                        <td className="px-3 py-2.5 font-light text-slate-900">
                           {item.name}
                         </td>
                         <td className="px-3 py-2.5 capitalize">{item.category}</td>

@@ -113,7 +113,7 @@ export function TemplateCommunityAdmin() {
                     </span>
                   </div>
 
-                  <div className="p-4 bg-brand-void rounded-xl border border-white/5 font-mono text-xs text-brand-mist whitespace-pre-line">
+                  <div className="p-4 bg-brand-void rounded-xl border border-white/5 font-normal text-xs text-brand-mist whitespace-pre-line">
                     {c.contentSnapshot}
                   </div>
 

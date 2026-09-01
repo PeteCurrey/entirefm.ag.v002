@@ -12,7 +12,7 @@ export default async function FunnelsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             STEP-BY-STEP CONVERSION &amp; DROP-OFF ANALYSIS
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Commercial Conversion Funnels</h1>
@@ -34,7 +34,7 @@ export default async function FunnelsPage() {
             <div>
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-normal text-white">{funnel.name}</h3>
-                <span className="text-xs font-mono font-light text-emerald-400">
+                <span className="text-xs font-light text-emerald-400">
                   {funnel.overallConversionRatePct}% Overall
                 </span>
               </div>
@@ -48,7 +48,7 @@ export default async function FunnelsPage() {
                     <span className="font-light text-zinc-200">
                       {stage.stageNumber}. {stage.name}
                     </span>
-                    <span className="font-mono text-pink-400 font-light">{stage.visitors} users</span>
+                    <span className="text-pink-400 font-light">{stage.visitors} users</span>
                   </div>
                   <div className="w-full bg-zinc-950 rounded-full h-2 overflow-hidden border border-zinc-800">
                     <div
@@ -57,7 +57,7 @@ export default async function FunnelsPage() {
                     />
                   </div>
                   {idx < funnel.stages.length - 1 && (
-                    <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono py-0.5">
+                    <div className="flex items-center justify-between text-[10px] text-zinc-500 font-normal py-0.5">
                       <span>↓ {stage.conversionRatePct}% pass-through</span>
                       <span className="text-red-400/80">{stage.dropOffCount} dropped</span>
                     </div>

@@ -82,7 +82,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
           <div className="container-custom space-y-6">
             {/* Franchise & Topic Pills */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center px-3 py-1 rounded-sm bg-brand-graphite text-white text-[11px] font-mono tracking-wider uppercase">
+              <span className="inline-flex items-center px-3 py-1 rounded-sm bg-brand-graphite text-white text-[11px] font-normal tracking-wider uppercase">
                 {article.franchise.replace(/-/g, ' ')}
               </span>
 
@@ -113,7 +113,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
             {/* Author & Meta Bar */}
             <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-brand-edge text-xs">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-brand-graphite text-white flex items-center justify-center font-mono text-xs">
+                <div className="h-10 w-10 rounded-full bg-brand-graphite text-white flex items-center justify-center font-normal text-xs">
                   EFM
                 </div>
                 <div>
@@ -193,19 +193,19 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                   <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
                     <div className="flex items-center gap-2">
                       <ShieldAlert className="w-4 h-4 text-amber-400" />
-                      <span className="text-xs font-mono uppercase tracking-[0.2em] text-amber-400">
+                      <span className="text-xs font-normal uppercase tracking-[0.2em] text-amber-400">
                         STATUTORY COMPLIANCE TRANSLATION
                       </span>
                     </div>
 
-                    <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-normal uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
                       {article.complianceData.complianceClassification}
                     </span>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="border-l-2 border-amber-500/60 pl-3.5 py-1 bg-brand-void/50 p-3 rounded-r-sm">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 block mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 block mb-1">
                         01 · What Changed
                       </span>
                       <p className="text-xs sm:text-[13px] font-light text-brand-mist/90 leading-relaxed">
@@ -214,7 +214,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     </div>
 
                     <div className="border-l-2 border-brand-electric pl-3.5 py-1 bg-brand-void/50 p-3 rounded-r-sm">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric-bright block mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-brand-electric-bright block mb-1">
                         02 · Who It Affects
                       </span>
                       <p className="text-xs sm:text-[13px] font-light text-brand-mist/90 leading-relaxed">
@@ -223,7 +223,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     </div>
 
                     <div className="border-l-2 border-emerald-400 pl-3.5 py-1 bg-brand-void/50 p-3 rounded-r-sm">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 block mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-emerald-400 block mb-1">
                         03 · What You Need To Do
                       </span>
                       <p className="text-xs sm:text-[13px] font-light text-brand-mist/90 leading-relaxed">
@@ -232,7 +232,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     </div>
 
                     <div className="border-l-2 border-purple-400 pl-3.5 py-1 bg-brand-void/50 p-3 rounded-r-sm">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-purple-300 block mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-purple-300 block mb-1">
                         04 · When It Matters
                       </span>
                       <p className="text-xs sm:text-[13px] font-light text-brand-mist/90 leading-relaxed">
@@ -241,7 +241,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     </div>
                   </div>
 
-                  <div className="pt-2 text-[11px] font-mono text-brand-mist/50 border-t border-white/[0.08] flex items-center justify-between">
+                  <div className="pt-2 text-[11px] font-normal text-brand-mist/50 border-t border-white/[0.08] flex items-center justify-between">
                     <span>Statute: {article.complianceData.statute}</span>
                     <span>Authority: {article.complianceData.governingBody}</span>
                   </div>
@@ -253,11 +253,11 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
               {/* ───────────────────────────────────────────────────────────── */}
               {article.engineersNoteData && (
                 <div className="rounded-sm border border-brand-edge-dark bg-brand-void text-white p-6 space-y-4 shadow-elevated">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase text-brand-electric-bright">
+                  <div className="flex items-center gap-2 text-xs font-normal uppercase text-brand-electric-bright">
                     <Compass className="w-4 h-4" />
                     <span>ENGINEER'S OPERATIONAL RULE</span>
                   </div>
-                  <p className="text-sm font-mono text-emerald-300 bg-emerald-950/30 border border-emerald-500/20 p-4 rounded-sm leading-relaxed">
+                  <p className="text-sm font-normal text-emerald-300 bg-emerald-950/30 border border-emerald-500/20 p-4 rounded-sm leading-relaxed">
                     {article.engineersNoteData.fieldRule}
                   </p>
                   {article.engineersNoteData.symptom && (
@@ -275,7 +275,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
               {article.askEntireFMData && (
                 <div className="rounded-sm border border-brand-edge bg-brand-surface p-6 space-y-4">
                   <div className="border-b border-brand-edge pb-3">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-brand-silver">
+                    <span className="text-[11px] font-medium uppercase tracking-wider text-brand-silver">
                       Context: {article.askEntireFMData.estateProfile}
                     </span>
                     <h3 className="text-lg font-light text-brand-graphite mt-1">
@@ -316,7 +316,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
               {article.fromTheFieldData && (
                 <div className="rounded-sm border border-brand-edge-dark bg-brand-carbon text-white p-6 space-y-4 shadow-elevated">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-wider text-brand-electric-bright">
+                    <span className="text-xs font-medium uppercase tracking-wider text-brand-electric-bright">
                       Site Defect Diagnosis
                     </span>
                     <button
@@ -406,7 +406,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     case 'technicalRule':
                       return (
                         <div key={idx} className="rounded-sm bg-brand-carbon text-white border border-brand-edge-dark p-5 my-6">
-                          <p className="text-xs sm:text-sm font-mono text-brand-mist/90 leading-relaxed">
+                          <p className="text-xs sm:text-sm font-normal text-brand-mist/90 leading-relaxed">
                             {block.content}
                           </p>
                         </div>
@@ -422,7 +422,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
               {/* ───────────────────────────────────────────────────────────── */}
               {article.sources && article.sources.length > 0 && (
                 <div className="border-t border-brand-edge pt-8 mt-10 space-y-4">
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-silver">
+                  <h4 className="text-xs font-medium uppercase tracking-wider text-brand-silver">
                     Primary Statutory &amp; Technical Sources
                   </h4>
                   <ul className="space-y-2 text-xs font-light text-brand-silver">
@@ -449,7 +449,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
               {article.relatedResources && article.relatedResources.length > 0 && (
                 <div className="border-t border-brand-edge pt-8 mt-10 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-slate">
+                    <h4 className="text-xs font-medium uppercase tracking-wider text-brand-slate">
                       Relevant Tools &amp; Resources
                     </h4>
                     <Link href="/resources" className="text-xs text-brand-electric hover:underline">
@@ -465,7 +465,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                         className="p-4 rounded-sm border border-brand-edge bg-brand-surface hover:border-brand-electric/50 hover:bg-white transition-all flex flex-col justify-between group"
                       >
                         <div className="space-y-1">
-                          <span className="text-[10px] font-mono uppercase text-brand-electric">
+                          <span className="text-[10px] font-normal uppercase text-brand-electric">
                             {res.type.toUpperCase()} {res.badge && `· ${res.badge}`}
                           </span>
                           <p className="text-sm font-light text-brand-graphite group-hover:text-brand-electric transition-colors">
@@ -495,7 +495,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
             <div className="container-custom">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-brand-silver block mb-1">
+                  <span className="text-[10.5px] font-medium uppercase tracking-wider text-brand-silver block mb-1">
                     Keep Reading
                   </span>
                   <h3 className="text-xl sm:text-2xl font-light text-brand-graphite">
@@ -515,7 +515,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
                     className="p-5 rounded-sm border border-brand-edge bg-white hover:border-brand-electric hover:-translate-y-0.5 transition-all shadow-subtle flex flex-col justify-between group"
                   >
                     <div className="space-y-2">
-                      <span className="text-[10px] font-mono uppercase text-brand-electric">
+                      <span className="text-[10px] font-normal uppercase text-brand-electric">
                         {rel.franchise.replace(/-/g, ' ')}
                       </span>
                       <h4 className="text-base font-light text-brand-graphite group-hover:text-brand-electric transition-colors leading-snug">

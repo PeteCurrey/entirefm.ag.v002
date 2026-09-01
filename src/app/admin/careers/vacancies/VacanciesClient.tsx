@@ -146,7 +146,7 @@ export function VacanciesClient({ initialVacancies, applicantCounts }: Vacancies
                   <tr key={v.id} className="hover:bg-[#F9F9F8] transition-colors">
                     <td className="py-3 px-4">
                       <div className="font-normal text-[#111111]">{v.title}</div>
-                      <div className="text-[11px] font-mono text-[#8C8C85]">{v.reference}</div>
+                      <div className="text-[11px] font-normal text-[#8C8C85]">{v.reference}</div>
                     </td>
                     <td className="py-3 px-4 text-[#555550]">{v.department}</td>
                     <td className="py-3 px-4 text-[#555550]">{v.location}</td>

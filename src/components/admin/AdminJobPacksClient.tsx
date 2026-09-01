@@ -50,29 +50,29 @@ export function AdminJobPacksClient({ initialJobPacks }: Props) {
       {/* Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">NETWORK JOB PACKS</span>
-          <div className="text-2xl font-mono font-light text-slate-900">{totalCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Live Dispatches</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">NETWORK JOB PACKS</span>
+          <div className="text-2xl font-light text-slate-900">{totalCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Live Dispatches</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">CLEARED FOR ATTENDANCE</span>
-          <div className="text-2xl font-mono font-light text-emerald-600">{readyCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">100% Pre-Attendance Verified</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">CLEARED FOR ATTENDANCE</span>
+          <div className="text-2xl font-light text-emerald-600">{readyCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">100% Pre-Attendance Verified</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">BLOCKED / ACTION REQ</span>
-          <div className="text-2xl font-mono font-light text-rose-600">{actionCount}</div>
-          <span className="text-[10.5px] font-mono text-slate-500">Missing Safety Requirements</span>
+          <span className="text-[10px] font-normal uppercase text-slate-400">BLOCKED / ACTION REQ</span>
+          <div className="text-2xl font-light text-rose-600">{actionCount}</div>
+          <span className="text-[10.5px] font-normal text-slate-500">Missing Safety Requirements</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400">READINESS RATE</span>
-          <div className="text-2xl font-mono font-light text-cyan-600">
+          <span className="text-[10px] font-normal uppercase text-slate-400">READINESS RATE</span>
+          <div className="text-2xl font-light text-cyan-600">
             {totalCount > 0 ? `${Math.round((readyCount / totalCount) * 100)}%` : '100%'}
           </div>
-          <span className="text-[10.5px] font-mono text-slate-500">Safety Compliance Rate</span>
+          <span className="text-[10.5px] font-normal text-slate-500">Safety Compliance Rate</span>
         </div>
       </div>
 
@@ -85,11 +85,11 @@ export function AdminJobPacksClient({ initialJobPacks }: Props) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by WO, contractor, site, operative..."
-            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-mono focus:outline-none focus:border-slate-900"
+            className="w-full pl-9 pr-3 py-1.5 rounded border border-slate-200 text-xs font-normal focus:outline-none focus:border-slate-900"
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono">
+        <div className="flex items-center gap-2 text-xs font-normal">
           <span className="text-slate-500">Readiness:</span>
           <select
             value={selectedStatus}
@@ -106,7 +106,7 @@ export function AdminJobPacksClient({ initialJobPacks }: Props) {
       {/* Table */}
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono border-collapse">
+          <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10.5px]">
                 <th className="py-3 px-4">Job Pack Ref</th>
@@ -146,7 +146,7 @@ export function AdminJobPacksClient({ initialJobPacks }: Props) {
                     </td>
                     <td className="py-3 px-4">
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-mono border ${
+                        className={`px-2 py-0.5 rounded text-[10px] font-normal border ${
                           jp.readiness.isReadyForAttendance
                             ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                             : 'bg-rose-50 text-rose-800 border-rose-200 font-bold'

@@ -44,7 +44,7 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               RAMS &amp; JOB PACK BUILDER
             </span>
             <h2 className="text-base font-light text-white">Create Task-Specific RAMS Document</h2>

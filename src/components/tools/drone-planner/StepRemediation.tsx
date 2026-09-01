@@ -13,7 +13,7 @@ export function StepRemediation({ remediation, onChange }: StepRemediationProps)
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-brand-pink font-mono text-[10px] font-normal uppercase">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-brand-pink text-[10px] font-normal uppercase">
           <Wrench className="w-3 h-3" />
           <span>EntireFM Direct Trade Capability</span>
         </div>

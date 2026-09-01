@@ -233,7 +233,7 @@ export default function WeeklyFireAlarmForm({
       {/* ── 01 SYSTEM DETAILS ── */}
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             01
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
@@ -279,7 +279,7 @@ export default function WeeklyFireAlarmForm({
       {/* ── 02 PANEL INSPECTION ── */}
       <section className="space-y-3">
         <div className="flex items-center gap-2 px-1">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             02
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -323,7 +323,7 @@ export default function WeeklyFireAlarmForm({
       <section className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+            <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
               03
             </span>
             <h2 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -356,7 +356,7 @@ export default function WeeklyFireAlarmForm({
                       setCallPoints(copy);
                     }}
                     placeholder="Ref (e.g. MCP-012)"
-                    className="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-sm font-mono font-bold text-sky-400 focus:outline-none"
+                    className="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-sm font-bold text-sky-400 focus:outline-none"
                   />
                   <input
                     type="text"
@@ -452,7 +452,7 @@ export default function WeeklyFireAlarmForm({
       {/* ── 04 ANCILLARIES ── */}
       <section className="space-y-3">
         <div className="flex items-center gap-2 px-1">
-          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">
+          <span className="w-6 h-6 rounded bg-indigo-950 text-indigo-400 text-xs font-bold flex items-center justify-center">
             04
           </span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -490,7 +490,7 @@ export default function WeeklyFireAlarmForm({
         <section className="bg-slate-900 border-2 border-rose-600/70 rounded-xl p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-rose-900/40 pb-3">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded bg-rose-950 text-rose-300 font-mono text-xs font-bold flex items-center justify-center">
+              <span className="w-6 h-6 rounded bg-rose-950 text-rose-300 text-xs font-bold flex items-center justify-center">
                 05
               </span>
               <h2 className="text-sm font-bold text-rose-300 uppercase tracking-wider flex items-center gap-2">

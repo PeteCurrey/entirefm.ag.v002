@@ -52,7 +52,7 @@ export function Card({
           ) : (
             <div className="flex items-center gap-2.5 min-w-0">
               {title && (
-                <h3 className="font-mono text-[12px] font-normal uppercase tracking-wider text-[#101010] truncate">
+                <h3 className="text-[12px] font-normal uppercase tracking-wider text-[#101010] truncate">
                   {title}
                 </h3>
               )}

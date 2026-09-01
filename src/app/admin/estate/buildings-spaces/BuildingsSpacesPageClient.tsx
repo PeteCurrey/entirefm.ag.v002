@@ -60,7 +60,7 @@ export function BuildingsSpacesPageClient({ initialBuildings, initialSpaces }: P
         {/* Buildings Column */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-mono text-[12px] font-normal uppercase text-[#686866]">
+            <h2 className="text-[12px] font-normal uppercase text-[#686866]">
               Buildings Directory ({filteredBuildings.length})
             </h2>
           </div>
@@ -98,14 +98,14 @@ export function BuildingsSpacesPageClient({ initialBuildings, initialSpaces }: P
                     <tr key={b.id} className="hover:bg-[#FAFAF8]">
                       <td className="px-4 py-3">
                         <div className="font-medium text-[#101010]">{b.name}</div>
-                        <div className="font-mono text-[10.5px] text-[#686866]">{b.building_code}</div>
+                        <div className="font-normal text-[10.5px] text-[#686866]">{b.building_code}</div>
                       </td>
-                      <td className="px-4 py-3 font-mono text-[#686866]">
+                      <td className="px-4 py-3 font-normal text-[#686866]">
                         {b.gross_internal_area_sqm ? `${b.gross_internal_area_sqm.toLocaleString()} sqm` : '—'}
                       </td>
-                      <td className="px-4 py-3 font-mono text-[#686866]">{b.total_floors || '—'}</td>
+                      <td className="px-4 py-3 font-normal text-[#686866]">{b.total_floors || '—'}</td>
                       <td className="px-4 py-3">
-                        <span className="bg-emerald-50 text-emerald-700 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-200">
+                        <span className="bg-emerald-50 text-emerald-700 text-[10px] font-normal px-2 py-0.5 rounded border border-emerald-200">
                           {b.status || 'ACTIVE'}
                         </span>
                       </td>
@@ -120,7 +120,7 @@ export function BuildingsSpacesPageClient({ initialBuildings, initialSpaces }: P
         {/* Spaces Column */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-mono text-[12px] font-normal uppercase text-[#686866]">
+            <h2 className="text-[12px] font-normal uppercase text-[#686866]">
               Spaces &amp; Functional Zones ({filteredSpaces.length})
             </h2>
           </div>
@@ -157,15 +157,15 @@ export function BuildingsSpacesPageClient({ initialBuildings, initialSpaces }: P
                     <tr key={s.id} className="hover:bg-[#FAFAF8]">
                       <td className="px-4 py-3">
                         <div className="font-medium text-[#101010]">{s.name}</div>
-                        <div className="font-mono text-[10.5px] text-[#686866]">{s.space_code}</div>
+                        <div className="font-normal text-[10.5px] text-[#686866]">{s.space_code}</div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="font-mono text-[10.5px] text-[#686866] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
+                        <span className="font-normal text-[10.5px] text-[#686866] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
                           {s.space_type}
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="bg-emerald-50 text-emerald-700 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-200">
+                        <span className="bg-emerald-50 text-emerald-700 text-[10px] font-normal px-2 py-0.5 rounded border border-emerald-200">
                           {s.status || 'ACTIVE'}
                         </span>
                       </td>

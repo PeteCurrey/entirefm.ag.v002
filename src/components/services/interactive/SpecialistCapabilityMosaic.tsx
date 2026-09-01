@@ -109,7 +109,7 @@ export function SpecialistCapabilityMosaic() {
                 {/* Tile Content Overlay */}
                 <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between text-white">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10.5px] font-mono uppercase tracking-wider bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-xs border border-white/20 text-brand-pink-light">
+                    <span className="text-[10.5px] font-medium uppercase tracking-wider bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-xs border border-white/20 text-brand-pink-light">
                       {tile.discipline}
                     </span>
                     <Link

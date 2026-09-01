@@ -16,7 +16,7 @@ export function NeedsAttentionSignals({ signals }: Props) {
   if (signals.length === 0) {
     return (
       <div className="rounded-[8px] border border-dashed border-[#E8E8E5] bg-[#FFFFFF] p-6 text-center">
-        <div className="text-[11px] font-mono text-[#15803D] uppercase">● All clear</div>
+        <div className="text-[11px] font-normal text-[#15803D] uppercase">● All clear</div>
         <div className="text-[12px] text-[#6D6D68] mt-1">No critical operational exceptions currently detected across the estate.</div>
       </div>
     );
@@ -33,7 +33,7 @@ export function NeedsAttentionSignals({ signals }: Props) {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-2 py-0.5 rounded-[4px] border font-mono text-[10px] transition-colors ${
+              className={`px-2 py-0.5 rounded-[4px] border font-normal text-[10px] transition-colors ${
                 filter === f
                   ? 'bg-[#FFFFFF] border-[#E8E8E5] text-[#111111] font-medium shadow-xs'
                   : 'border-transparent text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-[#111111]'
@@ -43,7 +43,7 @@ export function NeedsAttentionSignals({ signals }: Props) {
             </button>
           ))}
         </div>
-        <span className="font-mono text-[10.5px] text-[#9A9A95]">
+        <span className="font-normal text-[10.5px] text-[#9A9A95]">
           {critCount > 0 && <span className="text-[#B91C1C] mr-1.5">{critCount} critical</span>}
           {signals.length} total
         </span>
@@ -56,18 +56,18 @@ export function NeedsAttentionSignals({ signals }: Props) {
 
           return (
             <div key={sig.id || i} className="p-3.5 hover:bg-[#FAFAF8] transition-colors flex items-start gap-3">
-              <span className="font-mono text-[11.5px] text-[#9A9A95] pt-0.5 shrink-0">
+              <span className="font-normal text-[11.5px] text-[#9A9A95] pt-0.5 shrink-0">
                 {indexRank}
               </span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5">
                     <StatusDot status={statusType} />
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#6D6D68]">
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-[#6D6D68]">
                       {sig.domain}
                     </span>
                   </div>
-                  <span className={`text-[9.5px] font-mono px-1.5 py-0.2 rounded border ${
+                  <span className={`text-[9.5px] font-normal px-1.5 py-0.2 rounded border ${
                     sig.severity === 'CRITICAL'
                       ? 'bg-[#FEF2F2] text-[#B91C1C] border-[#FECACA]'
                       : sig.severity === 'WARNING'

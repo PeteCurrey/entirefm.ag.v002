@@ -106,7 +106,7 @@ export function GeoServiceShowcase({ city }: GeoServiceShowcaseProps) {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="eyebrow">{svc.category}</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-surface border border-brand-edge text-brand-silver group-hover:border-brand-pink/30 group-hover:text-brand-pink">
+                    <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-brand-surface border border-brand-edge text-brand-silver group-hover:border-brand-pink/30 group-hover:text-brand-pink">
                       {svc.tag}
                     </span>
                   </div>

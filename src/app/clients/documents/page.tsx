@@ -25,7 +25,7 @@ export default async function ClientDocumentsPage() {
 
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
         <table className="w-full text-left text-[13px]">
-          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
+          <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
             <tr>
               <th className="px-6 py-3">Document Title</th>
               <th className="px-6 py-3">Type</th>
@@ -44,10 +44,10 @@ export default async function ClientDocumentsPage() {
               list.map((d) => (
                 <tr key={d.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-normal text-white">{d.document_title}</td>
-                  <td className="px-6 py-3.5 font-mono text-[11.5px]">{d.document_type}</td>
-                  <td className="px-6 py-3.5 font-mono text-[12px]">{d.expiry_date || 'N/A'}</td>
+                  <td className="px-6 py-3.5 font-normal text-[11.5px]">{d.document_type}</td>
+                  <td className="px-6 py-3.5 font-normal text-[12px]">{d.expiry_date || 'N/A'}</td>
                   <td className="px-6 py-3.5">
-                    <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+                    <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                       {d.review_status || 'VERIFIED'}
                     </span>
                   </td>

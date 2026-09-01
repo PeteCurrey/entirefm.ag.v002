@@ -201,7 +201,7 @@ export function EstateExperience() {
                     }`}
                   >
                     <span
-                      className={`w-5 h-5 rounded-xs text-[10px] font-mono flex items-center justify-center shrink-0 ${
+                      className={`w-5 h-5 rounded-xs text-[10px] font-normal flex items-center justify-center shrink-0 ${
                         isActive
                           ? 'bg-brand-pink text-white font-normal'
                           : 'bg-white/10 text-brand-mist/60'
@@ -236,7 +236,7 @@ export function EstateExperience() {
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span
-                        className={`w-6 h-6 rounded-sm text-xs font-mono font-light flex items-center justify-center shrink-0 transition-colors ${
+                        className={`w-6 h-6 rounded-sm text-xs font-light flex items-center justify-center shrink-0 transition-colors ${
                           isActive
                             ? 'bg-brand-pink text-white'
                             : 'bg-white/10 text-brand-mist/60 group-hover:text-white'

@@ -12,7 +12,7 @@ export default async function OperationsContractsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             MULTI-DOMAIN CONTRACT HEALTH &amp; TELEMETRY
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Live Contract Health</h1>
@@ -33,16 +33,16 @@ export default async function OperationsContractsPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Active Contracts ({contracts.length})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">No Opaque Health Scores</span>
+          <span className="text-xs text-zinc-500 font-normal">No Opaque Health Scores</span>
         </div>
 
         {contracts.length === 0 ? (
-          <div className="p-12 text-center text-zinc-500 text-xs font-mono">
+          <div className="p-12 text-center text-zinc-500 text-xs font-normal">
             Zero active contracts loaded. Contracts transitioning from Mobilisation will populate here.
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Contract / Client</th>
                 <th className="py-3 px-4">Type</th>
@@ -56,17 +56,17 @@ export default async function OperationsContractsPage() {
                 <tr key={c.id} className="hover:bg-zinc-800/40">
                   <td className="py-3.5 px-4">
                     <div className="font-light text-white">{c.name}</div>
-                    <div className="text-[11px] text-zinc-500 font-mono">{c.contract_reference}</div>
+                    <div className="text-[11px] text-zinc-500 font-normal">{c.contract_reference}</div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">{c.contract_type}</td>
-                  <td className="py-3.5 px-4 font-mono text-pink-400">
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">{c.contract_type}</td>
+                  <td className="py-3.5 px-4 font-normal text-pink-400">
                     {new Date(c.start_date).toLocaleDateString('en-GB')}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-300">
+                  <td className="py-3.5 px-4 font-normal text-zinc-300">
                     {c.annual_value_gbp ? `£${c.annual_value_gbp.toLocaleString()}` : '—'}
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-light">
+                    <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-light">
                       {c.status}
                     </span>
                   </td>

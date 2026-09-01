@@ -46,7 +46,7 @@ export default async function ContractorSchedulePage() {
               <tbody className="divide-y divide-brand-edge-dark">
                 {scheduleVisits.map(v => (
                   <tr key={v.id} className="hover:bg-brand-edge-dark/30 transition-colors">
-                    <td className="p-4 font-mono text-white">
+                    <td className="p-4 font-normal text-white">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-brand-mist" />
                         <span>{v.scheduled_date || 'Unscheduled'}</span>
@@ -55,7 +55,7 @@ export default async function ContractorSchedulePage() {
                         )}
                       </div>
                     </td>
-                    <td className="p-4 font-mono font-light text-white">
+                    <td className="p-4 font-light text-white">
                       {v.work_order?.reference || v.id.slice(0, 8)}
                     </td>
                     <td className="p-4 text-white">
@@ -70,7 +70,7 @@ export default async function ContractorSchedulePage() {
                       </span>
                     </td>
                     <td className="p-4">
-                      <span className="text-xs px-2 py-0.5 rounded font-mono bg-brand-edge-dark text-brand-electric">
+                      <span className="text-xs px-2 py-0.5 rounded font-normal bg-brand-edge-dark text-brand-electric">
                         {v.status}
                       </span>
                     </td>

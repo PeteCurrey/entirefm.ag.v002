@@ -133,7 +133,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       01 / Estate Parameters
                     </span>
                   </div>
@@ -169,7 +169,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                     <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Gross Internal Floor Area
                     </label>
-                    <span className="font-mono text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       {floorArea.toLocaleString()} sq ft
                     </span>
                   </div>
@@ -182,7 +182,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                     onChange={(e) => setFloorArea(Number(e.target.value))}
                     className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
                   />
-                  <div className="flex justify-between text-[11px] font-mono text-slate-600">
+                  <div className="flex justify-between text-[11px] font-normal text-slate-600">
                     <span>5,000 sq ft</span>
                     <span>100,000 sq ft</span>
                     <span>200,000+ sq ft</span>
@@ -265,7 +265,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
             <div className="lg:col-span-5 space-y-6 sticky top-24">
               <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-mono text-[11px] font-normal text-slate-500 uppercase tracking-wider">
+                  <span className="text-[11px] font-normal text-slate-500 uppercase tracking-wider">
                     02 / Indicative Budget Model
                   </span>
                   <span className="inline-flex items-center gap-1 text-[11px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
@@ -283,15 +283,15 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                       backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
                     }}
                   />
-                  <span className="text-[11px] font-normal uppercase tracking-wider text-slate-300 font-mono block">
+                  <span className="text-[11px] font-normal uppercase tracking-wider text-slate-300 block">
                     Estimated Annual PPM Range
                   </span>
-                  <p className="text-2xl sm:text-3xl font-light text-white tracking-tight font-mono tabular-nums">
+                  <p className="text-2xl sm:text-3xl font-light text-white tracking-tight tabular-nums">
                     £{estimate.lowerBound.toLocaleString()} – £{estimate.upperBound.toLocaleString()}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">
                     <span>Target Rate:</span>
-                    <strong className="text-white font-mono text-sm">£{estimate.ratePerSqFt} / sq ft</strong>
+                    <strong className="text-white font-normal text-sm">£{estimate.ratePerSqFt} / sq ft</strong>
                   </div>
                 </div>
 
@@ -303,23 +303,23 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                   <div className="border border-slate-200 rounded-sm bg-slate-50/50 divide-y divide-slate-200 text-xs">
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">HVAC &amp; Mechanical (38%)</span>
-                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.hvac.toLocaleString()}</strong>
+                      <strong className="text-slate-900 font-light">£{estimate.breakdown.hvac.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Electrical &amp; Lighting (22%)</span>
-                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.electrical.toLocaleString()}</strong>
+                      <strong className="text-slate-900 font-light">£{estimate.breakdown.electrical.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Fire Safety &amp; Alarms (18%)</span>
-                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
+                      <strong className="text-slate-900 font-light">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Water Hygiene &amp; LRA (12%)</span>
-                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
+                      <strong className="text-slate-900 font-light">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-slate-700 font-normal">Fabric &amp; Drainage (10%)</span>
-                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
+                      <strong className="text-slate-900 font-light">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
                     </div>
                   </div>
                 </div>

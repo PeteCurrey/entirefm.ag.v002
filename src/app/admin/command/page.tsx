@@ -25,7 +25,7 @@ export default async function CeoCommandPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="rounded-lg border border-red-900/40 bg-red-950/20 p-8 max-w-md text-center">
-          <div className="text-sm font-mono text-red-400 mb-2">ACCESS DENIED</div>
+          <div className="text-sm font-normal text-red-400 mb-2">ACCESS DENIED</div>
           <div className="text-white font-light mb-1">CEO Command requires enterprise_intelligence:view permission.</div>
           <div className="text-brand-mist/60 text-sm">Contact your administrator to request access.</div>
         </div>
@@ -46,7 +46,7 @@ export default async function CeoCommandPage() {
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="flex items-start justify-between border-b border-brand-edge-dark pb-6">
         <div>
-          <div className="text-[10px] font-mono tracking-[0.2em] text-brand-mist/40 uppercase mb-1">
+          <div className="text-[10px] font-normal tracking-[0.2em] text-brand-mist/40 uppercase mb-1">
             EntireFM Intelligence
           </div>
           <h1 className="text-[22px] font-light text-white tracking-tight">
@@ -56,7 +56,7 @@ export default async function CeoCommandPage() {
             Enterprise operating intelligence — deterministic, evidence-backed, read-only.
           </p>
         </div>
-        <div className="flex items-center gap-3 text-[11px] font-mono text-brand-mist/40">
+        <div className="flex items-center gap-3 text-[11px] font-normal text-brand-mist/40">
           <span>READ ONLY</span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70 animate-pulse" />
           <span>LIVE</span>
@@ -79,7 +79,7 @@ export default async function CeoCommandPage() {
                 Open Work Orders: <strong className="text-white">{zeroData?.open_work_orders ?? 0}</strong>.
                 Import your operational data to enable full analytics.
               </p>
-              <a href="/admin/estate/imports" className="inline-flex items-center gap-1 mt-3 text-[11.5px] font-mono text-amber-400 hover:text-amber-300 transition-colors">
+              <a href="/admin/estate/imports" className="inline-flex items-center gap-1 mt-3 text-[11.5px] font-normal text-amber-400 hover:text-amber-300 transition-colors">
                 Open Migration Centre →
               </a>
             </div>
@@ -92,7 +92,7 @@ export default async function CeoCommandPage() {
 
         {/* WHAT CHANGED */}
         <div>
-          <div className="text-[9px] font-mono tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
+          <div className="text-[9px] font-normal tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
             What Changed
           </div>
           <WhatChanged items={dashboard?.what_changed ?? []} />
@@ -100,7 +100,7 @@ export default async function CeoCommandPage() {
 
         {/* NEEDS ATTENTION */}
         <div>
-          <div className="text-[9px] font-mono tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
+          <div className="text-[9px] font-normal tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
             Needs Attention
           </div>
           <NeedsAttentionSignals signals={dashboard?.signals ?? []} />
@@ -108,7 +108,7 @@ export default async function CeoCommandPage() {
 
         {/* NEEDS DECISION */}
         <div>
-          <div className="text-[9px] font-mono tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
+          <div className="text-[9px] font-normal tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
             Needs Decision
           </div>
           <NeedsDecisionQueue session={session} needsDecisionCount={dashboard?.needs_decision_count ?? 0} />
@@ -117,7 +117,7 @@ export default async function CeoCommandPage() {
 
       {/* ── Ask EntireFM — CEO Command Console ───────────── */}
       <div>
-        <div className="text-[9px] font-mono tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
+        <div className="text-[9px] font-normal tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
           Ask EntireFM
         </div>
         <CeoCommandConsole session={session} zeroData={!hasOp} />
@@ -126,7 +126,7 @@ export default async function CeoCommandPage() {
       {/* ── Domain Intelligence Summary ───────────────────── */}
       {hasOp && (
         <div>
-          <div className="text-[9px] font-mono tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
+          <div className="text-[9px] font-normal tracking-[0.18em] text-brand-mist/35 uppercase mb-3">
             Domain Intelligence
           </div>
           <DomainSummaryGrid metrics={metrics} session={session} />

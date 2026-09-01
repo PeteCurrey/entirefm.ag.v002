@@ -169,7 +169,7 @@ export default function AdminInvitationsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500 font-bold">
             <Ticket className="h-4 w-4 text-brand-pink" />
             <span>COMMERCIAL GOVERNANCE &bull; SUPPLIER NETWORK</span>
           </div>
@@ -286,7 +286,7 @@ export default function AdminInvitationsPage() {
                     <tr key={inv.id} className="hover:bg-slate-50/60 transition-colors">
                       <td className="p-3.5">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-slate-900 text-sm tracking-wide bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                          <span className="font-bold text-slate-900 text-sm tracking-wide bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                             {inv.code}
                           </span>
                           <button
@@ -335,13 +335,13 @@ export default function AdminInvitationsPage() {
 
                       <td className="p-3.5 text-slate-600">
                         {inv.boundEmail ? (
-                          <span className="font-mono text-[11px] text-slate-700">{inv.boundEmail}</span>
+                          <span className="font-normal text-[11px] text-slate-700">{inv.boundEmail}</span>
                         ) : (
                           <span className="text-slate-400 font-light">Unrestricted (Single-Use)</span>
                         )}
                       </td>
 
-                      <td className="p-3.5 font-mono text-slate-700">
+                      <td className="p-3.5 font-normal text-slate-700">
                         {inv.redemptionsCount} / {inv.maxRedemptions}
                       </td>
 
@@ -378,7 +378,7 @@ export default function AdminInvitationsPage() {
           <div className="bg-white border border-slate-200 rounded-sm max-w-lg w-full shadow-2xl overflow-hidden space-y-0">
             <div className="p-5 bg-slate-900 text-white flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                <span className="text-[10px] uppercase tracking-widest text-brand-pink font-bold">
                   COMMERCIAL AUTHORISATION
                 </span>
                 <h2 className="text-lg font-bold mt-0.5">Issue EntireFM Invitation Code</h2>
@@ -403,7 +403,7 @@ export default function AdminInvitationsPage() {
                   </p>
                 </div>
 
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded font-mono text-xl font-bold text-slate-900 tracking-wider flex items-center justify-center gap-3">
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded text-xl font-bold text-slate-900 tracking-wider flex items-center justify-center gap-3">
                   <span>{createdCodeResult}</span>
                   <button
                     onClick={() => handleCopyCode(createdCodeResult, 'modal')}

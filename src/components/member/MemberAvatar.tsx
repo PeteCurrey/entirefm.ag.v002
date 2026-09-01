@@ -109,7 +109,7 @@ export function MemberAvatar({
         />
       ) : (
         <div
-          className={`w-full h-full flex items-center justify-center font-extralight font-mono uppercase tracking-wider transition-colors ${
+          className={`w-full h-full flex items-center justify-center font-extralight uppercase tracking-wider transition-colors ${
             theme === 'dark'
               ? 'bg-[#121826] text-white'
               : theme === 'light'

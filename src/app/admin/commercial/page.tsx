@@ -31,7 +31,7 @@ export default async function CommercialOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
+          <span className="text-[11px] uppercase tracking-widest text-pink-400 font-light">
             COMMERCIAL PIPELINE &amp; SALES OPERATIONS
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Commercial Control Centre</h1>
@@ -58,33 +58,33 @@ export default async function CommercialOverviewPage() {
       {/* Top Section KPI Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">QUALIFIED OPPS</div>
-          <div className="mt-1 text-xl font-light text-white font-mono">{metrics.qualifiedOpportunitiesCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">QUALIFIED OPPS</div>
+          <div className="mt-1 text-xl font-light text-white">{metrics.qualifiedOpportunitiesCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">PROPOSALS OUT</div>
-          <div className="mt-1 text-xl font-light text-pink-400 font-mono">{metrics.proposalsOutCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">PROPOSALS OUT</div>
+          <div className="mt-1 text-xl font-light text-pink-400">{metrics.proposalsOutCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">SURVEYS PENDING</div>
-          <div className="mt-1 text-xl font-light text-blue-400 font-mono">{metrics.surveysPendingCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">SURVEYS PENDING</div>
+          <div className="mt-1 text-xl font-light text-blue-400">{metrics.surveysPendingCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">OVERDUE TASKS</div>
-          <div className="mt-1 text-xl font-light text-amber-400 font-mono">{metrics.overdueTasksCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">OVERDUE TASKS</div>
+          <div className="mt-1 text-xl font-light text-amber-400">{metrics.overdueTasksCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">WON THIS MONTH</div>
-          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">{metrics.wonThisMonthCount}</div>
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">WON THIS MONTH</div>
+          <div className="mt-1 text-xl font-light text-emerald-400">{metrics.wonThisMonthCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="text-zinc-500 text-[10px] uppercase font-mono">PIPELINE VALUE</div>
-          <div className="mt-1 text-xl font-light text-purple-400 font-mono">
+          <div className="text-zinc-500 text-[10px] uppercase font-medium">PIPELINE VALUE</div>
+          <div className="mt-1 text-xl font-light text-purple-400">
             {metrics.totalPipelineValueGbp > 0 ? `£${metrics.totalPipelineValueGbp.toLocaleString()}` : 'NO DATA YET'}
           </div>
         </div>
@@ -120,7 +120,7 @@ export default async function CommercialOverviewPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <span
-                            className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded font-light ${
+                            className={`text-[9px] uppercase px-1.5 py-0.5 rounded font-light ${
                               task.priority === 'URGENT'
                                 ? 'bg-red-950/80 text-red-400 border border-red-800/60'
                                 : 'bg-zinc-800 text-zinc-400'
@@ -136,11 +136,11 @@ export default async function CommercialOverviewPage() {
                       </div>
 
                       {isOverdue ? (
-                        <span className="text-[10px] font-mono text-red-400 font-light whitespace-nowrap">
+                        <span className="text-[10px] text-red-400 font-light whitespace-nowrap">
                           OVERDUE
                         </span>
                       ) : (
-                        <span className="text-[10px] font-mono text-zinc-500 whitespace-nowrap">
+                        <span className="text-[10px] font-normal text-zinc-500 whitespace-nowrap">
                           ACTIVE
                         </span>
                       )}
@@ -215,10 +215,10 @@ export default async function CommercialOverviewPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-light">
+                      <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-light">
                         {opp.stage}
                       </span>
-                      <div className="text-[11px] font-mono text-zinc-300 mt-1">
+                      <div className="text-[11px] font-normal text-zinc-300 mt-1">
                         {opp.estimated_value_gbp ? `£${opp.estimated_value_gbp.toLocaleString()}` : '—'}
                       </div>
                     </div>

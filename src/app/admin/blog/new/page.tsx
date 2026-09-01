@@ -140,7 +140,7 @@ export default function NewPostPage() {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Write or paste high-standard FM article copy here..."
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white font-mono placeholder-zinc-500 text-xs leading-relaxed focus:outline-none focus:border-blue-500"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white font-normal placeholder-zinc-500 text-xs leading-relaxed focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>

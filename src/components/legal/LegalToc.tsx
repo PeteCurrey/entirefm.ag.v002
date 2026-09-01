@@ -83,7 +83,7 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
                           : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
                       }`}
                     >
-                      <span className="shrink-0 text-slate-400 font-mono">{idx + 1}.</span>
+                      <span className="shrink-0 text-slate-400 font-normal">{idx + 1}.</span>
                       <span>{item.title}</span>
                     </a>
                   </li>
@@ -123,7 +123,7 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
                   }`}
                 >
                   <span
-                    className={`mt-0.5 text-xs font-mono shrink-0 transition-colors ${
+                    className={`mt-0.5 text-xs font-normal shrink-0 transition-colors ${
                       isActive ? 'text-indigo-600 font-light' : 'text-slate-400 group-hover:text-slate-600'
                     }`}
                   >

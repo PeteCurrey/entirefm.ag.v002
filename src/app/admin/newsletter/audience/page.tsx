@@ -55,8 +55,8 @@ export default async function AudienceGrowthPage() {
                   key={src}
                   className="flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs"
                 >
-                  <span className="font-mono text-zinc-300">{src}</span>
-                  <span className="font-light text-pink-400 font-mono">{count} subscribers</span>
+                  <span className="font-normal text-zinc-300">{src}</span>
+                  <span className="font-light text-pink-400">{count} subscribers</span>
                 </div>
               ))}
             </div>

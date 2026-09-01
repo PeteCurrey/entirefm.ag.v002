@@ -59,7 +59,7 @@ export function SectorRelatedServices({
               className="bg-white border border-slate-200 p-5 rounded-sm flex flex-col justify-between group hover:border-brand-pink/60 hover:shadow-sm transition-all duration-200"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-light block mb-2">
+                <span className="text-[10px] uppercase tracking-wider text-brand-pink font-light block mb-2">
                   {svc.tag}
                 </span>
                 <h3 className="text-sm font-light text-slate-900 group-hover:text-brand-pink-dark transition-colors leading-snug">

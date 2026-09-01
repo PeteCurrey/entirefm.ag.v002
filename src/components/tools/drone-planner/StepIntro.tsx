@@ -48,7 +48,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
 
       {/* Approximate Journey Roadmap */}
       <div className="p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4">
-        <span className="font-mono text-xs font-normal uppercase tracking-wider text-slate-400 block">
+        <span className="text-xs font-normal uppercase tracking-wider text-slate-400 block">
           Configurator Journey Overview
         </span>
 
@@ -62,7 +62,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
             { num: '06', title: 'Action Plan', desc: 'Structured brief' },
           ].map((item) => (
             <div key={item.num} className="p-3 bg-brand-graphite rounded-sm border border-brand-edge-dark/60 space-y-1">
-              <span className="font-mono text-xs font-normal text-brand-pink block">{item.num}</span>
+              <span className="text-xs font-normal text-brand-pink block">{item.num}</span>
               <h4 className="text-xs font-normal text-white leading-snug">{item.title}</h4>
               <p className="text-[10.5px] text-slate-400">{item.desc}</p>
             </div>
@@ -120,7 +120,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
       </div>
 
       {/* Governance Strip */}
-      <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-slate-400">
+      <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-normal text-slate-400">
         <span className="flex items-center gap-1.5">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
           UK CAA Compliant Planning

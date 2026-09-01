@@ -38,7 +38,7 @@ export function OperativeProfileModal({ operative, onClose }: Props) {
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-light text-white">{operative.fullName}</h2>
                 <span
-                  className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                  className={`text-[10px] font-normal px-2 py-0.5 rounded border ${
                     operative.isEligibleForDispatch
                       ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                       : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
@@ -47,7 +47,7 @@ export function OperativeProfileModal({ operative, onClose }: Props) {
                   {operative.isEligibleForDispatch ? 'ELIGIBLE FOR DISPATCH' : 'ACTION REQUIRED'}
                 </span>
               </div>
-              <p className="text-xs text-brand-mist/60 font-mono mt-0.5">
+              <p className="text-xs text-brand-mist/60 font-normal mt-0.5">
                 {operative.jobTitle} &bull; {operative.employmentStatus}
               </p>
             </div>
@@ -91,20 +91,20 @@ export function OperativeProfileModal({ operative, onClose }: Props) {
           {/* Contact & Dispatch Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
-              <span className="text-brand-mist/40 text-[10px] uppercase font-mono block">Max Daily Jobs</span>
-              <span className="text-white font-mono text-sm mt-0.5 block">{operative.maxDailyJobs}</span>
+              <span className="text-brand-mist/40 text-[10px] uppercase font-medium block">Max Daily Jobs</span>
+              <span className="text-white font-normal text-sm mt-0.5 block">{operative.maxDailyJobs}</span>
             </div>
             <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
-              <span className="text-brand-mist/40 text-[10px] uppercase font-mono block">Completed Jobs</span>
-              <span className="text-white font-mono text-sm mt-0.5 block">{operative.totalCompletedJobs}</span>
+              <span className="text-brand-mist/40 text-[10px] uppercase font-medium block">Completed Jobs</span>
+              <span className="text-white font-normal text-sm mt-0.5 block">{operative.totalCompletedJobs}</span>
             </div>
             <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
-              <span className="text-brand-mist/40 text-[10px] uppercase font-mono block">Postcode Base</span>
-              <span className="text-white font-mono text-sm mt-0.5 block">{operative.homePostcode || 'Local Hub'}</span>
+              <span className="text-brand-mist/40 text-[10px] uppercase font-medium block">Postcode Base</span>
+              <span className="text-white font-normal text-sm mt-0.5 block">{operative.homePostcode || 'Local Hub'}</span>
             </div>
             <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
-              <span className="text-brand-mist/40 text-[10px] uppercase font-mono block">Status</span>
-              <span className="text-emerald-400 font-mono text-sm mt-0.5 block">ACTIVE</span>
+              <span className="text-brand-mist/40 text-[10px] uppercase font-medium block">Status</span>
+              <span className="text-emerald-400 font-normal text-sm mt-0.5 block">ACTIVE</span>
             </div>
           </div>
 
@@ -136,12 +136,12 @@ export function OperativeProfileModal({ operative, onClose }: Props) {
                 <div key={q.id} className="p-3.5 flex items-center justify-between gap-3 text-xs">
                   <div className="space-y-0.5">
                     <span className="text-white font-normal block">{q.name}</span>
-                    <span className="text-[10.5px] font-mono text-brand-mist/50 block">
+                    <span className="text-[10.5px] font-normal text-brand-mist/50 block">
                       Expires: {q.expiryDate || 'No Expiry'} {q.daysRemaining !== null && `(${q.daysRemaining} days)`}
                     </span>
                   </div>
                   <span
-                    className={`px-2 py-0.5 rounded text-[10.5px] font-mono border ${
+                    className={`px-2 py-0.5 rounded text-[10.5px] font-normal border ${
                       q.status === 'VALID'
                         ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                         : 'bg-rose-500/10 text-rose-400 border-rose-500/20 font-bold'

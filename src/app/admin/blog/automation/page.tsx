@@ -86,7 +86,7 @@ export default function AutomationPage() {
           Allowed publish days: <span className="text-zinc-300">{(s.allowedPublishDays || []).join(', ')}</span>
         </div>
         <div className="text-xs text-zinc-500">
-          Quality gate: <span className="text-zinc-300 font-mono">WEEKLY_QUALITY_GATE_NOT_MET</span> — if fewer than {s.minPostsPerWeek} qualified topics exist, the cycle halts rather than publishing filler content.
+          Quality gate: <span className="text-zinc-300 font-normal">WEEKLY_QUALITY_GATE_NOT_MET</span> — if fewer than {s.minPostsPerWeek} qualified topics exist, the cycle halts rather than publishing filler content.
         </div>
       </div>
 

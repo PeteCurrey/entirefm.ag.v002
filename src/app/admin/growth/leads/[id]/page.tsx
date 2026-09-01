@@ -55,13 +55,13 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-5">
         <div>
-          <div className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#EA580C]">
+          <div className="text-[10.5px] font-normal uppercase tracking-wider text-[#EA580C]">
             COMMERCIAL JOURNEY &amp; ATTRIBUTION INTELLIGENCE
           </div>
           <h1 className="text-2xl font-extralight text-[#111111] tracking-tight mt-0.5">
             {lead.name}
           </h1>
-          <div className="flex items-center gap-3 text-[12px] text-[#6D6D68] mt-1 font-mono">
+          <div className="flex items-center gap-3 text-[12px] text-[#6D6D68] mt-1 font-normal">
             <span>Ref: {lead.enquiry_id}</span>
             <span>·</span>
             <span>{new Date(lead.received_at).toLocaleString('en-GB')}</span>
@@ -94,20 +94,20 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12.5px]">
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Full Name</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Full Name</span>
                 <span className="text-[#111111] font-normal">{lead.name}</span>
               </div>
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Company / Organisation</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Company / Organisation</span>
                 <span className="text-[#111111] font-normal">{lead.company || 'Not provided'}</span>
               </div>
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Direct Email</span>
-                <span className="text-[#111111] font-mono">{lead.email}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Direct Email</span>
+                <span className="text-[#111111] font-normal">{lead.email}</span>
               </div>
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Telephone Contact</span>
-                <span className="text-[#111111] font-mono">{lead.phone || 'Not provided'}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Telephone Contact</span>
+                <span className="text-[#111111] font-normal">{lead.phone || 'Not provided'}</span>
               </div>
             </div>
           </div>
@@ -119,18 +119,18 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12.5px]">
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Primary Service</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Primary Service</span>
                 <span className="text-[#111111] font-normal">{lead.service || 'Planned PPM & Hard Facilities Management'}</span>
               </div>
               <div>
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Estate Site / Location</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal">Estate Site / Location</span>
                 <span className="text-[#111111] font-normal">{lead.location || 'United Kingdom'}</span>
               </div>
             </div>
 
             {lead.message && (
               <div className="pt-2">
-                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono mb-1">Prospect Submission Notes</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-normal mb-1">Prospect Submission Notes</span>
                 <p className="text-[#111111] bg-[#FAFAF8] p-4 rounded-[6px] border border-[#E8E8E5] text-[12.5px] leading-relaxed whitespace-pre-wrap">
                   {lead.message}
                 </p>
@@ -144,14 +144,14 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider">
                 Multi-Touch Attribution Journey Trail
               </h3>
-              <span className="font-mono text-[11px] text-[#9A9A95]">
+              <span className="font-normal text-[11px] text-[#9A9A95]">
                 {journey.length > 0 ? `${journey.length} Touchpoints` : 'Direct Submission'}
               </span>
             </div>
 
             {journey.length === 0 ? (
               <div className="p-6 text-center text-[#6D6D68] text-[12.5px] bg-[#FAFAF8] rounded-[6px] border border-[#E8E8E5]">
-                Direct Path: Prospect landed on <code className="font-mono text-[#111111]">{lead.landing_page || '/contact-us'}</code> and completed enquiry.
+                Direct Path: Prospect landed on <code className="font-normal text-[#111111]">{lead.landing_page || '/contact-us'}</code> and completed enquiry.
               </div>
             ) : (
               <div className="relative pl-6 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-px before:bg-[#E8E8E5]">
@@ -161,9 +161,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                     <div className="bg-[#FAFAF8] border border-[#E8E8E5] p-3.5 rounded-[6px] text-[12.5px] space-y-1 hover:border-[#D4D4D0] transition-colors">
                       <div className="flex items-center justify-between">
                         <span className="font-normal text-[#111111]">
-                          Step {idx + 1}: <code className="font-mono text-[11.5px] text-[#6D6D68]">{step.path}</code>
+                          Step {idx + 1}: <code className="font-normal text-[11.5px] text-[#6D6D68]">{step.path}</code>
                         </span>
-                        <span className="text-[10px] font-mono text-[#9A9A95] uppercase">
+                        <span className="text-[10px] font-normal text-[#9A9A95] uppercase">
                           {step.pageType || 'page'}
                         </span>
                       </div>
@@ -210,15 +210,15 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               </div>
               <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
                 <span className="text-[#6D6D68]">Channel Source:</span>
-                <span className="font-mono text-[#111111]">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
+                <span className="font-normal text-[#111111]">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
                 <span className="text-[#6D6D68]">First Touch:</span>
-                <span className="font-mono text-[#111111] truncate max-w-[140px]">{lead.first_touch_url || lead.landing_page || '/'}</span>
+                <span className="font-normal text-[#111111] truncate max-w-[140px]">{lead.first_touch_url || lead.landing_page || '/'}</span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-[#6D6D68]">Conversion Form:</span>
-                <span className="font-mono text-[#111111] truncate max-w-[140px]">{lead.conversion_page || '/contact-us'}</span>
+                <span className="font-normal text-[#111111] truncate max-w-[140px]">{lead.conversion_page || '/contact-us'}</span>
               </div>
             </div>
           </div>

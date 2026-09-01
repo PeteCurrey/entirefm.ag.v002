@@ -37,25 +37,25 @@ export default async function AssetReviewPage() {
       {/* Summary bar */}
       <div className="flex gap-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 px-5 py-4 text-center">
-          <div className="font-mono text-2xl font-extralight text-white">{candidates.length}</div>
+          <div className="text-2xl font-extralight text-white">{candidates.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/50 uppercase tracking-wider">Candidates Pending</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 px-5 py-4 text-center">
-          <div className="font-mono text-2xl font-extralight text-white">{duplicates.length}</div>
+          <div className="text-2xl font-extralight text-white">{duplicates.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/50 uppercase tracking-wider">Duplicates Pending</div>
         </div>
       </div>
 
       {/* Asset Candidates */}
       <div>
-        <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
           Asset Candidates
         </h2>
         {candidates.length > 0 ? (
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full min-w-[56rem] border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Proposed Name</th>
                   <th className="px-5 py-3">Category</th>
                   <th className="px-5 py-3">Manufacturer</th>
@@ -72,15 +72,15 @@ export default async function AssetReviewPage() {
                     <td className="px-5 py-4 text-brand-mist/70">{c.proposed_category || '—'}</td>
                     <td className="px-5 py-4 text-brand-mist/70">{c.proposed_manufacturer || '—'}</td>
                     <td className="px-5 py-4">
-                      <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${SOURCE_COLOURS[c.source_type] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${SOURCE_COLOURS[c.source_type] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                         {c.source_type.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/70">
                       {Math.round(c.confidence_score * 100)}%
                     </td>
                     <td className="px-5 py-4">
-                      <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${STATUS_COLOURS[c.status] ?? ''}`}>
+                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${STATUS_COLOURS[c.status] ?? ''}`}>
                         {c.status}
                       </span>
                     </td>
@@ -102,14 +102,14 @@ export default async function AssetReviewPage() {
 
       {/* Duplicate Candidates */}
       <div>
-        <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
           Duplicate Candidates
         </h2>
         {duplicates.length > 0 ? (
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Confidence</th>
                   <th className="px-5 py-3">Match Reasons</th>
                   <th className="px-5 py-3">Status</th>
@@ -120,18 +120,18 @@ export default async function AssetReviewPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {duplicates.map((d) => (
                   <tr key={d.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/70">
                       {Math.round(d.confidence_score * 100)}%
                     </td>
                     <td className="px-5 py-4 text-[11.5px] text-brand-mist/60">
                       {Array.isArray(d.match_reasons_json) ? d.match_reasons_json.join(', ') : String(d.match_reasons_json || '—')}
                     </td>
                     <td className="px-5 py-4">
-                      <span className="rounded bg-amber-900/40 px-2 py-0.5 font-mono text-[10px] text-amber-300">
+                      <span className="rounded bg-amber-900/40 px-2 py-0.5 font-normal text-[10px] text-amber-300">
                         {d.status}
                       </span>
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                       {new Date(d.created_at).toLocaleDateString('en-GB')}
                     </td>
                     <td className="px-5 py-4">

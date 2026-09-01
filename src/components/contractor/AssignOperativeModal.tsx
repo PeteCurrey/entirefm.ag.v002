@@ -126,7 +126,7 @@ export function AssignOperativeModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               COMPETENCY-VALIDATED DISPATCH
             </span>
             <h2 className="text-base font-light text-white">
@@ -142,19 +142,19 @@ export function AssignOperativeModal({
         <div className="px-6 py-3 bg-brand-void/40 border-b border-brand-edge-dark/50 flex flex-wrap items-center justify-between gap-2 text-xs">
           <div>
             <span className="text-white font-normal block">{workOrderReq.title}</span>
-            <span className="text-brand-mist/50 text-[11px] font-mono">
+            <span className="text-brand-mist/50 text-[11px] font-normal">
               Required Trade: <strong className="text-brand-electric">{workOrderReq.trade}</strong>
             </span>
           </div>
           {workOrderReq.isEmergencyP1 && (
-            <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-mono font-bold">
+            <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-bold">
               EMERGENCY P1
             </span>
           )}
         </div>
 
         {/* Body */}
-        <div className="p-6 overflow-y-auto space-y-6 text-xs font-mono">
+        <div className="p-6 overflow-y-auto space-y-6 text-xs font-normal">
           {errorMsg && (
             <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />

@@ -816,7 +816,7 @@ export function OnboardingWizardClient({
               </span>
               <h2 className="text-xl font-light text-slate-900 mt-0.5">{STEPS[currentStep - 1].title}</h2>
             </div>
-            <span className="text-xs font-light text-slate-400 font-mono">Ref: {appRef}</span>
+            <span className="text-xs font-light text-slate-400">Ref: {appRef}</span>
           </div>
 
           {/* ── STAGE 01: COMPANY PROFILE ────────────────────────────────────────── */}
@@ -850,7 +850,7 @@ export function OnboardingWizardClient({
                     value={formData.companyNumber}
                     onChange={(e) => setFormData({ ...formData, companyNumber: e.target.value })}
                     placeholder="e.g. 09876543"
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-normal"
                   />
                 </div>
                 <div className="space-y-1">
@@ -860,7 +860,7 @@ export function OnboardingWizardClient({
                     value={formData.vatNumber}
                     onChange={(e) => setFormData({ ...formData, vatNumber: e.target.value })}
                     placeholder="e.g. GB 123 4567 89"
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-normal"
                   />
                 </div>
               </div>
@@ -1108,7 +1108,7 @@ export function OnboardingWizardClient({
                     Select your core trades. Declared services are independently reviewed by EntireFM technical assurance desks before scoped approval.
                   </p>
                 </div>
-                <span className="text-xs font-mono font-bold px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded border border-emerald-200 shrink-0">
+                <span className="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded border border-emerald-200 shrink-0">
                   {formData.selectedServices.length} Selected
                 </span>
               </div>
@@ -1207,7 +1207,7 @@ export function OnboardingWizardClient({
                                 >
                                   {trade.name}
                                 </span>
-                                <span className="text-[10px] font-mono text-slate-400 block uppercase">
+                                <span className="text-[10px] font-normal text-slate-400 block uppercase">
                                   {cat.title}
                                 </span>
                               </div>
@@ -1216,7 +1216,7 @@ export function OnboardingWizardClient({
                             {trade.requiresAccreditation && (
                               <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
                                 <span className="text-slate-500">Scheme:</span>
-                                <span className="font-mono text-emerald-700 font-bold">
+                                <span className="text-emerald-700 font-bold">
                                   {trade.requiresAccreditation}
                                 </span>
                               </div>
@@ -1382,7 +1382,7 @@ export function OnboardingWizardClient({
                       updated[0] = { ...updated[0], postcode: e.target.value };
                       setFormData({ ...formData, operatingBases: updated });
                     }}
-                    className="p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                    className="p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                   />
                 </div>
 
@@ -1578,7 +1578,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.vehicleCount}
                       onChange={(e) => setFormData({ ...formData, vehicleCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <label className="flex items-center gap-2 pt-6 cursor-pointer">
@@ -1671,7 +1671,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.fieldOperativesCount}
                       onChange={(e) => setFormData({ ...formData, fieldOperativesCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1680,7 +1680,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.qualifiedEngineersCount}
                       onChange={(e) => setFormData({ ...formData, qualifiedEngineersCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1689,7 +1689,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.supervisorsCount}
                       onChange={(e) => setFormData({ ...formData, supervisorsCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1698,7 +1698,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.officeStaffCount}
                       onChange={(e) => setFormData({ ...formData, officeStaffCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1707,7 +1707,7 @@ export function OnboardingWizardClient({
                       type="number"
                       value={formData.apprenticesCount}
                       onChange={(e) => setFormData({ ...formData, apprenticesCount: parseInt(e.target.value, 10) || 0 })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                 </div>
@@ -1877,7 +1877,7 @@ export function OnboardingWizardClient({
                     <ShieldCheck className="h-4 w-4 text-emerald-600" />
                     <span className="font-bold text-slate-900">Public &amp; Products Liability (Mandatory) *</span>
                   </div>
-                  <span className="text-[10.5px] font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                  <span className="text-[10.5px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
                     Minimum £5,000,000
                   </span>
                 </div>
@@ -1900,7 +1900,7 @@ export function OnboardingWizardClient({
                       value={formData.plPolicyNumber}
                       onChange={(e) => setFormData({ ...formData, plPolicyNumber: e.target.value })}
                       placeholder="e.g. 2489910/PL/2026"
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1921,7 +1921,7 @@ export function OnboardingWizardClient({
                       type="date"
                       value={formData.plExpiryDate}
                       onChange={(e) => setFormData({ ...formData, plExpiryDate: e.target.value })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                 </div>
@@ -1934,7 +1934,7 @@ export function OnboardingWizardClient({
                     <ShieldCheck className="h-4 w-4 text-emerald-600" />
                     <span className="font-bold text-slate-900">Employers Liability Insurance *</span>
                   </div>
-                  <span className="text-[10.5px] font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                  <span className="text-[10.5px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
                     Minimum £10,000,000
                   </span>
                 </div>
@@ -1957,7 +1957,7 @@ export function OnboardingWizardClient({
                       value={formData.elPolicyNumber}
                       onChange={(e) => setFormData({ ...formData, elPolicyNumber: e.target.value })}
                       placeholder="e.g. EL-8899214-Z"
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1978,7 +1978,7 @@ export function OnboardingWizardClient({
                       type="date"
                       value={formData.elExpiryDate}
                       onChange={(e) => setFormData({ ...formData, elExpiryDate: e.target.value })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                 </div>
@@ -2021,7 +2021,7 @@ export function OnboardingWizardClient({
                         value={formData.piPolicyNumber}
                         onChange={(e) => setFormData({ ...formData, piPolicyNumber: e.target.value })}
                         placeholder="e.g. PI-992144"
-                        className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                        className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                       />
                     </div>
                     <div className="space-y-1">
@@ -2043,7 +2043,7 @@ export function OnboardingWizardClient({
                         type="date"
                         value={formData.piExpiryDate}
                         onChange={(e) => setFormData({ ...formData, piExpiryDate: e.target.value })}
-                        className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                        className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                       />
                     </div>
                   </div>
@@ -2062,7 +2062,7 @@ export function OnboardingWizardClient({
                     Select each active accreditation held by your organisation and provide the scheme registration number and certificate expiry.
                   </p>
                 </div>
-                <span className="text-[11.5px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 shrink-0">
+                <span className="text-[11.5px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 shrink-0">
                   {formData.selectedAccreditations.length} Selected
                 </span>
               </div>
@@ -2094,7 +2094,7 @@ export function OnboardingWizardClient({
                           <span className={`text-[12px] block ${isChecked ? 'font-bold text-slate-900' : 'text-slate-700'}`}>
                             {accred.name}
                           </span>
-                          <span className="text-[10px] font-mono text-slate-400 uppercase">{accred.category}</span>
+                          <span className="text-[10px] font-normal text-slate-400 uppercase">{accred.category}</span>
                         </div>
                       </div>
 
@@ -2120,7 +2120,7 @@ export function OnboardingWizardClient({
                                 });
                               }}
                               placeholder={accred.placeholder}
-                              className="w-full p-1.5 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-mono"
+                              className="w-full p-1.5 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-normal"
                             />
                           </div>
 
@@ -2140,7 +2140,7 @@ export function OnboardingWizardClient({
                                   },
                                 });
                               }}
-                              className="w-full p-1.5 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-mono"
+                              className="w-full p-1.5 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-normal"
                             />
                           </div>
                         </div>
@@ -2183,7 +2183,7 @@ export function OnboardingWizardClient({
                       type="date"
                       value={formData.hsPolicyReviewDate}
                       onChange={(e) => setFormData({ ...formData, hsPolicyReviewDate: e.target.value })}
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -2326,7 +2326,7 @@ export function OnboardingWizardClient({
                           type="number"
                           value={formData.incidentRiddorCount}
                           onChange={(e) => setFormData({ ...formData, incidentRiddorCount: parseInt(e.target.value, 10) || 0 })}
-                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                         />
                       </div>
                       <div className="space-y-1">
@@ -2335,7 +2335,7 @@ export function OnboardingWizardClient({
                           type="number"
                           value={formData.incidentLtiCount}
                           onChange={(e) => setFormData({ ...formData, incidentLtiCount: parseInt(e.target.value, 10) || 0 })}
-                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                         />
                       </div>
                       <div className="space-y-1">
@@ -2344,7 +2344,7 @@ export function OnboardingWizardClient({
                           type="number"
                           value={formData.incidentImprovementNoticesCount}
                           onChange={(e) => setFormData({ ...formData, incidentImprovementNoticesCount: parseInt(e.target.value, 10) || 0 })}
-                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                         />
                       </div>
                       <div className="space-y-1">
@@ -2353,7 +2353,7 @@ export function OnboardingWizardClient({
                           type="number"
                           value={formData.incidentProhibitionNoticesCount}
                           onChange={(e) => setFormData({ ...formData, incidentProhibitionNoticesCount: parseInt(e.target.value, 10) || 0 })}
-                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                         />
                       </div>
                       <div className="space-y-1">
@@ -2362,7 +2362,7 @@ export function OnboardingWizardClient({
                           type="number"
                           value={formData.incidentProsecutionsCount}
                           onChange={(e) => setFormData({ ...formData, incidentProsecutionsCount: parseInt(e.target.value, 10) || 0 })}
-                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                          className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                         />
                       </div>
                     </div>
@@ -2520,7 +2520,7 @@ export function OnboardingWizardClient({
                       value={formData.cyberCertNumber}
                       onChange={(e) => setFormData({ ...formData, cyberCertNumber: e.target.value })}
                       placeholder="e.g. CE-2026-992144"
-                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-mono"
+                      className="w-full p-2 border border-slate-200 rounded text-xs bg-white font-normal"
                     />
                   </div>
                   <div className="space-y-1">
@@ -2617,7 +2617,7 @@ export function OnboardingWizardClient({
                     Upload your insurance schedules, H&amp;S policy, trade accreditations, and company credentials. All uploads are encrypted and stored in your vault.
                   </p>
                 </div>
-                <span className="text-xs font-mono font-bold px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded border border-emerald-200 shrink-0">
+                <span className="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded border border-emerald-200 shrink-0">
                   {documents.length} Uploaded
                 </span>
               </div>
@@ -2655,11 +2655,11 @@ export function OnboardingWizardClient({
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-slate-900">{item.type}</span>
                               {item.required ? (
-                                <span className="text-[9.5px] font-mono px-1.5 py-0.2 bg-rose-100 text-rose-800 font-bold rounded">
+                                <span className="text-[9.5px] px-1.5 py-0.2 bg-rose-100 text-rose-800 font-bold rounded">
                                   REQUIRED
                                 </span>
                               ) : (
-                                <span className="text-[9.5px] font-mono px-1.5 py-0.2 bg-slate-100 text-slate-600 rounded">
+                                <span className="text-[9.5px] font-normal px-1.5 py-0.2 bg-slate-100 text-slate-600 rounded">
                                   OPTIONAL
                                 </span>
                               )}
@@ -2869,7 +2869,7 @@ export function OnboardingWizardClient({
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+                          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
                             {tier.internalId}
                           </span>
                           <input
@@ -2956,7 +2956,7 @@ export function OnboardingWizardClient({
                         setInvitationCodeInput(e.target.value.toUpperCase());
                         setCodeVerificationError(null);
                       }}
-                      className="p-2.5 border border-slate-200 rounded text-xs bg-white uppercase font-mono max-w-sm flex-1"
+                      className="p-2.5 border border-slate-200 rounded text-xs bg-white uppercase font-normal max-w-sm flex-1"
                     />
                     <button
                       type="button"
@@ -3033,7 +3033,7 @@ export function OnboardingWizardClient({
               <div className="p-5 bg-slate-900 text-white rounded-sm space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                    <span className="text-[10px] uppercase tracking-widest text-brand-pink font-bold">
                       MANDATORY GOVERNANCE FRAMEWORK
                     </span>
                     <h3 className="text-base font-bold text-white mt-0.5">
@@ -3484,7 +3484,7 @@ export function OnboardingWizardClient({
           <div className="bg-white rounded-sm border border-slate-200 max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl">
             <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-900 text-white">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                <span className="text-[10px] uppercase tracking-widest text-brand-pink font-bold">
                   GOVERNANCE STANDARD
                 </span>
                 <h2 className="text-lg font-bold mt-0.5">EntireFM Supplier Code of Conduct (v2026.1)</h2>

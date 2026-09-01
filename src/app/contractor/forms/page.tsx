@@ -28,7 +28,7 @@ export default async function ContractorFormsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="space-y-1">
-        <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           DIGITAL FORMS &bull; CP-07
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

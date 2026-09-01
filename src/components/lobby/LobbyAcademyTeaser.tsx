@@ -13,7 +13,7 @@ export function LobbyAcademyTeaser() {
             <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-purple-500/20 text-purple-300 border border-purple-500/40 text-xs">
               <GraduationCap className="w-3.5 h-3.5" />
             </span>
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-purple-300">
+            <span className="text-xs font-normal uppercase tracking-[0.2em] text-purple-300">
               COMING NEXT · ENTIREFM ACADEMY
             </span>
           </div>
@@ -29,7 +29,7 @@ export function LobbyAcademyTeaser() {
 
         <div className="rounded-sm bg-brand-void/80 border border-white/10 p-6 space-y-4 text-center sm:text-left">
           <div className="space-y-1">
-            <span className="text-[10.5px] font-mono uppercase tracking-wider text-brand-mist/50">
+            <span className="text-[10.5px] font-medium uppercase tracking-wider text-brand-mist/50">
               Future Integration
             </span>
             <p className="text-xs font-light text-brand-mist/90">

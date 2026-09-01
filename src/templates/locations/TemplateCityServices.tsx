@@ -89,11 +89,11 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
           {/* ── 1. HERO SECTION ────────────────────────────────────────── */}
           <section className="mb-14 max-w-4xl">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
                 {geo.name.toUpperCase()} SERVICE CATALOGUE
               </span>
-              <span className="font-mono text-[11px] text-[#686866]">
+              <span className="font-normal text-[11px] text-[#686866]">
                 Hard &amp; Soft FM Engineering
               </span>
             </div>
@@ -145,7 +145,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
                   href={cat.href}
                   className="rounded-[10px] border border-[#E4E4E1] bg-white p-5 hover:border-[#EA580C] hover:shadow-md transition-all group"
                 >
-                  <span className="font-mono text-[10px] font-normal text-[#EA580C] block mb-1">
+                  <span className="text-[10px] font-normal text-[#EA580C] block mb-1">
                     {cat.count}
                   </span>
                   <h3 className="text-[15px] font-normal text-[#101010] group-hover:text-[#EA580C] transition-colors">
@@ -163,7 +163,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
           <section id="hard-fm" className="mb-16 scroll-mt-24">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   HARD SERVICES
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -220,7 +220,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
                         {item.desc}
                       </p>
                     </div>
-                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-mono text-[#686866]">
+                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-normal text-[#686866]">
                       <span>Explore Engineering</span>
                       <ArrowRight className="h-3.5 w-3.5 text-[#9B9B97] group-hover:text-[#EA580C]" />
                     </div>
@@ -234,7 +234,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
           <section id="compliance" className="mb-16 scroll-mt-24">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#059669] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 text-[10.5px] font-normal text-[#059669] mb-2">
                   STATUTORY TESTING
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -254,7 +254,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
                     href={comp.href}
                     className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-4 hover:border-[#059669] transition-all group"
                   >
-                    <span className="font-mono text-[10px] text-[#059669] font-light block mb-1">
+                    <span className="text-[10px] text-[#059669] font-light block mb-1">
                       {comp.standard}
                     </span>
                     <h4 className="text-[13px] font-normal text-[#101010] group-hover:text-[#059669] transition-colors">
@@ -270,7 +270,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
           <section id="soft-fm" className="mb-16 scroll-mt-24">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   SOFT SERVICES
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -312,7 +312,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
                         {s.desc}
                       </p>
                     </div>
-                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-mono text-[#686866]">
+                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-normal text-[#686866]">
                       <span>View Service</span>
                       <ArrowRight className="h-3.5 w-3.5 text-[#9B9B97] group-hover:text-[#EA580C]" />
                     </div>
@@ -326,7 +326,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
           <section id="specialist" className="mb-16 scroll-mt-24">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 text-[10.5px] font-normal text-[#C2410C] mb-2">
                   SPECIALIST CAPABILITIES
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
@@ -365,7 +365,7 @@ export function TemplateCityServices({ route, content }: TemplateCityServicesPro
                         {spec.desc}
                       </p>
                     </div>
-                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-mono text-[#686866]">
+                    <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-normal text-[#686866]">
                       <span>Inspect Capability</span>
                       <ArrowRight className="h-3.5 w-3.5 text-[#9B9B97] group-hover:text-[#EA580C]" />
                     </div>

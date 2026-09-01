@@ -67,7 +67,7 @@ export function PortfoliosPageClient({ initialPortfolios }: Props) {
           >
             <div className="flex items-start justify-between">
               <div>
-                <span className="font-mono text-[10px] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1] uppercase tracking-wider text-[#686866] font-bold">
+                <span className="text-[10px] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1] uppercase tracking-wider text-[#686866] font-bold">
                   {p.code}
                 </span>
                 <h3 className="text-base font-light text-[#101010] mt-2">{p.name}</h3>
@@ -80,7 +80,7 @@ export function PortfoliosPageClient({ initialPortfolios }: Props) {
             </p>
 
             <div className="pt-3 border-t border-[#E4E4E1] flex items-center justify-between">
-              <span className="font-mono text-[11px] text-[#9B9B97]">
+              <span className="font-normal text-[11px] text-[#9B9B97]">
                 Created {new Date(p.created_at).toLocaleDateString('en-GB')}
               </span>
               <Link

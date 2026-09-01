@@ -37,12 +37,12 @@ export default async function PlatformIntegrationsPage() {
                     <h3 className="font-light text-white text-[15px]">{s.name}</h3>
                     <div className="text-[12px] text-brand-mist/60 mt-0.5">Provider: {s.provider}</div>
                   </div>
-                  <span className={`rounded px-2.5 py-1 font-mono text-[10.5px] border ${LICENSING_COLOURS[s.licensing_status] ?? 'bg-brand-edge-dark text-brand-mist/60 border-brand-edge-dark'}`}>
+                  <span className={`rounded px-2.5 py-1 font-normal text-[10.5px] border${LICENSING_COLOURS[s.licensing_status] ?? 'bg-brand-edge-dark text-brand-mist/60 border-brand-edge-dark'}`}>
                     {s.licensing_status.replace(/_/g, ' ')}
                   </span>
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-2 text-[11.5px] font-mono text-brand-mist/70 border-t border-brand-edge-dark/60 pt-4">
+                <div className="mt-4 grid grid-cols-2 gap-2 text-[11.5px] font-normal text-brand-mist/70 border-t border-brand-edge-dark/60 pt-4">
                   <div>Code: <span className="text-white">{s.code}</span></div>
                   <div>Version: <span className="text-white">{s.version}</span></div>
                   <div>Type: <span className="text-white">{s.source_type}</span></div>

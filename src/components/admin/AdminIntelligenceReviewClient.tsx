@@ -40,17 +40,17 @@ export function AdminIntelligenceReviewClient() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-light text-white">High-Impact Statutory Review Queue</h2>
-            <p className="text-xs text-white/50 font-mono mt-1">
+            <p className="text-xs text-white/50 font-normal mt-1">
               New Acts of Parliament and statutory instruments require editorial review before interpretation is published.
             </p>
           </div>
-          <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 border border-emerald-500/20">
+          <span className="text-xs font-normal text-emerald-400 bg-emerald-500/10 px-3 py-1 border border-emerald-500/20">
             Risk-Based Governance Active
           </span>
         </div>
       </div>
 
-      <div className="p-12 text-center border border-white/5 rounded-sm bg-white/[0.01] text-white/40 font-mono text-xs">
+      <div className="p-12 text-center border border-white/5 rounded-sm bg-white/[0.01] text-white/40 font-normal text-xs">
         No high-risk statutory items pending manual review. All current items verified.
       </div>
     </div>

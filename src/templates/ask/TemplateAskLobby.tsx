@@ -145,7 +145,7 @@ export function TemplateAskLobby() {
       <section className="container-wide border-b border-neutral-200 pb-10 mb-10">
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light bg-brand-electric/10 px-2.5 py-1 rounded-[4px]">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light bg-brand-electric/10 px-2.5 py-1 rounded-[4px]">
               GROUNDED FM RESEARCH DESK
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -191,7 +191,7 @@ export function TemplateAskLobby() {
                   <button
                     type="button"
                     onClick={() => setMode('ask')}
-                    className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors ${
+                    className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider rounded-[4px] transition-colors ${
                       mode === 'ask'
                         ? 'bg-neutral-900 text-white font-medium'
                         : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
@@ -202,7 +202,7 @@ export function TemplateAskLobby() {
                   <button
                     type="button"
                     onClick={() => setMode('deep_research')}
-                    className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-1.5 ${
+                    className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-1.5 ${
                       mode === 'deep_research'
                         ? 'bg-purple-900 text-white font-medium'
                         : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
@@ -216,7 +216,7 @@ export function TemplateAskLobby() {
                 <button
                   type="submit"
                   disabled={loading || !question.trim()}
-                  className="px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-2 font-medium shadow-sm"
+                  className="px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-2 font-medium shadow-sm"
                 >
                   <span>{loading ? 'Researching...' : mode === 'deep_research' ? 'Run Deep Research' : 'Search'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -226,7 +226,7 @@ export function TemplateAskLobby() {
 
             {/* Example Queries */}
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="text-neutral-400 font-mono text-[11px] uppercase mr-1">Try:</span>
+              <span className="text-neutral-400 font-medium text-[11px] uppercase mr-1">Try:</span>
               {EXAMPLE_PROMPTS.slice(0, 4).map((prompt) => (
                 <button
                   key={prompt}
@@ -249,7 +249,7 @@ export function TemplateAskLobby() {
       <section className="container-wide">
         {loading ? (
           <div className="py-20 text-center space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-electric bg-brand-electric/10 px-3.5 py-2 rounded-[4px]">
+            <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-brand-electric bg-brand-electric/10 px-3.5 py-2 rounded-[4px]">
               <Sparkles className="w-4 h-4 animate-spin text-brand-electric" />
               <span>
                 {mode === 'deep_research'
@@ -257,7 +257,7 @@ export function TemplateAskLobby() {
                   : 'Searching verified UK statutory indexes & technical registries...'}
               </span>
             </div>
-            <p className="text-xs text-neutral-500 font-mono">
+            <p className="text-xs text-neutral-500 font-normal">
               Reviewing GOV.UK, legislation.gov.uk, HSE, BSR, IET, and procurement notices...
             </p>
           </div>
@@ -267,7 +267,7 @@ export function TemplateAskLobby() {
             <div className="space-y-8 bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-10 shadow-sm">
               {/* Question Header & Meta */}
               <div className="border-b border-neutral-100 pb-6">
-                <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-neutral-500 mb-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-normal text-neutral-500 mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-brand-electric uppercase tracking-wider font-semibold">
                       {answer.mode === 'deep_research' ? 'Deep Research Report' : answer.intent.replace('_', ' ')}
@@ -341,11 +341,11 @@ export function TemplateAskLobby() {
               {/* Research Plan Stages (If Deep Research) */}
               {answer.researchStages && (
                 <div className="bg-neutral-50 border border-neutral-200/80 p-4 rounded-[6px] space-y-2.5">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-1.5">
+                  <div className="text-[10px] uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-1.5">
                     <Layers className="w-3 h-3 text-purple-700" />
                     <span>Research Execution Pipeline</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-normal">
                     {answer.researchStages.map((stage) => (
                       <div key={stage.id} className="flex items-center gap-2">
                         {stage.status === 'completed' ? (
@@ -378,7 +378,7 @@ export function TemplateAskLobby() {
 
               {/* 01. Short Answer / Executive Summary */}
               <div className="space-y-2">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                <div className="text-[10px] font-medium uppercase tracking-widest text-neutral-400">
                   {answer.mode === 'deep_research' ? 'Executive Intelligence Summary' : 'Short Answer'}
                 </div>
                 <p className="text-base sm:text-lg font-light text-neutral-800 leading-relaxed">
@@ -391,7 +391,7 @@ export function TemplateAskLobby() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-100">
                   {answer.officialPosition && (
                     <div className="space-y-2 p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-rose-800 font-semibold flex items-center gap-1.5">
+                      <div className="text-[10px] uppercase tracking-widest text-rose-800 font-semibold flex items-center gap-1.5">
                         <Scale className="w-3.5 h-3.5 text-rose-700" />
                         <span>Official Statutory Position</span>
                       </div>
@@ -403,7 +403,7 @@ export function TemplateAskLobby() {
 
                   {answer.technicalGuidance && (
                     <div className="space-y-2 p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold flex items-center gap-1.5">
+                      <div className="text-[10px] uppercase tracking-widest text-brand-electric font-semibold flex items-center gap-1.5">
                         <Wrench className="w-3.5 h-3.5 text-brand-electric" />
                         <span>Technical &amp; Industry Standards</span>
                       </div>
@@ -418,7 +418,7 @@ export function TemplateAskLobby() {
               {/* Practical Guidance */}
               {answer.whatThisMeansInPractice && (
                 <div className="space-y-2 pt-2">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-widest text-neutral-400">
                     What This Means In Practice
                   </div>
                   <p className="text-sm font-light text-neutral-700 leading-relaxed">
@@ -430,13 +430,13 @@ export function TemplateAskLobby() {
               {/* 02. What Changed / Primary Facts */}
               {answer.whatChanged && answer.whatChanged.length > 0 && (
                 <div className="space-y-3 pt-4 border-t border-neutral-100">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-widest text-neutral-400">
                     Key Findings &amp; Evidence
                   </div>
                   <div className="space-y-2.5">
                     {answer.whatChanged.map((point, idx) => (
                       <div key={idx} className="flex gap-3 items-start text-sm font-light text-neutral-700">
-                        <span className="font-mono text-xs text-brand-electric font-semibold mt-0.5 shrink-0">
+                        <span className="text-xs text-brand-electric font-semibold mt-0.5 shrink-0">
                           0{idx + 1}
                         </span>
                         <p className="leading-relaxed">{point}</p>
@@ -452,7 +452,7 @@ export function TemplateAskLobby() {
                   {/* Statutory Requirements */}
                   {answer.deepResearchReport.statutoryRequirements.length > 0 && (
                     <div className="space-y-2">
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-rose-700 font-semibold flex items-center gap-1.5">
+                      <div className="text-[10px] uppercase tracking-widest text-rose-700 font-semibold flex items-center gap-1.5">
                         <Scale className="w-3.5 h-3.5" />
                         <span>Statutory Primary Requirements</span>
                       </div>
@@ -467,7 +467,7 @@ export function TemplateAskLobby() {
                   {/* Commercial Impact */}
                   {answer.deepResearchReport.commercialMarketImpact.length > 0 && (
                     <div className="space-y-2">
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold">
+                      <div className="text-[10px] uppercase tracking-widest text-brand-electric font-semibold">
                         Commercial &amp; Procurement Benchmark
                       </div>
                       <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
@@ -483,7 +483,7 @@ export function TemplateAskLobby() {
               {/* 03. Why It Matters & Actions */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-100">
                 <div className="space-y-2">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-widest text-neutral-400">
                     Why It Matters For FM
                   </div>
                   <p className="text-xs sm:text-sm font-light text-neutral-600 leading-relaxed">
@@ -493,7 +493,7 @@ export function TemplateAskLobby() {
 
                 {answer.whatYouNeedToDo && answer.whatYouNeedToDo.length > 0 && (
                   <div className="space-y-2">
-                    <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                    <div className="text-[10px] font-medium uppercase tracking-widest text-neutral-400">
                       What You May Need To Do
                     </div>
                     <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-600">
@@ -523,7 +523,7 @@ export function TemplateAskLobby() {
                   <button
                     type="button"
                     onClick={handleDeepResearchUpgrade}
-                    className="px-5 py-2.5 bg-purple-900 hover:bg-purple-800 text-white text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors shrink-0 font-medium shadow-sm"
+                    className="px-5 py-2.5 bg-purple-900 hover:bg-purple-800 text-white text-xs uppercase tracking-wider rounded-[4px] transition-colors shrink-0 font-medium shadow-sm"
                   >
                     Deep Research This &rarr;
                   </button>
@@ -533,7 +533,7 @@ export function TemplateAskLobby() {
               {/* 04. On The Horizon */}
               {answer.onTheHorizon && (
                 <div className="bg-amber-500/5 border-l-2 border-amber-500 p-4 rounded-r-sm space-y-1">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-amber-700 font-semibold flex items-center gap-1.5">
+                  <div className="text-[10px] uppercase tracking-widest text-amber-700 font-semibold flex items-center gap-1.5">
                     <Clock className="w-3 h-3" />
                     <span>On The Horizon</span>
                   </div>
@@ -557,7 +557,7 @@ export function TemplateAskLobby() {
               {/* Citations Panel */}
               <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 space-y-4 shadow-sm">
                 <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
-                  <div className="text-xs font-mono uppercase tracking-wider text-neutral-900 font-semibold flex items-center gap-2">
+                  <div className="text-xs uppercase tracking-wider text-neutral-900 font-semibold flex items-center gap-2">
                     <Scale className="w-3.5 h-3.5 text-brand-electric" />
                     <span>Sourced Citations ({answer.citations?.length || 0})</span>
                   </div>
@@ -571,7 +571,7 @@ export function TemplateAskLobby() {
                         onClick={() => setActiveCitation(cit)}
                         className="group p-3 border border-neutral-100 hover:border-neutral-300 rounded-[6px] cursor-pointer transition-colors bg-neutral-50/50 hover:bg-white"
                       >
-                        <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-1">
+                        <div className="flex items-center justify-between text-[10px] font-normal text-neutral-400 mb-1">
                           <span className="text-brand-electric font-semibold">[{cit.citationNumber}] {cit.sourceName}</span>
                           <span>Tier {cit.authorityTier}</span>
                         </div>
@@ -583,7 +583,7 @@ export function TemplateAskLobby() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono text-brand-electric hover:underline transition-colors"
+                          className="mt-2 inline-flex items-center gap-1 text-[10px] font-normal text-brand-electric hover:underline transition-colors"
                         >
                           <span>Open source</span>
                           <ExternalLink className="w-2.5 h-2.5" />
@@ -601,7 +601,7 @@ export function TemplateAskLobby() {
               {/* Connected Actions */}
               {answer.relatedActions && answer.relatedActions.length > 0 && (
                 <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 space-y-4 shadow-sm">
-                  <div className="text-xs font-mono uppercase tracking-wider text-neutral-900 font-semibold">
+                  <div className="text-xs uppercase tracking-wider text-neutral-900 font-semibold">
                     Put This Into Practice
                   </div>
 
@@ -612,7 +612,7 @@ export function TemplateAskLobby() {
                         href={action.url}
                         className="group block p-3 border border-neutral-100 hover:border-neutral-300 rounded-[6px] transition-colors bg-neutral-50/50 hover:bg-white"
                       >
-                        <div className="flex items-center justify-between text-[10px] font-mono text-brand-electric mb-1">
+                        <div className="flex items-center justify-between text-[10px] font-normal text-brand-electric mb-1">
                           <span>{action.badge || 'Action'}</span>
                           <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" />
                         </div>
@@ -633,7 +633,7 @@ export function TemplateAskLobby() {
           /* Empty State Suggestions */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-12">
             <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
+              <div className="text-[10px] uppercase tracking-wider text-brand-electric font-semibold">
                 Statutory &amp; Compliance
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">Building Safety &amp; Guidance</h3>
@@ -643,7 +643,7 @@ export function TemplateAskLobby() {
             </div>
 
             <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
+              <div className="text-[10px] uppercase tracking-wider text-brand-electric font-semibold">
                 Procurement Intelligence
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">Tenders &amp; Contract Awards</h3>
@@ -653,7 +653,7 @@ export function TemplateAskLobby() {
             </div>
 
             <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
+              <div className="text-[10px] uppercase tracking-wider text-brand-electric font-semibold">
                 Technical Standards
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">M&amp;E and Operational Guidance</h3>

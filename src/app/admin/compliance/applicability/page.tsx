@@ -27,7 +27,7 @@ export default async function ComplianceApplicabilityPage() {
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
         <h3 className="text-sm font-normal text-white">Applicability Logic & Provenance</h3>
         <p className="text-[12.5px] text-brand-mist/70 leading-relaxed">
-          The Applicability Engine evaluates building usage, jurisdiction, installed systems, and statutory duty holders. If facts are missing, the assessment outputs <span className="font-mono text-amber-300">REVIEW_REQUIRED</span> rather than assuming compliance.
+          The Applicability Engine evaluates building usage, jurisdiction, installed systems, and statutory duty holders. If facts are missing, the assessment outputs <span className="font-normal text-amber-300">REVIEW_REQUIRED</span> rather than assuming compliance.
         </p>
       </div>
     </div>

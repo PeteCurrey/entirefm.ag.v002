@@ -304,7 +304,7 @@ export function ServiceSecurityAccess({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
               <div className="mb-10 text-center">
-                <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright block mb-2">
+                <span className="text-[10.5px] font-medium uppercase tracking-widest text-brand-electric-bright block mb-2">
                   SECURITY ADVISORY
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-light text-white">

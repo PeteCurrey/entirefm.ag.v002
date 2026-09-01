@@ -45,7 +45,7 @@ export default async function ClientDashboardPage() {
       {/* ─── PRIMARY ACTION HERO BANNER ──────────────────────────────────────── */}
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
             CLIENT OPERATIONS DESK &bull; {session.orgName}
           </span>
           <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
@@ -67,37 +67,37 @@ export default async function ClientDashboardPage() {
       {/* ─── KEY OPERATIONAL METRICS STRIP ───────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Open Jobs</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Open Jobs</span>
           <p className="text-2xl font-light text-white mt-1">{openWorkOrders.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Active requests</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Awaiting Visit</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Awaiting Visit</span>
           <p className="text-2xl font-light text-amber-400 mt-1">{awaitingAttendance.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Allocated / dispatching</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">In Progress</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">In Progress</span>
           <p className="text-2xl font-light text-brand-electric-bright mt-1">{inProgress.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Engineer attending</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Quotes Awaiting</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Quotes Awaiting</span>
           <p className="text-2xl font-light text-purple-400 mt-1">{pendingQuotes.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Requires approval</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">PPM Upcoming</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">PPM Upcoming</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{(ppmRes.data || []).length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Scheduled maintenance</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Completed</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Completed</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{completedJobs.length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Recently resolved</span>
         </div>
@@ -160,11 +160,11 @@ export default async function ClientDashboardPage() {
                 <div key={wo.id} className="py-3.5 flex items-center justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="text-[13.5px] font-normal text-white truncate">{wo.title}</div>
-                    <div className="text-[11px] text-brand-mist/50 font-mono mt-0.5">
+                    <div className="text-[11px] text-brand-mist/50 font-normal mt-0.5">
                       {wo.work_order_number} &bull; Priority {wo.priority}
                     </div>
                   </div>
-                  <span className={`shrink-0 rounded px-2 py-0.5 font-mono text-[10.5px] font-medium border ${
+                  <span className={`shrink-0 rounded px-2 py-0.5 text-[10.5px] font-medium border ${
                     wo.status === 'IN_PROGRESS'
                       ? 'bg-brand-electric/10 border-brand-electric/30 text-brand-electric-bright'
                       : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
@@ -199,11 +199,11 @@ export default async function ClientDashboardPage() {
                 <div key={s.id} className="py-3.5 flex items-center justify-between">
                   <div>
                     <div className="text-[13.5px] font-normal text-white">{s.name}</div>
-                    <div className="text-[11px] text-brand-mist/50 font-mono mt-0.5">
+                    <div className="text-[11px] text-brand-mist/50 font-normal mt-0.5">
                       {s.site_code || 'SITE'} &bull; {s.city || 'United Kingdom'}
                     </div>
                   </div>
-                  <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
+                  <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                     ACTIVE
                   </span>
                 </div>

@@ -12,7 +12,7 @@ export default async function SiteSurveysPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             TECHNICAL DISCOVERY &amp; ASSET WALKS
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Commercial Site Surveys</h1>
@@ -36,12 +36,12 @@ export default async function SiteSurveysPage() {
         </div>
 
         {surveys.length === 0 ? (
-          <div className="p-12 text-center text-zinc-500 text-xs font-mono">
+          <div className="p-12 text-center text-zinc-500 text-xs font-normal">
             No site surveys currently scheduled. Technical surveys arranged from opportunities will appear here.
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Site Name &amp; Address</th>
                 <th className="py-3 px-4">Survey Type</th>
@@ -57,13 +57,13 @@ export default async function SiteSurveysPage() {
                     <div className="font-light text-white">{s.site_name}</div>
                     <div className="text-[11px] text-zinc-500">{s.site_address}</div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-300">{s.survey_type}</td>
-                  <td className="py-3.5 px-4 font-mono text-pink-400">
+                  <td className="py-3.5 px-4 font-normal text-zinc-300">{s.survey_type}</td>
+                  <td className="py-3.5 px-4 font-normal text-pink-400">
                     {new Date(s.scheduled_at).toLocaleDateString('en-GB')}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">{s.surveyor_name}</td>
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">{s.surveyor_name}</td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-800/40 font-light">
+                    <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-800/40 font-light">
                       {s.survey_status}
                     </span>
                   </td>

@@ -391,7 +391,7 @@ export function TemplateContact() {
                         </span>
                         <a
                           href={CONTACT_CONFIG.mainPhone.href}
-                          className="text-base sm:text-lg font-light font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
+                          className="text-base sm:text-lg font-light text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.mainPhone.display}
                         </a>
@@ -412,7 +412,7 @@ export function TemplateContact() {
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.enquiryEmail}`}
-                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.enquiryEmail}
                         </a>
@@ -433,7 +433,7 @@ export function TemplateContact() {
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`}
-                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.helpdeskEmail}
                         </a>
@@ -454,7 +454,7 @@ export function TemplateContact() {
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.careersEmail}`}
-                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.careersEmail}
                         </a>
@@ -559,7 +559,7 @@ export function TemplateContact() {
                   </Link>
                   <a
                     href={CONTACT_CONFIG.mainPhone.href}
-                    className="text-xs font-mono font-normal text-slate-300 hover:text-white transition-colors"
+                    className="text-xs font-normal text-slate-300 hover:text-white transition-colors"
                   >
                     Direct line: {CONTACT_CONFIG.mainPhone.display}
                   </a>

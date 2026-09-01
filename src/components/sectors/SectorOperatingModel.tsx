@@ -45,7 +45,7 @@ export function SectorOperatingModel({
               className="py-8 md:py-10 md:px-6 first:pl-0 last:pr-0 space-y-4 group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-sm text-brand-pink font-light">
+                <span className="text-sm text-brand-pink font-light">
                   PHASE // {s.step}
                 </span>
               </div>

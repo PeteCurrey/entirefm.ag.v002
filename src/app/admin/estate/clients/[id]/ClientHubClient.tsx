@@ -71,27 +71,27 @@ export function ClientHubClient({
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">Managed Sites</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">Managed Sites</span>
           <p className="text-xl font-light text-[#101010] mt-1">{sites.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">Total Assets</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">Total Assets</span>
           <p className="text-xl font-light text-[#101010] mt-1">{assets.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">Live Contracts</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">Live Contracts</span>
           <p className="text-xl font-light text-[#101010] mt-1">{contracts.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">Open Jobs</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">Open Jobs</span>
           <p className="text-xl font-light text-amber-600 mt-1">{openJobs.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">PPM Plans</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">PPM Plans</span>
           <p className="text-xl font-light text-[#101010] mt-1">{ppmPlans.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-[#686866]">Quotes</span>
+          <span className="text-[11px] font-normal uppercase text-[#686866]">Quotes</span>
           <p className="text-xl font-light text-[#101010] mt-1">{quotes.length}</p>
         </div>
       </div>
@@ -163,7 +163,7 @@ export function ClientHubClient({
                       <div className="font-medium text-[13px] text-[#101010]">{w.title}</div>
                       <div className="text-[11px] text-[#686866]">{w.work_order_number} · {w.priority}</div>
                     </div>
-                    <span className="rounded px-2 py-0.5 text-[10px] font-mono bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
+                    <span className="rounded px-2 py-0.5 text-[10px] font-normal bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                       {w.status}
                     </span>
                   </div>
@@ -191,7 +191,7 @@ export function ClientHubClient({
                 >
                   <div className="font-medium text-[13.5px] text-[#101010]">{s.name}</div>
                   <div className="text-[11.5px] text-[#686866] mt-1">{s.address_line1}, {s.city} {s.postcode}</div>
-                  <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-[#686866]">
+                  <div className="mt-3 flex items-center justify-between text-[11px] font-normal text-[#686866]">
                     <span>{s.site_code}</span>
                     <span className="text-[#EA580C]">Open Site 360 →</span>
                   </div>
@@ -215,7 +215,7 @@ export function ClientHubClient({
                     <div className="font-medium text-[13px] text-[#101010]">{a.name}</div>
                     <div className="text-[11px] text-[#686866]">{a.asset_reference} · {a.category} · Condition: {a.condition}</div>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
+                  <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {a.status}
                   </span>
                 </div>
@@ -238,7 +238,7 @@ export function ClientHubClient({
                     <div className="font-medium text-[13px] text-[#101010]">{c.name}</div>
                     <div className="text-[11px] text-[#686866]">Ref: {c.contract_reference} · Type: {c.contract_type} · Term: {c.start_date} to {c.end_date}</div>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     {c.status}
                   </span>
                 </div>
@@ -261,7 +261,7 @@ export function ClientHubClient({
                     <div className="font-medium text-[13px] text-[#101010]">{w.title}</div>
                     <div className="text-[11px] text-[#686866]">{w.work_order_number} · Priority: {w.priority} · Type: {w.work_type}</div>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
+                  <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {w.status}
                   </span>
                 </div>
@@ -284,7 +284,7 @@ export function ClientHubClient({
                     <div className="font-medium text-[13px] text-[#101010]">{p.name}</div>
                     <div className="text-[11px] text-[#686866]">Plan #{p.plan_number} · Effective: {p.effective_from}</div>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
+                  <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {p.status}
                   </span>
                 </div>
@@ -307,7 +307,7 @@ export function ClientHubClient({
                     <div className="font-medium text-[13px] text-[#101010]">{q.scope_description || q.quote_number}</div>
                     <div className="text-[11px] text-[#686866]">{q.quote_number} · Value: £{Number(q.total_amount_gbp || 0).toFixed(2)}</div>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
+                  <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {q.status}
                   </span>
                 </div>

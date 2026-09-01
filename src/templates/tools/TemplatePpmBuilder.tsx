@@ -405,7 +405,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       01 / Building Profile
                     </span>
                   </div>
@@ -423,7 +423,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Site / building name
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Optional</span>
+                      <span className="text-[11px] font-normal text-slate-600">Optional</span>
                     </div>
                     <input
                       type="text"
@@ -439,7 +439,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Building type
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Required</span>
+                      <span className="text-[11px] font-normal text-slate-600">Required</span>
                     </div>
                     <select
                       value={buildingType}
@@ -462,7 +462,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Approximate floor area
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Optional</span>
+                      <span className="text-[11px] font-normal text-slate-600">Optional</span>
                     </div>
                     <input
                       type="text"
@@ -478,7 +478,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Operating profile
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Required</span>
+                      <span className="text-[11px] font-normal text-slate-600">Required</span>
                     </div>
                     <select
                       value={occupancyProfile}
@@ -497,7 +497,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Number of storeys
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Optional</span>
+                      <span className="text-[11px] font-normal text-slate-600">Optional</span>
                     </div>
                     <input
                       type="text"
@@ -513,7 +513,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Site criticality
                       </label>
-                      <span className="text-[11px] font-mono text-slate-600">Required</span>
+                      <span className="text-[11px] font-normal text-slate-600">Required</span>
                     </div>
                     <select
                       value={siteCriticality}
@@ -528,7 +528,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 </div>
 
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs text-slate-600 font-mono">
+                  <span className="text-xs text-slate-600 font-normal">
                     STEP 1 OF 6
                   </span>
                   <button
@@ -552,13 +552,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     className="object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-light tracking-wider uppercase">
+                  <div className="absolute bottom-2.5 left-3 text-[10.5px] text-white font-light tracking-wider uppercase">
                     Commercial Plant &amp; Infrastructure
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider">
                     Building Profile Guidance
                   </h3>
                   <p className="text-slate-600 mt-2 text-xs leading-relaxed">
@@ -568,7 +568,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                 <div className="space-y-4 pt-4 border-t border-slate-100 text-xs">
                   <div>
-                    <span className="font-light text-brand-electric block uppercase text-[10.5px] tracking-wider font-mono">
+                    <span className="font-light text-brand-electric block uppercase text-[10.5px] tracking-wider">
                       Used to Calculate
                     </span>
                     <ul className="mt-1.5 space-y-1 text-slate-600">
@@ -588,7 +588,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   </div>
 
                   <div className="pt-3 border-t border-slate-100">
-                    <span className="text-[11px] font-mono text-slate-600 block">
+                    <span className="text-[11px] font-normal text-slate-600 block">
                       Data Privacy: Your estate inputs remain strictly in this browser session.
                     </span>
                   </div>
@@ -606,7 +606,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       02 / Discipline Scope
                     </span>
                   </div>
@@ -635,7 +635,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         }`}
                       >
                         <div className="flex items-center gap-4 min-w-0">
-                          <span className="text-xs font-mono font-light text-slate-600 w-5 shrink-0">
+                          <span className="text-xs font-light text-slate-600 w-5 shrink-0">
                             {catNumber}
                           </span>
                           <IconComponent className={`w-4 h-4 shrink-0 ${isSelected ? 'text-brand-electric' : 'text-slate-600'}`} />
@@ -648,7 +648,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         </div>
 
                         <div className="flex items-center gap-4 shrink-0">
-                          <span className="text-[11px] font-mono text-slate-600 hidden sm:inline font-light">
+                          <span className="text-[11px] text-slate-600 hidden sm:inline font-light">
                             {cat.assets.length} ASSETS
                           </span>
                           <div
@@ -697,13 +697,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     className="object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-light tracking-wider uppercase">
+                  <div className="absolute bottom-2.5 left-3 text-[10.5px] text-white font-light tracking-wider uppercase">
                     Discipline Filtering
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider">
                     Discipline Scope Notice
                   </h3>
                   <p className="text-slate-600 mt-2 leading-relaxed">
@@ -725,7 +725,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                      <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                      <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                         03 / Asset Register Library
                       </span>
                     </div>
@@ -793,7 +793,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                       return (
                         <div key={cat.id} className="space-y-2.5">
-                          <div className="text-xs font-mono font-light text-slate-700 uppercase tracking-wider">
+                          <div className="text-xs font-light text-slate-700 uppercase tracking-wider">
                             {cat.name}
                           </div>
 
@@ -815,13 +815,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                     <div className="flex items-center gap-2 flex-wrap">
                                       <span className="text-sm font-normal text-slate-900">{asset.name}</span>
                                       {asset.isStatutoryOrStandard && (
-                                        <span className="px-2 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 font-mono text-[9.5px] uppercase font-light rounded-sm">
+                                        <span className="px-2 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 text-[9.5px] uppercase font-light rounded-sm">
                                           STATUTORY DUTY
                                         </span>
                                       )}
                                     </div>
                                     <p className="text-xs text-slate-600 leading-snug">{asset.shortDescription}</p>
-                                    <div className="text-[11px] font-mono text-slate-600">
+                                    <div className="text-[11px] font-normal text-slate-600">
                                       Standard frequencies: {asset.defaultFrequencies.join(' · ')}
                                     </div>
                                   </div>
@@ -838,7 +838,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                             >
                                               −
                                             </button>
-                                            <span className="px-2 font-mono text-xs font-normal text-slate-900">
+                                            <span className="px-2 text-xs font-normal text-slate-900">
                                               {currentQty}
                                             </span>
                                             <button
@@ -881,13 +881,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {/* 30% Sticky Selected Assets Sidebar */}
               <aside className="lg:col-span-4 border border-slate-200 bg-white p-6 rounded-sm space-y-5 sticky top-24 shadow-sm">
                 <div className="border-b border-slate-100 pb-3">
-                  <div className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-light">
+                  <div className="text-[11px] text-slate-500 uppercase tracking-widest font-light">
                     Selected Estate
                   </div>
                   <h3 className="text-xl font-light text-slate-900 mt-0.5">
                     {selectedAssetList.length} Asset Types
                   </h3>
-                  <span className="text-xs text-slate-600 font-mono">
+                  <span className="text-xs text-slate-600 font-normal">
                     {totalPhysicalAssetCount} physical items registered
                   </span>
                 </div>
@@ -906,7 +906,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                           {definition.supportsQuantity !== false ? `${quantity}× ` : ''}
                           {definition.name}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-600">{definition.categoryName}</span>
+                        <span className="text-[10px] font-normal text-slate-600">{definition.categoryName}</span>
                       </div>
                       <button
                         type="button"
@@ -951,7 +951,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                    <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                       04 / Asset Configuration
                     </span>
                   </div>
@@ -979,7 +979,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         className="p-4 border border-slate-200 bg-slate-50 rounded-sm grid grid-cols-1 sm:grid-cols-12 gap-3 items-center"
                       >
                         <div className="sm:col-span-4">
-                          <span className="text-[10px] font-mono text-slate-600 uppercase font-light">{definition.categoryName}</span>
+                          <span className="text-[10px] text-slate-600 uppercase font-light">{definition.categoryName}</span>
                           <span className="text-sm font-normal text-slate-900 block">{definition.name}</span>
                         </div>
 
@@ -992,11 +992,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                 min={1}
                                 value={selectedAssets[definition.id] || 1}
                                 onChange={(e) => setExactAssetQuantity(definition.id, parseInt(e.target.value) || 1)}
-                                className="w-16 px-2.5 py-1 bg-white border border-slate-300 text-xs font-mono font-light text-slate-900 rounded-sm shadow-2xs"
+                                className="w-16 px-2.5 py-1 bg-white border border-slate-300 text-xs font-light text-slate-900 rounded-sm shadow-2xs"
                               />
                             </div>
                           ) : (
-                            <span className="text-xs font-mono text-slate-600">Whole Building</span>
+                            <span className="text-xs font-normal text-slate-600">Whole Building</span>
                           )}
                         </div>
 
@@ -1055,7 +1055,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
               <aside className="lg:col-span-4 border border-slate-200 bg-white p-6 rounded-sm space-y-6 shadow-sm text-xs">
                 <div>
-                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider">
                     Lifecycle &amp; Wear Calibration
                   </h3>
                   <p className="text-slate-600 mt-2 leading-relaxed">
@@ -1074,7 +1074,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               <div className="border-b border-slate-100 pb-5">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                  <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
+                  <span className="text-[11px] tracking-widest text-slate-500 uppercase font-light">
                     05 / Estate Review
                   </span>
                 </div>
@@ -1089,22 +1089,22 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {/* Executive Metrics Strip */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-4 border-y border-slate-100">
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Property Profile</span>
+                  <span className="text-[11px] text-slate-600 uppercase font-light">Property Profile</span>
                   <div className="text-sm font-normal text-slate-900 mt-0.5">{buildingType}</div>
                   <span className="text-xs text-slate-600">{buildingName || 'Commercial Estate'}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Floor Area</span>
+                  <span className="text-[11px] text-slate-600 uppercase font-light">Floor Area</span>
                   <div className="text-sm font-normal text-slate-900 mt-0.5">{floorArea}</div>
                   <span className="text-xs text-slate-600">{numberOfFloors}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Asset Systems</span>
+                  <span className="text-[11px] text-slate-600 uppercase font-light">Asset Systems</span>
                   <div className="text-sm font-normal text-slate-900 mt-0.5">{selectedAssetList.length} Types</div>
                   <span className="text-xs text-slate-600">Selected</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Physical Items</span>
+                  <span className="text-[11px] text-slate-600 uppercase font-light">Physical Items</span>
                   <div className="text-sm font-normal text-slate-900 mt-0.5">{totalPhysicalAssetCount} Assets</div>
                   <span className="text-xs text-slate-600">Total Count</span>
                 </div>
@@ -1112,7 +1112,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
               {/* Configured Asset Register Table */}
               <div className="space-y-3">
-                <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
+                <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider">
                   Configured Asset Register to be Processed:
                 </h3>
                 <div className="border border-slate-200 bg-slate-50 divide-y divide-slate-200 text-xs rounded-sm">
@@ -1120,9 +1120,9 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     <div key={definition.id} className="p-3.5 flex items-center justify-between">
                       <div className="min-w-0">
                         <span className="font-light text-slate-900">{definition.name}</span>
-                        <span className="text-[11px] font-mono text-slate-600 ml-2">({definition.categoryName})</span>
+                        <span className="text-[11px] font-normal text-slate-600 ml-2">({definition.categoryName})</span>
                       </div>
-                      <span className="font-mono font-light text-slate-800 shrink-0">
+                      <span className="font-light text-slate-800 shrink-0">
                         {definition.supportsQuantity !== false ? `${quantity} Units` : 'Whole Site'}
                       </span>
                     </div>
@@ -1176,7 +1176,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               <div className="border border-slate-200 bg-white p-6 sm:p-8 rounded-sm space-y-6 shadow-md">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                   <div>
-                    <span className="text-[11px] font-mono text-brand-electric uppercase tracking-widest font-light bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
+                    <span className="text-[11px] text-brand-electric uppercase tracking-widest font-light bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
                       Generated Output Specification
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-1">
@@ -1200,26 +1200,26 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 {/* Scoreboard Metrics Strip with fine vertical dividers */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-2 border-b border-slate-100">
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-slate-600 uppercase font-medium block">Planned Tasks</span>
-                    <div className="text-2xl sm:text-3xl font-light text-slate-900 font-mono tabular-nums mt-1">{stats.totalActivities}</div>
+                    <span className="text-[11px] text-slate-600 uppercase font-medium block">Planned Tasks</span>
+                    <div className="text-2xl sm:text-3xl font-light text-slate-900 tabular-nums mt-1">{stats.totalActivities}</div>
                     <span className="text-xs text-slate-600 font-light">12-Month Schedule</span>
                   </div>
 
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-rose-700 uppercase font-medium block">Legal Duties</span>
-                    <div className="text-2xl sm:text-3xl font-light text-rose-600 font-mono tabular-nums mt-1">{stats.legalCount}</div>
+                    <span className="text-[11px] text-rose-700 uppercase font-medium block">Legal Duties</span>
+                    <div className="text-2xl sm:text-3xl font-light text-rose-600 tabular-nums mt-1">{stats.legalCount}</div>
                     <span className="text-xs text-slate-600 font-light">Statutory Regulations</span>
                   </div>
 
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-blue-700 uppercase font-medium block">British Standards</span>
-                    <div className="text-2xl sm:text-3xl font-light text-blue-600 font-mono tabular-nums mt-1">{stats.standardCount}</div>
+                    <span className="text-[11px] text-blue-700 uppercase font-medium block">British Standards</span>
+                    <div className="text-2xl sm:text-3xl font-light text-blue-600 tabular-nums mt-1">{stats.standardCount}</div>
                     <span className="text-xs text-slate-600 font-light">Code of Practice</span>
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-mono text-emerald-700 uppercase font-medium block">SFG20 &amp; Risk</span>
-                    <div className="text-2xl sm:text-3xl font-light text-emerald-600 font-mono tabular-nums mt-1">{stats.sfg20Count}</div>
+                    <span className="text-[11px] text-emerald-700 uppercase font-medium block">SFG20 &amp; Risk</span>
+                    <div className="text-2xl sm:text-3xl font-light text-emerald-600 tabular-nums mt-1">{stats.sfg20Count}</div>
                     <span className="text-xs text-slate-600 font-light">Preventative Care</span>
                   </div>
                 </div>
@@ -1298,23 +1298,23 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                           <td className="p-3.5 font-light text-slate-900 whitespace-nowrap">
                             {quantity > 1 ? `${quantity}× ` : ''}
                             {asset.name}
-                            <span className="text-[10px] font-mono text-slate-600 block font-normal">
+                            <span className="text-[10px] text-slate-600 block font-normal">
                               {asset.categoryName}
                             </span>
                           </td>
                           <td className="p-3.5">
                             <p className="text-slate-900 leading-snug font-light">{task.activity}</p>
-                            <span className="text-[10.5px] font-mono text-slate-600 mt-1 block">
+                            <span className="text-[10.5px] font-normal text-slate-600 mt-1 block">
                               Evidence: {task.evidenceExpected}
                             </span>
                           </td>
-                          <td className="p-3.5 text-center whitespace-nowrap font-mono font-light text-slate-800">
+                          <td className="p-3.5 text-center whitespace-nowrap font-light text-slate-800">
                             {task.frequency}
                           </td>
                           <td className="p-3.5">
                             <ComplianceBadge classification={task.classification} />
                           </td>
-                          <td className="p-3.5 font-mono text-[11px] text-slate-700">
+                          <td className="p-3.5 font-normal text-[11px] text-slate-700">
                             <div className="font-light text-brand-electric">{task.governingBasis}</div>
                             <div className="text-[10px] text-slate-600">{task.statutoryReference}</div>
                           </td>
@@ -1332,7 +1332,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {programmeViewMode === 'annual' && (
                 <div className="border border-slate-200 bg-white p-6 rounded-sm space-y-6 shadow-sm">
                   <div className="border-b border-slate-100 pb-3">
-                    <h3 className="text-sm font-normal text-slate-900 uppercase tracking-wider font-mono">
+                    <h3 className="text-sm font-normal text-slate-900 uppercase tracking-wider">
                       12-Month Annual Distribution Schedule (Jan–Dec)
                     </h3>
                   </div>
@@ -1345,8 +1345,8 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       return (
                         <div key={mName} className="p-4 border border-slate-200 bg-slate-50 rounded-sm space-y-2">
                           <div className="flex items-center justify-between border-b border-slate-200 pb-1.5">
-                            <span className="font-mono text-xs font-normal text-slate-900">{mName} 2026</span>
-                            <span className="text-[10px] font-mono font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{monthTasks.length} Regimes</span>
+                            <span className="text-xs font-normal text-slate-900">{mName} 2026</span>
+                            <span className="text-[10px] font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{monthTasks.length} Regimes</span>
                           </div>
 
                           <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1 scrollbar-thin">

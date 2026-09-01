@@ -120,7 +120,7 @@ export function JobApplicationModal({ vacancy, onClose }: JobApplicationModalPro
               <span className="text-[10px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-xs bg-white/10 text-brand-electric-bright">
                 {vacancy.department}
               </span>
-              <span className="text-[10px] font-mono text-brand-mist/50">
+              <span className="text-[10px] font-normal text-brand-mist/50">
                 Ref: {vacancy.reference}
               </span>
             </div>

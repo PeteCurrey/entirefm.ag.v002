@@ -51,7 +51,7 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
         />
         {/* Section label over image */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric">
+          <span className="text-[10px] font-normal uppercase tracking-[0.25em] text-brand-electric">
             THE LOBBY QUESTION
           </span>
           <p className="text-[10px] text-white/40 mt-0.5">Week {data.weekNumber}</p>
@@ -121,7 +121,7 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
               type="button"
               onClick={handleSubmit}
               disabled={!selectedId}
-              className="border border-brand-electric text-brand-electric text-[10px] font-mono tracking-widest py-2 px-6 uppercase hover:bg-brand-electric/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="border border-brand-electric text-brand-electric text-[10px] font-normal tracking-widest py-2 px-6 uppercase hover:bg-brand-electric/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Submit Answer
             </button>
@@ -129,12 +129,12 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 {isCorrect ? (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/15 text-emerald-400 text-[10px] font-mono uppercase tracking-wider rounded-sm border border-emerald-500/25">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/15 text-emerald-400 text-[10px] font-medium uppercase tracking-wider rounded-sm border border-emerald-500/25">
                     <Check className="w-3 h-3" />
                     Correct · +50 pts
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 text-white/50 text-[10px] font-mono uppercase tracking-wider rounded-sm border border-white/10">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 text-white/50 text-[10px] font-medium uppercase tracking-wider rounded-sm border border-white/10">
                     Incorrect
                   </span>
                 )}

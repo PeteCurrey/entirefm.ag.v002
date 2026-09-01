@@ -40,17 +40,17 @@ export default async function AdminCompletionReviewPage() {
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-edge-dark pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-base font-light text-white">{r.report_number}</span>
-                  <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded font-mono font-light">
+                  <span className="text-base font-light text-white">{r.report_number}</span>
+                  <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded font-light">
                     AWAITING REVIEW
                   </span>
                   {r.work_order?.reference && (
-                    <span className="text-xs text-brand-mist font-mono">
+                    <span className="text-xs text-brand-mist font-normal">
                       WO: {r.work_order.reference}
                     </span>
                   )}
                 </div>
-                <div className="text-xs text-brand-mist flex items-center gap-1 font-mono">
+                <div className="text-xs text-brand-mist flex items-center gap-1 font-normal">
                   <Clock className="w-3.5 h-3.5" />
                   {r.submitted_at ? new Date(r.submitted_at).toLocaleString('en-GB') : 'Recently'}
                 </div>
@@ -81,7 +81,7 @@ export default async function AdminCompletionReviewPage() {
                   <span className="text-xs text-brand-mist uppercase tracking-wider font-light block mb-1">
                     Field Summary
                   </span>
-                  <p className="text-xs text-white/90 leading-relaxed font-mono">
+                  <p className="text-xs text-white/90 leading-relaxed font-normal">
                     {r.ai_draft_narrative}
                   </p>
                 </div>

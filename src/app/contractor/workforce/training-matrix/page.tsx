@@ -33,7 +33,7 @@ export default async function TrainingMatrixPage() {
         <div className="space-y-1">
           <Link
             href="/contractor/workforce"
-            className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-mono mb-2"
+            className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Workforce Roster
           </Link>

@@ -150,7 +150,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase font-medium">
+                <span className="text-[11px] tracking-widest text-slate-400 uppercase font-medium">
                   Interactive Engineering Toolkit
                 </span>
               </div>
@@ -184,7 +184,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
               <div>
-                <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-electric">
+                <span className="text-xs font-light uppercase tracking-wider text-brand-electric">
                   Toolkit Directory
                 </span>
                 <h2 className="mt-1 text-2xl sm:text-3xl font-extralight text-slate-900">
@@ -223,7 +223,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                         <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                           <IconComponent className="h-5 w-5" />
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] font-mono font-light text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">
+                        <span className="flex items-center gap-1 text-[11px] font-light text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">
                           <Clock className="h-3 w-3" />
                           {tool.timeEstimate}
                         </span>
@@ -288,7 +288,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="grid gap-10 lg:grid-cols-2 items-center">
               <div>
-                <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-electric">
+                <span className="text-xs font-light uppercase tracking-wider text-brand-electric">
                   Technical Integrity
                 </span>
                 <h2 className="mt-2 text-2xl sm:text-3xl font-extralight text-slate-900">
@@ -314,7 +314,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
               </div>
 
               <div className="rounded-sm border border-slate-200 bg-slate-50 p-6 sm:p-8 space-y-4 shadow-sm">
-                <p className="text-xs font-mono font-light uppercase tracking-wider text-slate-600 mb-2">
+                <p className="text-xs font-light uppercase tracking-wider text-slate-600 mb-2">
                   Related Knowledge Hubs
                 </p>
                 <div className="space-y-3">

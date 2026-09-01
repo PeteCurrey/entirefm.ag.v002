@@ -12,7 +12,7 @@ export default async function LostOpportunitiesPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-red-400 font-light">
+          <span className="text-[10px] uppercase text-red-400 font-light">
             COMMERCIAL LOSS ANALYSIS &amp; FEEDBACK
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Lost Opportunities Analysis</h1>
@@ -36,12 +36,12 @@ export default async function LostOpportunitiesPage() {
         </div>
 
         {opps.length === 0 ? (
-          <div className="p-12 text-center text-zinc-500 text-xs font-mono">
+          <div className="p-12 text-center text-zinc-500 text-xs font-normal">
             Zero lost opportunities recorded in this period.
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Company</th>
                 <th className="py-3 px-4">Service &amp; Location</th>
@@ -57,11 +57,11 @@ export default async function LostOpportunitiesPage() {
                   <td className="py-3.5 px-4 text-zinc-400">
                     {o.service} · {o.location}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-red-400 font-light">{o.won_lost_reason || 'Unspecified'}</td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-300">
+                  <td className="py-3.5 px-4 text-red-400 font-light">{o.won_lost_reason || 'Unspecified'}</td>
+                  <td className="py-3.5 px-4 font-normal text-zinc-300">
                     {o.estimated_value_gbp ? `£${o.estimated_value_gbp.toLocaleString()}` : '—'}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-500">
+                  <td className="py-3.5 px-4 font-normal text-zinc-500">
                     {o.closed_at ? new Date(o.closed_at).toLocaleDateString('en-GB') : '—'}
                   </td>
                 </tr>

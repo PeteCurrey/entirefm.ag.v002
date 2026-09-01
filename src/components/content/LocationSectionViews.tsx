@@ -144,7 +144,7 @@ export function LocationServiceGrid({
                   <div className="w-10 h-10 rounded-sm bg-brand-pink/10 flex items-center justify-center">
                     {svc.icon}
                   </div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-light">
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-light">
                     {svc.category}
                   </span>
                 </div>

@@ -74,7 +74,7 @@ export default function DataSubjectRightsPage() {
           1. Electronic Rights Submission Portal
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
-          Please submit your statutory request using the form below. Your request will be assigned a unique tracking reference (<code className="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">SAR-YYYY-XXXXX</code>) and routed directly to our Data Protection Officer.
+          Please submit your statutory request using the form below. Your request will be assigned a unique tracking reference (<code className="text-xs bg-slate-100 px-1 py-0.5 rounded font-normal">SAR-YYYY-XXXXX</code>) and routed directly to our Data Protection Officer.
         </p>
 
         <DataRightsRequestForm />
@@ -197,7 +197,7 @@ export default function DataSubjectRightsPage() {
         <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600">
           <li>Select <strong>Right to Object (Article 21)</strong> in the portal form above;</li>
           <li>Click the unsubscribe link present in every marketing email; or</li>
-          <li>Email <code className="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">opt-out@entirefm.com</code> with your domain/email.</li>
+          <li>Email <code className="text-xs bg-slate-100 px-1 py-0.5 rounded font-normal">opt-out@entirefm.com</code> with your domain/email.</li>
         </ul>
         <p className="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200">
           Your email address will be placed on our permanent suppression list within 24 business hours to ensure no future prospecting contacts are initiated.

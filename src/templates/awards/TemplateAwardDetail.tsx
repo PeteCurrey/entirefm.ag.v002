@@ -18,7 +18,7 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
       
       {/* Header Bar */}
       <header className="border-b border-neutral-200 bg-white py-4">
-        <div className="container-wide flex items-center justify-between text-xs font-mono">
+        <div className="container-wide flex items-center justify-between text-xs font-normal">
           <Link
             href="/lobby/awards"
             className="inline-flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900 transition-colors uppercase tracking-wider"
@@ -38,7 +38,7 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
         
         {/* Award Meta Header */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-widest">
+          <div className="flex items-center gap-2 text-xs font-medium text-neutral-500 uppercase tracking-widest">
             <span>Organised by: {award.organiser}</span>
           </div>
 
@@ -63,7 +63,7 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
-          <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap items-center justify-between text-xs text-white font-mono gap-3">
+          <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap items-center justify-between text-xs text-white font-normal gap-3">
             <span>Ceremony: {new Date(award.eventDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
             <span>{award.location}</span>
           </div>
@@ -72,7 +72,7 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
         {/* Why It Matters / Editorial Viewpoint */}
         {award.whyItMatters && (
           <div className="bg-white border-l-4 border-amber-500 p-6 sm:p-7 rounded-sm shadow-subtle space-y-2 border border-neutral-200/80">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-600 font-semibold block">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-amber-600 font-semibold block">
               ENTIREFM INDUSTRY BENCHMARK VIEWPOINT
             </span>
             <p className="text-sm sm:text-base font-light text-neutral-800 leading-relaxed">
@@ -82,7 +82,7 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
         )}
 
         {/* Key Dates & Timeline Grid */}
-        <div className="grid sm:grid-cols-3 gap-6 bg-white p-6 sm:p-8 rounded-sm border border-neutral-200/80 text-xs font-mono">
+        <div className="grid sm:grid-cols-3 gap-6 bg-white p-6 sm:p-8 rounded-sm border border-neutral-200/80 text-xs font-normal">
           <div className="space-y-1">
             <span className="text-neutral-400 uppercase tracking-wider block">Entry Window Closes</span>
             <p className="text-base font-medium text-neutral-900">
@@ -127,13 +127,13 @@ export function TemplateAwardDetail({ award, otherAwards }: TemplateAwardDetailP
               href={award.officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-neutral-900 text-white rounded-sm text-xs font-mono uppercase tracking-wider hover:bg-brand-electric transition-colors inline-flex items-center gap-2"
+              className="px-6 py-3 bg-neutral-900 text-white rounded-sm text-xs font-medium uppercase tracking-wider hover:bg-brand-electric transition-colors inline-flex items-center gap-2"
             >
               <span>Visit Official Entry Portal</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
 
-            <span className="text-xs text-neutral-400 font-mono">
+            <span className="text-xs text-neutral-400 font-normal">
               Independent Editorial Tracking
             </span>
           </div>

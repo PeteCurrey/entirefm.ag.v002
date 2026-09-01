@@ -47,7 +47,7 @@ export function TemplateDroneInspectionPlanner({
         <div className="container-custom relative z-10 space-y-16">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="pt-4">
-            <ol className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-400">
+            <ol className="flex flex-wrap items-center gap-2 text-xs font-normal text-slate-400">
               <li>
                 <Link href="/" className="hover:text-white transition-colors">Home</Link>
               </li>
@@ -72,7 +72,7 @@ export function TemplateDroneInspectionPlanner({
           {/* Cross-Link Exploration Grid */}
           <section className="p-8 rounded-[14px] bg-brand-carbon border border-brand-edge-dark space-y-6">
             <div className="space-y-1">
-              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                 EXPLORE DRONE CAPABILITIES
               </span>
               <h2 className="text-xl font-light text-white">
@@ -110,7 +110,7 @@ export function TemplateDroneInspectionPlanner({
           {/* Technical FAQs */}
           <section className="max-w-4xl mx-auto space-y-8 pt-4">
             <div className="text-center space-y-2">
-              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                 FREQUENTLY ASKED QUESTIONS
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-white">

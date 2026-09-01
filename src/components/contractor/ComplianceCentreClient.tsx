@@ -62,11 +62,11 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
       <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               COMPLIANCE INTELLIGENCE &bull; {summary.contractorName}
             </span>
             <span
-              className={`text-[11px] font-mono px-2.5 py-0.5 rounded border ${
+              className={`text-[11px] font-normal px-2.5 py-0.5 rounded border ${
                 summary.operationalStatus === 'COMPLIANT'
                   ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
                   : summary.operationalStatus === 'COMPLIANT_RENEWALS_UPCOMING'
@@ -91,7 +91,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
         {/* Big Score Gauge */}
         <div className="flex items-center gap-6 bg-brand-void/60 border border-brand-edge-dark p-4 rounded-xl shrink-0">
           <div>
-            <span className="text-[10px] font-mono text-brand-mist/50 uppercase block">Compliance Score</span>
+            <span className="text-[10px] font-normal text-brand-mist/50 uppercase block">Compliance Score</span>
             <div className="flex items-baseline gap-1 mt-0.5">
               <span
                 className={`text-4xl font-light tracking-tight ${
@@ -105,7 +105,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
                 {summary.complianceScorePct}%
               </span>
             </div>
-            <span className="text-[10.5px] font-mono text-brand-mist/40 mt-0.5 block">
+            <span className="text-[10.5px] font-normal text-brand-mist/40 mt-0.5 block">
               {summary.totalSatisfiedMandatory} of {summary.totalApplicableMandatory} mandatory controls satisfied
             </span>
           </div>
@@ -128,7 +128,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
       {/* Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Critical Actions</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Critical Actions</span>
           <p className={`text-2xl font-light mt-1 ${summary.criticalActionsCount > 0 ? 'text-rose-400 font-normal' : 'text-white'}`}>
             {summary.criticalActionsCount}
           </p>
@@ -136,7 +136,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Upcoming Renewals</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Upcoming Renewals</span>
           <p className={`text-2xl font-light mt-1 ${summary.upcomingRenewalsCount > 0 ? 'text-amber-400 font-normal' : 'text-white'}`}>
             {summary.upcomingRenewalsCount}
           </p>
@@ -144,13 +144,13 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Under Review</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Under Review</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{summary.underReviewCount}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">EntireFM verification pending</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Total Requirements</span>
+          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Total Requirements</span>
           <p className="text-2xl font-light text-white mt-1">{summary.requirements.filter((r) => r.isApplicable).length}</p>
           <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Applicable to your profile</span>
         </div>
@@ -164,7 +164,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
               <AlertTriangle className="w-5 h-5 text-amber-400" />
               <h2 className="text-sm font-semibold text-white">Compliance Actions Required ({summary.actions.length})</h2>
             </div>
-            <span className="text-xs font-mono text-brand-mist/50">Prioritised by urgency</span>
+            <span className="text-xs font-normal text-brand-mist/50">Prioritised by urgency</span>
           </div>
 
           <div className="divide-y divide-brand-edge-dark/30">
@@ -173,7 +173,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                         act.priority === 'CRITICAL'
                           ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                           : act.priority === 'HIGH'
@@ -222,14 +222,14 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-normal text-white">{catSummary.title}</span>
-                    <span className="text-xs font-mono text-brand-mist/50">
+                    <span className="text-xs font-normal text-brand-mist/50">
                       ({catSummary.satisfiedCount}/{catSummary.totalApplicable} Valid)
                     </span>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <span
-                      className={`text-[10.5px] font-mono px-2 py-0.5 rounded border ${
+                      className={`text-[10.5px] font-normal px-2 py-0.5 rounded border ${
                         catSummary.status === 'COMPLIANT'
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                           : catSummary.status === 'WARNING'
@@ -254,7 +254,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-white">{req.title}</span>
                             {req.criticality === 'CRITICAL' && (
-                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">
+                              <span className="text-[9px] font-normal px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">
                                 CRITICAL
                               </span>
                             )}
@@ -263,7 +263,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
 
                           {req.evidenceFileName && (
                             <div className="flex items-center gap-2 pt-0.5">
-                              <span className="text-[11px] font-mono text-brand-mist/50">
+                              <span className="text-[11px] font-normal text-brand-mist/50">
                                 File: {req.evidenceFileName} {req.expiryDate ? `&bull; Exp: ${req.expiryDate}` : ''}
                               </span>
                             </div>
@@ -278,7 +278,7 @@ export function ComplianceCentreClient({ initialSummary, orgId }: Props) {
 
                         <div className="flex items-center gap-3 shrink-0 self-start sm:self-auto">
                           <span
-                            className={`px-2.5 py-1 rounded text-xs font-mono font-medium border ${
+                            className={`px-2.5 py-1 rounded text-xs font-medium border ${
                               req.state === 'COMPLIANT'
                                 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                                 : req.state === 'EXPIRING'

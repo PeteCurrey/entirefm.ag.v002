@@ -31,7 +31,7 @@ export default async function VariationOrdersPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-mono text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
             Recorded Variation Orders ({variations?.length || 0})
           </h3>
         </div>
@@ -40,7 +40,7 @@ export default async function VariationOrdersPage() {
           <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
             <table className="w-full min-w-[60rem] border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                   <th className="px-5 py-3">Variation Ref</th>
                   <th className="px-5 py-3">Scope Description</th>
                   <th className="px-5 py-3">Expected Cost</th>
@@ -53,27 +53,27 @@ export default async function VariationOrdersPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {variations.map((v) => (
                   <tr key={v.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white font-light">
+                    <td className="px-5 py-4 text-[11px] text-white font-light">
                       {v.variation_number}
                     </td>
                     <td className="px-5 py-4 max-w-xs truncate text-[12.5px] text-brand-mist/90">
                       {v.scope_description}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-brand-mist/60">
+                    <td className="px-5 py-4 font-normal text-[12px] text-brand-mist/60">
                       £{Number(v.expected_cost_gbp || 0).toFixed(2)}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-white font-normal">
+                    <td className="px-5 py-4 text-[12px] text-white font-normal">
                       £{Number(v.sell_price_gbp || 0).toFixed(2)}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[11.5px] text-emerald-400">
+                    <td className="px-5 py-4 font-normal text-[11.5px] text-emerald-400">
                       £{Number(v.margin_gbp || 0).toFixed(2)} ({v.margin_pct}%)
                     </td>
                     <td className="px-5 py-4">
-                      <span className="rounded bg-brand-electric/15 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">
+                      <span className="rounded bg-brand-electric/15 px-2 py-0.5 font-normal text-[10px] text-brand-electric-bright">
                         {v.status}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-right font-mono text-[11px] text-brand-mist/40">
+                    <td className="px-5 py-4 text-right font-normal text-[11px] text-brand-mist/40">
                       {new Date(v.created_at).toLocaleDateString('en-GB')}
                     </td>
                   </tr>

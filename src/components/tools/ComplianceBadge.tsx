@@ -74,7 +74,7 @@ export function ComplianceBadge({ classification }: ComplianceBadgeProps) {
   return (
     <span
       title={config.explanation}
-      className={`inline-flex items-center px-2 py-0.5 border ${config.bgClass} ${config.borderClass} ${config.textClass} text-[10.5px] font-mono font-light tracking-wider uppercase rounded-sm shadow-2xs`}
+      className={`inline-flex items-center px-2 py-0.5 border ${config.bgClass} ${config.borderClass} ${config.textClass}text-[10.5px] font-light tracking-wider uppercase rounded-sm shadow-2xs`}
     >
       {config.label}
     </span>

@@ -59,7 +59,7 @@ export default function ContentDistributionPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             POST-PUBLICATION SYNDICATION
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Multi-Channel Distribution</h1>
@@ -90,7 +90,7 @@ export default function ContentDistributionPage() {
             <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Radio className="h-3.5 w-3.5 text-emerald-400" /> RSS / XML
             </h3>
-            <span className="text-[10px] bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded font-mono">
+            <span className="text-[10px] bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded font-normal">
               LIVE (200)
             </span>
           </div>
@@ -102,7 +102,7 @@ export default function ContentDistributionPage() {
             <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <ExternalLink className="h-3.5 w-3.5 text-blue-400" /> LinkedIn
             </h3>
-            <span className="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded font-mono">
+            <span className="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded font-normal">
               DRAFTS READY
             </span>
           </div>
@@ -114,7 +114,7 @@ export default function ContentDistributionPage() {
             <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Mail className="h-3.5 w-3.5 text-pink-400" /> The FM Briefing
             </h3>
-            <span className="text-[10px] bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded font-mono">
+            <span className="text-[10px] bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded font-normal">
               INTEGRATED
             </span>
           </div>
@@ -126,7 +126,7 @@ export default function ContentDistributionPage() {
             <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5 text-purple-400" /> Web Feeds
             </h3>
-            <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded font-mono">
+            <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded font-normal">
               ACTIVE
             </span>
           </div>
@@ -143,7 +143,7 @@ export default function ContentDistributionPage() {
         </div>
 
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Article Title &amp; Path</th>
               <th className="py-3 px-4">Category</th>
@@ -156,14 +156,14 @@ export default function ContentDistributionPage() {
               <tr key={post.slug} className="hover:bg-zinc-800/40 transition-colors">
                 <td className="py-3.5 px-4">
                   <div className="font-light text-white text-sm">{post.title}</div>
-                  <div className="font-mono text-[11px] text-zinc-500 mt-0.5">{post.path}</div>
+                  <div className="font-normal text-[11px] text-zinc-500 mt-0.5">{post.path}</div>
                 </td>
                 <td className="py-3.5 px-4">
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                  <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
                     {post.category}
                   </span>
                 </td>
-                <td className="py-3.5 px-4 text-zinc-400 font-mono">{post.published}</td>
+                <td className="py-3.5 px-4 text-zinc-400 font-normal">{post.published}</td>
                 <td className="py-3.5 px-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <button

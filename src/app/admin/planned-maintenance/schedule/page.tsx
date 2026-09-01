@@ -83,7 +83,7 @@ export default async function PPMSchedulePage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Occurrence Code</th>
                 <th className="px-5 py-3">Planned Date</th>
                 <th className="px-5 py-3">Execution Window</th>
@@ -95,26 +95,26 @@ export default async function PPMSchedulePage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {occurrences.map((o) => (
                 <tr key={o.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">{o.occurrence_code}</td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">{o.occurrence_code}</td>
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {new Date(o.planned_date).toLocaleDateString('en-GB')}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/60">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
                     {new Date(o.window_start_date).toLocaleDateString('en-GB')} → {new Date(o.window_end_date).toLocaleDateString('en-GB')}
                   </td>
                   <td className="px-5 py-4">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${OCC_STATUS_COLOURS[o.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${OCC_STATUS_COLOURS[o.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                       {o.status}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/70">
                     {o.work_order_id ? (
                       <span className="text-purple-400">WO Linked ({o.work_order_id})</span>
                     ) : (
                       <span className="text-brand-mist/40">—</span>
                     )}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
                     {o.satisfied_at ? new Date(o.satisfied_at).toLocaleDateString('en-GB') : '—'}
                   </td>
                 </tr>

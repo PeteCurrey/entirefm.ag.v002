@@ -78,7 +78,7 @@ export function QuoteScopeConfirm({
         <h4 className="text-[14px] font-normal text-white flex items-center gap-2">
           <span>📋</span> Confirm Quoting Scope
         </h4>
-        <span className="rounded bg-brand-electric/15 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">
+        <span className="rounded bg-brand-electric/15 px-2 py-0.5 font-normal text-[10px] text-brand-electric-bright">
           Field Estimate Only
         </span>
       </div>
@@ -91,7 +91,7 @@ export function QuoteScopeConfirm({
 
       {/* Scope Narrative */}
       <div>
-        <label className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50 block mb-1">
+        <label className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50 block mb-1">
           Work Description
         </label>
         <p className="text-[12.5px] text-brand-mist/90 bg-brand-void/60 rounded p-3 border border-brand-edge-dark/60">
@@ -102,18 +102,18 @@ export function QuoteScopeConfirm({
       {/* Labour & Resources */}
       <div className="grid grid-cols-2 gap-3 text-[12px]">
         <div className="rounded bg-brand-void/40 p-3 border border-brand-edge-dark/40">
-          <span className="font-mono text-[10px] text-brand-mist/40 block">Estimated Labour</span>
-          <span className="font-mono font-normal text-white text-[13px]">{estimatedHours} hours</span>
+          <span className="font-normal text-[10px] text-brand-mist/40 block">Estimated Labour</span>
+          <span className="font-normal text-white text-[13px]">{estimatedHours} hours</span>
         </div>
         <div className="rounded bg-brand-void/40 p-3 border border-brand-edge-dark/40">
-          <span className="font-mono text-[10px] text-brand-mist/40 block">Team Required</span>
-          <span className="font-mono font-normal text-white text-[13px]">{engineersCount} Engineer(s)</span>
+          <span className="font-normal text-[10px] text-brand-mist/40 block">Team Required</span>
+          <span className="font-normal text-white text-[13px]">{engineersCount} Engineer(s)</span>
         </div>
       </div>
 
       {/* Materials */}
       <div>
-        <label className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50 block mb-1">
+        <label className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/50 block mb-1">
           Required Materials ({materials.length})
         </label>
         {materials.length > 0 ? (
@@ -121,7 +121,7 @@ export function QuoteScopeConfirm({
             {materials.map((m, idx) => (
               <li key={idx} className="flex items-center justify-between p-2.5 text-[12px]">
                 <span className="text-brand-mist/90">{m.description}</span>
-                <span className="font-mono text-brand-electric-bright font-normal">
+                <span className="text-brand-electric-bright font-normal">
                   {m.quantity} {m.unit || 'unit'}
                 </span>
               </li>

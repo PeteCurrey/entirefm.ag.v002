@@ -29,7 +29,7 @@ export default async function ComplianceSourcesPage() {
         <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
                 <th className="px-5 py-3">Source Code & Title</th>
                 <th className="px-5 py-3">Source Type</th>
                 <th className="px-5 py-3">Publishing Body</th>
@@ -43,23 +43,23 @@ export default async function ComplianceSourcesPage() {
                 <tr key={s.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
                     <div className="font-light text-white">{s.name}</div>
-                    <div className="font-mono text-[11px] text-brand-mist/50">{s.code}</div>
+                    <div className="font-normal text-[11px] text-brand-mist/50">{s.code}</div>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-brand-electric">
+                  <td className="px-5 py-4 font-normal text-[11px] text-brand-electric">
                     {s.source_type}
                   </td>
                   <td className="px-5 py-4 text-brand-mist/70">
                     {s.publishing_body}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px]">
+                  <td className="px-5 py-4 font-normal text-[11px]">
                     {s.jurisdiction}
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-white">
+                  <td className="px-5 py-4 font-normal text-[11px] text-white">
                     v{s.version || '1.0'}
                   </td>
                   <td className="px-5 py-4">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] ${
+                      className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                         s.status === 'CURRENT'
                           ? 'bg-emerald-500/20 text-emerald-400'
                           : s.status === 'LICENSE_REQUIRED' || s.status === 'NOT_CONFIGURED'

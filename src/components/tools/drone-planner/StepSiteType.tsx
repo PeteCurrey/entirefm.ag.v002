@@ -53,7 +53,7 @@ export function StepSiteType({ value, otherValue, onChange }: StepSiteTypeProps)
       {/* Conditional Other Textbox */}
       {value === 'Other' && (
         <div className="p-4 rounded-sm bg-brand-carbon border border-brand-pink/50 space-y-2 mt-4">
-          <label htmlFor="otherSiteDesc" className="block text-xs font-mono font-light uppercase text-brand-pink">
+          <label htmlFor="otherSiteDesc" className="block text-xs font-light uppercase text-brand-pink">
             Please describe the property archetype:
           </label>
           <input

@@ -51,11 +51,11 @@ export default async function CreateRamsPage({
       <div className="space-y-1">
         <Link
           href="/contractor/rams"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-mono mb-2"
+          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to RAMS Dashboard
         </Link>
-        <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           {workOrder ? `ENTIREFM JOB PACK • ${workOrder.work_order_number}` : 'INDEPENDENT RAMS BUILDER'}
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

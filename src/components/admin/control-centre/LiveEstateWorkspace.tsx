@@ -75,7 +75,7 @@ export function LiveEstateWorkspace({
             <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF6B24] text-white">
               <Building2 className="h-3.5 w-3.5" />
             </div>
-            <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
+            <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               LIVE ESTATE WORKSPACE
             </h2>
           </div>
@@ -184,20 +184,20 @@ export function LiveEstateWorkspace({
 
                     {/* Top Overlay Badges */}
                     <div className="absolute top-2 left-2 right-2 flex items-center justify-between">
-                      <span className="rounded-[4px] bg-[#111111]/80 backdrop-blur-md px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white font-normal">
+                      <span className="rounded-[4px] bg-[#111111]/80 backdrop-blur-md px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-white font-normal">
                         {site.site_code}
                       </span>
                       {site.healthStatus === 'CRITICAL' ? (
-                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B91C1C] font-light flex items-center gap-1">
+                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#B91C1C] font-light flex items-center gap-1">
                           <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626] animate-pulse" />
                           P1 Critical
                         </span>
                       ) : site.healthStatus === 'WARNING' ? (
-                        <span className="rounded-[4px] bg-[#FFFBEB] border border-[#FDE68A] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B45309] font-medium">
+                        <span className="rounded-[4px] bg-[#FFFBEB] border border-[#FDE68A] px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#B45309] font-medium">
                           Attention
                         </span>
                       ) : (
-                        <span className="rounded-[4px] bg-[#F0FDF4] border border-[#BBF7D0] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#15803D] font-medium">
+                        <span className="rounded-[4px] bg-[#F0FDF4] border border-[#BBF7D0] px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#15803D] font-medium">
                           Nominal
                         </span>
                       )}
@@ -275,7 +275,7 @@ export function LiveEstateWorkspace({
           <div className="relative w-full max-w-xl h-full border border-[#E8E8E5] rounded-[8px] bg-[#FFFFFF] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-[11px] text-[#6D6D68]">
               <span className="font-medium">UK &amp; Ireland Spatial Matrix</span>
-              <span className="font-mono text-[10px]">OSGB36</span>
+              <span className="font-normal text-[10px]">OSGB36</span>
             </div>
 
             <div className="relative flex-1 my-4">

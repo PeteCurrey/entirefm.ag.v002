@@ -130,7 +130,7 @@ export function SitesPageClient({ initialSites }: Props) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute top-3 left-3">
-                  <span className="rounded-[5px] bg-[#101010]/80 backdrop-blur-md px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-white font-normal">
+                  <span className="rounded-[5px] bg-[#101010]/80 backdrop-blur-md px-2 py-0.5 text-[9.5px] uppercase tracking-wider text-white font-normal">
                     {s.site_code}
                   </span>
                 </div>
@@ -147,12 +147,12 @@ export function SitesPageClient({ initialSites }: Props) {
                   <h3 className="font-light text-[14px] text-[#101010] line-clamp-1 group-hover:text-[#FF6B24] transition-colors">
                     {s.name}
                   </h3>
-                  <div className="font-mono text-[10.5px] text-[#686866] uppercase mt-0.5">
+                  <div className="font-normal text-[10.5px] text-[#686866] uppercase mt-0.5">
                     {s.site_type?.replace(/_/g, ' ') || 'FACILITY'}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-[#E4E4E1] font-mono text-[11px]">
+                <div className="flex items-center justify-between pt-2 border-t border-[#E4E4E1] font-normal text-[11px]">
                   <Badge variant={s.status === 'ACTIVE' ? 'green' : 'neutral'} size="xs">
                     {s.status}
                   </Badge>
@@ -211,7 +211,7 @@ export function SitesPageClient({ initialSites }: Props) {
                     value={form.site_code}
                     onChange={(e) => set('site_code', e.target.value.toUpperCase())}
                     placeholder="e.g. CAN-01"
-                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-mono focus:border-[#EA580C] focus:outline-none"
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-normal focus:border-[#EA580C] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -278,7 +278,7 @@ export function SitesPageClient({ initialSites }: Props) {
                     value={form.postcode}
                     onChange={(e) => set('postcode', e.target.value.toUpperCase())}
                     placeholder="e.g. EC4N 6AP"
-                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-mono focus:border-[#EA580C] focus:outline-none"
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] font-normal focus:border-[#EA580C] focus:outline-none"
                   />
                 </div>
               </div>

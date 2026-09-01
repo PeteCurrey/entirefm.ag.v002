@@ -56,7 +56,7 @@ export function ServiceConversionSection({
                     </span>
                     <a
                       href={CONTACT_CONFIG.mainPhone.href}
-                      className="text-lg font-light font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
+                      className="text-lg font-light text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
                     >
                       {CONTACT_CONFIG.mainPhone.display}
                     </a>
@@ -78,7 +78,7 @@ export function ServiceConversionSection({
                     </span>
                     <a
                       href={`mailto:${CONTACT_CONFIG.enquiryEmail}`}
-                      className="text-sm font-normal font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5 break-all"
+                      className="text-sm font-normal text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5 break-all"
                     >
                       {CONTACT_CONFIG.enquiryEmail}
                     </a>

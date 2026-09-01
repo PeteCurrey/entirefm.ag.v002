@@ -82,7 +82,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
             onChange={(e) => setSettings({ ...settings, emergencyKillSwitch: e.target.checked })}
             className="rounded border-zinc-700 bg-zinc-950 text-rose-600 focus:ring-rose-500 h-4 w-4"
           />
-          <span className="font-mono uppercase font-medium">
+          <span className="uppercase font-medium">
             {settings.emergencyKillSwitch ? 'KILL-SWITCH ENGAGED (PAUSED)' : 'AUTOMATION ACTIVE (NORMAL)'}
           </span>
         </label>
@@ -143,7 +143,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               onChange={(e) =>
                 setSettings({ ...settings, sendScheduleType: e.target.value as 'WEEKDAYS_ONLY' | 'EVERYDAY' })
               }
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-mono"
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-normal"
             >
               <option value="WEEKDAYS_ONLY">Weekdays Only (Mon–Fri)</option>
               <option value="EVERYDAY">Everyday (Mon–Sun)</option>
@@ -155,7 +155,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               type="text"
               value={settings.sendTimeLondon}
               onChange={(e) => setSettings({ ...settings, sendTimeLondon: e.target.value })}
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-mono"
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-normal"
             />
           </div>
           <div>
@@ -164,7 +164,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               type="text"
               disabled
               value={settings.timezone}
-              className="w-full bg-zinc-950/60 border border-zinc-800 rounded-lg px-3 py-2 text-zinc-400 font-mono"
+              className="w-full bg-zinc-950/60 border border-zinc-800 rounded-lg px-3 py-2 text-zinc-400 font-normal"
             />
           </div>
         </div>
@@ -182,7 +182,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               type="email"
               value={settings.senderEmail}
               onChange={(e) => setSettings({ ...settings, senderEmail: e.target.value })}
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-mono"
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-normal"
             />
           </div>
           <div>
@@ -191,7 +191,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               type="text"
               value={settings.senderName}
               onChange={(e) => setSettings({ ...settings, senderName: e.target.value })}
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-mono"
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-normal"
             />
           </div>
           <div>
@@ -200,7 +200,7 @@ export function LobbyDailySettingsForm({ initialSettings }: Props) {
               type="email"
               value={settings.replyToEmail}
               onChange={(e) => setSettings({ ...settings, replyToEmail: e.target.value })}
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-mono"
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-normal"
             />
           </div>
         </div>

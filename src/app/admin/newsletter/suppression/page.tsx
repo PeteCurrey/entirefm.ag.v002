@@ -30,7 +30,7 @@ export default async function SuppressionListPage() {
           <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Suppressed Emails ({suppressions.length})
           </h3>
-          <span className="text-xs text-zinc-500 font-mono">PECR / GDPR Compliant Isolation</span>
+          <span className="text-xs text-zinc-500 font-normal">PECR / GDPR Compliant Isolation</span>
         </div>
 
         {suppressions.length === 0 ? (
@@ -39,7 +39,7 @@ export default async function SuppressionListPage() {
           </div>
         ) : (
           <table className="w-full text-left text-xs text-zinc-300">
-            <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+            <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
               <tr>
                 <th className="py-3 px-4">Suppressed Email</th>
                 <th className="py-3 px-4">Reason</th>
@@ -50,14 +50,14 @@ export default async function SuppressionListPage() {
             <tbody className="divide-y divide-zinc-800">
               {suppressions.map((s) => (
                 <tr key={s.id} className="hover:bg-zinc-800/40 transition-colors">
-                  <td className="py-3.5 px-4 font-mono font-normal text-white">{s.email}</td>
+                  <td className="py-3.5 px-4 font-normal text-white">{s.email}</td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-red-950/60 text-red-300 border border-red-800/40">
+                    <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-red-950/60 text-red-300 border border-red-800/40">
                       {s.reason}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-zinc-400">{s.source}</td>
-                  <td className="py-3.5 px-4 text-zinc-500 font-mono">
+                  <td className="py-3.5 px-4 font-normal text-zinc-400">{s.source}</td>
+                  <td className="py-3.5 px-4 text-zinc-500 font-normal">
                     {new Date(s.createdAt).toLocaleDateString('en-GB')}
                   </td>
                 </tr>

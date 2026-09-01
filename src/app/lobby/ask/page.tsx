@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AskLobbyPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F7] pt-24 text-center font-mono text-xs text-neutral-400">Loading Ask The Lobby...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F7] pt-24 text-center font-normal text-xs text-neutral-400">Loading Ask The Lobby...</div>}>
       <TemplateAskLobby />
     </Suspense>
   );

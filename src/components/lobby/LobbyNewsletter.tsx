@@ -68,7 +68,7 @@ export function LobbyNewsletter() {
         <div className="text-center space-y-6 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2">
             <span className="h-px w-6 bg-brand-electric" />
-            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-brand-electric font-semibold">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-brand-electric font-semibold">
               MEMBERSHIP &amp; COMMUNITY
             </span>
             <span className="h-px w-6 bg-brand-electric" />
@@ -93,7 +93,7 @@ export function LobbyNewsletter() {
 
             <Link
               href="/sign-in"
-              className="px-6 py-3.5 rounded-sm text-white/70 hover:text-white text-xs font-mono tracking-wider uppercase border border-white/15 transition-all"
+              className="px-6 py-3.5 rounded-sm text-white/70 hover:text-white text-xs font-normal tracking-wider uppercase border border-white/15 transition-all"
             >
               Member Sign In
             </Link>
@@ -105,7 +105,7 @@ export function LobbyNewsletter() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-brand-electric">
               <ShieldCheck className="w-4 h-4" />
-              <span className="text-xs font-mono uppercase tracking-wider text-white">Verified Peer Network</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-white">Verified Peer Network</span>
             </div>
             <p className="text-xs sm:text-sm font-light text-white/60 leading-relaxed">
               Connect with fellow estates directors, hard FM leads, and compliance practitioners without sales noise.
@@ -115,7 +115,7 @@ export function LobbyNewsletter() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-brand-electric">
               <MessageSquare className="w-4 h-4" />
-              <span className="text-xs font-mono uppercase tracking-wider text-white">Live Rooms &amp; Roundtable</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-white">Live Rooms &amp; Roundtable</span>
             </div>
             <p className="text-xs sm:text-sm font-light text-white/60 leading-relaxed">
               Realtime technical discussions on Golden Thread compliance, mobilisation standards, and plant diagnostics.
@@ -125,7 +125,7 @@ export function LobbyNewsletter() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-brand-electric">
               <Wrench className="w-4 h-4" />
-              <span className="text-xs font-mono uppercase tracking-wider text-white">Ask EntireFM &amp; Tools</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-white">Ask EntireFM &amp; Tools</span>
             </div>
             <p className="text-xs sm:text-sm font-light text-white/60 leading-relaxed">
               Direct technical queries answered by senior building services engineers, plus full access to operational matrices.
@@ -136,7 +136,7 @@ export function LobbyNewsletter() {
         {/* The Lobby Daily & Weekly Signup */}
         <div className="pt-10 border-t border-white/10 flex flex-col lg:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
           <div className="text-left space-y-1.5 max-w-md">
-            <div className="flex items-center gap-2 text-[#00E599] text-xs font-mono">
+            <div className="flex items-center gap-2 text-[#00E599] text-xs font-normal">
               <Clock className="w-3.5 h-3.5" />
               <span>THE LOBBY DAILY · 06:45 DISPATCH</span>
             </div>
@@ -169,7 +169,7 @@ export function LobbyNewsletter() {
               </div>
 
               {/* Frequency Selector */}
-              <div className="flex items-center gap-4 text-[11px] font-mono text-white/60">
+              <div className="flex items-center gap-4 text-[11px] font-normal text-white/60">
                 <label className="flex items-center gap-1.5 cursor-pointer hover:text-white">
                   <input
                     type="radio"

@@ -12,7 +12,7 @@ export default async function ServicePerformancePage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
+          <span className="text-[10px] uppercase text-pink-400 font-light">
             COMMERCIAL SERVICE DEMAND &amp; REVENUE
           </span>
           <h1 className="text-2xl font-extralight text-white mt-1">Service Commercial Performance</h1>
@@ -30,7 +30,7 @@ export default async function ServicePerformancePage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-zinc-950 text-zinc-400 font-normal uppercase text-[10px] border-b border-zinc-800">
             <tr>
               <th className="py-3 px-4">Service Offering</th>
               <th className="py-3 px-4">Total Leads</th>
@@ -43,10 +43,10 @@ export default async function ServicePerformancePage() {
             {services.map((s) => (
               <tr key={s.key} className="hover:bg-zinc-800/40">
                 <td className="py-3.5 px-4 font-light text-white">{s.label}</td>
-                <td className="py-3.5 px-4 font-mono text-pink-400 font-light">{s.leadsCount}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400 font-light">{s.qualifiedLeadsCount}</td>
-                <td className="py-3.5 px-4 font-mono text-purple-400">{s.assistedCount}</td>
-                <td className="py-3.5 px-4 font-mono text-zinc-400">
+                <td className="py-3.5 px-4 text-pink-400 font-light">{s.leadsCount}</td>
+                <td className="py-3.5 px-4 text-emerald-400 font-light">{s.qualifiedLeadsCount}</td>
+                <td className="py-3.5 px-4 font-normal text-purple-400">{s.assistedCount}</td>
+                <td className="py-3.5 px-4 font-normal text-zinc-400">
                   {s.pipelineValueGbp > 0 ? `£${s.pipelineValueGbp.toLocaleString()}` : '—'}
                 </td>
               </tr>

@@ -96,7 +96,7 @@ export default function AutomationSettingsPage() {
           <div className="flex items-center justify-between">
             <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Weekly Draft</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
+              className={`text-[10px] uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoDraftEnabled ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >
@@ -124,7 +124,7 @@ export default function AutomationSettingsPage() {
           <div className="flex items-center justify-between">
             <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Scheduling</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
+              className={`text-[10px] uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoScheduleEnabled ? 'bg-blue-950/80 text-blue-400 border border-blue-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >
@@ -152,7 +152,7 @@ export default function AutomationSettingsPage() {
           <div className="flex items-center justify-between">
             <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Sending</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
+              className={`text-[10px] uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoSendEnabled ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >

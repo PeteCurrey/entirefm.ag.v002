@@ -71,7 +71,7 @@ export default async function SupplierInvoicesPage({
       />
 
       {/* FILTER TABS */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-brand-edge-dark pb-3 text-xs font-mono">
+      <div className="flex flex-wrap items-center gap-2 border-b border-brand-edge-dark pb-3 text-xs font-normal">
         {[
           { label: 'ALL', href: '/admin/finance/supplier-invoices' },
           { label: 'REVIEW REQUIRED', href: '/admin/finance/supplier-invoices?status=REVIEW_REQUIRED' },
@@ -92,7 +92,7 @@ export default async function SupplierInvoicesPage({
       </div>
 
       {/* SUMMARY STRIP */}
-      <div className="flex items-center justify-between text-xs font-mono text-brand-mist/60 bg-brand-void/40 p-3 rounded-lg border border-brand-edge-dark/50">
+      <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60 bg-brand-void/40 p-3 rounded-lg border border-brand-edge-dark/50">
         <div>Showing <span className="text-white font-light">{invoices.length}</span> invoices</div>
         <div>Total Value: <span className="text-brand-electric font-light">£{totalValue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
@@ -105,7 +105,7 @@ export default async function SupplierInvoicesPage({
         />
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-mono text-brand-mist">
+          <table className="w-full text-left text-xs font-normal text-brand-mist">
             <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Invoice Ref</th>

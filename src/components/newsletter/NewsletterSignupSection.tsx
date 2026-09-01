@@ -63,7 +63,7 @@ export function NewsletterSignupSection({
       <div className="container-custom max-w-4xl">
         <div className="bg-brand-graphite border border-brand-edge-dark rounded-sm p-8 sm:p-10">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
+            <span className="text-[11px] uppercase tracking-widest text-pink-400 font-light">
               THE FM BRIEFING · RECURRING PUBLICATION
             </span>
           </div>
@@ -205,7 +205,7 @@ export function NewsletterInlineCard({
 
   return (
     <div className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-6 my-8 text-white">
-      <span className="text-[10px] font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
+      <span className="text-[10px] uppercase tracking-widest text-pink-400 font-light block mb-1">
         THE FM BRIEFING
       </span>
       <h3 className="text-lg font-light text-white">{title}</h3>

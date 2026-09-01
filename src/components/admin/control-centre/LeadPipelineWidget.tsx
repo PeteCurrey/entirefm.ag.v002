@@ -111,7 +111,7 @@ export function LeadPipelineWidget({ leads }: LeadPipelineWidgetProps) {
                       <span className="text-xs text-[#686866]">· {l.company}</span>
                     )}
                     {isNew && (
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-light uppercase bg-[#FF3E9D] text-white">
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-light uppercase bg-[#FF3E9D] text-white">
                         NEW
                       </span>
                     )}
@@ -123,7 +123,7 @@ export function LeadPipelineWidget({ leads }: LeadPipelineWidgetProps) {
                       <MapPin className="h-3 w-3 text-slate-400" />
                       {l.location || 'United Kingdom'}
                     </span>
-                    <span className="flex items-center gap-1 text-[11px] text-pink-600 font-mono">
+                    <span className="flex items-center gap-1 text-[11px] text-pink-600 font-normal">
                       <Globe className="h-3 w-3" />
                       {l.conversion_page || l.landing_page || 'Website'}
                     </span>
@@ -131,7 +131,7 @@ export function LeadPipelineWidget({ leads }: LeadPipelineWidgetProps) {
                 </div>
 
                 <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-                  <span className="font-mono text-[10px] text-[#9B9B97]">
+                  <span className="font-normal text-[10px] text-[#9B9B97]">
                     {formatTime(l.received_at)}
                   </span>
                   <Link

@@ -24,7 +24,7 @@ export default async function ContractorToolsPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="space-y-1">
-        <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           CONTRACTOR BUSINESS TOOLKIT &bull; CP-08
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

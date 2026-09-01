@@ -83,7 +83,7 @@ export function ServiceDeliveryProcess({
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-light font-mono text-brand-pink group-hover:scale-110 transition-transform">
+                  <span className="text-2xl font-light text-brand-pink group-hover:scale-110 transition-transform">
                     {step.number}
                   </span>
                   <span className="h-1.5 w-6 bg-slate-200 group-hover:bg-brand-pink transition-colors rounded-full" />

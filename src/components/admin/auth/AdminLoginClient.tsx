@@ -38,14 +38,14 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
             Entire<span className="font-bold text-[#EA580C]">FM</span>
           </Link>
           <span className="text-white/20">/</span>
-          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
+          <span className="text-[11px] font-normal uppercase tracking-[0.18em] text-slate-400">
             Control Plane Access
           </span>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+          <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
             System Operational
           </span>
         </div>
@@ -60,7 +60,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
 
             {/* Header / Clearance Badge */}
             <div className="mb-7">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-sm bg-white/[0.04] border border-white/[0.08] text-[10.5px] font-mono uppercase tracking-[0.16em] text-[#EA580C] mb-3">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-sm bg-white/[0.04] border border-white/[0.08] text-[10.5px] font-normal uppercase tracking-[0.16em] text-[#EA580C] mb-3">
                 <Lock className="w-3 h-3" />
                 <span>Internal System Gate</span>
               </div>
@@ -88,7 +88,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
               <div>
                 <label
                   htmlFor="admin-identifier"
-                  className="block text-[10.5px] font-mono uppercase tracking-[0.14em] text-slate-400 mb-1.5"
+                  className="block text-[10.5px] font-normal uppercase tracking-[0.14em] text-slate-400 mb-1.5"
                 >
                   Admin Identifier / Email
                 </label>
@@ -110,7 +110,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
                 <div className="flex items-center justify-between mb-1.5">
                   <label
                     htmlFor="admin-password"
-                    className="block text-[10.5px] font-mono uppercase tracking-[0.14em] text-slate-400"
+                    className="block text-[10.5px] font-normal uppercase tracking-[0.14em] text-slate-400"
                   >
                     Security Key / Password
                   </label>
@@ -142,7 +142,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
               <div>
                 <label
                   htmlFor="admin-2fa"
-                  className="block text-[10.5px] font-mono uppercase tracking-[0.14em] text-slate-400 mb-1.5"
+                  className="block text-[10.5px] font-normal uppercase tracking-[0.14em] text-slate-400 mb-1.5"
                 >
                   2FA Security Token <span className="text-slate-500 font-sans normal-case">(if configured)</span>
                 </label>
@@ -156,7 +156,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
                     value={twoFactorCode}
                     onChange={(e) => setTwoFactorCode(e.target.value)}
                     placeholder="6-digit authenticator code"
-                    className="w-full rounded-sm border border-white/[0.12] bg-[#050811] px-3.5 py-2.5 text-[13.5px] font-mono text-white placeholder:text-slate-600 focus:border-[#EA580C] focus:outline-none focus:ring-1 focus:ring-[#EA580C] transition-colors"
+                    className="w-full rounded-sm border border-white/[0.12] bg-[#050811] px-3.5 py-2.5 text-[13.5px] font-normal text-white placeholder:text-slate-600 focus:border-[#EA580C] focus:outline-none focus:ring-1 focus:ring-[#EA580C] transition-colors"
                   />
                   <KeyRound className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none" />
                 </div>
@@ -173,7 +173,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
             </form>
 
             <div className="mt-7 pt-5 border-t border-white/[0.08] text-center">
-              <p className="text-[11px] font-mono text-slate-500">
+              <p className="text-[11px] font-normal text-slate-500">
                 All login attempts are cryptographically signed, timestamped, and audited.
               </p>
             </div>
@@ -182,7 +182,7 @@ export function AdminLoginClient({ errorCode, nextUrl }: AdminLoginClientProps) 
       </main>
 
       {/* Footer */}
-      <footer className="h-12 border-t border-white/[0.06] bg-[#050811]/80 px-6 flex items-center justify-between text-[11px] font-mono text-slate-500">
+      <footer className="h-12 border-t border-white/[0.06] bg-[#050811]/80 px-6 flex items-center justify-between text-[11px] font-normal text-slate-500">
         <span>EntireFM Operations Control Platform v2.4</span>
         <span>Node: ag-iad1-secure</span>
       </footer>

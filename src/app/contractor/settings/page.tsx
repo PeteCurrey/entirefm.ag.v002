@@ -24,7 +24,7 @@ export default async function ContractorSettingsPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="space-y-1">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+        <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
           ORGANISATION SETTINGS &bull; {session.orgName}
         </span>
         <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
@@ -49,7 +49,7 @@ export default async function ContractorSettingsPage() {
                 <span className="text-white font-normal block">New Work Order Assignment Offers</span>
                 <span className="text-brand-mist/50 text-[11px]">Instant email and SMS notification when a job is offered</span>
               </div>
-              <span className="text-[10.5px] font-mono text-emerald-400">ENABLED</span>
+              <span className="text-[10.5px] font-normal text-emerald-400">ENABLED</span>
             </div>
 
             <div className="flex items-center justify-between p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
@@ -57,7 +57,7 @@ export default async function ContractorSettingsPage() {
                 <span className="text-white font-normal block">Compliance Document Expiry Alerts (30d / 7d)</span>
                 <span className="text-brand-mist/50 text-[11px]">Proactive reminders before insurance or trade cards expire</span>
               </div>
-              <span className="text-[10.5px] font-mono text-emerald-400">ENABLED</span>
+              <span className="text-[10.5px] font-normal text-emerald-400">ENABLED</span>
             </div>
 
             <div className="flex items-center justify-between p-3 rounded-lg bg-brand-void border border-brand-edge-dark">
@@ -65,7 +65,7 @@ export default async function ContractorSettingsPage() {
                 <span className="text-white font-normal block">Direct Helpdesk &amp; Dispatch Messages</span>
                 <span className="text-brand-mist/50 text-[11px]">Real-time operational alerts from EntireFM controllers</span>
               </div>
-              <span className="text-[10.5px] font-mono text-emerald-400">ENABLED</span>
+              <span className="text-[10.5px] font-normal text-emerald-400">ENABLED</span>
             </div>
           </div>
         </div>
@@ -85,12 +85,12 @@ export default async function ContractorSettingsPage() {
 
             <div>
               <span className="text-brand-mist/50 block">Assigned Role</span>
-              <span className="text-brand-electric-bright font-mono mt-0.5 block">{session.role}</span>
+              <span className="text-brand-electric-bright font-normal mt-0.5 block">{session.role}</span>
             </div>
 
             <div>
               <span className="text-brand-mist/50 block">Authentication Method</span>
-              <span className="text-white font-mono mt-0.5 block">HMAC Encrypted Session</span>
+              <span className="text-white font-normal mt-0.5 block">HMAC Encrypted Session</span>
             </div>
           </div>
         </div>

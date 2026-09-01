@@ -70,7 +70,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-blue-500/40 space-y-3">
           <div className="flex items-center gap-2">
             <Droplets className="w-4 h-4 text-blue-400" />
-            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
+            <h3 className="text-xs font-light uppercase text-white tracking-wider">
               Water Ingress Nature
             </h3>
           </div>
@@ -101,7 +101,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-amber-500/40 space-y-3">
           <div className="flex items-center gap-2">
             <CloudLightning className="w-4 h-4 text-amber-400" />
-            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
+            <h3 className="text-xs font-light uppercase text-white tracking-wider">
               Storm Damage Severity
             </h3>
           </div>
@@ -132,7 +132,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-brand-pink/40 space-y-3">
           <div className="flex items-center gap-2">
             <CalendarClock className="w-4 h-4 text-brand-pink" />
-            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
+            <h3 className="text-xs font-light uppercase text-white tracking-wider">
               Condition Survey Framework
             </h3>
           </div>

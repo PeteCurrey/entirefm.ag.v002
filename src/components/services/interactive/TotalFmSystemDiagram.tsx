@@ -130,7 +130,7 @@ export function TotalFmSystemDiagram() {
                   : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
               }`}
             >
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-slate-400 block mb-1">
                 COMMERCIAL CLIENT
               </span>
               <div className="text-base sm:text-lg font-light text-white flex items-center justify-center gap-2">
@@ -152,7 +152,7 @@ export function TotalFmSystemDiagram() {
                   : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
               }`}
             >
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink-light block mb-1">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-brand-pink-light block mb-1">
                 SINGLE POINT OF CONTACT
               </span>
               <div className="text-base sm:text-lg font-light text-white flex items-center justify-center gap-2">
@@ -175,7 +175,7 @@ export function TotalFmSystemDiagram() {
                     : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
                 }`}
               >
-                <span className="text-[9.5px] font-mono uppercase text-brand-pink-light block mb-0.5">
+                <span className="text-[9.5px] font-normal uppercase text-brand-pink-light block mb-0.5">
                   PLANNED
                 </span>
                 <span className="text-xs font-normal block text-white">52-Week PPM</span>
@@ -189,7 +189,7 @@ export function TotalFmSystemDiagram() {
                     : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
                 }`}
               >
-                <span className="text-[9.5px] font-mono uppercase text-brand-pink-light block mb-0.5">
+                <span className="text-[9.5px] font-normal uppercase text-brand-pink-light block mb-0.5">
                   REACTIVE
                 </span>
                 <span className="text-xs font-normal block text-white">24/7 SLA Callout</span>
@@ -203,7 +203,7 @@ export function TotalFmSystemDiagram() {
                     : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
                 }`}
               >
-                <span className="text-[9.5px] font-mono uppercase text-brand-pink-light block mb-0.5">
+                <span className="text-[9.5px] font-normal uppercase text-brand-pink-light block mb-0.5">
                   STATUTORY
                 </span>
                 <span className="text-xs font-normal block text-white">Compliance Vault</span>
@@ -223,7 +223,7 @@ export function TotalFmSystemDiagram() {
                   : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
               }`}
             >
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-slate-400 block mb-1">
                 DIGITAL OPERATING PLATFORM
               </span>
               <div className="text-base sm:text-lg font-light text-white flex items-center justify-center gap-2">
@@ -240,7 +240,7 @@ export function TotalFmSystemDiagram() {
                 <active.icon className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink-light block">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-brand-pink-light block">
                   SYSTEM COMPONENT
                 </span>
                 <h3 className="text-xl sm:text-2xl font-light text-white">
@@ -249,7 +249,7 @@ export function TotalFmSystemDiagram() {
               </div>
             </div>
 
-            <div className="text-xs font-mono uppercase text-slate-400 border-b border-white/10 pb-2">
+            <div className="text-xs font-normal uppercase text-slate-400 border-b border-white/10 pb-2">
               {active.subtitle}
             </div>
 
@@ -258,7 +258,7 @@ export function TotalFmSystemDiagram() {
             </p>
 
             <div className="space-y-2 pt-2 border-t border-white/10">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+              <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-light">
                 Operational Guarantees:
               </span>
               <div className="space-y-2">

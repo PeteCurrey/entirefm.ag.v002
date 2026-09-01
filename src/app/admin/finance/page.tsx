@@ -32,11 +32,11 @@ function KpiCard({ label, value, sub, href, urgent }: {
   }`;
   const inner = (
     <div className={cls}>
-      <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/50 font-mono">{label}</p>
-      <p className={`text-2xl font-extralight font-mono ${urgent && Number(value) > 0 ? 'text-red-300' : 'text-white'}`}>
+      <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/50 font-medium">{label}</p>
+      <p className={`text-2xl font-extralight${urgent && Number(value) > 0 ? 'text-red-300' : 'text-white'}`}>
         {value}
       </p>
-      {sub && <p className="text-[11px] text-brand-mist/40 font-mono">{sub}</p>}
+      {sub && <p className="text-[11px] text-brand-mist/40 font-normal">{sub}</p>}
     </div>
   );
   return href ? <Link href={href}>{inner}</Link> : inner;
@@ -154,7 +154,7 @@ export default async function FinanceCommandCentrePage() {
 
       {/* NAVIGATION GRID */}
       <div>
-        <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-mono mb-3">Finance Workspaces</p>
+        <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-medium mb-3">Finance Workspaces</p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {[
             { href: '/admin/finance/supplier-invoices', icon: Receipt, label: 'Supplier Invoices', desc: 'Receive · Extract · Match · Approve' },
@@ -182,15 +182,15 @@ export default async function FinanceCommandCentrePage() {
       {/* ACCOUNTING STATUS */}
       <div className="rounded-lg border border-brand-edge-dark/60 bg-brand-void/30 p-4 flex items-center justify-between">
         <div>
-          <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-mono">Accounting Integration</p>
+          <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-medium">Accounting Integration</p>
           <p className="text-sm text-white mt-0.5">{adapter.provider === 'NOT_CONFIGURED' ? 'No accounting system configured' : adapter.provider}</p>
         </div>
-        <span className={`rounded px-2.5 py-1 font-mono text-[10.5px] border ${STATUS_COLOUR[adapterStatus]}`}>
+        <span className={`rounded px-2.5 py-1 font-normal text-[10.5px] border${STATUS_COLOUR[adapterStatus]}`}>
           {adapterStatus.replace('_', ' ')}
         </span>
       </div>
 
-      <p className="text-[11px] text-brand-mist/30 font-mono">
+      <p className="text-[11px] text-brand-mist/30 font-normal">
         Finance Command Centre — Phase 0H. All financial values sourced from operational records.
         AI assists extraction and anomaly detection only. No autonomous payment execution.
       </p>

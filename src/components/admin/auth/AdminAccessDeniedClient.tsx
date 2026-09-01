@@ -61,7 +61,7 @@ export function AdminAccessDeniedClient({ session }: AdminAccessDeniedClientProp
 
             {/* Icon & Eyebrow */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-sm bg-rose-500/10 border border-rose-500/20 text-[10.5px] font-mono uppercase tracking-[0.16em] text-rose-400 mb-3">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-sm bg-rose-500/10 border border-rose-500/20 text-[10.5px] font-normal uppercase tracking-[0.16em] text-rose-400 mb-3">
                 <ShieldAlert className="w-3.5 h-3.5" />
                 <span>Restricted Environment</span>
               </div>
@@ -75,7 +75,7 @@ export function AdminAccessDeniedClient({ session }: AdminAccessDeniedClientProp
 
             {/* Account Status Card */}
             <div className="mb-6 rounded-sm border border-white/[0.08] bg-[#050811] p-4 text-[12px] space-y-1.5">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
                 Authenticated Active Identity
               </div>
               <div className="font-medium text-white flex items-center gap-2">
@@ -115,7 +115,7 @@ export function AdminAccessDeniedClient({ session }: AdminAccessDeniedClientProp
       </main>
 
       {/* Footer */}
-      <footer className="h-12 border-t border-white/[0.06] bg-[#050811]/80 px-6 flex items-center justify-between text-[11px] font-mono text-slate-500">
+      <footer className="h-12 border-t border-white/[0.06] bg-[#050811]/80 px-6 flex items-center justify-between text-[11px] font-normal text-slate-500">
         <span>Security Audit Reference: SEC-403-ADM</span>
         <span>EntireFM Unified Operations Platform</span>
       </footer>

@@ -78,7 +78,7 @@ export function OperationsTimeline({ events }: OperationsTimelineProps) {
             const badge = statusBadge[event.status];
             return (
               <div key={event.id} className="flex items-start gap-4 px-4 py-3 hover:bg-[#FAFAF8] transition-colors">
-                <div className="font-mono text-[12px] text-[#6D6D68] w-10 shrink-0 pt-0.5">{event.time}</div>
+                <div className="font-normal text-[12px] text-[#6D6D68] w-10 shrink-0 pt-0.5">{event.time}</div>
                 <div className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[4px] ${
                   event.status === 'AT_RISK' ? 'bg-red-50 text-red-600' :
                   event.status === 'IN_PROGRESS' ? 'bg-blue-50 text-blue-600' :

@@ -29,7 +29,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-neutral-500 font-semibold">
+                <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-semibold">
                   THE LOBBY AWARDS DESK · INDUSTRY RECOGNITION
                 </span>
               </div>
@@ -43,7 +43,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
 
             <Link
               href="/lobby"
-              className="text-xs font-mono uppercase tracking-wider text-neutral-600 hover:text-neutral-900 transition-colors"
+              className="text-xs font-medium uppercase tracking-wider text-neutral-600 hover:text-neutral-900 transition-colors"
             >
               &larr; Return to The Lobby
             </Link>
@@ -56,7 +56,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
                 key={status}
                 type="button"
                 onClick={() => setSelectedStatus(status)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-mono whitespace-nowrap transition-colors uppercase ${
+                className={`px-3 py-1.5 rounded-sm text-xs font-normal whitespace-nowrap transition-colors uppercase ${
                   selectedStatus === status
                     ? 'bg-neutral-900 text-white font-medium'
                     : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -77,7 +77,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
           <section className="space-y-6">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-rose-500" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-rose-600 font-semibold">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-rose-600 font-semibold">
                 DEADLINES CLOSING SOON
               </span>
             </div>
@@ -99,19 +99,19 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     
                     <div className="absolute top-4 left-4 z-10">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-rose-600 px-2.5 py-1 rounded-sm font-semibold">
+                      <span className="text-[10px] uppercase tracking-widest text-white bg-rose-600 px-2.5 py-1 rounded-sm font-semibold">
                         {award.status.replace('-', ' ')}
                       </span>
                     </div>
 
-                    <div className="absolute bottom-4 left-4 right-4 z-10 text-xs text-white font-mono flex items-center justify-between">
+                    <div className="absolute bottom-4 left-4 right-4 z-10 text-xs text-white font-normal flex items-center justify-between">
                       <span>Deadline: {new Date(award.entryDeadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                     </div>
                   </div>
 
                   <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
                     <div className="space-y-2">
-                      <span className="text-xs font-mono text-neutral-400 uppercase tracking-wider block">
+                      <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider block">
                         {award.organiser}
                       </span>
                       <h3 className="text-xl sm:text-2xl font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
@@ -146,7 +146,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
             <h2 className="text-xl sm:text-2xl font-extralight text-neutral-900">
               UK Facilities Management Award Programmes
             </h2>
-            <span className="text-xs font-mono text-neutral-400">
+            <span className="text-xs font-normal text-neutral-400">
               {filteredAwards.length} Programmes Tracked
             </span>
           </div>
@@ -158,7 +158,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
                 className="bg-white border border-neutral-200/80 rounded-sm p-6 flex flex-col justify-between space-y-4 hover:border-neutral-400 transition-colors group"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs font-mono">
+                  <div className="flex items-center justify-between text-xs font-normal">
                     <span className="text-brand-electric uppercase tracking-wider">{award.organiser}</span>
                     <span className="text-[10px] px-2 py-0.5 rounded-sm bg-neutral-100 text-neutral-600 uppercase">
                       {award.status.replace('-', ' ')}
@@ -175,7 +175,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
                     {award.description}
                   </p>
 
-                  <div className="space-y-1 text-xs text-neutral-500 font-mono pt-2">
+                  <div className="space-y-1 text-xs text-neutral-500 font-normal pt-2">
                     <div className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-neutral-400" />
                       <span>Entry Deadline: {new Date(award.entryDeadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span>
@@ -200,7 +200,7 @@ export function TemplateAwardsHome({ awards, closingSoon }: TemplateAwardsHomePr
                     href={award.officialUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-neutral-400 hover:text-neutral-900 font-mono inline-flex items-center gap-1"
+                    className="text-xs text-neutral-400 hover:text-neutral-900 font-normal inline-flex items-center gap-1"
                   >
                     <span>Official Portal</span>
                     <ExternalLink className="w-3 h-3" />

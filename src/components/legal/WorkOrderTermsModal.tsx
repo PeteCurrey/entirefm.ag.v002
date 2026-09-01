@@ -110,7 +110,7 @@ export function WorkOrderTermsModal({
               <h2 id="wo-terms-title" className="text-base font-light text-white">
                 Work Order Instruction & Execution Agreement
               </h2>
-              <p className="text-xs text-slate-300 font-mono">
+              <p className="text-xs text-slate-300 font-normal">
                 Reference: {workOrder.id} · Priority: {workOrder.priorityTier}
               </p>
             </div>
@@ -139,7 +139,7 @@ export function WorkOrderTermsModal({
               </div>
               <div>
                 <span className="text-slate-500 block">Authorised Budget Cap:</span>
-                <span className="font-light text-teal-700 font-mono">
+                <span className="font-light text-teal-700">
                   £{workOrder.maxChargeableBudgetGbp.toFixed(2)} + VAT (NTE)
                 </span>
               </div>
@@ -168,7 +168,7 @@ export function WorkOrderTermsModal({
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
                 <span>Statutory Asbestos Governance (CAR 2012 / Duty to Manage)</span>
               </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-light uppercase bg-slate-100 text-slate-800">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-light uppercase bg-slate-100 text-slate-800">
                 Scope Status: {workOrder.asbestosStatus}
               </span>
             </div>

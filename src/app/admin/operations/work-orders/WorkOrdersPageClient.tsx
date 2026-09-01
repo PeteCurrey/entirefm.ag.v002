@@ -130,7 +130,7 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
           className="flex-1 rounded-[6px] border border-[#E4E4E1] bg-[#FAFAF8] px-3 py-1.5 text-[12.5px] text-[#101010] placeholder-[#9B9B97] focus:border-[#EA580C] focus:bg-white focus:outline-none"
         />
         <div className="flex items-center gap-1 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E4E4E1] text-[11.5px]">
-          <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-mono">Status:</span>
+          <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-medium">Status:</span>
           {['ALL', 'OPEN', 'ISSUED', 'IN_PROGRESS', 'COMPLETED', 'CLOSED'].map((s) => (
             <button
               key={s}
@@ -171,7 +171,7 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
             <tbody className="divide-y divide-[#E4E4E1]">
               {filtered.map((wo) => (
                 <tr key={wo.id} className="group hover:bg-[#FAFAF8] transition-colors">
-                  <td className="px-4 py-3.5 font-mono text-[11px] font-medium text-[#101010]">
+                  <td className="px-4 py-3.5 text-[11px] font-medium text-[#101010]">
                     {wo.work_order_number}
                   </td>
                   <td className="px-4 py-3.5">
@@ -181,16 +181,16 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
                     </div>
                   </td>
                   <td className="px-4 py-3.5">
-                    <div className="font-mono text-[10.5px] text-[#686866] uppercase">{wo.work_type?.replace(/_/g, ' ')}</div>
+                    <div className="font-normal text-[10.5px] text-[#686866] uppercase">{wo.work_type?.replace(/_/g, ' ')}</div>
                     <span
-                      className={`mt-0.5 inline-block rounded border px-1.5 py-0.2 font-mono text-[9.5px] font-medium ${
+                      className={`mt-0.5 inline-block rounded border px-1.5 py-0.2 text-[9.5px] font-medium ${
                         PRIORITY_CLASSES[wo.priority] ?? 'bg-[#FAFAF8] text-[#686866] border-[#E4E4E1]'
                       }`}
                     >
                       {wo.priority}
                     </span>
                   </td>
-                  <td className="px-4 py-3.5 font-mono text-[11px] text-[#686866]">
+                  <td className="px-4 py-3.5 font-normal text-[11px] text-[#686866]">
                     {wo.sla_resolution_due_at
                       ? new Date(wo.sla_resolution_due_at).toLocaleDateString('en-GB', {
                           day: '2-digit',
@@ -202,7 +202,7 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
                   </td>
                   <td className="px-4 py-3.5">
                     <span
-                      className={`rounded border px-2 py-0.5 font-mono text-[10px] font-medium ${
+                      className={`rounded border px-2 py-0.5 text-[10px] font-medium ${
                         STATUS_CLASSES[wo.status] ?? 'bg-[#FAFAF8] text-[#686866] border-[#E4E4E1]'
                       }`}
                     >

@@ -40,7 +40,7 @@ export function LeadInboxButton({ initialCount = 0 }: LeadInboxButtonProps) {
     >
       <Mail className="h-4 w-4" />
       {newLeadsCount > 0 && (
-        <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#FF3E9D] px-1 font-mono text-[10px] font-normal text-white shadow-sm ring-2 ring-white">
+        <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#FF3E9D] px-1 text-[10px] font-normal text-white shadow-sm ring-2 ring-white">
           {newLeadsCount > 99 ? '99+' : newLeadsCount}
         </span>
       )}
