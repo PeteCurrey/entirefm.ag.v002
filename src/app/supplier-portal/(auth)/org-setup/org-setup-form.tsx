@@ -74,7 +74,7 @@ export function OrgSetupForm() {
 
   return (
     <div className="w-full max-w-[520px]">
-      <div className="rounded-lg border border-slate-800/80 bg-slate-900/90 p-8 shadow-2xl backdrop-blur-xl">
+      <div className="rounded-lg border border-slate-800 bg-slate-900 p-8 shadow-2xl">
         <div className="mb-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-2.5 py-1 text-[11px] text-slate-300 mb-4">
             <Building2 className="h-3.5 w-3.5 text-brand-pink" />

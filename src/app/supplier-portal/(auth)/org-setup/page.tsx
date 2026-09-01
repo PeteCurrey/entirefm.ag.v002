@@ -14,6 +14,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 import { getCurrentSession } from '@/server/identity';
 import {
   validateSupplierAuthUser,
@@ -66,27 +67,36 @@ export default async function OrgSetupPage() {
   return (
     <div className="flex min-h-screen flex-col justify-between bg-white text-slate-900 selection:bg-brand-pink selection:text-white">
       {/* Header */}
-      <header className="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+      <header className="border-b border-slate-200 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <span className="text-[17px] font-light tracking-tight text-white">
+            <span className="text-[17px] font-light tracking-tight text-slate-900">
               Entire<span className="font-light text-brand-pink">FM</span>
             </span>
-            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-400">
+            <span className="rounded border border-slate-200 bg-slate-100 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-600">
               Supplier Portal
             </span>
           </Link>
+          <form action="/api/auth/logout?redirect=/supplier-portal/sign-in" method="post">
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-200 bg-white px-3 py-1.5 text-[12px] font-normal text-slate-600 shadow-sm transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+            >
+              <LogOut className="h-3.5 w-3.5 text-slate-500" />
+              <span>Sign Out</span>
+            </button>
+          </form>
         </div>
       </header>
 
       {/* Progress indicator */}
-      <div className="border-b border-slate-800 bg-slate-900/60">
-        <div className="mx-auto max-w-7xl px-6 py-2 flex items-center gap-4 text-[11px] font-light text-slate-500">
-          <span className="text-emerald-400">✓ Account Created</span>
+      <div className="border-b border-slate-800 bg-slate-900">
+        <div className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4 text-[11px] font-light text-slate-400">
+          <span className="text-emerald-400 font-medium">✓ Account Created</span>
           <span className="text-slate-600">→</span>
-          <span className="text-white font-normal">Company Setup</span>
+          <span className="text-white font-medium">Company Setup</span>
           <span className="text-slate-600">→</span>
-          <span>Supplier Application</span>
+          <span className="text-slate-400">Supplier Application</span>
         </div>
       </div>
 
