@@ -29,6 +29,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { SupplierRfiRecord, SupplierApprovalDecision } from '@/server/suppliers/rfi-store';
+import { SUPPLIER_SERVICE_TAXONOMY } from '@/config/supplier-data';
 
 interface Props {
   draft: any;
@@ -50,11 +51,23 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
   const [rfiDueDate, setRfiDueDate] = useState('');
 
   const [approvedRegions, setApprovedRegions] = useState<string[]>(
-    draft.selectedRegions || draft.selected_regions || ['London', 'South East', 'West Midlands']
+    (draft.selectedRegions && draft.selectedRegions.length > 0)
+      ? draft.selectedRegions
+      : (draft.selected_regions && draft.selected_regions.length > 0)
+      ? draft.selected_regions
+      : ['London', 'South East', 'West Midlands']
   );
-  const [approvedServices, setApprovedServices] = useState<string[]>(
-    draft.selectedServices || draft.selected_service_slugs || ['Commercial Gas', 'HVAC & Chillers', 'Electrical']
-  );
+  const [approvedServices, setApprovedServices] = useState<string[]>(() => {
+    if (draft.selectedServices && draft.selectedServices.length > 0) {
+      return draft.selectedServices;
+    }
+    if (draft.selected_service_slugs && draft.selected_service_slugs.length > 0) {
+      return draft.selected_service_slugs;
+    }
+    return ['Commercial Gas', 'HVAC & Chillers', 'Electrical'];
+  });
+  const [tradeSearch, setTradeSearch] = useState('');
+  const [customTradeInput, setCustomTradeInput] = useState('');
   const [restrictions, setRestrictions] = useState('Scope restricted to verified trade accreditations only.');
 
   const [condDescription, setCondDescription] = useState('Provide renewed Gas Safe certificate upon receipt from body');
@@ -756,34 +769,176 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
       {/* Approve Modal */}
       {modalType === 'APPROVE' && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-sm border border-slate-200 max-w-lg w-full p-6 space-y-4 shadow-xl">
+          <div className="bg-white rounded-sm border border-slate-200 max-w-lg w-full p-6 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <h3 className="text-base font-bold text-slate-900">Formal Assurance Approval with Scope</h3>
             <p className="text-xs text-slate-600 font-light">
               Grant formal technical approval to {draft.legalCompanyName || draft.legal_company_name}. Set approved trade
               disciplines and territorial limits.
             </p>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Approved Trade Disciplines</label>
-                <div className="p-2.5 border border-slate-200 rounded max-h-32 overflow-y-auto space-y-1 bg-slate-50">
-                  {declaredServices.map((trade: string) => (
-                    <label key={trade} className="flex items-center gap-2 text-xs">
-                      <input
-                        type="checkbox"
-                        checked={approvedServices.includes(trade)}
-                        onChange={(e) => {
-                          const updated = e.target.checked
-                            ? [...approvedServices, trade]
-                            : approvedServices.filter((t) => t !== trade);
-                          setApprovedServices(updated);
-                        }}
-                        className="rounded text-emerald-600"
-                      />
-                      <span>{trade}</span>
-                    </label>
-                  ))}
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-slate-700 font-bold">
+                    Approved Trade Disciplines
+                    <span className="ml-1.5 text-slate-500 font-normal">
+                      ({approvedServices.length} selected)
+                    </span>
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const allTrades = SUPPLIER_SERVICE_TAXONOMY.flatMap((cat) => cat.trades.map((t) => t.name));
+                        setApprovedServices(Array.from(new Set([...approvedServices, ...allTrades])));
+                      }}
+                      className="text-[11px] text-emerald-700 hover:underline font-medium"
+                    >
+                      Select All
+                    </button>
+                    <span className="text-slate-300">|</span>
+                    <button
+                      type="button"
+                      onClick={() => setApprovedServices([])}
+                      className="text-[11px] text-slate-500 hover:text-slate-700 font-medium"
+                    >
+                      Clear
+                    </button>
+                  </div>
                 </div>
+
+                {/* Selected Trades Tags */}
+                {approvedServices.length > 0 && (
+                  <div className="mb-2 flex flex-wrap gap-1.5 p-2 bg-emerald-50/60 border border-emerald-200 rounded max-h-24 overflow-y-auto">
+                    {approvedServices.map((trade) => (
+                      <span
+                        key={trade}
+                        className="inline-flex items-center gap-1 rounded bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[11px] font-medium"
+                      >
+                        {trade}
+                        <button
+                          type="button"
+                          onClick={() => setApprovedServices(approvedServices.filter((t) => t !== trade))}
+                          className="hover:text-emerald-950 font-bold ml-0.5 text-xs"
+                          title="Remove trade"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Search / Filter input */}
+                <div className="mb-2">
+                  <input
+                    type="text"
+                    value={tradeSearch}
+                    onChange={(e) => setTradeSearch(e.target.value)}
+                    placeholder="Search trade disciplines (e.g. Electrical, Gas, HVAC)..."
+                    className="w-full p-1.5 text-xs border border-slate-300 rounded bg-white placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none"
+                  />
+                </div>
+
+                {/* Trade Picker Box */}
+                <div className="p-2.5 border border-slate-200 rounded max-h-48 overflow-y-auto space-y-2 bg-slate-50">
+                  {/* If applicant declared services, show them first */}
+                  {declaredServices.length > 0 && (
+                    <div className="mb-2 pb-2 border-b border-slate-200">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block mb-1">
+                        Declared by Applicant
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                        {declaredServices
+                          .filter((t: string) => !tradeSearch || t.toLowerCase().includes(tradeSearch.toLowerCase()))
+                          .map((trade: string) => (
+                            <label key={trade} className="flex items-center gap-2 text-xs hover:bg-slate-100 p-1 rounded cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={approvedServices.includes(trade)}
+                                onChange={(e) => {
+                                  const updated = e.target.checked
+                                    ? [...approvedServices, trade]
+                                    : approvedServices.filter((t) => t !== trade);
+                                  setApprovedServices(updated);
+                                }}
+                                className="rounded text-emerald-600 focus:ring-emerald-500"
+                              />
+                              <span className="font-medium text-slate-800">{trade}</span>
+                            </label>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Standard Taxonomy Trades */}
+                  <div>
+                    {declaredServices.length > 0 && (
+                      <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block mb-1">
+                        Standard Trade Catalog
+                      </span>
+                    )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                      {SUPPLIER_SERVICE_TAXONOMY.flatMap((cat) => cat.trades)
+                        .filter((t) => !tradeSearch || t.name.toLowerCase().includes(tradeSearch.toLowerCase()))
+                        .map((tradeItem) => (
+                          <label key={tradeItem.id} className="flex items-center gap-2 text-xs hover:bg-slate-100 p-1 rounded cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={approvedServices.includes(tradeItem.name)}
+                              onChange={(e) => {
+                                const updated = e.target.checked
+                                  ? [...approvedServices, tradeItem.name]
+                                  : approvedServices.filter((t) => t !== tradeItem.name);
+                                setApprovedServices(updated);
+                              }}
+                              className="rounded text-emerald-600 focus:ring-emerald-500"
+                            />
+                            <span className="text-slate-700">{tradeItem.name}</span>
+                          </label>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Custom trade quick add */}
+                <div className="mt-2 flex gap-2">
+                  <input
+                    type="text"
+                    value={customTradeInput}
+                    onChange={(e) => setCustomTradeInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (customTradeInput.trim() && !approvedServices.includes(customTradeInput.trim())) {
+                          setApprovedServices([...approvedServices, customTradeInput.trim()]);
+                          setCustomTradeInput('');
+                        }
+                      }
+                    }}
+                    placeholder="Add custom trade discipline..."
+                    className="flex-1 p-1.5 text-xs border border-slate-300 rounded bg-white placeholder:text-slate-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (customTradeInput.trim() && !approvedServices.includes(customTradeInput.trim())) {
+                        setApprovedServices([...approvedServices, customTradeInput.trim()]);
+                        setCustomTradeInput('');
+                      }
+                    }}
+                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded text-xs font-medium shrink-0"
+                  >
+                    + Add Custom
+                  </button>
+                </div>
+
+                {approvedServices.length === 0 && (
+                  <p className="mt-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200 p-1.5 rounded flex items-center gap-1.5">
+                    <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                    Please select or add at least one approved trade discipline before confirming approval.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -792,7 +947,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                   type="text"
                   value={restrictions}
                   onChange={(e) => setRestrictions(e.target.value)}
-                  className="w-full p-2 border border-slate-300 rounded font-sans"
+                  className="w-full p-2 border border-slate-300 rounded font-sans focus:border-emerald-600 focus:outline-none"
                 />
               </div>
             </div>
@@ -810,7 +965,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                     next_review_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
                   })
                 }
-                className="btn-primary text-xs py-1.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold"
+                className="btn-primary text-xs py-1.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Approving...' : 'Confirm Scoped Approval'}
               </button>
