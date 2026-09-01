@@ -18,6 +18,7 @@ import { getCurrentSession } from '@/server/identity';
 import {
   validateSupplierAuthUser,
   resolveResumeDestination,
+  getSupplierOrganisationById,
 } from '@/server/suppliers/supplier-auth-store';
 import { OrgSetupForm } from './org-setup-form';
 
@@ -44,10 +45,15 @@ export default async function OrgSetupPage() {
     redirect('/supplier-portal/verify-email');
   }
 
-  // 4. Existing Organisation Guard (Never remain on Org Setup once organisation exists)
+  // 4. Existing Organisation Guard (Redirect away only if a valid organisation actually exists)
   if (authState.supplierUser?.organisation_id) {
-    const dest = await resolveResumeDestination(authState.authUser.id);
-    redirect(dest !== '/supplier-portal/org-setup' ? dest : '/supplier-portal/onboarding');
+    const org = await getSupplierOrganisationById(authState.supplierUser.organisation_id);
+    if (org) {
+      const dest = await resolveResumeDestination(authState.authUser.id);
+      if (dest !== '/supplier-portal/org-setup') {
+        redirect(dest);
+      }
+    }
   }
 
   return (
