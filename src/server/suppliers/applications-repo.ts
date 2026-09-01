@@ -30,6 +30,7 @@ import {
   SupplierRfiRecord,
   supplierRfiStore,
 } from './rfi-store';
+import { linkAssuranceRecordsOnApproval } from './assurance-store';
 
 export type ApplicationStatus =
   | 'STARTED'
@@ -483,6 +484,9 @@ export async function approveSupplierApplicationAndActivateProvider(params: {
             providerOrgId = newProv[0].id;
           }
         }
+
+        // 4.1 Promote/link pre-approval assurance records to canonical organisation id
+        await linkAssuranceRecordsOnApproval(orgId, canonicalOrgId);
 
         // 5. Link applicant user to provider organisation in organisation_memberships
         if (app.applicantUserId) {

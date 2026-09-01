@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStripeClient } from '@/lib/stripe/client';
+import { dbQuery } from '@/server/db/client';
 import {
-  getSupplierOnboardingDraft,
-  saveSupplierOnboardingDraft,
-  recordAssurancePayment,
-  submitSupplierOnboardingApplication,
-} from '@/server/suppliers/store';
-import { supplierRfiStore } from '@/server/suppliers/rfi-store';
-import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
+  getApplicationDraft,
+  saveApplicationDraft,
+} from '@/server/suppliers/supplier-auth-store';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,11 +30,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-  // Idempotency check
-  if (supplierRfiStore.processedWebhookEvents.has(event.id)) {
-    return NextResponse.json({ received: true, idempotent: true });
+  // Idempotency check via processed_stripe_events table
+  try {
+    const { data: inserted, error: idempErr } = await dbQuery<any[]>('processed_stripe_events', {
+      method: 'POST',
+      body: { event_id: event.id, event_type: event.type },
+      headers: { Prefer: 'resolution=ignore-duplicates,return=representation' },
+    });
+    if (!idempErr && (!inserted || inserted.length === 0)) {
+      return NextResponse.json({ received: true, idempotent: true });
+    }
+  } catch (idempCatch) {
+    console.warn('[STRIPE_WEBHOOK_IDEMPOTENCY_WARNING]', idempCatch);
   }
-  supplierRfiStore.processedWebhookEvents.add(event.id);
 
   try {
     switch (event.type) {
@@ -45,38 +50,17 @@ export async function POST(req: NextRequest) {
       case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object;
         const supplierId = session.metadata?.supplier_id || session.client_reference_id;
-        const applicationRef = session.metadata?.application_ref;
 
         if (supplierId) {
-          const isMembership = session.metadata?.payment_type === 'MEMBERSHIP';
-          const tier = session.metadata?.membership_tier;
-
-          if (isMembership) {
-            const { getApplicationDraft, saveApplicationDraft } = await import('@/server/suppliers/supplier-auth-store');
-            const authDraft = await getApplicationDraft(supplierId);
-            if (authDraft) {
-              authDraft.membershipPaymentStatus = 'PAID';
-              authDraft.membershipPaymentIntentId = session.payment_intent || session.id;
-              authDraft.membershipPaidAt = new Date().toISOString();
-              authDraft.lifecycleStatus = 'UNDER_REVIEW';
-              authDraft.submittedAt = new Date().toISOString();
-              authDraft.updatedAt = new Date().toISOString();
-              await saveApplicationDraft(supplierId, authDraft);
-            }
-          } else {
-            // Non-membership session (Initial Assurance Review product).
-            // Record commercial payment transaction
-            await recordAssurancePayment(supplierId, 'CARD', {
-              transactionRef: session.payment_intent || session.id,
-            });
-
-            // Formally submit application into EntireFM assurance queue
-            await submitSupplierOnboardingApplication(supplierId);
-
-            // Update status to UNDER_REVIEW
-            const draft = await getSupplierOnboardingDraft(supplierId);
-            draft.status = 'UNDER_REVIEW';
-            await saveSupplierOnboardingDraft(supplierId, draft);
+          const authDraft = await getApplicationDraft(supplierId);
+          if (authDraft) {
+            authDraft.membershipPaymentStatus = 'PAID';
+            authDraft.membershipPaymentIntentId = session.payment_intent || session.id;
+            authDraft.membershipPaidAt = new Date().toISOString();
+            authDraft.lifecycleStatus = 'UNDER_REVIEW';
+            authDraft.submittedAt = authDraft.submittedAt || new Date().toISOString();
+            authDraft.updatedAt = new Date().toISOString();
+            await saveApplicationDraft(supplierId, authDraft);
           }
         }
         break;
@@ -86,9 +70,12 @@ export async function POST(req: NextRequest) {
         const session = event.data.object;
         const supplierId = session.metadata?.supplier_id || session.client_reference_id;
         if (supplierId) {
-          const draft = await getSupplierOnboardingDraft(supplierId);
-          draft.status = 'AWAITING_PAYMENT';
-          await saveSupplierOnboardingDraft(supplierId, draft);
+          const authDraft = await getApplicationDraft(supplierId);
+          if (authDraft) {
+            authDraft.membershipPaymentStatus = 'UNPAID';
+            authDraft.updatedAt = new Date().toISOString();
+            await saveApplicationDraft(supplierId, authDraft);
+          }
         }
         break;
       }

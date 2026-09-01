@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupplierOnboardingDraft, saveSupplierOnboardingDraft } from '@/server/suppliers/store';
 import {
   getApplicationDraft,
   saveApplicationDraft,
 } from '@/server/suppliers/supplier-auth-store';
 import {
   createContractorMembershipCheckoutSession,
-  createSupplierAssuranceCheckoutSession,
 } from '@/lib/stripe/client';
 import {
   CONTRACTOR_MEMBERSHIP_TIERS,
@@ -16,32 +14,26 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { supplierId, orgId, tier, paymentType = 'MEMBERSHIP' } = body;
+    const { supplierId, orgId, tier } = body;
     const targetId = orgId || supplierId;
 
     if (!targetId) {
       return NextResponse.json({ error: 'supplierId or orgId is required' }, { status: 400 });
     }
 
-    // Try finding draft in supplier-auth-store first, then fallback to supplier store
+    // Find draft in canonical supplier-auth-store (Supabase-backed)
     const authDraft = await getApplicationDraft(targetId);
-    const storeDraft = await getSupplierOnboardingDraft(targetId);
 
-    const legalCompanyName =
-      authDraft?.legalCompanyName || storeDraft?.legal_company_name || 'Contractor Partner';
-    const companyNumber = authDraft?.companyNumber || storeDraft?.company_number || '';
-    const applicationRef =
-      authDraft?.applicationReference || storeDraft?.application_reference || `SUP-${Date.now()}`;
+    const legalCompanyName = authDraft?.legalCompanyName || 'Contractor Partner';
+    const applicationRef = authDraft?.applicationReference || `SUP-${Date.now()}`;
     const contactEmail =
       authDraft?.primaryContactEmail ||
       authDraft?.generalEmail ||
-      storeDraft?.general_email ||
       'finance@supplier.example.co.uk';
 
     // 1. Zero-Value Checkout Bypass Check:
     // Gate is ONLY on authDraft.membershipPaymentStatus — the canonical Supabase-persisted field
-    // for the membership fee (£295/£695). storeDraft.assurance_payment tracks a completely
-    // different product (Initial Assurance Review, £350+VAT) and must never influence this guard.
+    // for the membership fee (£295/£695).
     if (
       authDraft?.membershipPaymentStatus === 'WAIVED' ||
       authDraft?.membershipPaymentStatus === 'PAID'
@@ -89,12 +81,6 @@ export async function POST(req: NextRequest) {
       authDraft.membershipPaymentStatus = 'UNPAID';
       authDraft.updatedAt = new Date().toISOString();
       await saveApplicationDraft(targetId, authDraft);
-    }
-
-    if (storeDraft) {
-      storeDraft.status = 'AWAITING_PAYMENT';
-      storeDraft.updated_at = new Date().toISOString();
-      await saveSupplierOnboardingDraft(targetId, storeDraft);
     }
 
     return NextResponse.json({

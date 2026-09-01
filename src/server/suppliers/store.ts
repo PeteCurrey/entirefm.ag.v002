@@ -3,6 +3,8 @@
  * ===================================================
  * Complete single source of truth for supplier strategy, target recruitment,
  * OEM relationships, technology innovators, and coverage targets.
+ *
+ * Persisted via Supabase organisations and supplier intelligence tables.
  */
 
 import {
@@ -15,12 +17,30 @@ import {
   RecruitmentRequirementRecord,
   SupplierAuditRecord,
   ExecutiveSupplyChainMetrics,
-  AssurancePaymentRecord,
-  AssurancePaymentStatus,
+  SupplierDocumentVaultItem,
+  SupplierUserRecord,
+  MaterialChangeProposal,
+  ServiceScopeItem,
+  CoverageScopeItem,
+  SupplierRelationshipOverview,
+  SupplierComplianceRadarItem,
+  SupplierResourceItem,
 } from './types';
-import { dbQuery } from '../db/client';
-import { computeSupplyChainGaps, DEFAULT_COVERAGE_TARGETS } from './gap-engine';
-import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
+import { dbQuery, isDbConfigured } from '../db/client';
+import { computeSupplyChainGaps } from './gap-engine';
+import {
+  listServiceApprovals,
+  saveServiceApproval,
+  listGeographicApprovals,
+  saveGeographicApproval,
+  listComplianceHolds,
+  listSupplierDocuments,
+  uploadSupplierDocument,
+} from './assurance-store';
+import {
+  getSupplierOrganisationById,
+  getApplicationDraft,
+} from './supplier-auth-store';
 
 class MemorySupplierStore {
   public organisations: Map<string, SupplierOrganisationRecord> = new Map();
@@ -30,183 +50,7 @@ class MemorySupplierStore {
   public coverageTargets: Map<string, CoverageTarget> = new Map();
   public recruitmentRequirements: Map<string, RecruitmentRequirementRecord> = new Map();
   public auditLogs: SupplierAuditRecord[] = [];
-
-  constructor() {
-    this.seedInitialTargetsAndOems();
-    this.seedInitialCoverageTargets();
-  }
-
-  private seedInitialCoverageTargets() {
-    for (const tgt of DEFAULT_COVERAGE_TARGETS) {
-      this.coverageTargets.set(tgt.id, tgt);
-    }
-  }
-
-  private seedInitialTargetsAndOems() {
-    // Seed initial strategic targets (NOT approved suppliers; explicitly POTENTIAL TARGETS)
-    const initialTargets: SupplierTargetRecord[] = [
-      {
-        id: 'tgt-001',
-        company_name: 'Apex M&E Engineering Ltd',
-        website_url: 'https://apexme.example.co.uk',
-        supplier_types: ['REGIONAL_CONTRACTOR', 'SPECIALIST_CONTRACTOR'],
-        services: ['Electrical Systems', 'HVAC & Chillers'],
-        geography: ['Manchester', 'Leeds', 'Sheffield'],
-        strategic_rationale: ['GEOGRAPHIC_GAP', '24_7_CAPABILITY', 'RESILIENCE'],
-        priority: 'HIGH',
-        target_status: 'DISCUSSION',
-        key_contact_name: 'Sarah Jenkins (Commercial Director)',
-        key_contact_email: 's.jenkins@apexme.example.co.uk',
-        key_contact_phone: '0114 200 1234',
-        last_contact_date: '2026-08-20',
-        next_action: 'Issue Stage 2 Onboarding Assurance Questionnaire',
-        owner: 'Procurement Desk',
-        source: 'MANUAL_RESEARCH',
-        notes: 'Strong 15-van commercial engineering footprint in South Yorkshire and Greater Manchester.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 'tgt-002',
-        company_name: 'Caledonian Environmental & Drainage',
-        website_url: 'https://caledoniandrainage.example.co.uk',
-        supplier_types: ['SPECIALIST_CONTRACTOR', 'LOCAL_SME'],
-        services: ['Commercial Drainage', 'CCTV Drain Surveys', 'Interceptor Cleaning'],
-        geography: ['Birmingham', 'West Midlands'],
-        strategic_rationale: ['GEOGRAPHIC_GAP', '24_7_CAPABILITY', 'SINGLE_SUPPLIER_RISK'],
-        priority: 'CRITICAL',
-        target_status: 'RESEARCHING',
-        key_contact_name: 'Marcus Bell',
-        key_contact_email: 'm.bell@caledoniandrainage.example.co.uk',
-        owner: 'Operations Manager',
-        source: 'GAP_ALERT',
-        notes: 'Identified to resolve single-supplier vulnerability for 24/7 drainage in Birmingham.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 'tgt-003',
-        company_name: 'Vanguard Rope Access & Façade Engineering',
-        website_url: 'https://vanguardaccess.example.co.uk',
-        supplier_types: ['SPECIALIST_CONTRACTOR'],
-        services: ['Specialist Rope Access', 'Façade Inspection', 'BMU Cradle Maintenance'],
-        geography: ['London', 'National Coverage'],
-        strategic_rationale: ['SPECIALIST_COMPETENCY', 'NATIONAL_COVERAGE'],
-        priority: 'HIGH',
-        target_status: 'CONTACT_REQUIRED',
-        owner: 'Technical Director',
-        source: 'MANUAL_RESEARCH',
-        notes: 'IRATA Member Company with 30 certified Level 3 operatives across high-rise assets.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-    ];
-
-    for (const t of initialTargets) {
-      this.targets.set(t.id, t);
-    }
-
-    // Seed OEM Framework Ecosystems (POTENTIAL TARGET & STRATEGIC RELATIONSHIPS)
-    const initialOems: SupplierOemRecord[] = [
-      {
-        id: 'oem-001',
-        brand_name: 'Daikin Applied UK',
-        product_category: 'HVAC / Chillers & VRV',
-        ecosystem_description: 'Global HVAC manufacturer specialising in VRV/VRF systems, commercial chillers, and air handling equipment.',
-        relationship_level: 'COMMERCIAL_DISCUSSION',
-        direct_support_available: true,
-        approved_installer_access: true,
-        technical_escalation_route: true,
-        parts_access: true,
-        training_availability: true,
-        warranty_support: true,
-        geographic_coverage: ['National UK Coverage'],
-        strategic_notes: 'Seeking factory-approved service provider alignment for commercial client estates.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 'oem-002',
-        brand_name: 'Schneider Electric',
-        product_category: 'BMS & Smart Building Controls',
-        ecosystem_description: 'EcoStruxure architecture, building management controls, and smart energy sub-metering infrastructure.',
-        relationship_level: 'APPROVED_SERVICE_RELATIONSHIP',
-        direct_support_available: true,
-        approved_installer_access: true,
-        technical_escalation_route: true,
-        parts_access: true,
-        training_availability: true,
-        warranty_support: true,
-        geographic_coverage: ['National UK Coverage'],
-        strategic_notes: 'Direct API integration into EntireCAFM telemetry stream for predictive maintenance.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 'oem-003',
-        brand_name: 'KONE Lifts & Escalators',
-        product_category: 'Vertical Transportation',
-        ecosystem_description: 'Commercial passenger and goods lift manufacturer with connected 24/7 telemetry and maintenance frameworks.',
-        relationship_level: 'TARGET',
-        direct_support_available: false,
-        approved_installer_access: false,
-        technical_escalation_route: false,
-        parts_access: true,
-        training_availability: false,
-        warranty_support: true,
-        geographic_coverage: ['National UK Coverage'],
-        strategic_notes: 'Targeting OEM technical escalation agreement for KONE installations across retail portfolios.',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-    ];
-
-    for (const o of initialOems) {
-      this.oems.set(o.id, o);
-    }
-
-    // Seed Technology Innovators
-    const initialTech: SupplierTechnologyRecord[] = [
-      {
-        id: 'tech-001',
-        company_name: 'VibeSense Telemetry Systems',
-        technology_category: 'IOT_SENSORS',
-        technology_summary: 'LoRaWAN tri-axial vibration and bearing temperature sensors for industrial pumps, AHUs, and chillers.',
-        integration_opportunity: 'Real-time REST / MQTT webhook into EntireCAFM to trigger automatic dynamic SFG20 work orders.',
-        client_use_case: 'Critical data centre and manufacturing plant uptime protection.',
-        pilot_potential: 'HIGH',
-        api_availability: true,
-        commercial_model: 'SUBSCRIPTION',
-        relationship_stage: 'POC_PILOT',
-        strategic_priority: 'HIGH',
-        contact_name: 'Dr. James Anderson',
-        contact_email: 'j.anderson@vibesense.example.com',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 'tech-002',
-        company_name: 'AeroThermal Drone Inspection Ltd',
-        technology_category: 'DRONES',
-        technology_summary: 'Sub-millimetre aerial photogrammetry and radiometric FLIR roof insulation thermography.',
-        integration_opportunity: 'Direct CAD / BIM orthomosaic upload into EntireFM Asset 360 viewer.',
-        client_use_case: 'Preventative roof membrane maintenance and solar PV hot-spot diagnostic audits.',
-        pilot_potential: 'HIGH',
-        api_availability: true,
-        commercial_model: 'USAGE',
-        relationship_stage: 'COMMERCIAL_PARTNER',
-        strategic_priority: 'HIGH',
-        contact_name: 'Liam Wright',
-        contact_email: 'lwright@aerothermal.example.com',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-    ];
-
-    for (const tc of initialTech) {
-      this.techPartners.set(tc.id, tc);
-    }
-  }
+  // Stores start clean — no fake or seeded records
 }
 
 const gStore = globalThis as unknown as { __efm_supplierMemoryStore?: MemorySupplierStore };
@@ -215,8 +59,67 @@ if (!gStore.__efm_supplierMemoryStore) {
 }
 export const supplierMemoryStore = gStore.__efm_supplierMemoryStore;
 
+export const SUPPLIER_APPLICATION_PAYMENT_ENABLED = false;
+
+function isUuid(val: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+}
+
+function mapDbOrgToSupplierRecord(org: any, prov?: any): SupplierOrganisationRecord {
+  const addr = org.address_json || {};
+  return {
+    id: org.id,
+    legal_name: org.legal_name || org.name || 'Contractor Organisation',
+    trading_name: org.name || org.legal_name || undefined,
+    company_number: org.company_number || undefined,
+    vat_number: org.vat_number || undefined,
+    domain: org.website ? org.website.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : undefined,
+    supplier_types: ['SPECIALIST_CONTRACTOR'],
+    relationship_level: org.tier === 'STRATEGIC'
+      ? 'STRATEGIC_PARTNER'
+      : org.tier === 'PREFERRED'
+      ? 'PREFERRED_SUPPLIER'
+      : org.status === 'ACTIVE'
+      ? 'APPROVED_SUPPLIER'
+      : 'PROSPECT',
+    compliance_status: org.status === 'ACTIVE' ? 'APPROVED' : 'NOT_ONBOARDED',
+    risk_level: 'LOW',
+    headquarters_city: addr.city || 'Sheffield',
+    headquarters_postcode: addr.postcode || 'S9 2TT',
+    full_address: addr.line1 ? `${addr.line1}, ${addr.city || ''} ${addr.postcode || ''}`.trim() : 'Commercial Estate, UK',
+    phone: org.phone || '0114 000 0000',
+    email: org.email || 'enquiries@entirefm.com',
+    website_url: org.website || undefined,
+    is_national: true,
+    emergency_24_7: true,
+    services: prov?.primary_trade
+      ? [{
+          id: `srv-${org.id}`,
+          service_slug: prov.primary_trade.toLowerCase().replace(/\s+/g, '-'),
+          service_name: prov.primary_trade,
+          category: 'Hard FM' as const,
+          is_primary: true,
+          accreditations: [],
+        }]
+      : [],
+    coverage: [{
+      id: `cov-${org.id}`,
+      coverage_type: 'REGION' as const,
+      boundary_value: 'National UK',
+      is_active: true,
+      emergency_24_7: true,
+    }],
+    contacts: [],
+    performance_score: prov?.performance_score ? Number(prov.performance_score) : 85,
+    first_time_fix_rate: prov?.first_time_fix_rate ? Number(prov.first_time_fix_rate) : 90,
+    sla_adherence_rate: prov?.sla_adherence_rate ? Number(prov.sla_adherence_rate) : 95,
+    created_at: org.created_at || new Date().toISOString(),
+    updated_at: org.updated_at || new Date().toISOString(),
+  };
+}
+
 /**
- * Lists all supplier organisations with optional filters
+ * Lists all supplier organisations with optional filters (Supabase-backed)
  */
 export async function listSupplierOrganisations(options: {
   serviceSlug?: string;
@@ -227,7 +130,21 @@ export async function listSupplierOrganisations(options: {
   emergencyOnly?: boolean;
   search?: string;
 } = {}): Promise<SupplierOrganisationRecord[]> {
-  let list = Array.from(supplierMemoryStore.organisations.values());
+  if (!isDbConfigured()) return [];
+
+  const [orgsRes, provsRes] = await Promise.all([
+    dbQuery<any[]>('organisations?org_type=eq.CONTRACTOR&order=name.asc'),
+    dbQuery<any[]>('provider_organisations'),
+  ]);
+
+  const orgs = orgsRes.data || [];
+  const provs = provsRes.data || [];
+  const provMap = new Map<string, any>();
+  for (const p of provs) {
+    if (p.organisation_id) provMap.set(p.organisation_id, p);
+  }
+
+  let list = orgs.map((o) => mapDbOrgToSupplierRecord(o, provMap.get(o.id)));
 
   if (options.serviceSlug) {
     list = list.filter((s) => s.services.some((srv) => srv.service_slug === options.serviceSlug));
@@ -269,10 +186,51 @@ export async function listSupplierOrganisations(options: {
 }
 
 /**
- * Get supplier organisation by ID
+ * Get supplier organisation by ID (uuid from organisations or text code)
  */
 export async function getSupplierOrganisation(id: string): Promise<SupplierOrganisationRecord | null> {
-  return supplierMemoryStore.organisations.get(id) || null;
+  if (!isDbConfigured()) return null;
+
+  const filter = isUuid(id) ? `id=eq.${id}` : `code=eq.${encodeURIComponent(id)}`;
+  const { data: orgs } = await dbQuery<any[]>(`organisations?${filter}&limit=1`);
+
+  if (!orgs || orgs.length === 0) {
+    // Check supplier_organisations table if pre-approval
+    const { data: suppOrgs } = await dbQuery<any[]>(
+      `supplier_organisations?id=eq.${encodeURIComponent(id)}&limit=1`
+    );
+    if (suppOrgs && suppOrgs.length > 0) {
+      const so = suppOrgs[0];
+      return {
+        id: so.id,
+        legal_name: so.legal_name,
+        trading_name: so.trading_name || so.legal_name,
+        supplier_types: ['SPECIALIST_CONTRACTOR'],
+        relationship_level: so.lifecycle_status === 'APPROVED' ? 'APPROVED_SUPPLIER' : 'PROSPECT',
+        compliance_status: so.lifecycle_status === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
+        risk_level: 'MEDIUM',
+        headquarters_city: 'Sheffield',
+        headquarters_postcode: 'S9 2TT',
+        full_address: 'UK',
+        phone: '0114 000 0000',
+        email: 'enquiries@entirefm.com',
+        is_national: true,
+        emergency_24_7: true,
+        services: [],
+        coverage: [],
+        contacts: [],
+        created_at: so.created_at || new Date().toISOString(),
+        updated_at: so.updated_at || new Date().toISOString(),
+      };
+    }
+    return null;
+  }
+
+  const org = orgs[0];
+  const { data: provs } = await dbQuery<any[]>(
+    `provider_organisations?organisation_id=eq.${org.id}&limit=1`
+  );
+  return mapDbOrgToSupplierRecord(org, provs?.[0]);
 }
 
 /**
@@ -282,76 +240,60 @@ export async function saveSupplierOrganisation(
   supplier: Partial<SupplierOrganisationRecord> & { legal_name: string },
   actorId: string = 'system'
 ): Promise<{ success: boolean; supplier?: SupplierOrganisationRecord; error?: string; duplicateWarning?: string }> {
-  // Duplicate check
-  const existingByNumber = supplier.company_number
-    ? Array.from(supplierMemoryStore.organisations.values()).find(
-        (s) => s.company_number && s.company_number === supplier.company_number && s.id !== supplier.id
-      )
-    : null;
-
-  const existingByName = Array.from(supplierMemoryStore.organisations.values()).find(
-    (s) => s.legal_name.toLowerCase() === supplier.legal_name.toLowerCase() && s.id !== supplier.id
-  );
-
-  let duplicateWarning: string | undefined;
-  if (existingByNumber || existingByName) {
-    duplicateWarning = `Possible duplicate organisation detected: "${(existingByNumber || existingByName)?.legal_name}" (ID: ${(existingByNumber || existingByName)?.id}).`;
+  if (!isDbConfigured()) {
+    return { success: false, error: 'Database not configured' };
   }
 
-  const id = supplier.id || `sup-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
   const now = new Date().toISOString();
+  const id = supplier.id || undefined;
 
-  const record: SupplierOrganisationRecord = {
-    id,
-    legal_name: supplier.legal_name,
-    trading_name: supplier.trading_name,
-    company_number: supplier.company_number,
-    vat_number: supplier.vat_number,
-    domain: supplier.domain,
-    supplier_types: supplier.supplier_types || ['SPECIALIST_CONTRACTOR'],
-    relationship_level: supplier.relationship_level || 'PROSPECT',
-    compliance_status: supplier.compliance_status || 'NOT_ONBOARDED',
-    risk_level: supplier.risk_level || 'MEDIUM',
-    relationship_owner: supplier.relationship_owner,
-    headquarters_city: supplier.headquarters_city || 'Sheffield',
-    headquarters_postcode: supplier.headquarters_postcode || 'S9 2TT',
-    full_address: supplier.full_address || 'Commercial Estate, UK',
-    phone: supplier.phone || '0114 000 0000',
-    email: supplier.email || 'info@supplier.example.co.uk',
-    website_url: supplier.website_url,
-    is_national: Boolean(supplier.is_national),
-    emergency_24_7: Boolean(supplier.emergency_24_7),
-    services: supplier.services || [],
-    coverage: supplier.coverage || [],
-    contacts: supplier.contacts || [],
-    notes: supplier.notes,
-    performance_score: supplier.performance_score || 85,
-    first_time_fix_rate: supplier.first_time_fix_rate || 90,
-    sla_adherence_rate: supplier.sla_adherence_rate || 95,
-    created_at: supplier.created_at || now,
-    updated_at: now,
+  let savedOrgId = id;
+  if (id && isUuid(id)) {
+    await dbQuery(`organisations?id=eq.${id}`, {
+      method: 'PATCH',
+      body: {
+        legal_name: supplier.legal_name,
+        name: supplier.trading_name || supplier.legal_name,
+        company_number: supplier.company_number || null,
+        vat_number: supplier.vat_number || null,
+        phone: supplier.phone || null,
+        email: supplier.email || null,
+        website: supplier.website_url || null,
+        updated_at: now,
+      },
+    });
+  } else {
+    const code = `PROV-${Date.now().toString(36).toUpperCase()}`;
+    const { data: created } = await dbQuery<any[]>('organisations', {
+      method: 'POST',
+      body: {
+        code,
+        name: supplier.trading_name || supplier.legal_name,
+        legal_name: supplier.legal_name,
+        org_type: 'CONTRACTOR',
+        company_number: supplier.company_number || null,
+        vat_number: supplier.vat_number || null,
+        status: 'ACTIVE',
+        tier: supplier.relationship_level === 'STRATEGIC_PARTNER' ? 'STRATEGIC' : 'APPROVED',
+        email: supplier.email || null,
+        phone: supplier.phone || null,
+        website: supplier.website_url || null,
+      },
+    });
+    if (created && created.length > 0) {
+      savedOrgId = created[0].id;
+    }
+  }
+
+  const record = savedOrgId ? await getSupplierOrganisation(savedOrgId) : null;
+  return {
+    success: true,
+    supplier: record || (supplier as SupplierOrganisationRecord),
   };
-
-  const old = supplierMemoryStore.organisations.get(id);
-  supplierMemoryStore.organisations.set(id, record);
-
-  // Audit log
-  supplierMemoryStore.auditLogs.push({
-    id: `aud-${Date.now()}`,
-    entity_type: 'ORGANISATION',
-    entity_id: id,
-    change_type: old ? 'UPDATE' : 'CREATE',
-    changed_by: actorId,
-    changed_at: now,
-    old_value: old ? JSON.stringify({ rel: old.relationship_level, comp: old.compliance_status }) : undefined,
-    new_value: JSON.stringify({ rel: record.relationship_level, comp: record.compliance_status }),
-  });
-
-  return { success: true, supplier: record, duplicateWarning };
 }
 
 /**
- * List Targets
+ * List Targets (Phase 2)
  */
 export async function listSupplierTargets(status?: string, priority?: string): Promise<SupplierTargetRecord[]> {
   let list = Array.from(supplierMemoryStore.targets.values());
@@ -361,7 +303,7 @@ export async function listSupplierTargets(status?: string, priority?: string): P
 }
 
 /**
- * Save Target Partner
+ * Save Target Partner (Phase 2)
  */
 export async function saveSupplierTarget(
   target: Partial<SupplierTargetRecord> & { company_name: string },
@@ -395,14 +337,14 @@ export async function saveSupplierTarget(
 }
 
 /**
- * List OEMs
+ * List OEMs (Phase 2)
  */
 export async function listSupplierOems(): Promise<SupplierOemRecord[]> {
   return Array.from(supplierMemoryStore.oems.values());
 }
 
 /**
- * List Tech Partners
+ * List Tech Partners (Phase 2)
  */
 export async function listSupplierTechPartners(): Promise<SupplierTechnologyRecord[]> {
   return Array.from(supplierMemoryStore.techPartners.values());
@@ -412,16 +354,16 @@ export async function listSupplierTechPartners(): Promise<SupplierTechnologyReco
  * Compute Supply Chain Gaps Live
  */
 export async function getLiveSupplyChainGaps(): Promise<SupplyChainGapAlert[]> {
-  const suppliers = Array.from(supplierMemoryStore.organisations.values());
+  const suppliers = await listSupplierOrganisations();
   const targets = Array.from(supplierMemoryStore.coverageTargets.values());
   return computeSupplyChainGaps(suppliers, targets);
 }
 
 /**
- * Get Executive Metrics
+ * Get Executive Metrics (Live from Supabase)
  */
 export async function getExecutiveSupplyChainMetrics(): Promise<ExecutiveSupplyChainMetrics> {
-  const orgs = Array.from(supplierMemoryStore.organisations.values());
+  const orgs = await listSupplierOrganisations();
   const targets = Array.from(supplierMemoryStore.targets.values());
   const gaps = await getLiveSupplyChainGaps();
 
@@ -439,7 +381,7 @@ export async function getExecutiveSupplyChainMetrics(): Promise<ExecutiveSupplyC
     preferredSuppliers: preferred,
     strategicPartners: strategic,
     suppliersUnderReview: underReview,
-    activeApplications: 0, // Computed dynamically from lead store
+    activeApplications: 0,
     complianceIssues: orgs.filter((s) => s.compliance_status === 'COMPLIANCE_HOLD' || s.compliance_status === 'EXPIRED').length,
     expiringDocuments: 0,
     geographicCoverageGaps: gaps.filter((g) => g.gap_type === 'NO_APPROVED_SUPPLIER').length,
@@ -449,314 +391,143 @@ export async function getExecutiveSupplyChainMetrics(): Promise<ExecutiveSupplyC
   };
 }
 
-
-import {
-  SupplierOnboardingDraft,
-  SupplierDocumentVaultItem,
-  SupplierUserRecord,
-  MaterialChangeProposal,
-  SupplierSupportTicket,
-  OperatingBaseRecord,
-} from './types';
-
-// In-Memory Drafts & Portal Data
-const onboardingDrafts = new Map<string, SupplierOnboardingDraft>();
-const supplierDocuments = new Map<string, SupplierDocumentVaultItem[]>();
-const supplierUsers = new Map<string, SupplierUserRecord[]>();
-const materialProposals = new Map<string, MaterialChangeProposal[]>();
-const supportTickets = new Map<string, SupplierSupportTicket[]>();
-
-// Stores start empty — populated by real authenticated supplier registrations.
-// No demo/mock/seed data is initialised here.
-
 /**
- * Check if company registration number or VAT is already registered
- */
-export async function checkDuplicateOrganisation(companyNumber: string, vatNumber?: string): Promise<{ isDuplicate: boolean; matchType?: string }> {
-  const normalisedCo = companyNumber.trim().toUpperCase();
-  for (const draft of onboardingDrafts.values()) {
-    if (draft.company_number.trim().toUpperCase() === normalisedCo) {
-      return { isDuplicate: true, matchType: 'COMPANY_NUMBER' };
-    }
-    if (vatNumber && draft.vat_number && draft.vat_number.trim().toUpperCase() === vatNumber.trim().toUpperCase()) {
-      return { isDuplicate: true, matchType: 'VAT_NUMBER' };
-    }
-  }
-  return { isDuplicate: false };
-}
-
-/**
- * Get or create onboarding draft
- */
-export async function getSupplierOnboardingDraft(supplierId: string): Promise<SupplierOnboardingDraft> {
-  let draft = onboardingDrafts.get(supplierId);
-  if (!draft) {
-    const ref = `SUP-${new Date().toISOString().slice(2, 10).replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`;
-    draft = {
-      id: `draft-${Date.now()}`,
-      supplier_id: supplierId,
-      application_reference: ref,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      status: 'DRAFT',
-      current_step: 1,
-      legal_company_name: '',
-      trading_name: '',
-      company_number: '',
-      vat_number: '',
-      website_url: '',
-      year_established: new Date().getFullYear(),
-      employee_count_total: 1,
-      registered_address: '',
-      trading_address: '',
-      main_phone: '',
-      general_email: '',
-      primary_business_type: 'Regional Contractor',
-      company_summary: '',
-      contacts: [],
-      selected_service_slugs: [],
-      service_details: {},
-      coverage_type: 'REGIONAL',
-      selected_regions: [],
-      operating_bases: [],
-      standard_operating_hours: '08:00 - 17:00 (Mon-Fri)',
-      emergency_24_7_available: false,
-      planned_maintenance_offered: true,
-      reactive_maintenance_offered: true,
-      project_works_offered: false,
-      typical_emergency_sla_hours: 4,
-      direct_field_operatives: 1,
-      office_support_staff: 1,
-      workforce_model: 'DIRECT_EMPLOYEES',
-      uses_subcontractors: false,
-      insurances: [],
-      accreditations: [],
-      has_hs_policy: false,
-      has_competent_person: false,
-      has_rams_templates: false,
-      has_coshh_assessments: false,
-      has_working_at_height_controls: false,
-      has_material_incidents_past_3yr: false,
-      anti_bribery_accepted: false,
-      modern_slavery_policy_accepted: false,
-      worker_welfare_standards_accepted: false,
-      environmental_policy_accepted: false,
-      requires_system_access: false,
-      mfa_enforced: false,
-      cyber_essentials_certified: false,
-      gdpr_compliant_processes: false,
-      uploaded_document_ids: [],
-      accounts_payable_email: '',
-      requires_po: true,
-      bank_account_name: '',
-      bank_sort_code_masked: '',
-      bank_account_number_masked: '',
-      code_of_conduct_accepted: false,
-      code_of_conduct_version: '2026.1',
-      code_of_conduct_accepted_by: '',
-      truthfulness_declaration_accepted: false,
-      step_states: {},
-    };
-    onboardingDrafts.set(supplierId, draft);
-  }
-  return draft;
-}
-
-/**
- * Save draft updates
- */
-export async function saveSupplierOnboardingDraft(supplierId: string, updates: Partial<SupplierOnboardingDraft>): Promise<SupplierOnboardingDraft> {
-  const existing = await getSupplierOnboardingDraft(supplierId);
-  const updated: SupplierOnboardingDraft = {
-    ...existing,
-    ...updates,
-    updated_at: new Date().toISOString(),
-  };
-  onboardingDrafts.set(supplierId, updated);
-  return updated;
-}
-
-/**
- * Record Assurance Review Payment (Card, Invoice or Authorised Waiver)
- */
-export async function recordAssurancePayment(
-  supplierId: string,
-  paymentMethod: 'CARD' | 'INVOICE' | 'WAIVER',
-  details: {
-    transactionRef?: string;
-    invoiceNumber?: string;
-    waivedBy?: string;
-    waiverReason?: string;
-  } = {}
-): Promise<AssurancePaymentRecord> {
-  const draft = await getSupplierOnboardingDraft(supplierId);
-  const pricing = CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW;
-
-  const paymentRecord: AssurancePaymentRecord = {
-    status: paymentMethod === 'INVOICE' ? 'AWAITING_PAYMENT' : paymentMethod === 'WAIVER' ? 'WAIVED' : 'PAID',
-    product_id: pricing.id,
-    amount_gbp: pricing.priceGbp,
-    vat_amount_gbp: pricing.priceGbp * pricing.vatRate,
-    total_gbp: pricing.priceGbp * (1 + pricing.vatRate),
-    payment_method: paymentMethod,
-    transaction_reference: details.transactionRef || (paymentMethod === 'CARD' ? `txn_assur_${Date.now()}` : undefined),
-    invoice_number: details.invoiceNumber || (paymentMethod === 'INVOICE' ? `INV-ASSUR-${Date.now()}` : undefined),
-    paid_at: paymentMethod === 'CARD' ? new Date().toISOString() : undefined,
-    waived_by: details.waivedBy,
-    waiver_reason: details.waiverReason,
-  };
-
-  draft.assurance_payment = paymentRecord;
-  if (paymentRecord.status === 'PAID' || paymentRecord.status === 'WAIVED') {
-    draft.status = 'READY_TO_SUBMIT';
-  } else {
-    draft.status = 'AWAITING_PAYMENT';
-  }
-  draft.updated_at = new Date().toISOString();
-  onboardingDrafts.set(supplierId, draft);
-
-  return paymentRecord;
-}
-
-/**
- * Authorised EntireFM Admin Waiver for Assurance Review Fee
- */
-export async function waiveAssuranceFee(
-  supplierId: string,
-  waivedBy: string,
-  reason: string
-): Promise<AssurancePaymentRecord> {
-  return recordAssurancePayment(supplierId, 'WAIVER', {
-    waivedBy,
-    waiverReason: reason,
-  });
-}
-
-export const SUPPLIER_APPLICATION_PAYMENT_ENABLED = false;
-
-/**
- * Submit full onboarding application (Technical Due Diligence Gate)
- */
-export async function submitSupplierOnboardingApplication(supplierId: string): Promise<{ success: boolean; application_reference: string; error?: string }> {
-  const draft = await getSupplierOnboardingDraft(supplierId);
-
-  // Validate mandatory fields
-  if (!draft.legal_company_name || !draft.company_number) {
-    return { success: false, application_reference: draft.application_reference, error: 'Company Profile information is incomplete.' };
-  }
-  if (draft.selected_service_slugs.length === 0) {
-    return { success: false, application_reference: draft.application_reference, error: 'At least one service discipline must be selected.' };
-  }
-  if (!draft.code_of_conduct_accepted || !draft.truthfulness_declaration_accepted) {
-    return { success: false, application_reference: draft.application_reference, error: 'Mandatory declarations and Code of Conduct must be accepted.' };
-  }
-
-  // Pre-submission Assurance Review Payment Gate (Isolated via Feature Flag — Dormant)
-  if (SUPPLIER_APPLICATION_PAYMENT_ENABLED) {
-    const isPaidOrWaived =
-      draft.assurance_payment?.status === 'PAID' ||
-      draft.assurance_payment?.status === 'WAIVED';
-
-    if (!isPaidOrWaived) {
-      return {
-        success: false,
-        application_reference: draft.application_reference,
-        error: 'Initial Supplier Assurance Review payment or authorised waiver is required prior to formal submission.',
-      };
-    }
-  }
-
-  draft.status = 'SUBMITTED';
-  draft.submitted_at = new Date().toISOString();
-  draft.updated_at = new Date().toISOString();
-  onboardingDrafts.set(supplierId, draft);
-
-  return { success: true, application_reference: draft.application_reference };
-}
-
-/**
- * List Vault Documents for a Supplier (Strict Organisation Isolation)
+ * List Vault Documents for a Supplier (Redirects to assurance-store)
  */
 export async function listSupplierVaultDocuments(supplierId: string): Promise<SupplierDocumentVaultItem[]> {
-  return supplierDocuments.get(supplierId) || [];
+  const docs = await listSupplierDocuments(supplierId);
+  return docs.map((d) => ({
+    id: d.id,
+    supplier_id: supplierId,
+    document_type: d.document_type,
+    category: 'ACCREDITATION',
+    file_name: d.file_name,
+    file_size_kb: Math.round(d.file_size_bytes / 1024),
+    uploaded_at: d.uploaded_at,
+    expiry_date: d.expiry_date,
+    status: d.review_status as any,
+    rejection_reason: d.rejection_reason,
+    action_required: undefined,
+    download_url: `/api/documents/vault/${d.id}`,
+  }));
 }
 
 /**
  * Replace a Vault Document
  */
-export async function replaceSupplierVaultDocument(supplierId: string, documentId: string, newFileName: string, newFileSizeKb: number, newExpiryDate?: string): Promise<SupplierDocumentVaultItem | null> {
-  const docs = supplierDocuments.get(supplierId) || [];
-  const target = docs.find((d) => d.id === documentId);
-  if (!target) return null;
+export async function replaceSupplierVaultDocument(
+  supplierId: string,
+  documentId: string,
+  newFileName: string,
+  newFileSizeKb: number,
+  newExpiryDate?: string
+): Promise<SupplierDocumentVaultItem | null> {
+  const newDoc = await uploadSupplierDocument({
+    supplier_id: supplierId,
+    document_type: 'VAULT_DOCUMENT',
+    file_name: newFileName,
+    file_size_bytes: newFileSizeKb * 1024,
+    mime_type: 'application/pdf',
+    storage_path: `/vault/${supplierId}/${newFileName}`,
+    expiry_date: newExpiryDate,
+    uploaded_by: 'Supplier Portal',
+  });
 
-  target.file_name = newFileName;
-  target.file_size_kb = newFileSizeKb;
-  target.uploaded_at = new Date().toISOString();
-  if (newExpiryDate) target.expiry_date = newExpiryDate;
-  target.status = 'SUBMITTED';
-  target.rejection_reason = undefined;
-  target.action_required = undefined;
-
-  return target;
+  return {
+    id: newDoc.id,
+    supplier_id: supplierId,
+    document_type: newDoc.document_type,
+    category: 'ACCREDITATION',
+    file_name: newDoc.file_name,
+    file_size_kb: newFileSizeKb,
+    uploaded_at: newDoc.uploaded_at,
+    expiry_date: newDoc.expiry_date,
+    status: 'SUBMITTED',
+    download_url: `/api/documents/vault/${newDoc.id}`,
+  };
 }
 
 /**
  * List Supplier Portal Users
  */
 export async function listSupplierPortalUsers(supplierId: string): Promise<SupplierUserRecord[]> {
-  return supplierUsers.get(supplierId) || [];
+  if (!isDbConfigured()) return [];
+
+  const filter = isUuid(supplierId)
+    ? `organisation_id=eq.${supplierId}`
+    : `supplier_org_id=eq.${encodeURIComponent(supplierId)}`;
+
+  const { data } = await dbQuery<any[]>(`supplier_portal_user_records?${filter}&order=created_at.desc`);
+  if (!data) return [];
+
+  return data.map((u) => ({
+    id: u.id,
+    supplier_id: u.organisation_id || u.supplier_org_id || supplierId,
+    email: u.email,
+    full_name: u.name,
+    role: u.role,
+    status: u.is_active ? 'ACTIVE' : 'DISABLED',
+    created_at: u.created_at,
+  }));
 }
 
 /**
  * Invite new Supplier Portal User
  */
-export async function inviteSupplierPortalUser(supplierId: string, email: string, fullName: string, role: SupplierUserRecord['role']): Promise<SupplierUserRecord> {
-  const current = supplierUsers.get(supplierId) || [];
-  const newUser: SupplierUserRecord = {
-    id: `usr-${Date.now()}`,
+export async function inviteSupplierPortalUser(
+  supplierId: string,
+  email: string,
+  fullName: string,
+  role: SupplierUserRecord['role']
+): Promise<SupplierUserRecord> {
+  const id = `usr-${Date.now()}`;
+  const now = new Date().toISOString();
+  const ownerCols = isUuid(supplierId)
+    ? { organisation_id: supplierId, supplier_org_id: null }
+    : { supplier_org_id: supplierId, organisation_id: null };
+
+  if (isDbConfigured()) {
+    await dbQuery('supplier_portal_user_records', {
+      method: 'POST',
+      body: {
+        id,
+        ...ownerCols,
+        email,
+        name: fullName,
+        role,
+        is_active: true,
+        created_at: now,
+      },
+    });
+  }
+
+  return {
+    id,
     supplier_id: supplierId,
     email,
     full_name: fullName,
     role,
     status: 'INVITED',
-    created_at: new Date().toISOString(),
+    created_at: now,
   };
-  current.push(newUser);
-  supplierUsers.set(supplierId, current);
-  return newUser;
 }
 
 /**
  * Submit Material Profile Change
  */
-export async function submitMaterialProfileChange(supplierId: string, proposal: Omit<MaterialChangeProposal, 'id' | 'submitted_at' | 'status'>): Promise<MaterialChangeProposal> {
-  const current = materialProposals.get(supplierId) || [];
-  const rec: MaterialChangeProposal = {
+export async function submitMaterialProfileChange(
+  supplierId: string,
+  proposal: Omit<MaterialChangeProposal, 'id' | 'submitted_at' | 'status'>
+): Promise<MaterialChangeProposal> {
+  return {
     ...proposal,
     id: `prop-${Date.now()}`,
     submitted_at: new Date().toISOString(),
     status: 'PENDING_REVIEW',
   };
-  current.push(rec);
-  materialProposals.set(supplierId, current);
-  return rec;
 }
 
-
-import {
-  ServiceScopeItem,
-  CoverageScopeItem,
-  SupplierRelationshipOverview,
-  SupplierComplianceRadarItem,
-  SupplierResourceItem,
-} from './types';
-import { getSupplierOrganisationById } from './supplier-auth-store';
-
-// In-Memory Scope Stores — start empty, populated when suppliers declare or request scopes
-const supplierServicesScope = new Map<string, ServiceScopeItem[]>();
-const supplierCoverageScope = new Map<string, CoverageScopeItem[]>();
-
-// Canonical Supplier Resources (Official public/partner documents)
+// Canonical Supplier Resources
 const canonicalSupplierResources: SupplierResourceItem[] = [
   {
     id: 'res-01',
@@ -801,96 +572,131 @@ const canonicalSupplierResources: SupplierResourceItem[] = [
 ];
 
 /**
- * Get Supplier Services Scope Matrix
+ * Get Supplier Services Scope Matrix (Correction 3: delegates to assurance-store)
  */
 export async function getSupplierServicesScope(supplierId: string): Promise<ServiceScopeItem[]> {
-  const existing = supplierServicesScope.get(supplierId);
-  if (existing) return existing;
+  const approvals = await listServiceApprovals(supplierId);
+  const draft = await getApplicationDraft(supplierId);
 
-  // Build from application draft if available
-  const draft = onboardingDrafts.get(supplierId);
-  if (draft && draft.selected_service_slugs?.length > 0) {
-    const list: ServiceScopeItem[] = draft.selected_service_slugs.map((slug) => ({
-      slug,
-      name: slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
-      category: 'HARD_FM',
-      is_declared: true,
-      approval_status: draft.status === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
-    }));
-    supplierServicesScope.set(supplierId, list);
-    return list;
+  const scopeMap = new Map<string, ServiceScopeItem>();
+
+  // Declared in application draft
+  if (draft && draft.selectedServices) {
+    for (const slug of draft.selectedServices) {
+      scopeMap.set(slug, {
+        slug,
+        name: slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+        category: 'HARD_FM',
+        is_declared: true,
+        approval_status: draft.lifecycleStatus === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
+      });
+    }
   }
 
-  return [];
+  // Formal approvals
+  for (const a of approvals) {
+    scopeMap.set(a.service_slug, {
+      slug: a.service_slug,
+      name: a.service_name,
+      category: 'HARD_FM',
+      is_declared: true,
+      approval_status: a.approval_status as any,
+      approved_date: a.effective_date,
+      next_review_date: a.review_date,
+      restrictions: a.restrictions,
+    });
+  }
+
+  return Array.from(scopeMap.values());
 }
 
 /**
- * Request Additional Service Capability
+ * Request Additional Service Capability (Correction 3: persists via assurance-store)
  */
-export async function requestAdditionalService(supplierId: string, slug: string, capabilityNotes?: string): Promise<{ success: boolean; service: ServiceScopeItem }> {
-  let list = supplierServicesScope.get(supplierId) || [];
-  let item = list.find((s) => s.slug === slug);
-  if (!item) {
-    item = {
-      slug,
-      name: slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+export async function requestAdditionalService(
+  supplierId: string,
+  slug: string,
+  capabilityNotes?: string
+): Promise<{ success: boolean; service: ServiceScopeItem }> {
+  const name = slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  const approval = await saveServiceApproval({
+    supplier_id: supplierId,
+    service_slug: slug,
+    service_name: name,
+    approval_status: 'UNDER_REVIEW',
+    effective_date: new Date().toISOString(),
+    review_date: new Date(Date.now() + 365 * 86400000).toISOString(),
+    approved_by: 'Supplier Portal Request',
+    rationale: capabilityNotes || 'Self-service request via Supplier Portal',
+  });
+
+  return {
+    success: true,
+    service: {
+      slug: approval.service_slug,
+      name: approval.service_name,
       category: 'HARD_FM',
       is_declared: true,
       approval_status: 'UNDER_REVIEW',
       capability_notes: capabilityNotes,
-    };
-    list.push(item);
-  } else {
-    item.is_declared = true;
-    item.approval_status = 'UNDER_REVIEW';
-    if (capabilityNotes) item.capability_notes = capabilityNotes;
-  }
-  supplierServicesScope.set(supplierId, list);
-  return { success: true, service: item };
+    },
+  };
 }
 
 /**
- * Get Supplier Coverage Scope Matrix
+ * Get Supplier Coverage Scope Matrix (Correction 3: delegates to assurance-store)
  */
 export async function getSupplierCoverageScope(supplierId: string): Promise<CoverageScopeItem[]> {
-  const existing = supplierCoverageScope.get(supplierId);
-  if (existing) return existing;
+  const approvals = await listGeographicApprovals(supplierId);
+  const draft = await getApplicationDraft(supplierId);
 
-  // Build from application draft if available
-  const draft = onboardingDrafts.get(supplierId);
-  if (draft && draft.selected_regions?.length > 0) {
-    const list: CoverageScopeItem[] = draft.selected_regions.map((region) => ({
-      region,
-      is_declared: true,
-      approval_status: draft.status === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
-      operating_bases: (draft.operating_bases || []).map((b) => b.name),
-    }));
-    supplierCoverageScope.set(supplierId, list);
-    return list;
+  const coverageMap = new Map<string, CoverageScopeItem>();
+
+  if (draft && draft.selectedRegions) {
+    for (const region of draft.selectedRegions) {
+      coverageMap.set(region, {
+        region,
+        is_declared: true,
+        approval_status: draft.lifecycleStatus === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
+      });
+    }
   }
 
-  return [];
+  for (const g of approvals) {
+    coverageMap.set(g.region_or_city, {
+      region: g.region_or_city,
+      is_declared: true,
+      approval_status: g.is_approved ? 'APPROVED' : 'UNDER_REVIEW',
+      approved_date: g.approved_at,
+    });
+  }
+
+  return Array.from(coverageMap.values());
 }
 
 /**
- * Request Additional Regional Coverage
+ * Request Additional Regional Coverage (Correction 3: persists via assurance-store)
  */
-export async function requestAdditionalCoverage(supplierId: string, region: string): Promise<{ success: boolean; coverage: CoverageScopeItem }> {
-  let list = supplierCoverageScope.get(supplierId) || [];
-  let item = list.find((c) => c.region.toLowerCase().includes(region.toLowerCase()) || region.toLowerCase().includes(c.region.toLowerCase()));
-  if (!item) {
-    item = {
-      region,
+export async function requestAdditionalCoverage(
+  supplierId: string,
+  region: string
+): Promise<{ success: boolean; coverage: CoverageScopeItem }> {
+  const approval = await saveGeographicApproval({
+    supplier_id: supplierId,
+    region_or_city: region,
+    is_approved: false,
+    approved_by: 'Supplier Portal Request',
+    approved_at: new Date().toISOString(),
+  });
+
+  return {
+    success: true,
+    coverage: {
+      region: approval.region_or_city,
       is_declared: true,
       approval_status: 'UNDER_REVIEW',
-    };
-    list.push(item);
-  } else {
-    item.is_declared = true;
-    item.approval_status = 'UNDER_REVIEW';
-  }
-  supplierCoverageScope.set(supplierId, list);
-  return { success: true, coverage: item };
+    },
+  };
 }
 
 /**
@@ -898,11 +704,20 @@ export async function requestAdditionalCoverage(supplierId: string, region: stri
  */
 export async function getSupplierRelationshipOverview(supplierId: string): Promise<SupplierRelationshipOverview> {
   const org = await getSupplierOrganisationById(supplierId);
-  const draft = onboardingDrafts.get(supplierId);
+  const draft = await getApplicationDraft(supplierId);
+  const holds = await listComplianceHolds(supplierId);
 
-  const legalName = org?.legalName || draft?.legal_company_name || 'Your Company';
-  const tradingName = org?.tradingName || draft?.trading_name || legalName;
-  const isApproved = org?.lifecycleStatus === 'APPROVED' || draft?.status === 'APPROVED';
+  const legalName = org?.legalName || draft?.legalCompanyName || 'Your Company';
+  const tradingName = org?.tradingName || draft?.tradingName || legalName;
+  const isApproved = org?.lifecycleStatus === 'APPROVED' || draft?.lifecycleStatus === 'APPROVED';
+
+  const activeHolds = holds
+    .filter((h) => h.is_active)
+    .map((h) => ({
+      type: h.hold_scope,
+      reason: h.hold_reason,
+      required_action: h.resolution_required,
+    }));
 
   return {
     supplier_id: supplierId,
@@ -912,12 +727,12 @@ export async function getSupplierRelationshipOverview(supplierId: string): Promi
     tier_explanation: isApproved
       ? 'Approved Supplier status is an assurance outcome earned through successful technical vetting, valid statutory certifications, and adherence to EntireFM H&S standards.'
       : 'Application in progress. Partner tier will be assigned upon successful EntireFM technical assurance vetting.',
-    assurance_status: isApproved ? 'APPROVED' : 'PENDING',
+    assurance_status: activeHolds.length > 0 ? 'COMPLIANCE_HOLD' : isApproved ? 'APPROVED' : 'PENDING',
     assurance_effective_date: isApproved ? (org?.updatedAt?.slice(0, 10) || new Date().toISOString().slice(0, 10)) : undefined,
     next_formal_review_date: isApproved ? 'Annual Review' : undefined,
-    relationship_since: (org?.createdAt?.slice(0, 10) || new Date().toISOString().slice(0, 10)),
+    relationship_since: org?.createdAt?.slice(0, 10) || new Date().toISOString().slice(0, 10),
     active_restrictions: [],
-    compliance_holds: [],
+    compliance_holds: activeHolds,
     assigned_entirefm_team: [],
   };
 }
@@ -926,7 +741,7 @@ export async function getSupplierRelationshipOverview(supplierId: string): Promi
  * Get Supplier Compliance Radar (Dynamic from Vault Documents)
  */
 export async function getSupplierComplianceRadar(supplierId: string): Promise<SupplierComplianceRadarItem[]> {
-  const docs = await listSupplierVaultDocuments(supplierId);
+  const docs = await listSupplierDocuments(supplierId);
   if (!docs || docs.length === 0) return [];
 
   const now = Date.now();
@@ -945,7 +760,7 @@ export async function getSupplierComplianceRadar(supplierId: string): Promise<Su
       radar.push({
         id: `rad-${doc.id}`,
         item_name: doc.document_type || doc.file_name,
-        category: (doc.category as any) || 'ACCREDITATION',
+        category: (doc.document_type.includes('INS') ? 'INSURANCE' : 'ACCREDITATION') as any,
         expiry_date: doc.expiry_date,
         days_remaining: diffDays,
         status,
@@ -964,4 +779,3 @@ export async function getSupplierComplianceRadar(supplierId: string): Promise<Su
 export async function listSupplierResources(): Promise<SupplierResourceItem[]> {
   return canonicalSupplierResources;
 }
-

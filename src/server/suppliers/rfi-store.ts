@@ -6,7 +6,8 @@
  * conditional approvals, and decline audit trails.
  */
 
-import { getSupplierOnboardingDraft, saveSupplierOnboardingDraft, getSupplierOrganisation, supplierMemoryStore } from './store';
+import { getSupplierOrganisation, saveSupplierOrganisation } from './store';
+import { updateOrganisationLifecycle, updateApplicationDraft } from './supplier-auth-store';
 import { ServiceApprovalRecord, GeographicApprovalRecord } from './assurance-types';
 
 export type RfiStatus = 'ACTION_REQUIRED' | 'DRAFT_RESPONSE' | 'RESPONSE_SUBMITTED' | 'RESOLVED';
@@ -107,10 +108,7 @@ export async function createSupplierRfi(data: {
   supplierRfiStore.rfis.set(id, record);
 
   // Update onboarding draft state
-  const draft = await getSupplierOnboardingDraft(data.supplier_id);
-  draft.status = 'INFORMATION_REQUIRED';
-  draft.updated_at = new Date().toISOString();
-  await saveSupplierOnboardingDraft(data.supplier_id, draft);
+  await updateApplicationDraft(data.supplier_id, { lifecycleStatus: 'INFORMATION_REQUIRED' });
 
   return record;
 }
@@ -142,10 +140,7 @@ export async function respondToSupplierRfi(
   const hasPendingAction = allRfis.some((r) => r.status === 'ACTION_REQUIRED');
 
   if (!hasPendingAction) {
-    const draft = await getSupplierOnboardingDraft(supplierId);
-    draft.status = 'UNDER_REVIEW';
-    draft.updated_at = new Date().toISOString();
-    await saveSupplierOnboardingDraft(supplierId, draft);
+    await updateApplicationDraft(supplierId, { lifecycleStatus: 'UNDER_REVIEW' });
   }
 
   return { success: true, rfi };
@@ -209,17 +204,16 @@ export async function approveSupplierWithScope(
   // Update Supplier Organisation
   const org = await getSupplierOrganisation(supplierId);
   if (org) {
-    org.relationship_level = 'APPROVED_SUPPLIER';
-    org.compliance_status = 'APPROVED';
-    org.updated_at = now.toISOString();
-    supplierMemoryStore.organisations.set(supplierId, org);
+    await saveSupplierOrganisation({
+      ...org,
+      relationship_level: 'APPROVED_SUPPLIER',
+      compliance_status: 'APPROVED',
+    });
   }
 
   // Update Onboarding Draft State
-  const draft = await getSupplierOnboardingDraft(supplierId);
-  draft.status = 'APPROVED';
-  draft.updated_at = now.toISOString();
-  await saveSupplierOnboardingDraft(supplierId, draft);
+  await updateOrganisationLifecycle(supplierId, 'APPROVED');
+  await updateApplicationDraft(supplierId, { lifecycleStatus: 'APPROVED' });
 
   return { success: true, decision: approvalRecord };
 }
@@ -258,11 +252,7 @@ export async function conditionallyApproveSupplier(
   };
 
   supplierRfiStore.decisions.set(supplierId, approvalRecord);
-
-  const draft = await getSupplierOnboardingDraft(supplierId);
-  draft.status = 'CONDITIONALLY_APPROVED';
-  draft.updated_at = now.toISOString();
-  await saveSupplierOnboardingDraft(supplierId, draft);
+  await updateApplicationDraft(supplierId, { lifecycleStatus: 'UNDER_REVIEW' });
 
   return { success: true, decision: approvalRecord };
 }
@@ -292,11 +282,8 @@ export async function declineSupplierApplication(
   };
 
   supplierRfiStore.decisions.set(supplierId, decision);
-
-  const draft = await getSupplierOnboardingDraft(supplierId);
-  draft.status = 'DECLINED';
-  draft.updated_at = now.toISOString();
-  await saveSupplierOnboardingDraft(supplierId, draft);
+  await updateOrganisationLifecycle(supplierId, 'DECLINED');
+  await updateApplicationDraft(supplierId, { lifecycleStatus: 'DECLINED' });
 
   return { success: true, decision };
 }
