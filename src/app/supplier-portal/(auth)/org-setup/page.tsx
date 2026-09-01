@@ -57,7 +57,7 @@ export default async function OrgSetupPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-slate-950 text-white">
+    <div className="flex min-h-screen flex-col justify-between bg-white text-slate-900 selection:bg-brand-pink selection:text-white">
       {/* Header */}
       <header className="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -87,7 +87,7 @@ export default async function OrgSetupPage() {
         <OrgSetupForm />
       </main>
 
-      <footer className="border-t border-slate-800/60 py-4 text-center text-[11px] text-slate-500">
+      <footer className="border-t border-slate-200 py-4 text-center text-[11px] text-slate-600">
         EntireFM Partner Network · Secure Supplier Portal
       </footer>
     </div>

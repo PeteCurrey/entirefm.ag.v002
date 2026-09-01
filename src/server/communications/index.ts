@@ -98,11 +98,8 @@ export interface CommunicationMessage {
   created_at: string;
 }
 
-// In-memory message store for state transitions & idempotency tracking
-const messageStore = new Map<string, CommunicationMessage>();
-
-// Webhook deduplication store
-const processedWebhooks = new Map<string, { event_type: string; processed_at: string }>();
+// NOTE: No module-level Maps. Idempotency and state are persisted in
+// public.communication_messages so they survive serverless cold starts.
 
 /**
  * Production Transactional Email Configuration
@@ -376,16 +373,19 @@ export async function emitClientCommunicationEvent(params: {
 }> {
   const key = params.idempotencyKey || `${params.work_order_id}:CLIENT:${params.eventType}`;
 
-  // 1. Idempotency Check — Never emit duplicate emails or portal messages
-  if (messageStore.has(key)) {
-    const existing = messageStore.get(key)!;
+  // 1. DB Idempotency Check — survives serverless cold starts
+  const { data: existing } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
+  );
+  if (existing && existing.length > 0) {
+    const found = existing[0];
     return {
       is_duplicate: true,
-      message_id: existing.id,
-      email_delivery_state: existing.delivery_state,
-      provider_message_id: existing.provider_message_id,
+      message_id: found.id,
+      email_delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
       subject: '',
-      body: existing.body,
+      body: found.body,
     };
   }
 
@@ -398,65 +398,46 @@ export async function emitClientCommunicationEvent(params: {
   const msgId = `MSG-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
   let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
   let providerMessageId: string | undefined;
+  const now = new Date().toISOString();
 
   if (params.simulateFailure) {
     deliveryState = 'FAILED';
   } else if (config.apiKey) {
     const recipient = params.data.recipient_email || 'delivered@resend.dev';
-    const dispatchResult = await sendOutboundEmailViaProvider({
-      to: recipient,
-      subject,
-      text: body,
-    });
+    const dispatchResult = await sendOutboundEmailViaProvider({ to: recipient, subject, text: body });
     if (dispatchResult.success) {
-      deliveryState = 'SENT'; // Correct semantics: SENT on API accept; DELIVERED on webhook
+      deliveryState = 'SENT'; // Correct semantics: SENT on API accept; DELIVERED only via webhook
       providerMessageId = dispatchResult.provider_message_id;
     } else {
       deliveryState = 'FAILED';
     }
   }
 
-  const message: CommunicationMessage = {
-    id: msgId,
-    thread_id: params.work_order_id,
-    sender_name: 'EntireFM Helpdesk Autopilot',
-    sender_email: config.fromAddress,
-    reply_to_email: config.replyToAddress,
-    channel: 'EMAIL',
-    visibility: 'CLIENT_VISIBLE',
-    body,
-    is_incoming: false,
-    is_ai_generated: false,
-    idempotency_key: key,
-    delivery_state: deliveryState,
-    provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
-    provider_message_id: providerMessageId,
-    recipient_email: params.data.recipient_email || 'delivered@resend.dev',
-    queued_at: new Date().toISOString(),
-    sent_at: deliveryState === 'SENT' ? new Date().toISOString() : undefined,
-    failed_at: deliveryState === 'FAILED' ? new Date().toISOString() : undefined,
-    created_at: new Date().toISOString(),
-  };
-
-  messageStore.set(key, message);
-  if (providerMessageId) {
-    messageStore.set(`RESEND:${providerMessageId}`, message);
-  }
-
-  // Attempt DB persistence
-  try {
-    await dbQuery('communication_messages', {
-      method: 'POST',
-      body: {
-        id: message.id,
-        thread_id: message.thread_id,
-        sender_name: message.sender_name,
-        channel: message.channel,
-        body: message.body,
-        created_at: message.created_at,
-      },
-    });
-  } catch {}
+  // 2. Persist full record to DB
+  await dbQuery('communication_messages', {
+    method: 'POST',
+    body: {
+      id: msgId,
+      thread_id: params.work_order_id,
+      sender_name: 'EntireFM Helpdesk Autopilot',
+      sender_email: config.fromAddress,
+      reply_to_email: config.replyToAddress,
+      channel: 'EMAIL',
+      visibility: 'CLIENT_VISIBLE',
+      body,
+      is_incoming: false,
+      is_ai_generated: false,
+      idempotency_key: key,
+      delivery_state: deliveryState,
+      provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
+      provider_message_id: providerMessageId ?? null,
+      recipient_email: params.data.recipient_email || 'delivered@resend.dev',
+      queued_at: now,
+      sent_at: deliveryState === 'SENT' ? now : null,
+      failed_at: deliveryState === 'FAILED' ? now : null,
+      created_at: now,
+    },
+  });
 
   return {
     is_duplicate: false,
@@ -497,15 +478,19 @@ export async function emitContractorCommunicationEvent(params: {
 }> {
   const key = params.idempotencyKey || `${params.work_order_id}:CONTRACTOR:${params.eventType}:${params.data.attempt_number || 1}`;
 
-  if (messageStore.has(key)) {
-    const existing = messageStore.get(key)!;
+  // 1. DB Idempotency Check — survives serverless cold starts
+  const { data: existing } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
+  );
+  if (existing && existing.length > 0) {
+    const found = existing[0];
     return {
       is_duplicate: true,
-      message_id: existing.id,
-      email_delivery_state: existing.delivery_state,
-      provider_message_id: existing.provider_message_id,
+      message_id: found.id,
+      email_delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
       subject: '',
-      body: existing.body,
+      body: found.body,
     };
   }
 
@@ -518,16 +503,13 @@ export async function emitContractorCommunicationEvent(params: {
   const msgId = `MSG-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
   let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
   let providerMessageId: string | undefined;
+  const now = new Date().toISOString();
 
   if (params.simulateFailure) {
     deliveryState = 'FAILED';
   } else if (config.apiKey) {
     const recipient = params.data.recipient_email || 'delivered@resend.dev';
-    const dispatchResult = await sendOutboundEmailViaProvider({
-      to: recipient,
-      subject,
-      text: body,
-    });
+    const dispatchResult = await sendOutboundEmailViaProvider({ to: recipient, subject, text: body });
     if (dispatchResult.success) {
       deliveryState = 'SENT';
       providerMessageId = dispatchResult.provider_message_id;
@@ -536,32 +518,31 @@ export async function emitContractorCommunicationEvent(params: {
     }
   }
 
-  const message: CommunicationMessage = {
-    id: msgId,
-    thread_id: params.work_order_id,
-    sender_name: 'EntireFM Dispatch Engine',
-    sender_email: config.fromAddress,
-    reply_to_email: config.replyToAddress,
-    channel: 'EMAIL',
-    visibility: 'PROVIDER_VISIBLE',
-    body,
-    is_incoming: false,
-    is_ai_generated: false,
-    idempotency_key: key,
-    delivery_state: deliveryState,
-    provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
-    provider_message_id: providerMessageId,
-    recipient_email: params.data.recipient_email || 'delivered@resend.dev',
-    queued_at: new Date().toISOString(),
-    sent_at: deliveryState === 'SENT' ? new Date().toISOString() : undefined,
-    failed_at: deliveryState === 'FAILED' ? new Date().toISOString() : undefined,
-    created_at: new Date().toISOString(),
-  };
-
-  messageStore.set(key, message);
-  if (providerMessageId) {
-    messageStore.set(`RESEND:${providerMessageId}`, message);
-  }
+  // 2. Persist full record to DB
+  await dbQuery('communication_messages', {
+    method: 'POST',
+    body: {
+      id: msgId,
+      thread_id: params.work_order_id,
+      sender_name: 'EntireFM Dispatch Engine',
+      sender_email: config.fromAddress,
+      reply_to_email: config.replyToAddress,
+      channel: 'EMAIL',
+      visibility: 'PROVIDER_VISIBLE',
+      body,
+      is_incoming: false,
+      is_ai_generated: false,
+      idempotency_key: key,
+      delivery_state: deliveryState,
+      provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
+      provider_message_id: providerMessageId ?? null,
+      recipient_email: params.data.recipient_email || 'delivered@resend.dev',
+      queued_at: now,
+      sent_at: deliveryState === 'SENT' ? now : null,
+      failed_at: deliveryState === 'FAILED' ? now : null,
+      created_at: now,
+    },
+  });
 
   return {
     is_duplicate: false,
@@ -649,93 +630,86 @@ export async function processResendWebhookEvent(
   provider_message_id: string;
   message_id?: string;
 }> {
-  const eventId = webhookId || `${event.type}:${event.data?.id}:${event.created_at}`;
-
-  // 1. Webhook Idempotency Check
-  if (processedWebhooks.has(eventId)) {
-    const prev = processedWebhooks.get(eventId)!;
+  const resendId = event.data?.id;
+  if (!resendId) {
     return {
-      processed: true,
-      is_duplicate: true,
-      delivery_state: prev.event_type === 'email.delivered' ? 'DELIVERED' : 'SENT',
-      provider_message_id: event.data?.id,
+      processed: false,
+      is_duplicate: false,
+      delivery_state: 'NOT_CONFIGURED',
+      provider_message_id: '',
     };
   }
 
-  processedWebhooks.set(eventId, {
-    event_type: event.type,
-    processed_at: new Date().toISOString(),
-  });
-
-  const resendId = event.data?.id;
-  const message = resendId ? messageStore.get(`RESEND:${resendId}`) : undefined;
+  // 1. Fetch message from DB
+  const { data: existingMessages } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?provider_message_id=eq.${encodeURIComponent(resendId)}&limit=1`
+  );
+  const message = existingMessages?.[0];
 
   let newState: EmailDeliveryState = 'SENT';
   const now = new Date().toISOString();
+  const updateFields: Record<string, any> = {};
 
   switch (event.type) {
     case 'email.sent':
       newState = 'SENT';
-      if (message) {
-        message.delivery_state = 'SENT';
-        message.sent_at = now;
-      }
+      updateFields.delivery_state = 'SENT';
+      updateFields.sent_at = now;
       break;
 
     case 'email.delivered':
       newState = 'DELIVERED';
-      if (message) {
-        message.delivery_state = 'DELIVERED';
-        message.delivered_at = now;
-      }
+      updateFields.delivery_state = 'DELIVERED';
+      updateFields.delivered_at = now;
       break;
 
     case 'email.delivery_delayed':
       newState = 'DELIVERY_DELAYED';
-      if (message) {
-        message.delivery_state = 'DELIVERY_DELAYED';
-      }
+      updateFields.delivery_state = 'DELIVERY_DELAYED';
       break;
 
     case 'email.bounced':
       newState = 'BOUNCED';
-      if (message) {
-        message.delivery_state = 'BOUNCED';
-        message.bounced_at = now;
-        message.bounce_details = {
-          bounce_type: event.data.bounce_type,
-          bounce_code: event.data.bounce_code,
-        };
-      }
+      updateFields.delivery_state = 'BOUNCED';
+      updateFields.bounced_at = now;
+      updateFields.bounce_details = {
+        bounce_type: event.data.bounce_type,
+        bounce_code: event.data.bounce_code,
+      };
       break;
 
     case 'email.failed':
       newState = 'FAILED';
-      if (message) {
-        message.delivery_state = 'FAILED';
-        message.failed_at = now;
-        message.failure_reason = event.data.reason || 'Provider delivery failure';
-      }
+      updateFields.delivery_state = 'FAILED';
+      updateFields.failed_at = now;
+      updateFields.failure_reason = event.data.reason || 'Provider delivery failure';
       break;
 
     case 'email.complained':
       newState = 'COMPLAINED';
-      if (message) {
-        message.delivery_state = 'COMPLAINED';
-      }
+      updateFields.delivery_state = 'COMPLAINED';
       break;
 
     case 'email.suppressed':
       newState = 'SUPPRESSED';
-      if (message) {
-        message.delivery_state = 'SUPPRESSED';
-      }
+      updateFields.delivery_state = 'SUPPRESSED';
       break;
+  }
+
+  // 2. Check duplicate / already in target state
+  const isDuplicate = message ? message.delivery_state === newState : false;
+
+  // 3. Update DB record if message exists and state is changing or needs updating
+  if (message && Object.keys(updateFields).length > 0) {
+    await dbQuery(`communication_messages?provider_message_id=eq.${encodeURIComponent(resendId)}`, {
+      method: 'PATCH',
+      body: updateFields,
+    });
   }
 
   return {
     processed: true,
-    is_duplicate: false,
+    is_duplicate: isDuplicate,
     delivery_state: newState,
     provider_message_id: resendId,
     message_id: message?.id,
@@ -745,8 +719,11 @@ export async function processResendWebhookEvent(
 /**
  * Retrieve current message by Resend Provider Message ID
  */
-export function getMessageByProviderId(providerMessageId: string): CommunicationMessage | undefined {
-  return messageStore.get(`RESEND:${providerMessageId}`);
+export async function getMessageByProviderId(providerMessageId: string): Promise<CommunicationMessage | undefined> {
+  const { data } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?provider_message_id=eq.${encodeURIComponent(providerMessageId)}&limit=1`
+  );
+  return data?.[0];
 }
 
 export async function listThreads(status?: string): Promise<CommunicationThread[]> {

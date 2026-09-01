@@ -117,7 +117,7 @@ async function runProductionEmailSuite() {
     };
 
     const webhookResult = await processResendWebhookEvent(deliveredPayload, `svix_whk_${testResendId}_del`);
-    const message = getMessageByProviderId(testResendId);
+    const message = await getMessageByProviderId(testResendId);
 
     return (
       webhookResult.processed === true &&

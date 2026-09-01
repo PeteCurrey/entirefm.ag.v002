@@ -175,7 +175,7 @@ export function OrgSetupForm() {
         </form>
       </div>
 
-      <p className="mt-5 text-center text-[11.5px] text-slate-500 font-light">
+      <p className="mt-5 text-center text-[11.5px] text-slate-600">
         Your organisation data is private and scoped to your account only
       </p>
     </div>
