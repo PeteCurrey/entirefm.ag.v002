@@ -541,23 +541,33 @@ export default function AiLogAJobClient({
           </div>
 
           {/* Emergency Operations Box */}
-          <div className="rounded border border-slate-200 bg-slate-50/80 p-5 space-y-2.5">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-800">
-              Immediate Assistance
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              For major building safety emergencies, active sprinkler activations, uncontained structural water leaks, or total power failure:
-            </p>
-            <div className="pt-2">
+          <div className="rounded border border-slate-200 bg-slate-50/90 p-5 space-y-3.5 shadow-2xs">
+            <div className="border-b border-slate-200 pb-2.5">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-900">
+                Immediate Assistance
+              </h3>
+            </div>
+            <div className="space-y-2 text-xs text-slate-700 leading-relaxed font-normal">
+              <p>
+                If there is an immediate danger to life or property, or someone may be at risk of serious harm, call <strong className="font-semibold text-slate-950 underline decoration-slate-400 decoration-1 underline-offset-2">999</strong> first. Do not wait for a response from EntireFM.
+              </p>
+              <p className="text-slate-600 text-[11.5px]">
+                Once the emergency has been dealt with, you can log the issue here for our records and follow-up.
+              </p>
+            </div>
+            <div className="pt-2 border-t border-slate-200">
+              <span className="block text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-1">
+                24/7 Operations Desk
+              </span>
               <a
                 href="tel:02045865422"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 hover:text-hero-pink transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 hover:text-brand-electric transition-colors"
               >
                 <Phone className="h-3.5 w-3.5 text-slate-500" />
                 <span>020 4586 5422</span>
               </a>
               <span className="block text-[11px] text-slate-500 mt-0.5">
-                EntireFM 24/7 National Operations Desk
+                For non-life-threatening urgent FM coordination
               </span>
             </div>
           </div>
@@ -576,6 +586,19 @@ export default function AiLogAJobClient({
                 </div>
               </div>
             )}
+
+            {/* ── SAFETY NOTICE: IMMEDIATE ASSISTANCE ── */}
+            <div className="border-l-2 border-slate-400 bg-slate-50/80 px-4 py-3.5 rounded-r text-xs text-slate-700 leading-relaxed space-y-1">
+              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-900">
+                Immediate Assistance
+              </h3>
+              <p className="text-slate-800">
+                If there is an immediate danger to life or property, or someone may be at risk of serious harm, call <strong className="font-semibold text-slate-950 underline decoration-slate-400 decoration-1 underline-offset-2">999</strong> first. Do not wait for a response from EntireFM.
+              </p>
+              <p className="text-slate-600 text-[11.5px]">
+                Once the emergency has been dealt with, you can log the issue here for our records and follow-up.
+              </p>
+            </div>
 
             {/* ── SECTION 1: SITE & LOCATION ── */}
             <div className="space-y-4">
