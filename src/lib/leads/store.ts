@@ -41,6 +41,8 @@ export interface LeadInput {
   referrer?: string;
   drone_brief?: any;
   lead_priority?: string;
+  lead_source?: string;
+  asset_scanner_context?: any;
 }
 
 export interface LeadRow extends LeadInput {
@@ -95,7 +97,7 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     last_touch_url: lead.last_touch_url || '',
     first_touch_referrer: lead.first_touch_referrer || '',
     last_touch_referrer: lead.last_touch_referrer || '',
-    form_id: lead.form_id || 'enquiry-form',
+    form_id: lead.form_id || lead.lead_source || 'enquiry-form',
     form_page: lead.form_page || '',
     journey_trail: lead.journey_trail || [],
     assisted_pages: lead.assisted_pages || [],
@@ -158,7 +160,7 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     gclid: lead.gclid ?? '',
     msclkid: lead.msclkid ?? '',
     session_id: lead.session_id ?? '',
-    form_id: lead.form_id ?? 'enquiry-form',
+    form_id: lead.form_id ?? lead.lead_source ?? 'enquiry-form',
     form_page: lead.form_page ?? '',
     sector_interest: lead.sector_interest ?? '',
     location_interest: lead.location_interest ?? '',
