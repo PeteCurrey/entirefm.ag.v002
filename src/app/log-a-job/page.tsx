@@ -22,15 +22,20 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function PublicLogAJobPage() {
+interface PageProps {
+  searchParams?: Promise<{ siteId?: string; property?: string; unit?: string }>;
+}
+
+export default async function PublicLogAJobPage({ searchParams }: PageProps) {
   const session = await getCurrentSession();
   const isClient = !!(session && (session.orgType === 'CLIENT' || session.orgType === 'ENTIREFM'));
+  const resolvedParams = searchParams ? await searchParams : {};
 
   let initialSites: any[] = [];
   let initialAssets: any[] = [];
 
   if (isClient && session) {
-    // Authenticated client context
+    // Authenticated client context: strictly scope to authorised sites
     const siteScopes = session.scopes.filter((s) => s.type === 'SITE').map((s) => s.id);
     const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
 
@@ -44,6 +49,7 @@ export default async function PublicLogAJobPage() {
       site_code: s.site_code || '',
       city: s.city || '',
       postcode: s.postcode || '',
+      address_line1: s.address_line1 || '',
     }));
 
     const siteIds = initialSites.map((s) => s.id);
@@ -54,11 +60,9 @@ export default async function PublicLogAJobPage() {
       initialAssets = assets || [];
     }
   } else {
-    // Public user context: representative equipment assets
-    const { data: publicAssets } = await dbQuery<any[]>(
-      `assets?status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,site_id,manufacturer,model,serial_number&limit=50`
-    );
-    initialAssets = publicAssets || [];
+    // Tenant / Public context: NEVER query or expose internal asset registers or client property databases
+    initialSites = [];
+    initialAssets = [];
   }
 
   return (
@@ -66,11 +70,14 @@ export default async function PublicLogAJobPage() {
       <Header lightOnTransparent={true} />
       <main className="flex-grow pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <AiLogAJobClient
-          clientName={session?.orgName || 'Commercial Client'}
+          clientName={session?.orgName || 'Commercial Property'}
           userName={session?.name || ''}
+          userEmail={session?.email || ''}
           initialSites={initialSites}
           initialAssets={initialAssets}
           isPublic={!isClient}
+          prefillProperty={resolvedParams.property || ''}
+          prefillUnit={resolvedParams.unit || ''}
         />
       </main>
       <Footer />

@@ -43,11 +43,21 @@ export async function POST(req: NextRequest) {
       site_id,
       title,
       description,
+      location_type,
       location_description,
       asset_id,
+      equipment_description,
       category = 'GENERAL_MAINTENANCE',
       priority = 'P3_MEDIUM',
+      impact,
+      access_type,
       access_notes,
+      preferred_times,
+      reporting_on_behalf_of,
+      occupier_name,
+      unit_number,
+      preferred_contact_method,
+      managing_agent_name,
       ai_assessment,
       ai_accepted = true,
       evidence = [],
@@ -58,17 +68,24 @@ export async function POST(req: NextRequest) {
       property_address,
     } = body;
 
-    if (!title || !description) {
-      return NextResponse.json({ error: 'Job title and problem description are required' }, { status: 400 });
+    if (!description) {
+      return NextResponse.json({ error: 'A problem description is required' }, { status: 400 });
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // A. PUBLIC UNAUTHENTICATED SUBMISSION PIPELINE
+    // A. PUBLIC / TENANT UNAUTHENTICATED SUBMISSION PIPELINE
     // ─────────────────────────────────────────────────────────────────────────────
     if (isPublic) {
-      const publicName = contact_name || 'Public Guest';
+      const publicName = contact_name || occupier_name || 'Tenant / Occupier';
       const publicEmail = contact_email || '';
-      const publicLocation = property_address || location_description || 'Commercial Estate';
+      const publicLocation = [
+        property_address,
+        unit_number ? `Unit/Suite: ${unit_number}` : null,
+        location_type ? `Area: ${location_type}` : null,
+        location_description,
+      ]
+        .filter(Boolean)
+        .join(' — ') || 'Commercial Estate';
 
       if (!contact_email) {
         return NextResponse.json(
@@ -77,10 +94,29 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const reference = `SR-PUB-${Date.now().toString().slice(-6)}`;
-      const workOrderNum = `WO-PUB-${Date.now().toString().slice(-6)}`;
+      // Safe institutional reference EFM-XXXXXX
+      const reference = `EFM-${Math.floor(100000 + Math.random() * 900000)}`;
       const woId = crypto.randomUUID();
       const srId = crypto.randomUUID();
+
+      const structuredMessageLines = [
+        `[TENANT / OCCUPIER MAINTENANCE REQUEST: ${reference}]`,
+        title ? `Title: ${title}` : null,
+        `Property: ${property_address || 'Unspecified'}`,
+        managing_agent_name ? `Managing Agent / Landlord: ${managing_agent_name}` : null,
+        `Location on Site: ${location_type || 'General Area'}${location_description ? ` (${location_description})` : ''}`,
+        unit_number ? `Unit / Suite: ${unit_number}` : null,
+        reporting_on_behalf_of ? `Reporting On Behalf Of: ${reporting_on_behalf_of}` : null,
+        impact ? `Practical Impact: ${impact}` : null,
+        equipment_description ? `Affected Equipment: ${equipment_description}` : null,
+        `Trade / Discipline: ${category}`,
+        `Urgency Priority: ${priority}`,
+        `Access to Location: ${access_type || 'Unrestricted'}${access_notes ? ` — ${access_notes}` : ''}`,
+        preferred_times ? `Preferred Attendance Times: ${preferred_times}` : null,
+        `Reporter: ${publicName} (${publicEmail}${contact_phone ? `, ${contact_phone}` : ''})`,
+        preferred_contact_method ? `Preferred Contact: ${preferred_contact_method}` : null,
+        `\nIssue Description:\n${description}`,
+      ].filter(Boolean);
 
       // Store lead in durable leads table
       if (leadStoreConfigured()) {
@@ -90,11 +126,11 @@ export async function POST(req: NextRequest) {
             name: publicName,
             email: publicEmail,
             phone: contact_phone || '',
-            company: company_name || '',
+            company: company_name || managing_agent_name || '',
             service: category,
             location: publicLocation,
-            message: `[AI MULTIMODAL JOB LOGGED: ${workOrderNum}]\nTitle: ${title}\nPriority: ${priority}\nTrade: ${category}\nAccess: ${access_notes || 'N/A'}\n\nDescription:\n${description}`,
-            form_id: 'PUBLIC_AI_HELPDESK',
+            message: structuredMessageLines.join('\n'),
+            form_id: 'TENANT_SAFE_LOG_A_JOB',
             conversion_page: '/log-a-job',
             landing_page: '/log-a-job',
           });
@@ -109,7 +145,7 @@ export async function POST(req: NextRequest) {
 
       if (Array.isArray(evidence) && evidence.length > 0) {
         for (const item of evidence) {
-          const storagePath = item.storagePath || `public-jobs/${woId}/${Date.now()}-${item.filename || 'evidence'}`;
+          const storagePath = item.storagePath || `tenant-jobs/${woId}/${Date.now()}-${item.filename || 'evidence'}`;
           if (item.base64Data && dbConfig) {
             try {
               const base64Clean = item.base64Data.includes(',')
@@ -141,11 +177,12 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({
         success: true,
+        reference,
         service_request: {
           id: srId,
           reference,
-          title,
-          status: 'TRIAGE',
+          title: title || description.slice(0, 50),
+          status: 'RECEIVED',
           priority,
           created_at: new Date().toISOString(),
           sla_hours: slaHours,
@@ -153,16 +190,11 @@ export async function POST(req: NextRequest) {
         },
         work_order: {
           id: woId,
-          work_order_number: workOrderNum,
-          status: 'PENDING_DISPATCH',
+          work_order_number: reference,
+          status: 'PENDING_TRIAGE',
         },
         evidence_stored_count: storedEvidenceIds.length,
-        dispatch: {
-          status: 'QUEUED_FOR_TRIAGE',
-          assigned_supplier: 'EntireFM National Operations Desk',
-          client_message: 'Your job has been received and queued with priority triage at EntireFM 24/7 Operations Desk.',
-        },
-        message: `Job successfully logged under reference ${reference}. EntireFM operations has received your request.`,
+        message: `Your maintenance request has been received. Reference: ${reference}.`,
       });
     }
 
