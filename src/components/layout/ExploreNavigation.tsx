@@ -331,24 +331,14 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
               </Link>
             </div>
 
-            {/* Log a Job Multimodal AI CTA below Contact */}
+            {/* Log a Job CTA matching header CTA design */}
             <Link
               href="/log-a-job"
               onClick={onClose}
               tabIndex={open ? 0 : -1}
-              className="flex items-center justify-between p-3.5 rounded-sm bg-brand-electric/15 border border-brand-electric/40 text-white hover:bg-brand-electric/25 hover:border-brand-electric transition-all group"
+              className="inline-flex w-full items-center justify-center rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-4 py-2.5 text-center text-xs sm:text-sm font-light tracking-wide text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
             >
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase tracking-wider text-brand-electric-bright font-medium">Multimodal AI Helpdesk</span>
-                  <span className="rounded bg-brand-electric px-1.5 py-0.5 text-[9px] uppercase font-bold text-white tracking-wider">AI</span>
-                </div>
-                <span className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors mt-0.5">
-                  Log a Job (Photo / Voice / Video)
-                </span>
-                <span className="text-[11px] text-brand-mist/70 mt-0.5">Instant AI fault identification & reactive dispatch</span>
-              </div>
-              <Sparkles className="h-5 w-5 text-brand-electric group-hover:text-brand-electric-bright transition-colors shrink-0" />
+              Log a Job
             </Link>
           </div>
         </div>
@@ -410,27 +400,25 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                         href={link.href}
                         onClick={onClose}
                         tabIndex={open ? 0 : -1}
-                        className={`group w-full flex items-center justify-between py-2.5 px-4 rounded-sm text-left transition-all duration-200 ${
+                        className={`group w-full flex items-center justify-between py-2 px-3.5 rounded-sm text-left transition-all duration-300 ease-brand ${
                           isLogAJob
-                            ? 'bg-brand-electric/15 border border-brand-electric/40 text-brand-electric-bright hover:bg-brand-electric/25 hover:border-brand-electric hover:text-white shadow-sm shadow-brand-electric/20 mt-2'
+                            ? 'border border-brand-electric/40 bg-brand-electric/10 text-brand-electric-bright hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white mt-1.5'
                             : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.03]'
                         }`}
                       >
-                        <span className={`text-sm tracking-tight flex items-center gap-2 ${isLogAJob ? 'font-medium text-white' : 'font-light text-brand-mist/70 group-hover:text-white transition-colors'}`}>
-                          {isLogAJob && <Sparkles className="h-3.5 w-3.5 text-brand-electric-bright shrink-0" />}
-                          <span>{link.label}</span>
-                          {isLogAJob && (
-                            <span className="rounded bg-brand-electric px-1.5 py-0.2 text-[9px] uppercase font-bold text-white tracking-wider">
-                              AI
-                            </span>
-                          )}
+                        <span className="text-sm tracking-wide font-light">
+                          {link.label}
                         </span>
                         {link.href === '/client-portal' ? (
                           <ArrowUpRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
-                        ) : isLogAJob ? (
-                          <ArrowRight className="h-3.5 w-3.5 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
                         ) : (
-                          <ArrowRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                          <ArrowRight
+                            className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                              isLogAJob
+                                ? 'text-brand-electric-bright group-hover:translate-x-0.5'
+                                : 'text-brand-mist/40 group-hover:text-white group-hover:translate-x-0.5'
+                            }`}
+                          />
                         )}
                       </Link>
                     </li>
