@@ -37,6 +37,10 @@
     {
       "path": "/api/cron/ppm/check-missed",
       "schedule": "15 3 * * *"
+    },
+    {
+      "path": "/api/cron/analytics/monthly-estate-report",
+      "schedule": "0 7 1 * *"
     }
   ]
 }

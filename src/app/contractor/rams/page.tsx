@@ -4,6 +4,7 @@ import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { listRamsRecords } from '@/server/contractor/rams-service';
 import { RamsDashboardClient } from '@/components/contractor/RamsDashboardClient';
+import { ContractorDocCrossNav } from '@/components/contractor/ContractorDocCrossNav';
 
 export const metadata: Metadata = {
   title: 'RAMS & Safety Management | EntireFM Contractor Platform',
@@ -38,6 +39,9 @@ export default async function ContractorRamsPage() {
           Create, issue, and manage job-specific Risk Assessments and Method Statements. Pre-populated from EntireFM work orders or built for your independent contracts.
         </p>
       </div>
+
+      {/* Cross-Nav Strip */}
+      <ContractorDocCrossNav currentSection="rams" />
 
       <RamsDashboardClient
         initialRamsList={ramsList}

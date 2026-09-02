@@ -19,6 +19,12 @@ import {
   Building2,
   Flame,
   Zap,
+  BookOpen,
+  CheckSquare,
+  ChevronDown,
+  ChevronUp,
+  Info,
+  Layers,
 } from 'lucide-react';
 import {
   CANONICAL_FM_ACTIVITIES,
@@ -26,6 +32,9 @@ import {
   calculateRiskScore,
   RiskLikelihood,
   RiskSeverity,
+  getRamsPresetFromTemplate,
+  RAMS_TEMPLATE_PRESETS,
+  TemplateRamsPreset,
 } from '@/server/contractor/rams-framework';
 import { OperativeProfile } from '@/server/contractor/workforce-service';
 import { RamsHazardRecord, RamsMethodStepRecord } from '@/server/contractor/rams-service';
@@ -34,13 +43,19 @@ interface Props {
   contractorOrgId: string;
   operatives: OperativeProfile[];
   initialWorkOrder?: any;
+  initialTemplateId?: string;
 }
 
-export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder }: Props) {
+export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder, initialTemplateId }: Props) {
   const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [isSaving, setIsSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Template State & Checklist
+  const [activeTemplatePreset, setActiveTemplatePreset] = useState<TemplateRamsPreset | null>(null);
+  const [showChecklistDrawer, setShowChecklistDrawer] = useState(false);
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
   // Step 1: Job
   const [title, setTitle] = useState(
@@ -95,6 +110,38 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
   const [hazards, setHazards] = useState<RamsHazardRecord[]>(initialHazards);
   const [aiSuggestions, setAiSuggestions] = useState<any[]>([]);
   const [isLoadingAi, setIsLoadingAi] = useState(false);
+
+  // Apply template pre-population function
+  const applyTemplate = (templateId: string) => {
+    const preset = getRamsPresetFromTemplate(templateId);
+    if (!preset) return;
+
+    setActiveTemplatePreset(preset);
+    setTitle(`${preset.defaultTitle} — ${siteName || 'Site Job'}`);
+    setWorkCategory(preset.trade);
+    setWorkScopeDescription(preset.workScopeDescription);
+    setRequiresWorkingAtHeight(preset.requiresWorkingAtHeight);
+    setRequiresElectricalIsolation(preset.requiresElectricalIsolation);
+    setRequiresHotWorks(preset.requiresHotWorks);
+    setRequiresGasIsolation(preset.requiresGasIsolation);
+    setHazards(preset.hazards as RamsHazardRecord[]);
+    setMethodSteps(preset.methodSteps);
+    setSelectedPpe(preset.selectedPpe);
+    setSelectedPlant(preset.selectedPlant);
+    setRequiredPermits(preset.requiredPermits);
+    setShowChecklistDrawer(true);
+  };
+
+  // Pre-populate if initialTemplateId is present on load
+  React.useEffect(() => {
+    if (initialTemplateId) {
+      applyTemplate(initialTemplateId);
+    }
+  }, [initialTemplateId]);
+
+  const toggleChecklistItem = (itemKey: string) => {
+    setCheckedItems((prev) => ({ ...prev, [itemKey]: !prev[itemKey] }));
+  };
 
   // Step 6: Method Statement
   const [methodSteps, setMethodSteps] = useState<RamsMethodStepRecord[]>(
@@ -300,14 +347,151 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         </div>
       )}
 
+      {/* Active Template Notification & Checklist Drawer */}
+      {activeTemplatePreset && (
+        <div className="rounded-xl border border-brand-electric/40 bg-brand-electric/5 p-4 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-brand-electric/20 text-brand-electric flex items-center justify-center shrink-0">
+                <BookOpen className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-brand-electric-bright">
+                    Active Template Starting Point
+                  </span>
+                  <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-brand-carbon text-brand-mist/70 border border-brand-edge-dark font-mono">
+                    {activeTemplatePreset.templateId}
+                  </span>
+                </div>
+                <h4 className="text-sm font-medium text-white">{activeTemplatePreset.templateTitle}</h4>
+                <p className="text-[11px] text-brand-mist/70">{activeTemplatePreset.templateDescription}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setShowChecklistDrawer(!showChecklistDrawer)}
+                className="px-3 py-1.5 rounded-lg border border-brand-electric/30 bg-brand-electric/10 text-brand-electric-bright text-xs hover:bg-brand-electric hover:text-white transition-all flex items-center gap-1.5"
+              >
+                <CheckSquare className="w-3.5 h-3.5" />
+                <span>
+                  Template Checklist (
+                  {Object.values(checkedItems).filter(Boolean).length} /{' '}
+                  {activeTemplatePreset.checklistSections.reduce((acc, s) => acc + s.items.length, 0)}
+                  )
+                </span>
+                {showChecklistDrawer ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Interactive Template Checklist Accordion */}
+          {showChecklistDrawer && (
+            <div className="pt-3 border-t border-brand-electric/20 space-y-3 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+                  <Info className="w-3.5 h-3.5 text-brand-electric" /> In-Page Template Regulatory &amp; Safety Checkpoints:
+                </span>
+                <span className="text-[10.5px] text-brand-mist/60">
+                  Tick items as you verify them across the wizard steps
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {activeTemplatePreset.checklistSections.map((sec, secIdx) => (
+                  <div
+                    key={secIdx}
+                    className="p-3 rounded-lg bg-brand-carbon/80 border border-brand-edge-dark space-y-2"
+                  >
+                    <span className="text-xs font-semibold text-brand-electric-bright block border-b border-brand-edge-dark/60 pb-1">
+                      {sec.title}
+                    </span>
+                    <div className="space-y-1.5">
+                      {sec.items.map((item, itemIdx) => {
+                        const key = `${sec.title}-${item}`;
+                        const isChecked = !!checkedItems[key];
+                        return (
+                          <label
+                            key={itemIdx}
+                            className={`flex items-start gap-2 text-[11.5px] cursor-pointer p-1.5 rounded transition-colors ${
+                              isChecked ? 'bg-emerald-950/20 text-emerald-300' : 'text-brand-mist/80 hover:bg-brand-void'
+                            }`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => toggleChecklistItem(key)}
+                              className="mt-0.5 rounded border-brand-edge-dark bg-brand-void text-brand-electric focus:ring-0 shrink-0"
+                            />
+                            <span className={isChecked ? 'line-through opacity-80' : ''}>{item}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Main Step Body */}
       <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
         {/* STEP 1: Job */}
         {step === 1 && (
-          <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
-              Step 1 — Work Order &amp; Job Context
-            </h2>
+          <div className="space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-edge-dark/60 pb-3">
+              <div>
+                <h2 className="text-base font-light text-white">Step 1 — Work Order &amp; Job Context</h2>
+                <p className="text-xs text-brand-mist/70">
+                  Define the core job parameters, or start from a pre-configured FM safety template.
+                </p>
+              </div>
+            </div>
+
+            {/* Template Quick Starter Selector */}
+            <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void/70 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-electric" /> Start From A Business Safety Template
+                </span>
+                <Link
+                  href="/contractor/templates"
+                  target="_blank"
+                  className="text-[11px] text-brand-mist/60 hover:text-white flex items-center gap-1"
+                >
+                  <span>Browse all 50+ templates in library</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+              <p className="text-[11.5px] text-brand-mist/70 font-light">
+                Click any template below to pre-populate sequential method steps, 5x5 scored hazards, PPE, access plant, and permit requirements:
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {Object.values(RAMS_TEMPLATE_PRESETS).map((preset) => {
+                  const isActive = activeTemplatePreset?.templateId === preset.templateId;
+                  return (
+                    <button
+                      key={preset.templateId}
+                      type="button"
+                      onClick={() => applyTemplate(preset.templateId)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-normal transition-all flex items-center gap-1.5 border ${
+                        isActive
+                          ? 'bg-brand-electric text-white border-brand-electric font-medium shadow-sm'
+                          : 'bg-brand-carbon/80 border-brand-edge-dark text-brand-mist/80 hover:border-brand-electric hover:text-white'
+                      }`}
+                    >
+                      <Shield className={`w-3 h-3 ${isActive ? 'text-white' : 'text-brand-electric'}`} />
+                      <span>{preset.templateTitle}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-normal">
               <div className="sm:col-span-2">

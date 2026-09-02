@@ -10,6 +10,7 @@
  */
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   FileText,
   ShieldCheck,
@@ -30,6 +31,8 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
+  Shield,
+  ArrowRight,
 } from 'lucide-react';
 import {
   BusinessTemplateDefinition,
@@ -38,6 +41,7 @@ import {
 } from '@/server/contractor/template-library';
 import { ContractorDocumentRecord } from '@/server/contractor/document-engine';
 import { DocumentEditorClient } from '@/components/contractor/DocumentEditorClient';
+import { ContractorDocCrossNav } from '@/components/contractor/ContractorDocCrossNav';
 
 interface TemplateLibraryClientProps {
   initialDocuments: ContractorDocumentRecord[];
@@ -46,9 +50,10 @@ interface TemplateLibraryClientProps {
 
 const CATEGORY_TABS = [
   { id: 'ALL', label: 'All Templates (56)', icon: Layers },
-  { id: 'HEALTH_SAFETY', label: 'Health & Safety (19)', icon: ShieldCheck },
-  { id: 'JOB_SERVICE', label: 'Job & Service (16)', icon: Wrench },
-  { id: 'COMMERCIAL', label: 'Commercial (10)', icon: Coins },
+  { id: 'HEALTH_SAFETY', label: 'RAMS & Safety Protocols (19)', icon: ShieldCheck },
+  { id: 'COMMERCIAL', label: 'Commercial & Contracts (10)', icon: Coins },
+  { id: 'STATUTORY', label: 'Statutory & Certificates (11)', icon: Zap },
+  { id: 'JOB_SERVICE', label: 'Field & Service Reports (16)', icon: Wrench },
   { id: 'SPECIALIST_ELECTRICAL', label: 'Electrical Suite', icon: Zap },
   { id: 'SPECIALIST_HVAC', label: 'HVAC & F-Gas', icon: Flame },
   { id: 'SPECIALIST_FIRE', label: 'Fire & Life Safety', icon: ShieldCheck },
@@ -112,7 +117,12 @@ export function TemplateLibraryClient({
   }, [contractorOrgId]);
 
   const filteredTemplates = ALL_BUSINESS_TEMPLATES.filter((t) => {
-    const matchCat = activeTab === 'ALL' || t.category === activeTab;
+    let matchCat = activeTab === 'ALL';
+    if (activeTab === 'STATUTORY') {
+      matchCat = t.category.startsWith('SPECIALIST_');
+    } else if (activeTab !== 'ALL') {
+      matchCat = t.category === activeTab;
+    }
     const matchSearch =
       !search ||
       t.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -199,6 +209,9 @@ export function TemplateLibraryClient({
           </p>
         </div>
       </div>
+
+      {/* Cross-Nav Strip */}
+      <ContractorDocCrossNav currentSection="templates" />
 
       {/* ─── QUICK LAUNCH BAR ────────────────────────────────────────────── */}
       <div className="space-y-3">
@@ -350,9 +363,14 @@ export function TemplateLibraryClient({
       {/* ─── TEMPLATE LIBRARY CATALOGUE (56 Templates) ──────────────────── */}
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
-            Template Library Catalogue
-          </h3>
+          <div>
+            <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
+              Template Library Catalogue
+            </h3>
+            <p className="text-[11px] text-brand-mist/60 font-light">
+              Filter by safety suites, commercial agreements, statutory certificates, or specialist trades.
+            </p>
+          </div>
 
           {/* Search */}
           <div className="relative max-w-xs w-full">
@@ -389,39 +407,99 @@ export function TemplateLibraryClient({
           })}
         </div>
 
-        {/* Template Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredTemplates.map((tpl) => (
-            <div
-              key={tpl.id}
-              className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-3 flex flex-col justify-between hover:border-brand-electric/60 hover:bg-brand-carbon/70 transition-all group"
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-bold text-brand-electric-bright tracking-wider">
-                    {tpl.categoryLabel}
-                  </span>
-                  <span className="text-[10px] text-brand-mist/40 font-mono">v{tpl.version}</span>
-                </div>
-                <h3 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
-                  {tpl.title}
-                </h3>
-                <p className="text-xs text-brand-mist/70 leading-relaxed">{tpl.description}</p>
+        {/* Safety & Live RAMS Context Callout Banner */}
+        {activeTab === 'HEALTH_SAFETY' && (
+          <div className="p-4 rounded-xl border border-brand-electric/30 bg-brand-electric/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-brand-electric/20 text-brand-electric flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-4 h-4" />
               </div>
-
-              <div className="pt-3 border-t border-brand-edge-dark/40 flex items-center justify-between">
-                <span className="text-[11px] text-brand-mist/40">
-                  {tpl.sections.reduce((acc, s) => acc + s.fields.length, 0)} Form Fields
+              <div className="space-y-0.5">
+                <span className="font-semibold text-white block">
+                  Creating a Live RAMS for an EntireFM Work Order or Active Site?
                 </span>
-                <button
-                  onClick={() => handleCreateDocument(tpl)}
-                  className="px-3 py-1.5 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-1 shadow-sm"
-                >
-                  <Plus className="w-3.5 h-3.5" /> Use Template
-                </button>
+                <p className="text-[11.5px] text-brand-mist/70 font-light">
+                  Use the 10-step RAMS Builder to generate job-specific packs with operative competency validation and EntireFM compliance sign-off.
+                </p>
               </div>
             </div>
-          ))}
+            <Link
+              href="/contractor/rams/create"
+              className="px-4 py-2 rounded-xl bg-brand-electric hover:bg-brand-electric/85 text-white font-semibold whitespace-nowrap inline-flex items-center gap-1.5 shrink-0 shadow-sm transition-all"
+            >
+              <Shield className="w-3.5 h-3.5" />
+              <span>Create Live RAMS</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+        )}
+
+        {/* Template Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredTemplates.map((tpl) => {
+            const isSafety = tpl.category === 'HEALTH_SAFETY';
+            return (
+              <div
+                key={tpl.id}
+                className={`rounded-2xl border bg-brand-carbon/40 p-5 space-y-3 flex flex-col justify-between hover:bg-brand-carbon/70 transition-all group ${
+                  isSafety
+                    ? 'border-brand-edge-dark hover:border-brand-electric/80'
+                    : 'border-brand-edge-dark hover:border-brand-electric/60'
+                }`}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`text-[10px] uppercase font-bold tracking-wider ${
+                        isSafety ? 'text-brand-electric-bright flex items-center gap-1' : 'text-brand-mist/70'
+                      }`}
+                    >
+                      {isSafety && <Shield className="w-3 h-3 text-brand-electric inline shrink-0" />}
+                      <span>{tpl.categoryLabel}</span>
+                    </span>
+                    <span className="text-[10px] text-brand-mist/40 font-mono">v{tpl.version}</span>
+                  </div>
+                  <h3 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
+                    {tpl.title}
+                  </h3>
+                  <p className="text-xs text-brand-mist/70 leading-relaxed">{tpl.description}</p>
+                </div>
+
+                <div className="pt-3 border-t border-brand-edge-dark/40 flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-brand-mist/40 shrink-0">
+                    {tpl.sections.reduce((acc, s) => acc + s.fields.length, 0)} Fields
+                  </span>
+
+                  {isSafety ? (
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => handleCreateDocument(tpl)}
+                        className="px-2.5 py-1.5 rounded-xl border border-brand-edge-dark bg-brand-void text-brand-mist/70 hover:text-white hover:border-brand-electric/50 text-xs font-normal transition-all flex items-center gap-1"
+                        title="Edit as standalone company document"
+                      >
+                        <FileText className="w-3 h-3" />
+                        <span>Document</span>
+                      </button>
+                      <Link
+                        href={`/contractor/rams/create?template_id=${encodeURIComponent(tpl.id)}`}
+                        className="px-3 py-1.5 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-1 shadow-sm shrink-0"
+                      >
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>Live RAMS</span>
+                      </Link>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => handleCreateDocument(tpl)}
+                      className="px-3 py-1.5 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-1 shadow-sm"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Use Template
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 

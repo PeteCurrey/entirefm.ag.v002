@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { MembershipTierCards } from '@/components/suppliers/MembershipTierCards';
 import { ContractorPlatformPreview } from '@/components/suppliers/ContractorPlatformPreview';
+import { ContractorPackShowcase } from '@/components/suppliers/ContractorPackShowcase';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import {
@@ -602,6 +603,13 @@ export default function PartnerNetworkPublicPage() {
             </div>
           </div>
         </section>
+
+        {/* 8b. PHYSICAL CONTRACTOR PACK & CREDENTIALS */}
+        <ContractorPackShowcase
+          eyebrow="TANGIBLE CREDENTIALS // ONBOARDING PACK"
+          title="Physical Contractor Welcome Pack &amp; Verified ID"
+          subtitle="Every verified contractor network partner receives our bespoke physical onboarding pack with their QR-verified operative ID card, branded site PPE, partner card, and contractor handbook."
+        />
 
         {/* 9. COMMERCIAL MEMBERSHIP TIERS */}
         <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">

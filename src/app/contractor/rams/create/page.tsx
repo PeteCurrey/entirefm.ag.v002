@@ -18,7 +18,7 @@ export const dynamic = 'force-dynamic';
 export default async function CreateRamsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ workOrderId?: string }>;
+  searchParams: Promise<{ workOrderId?: string; template_id?: string; templateId?: string }>;
 }) {
   const session = await getCurrentSession();
   if (!session) redirect('/login?redirect=/contractor/rams/create');
@@ -29,7 +29,8 @@ export default async function CreateRamsPage({
   }
 
   const orgId = session.orgId;
-  const { workOrderId } = await searchParams;
+  const { workOrderId, template_id, templateId } = await searchParams;
+  const activeTemplateId = template_id || templateId;
 
   // 1. Fetch Operatives
   const operatives = await listContractorOperatives(orgId, session);
@@ -70,6 +71,7 @@ export default async function CreateRamsPage({
         contractorOrgId={orgId}
         operatives={operatives}
         initialWorkOrder={workOrder}
+        initialTemplateId={activeTemplateId}
       />
     </div>
   );

@@ -14,7 +14,7 @@
  *   - Production Sending Domain: updates.entirefm.com (Reply-To: helpdesk@entirefm.com).
  */
 
-import { createHmac } from 'node:crypto';
+import { createHmac, randomUUID } from 'node:crypto';
 import { dbQuery } from '../db/client';
 import { UserSession } from '../identity';
 
@@ -306,6 +306,7 @@ async function sendOutboundEmailViaProvider(params: {
   to: string;
   subject: string;
   text: string;
+  html?: string;
 }): Promise<{ success: boolean; provider_message_id?: string; error?: string }> {
   const config = getTransactionalEmailConfig();
   if (!config.apiKey) {
@@ -328,6 +329,7 @@ async function sendOutboundEmailViaProvider(params: {
         reply_to: config.replyToAddress,
         subject: params.subject,
         text: params.text,
+        ...(params.html ? { html: params.html } : {}),
       }),
     });
 
@@ -341,6 +343,289 @@ async function sendOutboundEmailViaProvider(params: {
   } catch (err: any) {
     return { success: false, error: err?.message || String(err) };
   }
+}
+
+/**
+ * Generate data-driven monthly estate performance executive message.
+ */
+export function generateMonthlyEstateReportMessage(data: {
+  org_name: string;
+  period_label: string;
+  total_work_orders: number;
+  sla_achievement_pct: number;
+  first_time_fix_pct: number;
+  statutory_compliance_pct: number;
+  ppm_completion_pct: number;
+  total_spend_gbp?: number;
+  portal_url?: string;
+}): { subject: string; body: string; html: string } {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.entirefm.com';
+  const portalUrl = data.portal_url || `${baseUrl}/clients/performance`;
+  const subject = `Your ${data.org_name} Estate Performance Report — ${data.period_label}`;
+
+  const body = `Your ${data.org_name} Estate Performance Report — ${data.period_label}
+========================================================================
+
+Here is your executive estate performance summary for ${data.period_label}.
+
+Headline Performance Metrics:
+• SLA Adherence: ${data.sla_achievement_pct}%
+• First-Time Fix Rate: ${data.first_time_fix_pct}%
+• Statutory Compliance: ${data.statutory_compliance_pct}%
+• PPM Delivery: ${data.ppm_completion_pct}%
+• Total Work Orders: ${data.total_work_orders}
+${data.total_spend_gbp !== undefined ? `• Total Estate Spend: £${data.total_spend_gbp.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` : ''}
+View your live interactive estate report, breakdown analytics, and printable PDF in the Client Portal:
+${portalUrl}
+
+--
+EntireFM CAFM Operations Autopilot · updates.entirefm.com`;
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${subject}</title>
+  <style>
+    body { font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FAF9F7; color: #121826; margin: 0; padding: 32px 16px; }
+    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .badge { display: inline-block; padding: 4px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; color: #ffffff; background-color: #0F172A; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 600; color: #0F172A; margin: 0 0 8px 0; }
+    .subtitle { font-size: 14px; color: #64748B; margin-bottom: 24px; line-height: 1.5; }
+    .grid { display: table; width: 100%; border-collapse: separate; border-spacing: 8px; margin: 20px 0; }
+    .row { display: table-row; }
+    .kpi-cell { display: table-cell; width: 50%; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 16px; vertical-align: top; }
+    .kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748B; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .kpi-value { font-size: 24px; font-weight: 700; color: #0F172A; }
+    .kpi-note { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+    .summary-box { background: #F1F5F9; border-left: 4px solid #0F172A; padding: 12px 16px; border-radius: 4px; font-size: 13px; color: #334155; margin: 20px 0; }
+    .btn-wrapper { margin: 28px 0 16px 0; text-align: center; }
+    .btn { display: inline-block; background-color: #0F172A; color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; }
+    .footer { margin-top: 24px; font-size: 11.5px; color: #94A3B8; border-top: 1px solid #F1F5F9; padding-top: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">Executive Estate Report</div>
+    <h1>${data.org_name}</h1>
+    <div class="subtitle">Performance summary for <strong>${data.period_label}</strong>. Your automated monthly CAFM review is ready for review.</div>
+
+    <table class="grid" cellpadding="0" cellspacing="8">
+      <tr>
+        <td class="kpi-cell">
+          <div class="kpi-label">SLA Adherence</div>
+          <div class="kpi-value" style="color: ${data.sla_achievement_pct >= 90 ? '#16A34A' : data.sla_achievement_pct >= 75 ? '#D97706' : '#DC2626'};">${data.sla_achievement_pct}%</div>
+          <div class="kpi-note">Target SLA achieved</div>
+        </td>
+        <td class="kpi-cell">
+          <div class="kpi-label">First-Time Fix</div>
+          <div class="kpi-value">${data.first_time_fix_pct}%</div>
+          <div class="kpi-note">Single-visit resolutions</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="kpi-cell">
+          <div class="kpi-label">Statutory Compliance</div>
+          <div class="kpi-value" style="color: ${data.statutory_compliance_pct >= 95 ? '#16A34A' : '#D97706'};">${data.statutory_compliance_pct}%</div>
+          <div class="kpi-note">Obligations current</div>
+        </td>
+        <td class="kpi-cell">
+          <div class="kpi-label">PPM Delivery</div>
+          <div class="kpi-value">${data.ppm_completion_pct}%</div>
+          <div class="kpi-note">Planned routines executed</div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="summary-box">
+      <strong>Total Work Orders Recorded:</strong> ${data.total_work_orders}
+      ${data.total_spend_gbp !== undefined ? `<br><strong>Total Recorded Spend:</strong> £${data.total_spend_gbp.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}
+    </div>
+
+    <div class="btn-wrapper">
+      <a href="${portalUrl}" class="btn">Open Interactive Estate Report →</a>
+    </div>
+
+    <div class="footer">
+      <p>EntireFM CAFM Platform · Monitored helpdesk & live operational analytics</p>
+      <p>Need assistance? Contact your account team at helpdesk@entirefm.com</p>
+    </div>
+  </div>
+</body>
+</html>`.trim();
+
+  return { subject, body, html };
+}
+
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export function isValidUuid(id?: string | null): boolean {
+  return typeof id === 'string' && UUID_REGEX.test(id);
+}
+
+/**
+ * Ensures a parent communication thread exists before message insertion to satisfy foreign key constraints.
+ */
+export async function ensureCommunicationThread(params: {
+  threadId: string;
+  subject: string;
+  threadType?: 'HELPDESK' | 'CONTRACTOR' | 'CLIENT' | 'INTERNAL';
+  relatedObjectType?: string;
+  relatedObjectId?: string;
+}): Promise<string> {
+  const effectiveId = isValidUuid(params.threadId) ? params.threadId : randomUUID();
+  const { data: existing } = await dbQuery<CommunicationThread[]>(
+    `communication_threads?id=eq.${encodeURIComponent(effectiveId)}&limit=1`
+  );
+  if (existing && existing.length > 0) {
+    return existing[0].id;
+  }
+
+  await dbQuery('communication_threads', {
+    method: 'POST',
+    body: {
+      id: effectiveId,
+      subject: params.subject,
+      thread_type: params.threadType || 'CLIENT',
+      related_object_type: params.relatedObjectType || 'ORGANISATION',
+      related_object_id: isValidUuid(params.relatedObjectId) ? params.relatedObjectId : null,
+      status: 'OPEN',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+  });
+
+  return effectiveId;
+}
+
+/**
+ * Emit a canonical Monthly Estate Report Communication Event.
+ * Guaranteed idempotent via DB check on idempotency key.
+ */
+export async function emitMonthlyEstateReportEvent(params: {
+  organisation_id: string;
+  organisation_name: string;
+  period_label: string;
+  recipient_email: string;
+  recipient_name?: string;
+  metrics: {
+    total_work_orders: number;
+    sla_achievement_pct: number;
+    first_time_fix_pct: number;
+    statutory_compliance_pct: number;
+    ppm_completion_pct: number;
+    total_spend_gbp?: number;
+  };
+  idempotencyKey?: string;
+  simulateFailure?: boolean;
+}): Promise<{
+  is_duplicate: boolean;
+  message_id: string;
+  email_delivery_state: EmailDeliveryState;
+  provider_message_id?: string;
+  subject: string;
+  body: string;
+}> {
+  const key = params.idempotencyKey || `${params.organisation_id}:MONTHLY_REPORT:${params.period_label}:${params.recipient_email}`;
+
+  // 1. DB Idempotency Check — survives serverless cold starts
+  const { data: existing } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
+  );
+  if (existing && existing.length > 0) {
+    const found = existing[0];
+    return {
+      is_duplicate: true,
+      message_id: found.id,
+      email_delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
+      subject: '',
+      body: found.body,
+    };
+  }
+
+  const config = getTransactionalEmailConfig();
+  const { subject, body, html } = generateMonthlyEstateReportMessage({
+    org_name: params.organisation_name,
+    period_label: params.period_label,
+    total_work_orders: params.metrics.total_work_orders,
+    sla_achievement_pct: params.metrics.sla_achievement_pct,
+    first_time_fix_pct: params.metrics.first_time_fix_pct,
+    statutory_compliance_pct: params.metrics.statutory_compliance_pct,
+    ppm_completion_pct: params.metrics.ppm_completion_pct,
+    total_spend_gbp: params.metrics.total_spend_gbp,
+  });
+
+  const msgId = randomUUID();
+  let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
+  let providerMessageId: string | undefined;
+  const now = new Date().toISOString();
+
+  if (params.simulateFailure) {
+    deliveryState = 'FAILED';
+  } else if (config.apiKey) {
+    const recipient = params.recipient_email || 'delivered@resend.dev';
+    const dispatchResult = await sendOutboundEmailViaProvider({
+      to: recipient,
+      subject,
+      text: body,
+      html,
+    });
+    if (dispatchResult.success) {
+      deliveryState = 'SENT';
+      providerMessageId = dispatchResult.provider_message_id;
+    } else {
+      deliveryState = 'FAILED';
+    }
+  }
+
+  // Ensure parent communication thread exists to satisfy foreign key constraint
+  const threadId = await ensureCommunicationThread({
+    threadId: params.organisation_id,
+    subject: `Monthly Estate Reports — ${params.organisation_name}`,
+    threadType: 'CLIENT',
+    relatedObjectType: 'ORGANISATION',
+    relatedObjectId: params.organisation_id,
+  }).catch((err) => {
+    console.warn('[MonthlyReport:ThreadCreationWarn]', err);
+    return isValidUuid(params.organisation_id) ? params.organisation_id : randomUUID();
+  });
+
+  // 2. Persist full record to DB
+  await dbQuery('communication_messages', {
+    method: 'POST',
+    body: {
+      id: msgId,
+      thread_id: threadId,
+      work_order_id: null,
+      sender_name: 'EntireFM Performance Autopilot',
+      sender_email: config.fromAddress,
+      reply_to_email: config.replyToAddress,
+      channel: 'EMAIL',
+      visibility: 'CLIENT_VISIBLE',
+      body,
+      is_incoming: false,
+      is_ai_generated: false,
+      idempotency_key: key,
+      delivery_state: deliveryState,
+      provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
+      provider_message_id: providerMessageId ?? null,
+      recipient_email: params.recipient_email || 'delivered@resend.dev',
+      queued_at: now,
+      sent_at: deliveryState === 'SENT' ? now : null,
+      failed_at: deliveryState === 'FAILED' ? now : null,
+      created_at: now,
+    },
+  });
+
+  return {
+    is_duplicate: false,
+    message_id: msgId,
+    email_delivery_state: deliveryState,
+    provider_message_id: providerMessageId,
+    subject,
+    body,
+  };
 }
 
 /**

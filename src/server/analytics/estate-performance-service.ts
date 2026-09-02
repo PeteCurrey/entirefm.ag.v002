@@ -8,7 +8,7 @@
 import { dbQuery } from '@/server/db/client';
 import { UserSession } from '@/server/identity';
 
-export type AnalyticsPeriod = 'THIS_MONTH' | 'PREVIOUS_MONTH' | 'QUARTER' | 'YTD' | 'ROLLING_12M';
+export type AnalyticsPeriod = 'THIS_MONTH' | 'PREVIOUS_MONTH' | 'LAST_MONTH' | 'QUARTER' | 'YTD' | 'ROLLING_12M';
 
 export interface EstatePerformanceReport {
   period: AnalyticsPeriod;
@@ -67,6 +67,7 @@ export function computePeriodDateRange(period: AnalyticsPeriod): { start: Date; 
   const month = now.getMonth();
 
   switch (period) {
+    case 'LAST_MONTH':
     case 'PREVIOUS_MONTH': {
       const start = new Date(year, month - 1, 1);
       const end = new Date(year, month, 0, 23, 59, 59);

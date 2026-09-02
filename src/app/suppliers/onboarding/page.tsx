@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { OnboardingPhaseTimeline } from '@/components/suppliers/interactive/OnboardingPhaseTimeline';
+import { ContractorPackShowcase } from '@/components/suppliers/ContractorPackShowcase';
 import { ScopedApprovalGraphic } from '@/components/suppliers/ScopedApprovalGraphic';
 import { PaymentPerformanceBanner } from '@/components/suppliers/interactive/PaymentPerformanceBanner';
 import { SupplierLifecycleModel } from '@/components/suppliers/SupplierLifecycleModel';
@@ -52,6 +53,13 @@ export default function OnboardingPage() {
 
         {/* 2. 4-PHASE ONBOARDING TIMELINE ENGINE */}
         <OnboardingPhaseTimeline />
+
+        {/* 2b. CONTRACTOR ONBOARDING PACK & ID CARD CREDENTIALS */}
+        <ContractorPackShowcase
+          eyebrow="MOBILISATION &amp; ON-SITE ACCREDITATION"
+          title="Contractor Welcome Pack &amp; Verified Operative ID"
+          subtitle="During Phase 4 (Mobilisation), approved suppliers receive their physical welcome pack, branded PPE, and QR-verified ID cards for site access across EntireFM client properties."
+        />
 
         {/* 3. DUAL-CONTROL BANKING VERIFICATION & ANTI-FRAUD SECTION */}
         <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">

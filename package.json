@@ -18,6 +18,7 @@
     "test:field-contractor": "tsx scripts/test-field-contractor.ts",
     "test:field-intelligence": "tsx --env-file=.env.local scripts/test-field-intelligence.ts",
     "test:ppm-autopilot": "tsx --env-file=.env.local scripts/test-ppm-autopilot.ts",
+    "test:monthly-estate-report": "tsx --env-file=.env.local scripts/test-monthly-estate-report.ts",
     "test:commercial-intelligence": "tsx scripts/test-commercial-intelligence.ts",
     "test:finance-automation": "tsx scripts/test-finance-automation.ts",
     "test:finance-truth": "tsx scripts/test-finance-truth.ts",

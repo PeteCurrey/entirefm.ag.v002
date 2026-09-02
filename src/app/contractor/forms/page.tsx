@@ -4,6 +4,7 @@ import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { listSubmittedForms } from '@/server/contractor/digital-forms-engine';
 import { DigitalFormsClient } from '@/components/contractor/DigitalFormsClient';
+import { ContractorDocCrossNav } from '@/components/contractor/ContractorDocCrossNav';
 
 export const metadata: Metadata = {
   title: 'Digital Forms & Field Records | EntireFM Contractor Platform',
@@ -38,6 +39,9 @@ export default async function ContractorFormsPage() {
           Submit digital service reports, request commercial scope variations, log asset defects, and record mandatory plant pre-use inspections.
         </p>
       </div>
+
+      {/* Cross-Nav Strip */}
+      <ContractorDocCrossNav currentSection="forms" />
 
       <DigitalFormsClient
         initialForms={forms}

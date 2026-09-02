@@ -8,6 +8,7 @@ import { ContractorPlatformPreview } from '@/components/suppliers/ContractorPlat
 import { ContractorFourPillars } from '@/components/suppliers/ContractorFourPillars';
 import { ContractorRamsSection } from '@/components/suppliers/ContractorRamsSection';
 import { ContractorTestimonialPlaceholder } from '@/components/suppliers/ContractorTestimonialPlaceholder';
+import { ContractorPackShowcase } from '@/components/suppliers/ContractorPackShowcase';
 import { StickyMembershipCta } from '@/components/suppliers/StickyMembershipCta';
 import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
@@ -591,6 +592,13 @@ export default function SupplierMembershipPublicPage() {
             </p>
           </div>
         </section>
+
+        {/* 8b. PHYSICAL CONTRACTOR PACK & VERIFIED ID CARD */}
+        <ContractorPackShowcase
+          eyebrow="TANGIBLE CREDENTIALS &amp; ONBOARDING PACK"
+          title="Official Contractor Pack &amp; Verified Site ID"
+          subtitle="Every verified network member receives a physical onboarding pack containing their verified operative ID card, lanyard, branded PPE, and contractor handbook."
+        />
 
         {/* 9. COMMERCIAL MEMBERSHIP TIERS */}
         <section id="membership-comparison" className="py-24 bg-white border-b border-slate-200 scroll-mt-12">

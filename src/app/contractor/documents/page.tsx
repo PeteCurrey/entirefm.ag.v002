@@ -4,6 +4,7 @@ import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { listVaultDocuments } from '@/server/contractor/document-vault-service';
 import { DocumentVaultClient } from '@/components/contractor/DocumentVaultClient';
+import { ContractorDocCrossNav } from '@/components/contractor/ContractorDocCrossNav';
 
 export const metadata: Metadata = {
   title: 'Document Vault | EntireFM Contractor Platform',
@@ -47,6 +48,9 @@ export default async function ContractorDocumentsPage() {
           Continuous record of statutory insurance policies, trade accreditations, RAMS samples, and company governance.
         </p>
       </div>
+
+      {/* Cross-Nav Strip */}
+      <ContractorDocCrossNav currentSection="documents" />
 
       <DocumentVaultClient initialDocuments={initialDocuments} orgId={orgId} />
     </div>
