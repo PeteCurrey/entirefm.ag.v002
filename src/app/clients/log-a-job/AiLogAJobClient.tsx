@@ -497,7 +497,7 @@ export default function AiLogAJobClient({
           <div className="border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-600">
             <div>
               <span className="font-medium text-slate-800">Need immediate assistance on this job?</span>
-              <p className="text-slate-500 mt-0.5">Contact the 24/7 Operations Desk on 020 4586 5422.</p>
+              <p className="text-slate-500 mt-0.5">Contact the 24/7 Operations Desk on 020 4617 0228.</p>
             </div>
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
@@ -683,11 +683,11 @@ export default function AiLogAJobClient({
                 24/7 Operations Desk
               </span>
               <a
-                href="tel:02045865422"
+                href="tel:02046170228"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 hover:text-brand-electric transition-colors"
               >
                 <Phone className="h-3.5 w-3.5 text-slate-500" />
-                <span>020 4586 5422</span>
+                <span>020 4617 0228</span>
               </a>
               <span className="block text-[11px] text-slate-500 mt-0.5 font-light">
                 For non-life-threatening urgent FM coordination

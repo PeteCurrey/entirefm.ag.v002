@@ -116,9 +116,9 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-london',
       '/fm-london',
     ],
-    conversionGoal: 'Book an SFG20 PPM estate survey with our London technical desk via london@entirefm.com or 020 4586 5422',
+    conversionGoal: 'Book an SFG20 PPM estate survey with our London technical desk via london@entirefm.com or 020 4617 0228',
     verificationRequirements: [
-      'Direct London technical routing configured (london@entirefm.com / 020 4586 5422)',
+      'Direct London technical routing configured (london@entirefm.com / 020 4617 0228)',
       'SFG20 compliance claims adhere to certified engineering scope',
       'Self-referencing canonical enforced',
     ],
@@ -224,9 +224,9 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-manchester',
       '/fm-manchester',
     ],
-    conversionGoal: 'Request a Manchester PPM estate survey via manchester@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Request a Manchester PPM estate survey via manchester@entirefm.com or 020 4617 0228',
     verificationRequirements: [
-      'North West regional routing active (manchester@entirefm.com / 0845 094 8583)',
+      'North West regional routing active (manchester@entirefm.com / 020 4617 0228)',
       'SFG20 engineering standards verified',
       'Self-referencing canonical enforced',
     ],
@@ -331,7 +331,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/mechanical-electrical-london',
       '/facilities-management-london',
     ],
-    conversionGoal: 'Enquire for London commercial HVAC maintenance and survey via london@entirefm.com or 020 4586 5422',
+    conversionGoal: 'Enquire for London commercial HVAC maintenance and survey via london@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'REFCOM accreditation reference verified',
       'London regional desk direct routing configured',
@@ -438,7 +438,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/hvac-london',
       '/facilities-management-london',
     ],
-    conversionGoal: 'Request a London M&E maintenance proposal via london@entirefm.com or 020 4586 5422',
+    conversionGoal: 'Request a London M&E maintenance proposal via london@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'NICEIC and Gas Safe compliance references verified',
       'London regional desk direct routing configured',
@@ -545,7 +545,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-birmingham',
       '/fm-birmingham',
     ],
-    conversionGoal: 'Schedule a Birmingham PPM site survey via birmingham@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Schedule a Birmingham PPM site survey via birmingham@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'Midlands regional desk direct routing configured (birmingham@entirefm.com)',
       'SFG20 compliance claims verified',
@@ -652,7 +652,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/mechanical-electrical-manchester',
       '/facilities-management-manchester',
     ],
-    conversionGoal: 'Book a Manchester commercial HVAC inspection via manchester@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Book a Manchester commercial HVAC inspection via manchester@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'REFCOM accreditation references verified',
       'North West regional desk direct routing configured',
@@ -759,7 +759,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-leeds',
       '/fm-leeds',
     ],
-    conversionGoal: 'Request a Leeds PPM contract proposal via leeds@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Request a Leeds PPM contract proposal via leeds@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'Yorkshire regional desk direct routing configured (leeds@entirefm.com)',
       'SFG20 maintenance standards verified',
@@ -866,7 +866,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/industrial-cleaning-sheffield',
       '/facilities-management-sheffield',
     ],
-    conversionGoal: 'Enquire for a Sheffield PPM site assessment via sheffield@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Enquire for a Sheffield PPM site assessment via sheffield@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'South Yorkshire regional desk direct routing configured (sheffield@entirefm.com)',
       'Industrial engineering capabilities verified',
@@ -972,7 +972,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-liverpool',
       '/fm-liverpool',
     ],
-    conversionGoal: 'Request a Liverpool commercial cleaning quote via liverpool@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Request a Liverpool commercial cleaning quote via liverpool@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'Merseyside regional desk direct routing configured (liverpool@entirefm.com)',
       'COSHH and health & safety compliance verified',
@@ -1079,7 +1079,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       '/facilities-management-derby',
       '/fm-derby',
     ],
-    conversionGoal: 'Request a Pride Park & Derby cleaning proposal via derby@entirefm.com or 0845 094 8583',
+    conversionGoal: 'Request a Pride Park & Derby cleaning proposal via derby@entirefm.com or 020 4617 0228',
     verificationRequirements: [
       'East Midlands regional desk direct routing configured (derby@entirefm.com)',
       'COSHH and health & safety compliance verified',

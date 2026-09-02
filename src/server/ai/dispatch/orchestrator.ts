@@ -94,7 +94,7 @@ export async function orchestrateReactiveDispatch(
       supplier_name: s.name,
       supplier_code: s.code || 'SUP',
       contact_email: s.email || `${s.code?.toLowerCase() || 'contractor'}@example.com`,
-      contact_phone: s.phone || '0800 000 0000',
+      contact_phone: s.phone || '',
       trades: s.trades,
       distance_miles: s.distance_miles ?? 8.5,
       sla_adherence_pct: s.sla_adherence_pct ?? 96,

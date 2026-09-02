@@ -815,11 +815,11 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="tel:08450944062"
+                href="tel:02046170228"
                 className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-medium text-white hover:bg-white/20 transition-all"
               >
                 <PhoneCall className="h-4 w-4 text-brand-electric-bright" />
-                <span>Call 0845 094 4062</span>
+                <span>Call 020 4617 0228</span>
               </Link>
             </div>
           </div>

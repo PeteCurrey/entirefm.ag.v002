@@ -122,7 +122,7 @@ export const LEGAL_CONFIG: LegalEntityConfig = {
     name: TODO_VERIFY,
     email: 'privacy@entirefm.com',
     postalAddress: 'Data Protection Officer, EntireFM (Alkota Group Limited), United Kingdom',
-    phone: '020 4586 5422',
+    phone: '020 4617 0228',
   },
   complianceOfficer: {
     title: 'Head of Quality, Health, Safety & Compliance',

@@ -236,7 +236,7 @@ export function buildHtmlReport(doc: PdfDocumentDefinition): string {
       ${doc.disclaimerText || 'This document was compiled using the EntireFM Interactive FM Planning Suite for indicative benchmarking, budgeting, and maintenance scoping. Frequencies and statutory requirements reflect standard UK commercial premises regulations (including RRO 2005, EAWR 1989, ACOP L8, and LOLER 1998) and must be verified on-site through a competent engineer survey.'}
     </p>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 9px; color: #94A3B8;">
-      <span>Entire Facilities Management · 020 4586 5422 · enquiries@entirefm.com · www.entirefm.com</span>
+      <span>Entire Facilities Management · 020 4617 0228 · enquiries@entirefm.com · www.entirefm.com</span>
       <span>Page 1 of 1</span>
     </div>
   </footer>

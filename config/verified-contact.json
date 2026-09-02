@@ -2,15 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Authoritative contact verification registry for EntireFM. Only render contact details where status is VERIFIED or CONFIRMED_IN_USE and approvedForProduction is true.",
   "version": "1.0.0",
-  "updated": "2026-08-22",
+  "updated": "2026-09-02",
   "contacts": [
     {
       "id": "PHONE_MAIN",
       "type": "phone",
-      "value": "020 4586 5422",
-      "hrefValue": "tel:02045865422",
+      "value": "020 4617 0228",
+      "hrefValue": "tel:02046170228",
       "status": "VERIFIED",
-      "evidence": "Corporate phone number confirmed and updated site-wide on 2026-08-23.",
+      "evidence": "Corporate phone number confirmed and updated site-wide to 020 4617 0228 on 2026-09-02.",
       "approvedForProduction": true
     },
     {

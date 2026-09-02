@@ -39,8 +39,8 @@ export const ORGANIZATION_CONFIG = {
     portalEmail: 'portal@entirefm.com',
     // Phone number confirmed in use for EntireFM.
     // See /config/verified-contact.json for verification record.
-    mainPhoneDisplay: '020 4586 5422',
-    mainPhoneTel: 'tel:02045865422',
+    mainPhoneDisplay: '020 4617 0228',
+    mainPhoneTel: 'tel:02046170228',
   },
 
   serviceRegions: [
