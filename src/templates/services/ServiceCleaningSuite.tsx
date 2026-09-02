@@ -46,7 +46,7 @@ export function ServiceCleaningSuite({ route, content }: TemplateProps) {
       iconName: 'nationwideCoverage' as const,
     },
     {
-      label: 'ATP AUDITS',
+      label: 'QA AUDITS',
       sublabel: 'Digital Quality Governance',
       iconName: 'dataInsights' as const,
     },
@@ -204,7 +204,7 @@ export function ServiceCleaningSuite({ route, content }: TemplateProps) {
           serviceFacts={[
             { label: 'Quality Standard', value: 'BICSc Certified' },
             { label: 'Operatives', value: 'Directly Employed' },
-            { label: 'Auditing', value: 'ATP Bioluminescence' },
+            { label: 'Auditing', value: 'Digital QA Audits' },
           ]}
         />
 
