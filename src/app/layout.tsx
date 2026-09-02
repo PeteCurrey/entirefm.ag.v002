@@ -20,9 +20,12 @@ import './globals.css';
  * - 500 (Medium): Buttons, tabs, active navigation, table headers, status badges
  * - 600 (SemiBold): Selective emphasis, high-priority operational states
  */
-const workSans = {
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  display: 'swap',
   variable: '--font-work-sans',
-};
+  weight: ['200', '300', '400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = defaultMetadata;
 

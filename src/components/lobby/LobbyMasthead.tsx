@@ -70,7 +70,7 @@ export function LobbyMasthead() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.02]">
-            THE <span className="font-light text-white">LOBBY</span>
+            THE <span className="font-extralight text-white">LOBBY</span>
           </h1>
 
           <p className="max-w-xl text-sm sm:text-base lg:text-lg font-extralight text-brand-mist/85 leading-relaxed">
