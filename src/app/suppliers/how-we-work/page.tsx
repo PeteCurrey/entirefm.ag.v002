@@ -68,7 +68,7 @@ export default function HowWeWorkPage() {
               Ready to Progress Through Our 12-Step Lifecycle?
             </h2>
             <p className="text-sm sm:text-base text-brand-mist/80 font-light max-w-2xl mx-auto leading-relaxed">
-              Join hundreds of vetted engineering contractors and regional craft specialists delivering governed FM services across the United Kingdom.
+              Join verified engineering contractors and regional craft specialists delivering governed FM services across the United Kingdom.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link href="/suppliers/apply" className="btn-primary">

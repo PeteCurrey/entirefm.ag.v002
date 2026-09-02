@@ -92,8 +92,8 @@ export default function SupplierHubPage() {
               <Link href="/suppliers/apply" className="btn-primary">
                 Start Supplier Application <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/suppliers/partner-with-entirefm" className="btn-ghost-light">
-                Why Work With EntireFM
+              <Link href="/suppliers/membership" className="btn-ghost-light">
+                Contractor Platform &amp; Membership (£295/yr)
               </Link>
             </div>
           </div>

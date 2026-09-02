@@ -4,6 +4,7 @@
  * Dedicated contractor operating environment.
  * Data boundary: ONLY work assigned to this contractor's ProviderOrganisation.
  * A job at Site A does NOT grant general access to the Site A estate.
+ * Core contractor routes: /contractor/templates, /contractor/customers, /contractor/job-packs.
  */
 import React from 'react';
 import type { Metadata } from 'next';
