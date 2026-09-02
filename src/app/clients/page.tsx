@@ -57,7 +57,7 @@ export default async function ClientDashboardPage() {
         </div>
 
         <Link
-          href="/clients/log-a-job"
+          href="/log-a-job"
           className="shrink-0 inline-flex items-center justify-center rounded-sm border border-brand-electric/50 bg-brand-electric/15 px-5 py-2.5 text-sm font-light tracking-wide text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric hover:bg-brand-electric/25 hover:text-white shadow-sm shadow-brand-electric/20"
         >
           Log a Job

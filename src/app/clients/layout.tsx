@@ -41,7 +41,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
 
   const navLinks = [
     { name: 'Overview', href: '/clients' },
-    { name: 'Log a Job', href: '/clients/log-a-job', highlight: true },
+    { name: 'Log a Job', href: '/log-a-job', highlight: true },
     { name: 'Jobs', href: '/clients/work-orders' },
     { name: 'Estate Performance', href: '/clients/performance' },
     { name: 'Sites', href: '/clients/sites' },
@@ -85,7 +85,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
           <div className="flex items-center gap-3 sm:gap-4 text-[13px]">
             {/* Log a Job CTA matching header CTA design */}
             <Link
-              href="/clients/log-a-job"
+              href="/log-a-job"
               className="inline-flex items-center justify-center rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-light tracking-wide text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
             >
               Log a Job
