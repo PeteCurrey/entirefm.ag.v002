@@ -4,7 +4,7 @@ import { getMemberSessionFromRequest } from '@/server/member/member-session';
 
 export async function GET(request: Request) {
   const session = getMemberSessionFromRequest(request);
-  const challenge = getActiveChallenge();
+  const challenge = await getActiveChallenge();
 
   if (!challenge) {
     return NextResponse.json({ challenge: null });
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
 
   let userResponse = null;
   if (session) {
-    userResponse = getMemberChallengeResponse(challenge.id, session.memberId);
+    userResponse = await getMemberChallengeResponse(challenge.id, session.memberId);
   }
 
   return NextResponse.json({

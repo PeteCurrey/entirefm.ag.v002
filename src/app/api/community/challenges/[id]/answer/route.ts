@@ -20,7 +20,7 @@ export async function POST(
   }
 
   try {
-    const result = submitChallengeAnswer(challengeId, session.memberId, selectedOptionId);
+    const result = await submitChallengeAnswer(challengeId, session.memberId, selectedOptionId);
     return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error submitting answer' }, { status: 400 });

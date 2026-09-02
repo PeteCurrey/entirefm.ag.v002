@@ -159,7 +159,7 @@ export async function searchLobby(query: string, options?: { filterGroup?: strin
 
   // 1c. Search Industry Awards
   const { getIndustryAwards } = await import('../awards/awards-store');
-  const { awards: awardItems } = getIndustryAwards({ search: q, limit: 5 });
+  const { awards: awardItems } = await getIndustryAwards({ search: q, limit: 5 });
   for (const award of awardItems) {
     results.push({
       id: award.id,
@@ -174,7 +174,7 @@ export async function searchLobby(query: string, options?: { filterGroup?: strin
   }
 
   // 2. Search Community Discussions
-  const { discussions } = getDiscussions({ query: q, limit: 10 });
+  const { discussions } = await getDiscussions({ query: q, limit: 10 });
   for (const disc of discussions) {
     let score = 30;
     if (disc.solved) score += 25;
@@ -217,7 +217,7 @@ export async function searchLobby(query: string, options?: { filterGroup?: strin
   }
 
   // 4. Search Realtime Rooms
-  const rooms = getAllRooms();
+  const rooms = await getAllRooms();
   for (const room of rooms) {
     if (
       room.name.toLowerCase().includes(q) ||

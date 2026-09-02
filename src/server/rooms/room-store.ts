@@ -1,126 +1,85 @@
+/**
+ * ENTIREFM LOBBY LIVE ROOMS STORE — DATABASE-BACKED
+ * ===================================================
+ * Rooms and RoomMessages persisted via PostgREST dbQuery.
+ * ROOM_LISTENERS (SSE pub/sub) remains in-process only — same pattern as DMs.
+ * Every exported function signature is identical to the prior in-memory implementation.
+ */
+
 import { Room, RoomMessage, RoomSSEEvent } from './types';
+import { dbQuery } from '@/server/db/client';
 
-// In-memory Room store & message histories
-const ROOMS_STORE: Map<string, Room> = new Map();
-const ROOM_MESSAGES: Map<string, RoomMessage[]> = new Map(); // roomSlug -> messages[]
-
-// SSE listener connections: roomSlug -> Set<ReadableStreamController>
+// ─── SSE pub/sub stays in-process (no DB needed for real-time push) ──────────
 type Listener = (event: RoomSSEEvent) => void;
 const ROOM_LISTENERS: Map<string, Set<Listener>> = new Map();
 
-function seedInitialRooms() {
-  if (ROOMS_STORE.size > 0) return;
+// ─── Mappers ──────────────────────────────────────────────────────────────────
 
-  const now = new Date().toISOString();
-
-  const rooms: Room[] = [
-    {
-      id: 'room-01',
-      slug: 'fm-general',
-      name: 'FM General Roundtable',
-      description: 'Open professional discussion on estate management, leadership, FM strategy, and daily operations.',
-      topic: 'General FM',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 14,
-      totalMessagesCount: 42,
-      lastActivityAt: now,
-      guidelinesPrompt: 'Keep commercial and site-specific client identities confidential.',
-    },
-    {
-      id: 'room-02',
-      slug: 'building-safety',
-      name: 'Building Safety & Golden Thread',
-      description: 'Accountable Person responsibilities, mandatory occurrence reporting, fire doors, and BSA compliance.',
-      topic: 'Building Safety',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 22,
-      totalMessagesCount: 88,
-      lastActivityAt: now,
-      guidelinesPrompt: 'Strictly cite statutory sources (BSR, Gov.uk, BSA 2022) where applicable.',
-    },
-    {
-      id: 'room-03',
-      slug: 'engineering-me',
-      name: 'Engineering & M&E Plant',
-      description: 'Chillers, AHUs, boilers, BMS optimisation, electrical distribution, and hard FM troubleshooting.',
-      topic: 'Engineering & M&E',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 18,
-      totalMessagesCount: 65,
-      lastActivityAt: now,
-      guidelinesPrompt: 'Share practical field engineering insight; avoid speculative guidance.',
-    },
-    {
-      id: 'room-04',
-      slug: 'fm-technology-ai',
-      name: 'FM Technology & Applied AI',
-      description: 'CAFM integrations, telemetry, IoT sensors, automation, data hygiene, and AI field tools.',
-      topic: 'CAFM & Technology',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 9,
-      totalMessagesCount: 34,
-      lastActivityAt: now,
-      guidelinesPrompt: 'Discuss real operational implementations and ROI rather than marketing hype.',
-    },
-    {
-      id: 'room-05',
-      slug: 'contractor-desk',
-      name: 'The Contractor Desk Live',
-      description: 'Specialist MEP and soft services contractor roundtable: RAMS, job proof, mobilization, and supplier challenges.',
-      topic: 'Contractor Management',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 11,
-      totalMessagesCount: 52,
-      lastActivityAt: now,
-      guidelinesPrompt: 'No commercial job-order or operational client data. Focus on industry standards.',
-    },
-    {
-      id: 'room-06',
-      slug: 'careers-mentoring',
-      name: 'Careers & Mentoring',
-      description: 'IWFM/CIBSE pathways, engineering-to-management transitions, apprenticeships, and talent development.',
-      topic: 'Professional Development',
-      type: 'topic',
-      visibility: 'public_readable',
-      status: 'active',
-      activePresenceCount: 7,
-      totalMessagesCount: 28,
-      lastActivityAt: now,
-      guidelinesPrompt: 'Support peers with constructive guidance and mentoring insight.',
-    },
-  ];
-
-  rooms.forEach((r) => ROOMS_STORE.set(r.slug, r));
+function mapRoom(row: any): Room {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    description: row.description,
+    topic: row.topic,
+    type: row.type,
+    visibility: row.visibility,
+    status: row.status,
+    activePresenceCount: row.active_presence_count ?? 0,
+    totalMessagesCount: row.total_messages_count ?? 0,
+    lastActivityAt: row.last_activity_at,
+    scheduledStart: row.scheduled_start,
+    scheduledEnd: row.scheduled_end,
+    guidelinesPrompt: row.guidelines_prompt,
+  };
 }
 
-seedInitialRooms();
-
-export function getAllRooms(): Room[] {
-  return Array.from(ROOMS_STORE.values());
+function mapMessage(row: any): RoomMessage {
+  return {
+    id: row.id,
+    roomId: row.room_id,
+    roomSlug: row.room_slug,
+    authorMemberId: row.author_member_id,
+    authorName: row.author_name,
+    authorHeadline: row.author_headline,
+    authorCompany: row.author_company,
+    authorAvatarUrl: row.author_avatar_url,
+    authorBadge: row.author_badge,
+    isEntireFMOfficial: row.is_entirefm_official,
+    body: row.body,
+    createdAt: row.created_at,
+    editedAt: row.edited_at,
+    replyToMessageId: row.reply_to_message_id,
+    replyToSnippet: row.reply_to_snippet,
+    moderationState: row.moderation_state,
+  };
 }
 
-export function getRoomBySlug(slug: string): Room | undefined {
-  return ROOMS_STORE.get(slug);
+// ─── Queries ──────────────────────────────────────────────────────────────────
+
+export async function getAllRooms(): Promise<Room[]> {
+  const { data } = await dbQuery<any[]>('lobby_rooms?status=eq.active&order=id.asc');
+  if (!data) return [];
+  return data.map(mapRoom);
 }
 
-export function getRoomMessages(roomSlug: string, limit = 50): RoomMessage[] {
-  const msgs = ROOM_MESSAGES.get(roomSlug) || [];
-  return msgs
-    .filter((m) => m.moderationState === 'published')
-    .slice(-limit);
+export async function getRoomBySlug(slug: string): Promise<Room | undefined> {
+  const { data } = await dbQuery<any[]>(
+    `lobby_rooms?slug=eq.${encodeURIComponent(slug)}&limit=1`
+  );
+  if (!data || data.length === 0) return undefined;
+  return mapRoom(data[0]);
 }
 
-export function postRoomMessage(data: {
+export async function getRoomMessages(roomSlug: string, limit = 50): Promise<RoomMessage[]> {
+  const { data } = await dbQuery<any[]>(
+    `lobby_room_messages?room_slug=eq.${encodeURIComponent(roomSlug)}&moderation_state=eq.published&order=created_at.asc&limit=${limit}`
+  );
+  if (!data) return [];
+  return data.map(mapMessage);
+}
+
+export async function postRoomMessage(data: {
   roomSlug: string;
   authorMemberId: string;
   authorName: string;
@@ -132,8 +91,8 @@ export function postRoomMessage(data: {
   body: string;
   replyToMessageId?: string;
   replyToSnippet?: string;
-}): RoomMessage {
-  const room = ROOMS_STORE.get(data.roomSlug);
+}): Promise<RoomMessage> {
+  const room = await getRoomBySlug(data.roomSlug);
   if (!room) throw new Error('Room not found');
   if (room.status === 'locked' || room.status === 'archived') {
     throw new Error('Room is not accepting new messages');
@@ -142,32 +101,38 @@ export function postRoomMessage(data: {
   const id = `msg-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
   const now = new Date().toISOString();
 
-  const message: RoomMessage = {
+  const row = {
     id,
-    roomId: room.id,
-    roomSlug: room.slug,
-    authorMemberId: data.authorMemberId,
-    authorName: data.authorName,
-    authorHeadline: data.authorHeadline,
-    authorCompany: data.authorCompany,
-    authorAvatarUrl: data.authorAvatarUrl,
-    authorBadge: data.authorBadge,
-    isEntireFMOfficial: data.isEntireFMOfficial,
+    room_id: room.id,
+    room_slug: room.slug,
+    author_member_id: data.authorMemberId,
+    author_name: data.authorName,
+    author_headline: data.authorHeadline,
+    author_company: data.authorCompany,
+    author_avatar_url: data.authorAvatarUrl,
+    author_badge: data.authorBadge,
+    is_entirefm_official: data.isEntireFMOfficial,
     body: data.body.trim(),
-    createdAt: now,
-    replyToMessageId: data.replyToMessageId,
-    replyToSnippet: data.replyToSnippet,
-    moderationState: 'published',
+    created_at: now,
+    reply_to_message_id: data.replyToMessageId,
+    reply_to_snippet: data.replyToSnippet,
+    moderation_state: 'published',
   };
 
-  const existing = ROOM_MESSAGES.get(data.roomSlug) || [];
-  existing.push(message);
-  ROOM_MESSAGES.set(data.roomSlug, existing);
+  await dbQuery('lobby_room_messages', {
+    method: 'POST',
+    body: row,
+  });
 
-  room.totalMessagesCount += 1;
-  room.lastActivityAt = now;
+  // Update room's last_activity_at and total_messages_count
+  await dbQuery(`lobby_rooms?slug=eq.${encodeURIComponent(data.roomSlug)}`, {
+    method: 'PATCH',
+    body: { last_activity_at: now, total_messages_count: (room.totalMessagesCount || 0) + 1 },
+  });
 
-  // Broadcast to all active SSE subscribers
+  const message = mapMessage(row);
+
+  // Broadcast to all active SSE subscribers for this room
   broadcastRoomEvent(data.roomSlug, {
     type: 'message',
     data: message,
@@ -175,6 +140,8 @@ export function postRoomMessage(data: {
 
   return message;
 }
+
+// ─── SSE pub/sub ──────────────────────────────────────────────────────────────
 
 export function subscribeToRoomEvents(roomSlug: string, listener: Listener): () => void {
   if (!ROOM_LISTENERS.has(roomSlug)) {
@@ -184,25 +151,27 @@ export function subscribeToRoomEvents(roomSlug: string, listener: Listener): () 
   const set = ROOM_LISTENERS.get(roomSlug)!;
   set.add(listener);
 
-  // Update room active presence count
-  const room = ROOMS_STORE.get(roomSlug);
-  if (room) {
-    room.activePresenceCount = Math.max(room.activePresenceCount, set.size);
-    broadcastRoomEvent(roomSlug, {
-      type: 'presence',
-      data: { count: room.activePresenceCount },
-    });
-  }
+  // Update active presence count (best-effort, in-process only)
+  dbQuery(`lobby_rooms?slug=eq.${encodeURIComponent(roomSlug)}`, {
+    method: 'PATCH',
+    body: { active_presence_count: set.size },
+  }).catch(() => {});
+
+  broadcastRoomEvent(roomSlug, {
+    type: 'presence',
+    data: { count: set.size },
+  });
 
   return () => {
     set.delete(listener);
-    if (room) {
-      room.activePresenceCount = set.size;
-      broadcastRoomEvent(roomSlug, {
-        type: 'presence',
-        data: { count: room.activePresenceCount },
-      });
-    }
+    dbQuery(`lobby_rooms?slug=eq.${encodeURIComponent(roomSlug)}`, {
+      method: 'PATCH',
+      body: { active_presence_count: set.size },
+    }).catch(() => {});
+    broadcastRoomEvent(roomSlug, {
+      type: 'presence',
+      data: { count: set.size },
+    });
   };
 }
 

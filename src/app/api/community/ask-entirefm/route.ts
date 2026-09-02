@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Question must be at least 10 characters' }, { status: 400 });
     }
 
-    const submission = submitAskEntireFM({
+    const submission = await submitAskEntireFM({
       memberId: member.id,
       memberName: member.display_name,
       memberHeadline: member.headline,

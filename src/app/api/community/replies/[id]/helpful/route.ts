@@ -13,7 +13,7 @@ export async function POST(
 
   const { id: replyId } = await params;
   try {
-    const result = toggleHelpfulReaction(replyId, session.memberId);
+    const result = await toggleHelpfulReaction(replyId, session.memberId);
     return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error updating reaction' }, { status: 400 });

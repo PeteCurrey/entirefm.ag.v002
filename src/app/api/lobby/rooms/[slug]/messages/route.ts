@@ -8,11 +8,11 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const room = getRoomBySlug(slug);
+  const room = await getRoomBySlug(slug);
   if (!room) {
     return NextResponse.json({ error: 'Room not found' }, { status: 404 });
   }
-  const messages = getRoomMessages(slug);
+  const messages = await getRoomMessages(slug);
   return NextResponse.json({ messages });
 }
 
@@ -31,7 +31,7 @@ export async function POST(
   }
 
   const { slug } = await params;
-  const room = getRoomBySlug(slug);
+  const room = await getRoomBySlug(slug);
   if (!room) {
     return NextResponse.json({ error: 'Room not found' }, { status: 404 });
   }
@@ -44,7 +44,7 @@ export async function POST(
       return NextResponse.json({ error: 'Message cannot be empty' }, { status: 400 });
     }
 
-    const message = postRoomMessage({
+    const message = await postRoomMessage({
       roomSlug: slug,
       authorMemberId: member.id,
       authorName: member.display_name,

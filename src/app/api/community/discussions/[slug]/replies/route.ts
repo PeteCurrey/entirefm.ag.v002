@@ -8,11 +8,11 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const discussion = getDiscussionBySlug(slug);
+  const discussion = await getDiscussionBySlug(slug);
   if (!discussion) {
     return NextResponse.json({ error: 'Discussion not found' }, { status: 404 });
   }
-  const replies = getDiscussionReplies(discussion.id);
+  const replies = await getDiscussionReplies(discussion.id);
   return NextResponse.json({ replies });
 }
 
@@ -31,7 +31,7 @@ export async function POST(
   }
 
   const { slug } = await params;
-  const discussion = getDiscussionBySlug(slug);
+  const discussion = await getDiscussionBySlug(slug);
   if (!discussion) {
     return NextResponse.json({ error: 'Discussion not found' }, { status: 404 });
   }
@@ -44,7 +44,7 @@ export async function POST(
       return NextResponse.json({ error: 'Reply must be at least 5 characters' }, { status: 400 });
     }
 
-    const reply = createDiscussionReply({
+    const reply = await createDiscussionReply({
       discussionId: discussion.id,
       body: replyBody,
       authorMemberId: member.id,

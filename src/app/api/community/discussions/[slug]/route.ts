@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const discussion = getDiscussionBySlug(slug);
+  const discussion = await getDiscussionBySlug(slug);
   if (!discussion) {
     return NextResponse.json({ error: 'Discussion not found' }, { status: 404 });
   }

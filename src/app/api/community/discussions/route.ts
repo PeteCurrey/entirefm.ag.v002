@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const limit = parseInt(searchParams.get('limit') || '20', 10);
   const offset = parseInt(searchParams.get('offset') || '0', 10);
 
-  const result = getDiscussions({
+  const result = await getDiscussions({
     categorySlug: category,
     tag,
     query,
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Category selection required' }, { status: 400 });
     }
 
-    const discussion = createDiscussion({
+    const discussion = await createDiscussion({
       title,
       body: textBody,
       categorySlug,

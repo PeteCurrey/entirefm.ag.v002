@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required report fields' }, { status: 400 });
     }
 
-    const report = createModerationReport({
+    const report = await createModerationReport({
       reporterMemberId: session.memberId,
       reportedContentType,
       reportedContentId,

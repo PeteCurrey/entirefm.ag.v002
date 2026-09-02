@@ -11,7 +11,7 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status') || undefined;
-  const cases = getModerationCases(status);
+  const cases = await getModerationCases(status);
   return NextResponse.json({ cases });
 }
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { caseId, action, internalNotes } = body;
 
-    const resolved = resolveModerationCase(caseId, action, session.memberId, internalNotes);
+    const resolved = await resolveModerationCase(caseId, action, session.memberId, internalNotes);
     return NextResponse.json({ case: resolved });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error actioning report' }, { status: 400 });

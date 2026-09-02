@@ -9,13 +9,13 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search') || undefined;
     const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : 20;
 
-    const { awards, total } = getIndustryAwards({
+    const { awards, total } = await getIndustryAwards({
       status: status || undefined,
       search,
       limit,
     });
 
-    const closingSoon = getClosingSoonAwards();
+    const closingSoon = await getClosingSoonAwards();
 
     return NextResponse.json({
       success: true,

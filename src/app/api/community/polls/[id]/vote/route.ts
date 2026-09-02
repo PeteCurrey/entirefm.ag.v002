@@ -20,7 +20,7 @@ export async function POST(
   }
 
   try {
-    const updatedPoll = votePoll(pollId, session.memberId, optionId);
+    const updatedPoll = await votePoll(pollId, session.memberId, optionId);
     return NextResponse.json({ poll: updatedPoll, voted: true });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error recording vote' }, { status: 400 });

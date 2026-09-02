@@ -4,10 +4,10 @@ import { getMemberSessionFromRequest } from '@/server/member/member-session';
 
 export async function GET(request: Request) {
   const session = getMemberSessionFromRequest(request);
-  const activePoll = getActivePoll();
-  const archive = getPollArchive();
+  const activePoll = await getActivePoll();
+  const archive = await getPollArchive();
 
-  const userVoted = session && activePoll ? hasMemberVotedPoll(activePoll.id, session.memberId) : false;
+  const userVoted = session && activePoll ? await hasMemberVotedPoll(activePoll.id, session.memberId) : false;
 
   return NextResponse.json({
     activePoll,

@@ -9,7 +9,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const award = getIndustryAwardBySlug(slug);
+  const award = await getIndustryAwardBySlug(slug);
 
   if (!award) {
     return { title: 'Award Not Found | The Lobby' };
@@ -23,13 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AwardDetailPage({ params }: Props) {
   const { slug } = await params;
-  const award = getIndustryAwardBySlug(slug);
+  const award = await getIndustryAwardBySlug(slug);
 
   if (!award) {
     notFound();
   }
 
-  const { awards: otherAwards } = getIndustryAwards({ limit: 4 });
+  const { awards: otherAwards } = await getIndustryAwards({ limit: 4 });
   const filtered = otherAwards.filter((a) => a.slug !== award.slug);
 
   return (

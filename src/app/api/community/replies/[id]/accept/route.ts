@@ -20,7 +20,7 @@ export async function POST(
   }
 
   try {
-    const result = markAcceptedAnswer(discussionId, replyId, session.memberId);
+    const result = await markAcceptedAnswer(discussionId, replyId, session.memberId);
     return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error marking accepted answer' }, { status: 403 });
