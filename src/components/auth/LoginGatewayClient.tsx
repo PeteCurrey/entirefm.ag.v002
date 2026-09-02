@@ -28,8 +28,8 @@ const CARDS: {
     eyebrow: 'CLIENT ACCESS',
     description: 'Access your sites, requests, compliance and performance data.',
     cta: 'Continue as Client',
-    imageSrc: '/images/editorial/entirefm-reception-2000w.webp',
-    imageAlt: 'EntireFM managed commercial building reception',
+    imageSrc: '/images/editorial/entirefm-birmingham-login-client.png',
+    imageAlt: 'EntireFM managed commercial estate, Birmingham',
     objectPosition: 'center center',
   },
   {
