@@ -30,17 +30,17 @@ export function LobbyMasthead() {
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/lobby/entirefm-lobby-hero.webp"
+          src="/images/lobby/b54e9629-0e0c-4e27-ae85-7c1be2dff606.png"
           alt="EntireFM corporate headquarters illuminated reception lobby and meeting lounge"
           fill
           priority
           sizes="100vw"
-          quality={90}
-          className="object-cover object-center transform scale-100"
+          quality={95}
+          className="object-cover object-center transform-gpu"
         />
 
         {/* Subtle dark gradient overlay allowing background photography to breathe */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/95 via-brand-void/50 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/90 via-brand-void/40 to-black/40" />
         <div className="absolute inset-0 bg-black/10" />
 
         {/* Ambient brand glow accents */}

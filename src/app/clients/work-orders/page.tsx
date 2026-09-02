@@ -5,8 +5,8 @@ import { getLiveTriageWorkOrders } from '@/server/work/triage-service';
 import { LiveWorkOrderTriageClient } from '@/components/work-orders/LiveWorkOrderTriageClient';
 
 export const metadata: Metadata = {
-  title: 'Work Order Triage & Live Radar — EntireFM Client Portal',
-  description: 'Live CAFM operational work order triage with SLA adherence tracking and lifecycle visibility.',
+  title: 'Jobs & Maintenance Requests — EntireFM Client Portal',
+  description: 'Track reactive maintenance requests, scheduled attendances, and job completion across your managed properties.',
   robots: { index: false, follow: false, nocache: true },
 };
 

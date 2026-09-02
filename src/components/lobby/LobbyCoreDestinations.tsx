@@ -62,14 +62,14 @@ export const LOBBY_CORE_DESTINATIONS: LobbyDestinationCard[] = [
     id: 'find',
     number: '04',
     headline: 'FIND',
-    supportingLine: 'Find people, suppliers and opportunities.',
+    supportingLine: 'Your next role, opportunity or move.',
     description:
-      'FM jobs, contractors, professionals, suppliers, tenders, frameworks and commercial opportunities.',
+      'FM jobs, career progression pathways, professional role specifications, employers and UK salary intelligence.',
     cta: 'EXPLORE FIND',
     href: '/lobby/find',
     imageSrc: '/images/editorial/entirefm-site-arrival-2000w.webp',
-    imageAlt: 'EntireFM commercial estate fleet arrival and supplier mobilisations',
-    categoryTag: 'OPPORTUNITIES & DIRECTORY',
+    imageAlt: 'FM professionals advancing careers across UK commercial estates',
+    categoryTag: 'CAREERS & OPPORTUNITIES',
   },
   {
     id: 'learn',
@@ -88,14 +88,14 @@ export const LOBBY_CORE_DESTINATIONS: LobbyDestinationCard[] = [
     id: 'connect',
     number: '06',
     headline: 'CONNECT',
-    supportingLine: 'Learn from the profession.',
+    supportingLine: 'The professional common room for FM.',
     description:
-      'Ask The Lobby, practitioner questions, industry discussions, roundtables, events and carefully moderated professional interaction.',
+      'Practical questions, experienced practitioners, better answers. Structured discussions, live rooms, FM Pulse and verified consensus.',
     cta: 'EXPLORE CONNECT',
     href: '/lobby/connect',
     imageSrc: '/images/editorial/entirefm-sheffield-rooftop-survey-1920w.webp',
     imageAlt: 'Facilities leaders and building engineers collaborating on commercial estate challenge',
-    categoryTag: 'PEER NETWORK & ROUNDTABLES',
+    categoryTag: 'PEER COMMON ROOM & ROUNDTABLES',
   },
 ];
 

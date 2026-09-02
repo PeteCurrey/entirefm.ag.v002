@@ -34,22 +34,18 @@ export default async function ClientsLayout({ children }: { children: React.Reac
   const siteScopes = session.scopes.filter((s) => s.type === 'SITE');
   const scopeLabel =
     siteScopes.length === 1
-      ? `Site Scope: ${siteScopes[0].id}`
+      ? `1 Property`
       : siteScopes.length > 1
-      ? `Sites: ${siteScopes.length} Restricted`
-      : 'Scope: Full Portfolio';
+      ? `${siteScopes.length} Properties`
+      : 'Full Portfolio';
 
   const navLinks = [
     { name: 'Overview', href: '/clients' },
     { name: 'Log a Job', href: '/log-a-job', highlight: true },
     { name: 'Jobs', href: '/clients/work-orders' },
-    { name: 'Estate Performance', href: '/clients/performance' },
-    { name: 'Sites', href: '/clients/sites' },
-    { name: 'Assets', href: '/clients/assets' },
-    { name: 'Planned Maintenance', href: '/clients/ppm' },
+    { name: 'Sites & Properties', href: '/clients/sites' },
     { name: 'Compliance', href: '/clients/compliance' },
     { name: 'Quotes & Approvals', href: '/clients/quotes' },
-    { name: 'Invoices', href: '/clients/invoices' },
     { name: 'Documents', href: '/clients/documents' },
   ];
 
@@ -78,7 +74,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
               {session.orgName}
             </span>
             <span className="hidden sm:inline-block rounded border border-brand-edge-dark bg-brand-void/60 px-2 py-0.5 font-normal text-[10.5px] text-brand-mist/50">
-              {scopeLabel}
+              {scopeLabel} · Authorised Access
             </span>
           </div>
 

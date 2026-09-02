@@ -2,13 +2,15 @@
  * ASSET SCANNER PROCESSING ENDPOINT — /api/tools/asset-scanner/process
  * ===================================================================
  * Invoked when an image, video frame, or PDF is uploaded.
- * Runs extraction pipeline, cross-references SFG20, and persists to Firestore.
+ * Runs extraction pipeline, cross-references SFG20, and persists to Firestore
+ * when the caller is an authenticated member.
  */
 
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { extractAssetFromUpload } from '@/server/asset-scanner/extractor';
 import { verifySupabaseAuthToken } from '@/server/asset-scanner/auth-bridge';
+import { createEstateAsset } from '@/server/firestore/client';
 import { AssetScannerFileType } from '@/types/asset-scanner';
 
 const ProcessRequestSchema = z.object({
@@ -61,16 +63,31 @@ export async function POST(request: Request) {
       ownerUid: verifiedUid,
     });
 
+    // Persist to Firestore for authenticated members
+    let persistedAssetId: string | null = null;
+    let persistError: string | null = null;
+
+    if (verifiedUid) {
+      const { assetId, error } = await createEstateAsset(verifiedUid, extraction.asset);
+      persistedAssetId = assetId;
+      persistError = error;
+      if (error) {
+        console.error('[ASSET_SCANNER_PROCESS] Firestore persist failed:', error);
+      }
+    }
+
     return NextResponse.json(
       {
         success: true,
         data: {
-          asset: extraction.asset,
+          asset: { ...extraction.asset, id: persistedAssetId ?? undefined },
           matchedDefinition: extraction.matchedDefinition,
           engineUsed: extraction.engineUsed,
           processingTimeMs: extraction.processingTimeMs,
           ownerUid: verifiedUid,
           sessionId: sessionId || null,
+          persisted: verifiedUid ? (persistedAssetId !== null) : false,
+          persistError: persistError ?? undefined,
         },
       },
       { status: 200 }

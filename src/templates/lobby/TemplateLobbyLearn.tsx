@@ -1,448 +1,564 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
-  BookOpen,
-  Award,
-  Clock,
-  Video,
-  FileText,
-  CheckCircle2,
-  ArrowRight,
-  ExternalLink,
-  ShieldCheck,
   Search,
-  Calendar,
-  Sparkles,
-  Info,
+  BookOpen,
   Layers,
-  Building2,
+  ChevronRight,
+  ArrowRight,
+  Clock,
+  FileText,
   Wrench,
+  ShieldCheck,
+  Leaf,
+  Users,
+  Building2,
+  Cpu,
+  Plane,
+  CheckSquare,
+  HelpCircle,
+  GraduationCap,
+  BookMarked,
 } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { LobbySubNav } from '@/components/lobby/LobbySubNav';
+import {
+  LEARNING_PATHWAYS,
+  LEARN_RESOURCES,
+  TASK_DISCOVERY_ITEMS,
+  ONE_USEFUL_THING,
+  type ProfessionalLevel,
+  type PathwayId,
+} from '@/data/lobby/learn-data';
+
+// ── ICON MAP ──────────────────────────────────────────────────────────
+
+function PathwayIcon({ id }: { id: PathwayId }) {
+  const map: Record<PathwayId, React.ReactNode> = {
+    'fm-foundations': <BookOpen className="w-5 h-5" />,
+    'technical-fm': <Wrench className="w-5 h-5" />,
+    'compliance-risk': <ShieldCheck className="w-5 h-5" />,
+    'procurement-contracts': <FileText className="w-5 h-5" />,
+    'people-leadership': <Users className="w-5 h-5" />,
+    'building-estates': <Building2 className="w-5 h-5" />,
+    'energy-sustainability': <Leaf className="w-5 h-5" />,
+    'digital-fm': <Cpu className="w-5 h-5" />,
+    'mobilisation-transition': <Plane className="w-5 h-5" />,
+  };
+  return <>{map[id]}</>;
+}
+
+const CONTENT_TYPE_LABELS: Record<string, string> = {
+  Guide: 'bg-blue-50 text-blue-700 border-blue-200',
+  Playbook: 'bg-violet-50 text-violet-700 border-violet-200',
+  'Technical Briefing': 'bg-amber-50 text-amber-700 border-amber-200',
+  Checklist: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  Explainer: 'bg-neutral-100 text-neutral-700 border-neutral-200',
+};
+
+const LEVEL_LABELS: Record<ProfessionalLevel, string> = {
+  Foundation: 'bg-sky-50 text-sky-700',
+  Practitioner: 'bg-teal-50 text-teal-700',
+  Senior: 'bg-indigo-50 text-indigo-700',
+  Leadership: 'bg-purple-50 text-purple-700',
+  Specialist: 'bg-orange-50 text-orange-700',
+};
+
+const LEVELS: ProfessionalLevel[] = ['Foundation', 'Practitioner', 'Senior', 'Leadership', 'Specialist'];
+
+const CTA_LABELS: Record<string, string> = {
+  Guide: 'Read Guide',
+  Playbook: 'Explore Playbook',
+  'Technical Briefing': 'Open Briefing',
+  Checklist: 'View Checklist',
+  Explainer: 'Start Learning',
+  Template: 'View Template',
+  'Case Study': 'Read Case Study',
+  Scenario: 'Explore Scenario',
+};
 
 export function TemplateLobbyLearn() {
-  const [activeTab, setActiveTab] = useState<'all' | 'briefings' | 'cpd' | 'webinars' | 'guides'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [search, setSearch] = useState('');
+  const [activePathway, setActivePathway] = useState<PathwayId | 'ALL'>('ALL');
+  const [activeLevel, setActiveLevel] = useState<ProfessionalLevel | 'ALL'>('ALL');
 
-  const tabs = [
-    { id: 'all', label: 'All Learning' },
-    { id: 'briefings', label: '10-Minute Briefings' },
-    { id: 'cpd', label: 'CPD Activity & Log' },
-    { id: 'webinars', label: 'Webinars & Masterclasses' },
-    { id: 'guides', label: 'Technical Field Guides' },
-  ];
+  const featuredResources = useMemo(
+    () => LEARN_RESOURCES.filter((r) => r.isFeatured && r.status === 'PUBLISHED'),
+    []
+  );
 
-  const tenMinuteBriefings = [
-    {
-      id: 'brief-01',
-      title: 'Understanding the Building Safety Act 2022: Accountable Persons & The Golden Thread',
-      category: 'Statutory Governance',
-      duration: '10 min read · CPD Self-Certified (1.0h)',
-      description:
-        'A concise breakdown of Part 4 duties: identifying Accountable Persons, contemporaneous digital occurrence logging, and maintaining machine-readable asset records.',
-      status: 'AVAILABLE',
-      slug: 'building-safety-act-what-fm-teams-need-to-know-now',
-      checkRef: '/lobby/check#building-safety',
-      doRef: '/tools/compliance-checker',
-    },
-    {
-      id: 'brief-02',
-      title: 'EICR Explained: What Commercial Property Managers Need to Know About Electrical Observations',
-      category: 'Electrical Engineering',
-      duration: '8 min read · CPD Self-Certified (0.75h)',
-      description:
-        'Decoding Observation Codes C1 (Danger Present), C2 (Potentially Dangerous), and FI (Further Investigation). How to manage immediate remedial isolations and duty-holder liabilities.',
-      status: 'AVAILABLE',
-      slug: 'eicr-commercial-property-guide',
-      checkRef: '/lobby/check#electrical',
-      doRef: '/contractor-tools/contractor-compliance-check',
-    },
-    {
-      id: 'brief-03',
-      title: 'Legionella & ACOP L8: What Physical & Digital Evidence Must Estates Teams Hold?',
-      category: 'Water Hygiene',
-      duration: '10 min read · CPD Self-Certified (1.0h)',
-      description:
-        'Auditing temperature sentinel logs, calorifier purge records, TMV servicing sheets, and biennial Legionella Risk Assessments to survive an HSE inspection.',
-      status: 'AVAILABLE',
-      slug: 'acop-l8-legionella-evidence-requirements',
-      checkRef: '/lobby/check#water',
-      doRef: '/tools/compliance-calendar',
-    },
-    {
-      id: 'brief-04',
-      title: 'How to Mobilise an FM Contract: 90-Day Transition Without Compliance Gaps',
-      category: 'Contract Mobilisation',
-      duration: '12 min read · CPD Self-Certified (1.0h)',
-      description:
-        'Step-by-step estate handover governance: capturing legacy plant documentation, verifying asset registers, re-commissioning permits-to-work, and onboarding supply chains.',
-      status: 'AVAILABLE',
-      slug: 'how-much-asset-data-do-you-insist-on-before-mobilisation-sign-off',
-      checkRef: '/lobby/check',
-      doRef: '/tools/ppm-schedule-builder',
-    },
-    {
-      id: 'brief-05',
-      title: 'How to Audit a Subcontractor: Vetting RAMS, Insurance & Competency Matrices',
-      category: 'Health & Safety',
-      duration: '9 min read · CPD Self-Certified (0.75h)',
-      description:
-        'Practical methodologies for reviewing subcontractor risk assessments, checking SSIP accreditations, and verifying skill cards (CSCS, Gas Safe, REFCOM, NICEIC) before site entry.',
-      status: 'AVAILABLE',
-      slug: 'how-to-audit-subcontractor-rams',
-      checkRef: '/lobby/check',
-      doRef: '/contractor-tools/contractor-document-checklist',
-    },
-    {
-      id: 'brief-06',
-      title: 'Understanding SFG20: How Planned Preventative Maintenance Standards Are Built',
-      category: 'Asset Engineering',
-      duration: '11 min read · CPD Self-Certified (1.0h)',
-      description:
-        'Demystifying SFG20 statutory schedules, non-statutory maintenance tasks, and discretionary inspections. How to build a defensible annual PPM regime without over-spending.',
-      status: 'AVAILABLE',
-      slug: 'understanding-sfg20-maintenance-matrix',
-      checkRef: '/lobby/check',
-      doRef: '/tools/ppm-cost-estimator',
-    },
-  ];
+  const filteredResources = useMemo(() => {
+    return LEARN_RESOURCES.filter((r) => {
+      if (r.status !== 'PUBLISHED') return false;
+      const q = search.toLowerCase();
+      const matchSearch =
+        !q ||
+        r.title.toLowerCase().includes(q) ||
+        r.topic.toLowerCase().includes(q) ||
+        r.contentType.toLowerCase().includes(q) ||
+        r.summary.toLowerCase().includes(q);
+      const matchPathway = activePathway === 'ALL' || r.pathway === activePathway;
+      const matchLevel = activeLevel === 'ALL' || r.level === activeLevel;
+      return matchSearch && matchPathway && matchLevel;
+    });
+  }, [search, activePathway, activeLevel]);
 
-  const webinars = [
-    {
-      id: 'web-01',
-      title: 'Decarbonising Commercial Heating: High-Temperature Heat Pump Plantroom Retrofits',
-      speaker: 'Senior Mechanical Building Services Engineer, EntireFM Directorate',
-      date: 'Wednesday, 16 September 2026 · 10:00 BST',
-      format: 'Live Technical Broadcast · Interactive Q&A',
-      cpdCredit: '1.5 Hours Verifiable CPD',
-      status: 'OPEN FOR REGISTRATION',
-      href: '/lobby/events',
-    },
-    {
-      id: 'web-02',
-      title: 'Building Safety Act 2022 Part 4: Surviving the First BSR Statutory Audit',
-      speaker: 'Director of Risk & Compliance Advisory, EntireFM',
-      date: 'Recorded Masterclass · On-Demand Streaming',
-      format: 'Archived Video + Case Study PDF',
-      cpdCredit: '1.0 Hour Self-Certified CPD',
-      status: 'ON-DEMAND ACCESS',
-      href: '/lobby/events',
-    },
+  const EXAMPLE_SEARCHES = [
+    'Building Safety Act',
+    'PPM',
+    'Contract mobilisation',
+    'FM procurement',
+    'Water hygiene',
+    'Energy management',
+    'Managing contractors',
   ];
 
   return (
     <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 flex flex-col font-sans selection:bg-brand-electric selection:text-white">
-      
-      {/* ── 01. SECONDARY SUB-NAVIGATION BAR ─────────────────────────── */}
       <LobbySubNav currentSection="learn" />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-24 w-full space-y-12">
-        
-        {/* ── 02. BREADCRUMBS & PURPOSE MASTHEAD ───────────────────────── */}
-        <div className="space-y-4">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-light text-neutral-500">
-            <Link href="/lobby" className="hover:text-neutral-900 transition-colors">
-              The Lobby
-            </Link>
-            <span>/</span>
-            <span className="text-neutral-900 font-medium">LEARN</span>
-          </nav>
+      <main className="flex-1">
 
-          <div className="bg-white border border-neutral-200/90 rounded-[4px] p-6 sm:p-10 lg:p-12 shadow-2xs space-y-6">
-            <div className="inline-flex items-center gap-2">
-              <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-semibold">
-                05 · PROFESSIONAL DEVELOPMENT &amp; EDUCATION
-              </span>
-            </div>
+        {/* ── HERO ──────────────────────────────────────────────────────── */}
+        <section className="relative bg-neutral-950 text-white overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-20"
+            style={{ backgroundImage: "url('/assets/lobby/learn-hero.jpg')" }}
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/60 via-neutral-950/80 to-neutral-950" aria-hidden="true" />
 
-            <div className="max-w-4xl space-y-3">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-neutral-900 tracking-tight leading-tight">
-                Build Your Professional Edge.
-              </h1>
-              <p className="text-sm sm:text-base font-light text-neutral-600 leading-relaxed max-w-3xl">
-                Ground-truth professional development for UK facilities leaders, estates managers, and building services engineers. Practical 10-minute technical briefings, verifiable CPD activity logs, engineering masterclasses, and field defect analyses.
-              </p>
-            </div>
-
-            {/* CPD Standard Strip */}
-            <div className="pt-4 border-t border-neutral-100 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-light text-neutral-500">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-600" />
-                <span className="text-neutral-900 font-medium">Personal CPD Log &amp; Certificate Vault</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-neutral-400" />
-                <span>Zero Fake Accreditations · Rigorous Technical Curriculum</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                <span>Micro-Learning (8–12 Min Structured Modules)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── 03. HONEST ACCREDITATION STANDARD ────────────────────────── */}
-        <div className="bg-blue-50/70 border border-blue-200/90 rounded-[4px] p-4 sm:p-6 text-xs text-blue-950 flex items-start gap-4">
-          <Info className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <span className="font-semibold uppercase tracking-wider text-[10px] text-blue-800 block">
-              CPD Integrity &amp; Professional Recognition Policy
-            </span>
-            <p className="font-light leading-relaxed text-blue-900/90">
-              EntireFM provides rigorous self-certified Continuing Professional Development (CPD) structured for your professional portfolio (such as CIBSE, IWFM, RICS, or IOSH). We do not claim fabricated university accreditations or proprietary fake certificates. Our learning modules are authored by chartered engineers and senior facilities directors for direct field utility.
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+            <p className="text-[10px] font-mono text-brand-electric uppercase tracking-[0.2em] mb-5">
+              THE LOBBY · LEARN
             </p>
-          </div>
-        </div>
+            <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight leading-tight mb-6">
+              Build your FM edge.
+            </h1>
+            <p className="text-sm sm:text-base font-light text-neutral-300 leading-relaxed max-w-2xl mb-10">
+              Practical guides, technical briefings, playbooks, and professional development resources built for UK facilities and property professionals. LEARN teaches — DO executes.
+            </p>
 
-        {/* ── 04. CATEGORY TABS & SEARCH ───────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-b border-neutral-200/90 pb-4">
-          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3.5 py-1.5 rounded-[4px] text-xs uppercase tracking-wider whitespace-nowrap transition-colors ${
-                  activeTab === tab.id
-                    ? 'bg-neutral-900 text-white font-medium shadow-2xs'
-                    : 'bg-white border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 font-light'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative shrink-0 sm:w-72">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search briefings & guides..."
-              className="w-full bg-white border border-neutral-200 rounded-[4px] px-3 py-1.5 pl-8 text-xs font-light text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-brand-electric"
-            />
-            <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-2.5 top-2.5" />
-          </div>
-        </div>
-
-        {/* ── 05. SECTION: 10-MINUTE TECHNICAL BRIEFINGS ───────────────── */}
-        {(activeTab === 'all' || activeTab === 'briefings') && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-200/90 pb-3">
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-semibold block">
-                  TECHNICAL BRIEFINGS (MICRO-CURRICULUM)
-                </span>
-                <h2 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight mt-0.5">
-                  10-Minute FM Briefings
-                </h2>
+            {/* Search */}
+            <div className="relative max-w-xl">
+              <label htmlFor="learn-search" className="sr-only">What do you want to learn?</label>
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="w-4 h-4 text-neutral-400" />
               </div>
-
-              <span className="text-xs font-light text-neutral-500">
-                Peer-reviewed engineering &amp; compliance guides
-              </span>
+              <input
+                id="learn-search"
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="What do you want to learn?"
+                className="w-full bg-white/10 border border-white/20 rounded-[3px] pl-10 pr-4 py-3 text-sm text-white placeholder:text-neutral-400 focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors backdrop-blur-sm"
+              />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tenMinuteBriefings.map((brief) => (
-                <article
-                  key={brief.id}
-                  className="bg-white border border-neutral-200/90 hover:border-neutral-400 rounded-[4px] p-6 sm:p-7 shadow-2xs flex flex-col justify-between space-y-5 transition-colors group"
+            <div className="mt-4 flex flex-wrap gap-2">
+              {EXAMPLE_SEARCHES.map((ex) => (
+                <button
+                  key={ex}
+                  onClick={() => setSearch(ex)}
+                  className="text-[10px] font-mono text-neutral-400 hover:text-white border border-white/10 hover:border-white/30 rounded-[2px] px-2.5 py-1 transition-colors"
                 >
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between text-[10px] uppercase font-mono">
-                      <span className="px-2 py-0.5 rounded-[2px] bg-neutral-100 text-neutral-700 border border-neutral-200">
-                        {brief.category}
-                      </span>
-                      <span className="text-neutral-400 font-mono text-[11px]">{brief.duration}</span>
-                    </div>
-
-                    <h3 className="text-base sm:text-lg font-light text-neutral-900 group-hover:text-brand-electric transition-colors leading-snug">
-                      {brief.title}
-                    </h3>
-
-                    <p className="text-xs font-light text-neutral-600 leading-relaxed">
-                      {brief.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-neutral-100 flex flex-col space-y-2 text-xs">
-                    <div className="flex items-center justify-between">
-                      <Link
-                        href={`/lobby/${brief.slug}`}
-                        className="text-neutral-900 font-medium group-hover:text-brand-electric inline-flex items-center gap-1"
-                      >
-                        <span>Read Technical Brief</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </Link>
-                    </div>
-
-                    <div className="flex items-center gap-3 pt-1 text-[11px] text-neutral-400 font-light border-t border-neutral-50">
-                      <Link href={brief.checkRef} className="hover:text-brand-electric">
-                        Check Duties &rarr;
-                      </Link>
-                      <span>·</span>
-                      <Link href={brief.doRef} className="hover:text-brand-electric">
-                        Run Tool &rarr;
-                      </Link>
-                    </div>
-                  </div>
-                </article>
+                  {ex}
+                </button>
               ))}
             </div>
-          </section>
-        )}
-
-        {/* ── 06. SECTION: CPD ACTIVITY & TRANSCRIPT VAULT ─────────────── */}
-        {(activeTab === 'all' || activeTab === 'cpd') && (
-          <section className="bg-white border border-neutral-200/90 rounded-[4px] p-6 sm:p-10 shadow-2xs space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-neutral-100">
-              <div className="space-y-2">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-semibold block">
-                  PROFESSIONAL LOGBOOK
-                </span>
-                <h2 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
-                  Your Personal CPD Hours &amp; Activity Log
-                </h2>
-                <p className="text-xs sm:text-sm font-light text-neutral-600 leading-relaxed max-w-2xl">
-                  Track time spent reading regulatory briefs, completing webinars, and diagnosing technical scenarios. Export verified audit transcripts for your annual professional appraisal.
-                </p>
-              </div>
-
-              <div className="shrink-0 flex items-center gap-3">
-                <Link
-                  href="/lobby/me/cpd"
-                  className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs uppercase tracking-wider rounded-[4px] transition-colors inline-flex items-center gap-2 shadow-2xs"
-                >
-                  <span>Open Personal CPD Log</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs font-light text-neutral-600">
-              <div className="p-4 bg-neutral-50 rounded-[4px] border border-neutral-200/70 space-y-1">
-                <span className="text-[10px] uppercase tracking-wider font-mono text-neutral-400 block">Logging Mechanism</span>
-                <p className="text-neutral-800 font-normal">Automated Reading &amp; Interaction Tracking</p>
-                <p className="text-[11px] text-neutral-500">Every completed intelligence brief and technical challenge logs verified time.</p>
-              </div>
-
-              <div className="p-4 bg-neutral-50 rounded-[4px] border border-neutral-200/70 space-y-1">
-                <span className="text-[10px] uppercase tracking-wider font-mono text-neutral-400 block">Export Formats</span>
-                <p className="text-neutral-800 font-normal">Signed PDF Activity Transcripts</p>
-                <p className="text-[11px] text-neutral-500">Download formatted portfolios ready for CIBSE, IWFM, or RICS submission.</p>
-              </div>
-
-              <div className="p-4 bg-neutral-50 rounded-[4px] border border-neutral-200/70 space-y-1">
-                <span className="text-[10px] uppercase tracking-wider font-mono text-neutral-400 block">Ethics &amp; Standards</span>
-                <p className="text-neutral-800 font-normal">Non-Fabricated Records</p>
-                <p className="text-[11px] text-neutral-500">Only genuine verified reading and webinar attendances appear in your vault.</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── 07. SECTION: WEBINARS & RECORDED MASTERCLASSES ───────────── */}
-        {(activeTab === 'all' || activeTab === 'webinars') && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-200/90 pb-3">
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-semibold block">
-                  TECHNICAL BROADCASTS
-                </span>
-                <h2 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight mt-0.5">
-                  Webinars &amp; Industry Masterclasses
-                </h2>
-              </div>
-
-              <Link
-                href="/lobby/events"
-                className="text-xs font-light text-brand-electric hover:underline inline-flex items-center gap-1"
-              >
-                <span>Full Events Calendar</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {webinars.map((web) => (
-                <div
-                  key={web.id}
-                  className="bg-white border border-neutral-200/90 rounded-[4px] p-6 sm:p-8 shadow-2xs flex flex-col justify-between space-y-5"
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-[10px] uppercase font-mono">
-                      <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-[2px] border border-emerald-200">
-                        {web.status}
-                      </span>
-                      <span className="text-neutral-400">{web.cpdCredit}</span>
-                    </div>
-
-                    <h3 className="text-lg font-light text-neutral-900 leading-snug">
-                      {web.title}
-                    </h3>
-
-                    <p className="text-xs font-light text-neutral-600">
-                      <strong>Presenter:</strong> {web.speaker}
-                    </p>
-
-                    <p className="text-xs font-mono text-neutral-500">
-                      {web.date} · {web.format}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
-                    <Link
-                      href={web.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 hover:text-brand-electric"
-                    >
-                      <span>Reserve Broadcast Seat</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── 08. CROSS-LINKING NAVIGATION ─────────────────────────────── */}
-        <section className="pt-6 border-t border-neutral-200/90">
-          <div className="text-xs uppercase tracking-widest text-neutral-400 font-medium mb-4">
-            Navigate The Lobby Knowledge Graph
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
-            <Link href="/lobby/know" className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors">
-              <span className="text-neutral-400 text-[10px] block">01 · INTELLIGENCE</span>
-              <span className="text-neutral-900 font-medium">KNOW &rarr;</span>
-            </Link>
-            <Link href="/lobby/check" className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors">
-              <span className="text-neutral-400 text-[10px] block">02 · OBLIGATIONS</span>
-              <span className="text-neutral-900 font-medium">CHECK &rarr;</span>
-            </Link>
-            <Link href="/lobby/do" className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors">
-              <span className="text-neutral-400 text-[10px] block">03 · TOOLBOX</span>
-              <span className="text-neutral-900 font-medium">DO &rarr;</span>
-            </Link>
-            <Link href="/lobby/find" className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors">
-              <span className="text-neutral-400 text-[10px] block">04 · DIRECTORY</span>
-              <span className="text-neutral-900 font-medium">FIND &rarr;</span>
-            </Link>
-            <Link href="/lobby/connect" className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors col-span-2 sm:col-span-1">
-              <span className="text-neutral-400 text-[10px] block">06 · PEER NETWORK</span>
-              <span className="text-neutral-900 font-medium">CONNECT &rarr;</span>
-            </Link>
           </div>
         </section>
 
+        {/* ── LEVEL FILTER STRIP ────────────────────────────────────────── */}
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-11 flex items-center gap-2 overflow-x-auto scrollbar-none">
+            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider shrink-0 mr-2">Level:</span>
+            <button
+              onClick={() => setActiveLevel('ALL')}
+              className={`shrink-0 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-[2px] transition-colors ${
+                activeLevel === 'ALL' ? 'bg-neutral-900 text-white' : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100'
+              }`}
+            >
+              All Levels
+            </button>
+            {LEVELS.map((lv) => (
+              <button
+                key={lv}
+                onClick={() => setActiveLevel(lv === activeLevel ? 'ALL' : lv)}
+                className={`shrink-0 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-[2px] transition-colors ${
+                  activeLevel === lv ? 'bg-neutral-900 text-white' : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100'
+                }`}
+              >
+                {lv}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-20">
+
+          {/* ── SEARCH RESULTS ─────────────────────────────────────────── */}
+          {search.trim() && (
+            <section>
+              <h2 className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mb-6">
+                Results for &ldquo;{search}&rdquo; — {filteredResources.length} result{filteredResources.length !== 1 ? 's' : ''}
+              </h2>
+              {filteredResources.length === 0 ? (
+                <p className="text-sm font-light text-neutral-500 py-8">
+                  No resources match your search. Try a broader term or browse the pathways below.
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredResources.map((r) => (
+                    <ResourceCard key={r.slug} resource={r} />
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* ── LEARNING PATHWAYS ──────────────────────────────────────── */}
+          {!search.trim() && (
+            <section>
+              <div className="flex items-end justify-between gap-4 mb-8">
+                <div>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-brand-electric mb-2">Learning Pathways</p>
+                  <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight">Enter a professional pathway.</h2>
+                  <p className="text-sm font-light text-neutral-500 mt-2">Structured knowledge journeys for every FM discipline.</p>
+                </div>
+                <Link href="/lobby/learn/guides" className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-neutral-900 font-light shrink-0 transition-colors">
+                  All Resources <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {LEARNING_PATHWAYS.map((pw) => (
+                  <button
+                    key={pw.id}
+                    onClick={() => setActivePathway(pw.id === activePathway ? 'ALL' : pw.id)}
+                    className={`group text-left p-5 rounded-[4px] border transition-all duration-150 ${
+                      activePathway === pw.id
+                        ? 'bg-neutral-900 border-neutral-900 text-white'
+                        : 'bg-white border-neutral-200 hover:border-neutral-400 text-neutral-900'
+                    }`}
+                  >
+                    <div className={`mb-3 ${activePathway === pw.id ? 'text-brand-electric' : 'text-neutral-500 group-hover:text-neutral-900'}`}>
+                      <PathwayIcon id={pw.id} />
+                    </div>
+                    <h3 className="text-sm font-medium mb-1">{pw.title}</h3>
+                    <p className={`text-xs font-light leading-relaxed mb-4 ${activePathway === pw.id ? 'text-neutral-300' : 'text-neutral-500'}`}>
+                      {pw.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[10px] font-mono ${activePathway === pw.id ? 'text-neutral-400' : 'text-neutral-400'}`}>
+                        {pw.resourceCount} resources
+                      </span>
+                      <ChevronRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${activePathway === pw.id ? 'text-white' : 'text-neutral-400'}`} />
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {activePathway !== 'ALL' && (
+                <div className="mt-8 space-y-4">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                    {LEARNING_PATHWAYS.find(p => p.id === activePathway)?.title} resources
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {LEARN_RESOURCES.filter(r => r.pathway === activePathway && r.status === 'PUBLISHED').map(r => (
+                      <ResourceCard key={r.slug} resource={r} />
+                    ))}
+                    {LEARN_RESOURCES.filter(r => r.pathway === activePathway && r.status === 'PUBLISHED').length === 0 && (
+                      <p className="col-span-3 text-sm font-light text-neutral-400 py-6">
+                        Additional resources for this pathway are in development.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* ── FEATURED LEARNING ──────────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section>
+              <div className="mb-8">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-brand-electric mb-2">Featured</p>
+                <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight">Essential FM knowledge.</h2>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {featuredResources.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/lobby/learn/${r.slug}`}
+                    className="group block bg-white border border-neutral-200 rounded-[4px] p-6 shadow-2xs hover:border-neutral-400 hover:shadow-sm transition-all duration-150"
+                  >
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded-[2px] border ${CONTENT_TYPE_LABELS[r.contentType] ?? 'bg-neutral-100 text-neutral-700 border-neutral-200'}`}>
+                        {r.contentType}
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-400">{r.topic}</span>
+                    </div>
+                    <h3 className="text-base font-light text-neutral-900 leading-snug mb-3 group-hover:text-neutral-700 transition-colors">
+                      {r.title}
+                    </h3>
+                    <p className="text-xs font-light text-neutral-500 leading-relaxed mb-5 line-clamp-2">{r.summary}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${LEVEL_LABELS[r.level]}`}>{r.level}</span>
+                        <span className="text-[10px] font-mono text-neutral-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {r.readingTimeMinutes} min
+                        </span>
+                      </div>
+                      <span className="text-xs text-brand-electric font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        {CTA_LABELS[r.contentType] ?? 'Read'} <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── TASK DISCOVERY ─────────────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section className="bg-white border border-neutral-200 rounded-[4px] p-8 shadow-2xs">
+              <div className="mb-8">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-brand-electric mb-2">Task Discovery</p>
+                <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight">What are you trying to do?</h2>
+                <p className="text-sm font-light text-neutral-500 mt-2">
+                  LEARN connects you to the best resource — whether that&rsquo;s a guide here, a tool in DO, or a compliance check in CHECK.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {TASK_DISCOVERY_ITEMS.map((task) => (
+                  <Link
+                    key={task.id}
+                    href={task.primaryDestination.url}
+                    className="group p-4 border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors"
+                  >
+                    <p className="text-sm font-medium text-neutral-900 mb-1 group-hover:text-brand-electric transition-colors">
+                      {task.label}
+                    </p>
+                    <p className="text-xs font-light text-neutral-500 mb-3 leading-relaxed">{task.description}</p>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono text-neutral-400 bg-neutral-100 px-1.5 py-0.5 rounded-[2px]">
+                        {task.primaryDestination.section}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 group-hover:text-neutral-900 transition-colors">{task.primaryDestination.label}</span>
+                    </div>
+                    {task.secondaryDestination && (
+                      <div className="flex items-center gap-1.5 mt-1.5">
+                        <span className="text-[10px] font-mono text-neutral-400 bg-neutral-100 px-1.5 py-0.5 rounded-[2px]">
+                          {task.secondaryDestination.section}
+                        </span>
+                        <span className="text-[10px] text-neutral-500">{task.secondaryDestination.label}</span>
+                      </div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── FM PLAYBOOKS ───────────────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section>
+              <div className="flex items-end justify-between gap-4 mb-8">
+                <div>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-brand-electric mb-2">FM Playbooks</p>
+                  <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight">Structured guides for real work.</h2>
+                  <p className="text-sm font-light text-neutral-500 mt-2">Deeper, step-by-step resources for important FM workflows.</p>
+                </div>
+                <Link href="/lobby/learn/playbooks" className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-neutral-900 font-light shrink-0 transition-colors">
+                  All Playbooks <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+              <div className="space-y-3">
+                {LEARN_RESOURCES.filter(r => r.contentType === 'Playbook').map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={r.status === 'PUBLISHED' ? `/lobby/learn/${r.slug}` : '#'}
+                    className={`group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white border border-neutral-200 rounded-[4px] shadow-2xs transition-all ${
+                      r.status === 'PUBLISHED' ? 'hover:border-neutral-400 hover:shadow-sm' : 'opacity-60 cursor-default'
+                    }`}
+                  >
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <BookMarked className="w-4 h-4 text-violet-500 shrink-0" />
+                        <span className="text-[10px] font-mono text-neutral-400">{r.topic}</span>
+                        {r.status === 'COMING_SOON' && (
+                          <span className="text-[10px] font-mono bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-[2px] border border-neutral-200">Coming Soon</span>
+                        )}
+                      </div>
+                      <h3 className="text-sm font-light text-neutral-900">{r.title}</h3>
+                      <p className="text-xs font-light text-neutral-500 leading-relaxed line-clamp-2">{r.summary}</p>
+                    </div>
+                    <div className="flex items-center gap-4 shrink-0">
+                      <div className="text-right space-y-1">
+                        <span className="text-[10px] font-mono text-neutral-400 flex items-center gap-1 justify-end">
+                          <Clock className="w-3 h-3" /> {r.readingTimeMinutes} min
+                        </span>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${LEVEL_LABELS[r.level]}`}>{r.level}</span>
+                      </div>
+                      {r.status === 'PUBLISHED' && (
+                        <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all" />
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── ONE USEFUL THING ───────────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section className="bg-neutral-950 text-white rounded-[4px] p-8">
+              <div className="flex items-start justify-between gap-6">
+                <div className="space-y-3">
+                  <p className="text-[10px] font-mono text-brand-electric uppercase tracking-widest">
+                    One Useful Thing · Edition {ONE_USEFUL_THING.editionNumber}
+                  </p>
+                  <h2 className="text-xl sm:text-2xl font-extralight tracking-tight leading-snug">
+                    {ONE_USEFUL_THING.title}
+                  </h2>
+                  <p className="text-sm font-light text-neutral-300 leading-relaxed max-w-xl">
+                    {ONE_USEFUL_THING.description}
+                  </p>
+                  <div className="pt-2">
+                    <Link
+                      href={ONE_USEFUL_THING.ctaUrl}
+                      className="inline-flex items-center gap-2 bg-brand-electric text-white text-xs font-medium px-4 py-2.5 rounded-[3px] hover:bg-brand-electric/90 transition-colors"
+                    >
+                      {ONE_USEFUL_THING.ctaLabel} <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+                <CheckSquare className="w-12 h-12 text-neutral-700 shrink-0 hidden sm:block" />
+              </div>
+            </section>
+          )}
+
+          {/* ── EXPLORE LEARN SECTIONS ─────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mb-6">Explore LEARN</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { label: 'Guides', description: 'Practical, readable FM guides', href: '/lobby/learn/guides', icon: <BookOpen className="w-5 h-5" /> },
+                  { label: 'Glossary', description: '25+ FM terms defined', href: '/lobby/learn/glossary', icon: <FileText className="w-5 h-5" /> },
+                  { label: 'Scenarios', description: 'What would you do?', href: '/lobby/learn/scenarios', icon: <HelpCircle className="w-5 h-5" /> },
+                  { label: 'Academy', description: 'Structured learning paths', href: '/lobby/learn/academy', icon: <GraduationCap className="w-5 h-5" /> },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="group block p-5 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors"
+                  >
+                    <div className="text-neutral-500 group-hover:text-neutral-900 transition-colors mb-3">{item.icon}</div>
+                    <h3 className="text-sm font-medium text-neutral-900 mb-1">{item.label}</h3>
+                    <p className="text-xs font-light text-neutral-500">{item.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── ACADEMY PLACEHOLDER ────────────────────────────────────── */}
+          {!search.trim() && activePathway === 'ALL' && (
+            <section className="border border-dashed border-neutral-300 rounded-[4px] p-8 bg-neutral-50">
+              <div className="flex items-start gap-4">
+                <GraduationCap className="w-6 h-6 text-neutral-400 shrink-0 mt-0.5" />
+                <div className="space-y-2">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">EntireFM Academy</p>
+                  <h2 className="text-lg font-light text-neutral-900">Structured learning is coming to The Lobby.</h2>
+                  <p className="text-sm font-light text-neutral-500 leading-relaxed max-w-2xl">
+                    The EntireFM Academy will provide structured professional development pathways, lessons, and completion records for FM and property professionals. This architecture is in development. No courses, certificates, or CPD accreditation are currently available through this platform.
+                  </p>
+                  <Link href="/lobby/learn/academy" className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-neutral-900 font-light transition-colors mt-2">
+                    Learn more about the Academy <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ── CROSS-LOBBY DISCOVERY ──────────────────────────────────── */}
+          <section className="border-t border-neutral-200 pt-12">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mb-6">Keep Going</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+              {[
+                { label: 'KNOW', desc: 'See what has changed', href: '/lobby/know', num: '01' },
+                { label: 'CHECK', desc: 'What you need to check', href: '/lobby/check', num: '02' },
+                { label: 'DO', desc: 'FM tools & generators', href: '/lobby/do', num: '03' },
+                { label: 'FIND', desc: 'Find people & companies', href: '/lobby/find', num: '04' },
+                { label: 'CONNECT', desc: 'Discuss with the profession', href: '/lobby/connect', num: '06' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="p-4 bg-white border border-neutral-200 rounded-[4px] hover:border-neutral-400 transition-colors"
+                >
+                  <span className="text-neutral-400 text-[10px] block font-mono mb-1">{item.num} · {item.label}</span>
+                  <span className="text-neutral-900 font-medium">{item.desc} &rarr;</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* ── DISCLAIMER ─────────────────────────────────────────────── */}
+          <section className="text-[11px] font-light text-neutral-400 leading-relaxed border-t border-neutral-200 pt-6">
+            <p>
+              LEARN resources are provided for general professional information and development purposes only. They do not constitute legal advice, statutory guidance, or formal professional accreditation.
+              Always refer to current legislation and official regulatory sources for specific compliance requirements.
+              Content is provided as &ldquo;Professional Development&rdquo; — it has not been formally assessed or accredited as CPD.
+            </p>
+          </section>
+
+        </div>
       </main>
 
       <Footer />
     </div>
+  );
+}
+
+// ── SHARED RESOURCE CARD ─────────────────────────────────────────────
+
+export function ResourceCard({ resource }: { resource: typeof LEARN_RESOURCES[0] }) {
+  const ctaLabel = CTA_LABELS[resource.contentType] ?? 'Read';
+  return (
+    <Link
+      href={resource.status === 'PUBLISHED' ? `/lobby/learn/${resource.slug}` : '#'}
+      className={`group block p-5 bg-white border border-neutral-200 rounded-[4px] shadow-2xs transition-all ${
+        resource.status === 'PUBLISHED' ? 'hover:border-neutral-400 hover:shadow-sm' : 'opacity-60 cursor-default'
+      }`}
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-[2px] border ${CONTENT_TYPE_LABELS[resource.contentType] ?? 'bg-neutral-100 text-neutral-700 border-neutral-200'}`}>
+          {resource.contentType}
+        </span>
+        {resource.status === 'COMING_SOON' && (
+          <span className="text-[10px] font-mono text-neutral-400">Coming Soon</span>
+        )}
+      </div>
+      <h3 className="text-sm font-light text-neutral-900 leading-snug mb-2 group-hover:text-neutral-700 transition-colors">{resource.title}</h3>
+      <p className="text-xs font-light text-neutral-500 leading-relaxed mb-4 line-clamp-2">{resource.summary}</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${LEVEL_LABELS[resource.level] ?? ''}`}>{resource.level}</span>
+          <span className="text-[10px] font-mono text-neutral-400 flex items-center gap-1">
+            <Clock className="w-3 h-3" /> {resource.readingTimeMinutes} min
+          </span>
+        </div>
+        {resource.status === 'PUBLISHED' && (
+          <span className="text-[10px] text-brand-electric font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+            {ctaLabel} <ArrowRight className="w-3 h-3" />
+          </span>
+        )}
+      </div>
+    </Link>
   );
 }

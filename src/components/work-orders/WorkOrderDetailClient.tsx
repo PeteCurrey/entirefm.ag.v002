@@ -164,7 +164,7 @@ export function WorkOrderDetailClient({
           href="/clients/work-orders"
           className="inline-flex items-center gap-1.5 text-xs text-brand-mist/60 hover:text-white transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Triage Board
+          <ArrowLeft className="w-4 h-4" /> Back to Jobs
         </Link>
         <span className="text-[11px] text-brand-mist/40 font-mono">
           WO Ref: {workOrder.work_order_number}
@@ -195,7 +195,7 @@ export function WorkOrderDetailClient({
 
           {/* SLA Countdown Radar */}
           <div className="rounded-xl border border-brand-edge-dark bg-brand-void/80 p-3 text-right min-w-[200px]">
-            <span className="text-[10px] uppercase tracking-wider text-brand-mist/50 block">SLA Resolution Radar</span>
+            <span className="text-[10px] uppercase tracking-wider text-brand-mist/50 block">Target Resolution</span>
             {isBreached ? (
               <span className="text-sm font-bold text-rose-400 flex items-center justify-end gap-1 mt-1">
                 <AlertTriangle className="w-4 h-4" /> SLA BREACHED
@@ -402,7 +402,7 @@ export function WorkOrderDetailClient({
               : 'text-brand-mist/60 hover:text-white'
           }`}
         >
-          <BrainCircuit className="w-3.5 h-3.5 text-brand-electric" /> AI Evidence Intelligence
+          <Camera className="w-3.5 h-3.5 text-brand-electric" /> Completion Evidence &amp; Notes
         </button>
 
         <button
@@ -477,13 +477,13 @@ export function WorkOrderDetailClient({
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
             <div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-brand-electric" />
+                <Camera className="w-4 h-4 text-brand-electric" />
                 <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
-                  Post-Attendance Multimodal Evidence Intelligence
+                  Completion Evidence &amp; Observations
                 </h3>
               </div>
               <p className="text-[11px] text-brand-mist/60 mt-0.5">
-                Automated advisory analysis of uploaded engineer photographs, completion records, and telemetry.
+                Photographs, completion notes, and observations submitted by attending engineers.
               </p>
             </div>
 
@@ -493,23 +493,23 @@ export function WorkOrderDetailClient({
               className="px-3 py-1.5 rounded-lg border border-brand-edge-dark bg-brand-void text-xs text-brand-mist hover:text-white flex items-center gap-1.5 transition-colors"
             >
               <RefreshCw className={`w-3 h-3 ${isLoadingAnalysis ? 'animate-spin' : ''}`} />
-              Re-Analyze
+              Refresh
             </button>
           </div>
 
           {isLoadingAnalysis ? (
             <div className="py-8 text-center space-y-2">
               <RefreshCw className="w-6 h-6 text-brand-electric animate-spin mx-auto" />
-              <p className="text-xs text-brand-mist">Evaluating uploaded photos and completion sheets...</p>
+              <p className="text-xs text-brand-mist">Loading uploaded photos and completion records...</p>
             </div>
           ) : evidenceAnalysis ? (
             <div className="space-y-4">
               {/* Mandatory Advisory Governance Badge */}
               <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-start gap-2.5">
-                <BrainCircuit className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                <FileText className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                 <div className="space-y-0.5 text-xs">
                   <span className="font-semibold text-sky-300">
-                    {evidenceAnalysis.advisoryLabel || 'AI Observation & Recommendation'}
+                    {evidenceAnalysis.advisoryLabel || 'Service Observation & Recommendation'}
                   </span>
                   <p className="text-[11px] text-brand-mist/80">
                     {evidenceAnalysis.disclaimer}
@@ -519,7 +519,7 @@ export function WorkOrderDetailClient({
 
               {/* Observations */}
               <div className="space-y-2">
-                <h4 className="text-[11px] font-semibold text-brand-mist uppercase tracking-wider">AI Observations</h4>
+                <h4 className="text-[11px] font-semibold text-brand-mist uppercase tracking-wider">Engineer &amp; Service Observations</h4>
                 <div className="space-y-2">
                   {evidenceAnalysis.observations.map((obs: any) => (
                     <div key={obs.id} className="p-3 rounded-xl bg-brand-void/80 border border-brand-edge-dark text-xs space-y-1">

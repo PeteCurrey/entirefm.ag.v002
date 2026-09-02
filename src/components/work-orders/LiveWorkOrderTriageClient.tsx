@@ -34,13 +34,13 @@ interface LiveWorkOrderTriageClientProps {
 }
 
 const BUCKET_DEFINITIONS: Array<{ key: CanonicalTriageBucket; label: string; color: string }> = [
-  { key: 'NEW', label: 'New / Reported', color: 'border-blue-500/30 bg-blue-500/5 text-blue-400' },
-  { key: 'NEEDS_TRIAGE', label: 'Needs Triage', color: 'border-amber-500/30 bg-amber-500/5 text-amber-400' },
-  { key: 'ASSIGNED', label: 'Assigned / Dispatched', color: 'border-purple-500/30 bg-purple-500/5 text-purple-400' },
-  { key: 'SCHEDULED', label: 'Scheduled / En Route', color: 'border-cyan-500/30 bg-cyan-500/5 text-cyan-400' },
-  { key: 'IN_PROGRESS', label: 'In Progress (On Site)', color: 'border-brand-electric/40 bg-brand-electric/10 text-brand-electric-bright' },
-  { key: 'AWAITING', label: 'Awaiting Client / Parts', color: 'border-orange-500/30 bg-orange-500/5 text-orange-400' },
-  { key: 'COMPLETED', label: 'Completed / QA', color: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-400' },
+  { key: 'NEW', label: 'Reported', color: 'border-blue-500/30 bg-blue-500/5 text-blue-400' },
+  { key: 'NEEDS_TRIAGE', label: 'Under Review', color: 'border-amber-500/30 bg-amber-500/5 text-amber-400' },
+  { key: 'ASSIGNED', label: 'Allocated to Engineer', color: 'border-purple-500/30 bg-purple-500/5 text-purple-400' },
+  { key: 'SCHEDULED', label: 'Visit Scheduled', color: 'border-cyan-500/30 bg-cyan-500/5 text-cyan-400' },
+  { key: 'IN_PROGRESS', label: 'Work in Progress', color: 'border-brand-electric/40 bg-brand-electric/10 text-brand-electric-bright' },
+  { key: 'AWAITING', label: 'Awaiting Decision / Parts', color: 'border-orange-500/30 bg-orange-500/5 text-orange-400' },
+  { key: 'COMPLETED', label: 'Completed', color: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-400' },
 ];
 
 export function LiveWorkOrderTriageClient({
@@ -129,16 +129,16 @@ export function LiveWorkOrderTriageClient({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
-              OPERATIONAL WORK ORDER TRIAGE &bull; LIVE RADAR
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-medium">
+              MAINTENANCE &bull; WORK ORDERS
             </span>
-            <span className="inline-flex items-center gap-1 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-              <Radio className="w-2.5 h-2.5 animate-pulse" /> Live Sync Active
+            <span className="inline-flex items-center gap-1 text-[10px] text-brand-mist/60 bg-brand-void border border-brand-edge-dark px-2 py-0.5 rounded-full">
+              <Radio className="w-2.5 h-2.5 text-emerald-400" /> Up to Date
             </span>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Work Order Triage</h1>
+          <h1 className="text-2xl font-light text-white tracking-tight">Jobs &amp; Maintenance Requests</h1>
           <p className="text-xs text-brand-mist/70">
-            Live reactive tickets, scheduled attendances, and SLA compliance tracking across {orgName}.
+            Active reactive repairs, scheduled attendances, and job completion records across {orgName}.
           </p>
         </div>
 
@@ -176,7 +176,7 @@ export function LiveWorkOrderTriageClient({
           </button>
 
           <Link
-            href="/clients/log-a-job"
+            href="/log-a-job"
             className="px-4 py-2 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all shadow-md shadow-brand-electric/20"
           >
             + Log a Job
@@ -184,11 +184,11 @@ export function LiveWorkOrderTriageClient({
         </div>
       </div>
 
-      {/* ─── LIVE SLA RADAR BANNER ───────────────────────────────────────── */}
+      {/* ─── OPERATIONAL STATUS SUMMARY ──────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[10.5px] text-brand-mist/50 uppercase">Total Active WOs</span>
+            <span className="text-[10.5px] text-brand-mist/50 uppercase">Active Jobs</span>
             <p className="text-xl font-light text-white mt-0.5">{workOrders.length}</p>
           </div>
           <Wrench className="w-5 h-5 text-brand-electric/60" />
@@ -196,15 +196,15 @@ export function LiveWorkOrderTriageClient({
 
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[10.5px] text-amber-400 uppercase">SLA At Risk (&lt;60m)</span>
+            <span className="text-[10.5px] text-amber-400 uppercase">Priority Attention</span>
             <p className="text-xl font-light text-amber-400 mt-0.5">{atRiskCount}</p>
           </div>
-          <Clock className="w-5 h-5 text-amber-400/60 animate-pulse" />
+          <Clock className="w-5 h-5 text-amber-400/60" />
         </div>
 
         <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[10.5px] text-rose-400 uppercase">SLA Breached</span>
+            <span className="text-[10.5px] text-rose-400 uppercase">Overdue Target</span>
             <p className="text-xl font-light text-rose-400 mt-0.5">{breachedCount}</p>
           </div>
           <AlertCircle className="w-5 h-5 text-rose-400/60" />
@@ -212,7 +212,7 @@ export function LiveWorkOrderTriageClient({
 
         <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[10.5px] text-purple-400 uppercase">Awaiting Client / Quote</span>
+            <span className="text-[10.5px] text-purple-400 uppercase">Awaiting Your Input</span>
             <p className="text-xl font-light text-purple-300 mt-0.5">{awaitingClientCount}</p>
           </div>
           <Coins className="w-5 h-5 text-purple-400/60" />

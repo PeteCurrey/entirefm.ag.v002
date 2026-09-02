@@ -83,6 +83,7 @@ export function TemplateMemberProfile() {
   const welcomeParam = searchParams.get('welcome') === '1';
 
   const [member, setMember] = useState<MemberData | null>(null);
+  const [certifications, setCertifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'contributions' | 'activity'>('overview');
@@ -208,6 +209,15 @@ export function TemplateMemberProfile() {
       .finally(() => {
         setLoading(false);
       });
+
+    fetch('/api/member/certifications')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.certifications) {
+          setCertifications(data.certifications.filter((c: any) => c.status === 'passed'));
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const handleSaveProfile = async (e: React.FormEvent) => {
@@ -327,6 +337,13 @@ export function TemplateMemberProfile() {
             </div>
 
             <div className="flex items-center gap-3">
+              <Link
+                href="/member/my-estate"
+                className="px-4 py-2 border border-brand-electric/40 hover:border-brand-electric bg-brand-electric/10 hover:bg-brand-electric/20 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+              >
+                <Building className="w-3.5 h-3.5 text-brand-electric" />
+                <span>My Estate</span>
+              </Link>
               <Link
                 href="/lobby/me"
                 className="px-4 py-2 border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
@@ -765,6 +782,77 @@ export function TemplateMemberProfile() {
                     <p className="text-xs font-extralight text-neutral-400">
                       No focus areas selected. Click &ldquo;Edit Profile&rdquo; to add your technical specialisms.
                     </p>
+                  )}
+                </div>
+
+                {/* Academy Certifications & Badges */}
+                <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xs font-medium uppercase tracking-wider text-neutral-400">
+                      Accreditations &amp; Certifications
+                    </h2>
+                    <Link
+                      href="/lobby/learn/academy"
+                      className="text-[11px] text-brand-pink hover:underline font-light"
+                    >
+                      Browse Academy Paths →
+                    </Link>
+                  </div>
+
+                  {certifications.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 gap-4 pt-1">
+                      {certifications.map((c) => (
+                        <div
+                          key={c.id}
+                          className="p-5 rounded-xl border border-amber-500/20 bg-gradient-to-br from-neutral-900 to-neutral-950 text-white space-y-3 shadow-sm relative overflow-hidden"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                              <ShieldCheck className="w-5 h-5 text-amber-400" />
+                            </div>
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-medium">
+                              Verified
+                            </span>
+                          </div>
+
+                          <div>
+                            <h3 className="text-sm font-medium text-white leading-snug">
+                              {c.targetRole} Certified
+                            </h3>
+                            <p className="text-xs text-neutral-400 font-light line-clamp-1">
+                              {c.pathTitle}
+                            </p>
+                          </div>
+
+                          <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-neutral-400">
+                            <span>
+                              {c.badgeIssuedAt ? new Date(c.badgeIssuedAt).toLocaleDateString('en-GB') : 'Issued'}
+                            </span>
+                            {c.publicCertId && (
+                              <Link
+                                href={`/academy/verify/${c.publicCertId}`}
+                                className="text-amber-400 hover:text-amber-300 font-medium transition-colors"
+                              >
+                                Verify Certificate →
+                              </Link>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-5 rounded-lg bg-neutral-50 border border-neutral-200/80 text-xs text-neutral-500 space-y-2">
+                      <p className="font-light">
+                        No formal Academy certifications earned yet. Complete an operational curriculum path and pass the gated assessment to earn verifiable credentials.
+                      </p>
+                      <Link
+                        href="/lobby/learn/academy"
+                        className="inline-flex items-center gap-1 font-medium text-neutral-900 hover:underline"
+                      >
+                        <span>Start a certification path</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
                   )}
                 </div>
 

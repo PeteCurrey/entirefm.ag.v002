@@ -127,14 +127,39 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
     { name: 'PPM Schedule Builder', url: '/tools/ppm-schedule-builder' },
   ];
 
-  // Auto-import scanned asset from Asset Scanner handoff
+  // Auto-import scanned asset(s) from Asset Scanner or My Estate handoff
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
     const urlParams = new URLSearchParams(window.location.search);
     const scannedAssetId = urlParams.get('importScannedAsset');
     const qty = parseInt(urlParams.get('quantity') || '1', 10);
 
-    if (scannedAssetId) {
+    const bulkAssetsParam = urlParams.get('importScannedAssets');
+    const bulkQtysParam = urlParams.get('quantities');
+
+    if (bulkAssetsParam) {
+      const assetIds = bulkAssetsParam.split(',').map((id) => id.trim()).filter(Boolean);
+      const qtys = bulkQtysParam ? bulkQtysParam.split(',').map((q) => parseInt(q.trim(), 10) || 1) : [];
+      const newCatIds = new Set<string>();
+      const newAssets: Record<string, number> = {};
+
+      assetIds.forEach((id, idx) => {
+        const assetDef = getAssetById(id);
+        if (assetDef) {
+          newCatIds.add(assetDef.categoryId);
+          const q = qtys[idx] && qtys[idx] > 0 ? qtys[idx] : 1;
+          newAssets[id] = (newAssets[id] || 0) + q;
+        }
+      });
+
+      if (Object.keys(newAssets).length > 0) {
+        setSelectedCategoryIds((prev) => new Set([...Array.from(prev), ...Array.from(newCatIds)]));
+        setSelectedAssets((prev) => ({
+          ...prev,
+          ...newAssets,
+        }));
+      }
+    } else if (scannedAssetId) {
       const assetDef = getAssetById(scannedAssetId);
       if (assetDef) {
         setSelectedCategoryIds((prev) => new Set([...Array.from(prev), assetDef.categoryId]));

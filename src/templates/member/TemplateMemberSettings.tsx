@@ -39,6 +39,7 @@ interface MemberData {
     followedTopics: boolean;
   };
   profileVisibility: 'public' | 'members_only' | 'members-only' | 'private';
+  directoryOptIn?: boolean;
 }
 
 const EMAIL_PREFS: Array<{
@@ -117,6 +118,7 @@ const NAV_SECTIONS = [
   { id: 'communications', label: 'Communications' },
   { id: 'notifications', label: 'Notifications' },
   { id: 'visibility', label: 'Profile Visibility' },
+  { id: 'directory', label: 'Directory Opt-In' },
   { id: 'privacy', label: 'Privacy & Governance' },
 ];
 
@@ -145,6 +147,7 @@ export function TemplateMemberSettings() {
           const m = data.member;
           setMember({
             ...m,
+            directoryOptIn: Boolean(m.directoryOptIn),
             emailPreferences: {
               weeklyDigest: true,
               complianceAlerts: true,
@@ -236,6 +239,15 @@ export function TemplateMemberSettings() {
     setSaveSuccess(false);
   }
 
+  function toggleDirectoryOptIn() {
+    if (!member) return;
+    setMember({
+      ...member,
+      directoryOptIn: !member.directoryOptIn,
+    });
+    setSaveSuccess(false);
+  }
+
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     if (!member) return;
@@ -251,6 +263,7 @@ export function TemplateMemberSettings() {
           emailPreferences: member.emailPreferences,
           notificationPreferences: member.notificationPreferences,
           profileVisibility: member.profileVisibility,
+          directoryOptIn: member.directoryOptIn,
         }),
       });
 
@@ -266,12 +279,13 @@ export function TemplateMemberSettings() {
           prev
             ? {
                 ...prev,
+                directoryOptIn: data.member.directory_opt_in ?? prev.directoryOptIn,
                 emailPreferences: data.member.emailPreferences || prev.emailPreferences,
                 notificationPreferences:
                   data.member.notificationPreferences || prev.notificationPreferences,
                 profileVisibility: data.member.profileVisibility || prev.profileVisibility,
               }
-            : null
+            : prev
         );
       }
       triggerSaveFeedback();
@@ -630,11 +644,66 @@ export function TemplateMemberSettings() {
                 </div>
               </section>
 
-              {/* Section 4: Privacy & Governance */}
-              <section id="privacy" className="scroll-mt-28 space-y-4">
+              {/* Section 4: Public Directory Opt-In */}
+              <section id="directory" className="scroll-mt-28 space-y-4">
                 <div className="border-b border-brand-edge-dark pb-3">
                   <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
                     Section 04
+                  </span>
+                  <h2 className="text-xl font-light text-white tracking-tight">
+                    Public Directory Opt-In
+                  </h2>
+                  <p className="text-xs text-brand-mist/70 mt-0.5">
+                    Control your presence in the public FM Practitioner Directory (/lobby/directory).
+                  </p>
+                </div>
+
+                <div className="p-5 rounded border border-brand-edge-dark bg-brand-carbon/30 space-y-4">
+                  <div className="flex items-start sm:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-white">
+                          Show profile in FM Practitioner Directory
+                        </span>
+                        {member.directoryOptIn ? (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                            Active Listing
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-white/5 text-brand-mist/60 border border-white/10">
+                            Opted Out (Private)
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-brand-mist/70 leading-relaxed max-w-xl">
+                        When enabled, your name, verified Academy badges, sector specialisms, and accepted community solutions will appear in searchable directory results. This setting is <strong>off by default</strong>. Opting out immediately removes your listing from public search.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={Boolean(member.directoryOptIn)}
+                      onClick={toggleDirectoryOptIn}
+                      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-brand-electric ${
+                        member.directoryOptIn ? 'bg-brand-electric' : 'bg-white/20'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
+                          member.directoryOptIn ? 'translate-x-5' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              {/* Section 5: Privacy & Governance */}
+              <section id="privacy" className="scroll-mt-28 space-y-4">
+                <div className="border-b border-brand-edge-dark pb-3">
+                  <span className="text-[10px] font-normal uppercase tracking-[0.2em] text-brand-electric-bright block mb-1">
+                    Section 05
                   </span>
                   <h2 className="text-xl font-light text-white tracking-tight">
                     Privacy &amp; Governance

@@ -3,16 +3,25 @@ import { TemplateLobbyConnect } from '@/templates/lobby/TemplateLobbyConnect';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'CONNECT · Professional FM Interaction & Roundtables | The Lobby — EntireFM',
+  title: 'CONNECT · The Professional Common Room for FM | The Lobby — EntireFM',
   description:
-    'Structured, signal-rich professional interaction for UK facilities management directors, building engineers, and estates teams. Ask The Lobby research desk, roundtables, and live rooms.',
+    'Practical questions. Experienced practitioners. Better answers. Sourced UK facilities management discussions, technical consensus, live rooms, and grounded research desk inquiries without vanity metrics.',
+  keywords: [
+    'facilities management community',
+    'FM professional discussions',
+    'UK building engineering roundtables',
+    'statutory compliance consensus',
+    'Building Safety Act duty-holders',
+    'FM contract mobilisation forum',
+    'technical plant troubleshooting',
+  ],
   alternates: {
     canonical: `${PRODUCTION_CANONICAL_HOST}/lobby/connect`,
   },
   openGraph: {
-    title: 'CONNECT · Professional FM Interaction & Roundtables | The Lobby — EntireFM',
+    title: 'CONNECT · The Professional Common Room for FM | The Lobby — EntireFM',
     description:
-      'Structured, signal-rich professional interaction for UK facilities management directors, building engineers, and estates teams.',
+      'Practical questions. Experienced practitioners. Better answers. Structured professional exchange for UK facilities managers and estates leaders.',
     url: `${PRODUCTION_CANONICAL_HOST}/lobby/connect`,
     type: 'website',
   },

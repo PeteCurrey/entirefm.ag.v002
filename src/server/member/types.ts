@@ -71,8 +71,36 @@ export interface Member {
   email_preferences: EmailPreferences;
   notification_preferences: NotificationPreferences;
   policy_consents: PolicyConsentRecord[];
+  directory_opt_in?: boolean; // Explicit opt-in for public directory (default false)
   created_at: string;
   updated_at: string;
+}
+
+/**
+ * Public directory search result entry
+ */
+export interface DirectoryMemberEntry {
+  id: string;
+  displayName: string;
+  username: string;
+  headline?: string;
+  company?: string;
+  jobTitle?: string;
+  location?: string;
+  avatarUrl?: string;
+  sectors: string[];
+  disciplines: string[];
+  badges: string[];
+  reputationScore: number;
+  acceptedSolutionsCount: number;
+  certifications: Array<{
+    pathTitle: string;
+    pathSlug: string;
+    targetRole: string;
+    badgeIssuedAt: string;
+    publicCertId: string;
+  }>;
+  joinedAt: string;
 }
 
 /**
@@ -101,6 +129,7 @@ export type PublicMemberProfile = Pick<
   | 'badges'
   | 'reputation_score'
   | 'joined_at'
+  | 'directory_opt_in'
 >;
 
 export interface MemberSession {

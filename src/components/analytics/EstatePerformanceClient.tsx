@@ -71,13 +71,13 @@ export function EstatePerformanceClient({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
-              ESTATE INTELLIGENCE &bull; OPERATIONAL ANALYTICS
+            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-medium">
+              ESTATE REPORTING &bull; SERVICE DELIVERY
             </span>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Estate Performance</h1>
+          <h1 className="text-2xl font-light text-white tracking-tight">Estate Activity &amp; Reporting</h1>
           <p className="text-xs text-brand-mist/70">
-            Real-time SLA adherence, reactive vs PPM delivery, statutory compliance, and commercial spend for {sessionUser.orgName}.
+            Work order activity, planned maintenance delivery, compliance status, and service spend for {sessionUser.orgName}.
           </p>
         </div>
 

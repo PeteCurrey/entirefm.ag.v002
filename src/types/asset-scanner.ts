@@ -42,11 +42,18 @@ export interface AssetDocument {
   manufacturer: string | null;
   model: string | null;
   serialNumber: string | null;
-  extractionConfidence: AssetScannerExtractionConfidence;
+  /** The canonical SFG20 asset ID from asset-taxonomy.ts. Stored at extraction time
+   *  so bulk PPM handoff can resolve the correct taxonomy entry without re-matching. */
+  sfg20AssetId: string | null;
+  /** Set to 'manual' for manually-added assets; high/medium/low/failed for AI-extracted. */
+  extractionConfidence: AssetScannerExtractionConfidence | 'manual';
   recommendedRegime: RecommendedRegime | null;
   flaggedIssues: string[];
   addedToPpmScheduleAt: string | null;
   status: AssetScannerStatus;
+  /** Array of field names the member has edited post-extraction.
+   *  Preserves audit trail so extraction accuracy can be assessed later. */
+  manuallyEditedFields?: string[];
 }
 
 /**
@@ -78,6 +85,7 @@ export interface ServerExtractedAssetUpdate {
   manufacturer: string | null;
   model: string | null;
   serialNumber: string | null;
+  sfg20AssetId: string | null;
   extractionConfidence: AssetScannerExtractionConfidence;
   recommendedRegime: RecommendedRegime | null;
   flaggedIssues: string[];

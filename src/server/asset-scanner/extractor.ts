@@ -103,6 +103,11 @@ export function matchSfg20Regime(
     const nameLower = asset.name.toLowerCase();
     const descLower = asset.shortDescription.toLowerCase();
 
+    // Direct ID match if exact asset ID provided
+    if (contextText && (asset.id === contextText || asset.id.toLowerCase() === contextText.toLowerCase())) {
+      score += 150;
+    }
+
     // Direct name match
     if (assetType && nameLower.includes(assetType.toLowerCase())) {
       score += 50;
@@ -113,7 +118,7 @@ export function matchSfg20Regime(
       if (asset.id === 'hvac-vrf') score += 80;
     }
     if (searchCorpus.includes('chiller') || searchCorpus.includes('refrigeration')) {
-      if (asset.id === 'hvac-chillers') score += 80;
+      if (asset.id === 'hvac-chiller' || asset.id === 'hvac-chillers') score += 80;
     }
     if (searchCorpus.includes('air handling') || searchCorpus.includes('ahu')) {
       if (asset.id === 'hvac-ahu') score += 80;
@@ -122,7 +127,7 @@ export function matchSfg20Regime(
       if (asset.id === 'hvac-fcu') score += 80;
     }
     if (searchCorpus.includes('boiler') || searchCorpus.includes('gas burner') || searchCorpus.includes('heating')) {
-      if (asset.id === 'hvac-gas-boilers' || asset.id === 'hvac-boilers') score += 80;
+      if (asset.id === 'hvac-boiler' || asset.id === 'hvac-boilers' || asset.id === 'hvac-gas-boilers') score += 80;
     }
     if (searchCorpus.includes('split') || searchCorpus.includes('condenser') || searchCorpus.includes('heat pump')) {
       if (asset.id === 'hvac-split-units' || asset.id === 'hvac-vrf') score += 70;
@@ -286,6 +291,7 @@ export async function extractAssetFromUpload(
       manufacturer: extractedMfr,
       model: extractedModel,
       serialNumber: extractedSerial,
+      sfg20AssetId: matchedDef ? matchedDef.id : null,
       extractionConfidence: confidence,
       recommendedRegime: regime,
       flaggedIssues: issues,
@@ -314,6 +320,7 @@ export async function extractAssetFromUpload(
       manufacturer: null,
       model: null,
       serialNumber: null,
+      sfg20AssetId: null,
       extractionConfidence: 'failed',
       recommendedRegime: null,
       flaggedIssues: ['Extraction service temporarily unavailable. Please retry or enter asset details manually.'],
@@ -406,6 +413,7 @@ export async function extractAssetFromUpload(
       manufacturer: rawMfr,
       model: rawModel,
       serialNumber: rawSerial,
+      sfg20AssetId: matchedDef ? matchedDef.id : null,
       extractionConfidence: confidence,
       recommendedRegime: regime,
       flaggedIssues: Array.from(new Set(flaggedIssues)),
@@ -430,6 +438,7 @@ export async function extractAssetFromUpload(
         manufacturer: null,
         model: null,
         serialNumber: null,
+        sfg20AssetId: null,
         extractionConfidence: 'failed',
         recommendedRegime: null,
         flaggedIssues: ['Extraction encountered an error processing the media file.'],

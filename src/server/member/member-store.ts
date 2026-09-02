@@ -2,11 +2,13 @@ import crypto from 'crypto';
 import type {
   Member,
   PublicMemberProfile,
+  DirectoryMemberEntry,
   PolicyConsentRecord,
   MemberStatus,
 } from './types';
 import { dbQuery, getDbConfig } from '../db/client';
 import { supabaseSignIn, supabaseSignUp } from '../auth/supabase-auth';
+import { listMemberCertifications, getPathById } from '../academy/academy-store';
 
 // Test harness memory fallback
 const TEST_MOCK_MEMBERS: Map<string, Member> = new Map();
@@ -514,6 +516,18 @@ export async function updateMemberProfile(
     updated_at: now,
   };
 
+  if (!getDbConfig()) {
+    const updated: Member = {
+      ...member,
+      ...updates,
+      updated_at: now,
+    };
+    TEST_MOCK_MEMBERS.set(member.id, updated);
+    if (member.auth_user_id) TEST_MOCK_MEMBERS.set(member.auth_user_id, updated);
+    TEST_MOCK_MEMBERS.set(member.email, updated);
+    return updated;
+  }
+
   const { data: updatedRows, error } = await dbQuery<any[]>(
     `lobby_members?id=eq.${encodeURIComponent(member.id)}`,
     {
@@ -690,4 +704,159 @@ export async function updateMemberPassword(
   }
 
   return { success: true };
+}
+
+/**
+ * Test harness helper to register or seed a member in memory
+ */
+export function registerTestMockMember(member: Member): void {
+  TEST_MOCK_MEMBERS.set(member.id, member);
+  if (member.auth_user_id) TEST_MOCK_MEMBERS.set(member.auth_user_id, member);
+  TEST_MOCK_MEMBERS.set(member.email.toLowerCase(), member);
+}
+
+export interface DirectoryFilters {
+  query?: string;
+  pathSlug?: string;
+  sector?: string;
+  location?: string;
+}
+
+/**
+ * 12. Get Public FM Practitioner Directory Members
+ * 
+ * STRICT OPT-IN: Only members with directory_opt_in === true and member_status === 'active'
+ * are returned. Toggling opt-out immediately excludes the member.
+ * 
+ * Aggregates live passed certifications and live community reputation signals.
+ */
+export async function getDirectoryMembers(
+  filters: DirectoryFilters = {}
+): Promise<DirectoryMemberEntry[]> {
+  const q = (filters.query || '').toLowerCase().trim();
+  const filterPathSlug = (filters.pathSlug || '').toLowerCase().trim();
+  const filterSector = (filters.sector || '').toLowerCase().trim();
+  const filterLocation = (filters.location || '').toLowerCase().trim();
+
+  let activeMembers: Member[] = [];
+
+  if (getDbConfig()) {
+    const { data: rows } = await dbQuery<any[]>(
+      'lobby_members?member_status=eq.active&directory_opt_in=eq.true&select=*&order=reputation_score.desc'
+    );
+    if (rows && rows.length > 0) {
+      activeMembers = rows as Member[];
+    }
+  } else {
+    // Memory fallback for tests
+    activeMembers = Array.from(new Set(TEST_MOCK_MEMBERS.values())).filter(
+      (m) => m.member_status === 'active' && Boolean(m.directory_opt_in)
+    );
+  }
+
+  // Filter out any explicitly private visibility
+  activeMembers = activeMembers.filter((m) => m.profile_visibility !== 'private');
+
+  const entries: DirectoryMemberEntry[] = [];
+
+  for (const m of activeMembers) {
+    // 1. Get real certifications held by this member
+    const certs = await listMemberCertifications(m.auth_user_id || m.id);
+    const passedCerts = certs.filter(
+      (c) => c.status === 'passed' && Boolean(c.badgeIssuedAt) && Boolean(c.publicCertId)
+    );
+
+    const enrichedCerts = await Promise.all(
+      passedCerts.map(async (c) => {
+        const path = await getPathById(c.pathId);
+        return {
+          pathTitle: path?.title || 'Certified FM Professional',
+          pathSlug: path?.slug || 'certified',
+          targetRole: path?.targetRole || 'Practitioner',
+          badgeIssuedAt: c.badgeIssuedAt!,
+          publicCertId: c.publicCertId!,
+        };
+      })
+    );
+
+    // 2. Get live community accepted solution count
+    let acceptedSolutionsCount = 0;
+    if (getDbConfig()) {
+      try {
+        const { data: acceptedRows } = await dbQuery<any[]>(
+          `community_discussion_replies?author_member_id=eq.${encodeURIComponent(m.id)}&is_accepted_answer=eq.true&select=id`
+        );
+        acceptedSolutionsCount = acceptedRows ? acceptedRows.length : 0;
+      } catch {
+        acceptedSolutionsCount = 0;
+      }
+    }
+
+    // 3. Filter check: Certification / Learning Path
+    if (filterPathSlug) {
+      const holdsPath = enrichedCerts.some(
+        (c) =>
+          c.pathSlug.toLowerCase() === filterPathSlug ||
+          c.targetRole.toLowerCase() === filterPathSlug ||
+          c.pathTitle.toLowerCase().includes(filterPathSlug)
+      );
+      if (!holdsPath) continue;
+    }
+
+    // 4. Filter check: Sector
+    if (filterSector) {
+      const hasSector = (m.sectors || []).some((s) =>
+        s.toLowerCase().includes(filterSector)
+      );
+      if (!hasSector) continue;
+    }
+
+    // 5. Filter check: Location / Region
+    if (filterLocation) {
+      const matchesLoc = (m.location || '').toLowerCase().includes(filterLocation);
+      if (!matchesLoc) continue;
+    }
+
+    // 6. Filter check: Query (Name, Headline, Company, Disciplines, Target Role)
+    if (q) {
+      const inName = m.display_name.toLowerCase().includes(q);
+      const inHeadline = (m.headline || '').toLowerCase().includes(q);
+      const inCompany = (m.company || '').toLowerCase().includes(q);
+      const inDisciplines = (m.disciplines || []).some((d) => d.toLowerCase().includes(q));
+      const inCerts = enrichedCerts.some(
+        (c) =>
+          c.pathTitle.toLowerCase().includes(q) ||
+          c.targetRole.toLowerCase().includes(q)
+      );
+      if (!inName && !inHeadline && !inCompany && !inDisciplines && !inCerts) {
+        continue;
+      }
+    }
+
+    entries.push({
+      id: m.id,
+      displayName: m.display_name,
+      username: m.username,
+      headline: m.headline || undefined,
+      company: m.company || undefined,
+      jobTitle: m.job_title || undefined,
+      location: m.location || undefined,
+      avatarUrl: m.avatar_url || undefined,
+      sectors: m.sectors || [],
+      disciplines: m.disciplines || [],
+      badges: m.badges || [],
+      reputationScore: m.reputation_score || 0,
+      acceptedSolutionsCount,
+      certifications: enrichedCerts,
+      joinedAt: m.joined_at,
+    });
+  }
+
+  // Sort by reputation score descending, then certifications count
+  return entries.sort((a, b) => {
+    if (b.reputationScore !== a.reputationScore) {
+      return b.reputationScore - a.reputationScore;
+    }
+    return b.certifications.length - a.certifications.length;
+  });
 }

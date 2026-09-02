@@ -33,6 +33,7 @@ import {
   Flame,
   Briefcase,
   Newspaper,
+  GraduationCap,
 } from 'lucide-react';
 
 interface NavItem {
@@ -212,6 +213,13 @@ const WEBSITE_GROUPS: NavGroup[] = [
       { name: 'Audience & Growth', href: '/admin/newsletter/audience' },
     ],
   },
+  {
+    title: 'ACADEMY & CERTIFICATIONS',
+    icon: GraduationCap,
+    items: [
+      { name: 'Learning Paths & Assessments', href: '/admin/academy' },
+    ],
+  },
 ];
 
 export function AdminSidebar({
@@ -233,7 +241,8 @@ export function AdminSidebar({
     pathname.startsWith('/admin/seo') ||
     pathname.startsWith('/admin/newsletter') ||
     pathname.startsWith('/admin/lobby') ||
-    pathname.startsWith('/admin/content');
+    pathname.startsWith('/admin/content') ||
+    pathname.startsWith('/admin/academy');
 
   const [activeSection, setActiveSection] = useState<'CAFM' | 'WEBSITE'>(
     isWebsiteRoute ? 'WEBSITE' : 'CAFM'

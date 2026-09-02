@@ -3,30 +3,29 @@ import { TemplateLobbyFind } from '@/templates/lobby/TemplateLobbyFind';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'FIND · FM Opportunities & Professional Directory | The Lobby — EntireFM',
+  title: 'FIND · FM Roles, Career Progression & Opportunities | The Lobby — EntireFM',
   description:
-    'Dedicated UK facilities management jobs board, commercial tenders, procurement frameworks, verified trade contractors, and professional property services directory.',
+    'Dedicated UK facilities management career platform: verified professional vacancies, role specifications, progression pathways, and sourced salary benchmarks.',
   keywords: [
-    'facilities management directory',
+    'facilities management careers',
     'FM jobs UK',
-    'FM contractors',
-    'commercial property services',
-    'facilities management tenders',
-    'M&E contractors UK',
-    'procurement frameworks FM',
+    'facilities manager career path',
+    'building services engineer jobs',
+    'FM salary survey',
+    'facilities management progression',
   ],
   alternates: {
     canonical: `${PRODUCTION_CANONICAL_HOST}/lobby/find`,
   },
   openGraph: {
-    title: 'FIND · FM Opportunities & Professional Directory | The Lobby — EntireFM',
+    title: 'FIND · FM Roles, Career Progression & Opportunities | The Lobby — EntireFM',
     description:
-      'Dedicated UK facilities management jobs board, commercial tenders, procurement frameworks, and verified trade contractors.',
+      'Professional career intelligence for UK facilities and estates management professionals.',
     url: `${PRODUCTION_CANONICAL_HOST}/lobby/find`,
     type: 'website',
   },
 };
 
 export default function LobbyFindPage() {
-  return <TemplateLobbyFind />;
+  return <TemplateLobbyFind initialTab="ALL" />;
 }
