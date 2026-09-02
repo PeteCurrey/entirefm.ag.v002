@@ -17,6 +17,7 @@ import { LobbyQuestion } from '@/components/lobby/LobbyQuestion';
 import { LobbyPulse } from '@/components/lobby/LobbyPulse';
 import { WorthAttending } from '@/components/lobby/WorthAttending';
 import { LobbyNewsletter } from '@/components/lobby/LobbyNewsletter';
+import { LobbyCoreDestinations } from '@/components/lobby/LobbyCoreDestinations';
 import { getLobbyHomepageData } from '@/lib/lobby/repository';
 
 export function TemplateLobby() {
@@ -240,6 +241,9 @@ export function TemplateLobby() {
 
           {/* 03. Briefing Wire & Latest News Stream Wire (White Neutral Canvas) */}
           <BriefingStrip items={data.briefingStrip} />
+
+          {/* 03b. The Six Core Lobby Destinations (Know / Check / Do / Find / Learn / Connect) */}
+          <LobbyCoreDestinations />
 
           {/* 04. In The Lobby: Active Discussions & Live Rooms (Soft Light Canvas) */}
           <section id="community-roundtable" className="py-16 sm:py-22 bg-[#F9F8F6] border-b border-neutral-200/80 scroll-mt-20">

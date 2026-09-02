@@ -42,35 +42,47 @@ export function LobbyHeader() {
 
   const navLinks = [
     {
+      label: 'KNOW',
+      href: '/lobby/know',
+      icon: BookOpen,
+      active: pathname.startsWith('/lobby/know'),
+    },
+    {
+      label: 'CHECK',
+      href: '/lobby/check',
+      icon: ShieldCheck,
+      active: pathname.startsWith('/lobby/check'),
+    },
+    {
+      label: 'DO',
+      href: '/lobby/do',
+      icon: Layers,
+      active: pathname.startsWith('/lobby/do'),
+    },
+    {
+      label: 'FIND',
+      href: '/lobby/find',
+      icon: Briefcase,
+      active: pathname.startsWith('/lobby/find'),
+    },
+    {
+      label: 'LEARN',
+      href: '/lobby/learn',
+      icon: Clock,
+      active: pathname.startsWith('/lobby/learn'),
+    },
+    {
+      label: 'CONNECT',
+      href: '/lobby/connect',
+      icon: MessageSquare,
+      active: pathname.startsWith('/lobby/connect') || pathname.startsWith('/lobby/community') || pathname.startsWith('/lobby/rooms'),
+    },
+    {
       label: 'Ask The Lobby',
       href: '/lobby/ask',
       icon: Sparkles,
       highlight: true,
       active: pathname.startsWith('/lobby/ask'),
-    },
-    {
-      label: 'What Changed Today',
-      href: '/lobby/today',
-      icon: Clock,
-      active: pathname === '/lobby/today',
-    },
-    {
-      label: 'Procurement',
-      href: '/lobby/opportunities',
-      icon: Briefcase,
-      active: pathname.startsWith('/lobby/opportunities'),
-    },
-    {
-      label: 'Compliance Watch',
-      href: '/lobby/compliance',
-      icon: ShieldCheck,
-      active: pathname.startsWith('/lobby/compliance'),
-    },
-    {
-      label: 'Community',
-      href: '/lobby/community',
-      icon: MessageSquare,
-      active: pathname.startsWith('/lobby/community') || pathname.startsWith('/lobby/rooms'),
     },
   ];
 
