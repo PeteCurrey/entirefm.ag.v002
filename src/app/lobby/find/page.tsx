@@ -6,6 +6,15 @@ export const metadata: Metadata = {
   title: 'FIND · FM Opportunities & Professional Directory | The Lobby — EntireFM',
   description:
     'Dedicated UK facilities management jobs board, commercial tenders, procurement frameworks, verified trade contractors, and professional property services directory.',
+  keywords: [
+    'facilities management directory',
+    'FM jobs UK',
+    'FM contractors',
+    'commercial property services',
+    'facilities management tenders',
+    'M&E contractors UK',
+    'procurement frameworks FM',
+  ],
   alternates: {
     canonical: `${PRODUCTION_CANONICAL_HOST}/lobby/find`,
   },
