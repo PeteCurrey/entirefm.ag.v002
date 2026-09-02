@@ -314,7 +314,7 @@ const CROSS_LINKS = [
 export default function ContractorOnboardingChecklistPage() {
   return (
     <>
-      <Header solid />
+      <Header />
       <ToolShell
         breadcrumbs={[
           { name: 'Home', url: '/' },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -78,10 +79,26 @@ const TOOLS = [
 export default function ContractorToolsHubPage() {
   return (
     <>
-      <Header solid />
+      <Header />
       <main>
         {/* Hero */}
         <section className="relative bg-[#0B1220] overflow-hidden">
+          {/* Hero Photographic Background */}
+          <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+            <Image
+              src="/images/editorial/entirefm-hvac-cassette-service-2000w.webp"
+              alt="EntireFM Contractor Tools"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center opacity-25"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-b from-[#0B1220]/60 via-[#0B1220]/80 to-[#0B1220]"
+            />
+          </div>
+
           {/* Ambient gradient */}
           <div
             aria-hidden="true"
@@ -103,7 +120,7 @@ export default function ContractorToolsHubPage() {
             }}
           />
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[calc(72px+3rem)] pb-16">
             {/* Eyebrow */}
             <div className="flex items-center gap-2 mb-6">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-pulse" />

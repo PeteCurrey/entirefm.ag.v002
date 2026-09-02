@@ -235,7 +235,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-      <Header solid />
+      <Header />
       <div className="flex-grow">
         <ToolShell
           breadcrumbs={breadcrumbs}

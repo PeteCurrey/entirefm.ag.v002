@@ -192,7 +192,7 @@ const CROSS_LINKS = [
 export default function ContractorComplianceCheckPage() {
   return (
     <>
-      <Header solid />
+      <Header />
       <ToolShell
         breadcrumbs={[
           { name: 'Home', url: '/' },

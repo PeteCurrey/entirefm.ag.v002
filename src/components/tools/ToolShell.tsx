@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { Clock, FileCheck2, Shield, Sparkles } from 'lucide-react';
 
@@ -12,6 +13,8 @@ export interface ToolShellProps {
   timeEstimate: string;
   outputs: string[];
   icon?: React.ComponentType<{ className?: string }>;
+  heroImage?: string;
+  heroImageAlt?: string;
   children: React.ReactNode;
 }
 
@@ -22,12 +25,30 @@ export function ToolShell({
   purpose,
   timeEstimate,
   outputs,
+  heroImage = '/images/editorial/entirefm-hvac-plant-deck-2000w.webp',
+  heroImageAlt,
   children,
 }: ToolShellProps) {
   return (
     <div className="relative w-full min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col selection:bg-brand-electric/15 selection:text-brand-graphite">
       {/* 1. BRANDED CORPORATE DARK HERO FRAMING */}
       <header className="relative z-20 bg-[#0B1220] border-b border-brand-edge-dark overflow-hidden">
+        {/* Hero Photographic Background */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <Image
+            src={heroImage}
+            alt={heroImageAlt || title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-25"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-[#0B1220]/60 via-[#0B1220]/80 to-[#0B1220]"
+          />
+        </div>
+
         {/* Subtle architectural ambient gradient */}
         <div
           aria-hidden="true"
@@ -50,7 +71,7 @@ export function ToolShell({
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[calc(72px+2rem)] pb-10">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
             <Breadcrumbs items={breadcrumbs} className="text-xs text-slate-400" />
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-normal text-slate-300">

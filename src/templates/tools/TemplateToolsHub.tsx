@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Scan,
   Wrench,
@@ -147,10 +148,26 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
 
   return (
     <>
-      <Header solid />
+      <Header />
       <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
         {/* Dark Branded Hero */}
-        <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#0B1220] text-white border-b border-slate-800">
+        <section className="relative overflow-hidden pt-[calc(72px+2.5rem)] pb-16 sm:pt-[calc(72px+3.5rem)] sm:pb-20 bg-[#0B1220] text-white border-b border-slate-800">
+          {/* Hero Photographic Background */}
+          <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="EntireFM Engineering Tools"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center opacity-20"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-b from-[#0B1220]/60 via-[#0B1220]/80 to-[#0B1220]"
+            />
+          </div>
+
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-[10%] -top-[25%] h-[35rem] w-[35rem] rounded-full opacity-20 blur-[120px]"

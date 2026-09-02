@@ -30,10 +30,26 @@ export function TemplateDroneInspectionPlanner({
   content,
 }: TemplateDroneInspectionPlannerProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B1220] text-white">
-      <Header solid />
+    <div className="min-h-screen flex flex-col bg-[#0B1220] text-white relative">
+      <Header />
 
-      <main id="main" className="flex-grow pt-10 pb-20">
+      {/* Hero Photographic Background behind transparent header */}
+      <div className="absolute inset-x-0 top-0 h-[480px] -z-10 overflow-hidden pointer-events-none">
+        <Image
+          src="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
+          alt="EntireFM Drone Survey Inspection"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-25"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-b from-[#0B1220]/60 via-[#0B1220]/80 to-[#0B1220]"
+        />
+      </div>
+
+      <main id="main" className="flex-grow pt-[calc(72px+1.5rem)] pb-20">
         {/* Subtle Background Accent */}
         <div 
           aria-hidden="true" 

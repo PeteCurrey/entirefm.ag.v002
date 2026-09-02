@@ -158,7 +158,7 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-      <Header solid />
+      <Header />
       <div className="flex-grow">
         <ToolShell
           breadcrumbs={breadcrumbs}
