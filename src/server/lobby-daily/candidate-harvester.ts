@@ -222,7 +222,7 @@ export async function harvestCandidateStories(
 
     // Determine authority tier (respect explicit tier if provided)
     let tier = (article as any).authorityTier || 3;
-    if (!article.authorityTier) {
+    if (!(article as any).authorityTier) {
       const sourceLower = (article.sourceName || '').toLowerCase();
       if (
         sourceLower.includes('hse') ||

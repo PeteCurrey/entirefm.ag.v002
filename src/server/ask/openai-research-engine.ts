@@ -51,17 +51,18 @@ export class OpenAIResearchEngine {
     const now = new Date().toISOString();
 
     // 1. Layer 1: Search EntireFM canonical stores
-    const intelResults = intelligenceStore.query({
+    const intelQueryResult = await intelligenceStore.query({
       search: cleanQuestion,
       jurisdiction: jurisdiction[0],
       limit: 8,
-    }).items;
+    });
+    const intelResults = intelQueryResult.items;
 
     const procurementResults =
       intent === 'PROCUREMENT' || intent === 'CONTRACT_AWARDS' || cleanQuestion.toLowerCase().includes('tender') || cleanQuestion.toLowerCase().includes('contract')
         ? intent === 'CONTRACT_AWARDS'
-          ? opportunityStore.getContractAwards(6)
-          : opportunityStore.getActiveTenders({ limit: 6 })
+          ? await opportunityStore.getContractAwards(6)
+          : await opportunityStore.getActiveTenders({ limit: 6 })
         : [];
 
     const localCitations = this.buildCitationsFromLocalStores(intelResults, procurementResults);
@@ -173,14 +174,15 @@ export class OpenAIResearchEngine {
       status: 'running',
     });
 
-    const intelResults = intelligenceStore.query({
+    const intelQueryResult = await intelligenceStore.query({
       search: cleanQuestion,
       jurisdiction: jurisdiction[0],
       limit: 12,
-    }).items;
+    });
+    const intelResults = intelQueryResult.items;
 
-    const tenderResults = opportunityStore.getActiveTenders({ limit: 6 });
-    const awardResults = opportunityStore.getContractAwards(6);
+    const tenderResults = await opportunityStore.getActiveTenders({ limit: 6 });
+    const awardResults = await opportunityStore.getContractAwards(6);
 
     stages[0].status = 'completed';
     stages[0].findingsCount = intelResults.length;
