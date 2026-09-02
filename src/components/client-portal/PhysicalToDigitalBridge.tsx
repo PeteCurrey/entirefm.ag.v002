@@ -113,7 +113,7 @@ export function PhysicalToDigitalBridge() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white text-xs font-light">
-              <span className="text-[10px] uppercase tracking-wider text-brand-pink block mb-0.5 font-normal">
+              <span className="text-[10px] uppercase tracking-wider text-brand-electric block mb-0.5 font-normal">
                 PHYSICAL ESTATE DELIVERY
               </span>
               Direct mechanical &amp; electrical engineering delivered on live commercial plant.
@@ -124,7 +124,7 @@ export function PhysicalToDigitalBridge() {
           <div className="lg:col-span-6 space-y-6">
             <span className="eyebrow eyebrow-light">ESTATE-SCALE RESILIENCE</span>
             <h3 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
-              Real engineers. Real plantrooms. Guaranteed compliance.
+              Real engineers. Real plantrooms. Verified statutory governance.
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
               When a chiller fails at 02:00 or a statutory fire damper inspection is due, software alone cannot fix the problem. EntireFM provides the certified technicians, Gas Safe engineers, NICEIC electricians, and emergency response vehicles required to keep buildings operational.

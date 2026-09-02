@@ -619,7 +619,7 @@ export function TemplateComplianceIntelligence() {
 
             <div className="pt-4 border-t border-neutral-100">
               <Link
-                href="/tools/asset-register-builder"
+                href="/tools/asset-scanner"
                 className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric hover:underline"
               >
                 <span>Launch tool</span>
@@ -644,10 +644,10 @@ export function TemplateComplianceIntelligence() {
 
             <div className="pt-4 border-t border-neutral-100">
               <Link
-                href="/resources/commercial-fm-statutory-compliance-matrix"
+                href="/lobby/check"
                 className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric hover:underline"
               >
-                <span>Download matrix</span>
+                <span>View compliance framework</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -669,10 +669,10 @@ export function TemplateComplianceIntelligence() {
 
             <div className="pt-4 border-t border-neutral-100">
               <Link
-                href="/tools/ppm-frequency-calculator"
+                href="/tools/ppm-schedule-builder"
                 className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric hover:underline"
               >
-                <span>Launch calculator</span>
+                <span>Launch schedule builder</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

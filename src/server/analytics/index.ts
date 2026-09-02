@@ -546,11 +546,14 @@ export async function getWebsiteAnalytics(
   // 13. Interactive Tool Performance
   const toolPerformance: ToolPerformanceItem[] = [
     { toolId: 'ppm-builder', toolName: 'PPM Schedule Builder', path: '/tools/ppm-schedule-builder', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
-    { toolId: 'tender-brief', toolName: 'Tender / RFP Brief Generator', path: '/tools/tender-brief-generator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
-    { toolId: 'ppm-estimator', toolName: 'PPM Budget Cost Estimator', path: '/tools/ppm-cost-estimator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'tender-brief', toolName: 'Tender / RFP Brief Generator', path: '/tools/tender-brief', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'ppm-estimator', toolName: 'PPM Budget Cost Estimator', path: '/tools/ppm-estimator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
     { toolId: 'compliance-checker', toolName: 'FM Statutory Compliance Checker', path: '/tools/compliance-checker', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
-    { toolId: 'health-check', toolName: 'Building Health Check Diagnostic', path: '/tools/building-health-check', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
-    { toolId: 'roi-calculator', toolName: 'FM Consolidation ROI Calculator', path: '/tools/roi-calculator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'health-check', toolName: 'Building Health Check Diagnostic', path: '/tools/fm-health-check', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'roi-calculator', toolName: 'FM Consolidation ROI Calculator', path: '/tools/fm-roi-calculator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'asset-scanner', toolName: 'Plant & Asset Scanner (OCR)', path: '/tools/asset-scanner', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'compliance-calendar', toolName: 'Compliance Calendar Builder', path: '/tools/compliance-calendar', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
+    { toolId: 'drone-planner', toolName: 'Drone Inspection Planner', path: '/tools/drone-inspection-planner', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
   ].map((tool) => {
     const pageMetric = topPages.find((p) => p.path === tool.path);
     const leadsWithTool = currentLeads.filter((l) => l.form_id === tool.toolId || l.conversion_page === tool.path || (l.assisted_pages || []).includes(tool.path));

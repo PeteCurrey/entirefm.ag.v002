@@ -77,7 +77,7 @@ const ALL_OTHER_GUIDES = [
     title: 'AI in Statutory Compliance & Auditing',
     href: '/resources/ai-in-facilities-management/ai-compliance',
     category: 'Compliance & Safety',
-    description: 'Automated certificate OCR ingestion, EICR C1/C2 defect extraction, and 100% audit-ready digital logbooks.',
+    description: 'Automated certificate OCR ingestion, EICR C1/C2 defect extraction, and contemporaneous digital statutory logbooks.',
     imageSrc: '/images/editorial/entirefm-distribution-board-testing-1200w.webp',
   },
   {
@@ -132,7 +132,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
   const isAgents = currentSlug === 'ai-agents';
 
   return (
-    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-electric selection:text-white">
       <Header />
 
       <main id="main" className="flex-grow">

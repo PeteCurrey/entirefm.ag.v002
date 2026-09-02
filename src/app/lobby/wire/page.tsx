@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'Weekly digest of executive appointments, promotions, and strategic people moves across UK facilities management.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function LobbyWirePage() {
   const weeklyGroups = await getGroupedWeeklyWire();
   const latestItems = await getPeopleMovesWire(20);

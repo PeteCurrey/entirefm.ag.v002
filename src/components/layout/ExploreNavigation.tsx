@@ -19,7 +19,7 @@ const LOCATION_LINKS = [
   { label: 'Sheffield', href: '/facilities-management-sheffield', detail: 'South Yorkshire operations' },
   { label: 'Leeds', href: '/facilities-management-leeds', detail: 'West Yorkshire coverage' },
   { label: 'Birmingham', href: '/facilities-management-birmingham', detail: 'West Midlands operations' },
-  { label: 'Bristol', href: '/facilities-management-bristol', detail: 'South West operations' },
+  { label: 'Liverpool', href: '/facilities-management-liverpool', detail: 'Merseyside & North West operations' },
   { label: 'All Locations', href: '/locations', detail: 'National coverage map & all regional pages' },
 ];
 
@@ -33,11 +33,12 @@ const COMPANY_LINKS = [
 
 const LOBBY_CATEGORY_LINKS = [
   { label: 'The Lobby Homepage', href: '/lobby', detail: 'The daily briefing room for facilities professionals' },
-  { label: 'The Week That Matters', href: '/lobby#week-that-matters', detail: 'Priority FM analysis and regulatory developments' },
-  { label: 'Compliance Watch', href: '/lobby#compliance-watch', detail: 'Statutory mandates translated into operational directives' },
-  { label: 'The Engineer’s Note', href: '/lobby#engineers-note', detail: 'Field diagnostics and technical observations' },
-  { label: 'FM Toolkit', href: '/lobby#toolkit', detail: 'Calculators, schedules, and RFP specification builders' },
-  { label: 'The Lobby Archive', href: '/lobby/archive', detail: 'Browse all historical briefings and intelligence articles' },
+  { label: '01 · KNOW (Intelligence)', href: '/lobby/know', detail: 'Priority FM analysis and regulatory developments' },
+  { label: '02 · CHECK (Compliance)', href: '/lobby/check', detail: 'Statutory compliance directory & inspection schedules' },
+  { label: '03 · DO (Toolbox)', href: '/lobby/do', detail: 'Calculators, schedules, and RFP specification builders' },
+  { label: '04 · FIND (Careers)', href: '/lobby/find', detail: 'FM jobs, career paths, salary benchmarks and opportunities' },
+  { label: '05 · LEARN (Development)', href: '/lobby/learn', detail: 'Technical guides, playbooks and EntireFM Academy' },
+  { label: '06 · CONNECT (Community)', href: '/lobby/connect', detail: 'Practitioner discussions, live rooms, and peer consensus' },
 ];
 
 type PrimaryCategory = {
@@ -72,7 +73,7 @@ const CATEGORIES: PrimaryCategory[] = [
     feature: {
       eyebrow: 'National Reach',
       title: 'Consistent standards. Local knowledge.',
-      body: 'EntireFM operates across England and Wales with regional hubs in London, Manchester, Yorkshire, and the Midlands.',
+      body: 'EntireFM provides national facilities management coverage delivered through regional engineering teams across London, the North West, Yorkshire, and the Midlands.',
       href: '/locations',
       cta: 'View all locations',
       imageKey: 'headquarters-exterior',

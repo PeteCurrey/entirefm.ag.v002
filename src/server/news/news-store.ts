@@ -208,7 +208,7 @@ export const INITIAL_NEWS_ARTICLES: NewsArticle[] = [
     standfirst:
       'A 380,000 sq ft Grade-A commercial office tower in London has awarded its full mechanical, electrical, and critical plant maintenance agreement to an integrated facilities provider.',
     whyItMatters:
-      'Mobilisation involves installing 4,200 asset IoT vibration sensors across dual central chiller plants to guarantee 99.98% uptime.',
+      'Mobilisation involves installing 4,200 asset IoT vibration sensors across dual central chiller plants to establish baseline vibration telemetry and early bearing wear detection on primary cooling plant.',
     category: 'contracts-mobilisations',
     topics: ['Contracts', 'Commercial Offices', 'M&E', 'London'],
     publishedAt: '2026-08-25T14:30:00Z',

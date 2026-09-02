@@ -313,13 +313,13 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
                     AI &amp; Machine Learning in Facilities Management
                   </h4>
                   <p className="text-sm text-slate-600 leading-relaxed font-light">
-                    Explore our comprehensive 11-part technical series covering predictive condition monitoring, IoT vibration telemetry, automated helpdesk triage, and next-generation CAFM systems.
+                    Explore our comprehensive 11-part technical series covering predictive condition monitoring, IoT vibration telemetry, automated helpdesk triage, and modern CAFM systems.
                   </p>
                 </div>
                 <div>
                   <Link
                     href="/resources/ai-in-facilities-management"
-                    className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium text-brand-pink hover:text-slate-900 transition-colors"
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium text-brand-electric hover:text-slate-900 transition-colors"
                   >
                     <span>Explore AI in FM Series</span>
                     <ArrowRight className="h-3.5 w-3.5" />

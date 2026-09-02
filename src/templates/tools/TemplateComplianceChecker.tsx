@@ -868,7 +868,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               <ToolConversionCTA
                 toolName="FM Compliance Checker"
                 heading="Need an on-site statutory compliance audit &amp; remedial rectification?"
-                subheading="EntireFM provides full statutory compliance audits, logbook consolidation, and remedial engineering works to ensure 100% audit-ready estates."
+                subheading="EntireFM provides full statutory compliance audits, logbook consolidation, and remedial engineering works to identify documentation gaps and verify duty-holder compliance."
                 primaryActionLabel="Request Statutory Compliance Review"
                 primaryActionHref="/contact-us#enquiry"
               />

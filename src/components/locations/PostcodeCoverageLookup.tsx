@@ -112,7 +112,7 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
                       href={result.primaryRoute}
                       className="inline-flex items-center gap-1 text-xs font-normal text-brand-pink-light hover:text-white uppercase tracking-wider transition-colors"
                     >
-                      <span>Explore {result.cityName} Hub</span>
+                      <span>Explore {result.cityName} Coverage</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                     {result.cleaningRoute && (

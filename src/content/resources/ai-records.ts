@@ -280,7 +280,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'AI and CAFM: The Evolution of Facilities Software',
     eyebrow: 'Software & Technology Architecture',
     heroIntro: 'How modern Computer-Aided Facility Management (CAFM) systems are integrating machine learning, vector search, and intelligent workflow automation.',
-    heroDescription: 'A technical evaluation of next-generation CAFM architecture, comparing legacy relational databases with modern AI-enhanced platforms that parse documents, predict SLA breaches, and automate supplier coordination.',
+    heroDescription: 'A technical evaluation of modern CAFM architecture, comparing legacy relational databases with AI-enhanced platforms that parse documents, predict SLA breaches, and automate supplier coordination.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Search intent for AI CAFM software, smart facilities management platforms, and CAFM roadmap',
     primaryIntent: 'AI CAFM software',

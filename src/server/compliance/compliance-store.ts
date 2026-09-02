@@ -124,13 +124,13 @@ export const COMPLIANCE_RECORDS: ComplianceRecord[] = [
     isLeadFeature: true,
     relatedTools: [
       {
-        name: 'Asset Register Builder',
-        url: '/tools/asset-register-builder',
+        name: 'Plant & Asset Scanner',
+        url: '/tools/asset-scanner',
         description: 'Verify mandatory asset attributes required for Golden Thread safety cases.',
       },
       {
-        name: 'Statutory Compliance Matrix',
-        url: '/resources/commercial-fm-statutory-compliance-matrix',
+        name: 'Statutory Compliance Framework',
+        url: '/lobby/check',
         description: 'Review statutory maintenance intervals and duty-holder legal assignments.',
       },
     ],
@@ -204,7 +204,7 @@ export const COMPLIANCE_RECORDS: ComplianceRecord[] = [
     relatedTools: [
       {
         name: 'Electrical Compliance Frequency Calculator',
-        url: '/tools/ppm-frequency-calculator',
+        url: '/tools/ppm-schedule-builder',
         description: 'Determine statutory EICR and emergency lighting test frequencies by premises risk.',
       },
     ],
@@ -232,8 +232,8 @@ export const COMPLIANCE_RECORDS: ComplianceRecord[] = [
     timelineDate: 'ENFORCED',
     relatedTools: [
       {
-        name: 'Statutory Compliance Matrix',
-        url: '/resources/commercial-fm-statutory-compliance-matrix',
+        name: 'Statutory Compliance Framework',
+        url: '/lobby/check',
       },
     ],
   },
@@ -284,7 +284,7 @@ export const COMPLIANCE_RECORDS: ComplianceRecord[] = [
     timelineMonth: 'APR 2027',
     timelineDate: '01 APR',
     relatedTools: [
-      { name: 'PPM Frequency & Runtime Calculator', url: '/tools/ppm-frequency-calculator' },
+      { name: 'PPM Schedule Builder', url: '/tools/ppm-schedule-builder' },
     ],
   },
   {

@@ -199,6 +199,7 @@ const WEBSITE_GROUPS: NavGroup[] = [
     icon: Newspaper,
     items: [
       { name: 'Daily Briefings', href: '/admin/lobby/newsletters' },
+      { name: 'Pulse Benchmarks', href: '/admin/pulse' },
       { name: 'Analytics & Audience', href: '/admin/lobby/newsletters/analytics' },
       { name: 'Publishing Settings', href: '/admin/lobby/newsletters/settings' },
     ],

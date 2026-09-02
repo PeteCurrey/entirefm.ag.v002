@@ -104,7 +104,7 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     status: 'CONFIRMED',
     membershipTier: 'OPEN ACCESS',
     targetQuarter: 'Q2 2026',
-    location: 'Sheffield, Leeds & Regional Hubs',
+    location: 'Sheffield, Leeds & Regional Facilities',
     audience: 'Approved Contractors, New Supplier Applicants, Trade SMEs',
     overview: 'Transparent briefings on EntireFM property portfolio requirements, standard payment terms, tender evaluation matrices, and how work is allocated fairly to verified local partners.',
     sampleAgenda: [

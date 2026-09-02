@@ -71,7 +71,7 @@ export default function CampaignComposerPage() {
       {
         id: 'block-4',
         type: 'KEY_TAKEAWAY',
-        body: 'Predictive maintenance does not replace PPM. It supercharges intervention timing on high-capital plant, while statutory PPM continues to protect life safety and building fabric under UK law.',
+        body: 'Predictive maintenance does not replace PPM. It refines intervention timing on high-capital plant, while statutory PPM continues to protect life safety and building fabric under UK law.',
       },
       {
         id: 'block-5',

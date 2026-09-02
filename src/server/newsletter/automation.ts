@@ -129,7 +129,7 @@ export async function generateWeeklyBriefingDraft(
     {
       id: 'block-takeaway',
       type: 'KEY_TAKEAWAY',
-      body: 'Predictive maintenance does not replace Planned Preventative Maintenance. It supercharges intervention timing on high-capital plant, while statutory PPM continues to protect life safety and building fabric under UK law.',
+      body: 'Predictive maintenance does not replace Planned Preventative Maintenance. It refines intervention timing on high-capital plant, while statutory PPM continues to protect life safety and building fabric under UK law.',
     },
     {
       id: 'block-commercial',

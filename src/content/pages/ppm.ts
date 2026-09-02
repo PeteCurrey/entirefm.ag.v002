@@ -14,7 +14,7 @@ const record: ContentRecord = {
   "metaDescription": "Strategic Planned Preventative Maintenance (PPM) contracts. Protect building assets, ensure statutory compliance, and eliminate breakdown costs across UK commercial portfolios.",
   "h1": "Planned Preventative Maintenance (PPM) Contracts",
   "eyebrow": "Strategic Asset Management",
-  "heroIntro": "Structured Planned Preventative Maintenance (PPM) engineered to preserve building fabric, extend mechanical plant lifespan, and guarantee statutory compliance across your commercial estate.",
+  "heroIntro": "Structured Planned Preventative Maintenance (PPM) engineered to preserve building fabric, extend mechanical plant lifespan, and maintain statutory compliance across your commercial estate.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
   "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for ppm",

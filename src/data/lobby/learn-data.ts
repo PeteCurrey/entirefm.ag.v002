@@ -785,9 +785,9 @@ export const TASK_DISCOVERY_ITEMS: TaskDiscoveryItem[] = [
       section: 'LEARN',
     },
     secondaryDestination: {
-      label: 'Find Specialists',
-      url: '/lobby/find/contractors',
-      section: 'FIND',
+      label: 'Partner Network',
+      url: '/suppliers/partner-network',
+      section: 'SUPPLIERS',
     },
   },
   {

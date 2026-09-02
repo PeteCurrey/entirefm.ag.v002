@@ -387,7 +387,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                                 {city.name}
                               </h4>
                               <span className="text-[11px] font-light uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
-                                Active Hub
+                                Active Region
                               </span>
                             </div>
                             <p className="text-xs text-slate-600 leading-relaxed">

@@ -5,6 +5,7 @@ import type {
   DirectoryMemberEntry,
   PolicyConsentRecord,
   MemberStatus,
+  ClientLinkSummary,
 } from './types';
 import { dbQuery, getDbConfig } from '../db/client';
 import { supabaseSignIn, supabaseSignUp } from '../auth/supabase-auth';
@@ -860,3 +861,95 @@ export async function getDirectoryMembers(
     return b.certifications.length - a.certifications.length;
   });
 }
+
+/**
+ * 12. Lobby <-> Client Organisation Linkage
+ * =========================================
+ * Single source of truth for dual-context users.
+ * Maps a single Supabase auth_user_id to client organisation accounts.
+ * Zero automated inference: links only exist via explicit admin or member action.
+ */
+export async function getLobbyClientLinks(authUserId: string): Promise<ClientLinkSummary[]> {
+  if (!authUserId) return [];
+
+  const { data, error } = await dbQuery<any[]>(
+    `lobby_client_links?auth_user_id=eq.${encodeURIComponent(
+      authUserId
+    )}&status=eq.ACTIVE&select=id,client_account_id,role_code,status,linked_at,client_account:client_accounts(id,account_code,organisation:organisations(id,name,org_type))`
+  );
+
+  if (error || !data || data.length === 0) {
+    return [];
+  }
+
+  return data.map((row: any) => ({
+    linkId: row.id,
+    clientAccountId: row.client_account_id,
+    clientOrgName:
+      row.client_account?.organisation?.name ||
+      row.client_account?.account_code ||
+      'Client Organisation',
+    roleCode: row.role_code || 'CLIENT_USER',
+    status: row.status,
+    linkedAt: row.linked_at,
+  }));
+}
+
+export async function addLobbyClientLink(
+  authUserId: string,
+  clientAccountId: string,
+  roleCode: string = 'CLIENT_USER',
+  linkedBy: string = 'ADMIN'
+): Promise<ClientLinkSummary | null> {
+  const { data, error } = await dbQuery<any[]>(
+    'lobby_client_links',
+    {
+      method: 'POST',
+      body: {
+        auth_user_id: authUserId,
+        client_account_id: clientAccountId,
+        role_code: roleCode,
+        status: 'ACTIVE',
+        linked_by: linkedBy,
+        linked_at: new Date().toISOString(),
+      },
+    }
+  );
+
+  if (error || !data || data.length === 0) {
+    console.error('[LOBBY_CLIENT_LINK] Failed to insert link:', error);
+    return null;
+  }
+
+  // Fetch full summary with joined org name
+  const links = await getLobbyClientLinks(authUserId);
+  return links.find((l) => l.clientAccountId === clientAccountId) || {
+    linkId: data[0].id,
+    clientAccountId,
+    clientOrgName: 'Client Organisation',
+    roleCode,
+    status: 'ACTIVE',
+    linkedAt: data[0].linked_at || new Date().toISOString(),
+  };
+}
+
+export async function revokeLobbyClientLink(
+  authUserId: string,
+  clientAccountId: string
+): Promise<boolean> {
+  const { error } = await dbQuery<any>(
+    `lobby_client_links?auth_user_id=eq.${encodeURIComponent(
+      authUserId
+    )}&client_account_id=eq.${encodeURIComponent(clientAccountId)}`,
+    {
+      method: 'PATCH',
+      body: {
+        status: 'REVOKED',
+        updated_at: new Date().toISOString(),
+      },
+    }
+  );
+
+  return !error;
+}
+

@@ -83,7 +83,7 @@ export function SupplierEcosystemDirectory() {
         {
           title: 'Innovation & PropTech',
           href: '/suppliers/innovation',
-          description: 'IoT sensor telemetry, AI predictive maintenance, and next-generation smart FM.',
+          description: 'IoT sensor telemetry, AI predictive maintenance, and modern smart FM.',
         },
       ],
     },

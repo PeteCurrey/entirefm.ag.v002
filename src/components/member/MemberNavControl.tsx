@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import { User, LogOut, Settings, UserCheck, ChevronDown, Sparkles } from 'lucide-react';
+import { User, LogOut, Settings, UserCheck, ChevronDown, Sparkles, Briefcase } from 'lucide-react';
 import { MemberAvatar } from './MemberAvatar';
+import { ClientContextSwitcher } from './ClientContextSwitcher';
+import type { ClientLinkSummary } from '@/server/member/types';
 
 interface MemberState {
   authenticated: boolean;
+  clientLinks: ClientLinkSummary[];
   member: {
     id: string;
     displayName: string;
@@ -23,7 +26,7 @@ interface MemberNavControlProps {
 }
 
 export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
-  const [state, setState] = useState<MemberState>({ authenticated: false, member: null });
+  const [state, setState] = useState<MemberState>({ authenticated: false, clientLinks: [], member: null });
   const [loading, setLoading] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -33,13 +36,17 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
       .then((res) => res.json())
       .then((data) => {
         if (data.authenticated && data.member) {
-          setState({ authenticated: true, member: data.member });
+          setState({
+            authenticated: true,
+            clientLinks: data.clientLinks || [],
+            member: data.member,
+          });
         } else {
-          setState({ authenticated: false, member: null });
+          setState({ authenticated: false, clientLinks: [], member: null });
         }
       })
       .catch(() => {
-        setState({ authenticated: false, member: null });
+        setState({ authenticated: false, clientLinks: [], member: null });
       })
       .finally(() => {
         setLoading(false);
@@ -68,51 +75,78 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
 
   if (state.authenticated && state.member) {
     return (
-      <div className="relative shrink-0" ref={dropdownRef}>
-        <button
-          type="button"
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className={`flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-[4px] border transition-all text-xs sm:text-sm font-light whitespace-nowrap shrink-0 ${
-            isLight
-              ? 'border-neutral-300 bg-neutral-100 hover:bg-neutral-200 text-neutral-900'
-              : 'border-brand-electric/40 bg-brand-electric/15 hover:bg-brand-electric/25 text-white'
-          }`}
-          aria-expanded={dropdownOpen}
-          aria-label="Member account menu"
-        >
-          <MemberAvatar
-            name={state.member.displayName}
-            avatarUrl={state.member.avatarUrl}
-            size="xs"
-            border={false}
-            className="w-6 h-6"
+      <div className="flex items-center gap-2 shrink-0">
+        {state.clientLinks.length > 0 && (
+          <ClientContextSwitcher
+            clientLinks={state.clientLinks}
+            currentContext="lobby"
+            theme={theme}
           />
-          <span className={`hidden md:inline-block max-w-[120px] truncate font-normal ${isLight ? 'text-neutral-900' : 'text-white'}`}>
-            {state.member.firstName || state.member.displayName}
-          </span>
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''} ${isLight ? 'text-neutral-500' : 'text-brand-mist/60'}`} />
-        </button>
+        )}
+        <div className="relative shrink-0" ref={dropdownRef}>
+          <button
+            type="button"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className={`flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-[4px] border transition-all text-xs sm:text-sm font-light whitespace-nowrap shrink-0 ${
+              isLight
+                ? 'border-neutral-300 bg-neutral-100 hover:bg-neutral-200 text-neutral-900'
+                : 'border-brand-electric/40 bg-brand-electric/15 hover:bg-brand-electric/25 text-white'
+            }`}
+            aria-expanded={dropdownOpen}
+            aria-label="Member account menu"
+          >
+            <MemberAvatar
+              name={state.member.displayName}
+              avatarUrl={state.member.avatarUrl}
+              size="xs"
+              border={false}
+              className="w-6 h-6"
+            />
+            <span className={`hidden md:inline-block max-w-[120px] truncate font-normal ${isLight ? 'text-neutral-900' : 'text-white'}`}>
+              {state.member.firstName || state.member.displayName}
+            </span>
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''} ${isLight ? 'text-neutral-500' : 'text-brand-mist/60'}`} />
+          </button>
 
-        {dropdownOpen && (
-          <div className="absolute right-0 mt-2 w-56 rounded-[6px] bg-[#0B1220] border border-white/10 text-white shadow-2xl py-2 z-50 animate-rise">
-            <div className="px-4 py-2.5 border-b border-white/10 flex items-center gap-3">
-              <MemberAvatar
-                name={state.member.displayName}
-                avatarUrl={state.member.avatarUrl}
-                size="md"
-                className="shrink-0"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-normal text-white truncate">{state.member.displayName}</p>
-                <p className="text-[10.5px] font-light text-neutral-400 truncate">{state.member.email}</p>
-                <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-medium uppercase tracking-wider text-emerald-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Lobby Member
-                </span>
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 w-56 rounded-[6px] bg-[#0B1220] border border-white/10 text-white shadow-2xl py-2 z-50 animate-rise">
+              <div className="px-4 py-2.5 border-b border-white/10 flex items-center gap-3">
+                <MemberAvatar
+                  name={state.member.displayName}
+                  avatarUrl={state.member.avatarUrl}
+                  size="md"
+                  className="shrink-0"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-normal text-white truncate">{state.member.displayName}</p>
+                  <p className="text-[10.5px] font-light text-neutral-400 truncate">{state.member.email}</p>
+                  <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-medium uppercase tracking-wider text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    Lobby Member
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div className="py-1">
+              {state.clientLinks.length > 0 && (
+                <div className="px-4 py-2 border-b border-white/10 bg-white/[0.02]">
+                  <p className="text-[9.5px] font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+                    Client Dashboard
+                  </p>
+                  {state.clientLinks.map((link) => (
+                    <Link
+                      key={link.clientAccountId}
+                      href="/clients"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 py-1 text-xs text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                      <Briefcase className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{link.clientOrgName}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              <div className="py-1">
               <Link
                 href="/member/profile"
                 onClick={() => setDropdownOpen(false)}
@@ -167,6 +201,7 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
           </div>
         )}
       </div>
+    </div>
     );
   }
 

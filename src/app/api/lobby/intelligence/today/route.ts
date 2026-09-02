@@ -417,11 +417,11 @@ export async function GET() {
 
   // 8. One Useful Thing
   const oneUsefulThing = {
-    title: 'Asset Register Builder',
+    title: 'Plant & Asset Scanner',
     category: 'ONE USEFUL THING',
     whyItMatters: 'Standardise M&E plant hierarchies and verify mandatory statutory attributes for Golden Thread compliance.',
     format: 'Interactive Tool (.xlsx Export)',
-    url: '/tools/asset-register-builder',
+    url: '/tools/asset-scanner',
     image: '/images/editorial/entirefm-site-arrival-1200w.webp',
   };
 

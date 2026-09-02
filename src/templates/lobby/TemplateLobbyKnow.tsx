@@ -228,7 +228,7 @@ export function TemplateLobbyKnow() {
       organisation: 'Crown Commercial Service / Department for Transport',
       project: 'Hard Facilities Management, M&E Servicing & 24/7 Priority Emergency Attendance',
       sector: 'Central Government Commercial Estate',
-      location: 'London & Midlands Regional Hubs',
+      location: 'London & Midlands Government Estate',
       value: '£14.2M (4-Year Term)',
       supplier: 'National TFM Framework Appointee',
       date: '28 August 2026',

@@ -41,6 +41,10 @@
     {
       "path": "/api/cron/analytics/monthly-estate-report",
       "schedule": "0 7 1 * *"
+    },
+    {
+      "path": "/api/cron/benchmarking/snapshot",
+      "schedule": "0 6 1 1,4,7,10 *"
     }
   ]
 }

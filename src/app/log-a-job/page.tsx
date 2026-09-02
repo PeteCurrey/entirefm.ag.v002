@@ -23,13 +23,43 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 interface PageProps {
-  searchParams?: Promise<{ siteId?: string; property?: string; unit?: string }>;
+  searchParams?: Promise<{
+    siteId?: string;
+    property?: string;
+    unit?: string;
+    asset_type?: string;
+    manufacturer?: string;
+    model?: string;
+    serial?: string;
+    regime?: string;
+    source?: string;
+  }>;
 }
 
 export default async function PublicLogAJobPage({ searchParams }: PageProps) {
   const session = await getCurrentSession();
   const isClient = !!(session && (session.orgType === 'CLIENT' || session.orgType === 'ENTIREFM'));
   const resolvedParams = searchParams ? await searchParams : {};
+
+  // Formulate pre-fill details from Asset Scanner if present
+  let prefillTitle = '';
+  let prefillDescription = '';
+  let prefillEquipment = '';
+  const isFromScanner = resolvedParams.source === 'asset-scanner';
+
+  if (isFromScanner) {
+    const assetParts = [
+      resolvedParams.asset_type ? `Type: ${resolvedParams.asset_type}` : '',
+      resolvedParams.manufacturer ? `Manufacturer: ${resolvedParams.manufacturer}` : '',
+      resolvedParams.model ? `Model: ${resolvedParams.model}` : '',
+      resolvedParams.serial ? `Serial: ${resolvedParams.serial}` : '',
+      resolvedParams.regime ? `SFG20 Regime: ${resolvedParams.regime}` : '',
+    ].filter(Boolean);
+
+    prefillTitle = `Service / Maintenance Request: ${resolvedParams.asset_type || 'Plant Equipment'}`;
+    prefillEquipment = [resolvedParams.manufacturer, resolvedParams.model].filter(Boolean).join(' ') || resolvedParams.asset_type || '';
+    prefillDescription = `Scanned plant equipment request via Asset Scanner:\n${assetParts.join('\n')}\n\nPlease arrange inspection and servicing under our client service agreement.`;
+  }
 
   let initialSites: any[] = [];
   let initialAssets: any[] = [];
@@ -78,6 +108,10 @@ export default async function PublicLogAJobPage({ searchParams }: PageProps) {
           isPublic={!isClient}
           prefillProperty={resolvedParams.property || ''}
           prefillUnit={resolvedParams.unit || ''}
+          prefillTitle={prefillTitle}
+          prefillDescription={prefillDescription}
+          prefillEquipment={prefillEquipment}
+          sourceContext={resolvedParams.source || ''}
         />
       </main>
       <Footer />

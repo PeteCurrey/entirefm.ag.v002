@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
-import { authenticateMemberCredentials } from '@/server/member/member-store';
+import { authenticateMemberCredentials, getLobbyClientLinks } from '@/server/member/member-store';
 import { createMemberSessionToken, MEMBER_COOKIE_NAME } from '@/server/member/member-session';
+import {
+  AUTH_COOKIE_NAME,
+  createSessionToken,
+  getRolePermissions,
+  RoleCode,
+} from '@/server/identity';
 
 export async function POST(request: Request) {
   try {
@@ -49,8 +55,16 @@ export async function POST(request: Request) {
     }
 
     const member = authResult.member!;
+    const authUserId = member.auth_user_id || authResult.authUserId || '';
+    const clientLinks = authUserId ? await getLobbyClientLinks(authUserId) : [];
+
     const duration = rememberMe ? 1000 * 60 * 60 * 24 * 60 : 1000 * 60 * 60 * 24 * 7;
-    const token = createMemberSessionToken(member, duration);
+    const token = createMemberSessionToken(member, duration, clientLinks);
+
+    // Landing logic on login:
+    // If account has an active client link, land on Client Dashboard by default (/clients)
+    // Lobby-only accounts land on Lobby as today, unchanged (/member/profile)
+    const redirectUrl = clientLinks.length > 0 ? '/clients' : '/member/profile';
 
     const response = NextResponse.json({
       success: true,
@@ -61,7 +75,8 @@ export async function POST(request: Request) {
         username: member.username,
         avatarUrl: member.avatar_url,
       },
-      redirectUrl: '/member/profile',
+      clientLinks,
+      redirectUrl,
     });
 
     response.cookies.set(MEMBER_COOKIE_NAME, token, {
@@ -71,6 +86,35 @@ export async function POST(request: Request) {
       path: '/',
       maxAge: Math.floor(duration / 1000),
     });
+
+    // If client-linked, also establish client portal session seamlessly
+    if (clientLinks.length > 0) {
+      const primaryLink = clientLinks[0];
+      const rCode = (primaryLink.roleCode || 'CLIENT_USER') as RoleCode;
+      const cafmSession = {
+        personId: member.id,
+        email: member.email,
+        name: member.display_name,
+        role: rCode,
+        orgId: primaryLink.clientAccountId,
+        orgName: primaryLink.clientOrgName,
+        orgType: 'CLIENT' as const,
+        activeApplication: 'CLIENT' as const,
+        permissions: getRolePermissions(rCode),
+        scopes: [{ type: 'CLIENT_ACCOUNT' as const, id: primaryLink.clientAccountId }],
+        source: 'LOBBY_UNIFIED_LOGIN',
+        expiresAt: Date.now() + duration,
+      };
+
+      const cafmToken = createSessionToken(cafmSession as any);
+      response.cookies.set(AUTH_COOKIE_NAME, cafmToken, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        maxAge: Math.floor(duration / 1000),
+      });
+    }
 
     return response;
   } catch (err: any) {

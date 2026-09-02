@@ -219,7 +219,7 @@ const SUPPORTING_GUIDES = [
     title: 'AI in Statutory Compliance & Auditing',
     href: '/resources/ai-in-facilities-management/ai-compliance',
     category: 'Compliance & Safety',
-    description: 'Automated certificate OCR ingestion, EICR C1/C2 defect extraction, and 100% audit-ready digital logbooks.',
+    description: 'Automated certificate OCR ingestion, EICR C1/C2 defect extraction, and contemporaneous digital statutory logbooks.',
     imageSrc: '/images/editorial/entirefm-distribution-board-testing-1200w.webp',
     readingTime: '10 min read',
   },
@@ -234,10 +234,10 @@ const SUPPORTING_GUIDES = [
   {
     title: 'AI Governance, Security & OT Safeguards',
     href: '/resources/ai-in-facilities-management/ai-governance',
-    category: 'Risk & Cybersecurity',
-    description: 'Air-gapping life-safety building plant, cryptographic audit logging, and human-in-the-loop permission matrices.',
+    category: 'Cybersecurity & OT',
+    description: 'Operational risk assessment, building automation firewalling, and human-in-the-loop controls.',
     imageSrc: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
-    readingTime: '9 min read',
+    readingTime: '11 min read',
   },
   {
     title: 'Autonomous AI Agents in FM',
@@ -272,7 +272,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
   ];
 
   return (
-    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-electric selection:text-white">
       <Header />
 
       <main id="main" className="flex-grow">
@@ -313,7 +313,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                     'AI without structured asset data fails. Establishing clean asset hierarchies and SFG20 task coding is the prerequisite for any automated intelligence deployment.',
                   ]}
                   statutoryReference="Building Safety Act 2022 · BS 7671 · ACOP L8 · SFG20 Task Library"
-                  operationalOutcome="15–25% reduction in reactive emergency callouts · 12–18% HVAC energy demand reduction"
+                  operationalOutcome="Targeted reduction in reactive emergency callouts through early bearing wear detection and optimized HVAC deadbands"
                 />
               </section>
 

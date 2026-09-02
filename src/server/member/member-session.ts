@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import type { Member, MemberSession } from './types';
+import type { Member, MemberSession, ClientLinkSummary } from './types';
 
 export const MEMBER_COOKIE_NAME = 'efm_member_session';
 
@@ -11,14 +11,20 @@ const MEMBER_SECRET =
 /**
  * Creates an HMAC-signed session token for an authenticated Lobby Member.
  */
-export function createMemberSessionToken(member: Member, durationMs: number = 1000 * 60 * 60 * 24 * 30): string {
+export function createMemberSessionToken(
+  member: Member,
+  durationMs: number = 1000 * 60 * 60 * 24 * 30,
+  clientLinks: ClientLinkSummary[] = []
+): string {
   const session: MemberSession = {
     memberId: member.id,
+    authUserId: member.auth_user_id,
     email: member.email,
     username: member.username,
     displayName: member.display_name,
     status: member.member_status,
     avatarUrl: member.avatar_url,
+    clientLinks: clientLinks || [],
     expiresAt: Date.now() + durationMs,
   };
 
@@ -61,6 +67,7 @@ export function verifyMemberSessionToken(token: string | undefined | null): Memb
 
     if (!session.memberId || !session.expiresAt) return null;
     if (session.expiresAt < Date.now()) return null;
+    if (!session.clientLinks) session.clientLinks = [];
 
     return session;
   } catch {

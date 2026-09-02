@@ -423,7 +423,7 @@ export const LOCATION_GLOSSARY_DATA: Record<string, LocationGlossaryData> = {
     metaDescription: 'Facilities management reference for Lincoln commercial properties, distributed agricultural estates, engineering plants, and regional public sector buildings.',
     h1: 'Facilities Management Glossary: Lincoln & Lincolnshire FM Terms',
     intro: 'A clear guide to facilities management, M&E engineering, and compliance concepts for property managers operating across Lincoln and Lincolnshire.',
-    localEstateContext: 'Lincolnshire’s commercial landscape is defined by distributed regional estates, food manufacturing and agritech plants, university and healthcare campuses, and engineering hubs across Lincoln, Newark, and the A46/A15 corridors.',
+    localEstateContext: 'Lincolnshire’s commercial landscape is defined by distributed regional estates, food manufacturing and agritech plants, university and healthcare campuses, and engineering clusters along the Lincoln, Newark, and A46/A15 corridors.',
     propertyStockFocus: [
       'Lincoln Science & Innovation Park and commercial research offices',
       'Heavy industrial, turbine engineering, and agritech manufacturing facilities',

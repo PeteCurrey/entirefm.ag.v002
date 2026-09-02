@@ -83,6 +83,10 @@ interface Props {
   isPublic?: boolean;
   prefillProperty?: string;
   prefillUnit?: string;
+  prefillTitle?: string;
+  prefillDescription?: string;
+  prefillEquipment?: string;
+  sourceContext?: string;
 }
 
 const CANONICAL_CATEGORIES = [
@@ -160,6 +164,10 @@ export default function AiLogAJobClient({
   isPublic = false,
   prefillProperty = '',
   prefillUnit = '',
+  prefillTitle = '',
+  prefillDescription = '',
+  prefillEquipment = '',
+  sourceContext = '',
 }: Props) {
   // ── Form State: Property & Location ──
   const [selectedSiteId, setSelectedSiteId] = useState(initialSites.length === 1 ? initialSites[0].id : '');
@@ -170,12 +178,12 @@ export default function AiLogAJobClient({
   const [unitNumber, setUnitNumber] = useState(prefillUnit || '');
 
   // ── Form State: Issue & Impact ──
-  const [category, setCategory] = useState('GENERAL_MAINTENANCE');
+  const [category, setCategory] = useState(prefillEquipment ? 'HVAC' : 'GENERAL_MAINTENANCE');
   const [impact, setImpact] = useState('NO_DISRUPTION');
   const [priority, setPriority] = useState<'P3_MEDIUM' | 'P2_HIGH' | 'P1_CRITICAL'>('P3_MEDIUM');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [equipmentDescription, setEquipmentDescription] = useState('');
+  const [title, setTitle] = useState(prefillTitle || '');
+  const [description, setDescription] = useState(prefillDescription || '');
+  const [equipmentDescription, setEquipmentDescription] = useState(prefillEquipment || '');
   const [selectedAssetId, setSelectedAssetId] = useState('');
 
   // ── Form State: Access ──
@@ -576,6 +584,19 @@ export default function AiLogAJobClient({
           </p>
         </div>
       </div>
+
+      {/* Asset Scanner Client Channel Notification */}
+      {sourceContext === 'asset-scanner' && (
+        <div className="mb-6 p-4 rounded-sm bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-xs text-emerald-900">
+          <Wrench className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          <div>
+            <span className="font-semibold block">Client Account Channel — Asset Scanner Intake</span>
+            <span className="text-emerald-700 font-light mt-0.5 block">
+              Equipment technical details have been pre-filled directly from your verified scan. This submission will be routed directly to your designated EntireFM account maintenance team rather than general sales.
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Hidden Mobile Camera & Video Inputs */}
       <input

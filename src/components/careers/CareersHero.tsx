@@ -117,7 +117,7 @@ export function CareersHero() {
                 NATIONAL PLATFORM
               </span>
               <span className="text-sm font-light text-white">
-                Regional Hubs Across London, Manchester &amp; Midlands
+                National Coverage Across London, Manchester &amp; Midlands
               </span>
             </div>
           </div>

@@ -15,7 +15,7 @@ const REGIONAL_HUBS: RegionalHubProgramme[] = [
     city: 'London & South East',
     region: 'Greater London & M25 Corridor',
     focusTheme: 'Corporate Head Offices, High-Rise Plantrooms, Life Safety & ESG Decarbonisation',
-    potentialVenues: 'ExCeL London · City of London Hubs · Central M25 Technical Facilities',
+    potentialVenues: 'ExCeL London · City of London Meeting Venues · Central M25 Technical Facilities',
   },
   {
     city: 'Manchester & North West',

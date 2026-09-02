@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
       biggestChallenge,
       technologyAdoptionLevel,
       sustainabilityTargetYear,
+      region,
       rawResponses,
     } = body;
 
@@ -51,6 +52,7 @@ export async function POST(request: NextRequest) {
       biggestChallenge,
       technologyAdoptionLevel,
       sustainabilityTargetYear: sustainabilityTargetYear || '2030',
+      region: region || null,
       rawResponses,
     });
 

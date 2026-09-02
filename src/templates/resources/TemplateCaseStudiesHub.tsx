@@ -29,11 +29,11 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'Case Studies', url: '/resources/case-studies' },
+    { name: 'Case Studies', url: '/case-studies' },
   ];
 
   return (
-    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-electric selection:text-white">
       <Header />
 
       <main id="main" className="flex-grow">

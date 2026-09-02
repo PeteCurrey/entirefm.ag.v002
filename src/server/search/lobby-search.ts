@@ -56,31 +56,31 @@ export function getKnowledgeGaps(): KnowledgeGap[] {
 // Pre-defined FM Tools index
 const FM_TOOLS_INDEX = [
   {
-    title: 'Asset Register Builder',
+    title: 'Plant & Asset Scanner',
     snippet: 'Generate an SFG20-aligned statutory asset schedule with full nameplate data capture.',
-    href: '/tools/asset-register-builder',
+    href: '/tools/asset-scanner',
     badge: 'FM Tool',
     keywords: ['asset register', 'sfg20', 'mobilisation', 'asset data', 'maintenance inventory'],
   },
   {
-    title: 'PPM Frequency & Runtime Calculator',
+    title: 'PPM Schedule Builder',
     snippet: 'Calculate duty cycle, SFG20 benchmark intervals, and optimal runtime maintenance triggers.',
-    href: '/tools/ppm-frequency-calculator',
+    href: '/tools/ppm-schedule-builder',
     badge: 'Calculator',
     keywords: ['ppm frequency', 'runtime', 'maintenance frequency', 'ahu', 'chiller', 'pumps'],
   },
   {
-    title: 'Statutory Compliance Matrix',
-    snippet: 'Master reference matrix of all 42 UK statutory building maintenance obligations.',
-    href: '/resources/commercial-fm-statutory-compliance-matrix',
-    badge: 'Checklist',
+    title: 'Statutory Compliance Framework',
+    snippet: 'Master reference matrix of all UK statutory building maintenance obligations.',
+    href: '/lobby/check',
+    badge: 'Directory',
     keywords: ['compliance matrix', 'statutory', 'fire doors', 'legionella', 'gas', 'electrical'],
   },
   {
     title: 'Water Hygiene Audit Checklist',
     snippet: 'Comprehensive ACOP L8 & HSG274 contractor audit and sampling verification checklist.',
-    href: '/resources/water-hygiene-audit-checklist',
-    badge: 'Checklist',
+    href: '/lobby/check',
+    badge: 'Compliance',
     keywords: ['water hygiene', 'legionella', 'acop l8', 'calorifier', 'sampling'],
   },
 ];

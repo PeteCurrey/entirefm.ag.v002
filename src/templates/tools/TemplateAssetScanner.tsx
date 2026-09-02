@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -54,6 +54,34 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [memberAuth, setMemberAuth] = useState<{ isAuthenticated: boolean; clientLinks: any[] }>({
+    isAuthenticated: false,
+    clientLinks: [],
+  });
+
+  useEffect(() => {
+    fetch('/api/member/me')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsLoggedIn(true);
+          setUserEmail(data.member?.email || '');
+          setMemberAuth({
+            isAuthenticated: true,
+            clientLinks: data.clientLinks || [],
+          });
+          if (data.member) {
+            setQuoteFormData((prev) => ({
+              ...prev,
+              name: data.member.displayName || `${data.member.firstName || ''} ${data.member.lastName || ''}`.trim(),
+              email: data.member.email || prev.email,
+              company: data.member.company || prev.company,
+            }));
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Quote / Enquiry Modal State
   const [showQuoteModal, setShowQuoteModal] = useState(false);
@@ -131,7 +159,6 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
           fileType,
           filename: file.name,
           base64Data: base64,
-          sessionId: `sess_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`,
         }),
       });
 
@@ -218,8 +245,23 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
     router.push(`/tools/ppm-schedule-builder?importScannedAsset=${targetAssetId}&quantity=1`);
   };
 
-  // CTA 2: Get a Quote for Managing This
+  // CTA 2: Get a Quote for Managing This (or Route to Client Desk for Client-Linked Accounts)
   const handleOpenQuoteModal = () => {
+    // If authenticated member has active client link: route to existing client channel (/log-a-job)
+    if (memberAuth.isAuthenticated && memberAuth.clientLinks.length > 0) {
+      const params = new URLSearchParams({
+        source: 'asset-scanner',
+        asset_type: result?.asset?.assetType || '',
+        manufacturer: result?.asset?.manufacturer || '',
+        model: result?.asset?.model || '',
+        serial: result?.asset?.serialNumber || '',
+        regime: result?.asset?.recommendedRegime?.taskRef || '',
+      });
+      router.push(`/log-a-job?${params.toString()}`);
+      return;
+    }
+
+    // Anonymous or Lobby-only users: keep existing cold enquiry lead modal
     if (result?.asset) {
       const assetDetails = [
         result.asset.assetType ? `Asset: ${result.asset.assetType}` : '',
@@ -563,10 +605,18 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
                     <button
                       type="button"
                       onClick={handleOpenQuoteModal}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-sm bg-white hover:bg-slate-100 border border-slate-300 text-slate-900 text-xs font-normal tracking-wider uppercase transition-colors"
+                      className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-sm border text-xs font-normal tracking-wider uppercase transition-colors ${
+                        memberAuth.isAuthenticated && memberAuth.clientLinks.length > 0
+                          ? 'bg-emerald-700 hover:bg-emerald-800 border-emerald-600 text-white shadow-sm'
+                          : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-900'
+                      }`}
                     >
-                      <span>Get a Quote for Managing This</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-600" />
+                      <span>
+                        {memberAuth.isAuthenticated && memberAuth.clientLinks.length > 0
+                          ? 'Raise as Service Request'
+                          : 'Get a Quote for Managing This'}
+                      </span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

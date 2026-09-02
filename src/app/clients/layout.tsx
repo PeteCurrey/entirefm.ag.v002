@@ -58,16 +58,19 @@ export default async function ClientsLayout({ children }: { children: React.Reac
         </div>
       )}
 
+      {/* Visual Distinction Accent: High-trust Client Environment Strip */}
+      <div className="h-1 bg-gradient-to-r from-emerald-500 via-brand-electric to-emerald-400" />
+
       {/* Main Client Top Navigation */}
-      <header className="border-b border-brand-edge-dark bg-brand-carbon/90 backdrop-blur-md sticky top-0 z-20">
+      <header className="border-b border-brand-edge-dark bg-brand-carbon/95 backdrop-blur-md sticky top-0 z-20 shadow-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <div className="flex items-center gap-4">
             <Link href="/clients" className="flex items-center gap-2.5">
               <span className="text-[16px] font-light tracking-tight text-white">
                 Entire<span className="font-light text-brand-electric">FM</span>
               </span>
-              <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-medium text-[10px] uppercase tracking-widest text-brand-mist/70">
-                Client Portal
+              <span className="rounded border border-emerald-500/40 bg-emerald-950/50 px-2 py-0.5 font-medium text-[10px] uppercase tracking-widest text-emerald-300">
+                Client Dashboard
               </span>
             </Link>
             <span className="rounded-full bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 font-normal text-[11px] text-brand-electric-bright">
@@ -79,6 +82,15 @@ export default async function ClientsLayout({ children }: { children: React.Reac
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4 text-[13px]">
+            {/* Quick Context Switch: Back to The Lobby */}
+            <Link
+              href="/lobby"
+              className="inline-flex items-center gap-1.5 rounded-sm border border-brand-edge-dark/80 bg-brand-void/60 px-2.5 sm:px-3 py-1.5 text-xs text-brand-mist/80 hover:text-white hover:border-brand-mist/40 transition-colors"
+              title="Switch to The Lobby Community & Intelligence"
+            >
+              <span>The Lobby ↗</span>
+            </Link>
+
             {/* Log a Job CTA matching header CTA design */}
             <Link
               href="/log-a-job"

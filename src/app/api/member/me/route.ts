@@ -15,6 +15,7 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     authenticated: true,
+    clientLinks: session.clientLinks || [],
     member: {
       id: member.id,
       displayName: member.display_name,

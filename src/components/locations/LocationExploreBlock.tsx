@@ -99,7 +99,7 @@ export function LocationExploreBlock({
             href={allLocationsHref}
             className="inline-flex items-center gap-1.5 text-xs font-normal uppercase tracking-wider text-slate-200 hover:text-brand-pink-light bg-slate-800 border border-slate-700 px-4 py-2.5 rounded-sm shadow-sm transition-colors whitespace-nowrap self-start sm:self-auto"
           >
-            <span>All UK Regional Hubs</span>
+            <span>All UK Service Regions</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

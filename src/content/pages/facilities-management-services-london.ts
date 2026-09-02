@@ -94,7 +94,7 @@ const record: ContentRecord = {
     },
     {
       "name": "SFG20 Planned Maintenance",
-      "description": "Tailored PPM schedules aligned with SFG20 task definitions to extend plant life and guarantee compliance.",
+      "description": "Tailored PPM schedules aligned with SFG20 task definitions to extend plant life and maintain statutory compliance.",
       "tag": "Asset Care"
     },
     {

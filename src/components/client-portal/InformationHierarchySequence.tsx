@@ -111,7 +111,7 @@ export function InformationHierarchySequence() {
             From National Estate to Plantroom Asset
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-            Move effortlessly between high-level executive portfolio governance and individual physical plantroom components without switching systems or losing operational context.
+            Transition directly between high-level portfolio governance and individual physical plantroom components without switching systems or losing operational context.
           </p>
         </div>
 

@@ -4,6 +4,8 @@ import { getPathBySlug } from '@/server/academy/academy-store';
 import { TemplateLearningPath } from '@/templates/academy/TemplateLearningPath';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata(
   props: { params: Promise<{ pathSlug: string }> }
 ): Promise<Metadata> {

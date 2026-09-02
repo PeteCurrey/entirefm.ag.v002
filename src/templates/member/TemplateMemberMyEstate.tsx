@@ -39,6 +39,8 @@ import {
   RefreshCw,
   Pencil,
   Info,
+  Briefcase,
+  Link2,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -253,6 +255,129 @@ export function TemplateMemberMyEstate() {
   const [bulkSending, setBulkSending] = useState(false);
   const [bulkResult, setBulkResult] = useState<string | null>(null);
 
+  // Client Portfolio Linkage State (Prompt 3)
+  const [clientLinkState, setClientLinkState] = useState<{
+    [assetId: string]: {
+      isLinked: boolean;
+      linkedClientAsset: any | null;
+      matches: any[];
+    };
+  }>({});
+
+  const [showManagedPortfolio, setShowManagedPortfolio] = useState(false);
+  const [managedPortfolio, setManagedPortfolio] = useState<{
+    hasClientLink: boolean;
+    clientOrgName?: string;
+    assets: any[];
+  }>({ hasClientLink: false, assets: [] });
+  const [loadingManagedPortfolio, setLoadingManagedPortfolio] = useState(false);
+
+  // Check matching client assets for plausible links
+  const checkAssetClientLinks = useCallback(async (assetList: AssetWithId[]) => {
+    for (const asset of assetList) {
+      try {
+        const query = new URLSearchParams({
+          estateAssetId: asset.id,
+          serialNumber: asset.serialNumber || '',
+          manufacturer: asset.manufacturer || '',
+          model: asset.model || '',
+          assetType: asset.assetType || '',
+        });
+        const res = await fetch(`/api/member/estate/client-link?${query.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setClientLinkState((prev) => ({
+              ...prev,
+              [asset.id]: {
+                isLinked: data.isLinked,
+                linkedClientAsset: data.linkedClientAsset,
+                matches: data.matches || [],
+              },
+            }));
+          }
+        }
+      } catch (err) {
+        console.error('Error checking client link for asset:', err);
+      }
+    }
+  }, []);
+
+  const handleConfirmLink = async (estateAssetId: string, clientAssetId: string) => {
+    try {
+      const res = await fetch('/api/member/estate/client-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'confirm', estateAssetId, clientAssetId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        const asset = assets.find((a) => a.id === estateAssetId);
+        if (asset) {
+          checkAssetClientLinks([asset]);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to confirm asset link:', err);
+    }
+  };
+
+  const handleDismissLink = async (estateAssetId: string, clientAssetId: string) => {
+    try {
+      await fetch('/api/member/estate/client-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'dismiss', estateAssetId, clientAssetId }),
+      });
+      setClientLinkState((prev) => ({
+        ...prev,
+        [estateAssetId]: {
+          ...(prev[estateAssetId] || { isLinked: false, linkedClientAsset: null, matches: [] }),
+          matches: (prev[estateAssetId]?.matches || []).filter((m) => m.clientAsset.id !== clientAssetId),
+        },
+      }));
+    } catch (err) {
+      console.error('Failed to dismiss asset suggestion:', err);
+    }
+  };
+
+  const handleUnlink = async (estateAssetId: string, clientAssetId: string) => {
+    try {
+      const res = await fetch('/api/member/estate/client-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'unlink', estateAssetId, clientAssetId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        const asset = assets.find((a) => a.id === estateAssetId);
+        if (asset) {
+          checkAssetClientLinks([asset]);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to unlink asset:', err);
+    }
+  };
+
+  const handleToggleManagedPortfolio = async () => {
+    if (!showManagedPortfolio && managedPortfolio.assets.length === 0) {
+      setLoadingManagedPortfolio(true);
+      try {
+        const res = await fetch('/api/member/estate/managed-portfolio');
+        const data = await res.json();
+        if (data.success) {
+          setManagedPortfolio(data);
+        }
+      } catch (err) {
+        console.error('Failed to load managed portfolio:', err);
+      } finally {
+        setLoadingManagedPortfolio(false);
+      }
+    }
+    setShowManagedPortfolio((prev) => !prev);
+  };
+
   // ── Auth + Asset Fetch ─────────────────────────────────────────────────────
 
   const fetchAssets = useCallback(async (bearerToken: string) => {
@@ -267,11 +392,14 @@ export function TemplateMemberMyEstate() {
         setFetchError(data.message || data.error || 'Failed to load estate assets');
         return;
       }
-      setAssets(data.assets as AssetWithId[]);
+      const loadedAssets = data.assets as AssetWithId[];
+      setAssets(loadedAssets);
+      // Run plausible matches against client portfolio
+      checkAssetClientLinks(loadedAssets);
     } catch {
       setFetchError('Network error loading your estate. Please try again.');
     }
-  }, []);
+  }, [checkAssetClientLinks]);
 
   useEffect(() => {
     // Retrieve the Supabase session token stored by the auth system
@@ -776,6 +904,61 @@ export function TemplateMemberMyEstate() {
                           </div>
                         )}
 
+                        {/* Prompt 3: Plausible Match Suggestion */}
+                        {clientLinkState[asset.id]?.matches?.length > 0 && (
+                          <div className="p-3 bg-emerald-50/90 border border-emerald-200 rounded-[6px] text-xs space-y-2">
+                            <div className="flex items-start gap-2">
+                              <Briefcase className="w-3.5 h-3.5 text-emerald-700 shrink-0 mt-0.5" />
+                              <div>
+                                <p className="font-medium text-emerald-900 text-[11.5px]">
+                                  Plausible Managed Asset Match
+                                </p>
+                                <p className="text-[11px] text-emerald-800 leading-snug mt-0.5 font-light">
+                                  Matches <span className="font-medium">{clientLinkState[asset.id].matches[0].clientAsset.name}</span> ({clientLinkState[asset.id].matches[0].matchReason}). Link to managed client portfolio?
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 pt-1">
+                              <button
+                                type="button"
+                                onClick={() => handleConfirmLink(asset.id, clientLinkState[asset.id].matches[0].clientAsset.id)}
+                                className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px] text-[10.5px] font-medium"
+                              >
+                                Link Asset
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDismissLink(asset.id, clientLinkState[asset.id].matches[0].clientAsset.id)}
+                                className="px-2 py-1 text-neutral-600 hover:text-neutral-900 rounded text-[10.5px]"
+                              >
+                                Dismiss
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Prompt 3: Confirmed Link with Authoritative Regime */}
+                        {clientLinkState[asset.id]?.isLinked && (
+                          <div className="p-2.5 bg-emerald-50 border border-emerald-300/80 rounded-[6px] text-xs space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium text-emerald-900 text-[11px] flex items-center gap-1">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                                Linked to Client Register
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleUnlink(asset.id, clientLinkState[asset.id].linkedClientAsset?.id)}
+                                className="text-[10px] text-rose-600 hover:underline"
+                              >
+                                Unlink
+                              </button>
+                            </div>
+                            <p className="text-[10.5px] text-emerald-800 font-light">
+                              Authoritative Regime: <strong>{clientLinkState[asset.id].linkedClientAsset?.metadata?.authoritativeRegime?.taskRef || 'SFG20-STAT-01'}</strong> ({clientLinkState[asset.id].linkedClientAsset?.metadata?.authoritativeRegime?.frequency || 'Quarterly'})
+                            </p>
+                          </div>
+                        )}
+
                         <Link
                           href={`/member/my-estate/${asset.id}`}
                           className="text-[11px] text-brand-electric hover:underline font-light flex items-center gap-1 mt-1"
@@ -788,36 +971,120 @@ export function TemplateMemberMyEstate() {
                     /* List view row */
                     <div
                       key={asset.id}
-                      className={`bg-white border rounded-[8px] shadow-sm px-5 py-4 flex items-center gap-4 ${cfg.cardBorder} ${isNeedsAttention ? 'border-l-4 border-l-amber-400' : ''} ${asset.status === 'failed' ? 'border-l-4 border-l-rose-400' : ''} ${isSelected ? 'ring-2 ring-brand-electric' : ''}`}
+                      className={`bg-white border rounded-[8px] shadow-sm px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${cfg.cardBorder} ${isNeedsAttention ? 'border-l-4 border-l-amber-400' : ''} ${asset.status === 'failed' ? 'border-l-4 border-l-rose-400' : ''} ${isSelected ? 'ring-2 ring-brand-electric' : ''}`}
                     >
-                      {selectionMode && (
-                        <button onClick={() => toggleSelect(asset.id)} className="shrink-0">
-                          {isSelected ? <CheckSquare className="w-4 h-4 text-brand-electric" /> : <Square className="w-4 h-4 text-neutral-300" />}
-                        </button>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-light text-neutral-900 truncate">
-                          {asset.assetType || <span className="text-neutral-400 italic">Unidentified</span>}
-                        </p>
-                        <p className="text-xs text-neutral-500 font-extralight">
-                          {[asset.manufacturer, asset.model].filter(Boolean).join(' · ') || 'No ID details'}
-                        </p>
-                      </div>
-                      <div className="hidden sm:flex items-center gap-2 shrink-0">
-                        <StatusBadge status={asset.status} />
-                        {asset.addedToPpmScheduleAt && (
-                          <span className="text-[10px] text-blue-600 font-extralight">PPM ✓</span>
+                      <div className="flex items-center gap-3">
+                        {selectionMode && (
+                          <button onClick={() => toggleSelect(asset.id)} className="shrink-0">
+                            {isSelected ? <CheckSquare className="w-4 h-4 text-brand-electric" /> : <Square className="w-4 h-4 text-neutral-300" />}
+                          </button>
                         )}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-light text-neutral-900 truncate">
+                            {asset.assetType || <span className="text-neutral-400 italic">Unidentified</span>}
+                          </p>
+                          <p className="text-xs text-neutral-500 font-extralight">
+                            {[asset.manufacturer, asset.model].filter(Boolean).join(' · ') || 'No ID details'}
+                          </p>
+                          {clientLinkState[asset.id]?.isLinked && (
+                            <span className="text-[10px] text-emerald-700 font-medium inline-flex items-center gap-1 mt-0.5">
+                              <CheckCircle2 className="w-3 h-3" /> Linked to Client Register
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      <Link
-                        href={`/member/my-estate/${asset.id}`}
-                        className="text-[11px] text-brand-electric hover:underline font-light shrink-0"
-                      >
-                        View <ArrowRight className="w-3 h-3 inline" />
-                      </Link>
+
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="hidden sm:flex items-center gap-2">
+                          <StatusBadge status={asset.status} />
+                          {asset.addedToPpmScheduleAt && (
+                            <span className="text-[10px] text-blue-600 font-extralight">PPM ✓</span>
+                          )}
+                        </div>
+                        <Link
+                          href={`/member/my-estate/${asset.id}`}
+                          className="text-[11px] text-brand-electric hover:underline font-light shrink-0"
+                        >
+                          View <ArrowRight className="w-3 h-3 inline" />
+                        </Link>
+                      </div>
                     </div>
                   );
                 })}
+              </div>
+            )}
+          </div>
+
+          {/* ── Managed Client Estate Read-Only Section (Prompt 3) ── */}
+          <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-100 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-emerald-600" />
+                  <h3 className="text-sm font-medium text-neutral-900">Your Managed Estate</h3>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Contracted Portfolio
+                  </span>
+                </div>
+                <p className="text-xs text-neutral-500 font-light mt-1">
+                  Authoritative client-side asset register managed under your EntireFM service agreement. Read-only view.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleToggleManagedPortfolio}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-neutral-300 hover:border-neutral-400 text-xs text-neutral-700 transition-colors"
+              >
+                {loadingManagedPortfolio ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-electric" />
+                ) : (
+                  <Link2 className="w-3.5 h-3.5 text-emerald-600" />
+                )}
+                <span>{showManagedPortfolio ? 'Hide Managed Portfolio' : 'View Managed Portfolio'}</span>
+              </button>
+            </div>
+
+            {showManagedPortfolio && (
+              <div className="pt-2">
+                {managedPortfolio.assets.length === 0 ? (
+                  <p className="text-xs text-neutral-500 font-light italic py-2">
+                    No active assets found in your client portfolio, or your account is in community-only mode.
+                  </p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs text-left">
+                      <thead>
+                        <tr className="border-b border-neutral-200 text-neutral-500 uppercase tracking-wider text-[10px]">
+                          <th className="py-2 pr-4 font-medium">Asset Name</th>
+                          <th className="py-2 pr-4 font-medium">Category</th>
+                          <th className="py-2 pr-4 font-medium">Serial Number</th>
+                          <th className="py-2 pr-4 font-medium">Manufacturer / Model</th>
+                          <th className="py-2 pr-4 font-medium">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-neutral-100 font-light text-neutral-800">
+                        {managedPortfolio.assets.map((item) => (
+                          <tr key={item.id} className="hover:bg-neutral-50/80">
+                            <td className="py-2.5 pr-4 font-normal text-neutral-900">{item.name}</td>
+                            <td className="py-2.5 pr-4">{item.category}</td>
+                            <td className="py-2.5 pr-4 font-mono text-[11px] text-neutral-600">
+                              {item.serial_number || '—'}
+                            </td>
+                            <td className="py-2.5 pr-4">
+                              {[item.manufacturer, item.model].filter(Boolean).join(' / ') || '—'}
+                            </td>
+                            <td className="py-2.5 pr-4">
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-medium">
+                                {item.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             )}
           </div>

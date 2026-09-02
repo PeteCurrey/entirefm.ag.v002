@@ -80,7 +80,9 @@
     "test:phase0m-ai-helpdesk": "tsx --env-file=.env.local scripts/test-phase0m-ai-helpdesk.ts",
     "test:role-portals": "tsx --env-file=.env.local scripts/test-role-portals-commissioning.ts",
     "test:job-lifecycle": "tsx --env-file=.env.local scripts/test-job-lifecycle-orchestration.ts",
-    "test:multimodal-log-a-job": "tsx --env-file=.env.local scripts/test-multimodal-log-a-job.ts"
+    "test:multimodal-log-a-job": "tsx --env-file=.env.local scripts/test-multimodal-log-a-job.ts",
+    "test:pulse-suppression": "tsx scripts/test-pulse-suppression.ts",
+    "test:pulse-pipeline": "tsx --env-file=.env.local scripts/test-pulse-pipeline.ts"
   },
   "dependencies": {
     "@mkkellogg/gaussian-splats-3d": "^0.4.7",

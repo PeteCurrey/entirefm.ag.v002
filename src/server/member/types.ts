@@ -132,12 +132,24 @@ export type PublicMemberProfile = Pick<
   | 'directory_opt_in'
 >;
 
+export interface ClientLinkSummary {
+  linkId: string;
+  clientAccountId: string;
+  clientOrgName: string;
+  roleCode: string;
+  status: 'ACTIVE' | 'SUSPENDED' | 'REVOKED';
+  linkedAt: string;
+}
+
 export interface MemberSession {
   memberId: string;
+  authUserId?: string;
   email: string;
   username: string;
   displayName: string;
   status: MemberStatus;
   avatarUrl?: string;
+  clientLinks: ClientLinkSummary[];
   expiresAt: number;
 }
+

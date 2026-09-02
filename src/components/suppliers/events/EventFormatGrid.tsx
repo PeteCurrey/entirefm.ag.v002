@@ -38,7 +38,7 @@ const FORMATS: EventFormat[] = [
     discipline: 'OEM & FACTORY SESSIONS',
     description: 'Factory-backed technical briefings with major building systems OEMs covering plant efficiency, refrigerant transitions, BMS controls, and lifecycle maintenance.',
     typicalAudience: 'HVAC & M&E contractors, plant engineers, sustainability managers',
-    exampleTopic: 'Next-generation low-GWP refrigerants & heat pump controls in commercial plant',
+    exampleTopic: 'Low-GWP refrigerants & heat pump controls in commercial plant',
     icon: Cpu,
   },
   {

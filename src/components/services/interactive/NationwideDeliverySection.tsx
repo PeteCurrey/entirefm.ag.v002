@@ -16,7 +16,7 @@ const HUBS: RegionalHub[] = [
   { city: 'Manchester', region: 'North West & M62 Corridor', href: '/fm-manchester', focus: 'Logistics, media city portfolios & manufacturing plants' },
   { city: 'Birmingham', region: 'Midlands & Central', href: '/fm-birmingham', focus: 'Colmore business district, industrial units & public estates' },
   { city: 'Leeds', region: 'Yorkshire & North East', href: '/fm-leeds', focus: 'Financial offices, Aire Valley distribution & mixed-use assets' },
-  { city: 'Sheffield', region: 'South Yorkshire & Humber', href: '/fm-sheffield', focus: 'Advanced manufacturing, engineering hubs & retail parks' },
+  { city: 'Sheffield', region: 'South Yorkshire & Humber', href: '/fm-sheffield', focus: 'Advanced manufacturing, engineering clusters & retail parks' },
   { city: 'Lincoln', region: 'East Midlands & Agricultural', href: '/facilities-management-lincoln', focus: 'Food manufacturing, listed property fabric & logistics' },
 ];
 
@@ -45,13 +45,13 @@ export function NationwideDeliverySection() {
                 href="/locations"
                 className="btn-outline text-xs py-2.5 px-4 inline-flex items-center gap-2"
               >
-                <span>View All 20+ Regional Hubs</span>
+                <span>View All 20+ Service Regions</span>
                 <ArrowRight className="w-3.5 h-3.5 text-brand-pink" />
               </Link>
             </div>
           </div>
 
-          {/* Right Column / City Hub Cards */}
+          {/* Right Column / City Region Cards */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {HUBS.map((hub) => (
               <Link
@@ -65,7 +65,7 @@ export function NationwideDeliverySection() {
                       {hub.city}
                     </h3>
                     <span className="text-[10px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200 uppercase">
-                      Active Hub
+                      Active Region
                     </span>
                   </div>
                   <span className="text-[11px] text-slate-400 block font-light">
@@ -77,7 +77,7 @@ export function NationwideDeliverySection() {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-pink transition-colors">
-                  <span>Explore {hub.city} Hub</span>
+                  <span>Explore {hub.city} Coverage</span>
                   <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-brand-pink" />
                 </div>
               </Link>

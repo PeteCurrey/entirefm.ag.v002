@@ -538,7 +538,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'rooftop-plant-night',
     sections: [
       {
-        body: 'A common claim in facilities technology marketing is that AI predictive maintenance (PdM) makes Planned Preventative Maintenance (PPM) obsolete. In commercial real estate, this claim collapses upon contact with UK statutory legislation and mechanical reality. Predictive maintenance does not replace PPM; it supercharges intervention timing on high-criticality assets while standard PPM protects life safety and building fabric.',
+        body: 'A common claim in facilities technology marketing is that AI predictive maintenance (PdM) makes Planned Preventative Maintenance (PPM) obsolete. In commercial real estate, this claim collapses upon contact with UK statutory legislation and mechanical reality. Predictive maintenance does not replace PPM; it refines intervention timing on high-criticality assets while standard PPM protects life safety and building fabric.',
       },
       {
         heading: 'The fundamental difference in methodology',
@@ -708,7 +708,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'The shift from passive storage to active assistance',
-        body: 'Next-generation AI-powered CAFM systems fundamentally alter this dynamic by introducing active background reasoning:',
+        body: 'Modern CAFM systems with integrated telemetry and automated work-order dispatch fundamentally alter this dynamic by introducing active background reasoning:',
         bullets: [
           'Conversational querying: Allowing property managers to ask plain questions ("Which plantrooms have overdue statutory inspections across the North West?") without building complex SQL reports.',
           'Predictive work order generation: Automatically drafting remedial job packages when multiple minor sensor anomalies cluster around a specific mechanical system.',
@@ -1038,7 +1038,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     related: [
       '/hard-services',
-      '/commercial-cleaning-services',
+      '/cleaning-services',
       '/facilities-management-glossary',
       '/compliance',
     ],

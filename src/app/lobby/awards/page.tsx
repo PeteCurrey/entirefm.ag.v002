@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'Independent directory of UK facilities management awards, entry submission windows, shortlists, and ceremony benchmarks.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function LobbyAwardsPage() {
   const { awards } = await getIndustryAwards({ limit: 50 });
   const closingSoon = await getClosingSoonAwards();

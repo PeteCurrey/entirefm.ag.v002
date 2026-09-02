@@ -167,7 +167,7 @@ export class AskTheLobbyEngine {
         type: 'tool',
         title: 'Commercial Mobilisation Matrix',
         description: 'Interactive checklist for contractor onboarding and asset register verification.',
-        url: '/lobby/tools/mobilisation-matrix',
+        url: '/lobby/do',
         badge: 'Free Tool',
       });
     }
@@ -177,7 +177,7 @@ export class AskTheLobbyEngine {
         type: 'tool',
         title: 'PPM Schedule Builder',
         description: 'Plan SFG20-aligned maintenance frequencies and statutory tasks.',
-        url: '/lobby/tools/ppm-schedule-builder',
+        url: '/tools/ppm-schedule-builder',
         badge: 'Interactive Tool',
       });
     }

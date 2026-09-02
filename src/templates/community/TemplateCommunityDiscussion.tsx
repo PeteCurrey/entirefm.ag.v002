@@ -500,25 +500,25 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
 
                 <div className="space-y-2 pt-2">
                   <Link
-                    href="/tools/asset-register-builder"
+                    href="/tools/asset-scanner"
                     className="group block p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-xs"
                   >
                     <span className="font-semibold text-white group-hover:text-brand-electric flex items-center justify-between">
-                      Asset Register Builder
+                      Plant & Asset Scanner
                       <ArrowRight className="w-3 h-3 text-brand-silver group-hover:text-brand-electric" />
                     </span>
                     <p className="text-brand-silver mt-1">Generate an SFG20-aligned statutory asset schedule with full nameplate capture.</p>
                   </Link>
 
                   <Link
-                    href="/resources/commercial-fm-statutory-compliance-matrix"
+                    href="/lobby/check"
                     className="group block p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-xs"
                   >
                     <span className="font-semibold text-white group-hover:text-brand-electric flex items-center justify-between">
-                      Statutory Compliance Matrix
+                      Statutory Compliance Directory
                       <ArrowRight className="w-3 h-3 text-brand-silver group-hover:text-brand-electric" />
                     </span>
-                    <p className="text-brand-silver mt-1">Master checklist of all 42 UK statutory building maintenance obligations.</p>
+                    <p className="text-brand-silver mt-1">Master framework of all UK statutory building maintenance obligations.</p>
                   </Link>
                 </div>
               </div>
