@@ -180,7 +180,7 @@ export function TemplateHome() {
 
         {/* First full-bleed break — the engineering reality behind the services. */}
         <FullBleedFeature
-          imageKey="distribution-board-testing"
+          imageKey="birmingham-work-behind-contract"
           eyebrow="Engineering"
           title="The work behind the contract"
           body="Facilities management is only as good as the engineering underneath it. Ours is delivered by qualified engineers working to defined task specifications, with the evidence recorded against the asset rather than against the invoice."

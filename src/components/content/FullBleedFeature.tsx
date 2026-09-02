@@ -35,7 +35,9 @@ type EditorialManifest = {
 const IMAGES = (editorial as EditorialManifest).editorial ?? {};
 
 interface FullBleedFeatureProps {
-  imageKey: string;
+  imageKey?: string;
+  imageSrc?: string;
+  imageAlt?: string;
   eyebrow: string;
   title: string;
   body: string;
@@ -50,6 +52,8 @@ interface FullBleedFeatureProps {
 
 export function FullBleedFeature({
   imageKey,
+  imageSrc,
+  imageAlt,
   eyebrow,
   title,
   body,
@@ -63,7 +67,11 @@ export function FullBleedFeature({
   const layerRef = useRef<HTMLDivElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
 
-  const image = IMAGES[imageKey];
+  const image = imageSrc
+    ? { src: imageSrc, alt: imageAlt || title }
+    : imageKey
+    ? IMAGES[imageKey]
+    : null;
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
