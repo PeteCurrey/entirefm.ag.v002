@@ -7,9 +7,10 @@
  */
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
+import { dbQuery } from '@/server/db/client';
+import { ContractorHeader } from '@/components/contractor/ContractorHeader';
 
 export const metadata: Metadata = {
   title: { absolute: 'Contractor Portal — EntireFM' },
@@ -27,107 +28,106 @@ export default async function ContractorLayout({ children }: { children: React.R
 
   const isViewAs = !!session.viewAsContext?.isViewAs;
 
-  // APPROVED suppliers (graduated from application stage) may access /contractor.
+  // APPROVED suppliers (graduated from application stage) or CONTRACTOR sessions may access /contractor.
   // Unapproved suppliers are still in the application lifecycle → /supplier-portal.
-  if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+  if (session.orgType !== 'CONTRACTOR' && !isViewAs && session.orgType !== 'ENTIREFM') {
     if ((session.orgType as string) === 'SUPPLIER') {
-      // Check if this supplier has been approved — if so, allow /contractor access
-      const { getSupplierUserByAuthId, getSupplierOrganisationById } = await import(
+      const { getSupplierUserByAuthId, getSupplierOrganisationById, getSupplierOrganisationByOwnerId } = await import(
         '@/server/suppliers/supplier-auth-store'
       );
       const authUserId = session.personId || session.authUserId || '';
-      const supplierUser = await getSupplierUserByAuthId(authUserId);
-      const supplierOrg = supplierUser?.organisation_id
+      let supplierUser = await getSupplierUserByAuthId(authUserId);
+      let supplierOrg = supplierUser?.organisation_id
         ? await getSupplierOrganisationById(supplierUser.organisation_id)
         : null;
+
+      if (!supplierOrg) {
+        supplierOrg = await getSupplierOrganisationByOwnerId(authUserId);
+      }
+
       const isApprovedSupplier = supplierOrg?.lifecycleStatus === 'APPROVED';
 
       if (!isApprovedSupplier) {
-        // Still in application stage — send to application portal with explanation
         redirect('/supplier-portal?notice=under_review');
       }
-      // Approved — fall through to render contractor portal
     } else {
       redirect('/login?error=forbidden_contractor');
     }
   }
 
+  // ── Authoritative Contractor Organisation Identity Resolution ──────────────
+  const authUserId = session.personId || session.authUserId || '';
+  let legalName = session.orgName || 'Contractor Organisation';
+  let tradingName = '';
+  let companyNumber = '';
+  let orgStatus = 'APPROVED';
 
+  try {
+    // 1. Check supplier_organisations by orgId or owner_id
+    const { getSupplierOrganisationById, getSupplierOrganisationByOwnerId } = await import(
+      '@/server/suppliers/supplier-auth-store'
+    );
+    let sOrg = session.orgId ? await getSupplierOrganisationById(session.orgId) : null;
+    if (!sOrg && authUserId) {
+      sOrg = await getSupplierOrganisationByOwnerId(authUserId);
+    }
 
-  const navLinks = [
-    { name: 'Dashboard', href: '/contractor' },
-    { name: 'Work Queue', href: '/contractor/work' },
-    { name: 'Job Packs', href: '/contractor/job-packs' },
-    { name: 'Customers', href: '/contractor/customers' },
-    { name: 'Business Documents', href: '/contractor/templates' },
-    { name: 'Workforce & Matrix', href: '/contractor/workforce' },
-    { name: 'Compliance', href: '/contractor/compliance' },
-    { name: 'Intelligence', href: '/contractor/intelligence' },
-    { name: 'Document Vault', href: '/contractor/documents' },
-    { name: 'RAMS & Safety', href: '/contractor/rams' },
-    { name: 'Forms', href: '/contractor/forms' },
-    { name: 'Performance', href: '/contractor/performance' },
-    { name: 'Calculators & Tools', href: '/contractor/tools' },
-    { name: 'Benefits', href: '/contractor/benefits' },
-    { name: 'Schedule', href: '/contractor/schedule' },
-    { name: 'Commercial', href: '/contractor/commercial' },
-    { name: 'Company Profile', href: '/contractor/profile' },
-    { name: 'Settings', href: '/contractor/settings' },
-  ];
+    if (sOrg) {
+      legalName = sOrg.legalName || legalName;
+      tradingName = sOrg.tradingName || '';
+      companyNumber = sOrg.companyNumber || '';
+      orgStatus = sOrg.lifecycleStatus || 'APPROVED';
+    } else if (session.orgId) {
+      // 2. Check enterprise organisations table
+      const { data: dbOrgs } = await dbQuery<any[]>(
+        `organisations?id=eq.${encodeURIComponent(session.orgId)}&select=name,legal_name,company_number,status&limit=1`
+      );
+      if (dbOrgs && dbOrgs.length > 0) {
+        const row = dbOrgs[0];
+        legalName = row.legal_name || row.name || legalName;
+        tradingName = row.name && row.name !== row.legal_name ? row.name : '';
+        companyNumber = row.company_number || '';
+        orgStatus = row.status || 'APPROVED';
+      }
+    }
+  } catch (err) {
+    console.warn('[CONTRACTOR_LAYOUT] Organisation resolution fallback to session metadata', err);
+  }
+
+  const shortDisplayName = tradingName || legalName || 'Contractor';
+  const fullDisplayName =
+    tradingName && tradingName !== legalName
+      ? `${legalName} t/a ${tradingName}`
+      : legalName;
+
+  const contractorOrg = {
+    id: session.orgId,
+    legalName,
+    tradingName: tradingName || shortDisplayName,
+    companyNumber,
+    status: orgStatus,
+    fullDisplayName,
+    shortDisplayName,
+  };
+
+  const user = {
+    name: session.name || session.email || 'Contractor User',
+    email: session.email || '',
+  };
 
   return (
-    <div className="min-h-screen bg-brand-void text-brand-mist selection:bg-brand-electric selection:text-white">
-      {/* Audited View-As Banner */}
-      {isViewAs && (
-        <div className="bg-amber-500/20 border-b border-amber-500/30 px-6 py-2 text-center text-[12px] font-normal text-amber-300">
-          ⚠️ AUDITED SUPPORT VIEW-AS: {session.orgName} · Operator: {session.viewAsContext?.operatorEmail}
-        </div>
-      )}
+    <div className="min-h-screen bg-[#FAFAF8] text-[#111111] font-sans selection:bg-[#EA580C] selection:text-white flex flex-col">
+      <ContractorHeader
+        user={user}
+        contractorOrg={contractorOrg}
+        isViewAs={isViewAs}
+        operatorEmail={session.viewAsContext?.operatorEmail}
+      />
 
-      {/* Main Navigation */}
-      <header className="border-b border-brand-edge-dark bg-brand-carbon/90 backdrop-blur-md sticky top-0 z-20">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <div className="flex items-center gap-4">
-            <Link href="/contractor" className="flex items-center gap-2.5">
-              <span className="text-[16px] font-light tracking-tight text-white">
-                Entire<span className="font-light text-brand-electric">FM</span>
-              </span>
-              <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-medium text-[10px] uppercase tracking-widest text-brand-mist/70">
-                Contractor
-              </span>
-            </Link>
-            <span className="rounded-full bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 font-normal text-[11px] text-brand-electric-bright">
-              {session.orgName}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[13px]">
-            <span className="hidden md:inline text-brand-mist/70">
-              {session.name} <span className="font-normal text-[11px] text-brand-mist/40">({session.role})</span>
-            </span>
-            <form action="/api/auth/logout" method="post">
-              <button type="submit" className="rounded border border-brand-edge-dark px-3 py-1 text-[12px] text-brand-mist hover:bg-brand-void hover:text-white transition-colors">
-                Sign Out
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Secondary Nav */}
-        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-6 py-2 border-t border-brand-edge-dark/40">
-          {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded px-3 py-1.5 text-[12.5px] font-normal text-brand-mist/70 hover:bg-brand-void hover:text-white transition-colors whitespace-nowrap"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {children}
+      </main>
     </div>
   );
 }
+

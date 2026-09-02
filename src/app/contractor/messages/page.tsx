@@ -18,10 +18,10 @@ export default async function ContractorMessagesPage() {
   const messageThreads = threads || [];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-extralight text-white tracking-tight">Operational Communications</h1>
-        <p className="text-brand-mist text-sm mt-1">
+    <div className="space-y-6 font-sans">
+      <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 shadow-xs">
+        <h1 className="text-2xl font-semibold text-[#111111] tracking-tight">Operational Communications</h1>
+        <p className="text-[#6D6D68] text-xs mt-1 leading-relaxed">
           Unified communications linked to work orders, dispatch enquiries, and technical queries.
         </p>
       </div>
@@ -37,17 +37,17 @@ export default async function ContractorMessagesPage() {
           {messageThreads.map(thread => (
             <div
               key={thread.id}
-              className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2 hover:border-brand-edge transition-colors"
+              className="bg-[#FFFFFF] border border-[#E8E8E5] rounded-[8px] p-5 space-y-2 hover:border-[#D4D4D0] transition-colors shadow-xs"
             >
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-light text-white">{thread.subject || 'Dispatch Communication'}</h2>
-                <span className="text-xs text-brand-mist flex items-center gap-1 font-normal">
-                  <Clock className="w-3.5 h-3.5" />
+                <h2 className="text-sm font-semibold text-[#111111]">{thread.subject || 'Dispatch Communication'}</h2>
+                <span className="text-[11.5px] text-[#6D6D68] flex items-center gap-1 font-normal">
+                  <Clock className="w-3.5 h-3.5 text-[#9A9A95]" />
                   {new Date(thread.updated_at || thread.created_at).toLocaleDateString('en-GB')}
                 </span>
               </div>
-              <p className="text-xs text-brand-mist font-normal">
-                Thread: {thread.id.slice(0, 8)} {thread.work_order_id ? `| Work Order: WO-${thread.work_order_id.slice(0, 8)}` : ''}
+              <p className="text-xs text-[#6D6D68] font-normal">
+                Thread: <span className="font-mono">{thread.id.slice(0, 8)}</span> {thread.work_order_id ? `| Work Order: WO-${thread.work_order_id.slice(0, 8)}` : ''}
               </p>
             </div>
           ))}

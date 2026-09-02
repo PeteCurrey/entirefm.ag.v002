@@ -60,18 +60,18 @@ export default async function ContractorBenefitsPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 font-sans">
       {/* Header */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 space-y-2 shadow-xl">
+      <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 sm:p-7 space-y-1.5 shadow-xs">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
+          <span className="text-[10px] uppercase tracking-wider text-[#EA580C] font-bold">
             SUPPLY CHAIN COMMERCIAL PROGRAMME
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl font-semibold text-[#111111] tracking-tight">
           Contractor Benefits &amp; Commercial Partnerships
         </h1>
-        <p className="text-sm text-brand-mist/70 max-w-2xl font-light">
+        <p className="text-xs text-[#6D6D68] max-w-2xl font-normal leading-relaxed">
           Leveraging EntireFM’s national procurement scale to provide approved supply chain partners with commercial discounts, trade merchant terms, and subsidised training.
         </p>
       </div>
@@ -83,26 +83,26 @@ export default async function ContractorBenefitsPage() {
           return (
             <div
               key={item.title}
-              className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4 flex flex-col justify-between"
+              className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 space-y-4 flex flex-col justify-between shadow-xs"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-lg bg-brand-electric/10 text-brand-electric flex items-center justify-center">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-[6px] bg-[#FFF7ED] text-[#EA580C] flex items-center justify-center">
+                    <Icon className="w-4 h-4" />
                   </div>
-                  <span className="text-[9.5px] font-normal text-brand-mist/50 bg-brand-void px-2 py-0.5 rounded border border-brand-edge-dark">
+                  <span className="text-[9.5px] font-semibold text-[#6D6D68] bg-[#FAFAF8] px-2 py-0.5 rounded-[4px] border border-[#E8E8E5]">
                     {item.status}
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-base font-normal text-white">{item.title}</h3>
-                  <p className="text-xs text-brand-mist/60 font-light mt-1 leading-relaxed">
+                  <h3 className="text-sm font-semibold text-[#111111]">{item.title}</h3>
+                  <p className="text-xs text-[#6D6D68] font-normal mt-1 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-brand-edge-dark/40 text-[11px] font-normal text-brand-electric-bright">
+              <div className="pt-3 border-t border-[#E8E8E5] text-[11.5px] font-medium text-[#EA580C]">
                 Available to all approved network contractors &rarr;
               </div>
             </div>

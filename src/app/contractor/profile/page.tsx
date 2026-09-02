@@ -33,62 +33,83 @@ export default async function ContractorProfilePage() {
   }
 
   const orgId = session.orgId;
+  const authUserId = session.personId || session.authUserId || '';
 
   const [orgRes, draftRes] = await Promise.all([
     dbQuery<any[]>(`supplier_organisations?id=eq.${encodeURIComponent(orgId)}&select=*`),
     dbQuery<any[]>(`supplier_application_drafts?org_id=eq.${encodeURIComponent(orgId)}&select=*`),
   ]);
 
-  const org = orgRes.data?.[0] || {};
-  const draft = draftRes.data?.[0] || {};
+  let org = orgRes.data?.[0] || {};
+  let draft = draftRes.data?.[0] || {};
 
-  const legalName = org.legal_name || draft.legal_company_name || session.orgName || 'Contractor Organisation';
-  const companyNumber = org.company_number || draft.company_number || '12345678';
-  const vatNumber = org.vat_number || draft.vat_number || 'GB 987 6543 21';
-  const trades: string[] = Array.isArray(draft.selected_services) ? draft.selected_services : ['Mechanical & Electrical', 'HVAC'];
-  const regions: string[] = Array.isArray(draft.selected_regions) ? draft.selected_regions : ['North West', 'Yorkshire', 'Midlands'];
+  if (!org.id && authUserId) {
+    const { getSupplierOrganisationByOwnerId, getApplicationDraft } = await import(
+      '@/server/suppliers/supplier-auth-store'
+    );
+    const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+    if (ownedOrg) {
+      org = ownedOrg;
+      const d = await getApplicationDraft(ownedOrg.id);
+      if (d) draft = d;
+    }
+  }
 
-  // Profile completeness calculation (distinct from compliance!)
+  const legalName = org.legal_name || org.legalName || draft.legal_company_name || draft.legalCompanyName || session.orgName || 'Contractor Organisation';
+  const tradingName = org.trading_name || org.tradingName || draft.trading_name || draft.tradingName || '';
+  const companyNumber = org.company_number || org.companyNumber || draft.company_number || draft.companyNumber || '12345678';
+  const vatNumber = org.vat_number || org.vatNumber || draft.vat_number || draft.vatNumber || '—';
+  const trades: string[] = Array.isArray(draft.selected_services) ? draft.selected_services : Array.isArray(draft.selectedServices) ? draft.selectedServices : ['Mechanical & Electrical', 'HVAC'];
+  const regions: string[] = Array.isArray(draft.selected_regions) ? draft.selected_regions : Array.isArray(draft.selectedRegions) ? draft.selectedRegions : ['North West', 'Yorkshire', 'Midlands'];
+
+  // Profile completeness calculation
   let completenessFieldsFilled = 0;
   const totalProfileFields = 8;
   if (legalName) completenessFieldsFilled++;
   if (companyNumber) completenessFieldsFilled++;
-  if (vatNumber) completenessFieldsFilled++;
-  if (draft.main_phone || draft.primary_contact_phone) completenessFieldsFilled++;
-  if (draft.general_email || draft.primary_contact_email) completenessFieldsFilled++;
+  if (vatNumber && vatNumber !== '—') completenessFieldsFilled++;
+  if (draft.main_phone || draft.primary_contact_phone || draft.primaryContactPhone) completenessFieldsFilled++;
+  if (draft.general_email || draft.primary_contact_email || draft.primaryContactEmail) completenessFieldsFilled++;
   if (trades.length > 0) completenessFieldsFilled++;
   if (regions.length > 0) completenessFieldsFilled++;
-  if (draft.trading_address) completenessFieldsFilled++;
+  if (draft.trading_address || draft.tradingAddress) completenessFieldsFilled++;
 
   const profileCompletenessPct = Math.round((completenessFieldsFilled / totalProfileFields) * 100);
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
-        <div className="space-y-2">
+    <div className="space-y-6 font-sans">
+      {/* Executive Header */}
+      <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 sm:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xs">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
+            <span className="text-[10px] uppercase tracking-wider text-[#EA580C] font-bold">
               VERIFIED PARTNER PROFILE
             </span>
-            <span className="text-[11px] font-normal px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-[10.5px] font-semibold px-2 py-0.5 rounded-[4px] bg-[#F0FDF4] text-[#15803D] border border-[#BBF7D0]">
               ACTIVE PROVIDER
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{legalName}</h1>
-          <p className="text-xs text-brand-mist/70 font-normal">
-            Company No: {companyNumber} &bull; VAT: {vatNumber}
+          <h1 className="text-2xl font-semibold text-[#111111] tracking-tight">
+            {legalName}
+          </h1>
+          {tradingName && tradingName !== legalName && (
+            <p className="text-xs text-[#6D6D68] font-normal">
+              Trading as <strong className="text-[#111111] font-medium">{tradingName}</strong>
+            </p>
+          )}
+          <p className="text-[11.5px] text-[#9A9A95] font-normal">
+            Company No: <span className="font-mono text-[#111111]">{companyNumber}</span> &bull; VAT: <span className="font-mono text-[#111111]">{vatNumber}</span>
           </p>
         </div>
 
         {/* Profile Completeness Gauge */}
-        <div className="p-4 rounded-xl bg-brand-void/60 border border-brand-edge-dark flex items-center gap-4 shrink-0">
+        <div className="p-4 rounded-[6px] bg-[#FAFAF8] border border-[#E8E8E5] flex items-center gap-4 shrink-0">
           <div>
-            <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Profile Completeness</span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#6D6D68] block">Profile Completeness</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-3xl font-light text-white">{profileCompletenessPct}%</span>
+              <span className="text-2xl font-semibold text-[#111111]">{profileCompletenessPct}%</span>
             </div>
-            <span className="text-[10.5px] font-normal text-emerald-400/80 block mt-0.5">
+            <span className="text-[11px] font-medium text-[#15803D] block mt-0.5">
               {completenessFieldsFilled} of {totalProfileFields} sections complete
             </span>
           </div>
@@ -98,55 +119,55 @@ export default async function ContractorProfilePage() {
       {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Company Registration Details */}
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-          <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-brand-electric" />
+        <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 space-y-4 shadow-xs">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-[#EA580C]" />
             Corporate &amp; Registration Data
           </h3>
 
           <div className="grid grid-cols-2 gap-4 text-xs">
             <div>
-              <span className="text-brand-mist/50 block">Legal Entity Name</span>
-              <span className="text-white font-normal mt-0.5 block">{legalName}</span>
+              <span className="text-[#6D6D68] block">Legal Entity Name</span>
+              <span className="text-[#111111] font-medium mt-0.5 block">{legalName}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Trading Name</span>
-              <span className="text-white font-normal mt-0.5 block">{org.trading_name || '—'}</span>
+              <span className="text-[#6D6D68] block">Trading Name</span>
+              <span className="text-[#111111] font-medium mt-0.5 block">{tradingName || '—'}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Companies House No.</span>
-              <span className="text-white font-normal mt-0.5 block">{companyNumber}</span>
+              <span className="text-[#6D6D68] block">Companies House No.</span>
+              <span className="text-[#111111] font-mono font-medium mt-0.5 block">{companyNumber}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">VAT Registration</span>
-              <span className="text-white font-normal mt-0.5 block">{vatNumber}</span>
+              <span className="text-[#6D6D68] block">VAT Registration</span>
+              <span className="text-[#111111] font-mono font-medium mt-0.5 block">{vatNumber}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Business Structure</span>
-              <span className="text-white mt-0.5 block">{draft.business_type || 'Private Limited Company (Ltd)'}</span>
+              <span className="text-[#6D6D68] block">Business Structure</span>
+              <span className="text-[#111111] mt-0.5 block">{draft.business_type || draft.businessType || 'Private Limited Company (Ltd)'}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Years Established</span>
-              <span className="text-white font-normal mt-0.5 block">{draft.year_established || '2018'}</span>
+              <span className="text-[#6D6D68] block">Years Established</span>
+              <span className="text-[#111111] font-medium mt-0.5 block">{draft.year_established || draft.yearEstablished || '2018'}</span>
             </div>
           </div>
         </div>
 
         {/* Operational Scope & Regions */}
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-          <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-brand-electric" />
+        <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 space-y-4 shadow-xs">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#EA580C]" />
             Geographic Coverage &amp; Delivery
           </h3>
 
           <div className="space-y-3 text-xs">
             <div>
-              <span className="text-brand-mist/50 block mb-1.5">Approved Service Regions</span>
+              <span className="text-[#6D6D68] block mb-1.5 font-medium">Approved Service Regions</span>
               <div className="flex flex-wrap gap-1.5">
                 {regions.map((reg) => (
                   <span
                     key={reg}
-                    className="px-2.5 py-1 rounded bg-brand-void border border-brand-edge-dark text-white font-light"
+                    className="px-2.5 py-1 rounded-[4px] bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] font-medium text-[11px]"
                   >
                     {reg}
                   </span>
@@ -154,15 +175,15 @@ export default async function ContractorProfilePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-brand-edge-dark/40">
+            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-[#E8E8E5]">
               <div>
-                <span className="text-brand-mist/50 block">Coverage Model</span>
-                <span className="text-white font-normal mt-0.5 block">{draft.coverage_type || 'REGIONAL'}</span>
+                <span className="text-[#6D6D68] block">Coverage Model</span>
+                <span className="text-[#111111] font-medium mt-0.5 block">{draft.coverage_type || draft.coverageType || 'REGIONAL'}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Emergency 24/7 Coverage</span>
-                <span className="text-emerald-400 font-normal mt-0.5 block">
-                  {draft.has_247 ? 'ACTIVE (24/7/365)' : 'STANDARD HOURS'}
+                <span className="text-[#6D6D68] block">Emergency 24/7 Coverage</span>
+                <span className="text-[#15803D] font-medium mt-0.5 block">
+                  {draft.has_247 || draft.has247 ? 'ACTIVE (24/7/365)' : 'STANDARD HOURS'}
                 </span>
               </div>
             </div>
