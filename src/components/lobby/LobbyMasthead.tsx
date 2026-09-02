@@ -30,8 +30,8 @@ export function LobbyMasthead() {
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/lobby/entirefm-lobby-hero.jpg"
-          alt="EntireFM Headquarters architectural entrance and illuminated reception lobby"
+          src="/images/lobby/entirefm-lobby-hero.webp"
+          alt="EntireFM corporate headquarters illuminated reception lobby and meeting lounge"
           fill
           priority
           sizes="100vw"

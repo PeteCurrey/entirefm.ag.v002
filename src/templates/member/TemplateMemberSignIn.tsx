@@ -223,8 +223,8 @@ export function TemplateMemberSignIn() {
   return (
     <AuthSplitLayout
       activeRoute="sign-in"
-      imageSrc="/images/editorial/entirefm-rooftop-plant-night-1200w.webp"
-      imageAlt="Commercial rooftop plant room and skyline at dusk"
+      imageSrc="/images/auth/entirefm-signin-bg.webp"
+      imageAlt="EntireFM corporate headquarters reception and architectural entrance lobby"
       badgeText="THE LOBBY · MEMBER ENTRANCE"
       headline="A professional intelligence network for the people running Britain's buildings."
       subheadline="Stay ahead of statutory compliance, research with citations, and connect with commercial facilities leaders."

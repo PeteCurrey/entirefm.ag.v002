@@ -16,8 +16,8 @@ interface AuthSplitLayoutProps {
 export function AuthSplitLayout({
   children,
   activeRoute = 'sign-in',
-  imageSrc = '/images/editorial/entirefm-rooftop-plant-night-1200w.webp',
-  imageAlt = 'Commercial rooftop building safety and engineering plant room at twilight',
+  imageSrc = '/images/auth/entirefm-signin-bg.webp',
+  imageAlt = 'EntireFM corporate headquarters reception and architectural entrance lobby',
   badgeText = 'THE LOBBY · MEMBER ACCESS',
   headline = "A professional intelligence network for the people running Britain's buildings.",
   subheadline = 'Stay ahead of statutory changes, research with verified citations, and connect with commercial facilities leaders.',
