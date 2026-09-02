@@ -20,7 +20,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function ClientLogAJobPage() {
   const session = await getCurrentSession();
-  if (!session) redirect('/login?redirect=/clients/log-a-job');
+  if (!session) redirect('/log-a-job');
 
   const isViewAs = !!session.viewAsContext?.isViewAs;
   if (session.orgType !== 'CLIENT' && !isViewAs && session.orgType !== 'ENTIREFM') {

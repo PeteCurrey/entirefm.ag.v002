@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
             service: category,
             location: publicLocation,
             message: `[AI MULTIMODAL JOB LOGGED: ${workOrderNum}]\nTitle: ${title}\nPriority: ${priority}\nTrade: ${category}\nAccess: ${access_notes || 'N/A'}\n\nDescription:\n${description}`,
-            lead_source: 'PUBLIC_AI_HELPDESK',
+            form_id: 'PUBLIC_AI_HELPDESK',
             conversion_page: '/log-a-job',
             landing_page: '/log-a-job',
           });

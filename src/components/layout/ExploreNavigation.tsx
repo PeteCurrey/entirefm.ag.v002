@@ -27,7 +27,7 @@ const COMPANY_LINKS = [
   { label: 'About EntireFM', href: '/about-entire-facilities-management', detail: 'Our story, values and leadership' },
   { label: 'Careers', href: '/careers', detail: 'Join our operational, engineering and technical team' },
   { label: 'Contact', href: '/contact-us', detail: 'Get in touch with our team' },
-  { label: 'Log a Job', href: '/clients/log-a-job', detail: 'Multimodal AI-assisted job logging & triage' },
+  { label: 'Log a Job', href: '/log-a-job', detail: 'Multimodal AI-assisted job logging & triage' },
   { label: 'Legal Centre', href: '/legal', detail: 'Privacy, terms and governance' },
 ];
 
@@ -333,7 +333,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
 
             {/* Log a Job Multimodal AI CTA below Contact */}
             <Link
-              href="/clients/log-a-job"
+              href="/log-a-job"
               onClick={onClose}
               tabIndex={open ? 0 : -1}
               className="flex items-center justify-between p-3.5 rounded-sm bg-brand-electric/15 border border-brand-electric/40 text-white hover:bg-brand-electric/25 hover:border-brand-electric transition-all group"
@@ -343,12 +343,12 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                   <span className="text-xs uppercase tracking-wider text-brand-electric-bright font-medium">Multimodal AI Helpdesk</span>
                   <span className="rounded bg-brand-electric px-1.5 py-0.5 text-[9px] uppercase font-bold text-white tracking-wider">AI</span>
                 </div>
-                <span className="text-sm font-light text-white mt-0.5 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-electric-bright shrink-0" />
-                  Log a Job
+                <span className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors mt-0.5">
+                  Log a Job (Photo / Voice / Video)
                 </span>
+                <span className="text-[11px] text-brand-mist/70 mt-0.5">Instant AI fault identification & reactive dispatch</span>
               </div>
-              <ArrowRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
+              <Sparkles className="h-5 w-5 text-brand-electric group-hover:text-brand-electric-bright transition-colors shrink-0" />
             </Link>
           </div>
         </div>
@@ -403,7 +403,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
             <li className="pt-4 mt-3 border-t border-white/[0.06]">
               <ul className="space-y-1">
                 {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => {
-                  const isLogAJob = link.href === '/clients/log-a-job';
+                  const isLogAJob = link.href === '/log-a-job' || link.href === '/clients/log-a-job';
                   return (
                     <li key={link.href}>
                       <Link

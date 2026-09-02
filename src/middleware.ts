@@ -196,6 +196,11 @@ export function middleware(request: NextRequest) {
   // ─────────────────────────────────────────────────────────────────────────────
   // 4C. CLIENT, CONTRACTOR, & FIELD ENGINEER PORTAL GATING
   // ─────────────────────────────────────────────────────────────────────────────
+  // Public Log a Job exemption: redirect unauthenticated visitors directly to public /log-a-job
+  if (pathname === '/clients/log-a-job' && !session) {
+    return NextResponse.redirect(new URL('/log-a-job', request.url));
+  }
+
   const isPrivateClients = pathname === '/clients' || pathname.startsWith('/clients/');
   const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
   const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
