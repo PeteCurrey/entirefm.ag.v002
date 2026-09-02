@@ -3,375 +3,197 @@
  * ==================================================================
  * Dedicated query and storage layer for public sector and commercial FM
  * tenders, framework notices, and "Who Won What" contract awards.
+ * Backed by Supabase PostgreSQL public.procurement_opportunities.
  */
 
 import type { ProcurementOpportunity, FMTradeCategory } from './types';
+import { dbQuery, isDbConfigured } from '../db/client';
+
+// ----------------------------------------------------------------------------
+// DB <-> Domain Mappers
+// ----------------------------------------------------------------------------
+
+function mapDbRowToOpportunity(row: any): ProcurementOpportunity {
+  return {
+    id: row.id,
+    ocid: row.ocid,
+    source: row.source,
+    noticeType: row.notice_type as any,
+    title: row.title,
+    description: row.description,
+    whyItMattersForFM: row.why_it_matters_for_fm || undefined,
+    buyerName: row.buyer_name,
+    buyerRegion: row.buyer_region,
+    cpvCodes: row.cpv_codes || [],
+    serviceCategory: row.service_category as FMTradeCategory,
+    estimatedValue: typeof row.estimated_value === 'string' ? JSON.parse(row.estimated_value) : row.estimated_value || undefined,
+    publishedAt: row.published_at,
+    closingDate: row.closing_date || undefined,
+    contractStartDate: row.contract_start_date || undefined,
+    contractDurationMonths: row.contract_duration_months || undefined,
+    status: row.status as any,
+    officialNoticeUrl: row.official_notice_url,
+    awardDetails: typeof row.award_details === 'string' ? JSON.parse(row.award_details) : row.award_details || undefined,
+    fmRelevanceScore: row.fm_relevance_score || undefined,
+    fmRelevanceReason: row.fm_relevance_reason || undefined,
+    isHighValueAward: Boolean(row.is_high_value_award),
+    isEditoriallyFeatured: Boolean(row.is_editorially_featured),
+  };
+}
+
+function mapOpportunityToDbRow(opp: ProcurementOpportunity): any {
+  return {
+    id: opp.id,
+    ocid: opp.ocid,
+    source: opp.source,
+    notice_type: opp.noticeType,
+    title: opp.title,
+    description: opp.description,
+    why_it_matters_for_fm: opp.whyItMattersForFM || null,
+    buyer_name: opp.buyerName,
+    buyer_region: opp.buyerRegion,
+    cpv_codes: opp.cpvCodes || [],
+    service_category: opp.serviceCategory,
+    estimated_value: opp.estimatedValue || null,
+    published_at: opp.publishedAt,
+    closing_date: opp.closingDate || null,
+    contract_start_date: opp.contractStartDate || null,
+    contract_duration_months: opp.contractDurationMonths || null,
+    status: opp.status,
+    official_notice_url: opp.officialNoticeUrl,
+    award_details: opp.awardDetails || null,
+    fm_relevance_score: opp.fmRelevanceScore || null,
+    fm_relevance_reason: opp.fmRelevanceReason || null,
+    is_high_value_award: opp.isHighValueAward || false,
+    is_editorially_featured: opp.isEditoriallyFeatured || false,
+    updated_at: new Date().toISOString(),
+  };
+}
 
 export class OpportunityStore {
-  private opportunities: Map<string, ProcurementOpportunity> = new Map();
-  private contractAwards: Map<string, ProcurementOpportunity> = new Map();
+  private memoryOpportunities: Map<string, ProcurementOpportunity> = new Map();
+  private memoryContractAwards: Map<string, ProcurementOpportunity> = new Map();
 
   constructor() {
-    this.seedDefaultFmOpportunities();
+    // Initialised clean. Live ingestion orchestrator populates genuine verified records.
   }
 
-  private seedDefaultFmOpportunities(): void {
-    const verifiedTenders: ProcurementOpportunity[] = [
-      {
-        id: 'opp-gpa-tfm-2026',
-        ocid: 'ocds-b5fd17-gpa-tfm-01',
-        source: 'Crown Commercial Service',
-        noticeType: 'tender',
-        title: 'Total Facilities Management & Building Services for Regional Commercial Hubs',
-        description:
-          'Comprehensive Hard and Soft FM operations across 18 regional government office estates, including mechanical and electrical PPM, statutory compliance testing, 24/7 helpdesk, and building fabric maintenance.',
-        whyItMattersForFM:
-          'Major single-source integrated FM framework covering commercial offices with mandatory SFG20 compliance and digital golden thread reporting standards.',
-        buyerName: 'Government Property Agency (GPA)',
-        buyerRegion: 'London & South East',
-        cpvCodes: ['79993000', '50700000', '50710000'],
-        serviceCategory: 'procurement-contracts',
-        estimatedValue: {
-          amount: 35000000,
-          currency: 'GBP',
-          isFormatted: '£35,000,000',
-        },
-        publishedAt: '2026-08-20T09:00:00Z',
-        closingDate: '2026-09-24T12:00:00Z',
-        contractStartDate: '2026-11-01T00:00:00Z',
-        contractDurationMonths: 48,
-        status: 'active',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/gpa-tfm-2026',
-        fmRelevanceScore: 98,
-        fmRelevanceReason: 'Tier 1 Central Government TFM procurement with high contract value',
-        isHighValueAward: true,
-        isEditoriallyFeatured: true,
-      },
-      {
-        id: 'opp-nhs-water-ppm-2026',
-        ocid: 'ocds-b5fd17-nhs-water-02',
-        source: 'Find a Tender',
-        noticeType: 'tender',
-        title: 'Water Hygiene, ACOP L8 Monitoring & Sampling Across Healthcare Estate',
-        description:
-          'Specialist statutory water treatment contract covering temperature monitoring, periodic sampling, calorifier inspections, chlorination, and remedial pipework across 6 acute and community hospital sites.',
-        whyItMattersForFM:
-          'Strict healthcare compliance requirement with tight 48-hour digital logging SLAs and mandatory LCA (Legionella Control Association) accreditation.',
-        buyerName: 'NHS Foundation Trust Estates Directorate',
-        buyerRegion: 'Midlands',
-        cpvCodes: ['90733000', '71631000'],
-        serviceCategory: 'water-hygiene',
-        estimatedValue: {
-          amount: 2800000,
-          currency: 'GBP',
-          isFormatted: '£2,800,000',
-        },
-        publishedAt: '2026-08-15T11:00:00Z',
-        closingDate: '2026-09-01T17:00:00Z',
-        contractDurationMonths: 36,
-        status: 'closing_soon',
-        officialNoticeUrl: 'https://www.find-tender.service.gov.uk/notice/nhs-water-2026',
-        fmRelevanceScore: 92,
-        fmRelevanceReason: 'Statutory healthcare water hygiene with imminent tender deadline',
-      },
-      {
-        id: 'opp-tfl-eicr-2026',
-        ocid: 'ocds-b5fd17-tfl-eicr-03',
-        source: 'Contracts Finder',
-        noticeType: 'tender',
-        title: 'Commercial Fixed Wire Testing (EICR) & Electrical Remedials Framework',
-        description:
-          'Periodic inspection and testing of electrical installations in accordance with BS 7671:2018+A2:2022, thermal imaging surveys, and remedial works across non-track operational property portfolios.',
-        whyItMattersForFM:
-          'High-volume commercial EICR framework requiring NICEIC / ECA approved contractors with out-of-hours testing capability.',
-        buyerName: 'Transport for London (TfL)',
-        buyerRegion: 'London',
-        cpvCodes: ['50711000', '45310000'],
-        serviceCategory: 'electrical',
-        estimatedValue: {
-          amount: 4500000,
-          currency: 'GBP',
-          isFormatted: '£4,500,000',
-        },
-        publishedAt: '2026-08-18T14:30:00Z',
-        closingDate: '2026-09-08T12:00:00Z',
-        contractDurationMonths: 48,
-        status: 'closing_soon',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/tfl-eicr-2026',
-        fmRelevanceScore: 94,
-        fmRelevanceReason: 'Statutory BS 7671 electrical testing framework',
-      },
-      {
-        id: 'opp-uni-hard-fm-2026',
-        ocid: 'ocds-b5fd17-uni-hardfm-04',
-        source: 'Find a Tender',
-        noticeType: 'tender',
-        title: 'Hard Facilities Management, Plant Maintenance & 24/7 Callout Services',
-        description:
-          'Planned preventative maintenance and reactive emergency cover for HVAC, refrigeration, gas boilers, building management systems (BMS), and emergency lighting across academic campus buildings.',
-        whyItMattersForFM:
-          'Consolidated mechanical and electrical estate services contract with energy optimization and BMS sub-metering KPIs.',
-        buyerName: 'University Estates Consortium',
-        buyerRegion: 'North West',
-        cpvCodes: ['50700000', '50720000', '45331000'],
-        serviceCategory: 'mechanical',
-        estimatedValue: {
-          amount: 5400000,
-          currency: 'GBP',
-          isFormatted: '£5,400,000',
-        },
-        publishedAt: '2026-08-12T10:00:00Z',
-        closingDate: '2026-09-04T12:00:00Z',
-        contractDurationMonths: 60,
-        status: 'closing_soon',
-        officialNoticeUrl: 'https://www.find-tender.service.gov.uk/notice/uni-hardfm-2026',
-        fmRelevanceScore: 91,
-        fmRelevanceReason: 'Higher education estate Hard FM maintenance',
-      },
-      {
-        id: 'opp-dio-fabric-2026',
-        ocid: 'ocds-b5fd17-dio-fabric-05',
-        source: 'Crown Commercial Service',
-        noticeType: 'tender',
-        title: 'Building Fabric, Envelope Inspections & Drainage Maintenance Framework',
-        description:
-          'Multi-regional framework for planned roofing surveys, gutter clearance, drainage CCTV inspections, and external envelope preventative maintenance across UK defence estates.',
-        whyItMattersForFM:
-          'Strategic public sector framework covering high-volume building fabric PPM and working-at-height operations.',
-        buyerName: 'Defence Infrastructure Organisation (DIO)',
-        buyerRegion: 'United Kingdom',
-        cpvCodes: ['50700000', '45261900'],
-        serviceCategory: 'procurement-contracts',
-        estimatedValue: {
-          amount: 12000000,
-          currency: 'GBP',
-          isFormatted: '£12,000,000',
-        },
-        publishedAt: '2026-08-22T08:45:00Z',
-        closingDate: '2026-09-30T17:00:00Z',
-        contractDurationMonths: 60,
-        status: 'active',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/dio-fabric-2026',
-        fmRelevanceScore: 89,
-        fmRelevanceReason: 'National estate fabric and envelope PPM framework',
-      },
-      {
-        id: 'opp-city-chillers-2026',
-        ocid: 'ocds-b5fd17-city-chillers-06',
-        source: 'Contracts Finder',
-        noticeType: 'tender',
-        title: 'Commercial Chiller Overhaul, F-Gas Log Audits & VRF Maintenance',
-        description:
-          'Specialist HVAC maintenance covering water-cooled and air-cooled chillers, F-Gas compliance logging, leak testing under GB F-Gas regulations, and AHU coil deep cleans.',
-        whyItMattersForFM:
-          'Technical HVAC maintenance scope focusing on F-Gas statutory quota compliance and refrigerant phase-down transition.',
-        buyerName: 'City of London Corporation',
-        buyerRegion: 'London',
-        cpvCodes: ['50730000', '45331200'],
-        serviceCategory: 'hvac',
-        estimatedValue: {
-          amount: 1900000,
-          currency: 'GBP',
-          isFormatted: '£1,900,000',
-        },
-        publishedAt: '2026-08-25T11:15:00Z',
-        closingDate: '2026-09-18T12:00:00Z',
-        contractDurationMonths: 36,
-        status: 'active',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/city-chillers-2026',
-        fmRelevanceScore: 90,
-        fmRelevanceReason: 'Commercial chiller & F-Gas statutory maintenance',
-      },
-    ];
-
-    const verifiedAwards: ProcurementOpportunity[] = [
-      {
-        id: 'awd-mitie-gpa-48m',
-        ocid: 'ocds-b5fd17-awd-mitie-01',
-        source: 'Crown Commercial Service',
-        noticeType: 'award',
-        title: 'Hard Facilities Management & Technical Maintenance Contract Award',
-        description:
-          'Award of 5-year consolidated Hard FM contract across 32 regional government buildings, delivering planned mechanical, electrical, public health, and statutory compliance services.',
-        whyItMattersForFM:
-          'Significant public sector award demonstrating consolidation into single-source technical FM contracts.',
-        buyerName: 'Government Property Agency / Crown Commercial Service',
-        buyerRegion: 'England',
-        cpvCodes: ['50700000', '50710000'],
-        serviceCategory: 'procurement-contracts',
-        estimatedValue: {
-          amount: 48000000,
-          currency: 'GBP',
-          isFormatted: '£48,000,000',
-        },
-        publishedAt: '2026-08-27T10:00:00Z',
-        status: 'awarded',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/awd-mitie-gpa-2026',
-        fmRelevanceScore: 99,
-        isHighValueAward: true,
-        isEditoriallyFeatured: true,
-        awardDetails: {
-          supplierName: 'Mitie Group PLC',
-          supplierCompanyNumber: '05662308',
-          awardedValue: '£48,000,000',
-          awardedDate: '2026-08-27',
-          contractPeriodYears: 5,
-        },
-      },
-      {
-        id: 'awd-cbre-uni-14m',
-        ocid: 'ocds-b5fd17-awd-cbre-02',
-        source: 'Find a Tender',
-        noticeType: 'award',
-        title: 'Integrated Facilities Services for Regional University Campus Estate',
-        description:
-          '4-year integrated facilities management contract covering building maintenance, cleaning, security, and CAFM operations across multiple university campuses.',
-        whyItMattersForFM:
-          'Notable higher education TFM award with high sustainability and carbon reduction weighting.',
-        buyerName: 'Higher Education Estates Authority',
-        buyerRegion: 'North West',
-        cpvCodes: ['79993000', '50700000'],
-        serviceCategory: 'procurement-contracts',
-        estimatedValue: {
-          amount: 14200000,
-          currency: 'GBP',
-          isFormatted: '£14,200,000',
-        },
-        publishedAt: '2026-08-25T14:30:00Z',
-        status: 'awarded',
-        officialNoticeUrl: 'https://www.find-tender.service.gov.uk/notice/awd-cbre-uni-2026',
-        fmRelevanceScore: 94,
-        isHighValueAward: true,
-        awardDetails: {
-          supplierName: 'CBRE GWS Ltd',
-          supplierCompanyNumber: '02868779',
-          awardedValue: '£14,200,000',
-          awardedDate: '2026-08-25',
-          contractPeriodYears: 4,
-        },
-      },
-      {
-        id: 'awd-emcor-tech-8m',
-        ocid: 'ocds-b5fd17-awd-emcor-03',
-        source: 'Contracts Finder',
-        noticeType: 'award',
-        title: 'Mechanical & Electrical Plant Maintenance for Commercial Innovation Park',
-        description:
-          '3-year critical engineering contract covering standby generators, UPS systems, chillers, and cleanroom HVAC maintenance.',
-        whyItMattersForFM:
-          'Critical engineering estate maintenance with 100% uptime SLA requirements.',
-        buyerName: 'Commercial Science Park Ltd',
-        buyerRegion: 'South East',
-        cpvCodes: ['50710000', '50720000'],
-        serviceCategory: 'mechanical',
-        estimatedValue: {
-          amount: 8600000,
-          currency: 'GBP',
-          isFormatted: '£8,600,000',
-        },
-        publishedAt: '2026-08-24T09:15:00Z',
-        status: 'awarded',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/awd-emcor-tech-2026',
-        fmRelevanceScore: 93,
-        awardDetails: {
-          supplierName: 'EMCOR UK Ltd',
-          supplierCompanyNumber: '00688849',
-          awardedValue: '£8,600,000',
-          awardedDate: '2026-08-24',
-          contractPeriodYears: 3,
-        },
-      },
-      {
-        id: 'awd-bouygues-bms-6m',
-        ocid: 'ocds-b5fd17-awd-bouygues-04',
-        source: 'Contracts Finder',
-        noticeType: 'award',
-        title: 'Energy Decarbonisation & BMS Optimization Framework',
-        description:
-          'Building management system upgrades, automated sub-metering installation, and heat pump controls retrofit.',
-        whyItMattersForFM:
-          'Decarbonisation framework focused on non-domestic MEES compliance and EPC uplift.',
-        buyerName: 'London Borough Estates Consortium',
-        buyerRegion: 'London',
-        cpvCodes: ['71314000', '50720000'],
-        serviceCategory: 'energy-sustainability',
-        estimatedValue: {
-          amount: 6100000,
-          currency: 'GBP',
-          isFormatted: '£6,100,000',
-        },
-        publishedAt: '2026-08-22T16:00:00Z',
-        status: 'awarded',
-        officialNoticeUrl: 'https://www.contractsfinder.service.gov.uk/notice/awd-bouygues-bms-2026',
-        fmRelevanceScore: 88,
-        awardDetails: {
-          supplierName: 'Bouygues Energies & Services',
-          supplierCompanyNumber: '03704870',
-          awardedValue: '£6,100,000',
-          awardedDate: '2026-08-22',
-          contractPeriodYears: 3,
-        },
-      },
-    ];
-
-    for (const tender of verifiedTenders) {
-      this.opportunities.set(tender.ocid, tender);
-    }
-    for (const award of verifiedAwards) {
-      this.contractAwards.set(award.ocid, award);
-    }
-  }
-
-  public upsertOpportunity(opp: ProcurementOpportunity): void {
+  public async upsertOpportunity(opp: ProcurementOpportunity): Promise<void> {
     if (opp.noticeType === 'award') {
-      this.contractAwards.set(opp.ocid, opp);
+      this.memoryContractAwards.set(opp.ocid, opp);
     } else {
-      this.opportunities.set(opp.ocid, opp);
+      this.memoryOpportunities.set(opp.ocid, opp);
+    }
+
+    if (isDbConfigured()) {
+      await dbQuery('procurement_opportunities', {
+        method: 'POST',
+        headers: { Prefer: 'resolution=merge-duplicates' },
+        body: mapOpportunityToDbRow(opp),
+      });
     }
   }
 
-  public upsertBatch(opps: ProcurementOpportunity[]): void {
+  public async upsertBatch(opps: ProcurementOpportunity[]): Promise<void> {
     for (const opp of opps) {
-      this.upsertOpportunity(opp);
+      if (opp.noticeType === 'award') {
+        this.memoryContractAwards.set(opp.ocid, opp);
+      } else {
+        this.memoryOpportunities.set(opp.ocid, opp);
+      }
+    }
+
+    if (isDbConfigured()) {
+      for (const opp of opps) {
+        await dbQuery('procurement_opportunities', {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates' },
+          body: mapOpportunityToDbRow(opp),
+        });
+      }
     }
   }
 
   /** Get live active tenders */
-  public getActiveTenders(options?: {
+  public async getActiveTenders(options?: {
     category?: FMTradeCategory;
     region?: string;
     closingSoonOnly?: boolean;
     limit?: number;
-  }): ProcurementOpportunity[] {
-    let list = Array.from(this.opportunities.values()).filter((o) => o.status !== 'cancelled');
+  }): Promise<ProcurementOpportunity[]> {
+    if (!isDbConfigured()) {
+      let list = Array.from(this.memoryOpportunities.values()).filter((o) => o.status !== 'cancelled');
 
-    if (options?.category) {
-      list = list.filter((o) => o.serviceCategory === options.category);
+      if (options?.category) {
+        list = list.filter((o) => o.serviceCategory === options.category);
+      }
+      if (options?.region && options.region !== 'all') {
+        list = list.filter((o) => o.buyerRegion.toLowerCase().includes(options.region!.toLowerCase()));
+      }
+      if (options?.closingSoonOnly) {
+        list = list.filter((o) => o.status === 'closing_soon');
+      }
+
+      list.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+      return typeof options?.limit === 'number' ? list.slice(0, options.limit) : list;
     }
+
+    const params: string[] = ['notice_type=neq.award', 'status=neq.cancelled'];
+    if (options?.category) {
+      params.push(`service_category=eq.${encodeURIComponent(options.category)}`);
+    }
+    if (options?.closingSoonOnly) {
+      params.push('status=eq.closing_soon');
+    }
+    if (typeof options?.limit === 'number') {
+      params.push(`limit=${options.limit}`);
+    }
+    params.push('order=published_at.desc');
+
+    const { data: rows } = await dbQuery<any[]>(`procurement_opportunities?${params.join('&')}`);
+    let list = (rows || []).map(mapDbRowToOpportunity);
+
     if (options?.region && options.region !== 'all') {
       list = list.filter((o) => o.buyerRegion.toLowerCase().includes(options.region!.toLowerCase()));
     }
-    if (options?.closingSoonOnly) {
-      list = list.filter((o) => o.status === 'closing_soon');
-    }
 
-    list.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-
-    return typeof options?.limit === 'number' ? list.slice(0, options.limit) : list;
+    return list;
   }
 
   /** Get "Who Won What" contract awards */
-  public getContractAwards(limit = 20): ProcurementOpportunity[] {
-    const list = Array.from(this.contractAwards.values());
-    list.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-    return list.slice(0, limit);
+  public async getContractAwards(limit = 20): Promise<ProcurementOpportunity[]> {
+    if (!isDbConfigured()) {
+      const list = Array.from(this.memoryContractAwards.values());
+      list.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+      return list.slice(0, limit);
+    }
+
+    const { data: rows } = await dbQuery<any[]>(
+      `procurement_opportunities?notice_type=eq.award&order=published_at.desc&limit=${limit}`
+    );
+
+    return (rows || []).map(mapDbRowToOpportunity);
   }
 
   /** Total active opportunities count */
-  public getCounts(): { activeTenders: number; contractAwards: number; closingSoon: number } {
-    const tenders = Array.from(this.opportunities.values());
-    const awards = Array.from(this.contractAwards.values());
-    const closingSoon = tenders.filter((t) => t.status === 'closing_soon').length;
+  public async getCounts(): Promise<{ activeTenders: number; contractAwards: number; closingSoon: number }> {
+    if (!isDbConfigured()) {
+      const tenders = Array.from(this.memoryOpportunities.values());
+      const awards = Array.from(this.memoryContractAwards.values());
+      const closingSoon = tenders.filter((t) => t.status === 'closing_soon').length;
+
+      return {
+        activeTenders: tenders.length,
+        contractAwards: awards.length,
+        closingSoon,
+      };
+    }
+
+    const { data: rows } = await dbQuery<any[]>('procurement_opportunities?select=notice_type,status');
+    const all = rows || [];
+    const tenders = all.filter((r) => r.notice_type !== 'award' && r.status !== 'cancelled');
+    const awards = all.filter((r) => r.notice_type === 'award');
+    const closingSoon = tenders.filter((r) => r.status === 'closing_soon').length;
 
     return {
       activeTenders: tenders.length,

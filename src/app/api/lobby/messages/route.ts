@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
   }
 
-  const conversations = getMemberConversations(session.memberId);
+  const conversations = await getMemberConversations(session.memberId);
   return NextResponse.json({ conversations });
 }
 
@@ -37,9 +37,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Recipient member not found' }, { status: 404 });
     }
 
-    const result = startOrGetDirectConversation(
-      { id: sender.id, name: sender.display_name, headline: sender.headline, company: sender.company },
-      { id: recipient.id, name: recipient.display_name, headline: recipient.headline, company: recipient.company },
+    const result = await startOrGetDirectConversation(
+      { id: sender.id, name: sender.display_name, headline: sender.headline, company: sender.company, avatarUrl: sender.avatar_url },
+      { id: recipient.id, name: recipient.display_name, headline: recipient.headline, company: recipient.company, avatarUrl: recipient.avatar_url },
       messageText
     );
 

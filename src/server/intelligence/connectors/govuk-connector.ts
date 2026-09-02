@@ -27,16 +27,16 @@ export class GovUkConnector {
 
   /** Curated topic queries targeting facilities management disciplines */
   private static CURATED_QUERIES = [
-    { query: 'building safety regulator guidance', trade: 'building-safety' },
-    { query: 'mandatory occurrence reporting higher risk buildings', trade: 'building-safety' },
-    { query: 'fire safety commercial premises guidance', trade: 'fire-safety' },
-    { query: 'f-gas quota regulations refrigeration', trade: 'hvac' },
-    { query: 'acop l8 legionella water control', trade: 'water-hygiene' },
-    { query: 'electrical safety commercial buildings eicr', trade: 'electrical' },
+    { query: 'building safety regulator guidance', org: 'health-and-safety-executive', trade: 'building-safety' },
+    { query: 'higher-risk buildings safety case report', org: 'health-and-safety-executive', trade: 'building-safety' },
+    { query: 'fire safety commercial premises workplace', org: 'ministry-of-housing-communities-and-local-government', trade: 'fire-safety' },
+    { query: 'f-gas fluorinated greenhouse gas quota', org: 'environment-agency', trade: 'hvac' },
+    { query: 'acop l8 legionella bacteria water systems', org: 'health-and-safety-executive', trade: 'water-hygiene' },
+    { query: 'non-domestic private rented property minimum energy efficiency standard mees', org: 'department-for-energy-security-and-net-zero', trade: 'energy-sustainability' },
   ];
 
   /** Fetch live GOV.UK search items with timeout & backoff */
-  public async fetchRecentItems(limitPerQuery = 3): Promise<{
+  public async fetchRecentItems(limitPerQuery = 4): Promise<{
     canonicalItems: CanonicalIntelligenceItem[];
     rawRecords: RawIntelligenceRecord[];
   }> {
@@ -48,9 +48,10 @@ export class GovUkConnector {
       try {
         const url = new URL(this.searchBaseUrl);
         url.searchParams.set('q', item.query);
+        if (item.org) {
+          url.searchParams.set('filter_organisations', item.org);
+        }
         url.searchParams.set('count', limitPerQuery.toString());
-        url.searchParams.set('order', '-public_timestamp');
-        url.searchParams.set('fields', 'title,link,description,public_timestamp,content_id,format,organisations,document_type');
 
         const res = await fetch(url.toString(), {
           headers: {

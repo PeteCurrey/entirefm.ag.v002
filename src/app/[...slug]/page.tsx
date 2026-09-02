@@ -45,22 +45,30 @@ function resolveSlugPath(slug: string[]): string {
 }
 
 const DEDICATED_APP_PREFIXES = [
-  '/client-portal',
-  '/supplier-portal',
-  '/suppliers',
   '/admin',
   '/api',
+  '/asset',
+  '/auth',
+  '/careers',
   '/client',
+  '/client-portal',
   '/clients',
   '/contractor',
+  '/contractor-resources',
+  '/contractor-tools',
+  '/contractors',
   '/engineer',
-  '/login',
+  '/forgot-password',
+  '/join',
   '/legal',
   '/lobby',
-  '/join',
-  '/sign-in',
-  '/forgot-password',
+  '/login',
   '/member',
+  '/reset-password',
+  '/sign-in',
+  '/supplier-portal',
+  '/suppliers',
+  '/verify-email',
 ];
 
 export async function generateStaticParams() {
@@ -82,7 +90,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const path = slug ? resolveSlugPath(slug) : '/';
   const route = getRoute(path);
 
-  if (!route) {
+  if (!route || DEDICATED_APP_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))) {
     return {
       title: 'Page Not Found | Entire FM',
       robots: { index: false, follow: false },
@@ -95,6 +103,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function RegistryPage({ params }: PageProps) {
   const { slug } = await params;
   const path = slug ? resolveSlugPath(slug) : '/';
+
+  if (DEDICATED_APP_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))) {
+    notFound();
+  }
 
   const route = getRoute(path);
 

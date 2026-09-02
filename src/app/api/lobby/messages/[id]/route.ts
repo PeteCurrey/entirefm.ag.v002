@@ -14,11 +14,11 @@ export async function GET(
 
   const { id: convId } = await params;
   try {
-    const conversation = getConversationById(convId, session.memberId);
+    const conversation = await getConversationById(convId, session.memberId);
     if (!conversation) {
       return NextResponse.json({ error: 'Conversation not found' }, { status: 404 });
     }
-    const messages = getConversationMessages(convId, session.memberId);
+    const messages = await getConversationMessages(convId, session.memberId);
     return NextResponse.json({ conversation, messages });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Unauthorized' }, { status: 403 });
@@ -47,7 +47,7 @@ export async function POST(
       return NextResponse.json({ error: 'Message body required' }, { status: 400 });
     }
 
-    const message = sendDirectMessage(convId, sender.id, sender.display_name, text);
+    const message = await sendDirectMessage(convId, sender.id, sender.display_name, text, sender.avatar_url);
     return NextResponse.json({ message }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error sending message' }, { status: 400 });

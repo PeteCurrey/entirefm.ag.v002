@@ -14,6 +14,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'targetMemberId required' }, { status: 400 });
   }
 
-  blockMember(session.memberId, targetMemberId);
+  await blockMember(session.memberId, targetMemberId);
   return NextResponse.json({ success: true, blockedMemberId: targetMemberId });
 }

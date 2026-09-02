@@ -14,7 +14,7 @@ export async function GET(
 
   const { id: convId } = await params;
   try {
-    const conversation = getConversationById(convId, session.memberId);
+    const conversation = await getConversationById(convId, session.memberId);
     if (!conversation) {
       return new Response('Conversation not found', { status: 404 });
     }

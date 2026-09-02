@@ -13,6 +13,8 @@
 import { CandidateStory, ImageRightsStatus } from './types';
 import { resolveSafeImage } from './image-fallbacks';
 import { INITIAL_NEWS_ARTICLES } from '@/server/news/news-store';
+import { intelligenceStore } from '@/server/intelligence/intelligence-store';
+import { isDbConfigured } from '@/server/db/client';
 
 /**
  * Normalises a headline string for fuzzy matching (lowercased, stripped punctuation, stopwords removed)
@@ -125,8 +127,32 @@ export async function harvestCandidateStories(
   const seenCanonicals = new Set<string>();
   const seenNormalizedHeadlines = new Set<string>();
 
-  // Ingest from verified news store
-  for (const article of INITIAL_NEWS_ARTICLES) {
+  // 1. Fetch real canonical intelligence items from persistent store
+  const { items: canonicalItems } = await intelligenceStore.query({ limit: 100 });
+
+  // Map into candidate format, falling back to local dev seed if database is not configured
+  const sourceArticles =
+    canonicalItems.length > 0
+      ? canonicalItems.map((item) => ({
+          id: item.id,
+          title: item.title,
+          slug: item.id,
+          sourceUrl: item.canonicalUrl,
+          sourceName: item.primarySource?.name || 'Statutory Authority',
+          category: (item.tradeTags?.[0] as any) || 'compliance',
+          standfirst: item.standfirst,
+          whyItMatters: item.whyItMatters || item.standfirst,
+          publishedAt: item.publishedAt,
+          authorityTier: item.authorityTier,
+          provenance: item.provenance,
+          contractValue: undefined as string | undefined,
+          contractClient: undefined as string | undefined,
+          contractWinner: undefined as string | undefined,
+        }))
+      : (!isDbConfigured() ? INITIAL_NEWS_ARTICLES : []);
+
+  // Ingest from verified sources
+  for (const article of sourceArticles) {
     const rawUrl = article.sourceUrl || `https://www.entirefm.com/lobby/news/${article.slug}`;
     const canonicalUrl = normaliseCanonicalUrl(rawUrl);
     const normalizedH = normaliseHeadline(article.title);
@@ -194,25 +220,27 @@ export async function harvestCandidateStories(
       headline: article.title,
     });
 
-    // Determine authority tier
-    let tier = 3;
-    const sourceLower = (article.sourceName || '').toLowerCase();
-    if (
-      sourceLower.includes('hse') ||
-      sourceLower.includes('building safety regulator') ||
-      sourceLower.includes('gov.uk') ||
-      sourceLower.includes('crown commercial') ||
-      sourceLower.includes('parliament')
-    ) {
-      tier = 1;
-    } else if (
-      sourceLower.includes('cibse') ||
-      sourceLower.includes('besa') ||
-      sourceLower.includes('iwfm') ||
-      sourceLower.includes('eca') ||
-      sourceLower.includes('fia')
-    ) {
-      tier = 2;
+    // Determine authority tier (respect explicit tier if provided)
+    let tier = (article as any).authorityTier || 3;
+    if (!article.authorityTier) {
+      const sourceLower = (article.sourceName || '').toLowerCase();
+      if (
+        sourceLower.includes('hse') ||
+        sourceLower.includes('building safety regulator') ||
+        sourceLower.includes('gov.uk') ||
+        sourceLower.includes('crown commercial') ||
+        sourceLower.includes('parliament')
+      ) {
+        tier = 1;
+      } else if (
+        sourceLower.includes('cibse') ||
+        sourceLower.includes('besa') ||
+        sourceLower.includes('iwfm') ||
+        sourceLower.includes('eca') ||
+        sourceLower.includes('fia')
+      ) {
+        tier = 2;
+      }
     }
 
     const candidate: CandidateStory = {

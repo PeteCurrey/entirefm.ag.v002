@@ -20,7 +20,7 @@ export async function POST(
   }
 
   try {
-    const conversation = updateParticipantStatus(convId, session.memberId, action);
+    const conversation = await updateParticipantStatus(convId, session.memberId, action);
     return NextResponse.json({ conversation });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Error updating status' }, { status: 400 });

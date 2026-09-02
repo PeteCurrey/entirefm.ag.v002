@@ -49,37 +49,58 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
     if (!activeConvId) return;
 
     let eventSource: EventSource | null = null;
+    let pollTimer: NodeJS.Timeout | null = null;
 
-    async function loadThread() {
+    async function loadThread(silent = false) {
       try {
         const res = await fetch(`/api/lobby/messages/${activeConvId}`);
         if (res.ok) {
           const data = await res.json();
           setCurrentConversation(data.conversation);
-          setMessages(data.messages || []);
-
-          // SSE stream for real-time delivery
-          eventSource = new EventSource(`/api/lobby/messages/${activeConvId}/events`);
-          eventSource.onmessage = (event) => {
-            try {
-              const parsed = JSON.parse(event.data);
-              if (parsed.type === 'new_message') {
-                setMessages((prev) => [...prev, parsed.data]);
-              }
-            } catch (e) {
-              console.error('Error parsing DM SSE:', e);
+          setMessages((prev) => {
+            const incoming: any[] = data.messages || [];
+            // Merge & deduplicate by ID
+            const existingIds = new Set(prev.map((m) => m.id));
+            const newItems = incoming.filter((m) => !existingIds.has(m.id));
+            if (newItems.length > 0 || prev.length !== incoming.length) {
+              return incoming;
             }
-          };
+            return prev;
+          });
+
+          // SSE stream for real-time delivery on same instance
+          if (!eventSource && !silent) {
+            eventSource = new EventSource(`/api/lobby/messages/${activeConvId}/events`);
+            eventSource.onmessage = (event) => {
+              try {
+                const parsed = JSON.parse(event.data);
+                if (parsed.type === 'new_message') {
+                  setMessages((prev) => {
+                    if (prev.some((m) => m.id === parsed.data.id)) return prev;
+                    return [...prev, parsed.data];
+                  });
+                }
+              } catch (e) {
+                console.error('Error parsing DM SSE:', e);
+              }
+            };
+          }
         }
       } catch (err) {
-        console.error('Error loading message thread:', err);
+        if (!silent) console.error('Error loading message thread:', err);
       }
     }
 
     loadThread();
 
+    // Client-side polling interval (every 4 seconds) for reliable cross-instance serverless delivery
+    pollTimer = setInterval(() => {
+      loadThread(true);
+    }, 4000);
+
     return () => {
       if (eventSource) eventSource.close();
+      if (pollTimer) clearInterval(pollTimer);
     };
   }, [activeConvId]);
 

@@ -22,7 +22,8 @@ import {
   FileCheck,
   Flame,
   Zap,
-  Hammer
+  Hammer,
+  Wrench
 } from "lucide-react";
 
 export const metadata: Metadata = generateRouteMetadata("/contractor-resources", {
@@ -32,6 +33,97 @@ export const metadata: Metadata = generateRouteMetadata("/contractor-resources",
 });
 
 const CATEGORIES = [
+  {
+    id: "interactive-tools",
+    title: "Interactive Contractor Tools & Checks",
+    eyebrow: "SELF-ASSESSMENT TOOLS",
+    icon: Wrench,
+    description: "Free interactive readiness checks and audits for UK contractors. Evaluate RAMS, compliance, COSHH, onboarding, and job attendance.",
+    articles: [
+      {
+        title: "All Contractor Tools Hub",
+        href: "/contractor-tools",
+        desc: "Overview of interactive readiness checks, compliance scoring, and practical contractor toolkits.",
+        badge: "TOOLS HUB",
+      },
+      {
+        title: "RAMS Readiness Check",
+        href: "/contractor-tools/rams-readiness-check",
+        desc: "Evaluate your RAMS preparation across project scope, people competence, hazards, site controls, and evidence.",
+        badge: "INTERACTIVE",
+      },
+      {
+        title: "Contractor Compliance Check",
+        href: "/contractor-tools/contractor-compliance-check",
+        desc: "Review business info, insurances, qualifications, SSIP accreditation, and H&S documentation.",
+        badge: "AUDIT",
+      },
+      {
+        title: "Contractor Document Checklist",
+        href: "/contractor-tools/contractor-document-checklist",
+        desc: "Mobile-ready audit of company records, insurances, H&S policies, RAMS, COSHH, and statutory licences.",
+        badge: "CHECKLIST",
+      },
+      {
+        title: "COSHH Readiness Check",
+        href: "/contractor-tools/coshh-readiness-check",
+        desc: "Check preparation for hazardous substances, Safety Data Sheets (SDS), exposure routes, and spill response.",
+        badge: "COSHH",
+      },
+      {
+        title: "Contractor Onboarding Checklist",
+        href: "/contractor-tools/contractor-onboarding-checklist",
+        desc: "Step-by-step preparation for joining a professional FM supply chain and setting up digital portal profiles.",
+        badge: "ONBOARDING",
+      },
+      {
+        title: "Job Readiness Check",
+        href: "/contractor-tools/job-readiness-check",
+        desc: "Three-stage job attendance checklist: before travel, on site hazard assessment, and completion sign-off.",
+        badge: "JOB PREP",
+      },
+    ],
+  },
+  {
+    id: "inspection-checklists",
+    title: "Inspection Checklists & Toolkits",
+    eyebrow: "SITE ASSURANCE",
+    icon: FileCheck,
+    description: "Practical trade inspection checklists for commercial switchgear, F-Gas logbooks, plantroom isolations, and fire doors.",
+    articles: [
+      {
+        title: "All Inspection Checklists Hub",
+        href: "/contractor-resources/inspection-checklists",
+        desc: "Overview of statutory inspection toolkits and audit checklists for commercial trade contractors.",
+        badge: "DIRECTORY",
+      },
+      {
+        title: "Commercial EICR Visual Inspection Checklist",
+        href: "/contractor-resources/eicr-visual-checklist",
+        desc: "10-point visual condition checklist for three-phase switchboards and protective devices under BS 7671.",
+        badge: "CHECKLIST",
+      },
+      {
+        title: "F-Gas Statutory Inspection & Leak Test Checklist",
+        href: "/contractor-resources/fgas-inspection-checklist",
+        desc: "Leak testing protocol, CO2e calculations, cylinder tracking, and recovery logsheet framework.",
+        badge: "STATUTORY",
+      },
+      {
+        title: "Plantroom Pre-Work Safety Checklist",
+        href: "/contractor-resources/plantroom-pre-work-checklist",
+        desc: "Step-by-step mechanical isolation, LOTO verification, pressure release, and emergency egress review.",
+        badge: "PROCEDURE",
+      },
+      {
+        title: "Commercial Fire Door 6-Point Checklist",
+        href: "/contractor-resources/fire-door-inspection-checklist",
+        desc: "Statutory 6-point condition audit covering gap tolerances (3-4mm), intumescent seals, and closers.",
+        badge: "LIFE SAFETY",
+      },
+    ],
+  },
+
   {
     id: "rams-method-statements",
     title: "RAMS & Method Statements",

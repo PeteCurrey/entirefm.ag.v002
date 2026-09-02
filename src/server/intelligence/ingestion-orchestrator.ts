@@ -41,7 +41,7 @@ export class IngestionOrchestrator {
       const govStart = Date.now();
       try {
         const { canonicalItems, rawRecords } = await this.govUkConnector.fetchRecentItems(4);
-        const run = intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
+        const run = await intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
           sourceId: 'src-govuk-search',
           sourceName: 'GOV.UK Search API',
           startedAt: new Date(govStart).toISOString(),
@@ -65,7 +65,7 @@ export class IngestionOrchestrator {
       const legStart = Date.now();
       try {
         const { canonicalItems, rawRecords } = await this.legislationConnector.fetchRecentStatutes(8);
-        const run = intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
+        const run = await intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
           sourceId: 'src-legislation-uk',
           sourceName: 'legislation.gov.uk Feed',
           startedAt: new Date(legStart).toISOString(),
@@ -89,7 +89,7 @@ export class IngestionOrchestrator {
       const parlStart = Date.now();
       try {
         const { canonicalItems, rawRecords } = await this.parliamentConnector.fetchRelevantBills(6);
-        const run = intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
+        const run = await intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
           sourceId: 'src-uk-parliament-bills',
           sourceName: 'UK Parliament Bills API',
           startedAt: new Date(parlStart).toISOString(),
@@ -112,7 +112,7 @@ export class IngestionOrchestrator {
       // 4. Procurement Opportunities & Who Won What (Contracts Finder OCDS)
       try {
         const { opportunities, contractAwards } = await this.procurementConnector.fetchOpportunities(15);
-        opportunityStore.upsertBatch([...opportunities, ...contractAwards]);
+        await opportunityStore.upsertBatch([...opportunities, ...contractAwards]);
         sourceRegistry.updateSourceHealth('src-contracts-finder', 'LIVE', undefined, opportunities.length + contractAwards.length);
         totalIngested += opportunities.length + contractAwards.length;
       } catch (err: unknown) {
@@ -123,7 +123,7 @@ export class IngestionOrchestrator {
       const tradeStart = Date.now();
       try {
         const { canonicalItems, rawRecords } = await rssTradeConnector.fetchAllTradeFeeds();
-        const run = intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
+        const run = await intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
           sourceId: 'src-trade-rss',
           sourceName: 'Trade Bodies & OPSS Feed Cluster',
           startedAt: new Date(tradeStart).toISOString(),
@@ -147,7 +147,7 @@ export class IngestionOrchestrator {
         const gnewsStart = Date.now();
         try {
           const { canonicalItems, rawRecords } = await gnewsConnector.discoverArticles(8);
-          const run = intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
+          const run = await intelligenceStore.ingestBatch(canonicalItems, rawRecords, {
             sourceId: 'src-gnews-fm',
             sourceName: 'GNews Discovery Engine',
             startedAt: new Date(gnewsStart).toISOString(),
