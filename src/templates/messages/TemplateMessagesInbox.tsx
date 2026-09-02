@@ -13,8 +13,10 @@ import {
   ArrowLeft,
   CheckCircle2,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
 
 export function TemplateMessagesInbox({ activeConversationId }: { activeConversationId?: string }) {
+  const [currentMember, setCurrentMember] = useState<any>(null);
   const [conversations, setConversations] = useState<any[]>([]);
   const [activeConvId, setActiveConvId] = useState<string | null>(activeConversationId || null);
   const [currentConversation, setCurrentConversation] = useState<any>(null);
@@ -26,6 +28,14 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
   useEffect(() => {
     async function loadConversations() {
       try {
+        const meRes = await fetch('/api/member/me');
+        if (meRes.ok) {
+          const meData = await meRes.json();
+          if (meData.authenticated && meData.member) {
+            setCurrentMember(meData.member);
+          }
+        }
+
         const res = await fetch('/api/lobby/messages');
         if (res.status === 401) {
           window.location.href = '/sign-in?redirect=/lobby/messages';
@@ -104,11 +114,11 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
     };
   }, [activeConvId]);
 
-  async function handleSendMessage(e: React.FormEvent) {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim() || !activeConvId) return;
-    setSending(true);
+    if (!inputText.trim() || !activeConvId || sending) return;
 
+    setSending(true);
     try {
       const res = await fetch(`/api/lobby/messages/${activeConvId}`, {
         method: 'POST',
@@ -117,16 +127,18 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
       });
 
       if (res.ok) {
+        const data = await res.json();
+        setMessages((prev) => [...prev, data.message]);
         setInputText('');
       }
     } catch (err) {
-      console.error('Error sending DM:', err);
+      console.error('Error sending message:', err);
     } finally {
       setSending(false);
     }
-  }
+  };
 
-  async function handleAction(action: 'accepted' | 'declined' | 'blocked') {
+  const handleAction = async (action: 'accepted' | 'declined' | 'blocked' | 'muted' | 'archived') => {
     if (!activeConvId) return;
     try {
       const res = await fetch(`/api/lobby/messages/${activeConvId}/action`, {
@@ -141,7 +153,7 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
     } catch (err) {
       console.error('Error actioning message request:', err);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
@@ -180,7 +192,7 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
               ) : (
                 conversations.map((c) => {
                   const otherParticipant = c.participants.find(
-                    (p: any) => p.memberId !== 'mem-00000000-0000-4000-8000-000000000001'
+                    (p: any) => p.memberId !== currentMember?.id
                   ) || c.participants[0];
 
                   return (
@@ -193,13 +205,16 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
                           : 'bg-white/[0.02] border-white/5 hover:bg-white/5 text-brand-mist'
                       }`}
                     >
-                      <div className="w-9 h-9 rounded-full bg-brand-electric/20 text-brand-electric flex items-center justify-center text-xs font-bold shrink-0">
-                        {otherParticipant.memberName.charAt(0)}
-                      </div>
+                      <MemberAvatar
+                        name={otherParticipant?.memberName || 'Member'}
+                        avatarUrl={otherParticipant?.memberAvatarUrl}
+                        size="md"
+                        className="shrink-0"
+                      />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1">
                           <span className="text-xs font-bold truncate text-white">
-                            {otherParticipant.memberName}
+                            {otherParticipant?.memberName}
                           </span>
                           <span className="text-[10px] text-brand-silver">
                             {new Date(c.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -227,12 +242,29 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
               <>
                 {/* Thread Header */}
                 <div className="pb-4 border-b border-white/5 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-white">
-                      {currentConversation.participants.map((p: any) => p.memberName).join(', ')}
-                    </h3>
-                    <p className="text-[11px] text-brand-silver">Professional 1:1 Conversation</p>
-                  </div>
+                  {(() => {
+                    const otherParticipant = currentConversation.participants.find(
+                      (p: any) => p.memberId !== currentMember?.id
+                    ) || currentConversation.participants[0];
+
+                    return (
+                      <div className="flex items-center gap-3">
+                        <MemberAvatar
+                          name={otherParticipant?.memberName || 'Member'}
+                          avatarUrl={otherParticipant?.memberAvatarUrl}
+                          size="md"
+                        />
+                        <div>
+                          <h3 className="text-sm font-bold text-white">
+                            {otherParticipant?.memberName || 'Conversation'}
+                          </h3>
+                          <p className="text-[11px] text-brand-silver">
+                            {otherParticipant?.memberHeadline || otherParticipant?.memberCompany || 'Lobby Member'}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })()}
                   <button
                     onClick={() => handleAction('blocked')}
                     className="text-[11px] text-brand-silver hover:text-rose-400"
@@ -244,24 +276,32 @@ export function TemplateMessagesInbox({ activeConversationId }: { activeConversa
                 {/* Message Stream */}
                 <div className="flex-1 overflow-y-auto space-y-4 py-6 max-h-[450px]">
                   {messages.map((m) => {
-                    const isMe = m.authorMemberId === 'mem-00000000-0000-4000-8000-000000000001';
+                    const isMe = currentMember && m.authorMemberId === currentMember.id;
                     return (
                       <div
                         key={m.id}
-                        className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}
+                        className={`flex items-end gap-2.5 ${isMe ? 'flex-row-reverse justify-start' : 'flex-row justify-start'}`}
                       >
-                        <div
-                          className={`max-w-md p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
-                            isMe
-                              ? 'bg-brand-electric text-white rounded-br-none shadow-md'
-                              : 'bg-brand-graphite/40 text-brand-mist border border-white/10 rounded-bl-none'
-                          }`}
-                        >
-                          <p className="whitespace-pre-line">{m.body}</p>
+                        <MemberAvatar
+                          name={m.authorName || 'Member'}
+                          avatarUrl={m.authorAvatarUrl}
+                          size="sm"
+                          className="shrink-0 mb-1"
+                        />
+                        <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                          <div
+                            className={`max-w-md p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                              isMe
+                                ? 'bg-brand-electric text-white rounded-br-none shadow-md'
+                                : 'bg-brand-graphite/40 text-brand-mist border border-white/10 rounded-bl-none'
+                            }`}
+                          >
+                            <p className="whitespace-pre-line">{m.body}</p>
+                          </div>
+                          <span className="text-[10px] text-brand-silver mt-1 px-1">
+                            {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
                         </div>
-                        <span className="text-[10px] text-brand-silver mt-1 px-1">
-                          {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
                       </div>
                     );
                   })}

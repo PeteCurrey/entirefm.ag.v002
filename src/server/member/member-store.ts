@@ -456,6 +456,25 @@ export async function authenticateMemberCredentials(
     }
   }
 
+  // If member is already 'active', they are cleared regardless of email_confirmed_at state
+  // (handles admin-confirmed accounts and members who verified via alternative flow)
+  if (member.member_status === 'active' && !authUser.email_confirmed_at) {
+    // Silently repair the Supabase Auth record so this inconsistency self-heals
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/admin/users/${authUser.id}`, {
+        method: 'PUT',
+        headers: {
+          apikey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+          Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY || ''}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email_confirm: true }),
+      });
+    } catch {
+      // Non-critical — silently ignore, member is already active and can proceed
+    }
+  }
+
   if (member.member_status === 'banned') {
     return {
       success: false,

@@ -4,15 +4,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Footer } from '@/components/layout/Footer';
 import {
-  MessageSquare,
-  Radio,
-  ArrowLeft,
-  Send,
-  Lock,
-  Flag,
-  Reply,
+  Users,
   ShieldAlert,
+  Send,
+  Reply,
+  Lock,
+  ArrowLeft,
+  Flame,
+  Clock,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
 
 export function TemplateRoomLive({ slug }: { slug: string }) {
   const [room, setRoom] = useState<any>(null);
@@ -169,9 +170,12 @@ export function TemplateRoomLive({ slug }: { slug: string }) {
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-full bg-brand-electric/20 text-brand-electric flex items-center justify-center text-xs font-bold">
-                      {msg.authorName.charAt(0)}
-                    </div>
+                    <MemberAvatar
+                      name={msg.authorName || 'Member'}
+                      avatarUrl={msg.authorAvatarUrl}
+                      size="sm"
+                      className="shrink-0"
+                    />
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold text-white">{msg.authorName}</span>
