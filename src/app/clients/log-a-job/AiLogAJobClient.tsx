@@ -63,10 +63,11 @@ interface AssetOption {
 }
 
 interface Props {
-  clientName: string;
-  initialSites: SiteOption[];
-  initialAssets: AssetOption[];
+  clientName?: string;
+  initialSites?: SiteOption[];
+  initialAssets?: AssetOption[];
   userName?: string;
+  isPublic?: boolean;
 }
 
 const CANONICAL_CATEGORIES = [
@@ -88,7 +89,20 @@ const PRIORITIES = [
   { id: 'P4_LOW', label: 'P4 - Low / Minor Rectification', sla: '5 Days', badgeClass: 'bg-slate-500/20 text-slate-300 border-slate-500/30' },
 ];
 
-export default function AiLogAJobClient({ clientName, initialSites, initialAssets, userName }: Props) {
+export default function AiLogAJobClient({
+  clientName = 'Commercial Requester',
+  initialSites = [],
+  initialAssets = [],
+  userName = '',
+  isPublic = false,
+}: Props) {
+  // Public Contact State
+  const [contactName, setContactName] = useState(userName || '');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [companyName, setCompanyName] = useState(isPublic ? '' : clientName);
+  const [propertyAddress, setPropertyAddress] = useState('');
+
   // Step 1: Input State
   const [description, setDescription] = useState('');
   const [selectedSiteId, setSelectedSiteId] = useState(initialSites.length === 1 ? initialSites[0].id : '');
@@ -231,7 +245,8 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
 
   // Trigger AI Analysis
   const handleAnalyze = async () => {
-    if (!selectedSiteId) {
+    const effectiveSiteId = selectedSiteId || (isPublic ? 'PUBLIC_ESTATE' : '');
+    if (!effectiveSiteId && !isPublic && initialSites.length > 0) {
       alert('Please select a site before analysing with AI so the assessment can be grounded in your site asset register.');
       return;
     }
@@ -267,7 +282,7 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
       const payload = {
         description,
         evidence: evidenceList,
-        site_id: selectedSiteId || undefined,
+        site_id: effectiveSiteId || 'PUBLIC_ESTATE',
         correlation_id: 'log-job-' + Date.now(),
       };
 
@@ -309,10 +324,24 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
 
   // Submit Confirmed Job
   const handleSubmitJob = async () => {
-    if (!selectedSiteId) {
+    if (isPublic) {
+      if (!contactName.trim()) {
+        alert('Please provide your name.');
+        return;
+      }
+      if (!contactEmail.trim()) {
+        alert('Please provide your email address.');
+        return;
+      }
+      if (!propertyAddress.trim() && !locationNotes.trim()) {
+        alert('Please provide your property or building address.');
+        return;
+      }
+    } else if (!selectedSiteId) {
       alert('Please select a site for this job.');
       return;
     }
+
     if (!confirmedTitle || !description) {
       alert('Please provide a job title and description.');
       return;
@@ -323,10 +352,10 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
 
     try {
       const payload = {
-        site_id: selectedSiteId,
+        site_id: selectedSiteId || (isPublic ? 'PUBLIC_ESTATE' : ''),
         title: confirmedTitle,
         description,
-        location_description: locationNotes || aiAssessment?.location || undefined,
+        location_description: locationNotes || propertyAddress || aiAssessment?.location || undefined,
         asset_id: selectedAssetId || undefined,
         category: confirmedCategory,
         priority: confirmedPriority,
@@ -334,6 +363,11 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
         ai_assessment: aiAssessment || undefined,
         ai_accepted: !!aiAssessment,
         evidence: evidenceList,
+        contact_name: contactName || undefined,
+        contact_email: contactEmail || undefined,
+        contact_phone: contactPhone || undefined,
+        company_name: companyName || undefined,
+        property_address: propertyAddress || locationNotes || undefined,
       };
 
       const res = await fetch('/api/clients/jobs/log', {
@@ -404,12 +438,21 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
           )}
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/clients/work-orders"
-              className="inline-flex items-center gap-2 rounded-lg bg-brand-electric px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-electric/30 hover:bg-brand-electric/80 transition-all"
-            >
-              View Work Orders <ArrowRight className="h-4 w-4" />
-            </Link>
+            {isPublic ? (
+              <a
+                href="tel:08000407011"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand-electric px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-electric/30 hover:bg-brand-electric/80 transition-all"
+              >
+                Call 24/7 Operations Desk <ArrowRight className="h-4 w-4" />
+              </a>
+            ) : (
+              <Link
+                href="/clients/work-orders"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand-electric px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-electric/30 hover:bg-brand-electric/80 transition-all"
+              >
+                View Work Orders <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
             <button
               onClick={() => {
                 setSubmissionResult(null);
@@ -439,14 +482,21 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
               <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-electric/40 bg-brand-electric/10 px-3 py-0.5 text-[11px] font-medium text-brand-electric-bright">
                 <Sparkles className="h-3 w-3" /> Multimodal AI Assisted
               </span>
+              {isPublic && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-medium text-emerald-400">
+                  Public Helpdesk
+                </span>
+              )}
             </div>
             <p className="mt-1.5 text-sm text-brand-mist/80 max-w-2xl">
               Tell us what’s wrong. Add photos, video or documents and EntireFM will help identify the issue, match equipment, and route it correctly.
             </p>
           </div>
-          <span className="text-xs text-brand-mist/60 hidden sm:inline-block">
-            {clientName} · {userName}
-          </span>
+          {(!isPublic || userName) && (
+            <span className="text-xs text-brand-mist/60 hidden sm:inline-block">
+              {clientName} {userName ? `· ${userName}` : ''}
+            </span>
+          )}
         </div>
       </div>
 
@@ -479,6 +529,77 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Intake & Evidence Form (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
+          {/* Public Requester Information Card */}
+          {isPublic && (
+            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium text-white flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-electric/20 text-brand-electric-bright text-[11px]">
+                    <Building2 className="h-3 w-3" />
+                  </span>
+                  Your Details & Location
+                </label>
+                <span className="text-[11px] text-brand-mist/60">EntireFM 24/7 Operations</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Your Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    placeholder="e.g. Alex Morgan"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    placeholder="e.g. alex@company.co.uk"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Telephone / Mobile</label>
+                  <input
+                    type="tel"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    placeholder="e.g. 07700 900123"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Company / Organisation</label>
+                  <input
+                    type="text"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="e.g. Workspace Group Ltd"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Property / Site Address *</label>
+                  <input
+                    type="text"
+                    required
+                    value={propertyAddress}
+                    onChange={(e) => setPropertyAddress(e.target.value)}
+                    placeholder="e.g. 45 Victoria Street, Birmingham, B1 1TT"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* SECTION A: Problem Description */}
           <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm space-y-4">
             <div className="flex items-center justify-between">
@@ -641,24 +762,37 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
             </label>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Site / Facility *</label>
-                <select
-                  value={selectedSiteId}
-                  onChange={(e) => {
-                    setSelectedSiteId(e.target.value);
-                    setSelectedAssetId('');
-                  }}
-                  className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
-                >
-                  <option value="">Select site...</option>
-                  {initialSites.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name} {s.city ? `(${s.city})` : ''}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {initialSites.length > 0 ? (
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Site / Facility *</label>
+                  <select
+                    value={selectedSiteId}
+                    onChange={(e) => {
+                      setSelectedSiteId(e.target.value);
+                      setSelectedAssetId('');
+                    }}
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  >
+                    <option value="">Select site...</option>
+                    {initialSites.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.name} {s.city ? `(${s.city})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ) : (
+                <div>
+                  <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Site / Facility Name</label>
+                  <input
+                    type="text"
+                    value={propertyAddress}
+                    onChange={(e) => setPropertyAddress(e.target.value)}
+                    placeholder="e.g. Main Commercial Hub"
+                    className="w-full rounded-lg border border-brand-edge-dark bg-brand-void p-2.5 text-xs text-white focus:border-brand-electric focus:outline-none"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="text-[11.5px] font-medium text-brand-mist/80 block mb-1">Specific Location / Room</label>

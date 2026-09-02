@@ -20,18 +20,17 @@ import { orchestrateReactiveDispatch } from '@/server/ai/dispatch/orchestrator';
 import { CANONICAL_SLA_HOURS } from '@/server/ai/helpdesk/intake';
 import { TradeCategory, UrgencyLevel } from '@/server/ai/helpdesk/types';
 import { recordAuditEvent } from '@/server/audit';
+import { saveLead, leadStoreConfigured } from '@/lib/leads/store';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
     const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized: Please log in.' }, { status: 401 });
-    }
+    const isPublic = !session;
+    const isViewAs = !!session?.viewAsContext?.isViewAs;
 
-    const isViewAs = !!session.viewAsContext?.isViewAs;
-    if (session.orgType !== 'CLIENT' && !isViewAs && session.orgType !== 'ENTIREFM') {
+    if (session && session.orgType !== 'CLIENT' && !isViewAs && session.orgType !== 'ENTIREFM') {
       return NextResponse.json({ error: 'Forbidden: Insufficient privileges.' }, { status: 403 });
     }
 
@@ -52,13 +51,126 @@ export async function POST(req: NextRequest) {
       ai_assessment,
       ai_accepted = true,
       evidence = [],
+      contact_name,
+      contact_email,
+      contact_phone,
+      company_name,
+      property_address,
     } = body;
 
-    if (!site_id) {
-      return NextResponse.json({ error: 'Site selection is required' }, { status: 400 });
-    }
     if (!title || !description) {
       return NextResponse.json({ error: 'Job title and problem description are required' }, { status: 400 });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // A. PUBLIC UNAUTHENTICATED SUBMISSION PIPELINE
+    // ─────────────────────────────────────────────────────────────────────────────
+    if (isPublic) {
+      const publicName = contact_name || 'Public Guest';
+      const publicEmail = contact_email || '';
+      const publicLocation = property_address || location_description || 'Commercial Estate';
+
+      if (!contact_email) {
+        return NextResponse.json(
+          { error: 'Email address is required so EntireFM operations can confirm your job reference.' },
+          { status: 400 }
+        );
+      }
+
+      const reference = `SR-PUB-${Date.now().toString().slice(-6)}`;
+      const workOrderNum = `WO-PUB-${Date.now().toString().slice(-6)}`;
+      const woId = crypto.randomUUID();
+      const srId = crypto.randomUUID();
+
+      // Store lead in durable leads table
+      if (leadStoreConfigured()) {
+        try {
+          await saveLead({
+            enquiryId: reference,
+            name: publicName,
+            email: publicEmail,
+            phone: contact_phone || '',
+            company: company_name || '',
+            service: category,
+            location: publicLocation,
+            message: `[AI MULTIMODAL JOB LOGGED: ${workOrderNum}]\nTitle: ${title}\nPriority: ${priority}\nTrade: ${category}\nAccess: ${access_notes || 'N/A'}\n\nDescription:\n${description}`,
+            lead_source: 'PUBLIC_AI_HELPDESK',
+            conversion_page: '/log-a-job',
+            landing_page: '/log-a-job',
+          });
+        } catch (e) {
+          console.warn('[PUBLIC_LEAD_SAVE_WARNING]:', e);
+        }
+      }
+
+      // Handle file uploads if storage is available
+      const dbConfig = getDbConfig();
+      const storedEvidenceIds: string[] = [];
+
+      if (Array.isArray(evidence) && evidence.length > 0) {
+        for (const item of evidence) {
+          const storagePath = item.storagePath || `public-jobs/${woId}/${Date.now()}-${item.filename || 'evidence'}`;
+          if (item.base64Data && dbConfig) {
+            try {
+              const base64Clean = item.base64Data.includes(',')
+                ? item.base64Data.split(',')[1]
+                : item.base64Data;
+              const buffer = Buffer.from(base64Clean, 'base64');
+              const uploadUrl = `${dbConfig.url}/storage/v1/object/work-evidence/${storagePath}`;
+
+              await fetch(uploadUrl, {
+                method: 'POST',
+                headers: {
+                  apikey: dbConfig.key,
+                  Authorization: `Bearer ${dbConfig.key}`,
+                  'Content-Type': item.mimeType || 'application/octet-stream',
+                  'x-upsert': 'true',
+                },
+                body: buffer,
+              });
+              storedEvidenceIds.push(storagePath);
+            } catch (e: any) {
+              console.warn('[STORAGE_UPLOAD_WARNING]:', e?.message);
+            }
+          }
+        }
+      }
+
+      const slaHours = CANONICAL_SLA_HOURS[priority as UrgencyLevel] || 24;
+      const slaResolutionDue = new Date(Date.now() + slaHours * 3600 * 1000).toISOString();
+
+      return NextResponse.json({
+        success: true,
+        service_request: {
+          id: srId,
+          reference,
+          title,
+          status: 'TRIAGE',
+          priority,
+          created_at: new Date().toISOString(),
+          sla_hours: slaHours,
+          sla_resolution_due: slaResolutionDue,
+        },
+        work_order: {
+          id: woId,
+          work_order_number: workOrderNum,
+          status: 'PENDING_DISPATCH',
+        },
+        evidence_stored_count: storedEvidenceIds.length,
+        dispatch: {
+          status: 'QUEUED_FOR_TRIAGE',
+          assigned_supplier: 'EntireFM National Operations Desk',
+          client_message: 'Your job has been received and queued with priority triage at EntireFM 24/7 Operations Desk.',
+        },
+        message: `Job successfully logged under reference ${reference}. EntireFM operations has received your request.`,
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // B. AUTHENTICATED CLIENT SUBMISSION PIPELINE
+    // ─────────────────────────────────────────────────────────────────────────────
+    if (!site_id) {
+      return NextResponse.json({ error: 'Site selection is required' }, { status: 400 });
     }
 
     // 1. Authorisation & Site Validation

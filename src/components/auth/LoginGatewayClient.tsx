@@ -60,8 +60,8 @@ export function LoginGatewayClient({ errorCode, redirectParam }: LoginGatewayCli
 
   return (
     <>
-      {/* Minimal header */}
-      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between h-[64px] px-6 sm:px-10 border-b border-white/[0.07] bg-brand-void/80 backdrop-blur-md">
+      {/* Minimal header — fully transparent, images bleed behind it */}
+      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between h-[64px] px-6 sm:px-10">
         <Link href="/" className="text-[17px] font-extralight tracking-[0.08em] text-white">
           Entire<span className="font-bold text-hero-pink">FM</span>
         </Link>
@@ -73,8 +73,8 @@ export function LoginGatewayClient({ errorCode, redirectParam }: LoginGatewayCli
         </Link>
       </header>
 
-      {/* Three-panel gateway — full viewport */}
-      <main className="flex flex-col lg:flex-row min-h-screen pt-[64px]">
+      {/* Three-panel gateway — full viewport, images bleed under transparent header */}
+      <main className="flex flex-col lg:flex-row min-h-screen">
         {CARDS.map((card) => {
           const isHovered = hoveredRole === card.role;
 

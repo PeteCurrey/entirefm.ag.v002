@@ -21,12 +21,10 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
-    }
+    const isPublic = !session;
+    const isViewAs = !!session?.viewAsContext?.isViewAs;
 
-    const isViewAs = !!session.viewAsContext?.isViewAs;
-    if (session.orgType !== 'CLIENT' && !isViewAs && session.orgType !== 'ENTIREFM') {
+    if (session && session.orgType !== 'CLIENT' && !isViewAs && session.orgType !== 'ENTIREFM') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
@@ -68,14 +66,11 @@ export async function POST(req: NextRequest) {
     const { data: sites } = await dbQuery<any[]>(
       `sites?id=eq.${encodeURIComponent(site_id)}&select=id,name,organisation_id`
     );
-      const site = sites?.[0];
+    const site = sites?.[0];
 
-      if (!site) {
-        return NextResponse.json({ error: 'Specified site not found' }, { status: 404 });
-      }
-
-      // Verify site belongs to client org
-      if (session.orgType === 'CLIENT' && !isViewAs) {
+    if (site) {
+      // Verify site belongs to client org if authenticated as CLIENT
+      if (session && session.orgType === 'CLIENT' && !isViewAs) {
         if (site.organisation_id !== session.orgId) {
           return NextResponse.json({ error: 'Forbidden: Unauthorised site access' }, { status: 403 });
         }
@@ -83,10 +78,9 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: 'Forbidden: Restricted site scope' }, { status: 403 });
         }
       }
-
       siteName = site.name;
 
-      // Query active assets for this site to empower AI Asset Matching
+      // Query active assets for this site
       const { data: assetRecords } = await dbQuery<any[]>(
         `assets?site_id=eq.${encodeURIComponent(site_id)}&status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,manufacturer,model,serial_number&limit=100`
       );
@@ -104,6 +98,28 @@ export async function POST(req: NextRequest) {
           serial_number: a.serial_number,
         }));
       }
+    } else if (isPublic) {
+      // For public users with a non-UUID site_id or public demo site, provide representative active assets
+      siteName = 'Commercial Estate / Client Facility';
+      const { data: publicAssetRecords } = await dbQuery<any[]>(
+        `assets?status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,manufacturer,model,serial_number&limit=60`
+      );
+      if (publicAssetRecords && publicAssetRecords.length > 0) {
+        availableAssets = publicAssetRecords.map((a) => ({
+          id: a.id,
+          name: a.name,
+          asset_reference: a.asset_reference || a.name,
+          category: a.category,
+          sub_category: a.sub_category,
+          location: a.location,
+          manufacturer: a.manufacturer,
+          model: a.model,
+          serial_number: a.serial_number,
+        }));
+      }
+    } else {
+      return NextResponse.json({ error: 'Specified site not found' }, { status: 404 });
+    }
 
     // Call Multimodal AI Specialist Service
     const analysisResult = await MultimodalJobAnalysisService.analyze({
@@ -113,7 +129,7 @@ export async function POST(req: NextRequest) {
       siteName,
       availableAssets,
       correlationId: correlation_id,
-      requesterOrgId: session.orgId,
+      requesterOrgId: session ? session.orgId : 'PUBLIC_GUEST',
     });
 
     return NextResponse.json({
