@@ -17,7 +17,7 @@ const record: ContentRecord = {
   "eyebrow": "Single-Source FM Contracts",
   "heroIntro": "Consolidate multiple trade contractors and fragmented supplier relationships across London commercial estates into a single accountable facilities management contract.",
   "heroDescription": "EntireFM delivers integrated hard FM, soft FM, planned maintenance, and statutory compliance under a unified operating model with defined SLAs, transparent EntireCAFM reporting, and structured contract mobilisation.",
-  "heroImage": "/branding/EntireFM Branding 001.png",
+  "heroImage": "/images/editorial/entirefm-london-hero-002.png",
   "historicIntent": "Historic commercial search intent for fm london",
   "primaryIntent": "outsourced facilities management london",
   "secondaryIntents": [

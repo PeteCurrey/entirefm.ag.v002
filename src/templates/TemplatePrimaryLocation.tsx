@@ -37,12 +37,12 @@ export function TemplatePrimaryLocation({ route, content }: TemplateProps) {
 
   // Resolve city-specific photography from approved manifest
   const cityImages = (locationImages.cities as Record<string, any>)[citySlug]?.images || [];
-  const heroImage = cityImages.length > 0
+  const heroImage = content.heroImage || (cityImages.length > 0
     ? cityImages[0].src
-    : '/images/editorial/entirefm-headquarters-exterior-2000w.webp';
-  const heroImageAlt = cityImages.length > 0
+    : '/images/editorial/entirefm-headquarters-exterior-2000w.webp');
+  const heroImageAlt = (content.heroImage ? content.h1 : null) || (cityImages.length > 0
     ? cityImages[0].alt
-    : `EntireFM commercial facilities management and engineering operations in ${city}`;
+    : `EntireFM commercial facilities management and engineering operations in ${city}`);
 
   const editorialImage = cityImages.length > 1
     ? cityImages[1].src
