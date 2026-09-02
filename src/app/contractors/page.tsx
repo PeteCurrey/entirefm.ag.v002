@@ -182,6 +182,55 @@ export default function ContractorsDirectoryHub() {
             </div>
           </div>
         </section>
+
+        {/* Regional Locations Quick Links */}
+        <section className="py-16 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-wide space-y-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div className="space-y-2 max-w-2xl">
+                <span className="eyebrow eyebrow-light">REGIONAL HUBS</span>
+                <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
+                  Regional Contractor Coverage Across Core UK Hubs
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
+                  Join an active contractor network operating in your commercial corridor.
+                </p>
+              </div>
+
+              <Link
+                href="/contractors/locations"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EA580C] hover:underline shrink-0"
+              >
+                <span>View All Locations &amp; Expansion Zones</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                { name: "Sheffield & S. Yorks", href: "/contractors/locations/sheffield", badge: "Primary Hub" },
+                { name: "Greater Manchester", href: "/contractors/locations/manchester", badge: "North West Hub" },
+                { name: "Leeds & W. Yorks", href: "/contractors/locations/leeds", badge: "West Yorkshire" },
+                { name: "Nottingham & E. Mids", href: "/contractors/locations/nottingham", badge: "East Midlands" },
+              ].map((loc, idx) => (
+                <Link
+                  key={idx}
+                  href={loc.href}
+                  className="bg-white border border-slate-200 rounded-sm p-4 space-y-2 hover:border-[#EA580C]/50 hover:shadow-xs transition-all group"
+                >
+                  <span className="text-[10px] font-mono text-[#EA580C] font-semibold">{loc.badge}</span>
+                  <div className="text-sm font-semibold text-slate-900 group-hover:text-[#EA580C] transition-colors">
+                    {loc.name}
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-light flex items-center gap-1">
+                    <span>Explore Network</span>
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

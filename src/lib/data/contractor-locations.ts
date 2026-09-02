@@ -192,7 +192,7 @@ export const CONTRACTOR_LOCATIONS: Record<string, ContractorLocation> = {
       ref: "WO-LDS-7321",
       location: "Wellington Place Commercial Zone, Leeds LS1",
       poValue: "£820.00 PO",
-      scope: "Investigate pressure hunting on Lowara booster set. Replace faulty pressure sensor, replace 2" isolation ball valve, and test automatic pump rotation cycle.",
+      scope: 'Investigate pressure hunting on Lowara booster set. Replace faulty pressure sensor, replace 2" isolation ball valve, and test automatic pump rotation cycle.',
     },
     faqs: [
       {

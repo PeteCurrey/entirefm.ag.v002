@@ -48,6 +48,7 @@ export const RouteTypeSchema = z.enum([
   'company',
   'legal',
   'glossary',
+  'resources',
 ]);
 export type RouteType = z.infer<typeof RouteTypeSchema>;
 
@@ -168,7 +169,7 @@ export const RouteRecordSchema = z.object({
   designStatus: DesignStatusSchema,
 
   /** Which historic Wix generations this route appeared on */
-  historicSources: z.array(z.enum(['wix-generation-1', 'wix-generation-2', 'current-live-antigravity', 'new-growth-directive'])),
+  historicSources: z.array(z.enum(['wix-generation-1', 'wix-generation-2', 'current-live-antigravity', 'new-growth-directive'])).optional().default([]),
 
   /** Historic Wix Generation 1 URL if verified */
   g1_url: z.string().url().nullable().optional(),
