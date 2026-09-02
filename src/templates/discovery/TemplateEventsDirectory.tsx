@@ -72,7 +72,35 @@ export function TemplateEventsDirectory() {
         </section>
 
         {/* Events Grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+          {/* Featured Real-World Exhibition Banner */}
+          <div className="rounded-2xl border border-brand-electric/40 bg-gradient-to-r from-brand-charcoal/80 via-brand-graphite/40 to-brand-charcoal/80 p-6 sm:p-8 backdrop-blur-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-lg">
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brand-electric text-white">
+                  Featured Industry Exhibition
+                </span>
+                <span className="text-xs text-emerald-400 font-mono">20–21 October 2026</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                Facilities & Estates Management LIVE 2026
+              </h2>
+              <p className="text-xs sm:text-sm text-brand-silver leading-relaxed">
+                Business Design Centre, Islington, London. Connect with verified FM professionals, attend statutory Golden Thread briefings, and meet EntireFM on Stand B14.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <Link
+                href="/lobby/events/facilities-estates-management-live-2026"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-electric hover:bg-brand-electric-hover text-white text-xs font-semibold transition shadow-md"
+              >
+                <span>View Attendees & RSVP</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
           {loading ? (
             <div className="py-12 text-center text-brand-silver text-sm">Loading event calendar...</div>
           ) : (

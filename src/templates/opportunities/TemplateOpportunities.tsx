@@ -564,13 +564,46 @@ export function TemplateOpportunities() {
                     </div>
 
                     <div className="space-y-1">
-                      <div className="text-sm font-medium text-brand-electric">
-                        {featuredAward.awardDetails?.supplierName || 'Mitie Group PLC'}
+                      <div className="flex items-center justify-between">
+                        <div className="text-sm font-medium text-brand-electric">
+                          {featuredAward.awardDetails?.supplierName || 'Mitie Group PLC'}
+                        </div>
+                        {featuredAward.awardDetails?.verifiedPerformance?.isVerified && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded">
+                            <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                            Verified EntireFM Performance
+                          </span>
+                        )}
                       </div>
                       <h3 className="text-xl sm:text-2xl font-light text-neutral-900 leading-snug">
                         {featuredAward.title}
                       </h3>
                     </div>
+
+                    {featuredAward.awardDetails?.verifiedPerformance && (
+                      <div className="rounded border border-emerald-200 bg-emerald-50/70 p-3 text-xs space-y-2">
+                        <div className="flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+                          <span>Live Contractor Track Record</span>
+                          <span className="font-mono text-emerald-900 font-bold">
+                            {featuredAward.awardDetails.verifiedPerformance.performanceIndex}% Index
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 text-[10px] text-neutral-600">
+                          <div>
+                            <span className="block text-neutral-400">Completed Jobs</span>
+                            <span className="font-medium text-neutral-800">{featuredAward.awardDetails.verifiedPerformance.totalCompletedJobs}</span>
+                          </div>
+                          <div>
+                            <span className="block text-neutral-400">SLA Attendance</span>
+                            <span className="font-medium text-neutral-800">{featuredAward.awardDetails.verifiedPerformance.slaAttendanceRate}%</span>
+                          </div>
+                          <div>
+                            <span className="block text-neutral-400">First-Time Fix</span>
+                            <span className="font-medium text-neutral-800">{featuredAward.awardDetails.verifiedPerformance.firstTimeFixRate}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="grid grid-cols-2 gap-3 pt-3 border-t border-neutral-100 text-xs font-light">
                       <div>
@@ -615,8 +648,16 @@ export function TemplateOpportunities() {
                     className="p-5 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-2 flex-1 flex flex-col justify-between"
                   >
                     <div className="space-y-1">
-                      <div className="text-xs font-medium text-brand-electric">
-                        {award.awardDetails?.supplierName || 'Verified Contractor'}
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs font-medium text-brand-electric">
+                          {award.awardDetails?.supplierName || 'Verified Contractor'}
+                        </div>
+                        {award.awardDetails?.verifiedPerformance?.isVerified && (
+                          <span className="inline-flex items-center gap-0.5 text-[9px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-300 px-1.5 py-0.5 rounded">
+                            <ShieldCheck className="w-2.5 h-2.5 text-emerald-600" />
+                            Verified Scorecard ({award.awardDetails.verifiedPerformance.performanceIndex}%)
+                          </span>
+                        )}
                       </div>
                       <h4 className="text-sm font-light text-neutral-900 leading-snug">
                         {award.title}

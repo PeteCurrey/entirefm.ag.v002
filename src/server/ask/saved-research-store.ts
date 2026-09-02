@@ -78,6 +78,20 @@ export async function saveResearch(
     body: row,
   });
 
+  // Award 5 minutes authentic CPD for completed grounded technical research
+  import('@/server/cpd/cpd-store')
+    .then(({ logCpdActivity }) => {
+      logCpdActivity({
+        memberId,
+        activityType: 'ask_research',
+        title: `Ask The Lobby: ${row.title.slice(0, 50)}`,
+        description: `Grounded technical FM research on: ${row.question}`,
+        durationMinutes: 5,
+        sourceRef: id,
+      }).catch(() => {});
+    })
+    .catch(() => {});
+
   return mapRecord(row);
 }
 

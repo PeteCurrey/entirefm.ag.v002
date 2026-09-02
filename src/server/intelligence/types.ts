@@ -255,6 +255,14 @@ export interface ProcurementOpportunity {
     awardedDate: string;
     contractPeriodYears?: number;
     subcontractingPermitted?: boolean;
+    verifiedPerformance?: {
+      isVerified: boolean;
+      performanceIndex: number;
+      totalCompletedJobs: number;
+      firstTimeFixRate: number;
+      slaAttendanceRate: number;
+      optedIn: boolean;
+    };
   };
 
   // FM Relevance & Prominence
