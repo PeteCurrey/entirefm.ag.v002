@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
+  Scan,
   Wrench,
   Calculator,
   CalendarCheck,
@@ -39,6 +40,17 @@ interface ToolItem {
 }
 
 const TOOLS_DATA: ToolItem[] = [
+  {
+    title: 'Asset Scanner',
+    slug: '/tools/asset-scanner',
+    category: 'Maintenance Planning',
+    tag: 'Instant Recognition',
+    timeEstimate: 'Instant',
+    description: 'Upload a plant nameplate photo or compliance certificate to identify equipment and match against verified SFG20 regimes.',
+    deliverables: ['Plant metadata extraction', 'SFG20 maintenance matching', 'Compliance observation log'],
+    icon: Scan,
+    relatedService: { label: 'Planned Maintenance (PPM)', href: '/ppm' },
+  },
   {
     title: 'FM Compliance Checker',
     slug: '/tools/compliance-checker',

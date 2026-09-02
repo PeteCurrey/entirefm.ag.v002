@@ -1,0 +1,149 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // HELPER FUNCTIONS & AUTHENTICATION PREDICATES
+    // ──────────────────────────────────────────────────────────────────────────
+
+    // Check if request is authenticated
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    // Check if the authenticated user matches the document or path UID
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // Validation helpers for timestamps
+    function isTimestamp(val) {
+      return val is timestamp;
+    }
+
+    // Server-write-only fields for Asset documents
+    // Clients must NEVER be able to inject or mutate extractionConfidence,
+    // recommendedRegime, or assetType directly.
+    function containsServerProtectedAssetFields(data) {
+      return ('extractionConfidence' in data && data.extractionConfidence != null) ||
+             ('recommendedRegime' in data && data.recommendedRegime != null) ||
+             ('assetType' in data && data.assetType != null);
+    }
+
+    function modifiesServerProtectedAssetFields() {
+      return request.resource.data.diff(resource.data).affectedKeys()
+        .hasAny(['extractionConfidence', 'recommendedRegime', 'assetType', 'sourceUploadId', 'createdAt']);
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // /estates/{supabaseUid}
+    // Per-member estate workspace keyed strictly on Supabase auth.uid
+    // ──────────────────────────────────────────────────────────────────────────
+    match /estates/{supabaseUid} {
+      // Allow read only to the verified estate owner
+      allow read: if isOwner(supabaseUid);
+
+      // Create new estate workspace for verified Supabase user
+      allow create: if isOwner(supabaseUid)
+        && request.resource.data.keys().hasAll(['createdAt', 'updatedAt', 'siteCount'])
+        && isTimestamp(request.resource.data.createdAt)
+        && isTimestamp(request.resource.data.updatedAt)
+        && request.resource.data.siteCount is int
+        && request.resource.data.siteCount >= 0
+        && (!('displayName' in request.resource.data) || (request.resource.data.displayName is string && request.resource.data.displayName.size() <= 100));
+
+      // Update estate workspace: owner only, cannot manipulate createdAt
+      allow update: if isOwner(supabaseUid)
+        && isTimestamp(request.resource.data.updatedAt)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && (!('displayName' in request.resource.data) || (request.resource.data.displayName is string && request.resource.data.displayName.size() <= 100))
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdAt']));
+
+      // Delete only by estate owner
+      allow delete: if isOwner(supabaseUid);
+
+      // ────────────────────────────────────────────────────────────────────────
+      // /estates/{supabaseUid}/assets/{assetId}
+      // Digital asset register under the member's estate
+      // ────────────────────────────────────────────────────────────────────────
+      match /assets/{assetId} {
+        // Read only by verified estate owner
+        allow read: if isOwner(supabaseUid);
+
+        // Client-side asset creation:
+        // Clients may initiate an asset placeholder from an upload, but MUST NOT
+        // fabricate extractionConfidence, recommendedRegime, or assetType.
+        // Those fields remain null/omitted until populated by the backend server.
+        allow create: if isOwner(supabaseUid)
+          && request.resource.data.keys().hasAll(['createdAt', 'updatedAt', 'sourceUploadId', 'status'])
+          && isTimestamp(request.resource.data.createdAt)
+          && isTimestamp(request.resource.data.updatedAt)
+          && request.resource.data.sourceUploadId is string
+          && request.resource.data.status in ['processing', 'complete', 'failed', 'needs_review']
+          && !containsServerProtectedAssetFields(request.resource.data)
+          && (!('flaggedIssues' in request.resource.data) || request.resource.data.flaggedIssues is list)
+          && (!('addedToPpmScheduleAt' in request.resource.data) || request.resource.data.addedToPpmScheduleAt == null || isTimestamp(request.resource.data.addedToPpmScheduleAt));
+
+        // Client-side asset updates:
+        // Clients can update user-editable metadata (e.g. accepted PPM schedule handoff, notes)
+        // but CANNOT modify server-protected extraction/compliance fields.
+        allow update: if isOwner(supabaseUid)
+          && isTimestamp(request.resource.data.updatedAt)
+          && request.resource.data.createdAt == resource.data.createdAt
+          && !modifiesServerProtectedAssetFields()
+          && (!('addedToPpmScheduleAt' in request.resource.data) || request.resource.data.addedToPpmScheduleAt == null || isTimestamp(request.resource.data.addedToPpmScheduleAt));
+
+        // Delete allowed by estate owner
+        allow delete: if isOwner(supabaseUid);
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // /uploads/{uploadId}
+    // Ingested scan files (anonymous and authenticated members)
+    // ──────────────────────────────────────────────────────────────────────────
+    match /uploads/{uploadId} {
+      // Reads:
+      // - Authenticated owner can read their own uploads
+      // - Cross-user reads are strictly denied
+      // - Anonymous reads cannot enumerate other uploads
+      allow read: if (isAuthenticated() && resource.data.ownerUid == request.auth.uid)
+        || (!isAuthenticated() && resource.data.ownerUid == null && request.headers['x-session-id'] == resource.data.sessionId);
+
+      // Creates:
+      // 1. Authenticated user: ownerUid must match authenticated user
+      // 2. Anonymous user: ownerUid must be null, valid sessionId required, fileType must be image/video/pdf
+      allow create: if (
+        // Case A: Authenticated member upload
+        (isAuthenticated() && request.resource.data.ownerUid == request.auth.uid)
+        ||
+        // Case B: Anonymous upload (single use per session, 24h retention)
+        (!isAuthenticated()
+          && request.resource.data.ownerUid == null
+          && request.resource.data.sessionId is string
+          && request.resource.data.sessionId.size() >= 16
+          && request.resource.data.sessionId.size() <= 128
+          && request.resource.data.retentionExpiresAt is timestamp)
+      )
+      && request.resource.data.keys().hasAll(['storagePath', 'fileType', 'uploadedAt'])
+      && request.resource.data.fileType in ['image', 'video', 'pdf']
+      && isTimestamp(request.resource.data.uploadedAt)
+      && request.resource.data.storagePath is string
+      && request.resource.data.storagePath.size() > 0
+      && (!('linkedAssetId' in request.resource.data) || request.resource.data.linkedAssetId == null || request.resource.data.linkedAssetId is string);
+
+      // Updates: only authenticated owner or backend
+      allow update: if isAuthenticated()
+        && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerUid == resource.data.ownerUid;
+
+      // Deletes: only authenticated owner
+      allow delete: if isAuthenticated() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    // Deny all other collections by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

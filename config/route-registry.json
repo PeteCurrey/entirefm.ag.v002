@@ -8036,6 +8036,24 @@
       ]
     },
     {
+      "path": "/tools/asset-scanner",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/tools/ppm-schedule-builder",
       "routeType": "company",
       "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",

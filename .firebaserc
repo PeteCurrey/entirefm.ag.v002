@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "entirefm-ai",
+    "preview": "entirefm-ai",
+    "production": "entirefm-ai"
+  }
+}

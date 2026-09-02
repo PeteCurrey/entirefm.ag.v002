@@ -62,6 +62,8 @@ const EnquirySchema = z.object({
   utm_content: z.string().optional().default(''),
   referrer: z.string().optional().default(''),
   drone_brief: z.any().optional(),
+  asset_scanner_context: z.any().optional(),
+  lead_source: z.string().optional(),
   lead_priority: z.string().optional(),
   timestamp: z.string().optional().default(() => new Date().toISOString()),
 });
@@ -147,6 +149,16 @@ export async function POST(request: Request) {
                 <p><strong>Assets to Inspect:</strong> ${(data.drone_brief.inspection?.assetsToInspect || []).join(', ')}</p>
                 <p><strong>Urgency:</strong> ${data.drone_brief.inspection?.urgency || 'Standard'}</p>
                 <p><strong>Remedial Works Interest:</strong> ${data.drone_brief.inspection?.remediationInterest || 'Not specified'}</p>
+              </div>
+              ` : ''}
+              ${data.asset_scanner_context ? `
+              <div style="background:#0b1220;color:#ffffff;padding:16px;border-radius:6px;margin:12px 0;">
+                <h4 style="color:#00d2ff;margin-top:0;">Asset Scanner Plant Verification Details</h4>
+                <p><strong>Asset Type:</strong> ${data.asset_scanner_context.assetType || 'N/A'}</p>
+                <p><strong>Manufacturer:</strong> ${data.asset_scanner_context.manufacturer || 'Not detected'}</p>
+                <p><strong>Model:</strong> ${data.asset_scanner_context.model || 'Not detected'}</p>
+                <p><strong>Serial Number:</strong> ${data.asset_scanner_context.serialNumber || 'Not detected'}</p>
+                <p><strong>Recommended SFG20 Regime:</strong> ${data.asset_scanner_context.recommendedRegime ? `${data.asset_scanner_context.recommendedRegime.taskRef} (${data.asset_scanner_context.recommendedRegime.frequency})` : 'None / Needs Review'}</p>
               </div>
               ` : ''}
               <p><strong>Message / Scope:</strong></p>

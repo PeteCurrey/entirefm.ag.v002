@@ -1,0 +1,70 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // HELPER FUNCTIONS & FILE VALIDATION
+    // ──────────────────────────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isValidContentType() {
+      return request.resource.contentType.matches('image/.*')
+          || request.resource.contentType.matches('video/.*')
+          || request.resource.contentType == 'application/pdf';
+    }
+
+    // Maximum file size: 50MB
+    function isValidFileSize() {
+      return request.resource.size > 0 && request.resource.size <= 50 * 1024 * 1024;
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // LOGGED-IN MEMBER UPLOADS: uploads/{ownerUid}/{uploadId}/{filename}
+    // Keyed by verified Supabase auth.uid, persists indefinitely until owner deletes
+    // ──────────────────────────────────────────────────────────────────────────
+    match /uploads/{ownerUid}/{uploadId}/{filename} {
+      // Owner can read and delete their own files
+      allow read, delete: if isOwner(ownerUid);
+
+      // Owner can upload new scan files within size and type limits
+      allow create: if isOwner(ownerUid)
+        && isValidContentType()
+        && isValidFileSize();
+
+      // No in-place overwrites
+      allow update: if false;
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // ANONYMOUS UPLOADS: uploads/anon/{sessionId}/{uploadId}/{filename}
+    // Single-use upload per session, TTL 24 hours managed by Storage Lifecycle
+    // ──────────────────────────────────────────────────────────────────────────
+    match /uploads/anon/{sessionId}/{uploadId}/{filename} {
+      // Allow anonymous upload creation if session ID is valid, with size and mime constraints
+      allow create: if request.auth == null
+        && sessionId.size() >= 16
+        && sessionId.size() <= 128
+        && isValidContentType()
+        && isValidFileSize();
+
+      // Anonymous files can be read back only by presenting the matching session header or via server
+      allow read: if request.auth == null
+        && request.headers['x-session-id'] == sessionId;
+
+      // Cannot update or delete directly from client
+      allow update, delete: if false;
+    }
+
+    // Deny everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

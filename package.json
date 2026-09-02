@@ -13,6 +13,8 @@
     "migration:audit": "node scripts/migration-audit.js",
     "test:lobby-daily": "tsx scripts/test-lobby-daily.ts",
     "test:security": "tsx scripts/test-security.ts",
+    "test:asset-scanner-rules": "tsx scripts/test-asset-scanner-rules.ts",
+    "test:asset-scanner-pipeline": "tsx scripts/test-asset-scanner-pipeline.ts",
     "test:operations": "tsx scripts/test-operations.ts",
     "test:operations-hardening": "tsx scripts/test-operations-hardening.ts",
     "test:field-contractor": "tsx scripts/test-field-contractor.ts",

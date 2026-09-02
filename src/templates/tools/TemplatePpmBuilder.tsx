@@ -127,6 +127,25 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
     { name: 'PPM Schedule Builder', url: '/tools/ppm-schedule-builder' },
   ];
 
+  // Auto-import scanned asset from Asset Scanner handoff
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const scannedAssetId = urlParams.get('importScannedAsset');
+    const qty = parseInt(urlParams.get('quantity') || '1', 10);
+
+    if (scannedAssetId) {
+      const assetDef = getAssetById(scannedAssetId);
+      if (assetDef) {
+        setSelectedCategoryIds((prev) => new Set([...Array.from(prev), assetDef.categoryId]));
+        setSelectedAssets((prev) => ({
+          ...prev,
+          [scannedAssetId]: qty > 0 ? qty : 1,
+        }));
+      }
+    }
+  }, []);
+
   // Helper functions for Category Selection
   const toggleCategory = (catId: string) => {
     setSelectedCategoryIds((prev) => {

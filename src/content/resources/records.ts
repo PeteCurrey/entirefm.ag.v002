@@ -570,6 +570,57 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     contentStatus: 'COMPLETE'
   },
 
+  '/tools/asset-scanner': {
+    path: '/tools/asset-scanner',
+    title: 'Asset Scanner | Plant Recognition & SFG20 Regime Matcher | Entire FM',
+    metaDescription: 'Scan plant nameplates and compliance certificates to identify equipment, verify technical details, and match against SFG20 maintenance regimes.',
+    h1: 'Asset Scanner & Plant Recognition',
+    eyebrow: 'Interactive Engineering Tool',
+    heroIntro: 'Upload a plant nameplate photo or compliance document to identify equipment and match against verified SFG20 maintenance regimes.',
+    heroDescription: 'Instant multimodal plant identification with strict zero-fabrication standards, linking detected equipment directly to statutory and planned preventative maintenance regimes.',
+    heroImage: '/branding/EntireFM Branding 003.png',
+    historicIntent: 'Asset recognition and PPM regime matcher',
+    primaryIntent: 'Asset scanner',
+    secondaryIntents: ['plant nameplate scanner', 'SFG20 asset matcher', 'equipment maintenance regime lookup'],
+    pageType: 'company',
+    historicTopics: ['Asset scanner', 'Plant nameplate extraction', 'SFG20 regime matching'],
+    requiredSections: ['hero', 'scan-uploader', 'results-display', 'ppm-handoff-cta', 'quote-cta'],
+    sections: [
+      {
+        heading: 'How Asset Scanning Works',
+        body: 'Upload plant photos or certificates to instantly identify manufacturer, model, and serial details. Scanned assets can be saved to your digital estate register and populated into the 52-week PPM Schedule Builder.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'How long are anonymous uploads stored?',
+        answer: 'Anonymous uploads have a strict 24-hour retention period and are automatically deleted. Logged-in Lobby members have scans saved indefinitely to their estate register.'
+      },
+      {
+        question: 'Can I add scanned assets to a PPM schedule?',
+        answer: 'Yes. Once an asset is matched to an SFG20 maintenance regime, you can add it directly to your 52-week PPM Schedule Builder.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'FM Tools', url: '/tools' },
+      { name: 'Asset Scanner', url: '/tools/asset-scanner' }
+    ],
+    relatedRoutes: [
+      '/tools',
+      '/tools/ppm-schedule-builder',
+      '/ppm',
+      '/compliance'
+    ],
+    conversionGoal: 'Encourage estate asset digitization and planned maintenance survey requests.',
+    verificationRequirements: [
+      'No fabricated serial numbers or regimes',
+      'Strict SFG20 dataset alignment'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+
   '/tools/compliance-calendar': {
     path: '/tools/compliance-calendar',
     title: 'FM Compliance Calendar Builder | Statutory Testing Schedule | Entire FM',

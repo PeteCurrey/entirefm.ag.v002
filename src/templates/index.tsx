@@ -34,6 +34,7 @@ import { TemplateToolsHub } from './tools/TemplateToolsHub';
 import { TemplateHealthCheck } from './tools/TemplateHealthCheck';
 import { TemplateComplianceChecker } from './tools/TemplateComplianceChecker';
 import { TemplatePpmBuilder } from './tools/TemplatePpmBuilder';
+import { TemplateAssetScanner } from './tools/TemplateAssetScanner';
 import { TemplateComplianceCalendar } from './tools/TemplateComplianceCalendar';
 import { TemplatePpmEstimator } from './tools/TemplatePpmEstimator';
 import { TemplateRoiCalculator } from './tools/TemplateRoiCalculator';
@@ -227,6 +228,9 @@ function selectTemplate(
   }
   if (path === '/tools/ppm-schedule-builder') {
     return <TemplatePpmBuilder route={route} content={content} />;
+  }
+  if (path === '/tools/asset-scanner') {
+    return <TemplateAssetScanner route={route} content={content} />;
   }
   if (path === '/tools/compliance-calendar') {
     return <TemplateComplianceCalendar route={route} content={content} />;
