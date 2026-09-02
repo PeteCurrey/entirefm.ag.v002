@@ -396,8 +396,6 @@ export async function extractAssetFromUpload(
     const status: AssetScannerStatus =
       confidence === 'high' && regime && rawMfr && rawModel
         ? 'complete'
-        : confidence === 'failed'
-        ? 'failed'
         : 'needs_review';
 
     const asset: AssetDocument = {
