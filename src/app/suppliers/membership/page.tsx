@@ -5,6 +5,9 @@ import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { MembershipTierCards } from '@/components/suppliers/MembershipTierCards';
 import { ContractorPlatformPreview } from '@/components/suppliers/ContractorPlatformPreview';
+import { ContractorFourPillars } from '@/components/suppliers/ContractorFourPillars';
+import { ContractorRamsSection } from '@/components/suppliers/ContractorRamsSection';
+import { ContractorTestimonialPlaceholder } from '@/components/suppliers/ContractorTestimonialPlaceholder';
 import { StickyMembershipCta } from '@/components/suppliers/StickyMembershipCta';
 import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
@@ -45,9 +48,9 @@ import {
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
 export const metadata: Metadata = generateRouteMetadata('/suppliers/membership', {
-  title: 'Contractor Platform Membership & Pricing (£295/yr) | EntireFM',
+  title: 'Contractor Portal & Platform Membership (£295/yr) | EntireFM Contractor Network',
   description:
-    'EntireFM Contractor Platform membership (£295+VAT/yr). Professional operating environment for compliance, RAMS, digital job packs, workforce matrix, business calculators, and managed FM supply chain participation.',
+    'EntireFM Contractor Platform — compliance management, RAMS, work orders, job records and document vault for professional UK FM contractors. £295+VAT/year. Part of the EntireFM contractor ecosystem.',
 });
 
 export default function SupplierMembershipPublicPage() {
@@ -62,13 +65,43 @@ export default function SupplierMembershipPublicPage() {
       <Header />
 
       <main id="main" className="flex-grow">
+      {/* Product & Organization Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "EntireFM Contractor Platform",
+            "description": "Professional contractor operating platform and supplier network gateway for UK facilities management contractors.",
+            "brand": {
+              "@type": "Brand",
+              "name": "EntireFM"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "295",
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock",
+              "url": "https://www.entirefm.com/suppliers/membership",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "295",
+                "priceCurrency": "GBP",
+                "unitText": "YEAR"
+              }
+            }
+          }),
+        }}
+      />
+
         {/* 1. HERO SECTION */}
         <SupplierHero
-          eyebrow="ENTIREFM CONTRACTOR PLATFORM // OPERATING ENVIRONMENT"
+          eyebrow="ENTIREFM CONTRACTOR NETWORK // PLATFORM & ECOSYSTEM"
           title="Run your contracting business"
-          subtitle="with more control."
-          intro="A professional operating platform for contractors delivering commercial FM work — combining compliance, job execution, documentation, workforce management, and business tools in one connected environment."
-          imageSrc="/images/editorial/entirefm-hero-headquarters-2560w.webp"
+          subtitle="with the tools behind the work."
+          intro="A professional operating platform and network gateway for UK contractors — combining compliance management, RAMS, digital job records, workforce competency and business tools in one connected environment."
+          imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
           imageAlt="EntireFM commercial operations and contractor platform control centre"
           breadcrumbs={breadcrumbs}
           primaryCta={{ label: 'Join the Contractor Network', href: '/suppliers/apply' }}
@@ -105,6 +138,9 @@ export default function SupplierMembershipPublicPage() {
             </div>
           </div>
         </section>
+
+        {/* 2b. FOUR PILLARS POSITIONING */}
+        <ContractorFourPillars />
 
         {/* 3. CORE POSITIONING & THE £295 QUESTION */}
         <section className="py-24 bg-white border-b border-slate-200">
@@ -189,6 +225,9 @@ export default function SupplierMembershipPublicPage() {
             <ContractorPlatformPreview />
           </div>
         </section>
+
+        {/* 4b. RAMS & DOCUMENTATION LIFECYCLE */}
+        <ContractorRamsSection />
 
         {/* 5. ONE PLATFORM VS DISCONNECTED TOOLS */}
         <section className="py-24 bg-white border-b border-slate-200">
@@ -870,6 +909,9 @@ export default function SupplierMembershipPublicPage() {
             </div>
           </div>
         </section>
+
+        {/* 16b. CONTRACTOR TESTIMONIALS */}
+        <ContractorTestimonialPlaceholder />
 
         {/* 17. FINAL CONVERSION CALL TO ACTION */}
         <section className="py-24 bg-white border-b border-slate-200 text-center">

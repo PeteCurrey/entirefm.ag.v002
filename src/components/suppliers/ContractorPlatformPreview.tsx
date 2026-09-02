@@ -1,6 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+function useCounter(target: number, duration: number = 800, startAnimation: boolean = true) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!startAnimation) return;
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.floor(ease * target));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target, duration, startAnimation]);
+
+  return count;
+}
+
 import Link from 'next/link';
 import { CafmBrandMark } from '@/components/brand/CafmBrandMark';
 import {
@@ -30,9 +58,34 @@ type TabKey = 'dashboard' | 'compliance' | 'rams' | 'workforce' | 'tools' | 'int
 
 export function ContractorPlatformPreview() {
   const [activeTab, setActiveTab] = useState<TabKey>('dashboard');
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const pendingCount = useCounter(2, 600, isVisible);
+  const activeOrdersCount = useCounter(4, 700, isVisible);
+  const complianceScore = useCounter(98, 900, isVisible);
+  const operativesCount = useCounter(8, 800, isVisible);
 
   return (
-    <div className="w-full rounded-md border border-slate-200 bg-white shadow-xl overflow-hidden text-slate-900">
+    <div ref={containerRef} className="w-full rounded-md border border-slate-200 bg-white shadow-xl overflow-hidden text-slate-900">
       {/* 1. Browser / App Chrome Bar */}
       <div className="bg-[#1E293B] px-4 py-3 border-b border-slate-700 flex flex-wrap items-center justify-between gap-3 text-white">
         <div className="flex items-center gap-3">
@@ -126,7 +179,7 @@ export function ContractorPlatformPreview() {
                     CONTRACTOR OPERATIONS CONTROL
                   </span>
                   <span className="text-[10.5px] font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    COMPLIANCE SCORE: 98%
+                    COMPLIANCE SCORE: {complianceScore}%
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900">
@@ -153,7 +206,7 @@ export function ContractorPlatformPreview() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
                   New Job Offers
                 </span>
-                <div className="text-2xl font-bold text-[#EA580C] mt-1">2 Pending</div>
+                <div className="text-2xl font-bold text-[#EA580C] mt-1 tabular-nums">{pendingCount} Pending</div>
                 <span className="text-[11px] text-slate-500">Requires accept / decline</span>
               </div>
 
@@ -161,7 +214,7 @@ export function ContractorPlatformPreview() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
                   Active in Field
                 </span>
-                <div className="text-2xl font-bold text-slate-900 mt-1">4 Orders</div>
+                <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{activeOrdersCount} Orders</div>
                 <span className="text-[11px] text-slate-500">Engineers on-site</span>
               </div>
 
@@ -169,7 +222,7 @@ export function ContractorPlatformPreview() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
                   Compliance Status
                 </span>
-                <div className="text-2xl font-bold text-emerald-600 mt-1">98% Valid</div>
+                <div className="text-2xl font-bold text-emerald-600 mt-1 tabular-nums">{complianceScore}% Valid</div>
                 <span className="text-[11px] text-slate-500">All statutory controls active</span>
               </div>
 
@@ -177,7 +230,7 @@ export function ContractorPlatformPreview() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
                   Field Engineers
                 </span>
-                <div className="text-2xl font-bold text-slate-900 mt-1">8 Operatives</div>
+                <div className="text-2xl font-bold text-slate-900 mt-1 tabular-nums">{operativesCount} Operatives</div>
                 <span className="text-[11px] text-slate-500">Authorised &amp; inducted</span>
               </div>
             </div>

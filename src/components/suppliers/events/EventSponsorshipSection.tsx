@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { Award, ShieldAlert, Cpu, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ShieldAlert, CheckCircle2 } from 'lucide-react';
 
 interface SponsorshipTier {
   name: string;
@@ -46,20 +45,20 @@ const SPONSORSHIP_TIERS: SponsorshipTier[] = [
 
 export function EventSponsorshipSection() {
   return (
-    <section id="sponsorship" className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+    <section id="sponsorship" className="py-20 lg:py-28 bg-[#FFFFFF] border-b border-[#E8E8E5]">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
+        <div className="max-w-3xl mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C]" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#EA580C]">
               PARTNER WITH AN ENTIREFM EVENT
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-900 leading-[1.15]">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111111]">
             Sponsorship &amp; manufacturer collaboration
           </h2>
-          <p className="mt-4 text-base text-slate-600 font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-[#6D6D68] font-light leading-relaxed">
             Position your technology, plant equipment, or specialist services directly before commercial property managers, facilities directors, and certified regional engineering contractors.
           </p>
         </div>
@@ -69,27 +68,27 @@ export function EventSponsorshipSection() {
           {SPONSORSHIP_TIERS.map((tier, idx) => (
             <div
               key={idx}
-              className="p-6 bg-white border border-slate-200/90 rounded-sm shadow-xs flex flex-col justify-between space-y-6 hover:border-brand-pink transition-all duration-200"
+              className="p-6 bg-[#FAFAF8] border border-[#E8E8E5] rounded-[8px] shadow-xs flex flex-col justify-between space-y-6 hover:border-[#EA580C]/40 hover:bg-[#FFFFFF] transition-all duration-200"
             >
               <div className="space-y-3">
-                <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink bg-brand-pink/10 border border-brand-pink/20 px-2 py-0.5 rounded-xs inline-block">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#EA580C] bg-[#EA580C]/10 border border-[#EA580C]/20 px-2 py-0.5 rounded-[3px] inline-block">
                   {tier.badge}
                 </span>
-                <h3 className="text-xl font-normal text-slate-900">
+                <h3 className="text-lg font-semibold text-[#111111]">
                   {tier.name}
                 </h3>
-                <p className="text-xs text-slate-600 font-light leading-relaxed">
+                <p className="text-xs text-[#6D6D68] font-light leading-relaxed">
                   {tier.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 space-y-2">
-                <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light">
+              <div className="pt-4 border-t border-[#E8E8E5] space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#9A9A95] block mb-1">
                   Key Inclusions:
                 </span>
                 {tier.deliverables.map((item, dIdx) => (
-                  <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-700 font-light">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-pink shrink-0 mt-0.5" />
+                  <div key={dIdx} className="flex items-start gap-2 text-xs text-[#2D2D2D] font-light">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -99,10 +98,10 @@ export function EventSponsorshipSection() {
         </div>
 
         {/* Procurement Independence Statement */}
-        <div className="p-5 bg-white border border-slate-200 rounded-sm flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs text-slate-600 font-light">
-          <ShieldAlert className="w-5 h-5 text-slate-400 shrink-0 mt-0.5 sm:mt-0" />
-          <p className="leading-relaxed">
-            <strong className="font-normal text-slate-900">Procurement Independence Notice:</strong> Event sponsorship, participation, and partnership do not influence supplier assurance auditing, tender evaluation, procurement decisions, or work allocation on EntireFM managed commercial estates.
+        <div className="p-5 bg-[#FAFAF8] border border-[#E8E8E5] rounded-[8px] flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs text-[#6D6D68] font-light">
+          <ShieldAlert className="w-5 h-5 text-[#EA580C] shrink-0 mt-0.5 sm:mt-0" />
+          <p className="leading-relaxed flex-1">
+            <strong className="font-semibold text-[#111111]">Procurement Independence Notice:</strong> Event sponsorship, participation, and partnership do not influence supplier assurance auditing, tender evaluation, procurement decisions, or work allocation on EntireFM managed commercial estates.
           </p>
           <a
             href="#event-interest"
@@ -110,7 +109,7 @@ export function EventSponsorshipSection() {
               e.preventDefault();
               document.querySelector('#event-interest')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-outline text-xs py-2 px-4 whitespace-nowrap shrink-0"
+            className="px-4 py-2 rounded-[4px] bg-[#111111] hover:bg-[#222222] text-white text-xs font-semibold uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors"
           >
             Discuss Sponsorship
           </a>

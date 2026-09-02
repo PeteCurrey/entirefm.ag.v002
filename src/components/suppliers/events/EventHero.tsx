@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, Calendar, Users, History } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Calendar, Users, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export function EventHero() {
@@ -13,16 +14,16 @@ export function EventHero() {
   ];
 
   return (
-    <section className="bg-brand-graphite text-white relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28 border-b border-brand-edge-dark isolate">
+    <section className="bg-[#0B1220] text-white relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28 border-b border-slate-800 isolate">
       {/* Background Hero Image */}
       <div className="absolute inset-0 -z-30">
         <Image
           src="/images/suppliers/supplier-events-hero.jpg"
-          alt="EntireFM supplier relationship meeting overlooking city skyline"
+          alt="UK facilities management and engineering contractors collaborating during a technical industry briefing"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center lg:object-right"
+          className="object-cover object-center lg:object-right filter brightness-[0.85]"
         />
       </div>
 
@@ -32,19 +33,16 @@ export function EventHero() {
         className="absolute inset-0 -z-20"
         style={{
           background:
-            'linear-gradient(98deg, rgba(11,18,32,0.96) 0%, rgba(11,18,32,0.90) 45%, rgba(11,18,32,0.65) 75%, rgba(11,18,32,0.45) 100%)',
+            'linear-gradient(98deg, rgba(11,18,32,0.96) 0%, rgba(11,18,32,0.90) 45%, rgba(11,18,32,0.65) 75%, rgba(11,18,32,0.40) 100%)',
         }}
       />
-      
-      {/* Bottom Vignette to ground the section */}
+
+      {/* Bottom Vignette */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 -z-10 h-32"
         style={{ background: 'linear-gradient(to top, rgba(11,18,32,0.98), transparent)' }}
       />
-
-      {/* Ambient facet pattern */}
-      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-20" />
 
       <div className="container-custom relative">
         <div className="mb-6">
@@ -52,33 +50,33 @@ export function EventHero() {
         </div>
 
         <div className="max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 border border-white/15 backdrop-blur-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
-              ENTIREFM PARTNER NETWORK &amp; EVENTS HUB
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-white/10 border border-white/15 backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FFEDD5]">
+              ENTIREFM PARTNER NETWORK
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.12]">
-            Better supplier relationships happen face to face.
+          {/* H1 */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.12]">
+            Meet the people shaping modern FM.
           </h1>
 
-          <p className="text-base sm:text-xl text-brand-mist/90 font-light leading-relaxed max-w-2xl">
-            From technical training and manufacturer days to supplier breakfasts and informal industry evenings, EntireFM has long invested time in building relationships beyond individual work orders. Our Partner Network now gives that engagement a more structured platform.
+          {/* Supporting Copy */}
+          <p className="text-base sm:text-xl text-slate-300 font-light leading-relaxed max-w-2xl">
+            Technical briefings. Supplier breakfasts. Manufacturer sessions. Practical training. Industry roundtables. EntireFM events are designed to give contractors more than another networking evening — they are places to learn, build relationships and understand where commercial FM is heading.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <a
-              href="#past-events"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#past-events')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="btn-hero-pink text-xs py-3.5 px-6 inline-flex items-center gap-2"
+          {/* Primary & Secondary CTAs */}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Link
+              href="/suppliers/membership"
+              className="px-6 py-3.5 rounded-[6px] bg-[#EA580C] hover:bg-[#C2410C] text-white text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#EA580C]/20"
             >
-              <History className="w-4 h-4" />
-              <span>View Past Events</span>
-            </a>
+              <span>Explore Membership</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
 
             <a
               href="#upcoming-events"
@@ -86,39 +84,39 @@ export function EventHero() {
                 e.preventDefault();
                 document.querySelector('#upcoming-events')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="btn-ghost-light text-xs py-3.5 px-6 inline-flex items-center gap-2"
+              className="px-6 py-3.5 rounded-[6px] bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 backdrop-blur-sm"
             >
-              <Calendar className="w-4 h-4" />
-              <span>Upcoming Programme</span>
+              <Calendar className="w-4 h-4 text-slate-300" />
+              <span>View Upcoming Events</span>
             </a>
           </div>
 
           {/* Operational Proof Points */}
           <div className="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
-                HISTORICAL COLLABORATION
+            <div className="p-4 rounded-[6px] bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+              <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#FFEDD5] block mb-1">
+                KNOWLEDGE &amp; STANDARDS
               </span>
-              <span className="text-sm font-light text-white">
-                Years of Supplier, OEM &amp; Training Sessions
-              </span>
-            </div>
-
-            <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
-                STRUCTURED EVOLUTION
-              </span>
-              <span className="text-sm font-light text-white">
-                Formalised via EntireFM Partner Network
+              <span className="text-xs font-normal text-slate-200">
+                Direct insight into changing UK compliance &amp; engineering standards
               </span>
             </div>
 
-            <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
+            <div className="p-4 rounded-[6px] bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+              <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#FFEDD5] block mb-1">
+                MANUFACTURER ACCESS
+              </span>
+              <span className="text-xs font-normal text-slate-200">
+                Direct engagement with leading equipment OEMs &amp; technology partners
+              </span>
+            </div>
+
+            <div className="p-4 rounded-[6px] bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+              <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#FFEDD5] block mb-1">
                 REGIONAL HUBS
               </span>
-              <span className="text-sm font-light text-white">
-                London, Manchester, Yorkshire &amp; Midlands
+              <span className="text-xs font-normal text-slate-200">
+                Active programmes across London, Manchester, Midlands &amp; Yorkshire
               </span>
             </div>
           </div>

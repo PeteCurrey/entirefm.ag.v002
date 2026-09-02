@@ -1,20 +1,19 @@
 'use client';
 
 import React from 'react';
-import { 
-  Users, 
-  Cpu, 
-  Briefcase, 
-  Coffee, 
-  Sparkles, 
-  ShieldCheck, 
-  GraduationCap, 
+import {
+  Users,
+  Cpu,
+  Briefcase,
+  Coffee,
+  Sparkles,
   MessagesSquare,
-  ArrowRight
+  GraduationCap,
+  ShieldCheck,
 } from 'lucide-react';
 
 interface EventFormat {
-  id: string;
+  number: string;
   title: string;
   discipline: string;
   description: string;
@@ -25,7 +24,7 @@ interface EventFormat {
 
 const FORMATS: EventFormat[] = [
   {
-    id: 'meet-the-supplier',
+    number: '01',
     title: 'Meet the Supplier',
     discipline: 'REGIONAL SHOWCASE',
     description: 'Regional sessions introducing specialist contractors, niche trade experts, EntireFM operations managers, and relevant commercial property professionals.',
@@ -34,7 +33,7 @@ const FORMATS: EventFormat[] = [
     icon: Users,
   },
   {
-    id: 'meet-the-manufacturer',
+    number: '02',
     title: 'Meet the Manufacturer',
     discipline: 'OEM & FACTORY SESSIONS',
     description: 'Factory-backed technical briefings with major building systems OEMs covering plant efficiency, refrigerant transitions, BMS controls, and lifecycle maintenance.',
@@ -43,7 +42,7 @@ const FORMATS: EventFormat[] = [
     icon: Cpu,
   },
   {
-    id: 'meet-the-buyer',
+    number: '03',
     title: 'Meet the Buyer',
     discipline: 'PROCUREMENT CLARITY',
     description: 'Structured commercial briefings on property portfolio requirements, tender evaluation standards, work allocation frameworks, and prompt payment commitments.',
@@ -52,7 +51,7 @@ const FORMATS: EventFormat[] = [
     icon: Briefcase,
   },
   {
-    id: 'technical-breakfasts',
+    number: '04',
     title: 'Technical Breakfasts',
     discipline: 'MORNING BRIEFINGS',
     description: 'Focused morning sessions covering regulatory changes, British Standard updates, and practical engineering challenges in occupied commercial estates.',
@@ -61,7 +60,7 @@ const FORMATS: EventFormat[] = [
     icon: Coffee,
   },
   {
-    id: 'fm-innovation',
+    number: '05',
     title: 'FM Innovation Sessions',
     discipline: 'TECHNOLOGY & TELEMETRY',
     description: 'Exploring IoT sensor deployment, vibration telemetry, predictive maintenance algorithms, drone aerial surveys, and practical AI applications within modern FM.',
@@ -70,7 +69,7 @@ const FORMATS: EventFormat[] = [
     icon: Sparkles,
   },
   {
-    id: 'supplier-forums',
+    number: '06',
     title: 'Supplier Forums',
     discipline: 'OPERATIONAL COLLABORATION',
     description: 'Interactive discussions addressing site safety standards, digital worksheet quality, first-time fix rates, and improving the supplier-client feedback loop.',
@@ -79,7 +78,7 @@ const FORMATS: EventFormat[] = [
     icon: MessagesSquare,
   },
   {
-    id: 'supplier-academy',
+    number: '07',
     title: 'Supplier Academy',
     discipline: 'DEVELOPMENT & TRAINING',
     description: 'Hands-on development sessions covering EntireFM RAMS requirements, dynamic risk assessments, EntireCAFM mobile app workflows, and customer service standards.',
@@ -88,7 +87,7 @@ const FORMATS: EventFormat[] = [
     icon: GraduationCap,
   },
   {
-    id: 'industry-roundtables',
+    number: '08',
     title: 'Industry Roundtables',
     discipline: 'EXECUTIVE DIALOGUE',
     description: 'Invitation-led discussions bringing together property owners, asset managers, tier-1 suppliers, and EntireFM executive directors around high-level challenges.',
@@ -100,63 +99,78 @@ const FORMATS: EventFormat[] = [
 
 export function EventFormatGrid() {
   return (
-    <section id="event-formats" className="py-20 sm:py-28 bg-white border-b border-slate-200">
+    <section id="event-formats" className="py-20 lg:py-28 bg-[#FFFFFF] border-b border-[#E8E8E5]">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
-              PROGRAMME FORMATS &amp; ENGAGEMENT
+        <div className="max-w-2xl mb-12 space-y-4">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C]" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#EA580C]">
+              PROGRAMME FORMATS
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-900 leading-[1.15]">
-            Eight structured ways we bring the supply chain together
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111111]">
+            Eight structured ways we bring the supply chain together.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-light leading-relaxed">
-            Our events are designed around practical engineering value, regulatory updates, and commercial transparency rather than generic sales pitches.
+          <p className="text-sm sm:text-base text-[#6D6D68] font-light leading-relaxed">
+            Each event format is designed around a specific type of value — technical knowledge, commercial clarity, relationship-building, or professional development. Every session has a defined structure and outcome.
           </p>
         </div>
 
-        {/* Formats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {FORMATS.map((format) => (
-            <div
-              key={format.id}
-              className="p-6 bg-[#FAF9FB] border border-slate-200/90 rounded-sm flex flex-col justify-between hover:border-brand-pink hover:shadow-md transition-all duration-300 group"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="p-2.5 rounded-xs bg-white text-slate-900 border border-slate-200/80 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
-                    <format.icon className="w-5 h-5" />
+        {/* 2×4 Format Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {FORMATS.map((format) => {
+            const Icon = format.icon;
+            return (
+              <div
+                key={format.number}
+                className="group relative p-6 rounded-[8px] bg-[#FAFAF8] border border-[#E8E8E5] hover:border-[#EA580C]/30 hover:bg-[#FFFFFF] transition-all duration-300 flex flex-col gap-4"
+              >
+                {/* Header Row */}
+                <div className="flex items-start justify-between">
+                  <div className="p-2.5 rounded-[6px] bg-[#FFFFFF] border border-[#E8E8E5] group-hover:bg-[#EA580C]/10 group-hover:border-[#EA580C]/20 transition-colors">
+                    <Icon className="w-5 h-5 text-[#6D6D68] group-hover:text-[#EA580C] transition-colors" />
                   </div>
-                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-light">
-                    {format.discipline}
+                  <span className="text-[10px] font-bold tabular-nums tracking-widest text-[#CCCCCC] group-hover:text-[#EA580C] transition-colors">
+                    {format.number}
                   </span>
                 </div>
 
-                <div>
-                  <h3 className="text-lg font-normal text-slate-900 group-hover:text-brand-pink transition-colors">
+                {/* Content */}
+                <div className="flex flex-col gap-1.5 flex-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#EA580C]">
+                    {format.discipline}
+                  </span>
+                  <h3 className="text-sm font-semibold text-[#111111] leading-snug">
                     {format.title}
                   </h3>
-                  <p className="mt-2 text-xs text-slate-600 font-light leading-relaxed">
+                  <p className="text-xs text-[#6D6D68] font-light leading-relaxed">
                     {format.description}
                   </p>
                 </div>
-              </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-200/80 space-y-2 text-[11.5px]">
-                <div>
-                  <span className="font-light uppercase tracking-wider text-[10px] text-slate-400 block">Typical Audience:</span>
-                  <span className="text-slate-700 font-light">{format.typicalAudience}</span>
-                </div>
-                <div>
-                  <span className="font-light uppercase tracking-wider text-[10px] text-brand-pink block">Example Topic:</span>
-                  <span className="text-slate-800 font-normal italic">&quot;{format.exampleTopic}&quot;</span>
+                {/* Footer */}
+                <div className="pt-3 border-t border-[#E8E8E5] space-y-2">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#AAAAAA] block mb-0.5">
+                      Audience
+                    </span>
+                    <span className="text-[11px] text-[#6D6D68] font-light leading-snug">
+                      {format.typicalAudience}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#EA580C]/70 block mb-0.5">
+                      Example Topic
+                    </span>
+                    <span className="text-[11px] text-[#111111] font-normal italic leading-snug">
+                      &ldquo;{format.exampleTopic}&rdquo;
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

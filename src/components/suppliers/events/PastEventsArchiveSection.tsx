@@ -4,17 +4,9 @@ import React, { useState, useMemo } from 'react';
 import { 
   History, 
   MapPin, 
-  Calendar, 
   Users, 
   CheckCircle2, 
   ChevronRight, 
-  Sparkles, 
-  Building2, 
-  Wrench, 
-  ShieldCheck, 
-  Cpu, 
-  Coffee,
-  Lightbulb,
   ArrowRight
 } from 'lucide-react';
 
@@ -407,41 +399,41 @@ export function PastEventsArchiveSection() {
   }, [selectedCategory, selectedYear]);
 
   return (
-    <section id="past-events" className="py-20 sm:py-28 bg-[#FAF9FB] border-b border-slate-200 font-sans">
+    <section id="past-events" className="py-20 lg:py-28 bg-[#FAFAF8] border-b border-[#E8E8E5]">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
+        <div className="max-w-3xl mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C]" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#EA580C]">
               HISTORICAL PARTNER ACTIVITY &amp; COLLABORATION
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-900 leading-[1.15]">
-            We&apos;ve been bringing suppliers together for years.
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111111]">
+            A network built through years of industry relationships.
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-light leading-relaxed">
-            Not every past session carried an EntireFM event brand or formal programme title. Many were practical supplier, training and manufacturer sessions organised with partners or attended by EntireFM teams. We are now bringing those activities together as part of the wider Partner Network story.
+          <p className="text-sm sm:text-base text-[#6D6D68] font-light leading-relaxed">
+            The EntireFM Partner Network formalises and builds on years of supplier breakfasts, technical sessions, manufacturer engagement, and training activity across the UK.
           </p>
         </div>
 
-        {/* Narrative Box - Confident, natural positioning with zero defensive language */}
-        <div className="mb-10 p-6 sm:p-7 rounded-sm bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        {/* Narrative Box */}
+        <div className="mb-10 p-6 sm:p-7 rounded-[8px] bg-white border border-[#E8E8E5] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1.5 max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-pink">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#EA580C]">
               <History className="w-4 h-4" />
               <span>Evolution into the EntireFM Partner Network</span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-700 font-light leading-relaxed">
-              The EntireFM Partner Network formalises and builds on years of supplier breakfasts, technical sessions, manufacturer engagement and training activity. What was once delivered more informally is now being shaped into a more structured programme of relationship-building, learning and industry collaboration.
+            <p className="text-xs sm:text-sm text-[#2D2D2D] font-light leading-relaxed">
+              What began as practical supplier breakfasts and equipment training has grown into a structured programme connecting hundreds of trade contractors, OEMs, and property leaders across the country.
             </p>
           </div>
 
           <a
             href="/suppliers/partner-network"
-            className="btn-outline text-xs py-2.5 px-4 shrink-0 inline-flex items-center gap-1.5 font-normal"
+            className="px-4 py-2.5 rounded-[4px] bg-[#111111] hover:bg-[#222222] text-white text-xs font-semibold uppercase tracking-wider shrink-0 inline-flex items-center gap-2 transition-colors"
           >
             <span>Explore Partner Network</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -458,10 +450,10 @@ export function PastEventsArchiveSection() {
                 <button
                   key={tab.id}
                   onClick={() => setSelectedCategory(tab.id as PastEventCategory)}
-                  className={`whitespace-nowrap px-3 py-1.5 text-xs font-normal rounded-sm transition-all duration-200 ${
+                  className={`whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-[4px] transition-all duration-200 ${
                     isActive
-                      ? 'bg-slate-900 text-white shadow-2xs'
-                      : 'bg-white text-slate-600 border border-slate-200/90 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-[#111111] text-white shadow-2xs'
+                      : 'bg-white text-[#6D6D68] border border-[#E8E8E5] hover:bg-[#FAFAF8] hover:text-[#111111]'
                   }`}
                 >
                   {tab.label}
@@ -472,16 +464,16 @@ export function PastEventsArchiveSection() {
 
           {/* Year Select Filter */}
           <div className="flex items-center gap-2 shrink-0 self-start lg:self-auto">
-            <span className="text-[11px] font-normal uppercase tracking-wider text-slate-400">Filter Year:</span>
-            <div className="flex items-center gap-1 bg-white p-1 rounded-sm border border-slate-200">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#9A9A95]">Filter Year:</span>
+            <div className="flex items-center gap-1 bg-white p-1 rounded-[4px] border border-[#E8E8E5]">
               {years.map((yr) => (
                 <button
                   key={yr}
                   onClick={() => setSelectedYear(yr)}
-                  className={`px-2.5 py-1 text-xs rounded-xs font-normal transition-all ${
+                  className={`px-2.5 py-1 text-xs rounded-[3px] font-medium transition-all ${
                     selectedYear === yr
-                      ? 'bg-slate-900 text-white font-medium'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-[#111111] text-white'
+                      : 'text-[#6D6D68] hover:text-[#111111]'
                   }`}
                 >
                   {yr === 'all' ? 'All' : yr}
@@ -492,9 +484,9 @@ export function PastEventsArchiveSection() {
         </div>
 
         {/* Event Cards Grid */}
-        <div className="space-y-5">
+        <div className="space-y-4">
           {filteredEvents.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-sm p-12 text-center text-slate-500 font-light text-sm">
+            <div className="bg-white border border-[#E8E8E5] rounded-[8px] p-12 text-center text-[#6D6D68] font-light text-sm">
               No historical records found for this category and year combination.
             </div>
           ) : (
@@ -503,28 +495,28 @@ export function PastEventsArchiveSection() {
               return (
                 <div
                   key={evt.id}
-                  className="bg-white border border-slate-200/90 rounded-sm p-6 sm:p-7 hover:border-slate-300 transition-all duration-200 shadow-2xs space-y-5"
+                  className="bg-white border border-[#E8E8E5] rounded-[8px] p-6 sm:p-7 hover:border-[#EA580C]/30 transition-all duration-200 shadow-2xs space-y-4"
                 >
                   {/* Card Header Row */}
                   <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
                     <div className="space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-normal uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#111111] text-white px-2 py-0.5 rounded-[3px]">
                           {evt.categoryLabel}
                         </span>
-                        <span className="text-[10px] font-normal uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#FAFAF8] text-[#6D6D68] border border-[#E8E8E5] px-2 py-0.5 rounded-[3px]">
                           {evt.period}
                         </span>
-                        <span className="text-[11px] font-light text-slate-400">
+                        <span className="text-xs text-[#9A9A95] font-light">
                           {evt.hostPartner}
                         </span>
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-light text-slate-900 leading-tight">
+                      <h3 className="text-lg sm:text-xl font-semibold text-[#111111] leading-snug">
                         {evt.title}
                       </h3>
 
-                      <p className="text-xs sm:text-sm text-slate-600 font-light max-w-4xl leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#6D6D68] font-light max-w-4xl leading-relaxed">
                         {evt.summary}
                       </p>
                     </div>
@@ -532,57 +524,57 @@ export function PastEventsArchiveSection() {
                     <div className="shrink-0 pt-1">
                       <button
                         onClick={() => setExpandedId(isExpanded ? null : evt.id)}
-                        className="btn-outline text-xs py-2 px-3.5 inline-flex items-center gap-1 font-normal"
+                        className="px-3.5 py-2 rounded-[4px] bg-[#FAFAF8] hover:bg-white border border-[#E8E8E5] text-xs font-semibold text-[#111111] inline-flex items-center gap-1 transition-all"
                       >
-                        <span>{isExpanded ? 'Hide Technical Context' : 'View Full Details & Topics'}</span>
+                        <span>{isExpanded ? 'Hide Details' : 'View Full Details & Topics'}</span>
                         <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
                       </button>
                     </div>
                   </div>
 
                   {/* Metadata Row */}
-                  <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-500 font-light">
+                  <div className="pt-3 border-t border-[#E8E8E5] flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-[#6D6D68] font-light">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-brand-pink shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
                       <span>{evt.location}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span>Participants: <strong className="font-normal text-slate-700">{evt.audience}</strong></span>
+                      <Users className="w-3.5 h-3.5 text-[#9A9A95] shrink-0" />
+                      <span>Participants: <strong className="font-medium text-[#111111]">{evt.audience}</strong></span>
                     </div>
                   </div>
 
                   {/* Expandable Technical Context & Key Topics */}
                   {isExpanded && (
-                    <div className="mt-4 pt-5 border-t border-slate-200 grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#FAF9FB] p-5 sm:p-6 rounded-xs border border-slate-200/80 animate-in fade-in duration-300">
+                    <div className="mt-4 pt-5 border-t border-[#E8E8E5] grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#FAFAF8] p-5 sm:p-6 rounded-[6px] border border-[#E8E8E5]">
                       <div className="space-y-4">
                         <div>
-                          <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-400 block mb-1.5">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#9A9A95] block mb-1.5">
                             PRACTICAL CONTEXT:
                           </span>
-                          <p className="text-xs text-slate-700 font-light leading-relaxed">
+                          <p className="text-xs text-[#2D2D2D] font-light leading-relaxed">
                             {evt.practicalContext}
                           </p>
                         </div>
 
-                        <div className="p-3.5 bg-white rounded-xs border border-brand-pink/20">
-                          <span className="text-[10px] font-normal uppercase tracking-wider text-brand-pink block mb-1">
+                        <div className="p-3.5 bg-white rounded-[6px] border border-[#EA580C]/20">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#EA580C] block mb-1">
                             HOW THIS IS NOW FORMALISED:
                           </span>
-                          <p className="text-xs text-slate-800 font-light leading-relaxed">
+                          <p className="text-xs text-[#2D2D2D] font-light leading-relaxed">
                             {evt.formalisationNote}
                           </p>
                         </div>
                       </div>
 
                       <div className="space-y-3">
-                        <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-400 block">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#9A9A95] block">
                           CORE TECHNICAL &amp; OPERATIONAL FOCUS AREAS:
                         </span>
                         <div className="space-y-2">
                           {evt.keyTopics.map((topic, idx) => (
-                            <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-brand-pink shrink-0 mt-0.5" />
+                            <div key={idx} className="flex items-start gap-2.5 text-xs text-[#2D2D2D]">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0 mt-0.5" />
                               <span className="font-light">{topic}</span>
                             </div>
                           ))}
@@ -597,16 +589,16 @@ export function PastEventsArchiveSection() {
         </div>
 
         {/* Closing Note on Historical Records */}
-        <div className="mt-12 p-6 rounded-sm bg-white border border-slate-200/80 text-center max-w-3xl mx-auto space-y-2">
-          <p className="text-xs text-slate-500 font-light">
+        <div className="mt-12 p-6 rounded-[8px] bg-white border border-[#E8E8E5] text-center max-w-3xl mx-auto space-y-2">
+          <p className="text-xs text-[#6D6D68] font-light">
             Have you participated in a previous supplier breakfast, training session or technical demonstration with EntireFM?
           </p>
-          <div className="flex items-center justify-center gap-4 text-xs font-normal">
-            <a href="/suppliers/partner-network" className="text-brand-pink hover:underline">
+          <div className="flex items-center justify-center gap-4 text-xs font-semibold">
+            <a href="/suppliers/partner-network" className="text-[#EA580C] hover:underline">
               Join the formal Partner Network →
             </a>
-            <span className="text-slate-300">|</span>
-            <a href="/suppliers/apply" className="text-slate-700 hover:underline">
+            <span className="text-[#E8E8E5]">|</span>
+            <a href="/suppliers/apply" className="text-[#111111] hover:underline">
               Apply as an Approved Supplier →
             </a>
           </div>

@@ -5,17 +5,15 @@ import {
   Calendar as CalendarIcon, 
   List, 
   MapPin, 
-  Clock, 
   Users, 
   ArrowRight, 
-  ShieldCheck, 
-  Sparkles, 
-  ChevronRight,
-  Filter,
-  CheckCircle2
+  CheckCircle2,
+  Clock,
+  Sparkles,
+  Tag
 } from 'lucide-react';
 
-type EventCategory = 'all' | 'technical' | 'networking' | 'oem' | 'training' | 'innovation' | 'regional';
+type EventCategory = 'all' | 'technical' | 'networking' | 'oem' | 'training' | 'innovation';
 
 interface ScheduledEvent {
   id: string;
@@ -23,7 +21,8 @@ interface ScheduledEvent {
   format: string;
   category: EventCategory;
   discipline: string;
-  status: 'PLANNED' | 'REGISTRATION OPENING SOON' | 'INVITATION ONLY';
+  status: 'CONFIRMED' | 'PLANNED / INDICATIVE' | 'INVITATION ONLY';
+  membershipTier: 'ALL MEMBERS' | 'NETWORK PARTNER PRIORITY' | 'OPEN ACCESS';
   targetQuarter: string;
   location: string;
   audience: string;
@@ -35,20 +34,21 @@ interface ScheduledEvent {
 const PLANNED_EVENTS: ScheduledEvent[] = [
   {
     id: 'hvac-oem-session',
-    title: 'Commercial HVAC & Chiller Technology',
+    title: 'Commercial HVAC & Chiller Technology Briefing',
     format: 'Meet the Manufacturer',
     category: 'oem',
     discipline: 'HVAC & Plant Engineering',
-    status: 'PLANNED',
+    status: 'CONFIRMED',
+    membershipTier: 'ALL MEMBERS',
     targetQuarter: 'Q3 2026',
-    location: 'London & Manchester (Rotational)',
-    audience: 'HVAC Contractors, Chiller Specialists, M&E Engineers, FM Directors',
-    overview: 'Technical session exploring commercial plant efficiency, low-GWP refrigerant transition (F-Gas compliance), heat pump retrofits, and intelligent controls.',
+    location: 'London (ExCeL Hub) & Manchester (Central)',
+    audience: 'HVAC Contractors, Chiller Specialists, M&E Engineers, FM Operations',
+    overview: 'Technical session exploring commercial plant efficiency, low-GWP refrigerant transition (F-Gas compliance), heat pump retrofits, and intelligent controls with factory engineering teams.',
     sampleAgenda: [
-      { time: '08:30', activity: 'Arrival, coffee & networking' },
+      { time: '08:30', activity: 'Arrival, breakfast rolls & networking' },
       { time: '09:00', activity: 'OEM Technical Briefing: Next-Gen Chiller Architecture' },
       { time: '09:45', activity: 'F-Gas & Low-GWP Compliance Panel' },
-      { time: '10:30', activity: 'Q&A and technical breakout discussions' },
+      { time: '10:30', activity: 'Live diagnostic breakout & engineer Q&A' },
       { time: '11:15', activity: 'Informal networking & close' },
     ],
     keyTopics: ['F-Gas (EC 517/2014) Phase-Down', 'Commercial Heat Pump COP Optimisation', 'Chiller Telemetry & Vibration Diagnostics'],
@@ -58,11 +58,12 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     title: 'Fire & Life Safety — Compliance in Occupied Buildings',
     format: 'Technical Breakfast',
     category: 'technical',
-    discipline: 'Life Safety & Compliance',
-    status: 'PLANNED',
+    discipline: 'Life Safety & Statutory Compliance',
+    status: 'CONFIRMED',
+    membershipTier: 'ALL MEMBERS',
     targetQuarter: 'Q1 2026',
-    location: 'Birmingham & Leeds',
-    audience: 'Fire Alarm Engineers, Compliance Managers, Property Directors',
+    location: 'Birmingham (NEC) & Leeds (City Hub)',
+    audience: 'Fire Alarm Engineers, Compliance Managers, Managing Agents, Property Directors',
     overview: 'Practical morning briefing addressing BS 5839 addressable fire systems, smoke damper drop testing, emergency lighting 3-hour duration records, and Building Safety Act audits.',
     sampleAgenda: [
       { time: '08:00', activity: 'Hot breakfast & registration' },
@@ -79,7 +80,8 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     format: 'FM Innovation Session',
     category: 'innovation',
     discipline: 'PropTech & Asset Intelligence',
-    status: 'REGISTRATION OPENING SOON',
+    status: 'PLANNED / INDICATIVE',
+    membershipTier: 'NETWORK PARTNER PRIORITY',
     targetQuarter: 'Q3 2026',
     location: 'London (City Hub) & Online Stream',
     audience: 'PropTech Providers, OEMs, Engineering Contractors, FM Innovation Leads',
@@ -99,9 +101,10 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     format: 'Meet the Buyer',
     category: 'networking',
     discipline: 'Procurement & Commercial Delivery',
-    status: 'PLANNED',
+    status: 'CONFIRMED',
+    membershipTier: 'OPEN ACCESS',
     targetQuarter: 'Q2 2026',
-    location: 'Sheffield & Regional Hubs',
+    location: 'Sheffield, Leeds & Regional Hubs',
     audience: 'Approved Contractors, New Supplier Applicants, Trade SMEs',
     overview: 'Transparent briefings on EntireFM property portfolio requirements, standard payment terms, tender evaluation matrices, and how work is allocated fairly to verified local partners.',
     sampleAgenda: [
@@ -119,7 +122,8 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     format: 'Supplier Academy',
     category: 'training',
     discipline: 'Operations & Compliance Standards',
-    status: 'REGISTRATION OPENING SOON',
+    status: 'CONFIRMED',
+    membershipTier: 'ALL MEMBERS',
     targetQuarter: 'Q2 2026',
     location: 'National (Online Interactive Masterclass)',
     audience: 'Field Technicians, Subcontractor Supervisors, Operations Admins',
@@ -139,7 +143,8 @@ const PLANNED_EVENTS: ScheduledEvent[] = [
     format: 'Technical Breakfast',
     category: 'technical',
     discipline: 'Electrical Engineering',
-    status: 'PLANNED',
+    status: 'PLANNED / INDICATIVE',
+    membershipTier: 'ALL MEMBERS',
     targetQuarter: 'Q4 2026',
     location: 'Manchester & Midlands Hubs',
     audience: 'Qualified Electricians, 18th Edition Inspectors, Commercial Landlords',
@@ -176,31 +181,33 @@ export function UpcomingEventsCalendar() {
   }, [selectedCategory]);
 
   return (
-    <section id="upcoming-events" className="py-20 sm:py-28 bg-white border-b border-slate-200 scroll-mt-20">
+    <section id="upcoming-events" className="py-20 lg:py-28 bg-[#FFFFFF] border-b border-[#E8E8E5] scroll-mt-20">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="h-2 w-2 rounded-full bg-brand-pink" />
-              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
+          <div className="max-w-3xl space-y-3">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C]" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#EA580C]">
                 2026 / 2027 PARTNER NETWORK PROGRAMME
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-900 leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111111]">
               Upcoming sessions &amp; planned forums
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 font-light leading-relaxed">
-              Explore the upcoming schedule of technical breakfasts, manufacturer seminars, and procurement roundtables. Register your interest below to receive priority access upon date confirmation.
+            <p className="text-sm sm:text-base text-[#6D6D68] font-light leading-relaxed">
+              Explore the scheduled programme of technical breakfasts, manufacturer briefings, and commercial roundtables across our regional hubs. Register interest for priority delegate confirmation.
             </p>
           </div>
 
           {/* View Toggle */}
-          <div className="flex items-center gap-2 bg-[#FAF9FB] p-1 rounded-sm border border-slate-200 shrink-0 self-start lg:self-auto">
+          <div className="flex items-center gap-1.5 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E8E8E5] shrink-0 self-start lg:self-auto">
             <button
               onClick={() => setViewMode('list')}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs text-xs font-normal transition-all ${
-                viewMode === 'list' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] text-xs font-medium transition-all ${
+                viewMode === 'list'
+                  ? 'bg-[#111111] text-white shadow-xs'
+                  : 'text-[#6D6D68] hover:text-[#111111]'
               }`}
             >
               <List className="w-3.5 h-3.5" />
@@ -208,8 +215,10 @@ export function UpcomingEventsCalendar() {
             </button>
             <button
               onClick={() => setViewMode('calendar')}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs text-xs font-normal transition-all ${
-                viewMode === 'calendar' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] text-xs font-medium transition-all ${
+                viewMode === 'calendar'
+                  ? 'bg-[#111111] text-white shadow-xs'
+                  : 'text-[#6D6D68] hover:text-[#111111]'
               }`}
             >
               <CalendarIcon className="w-3.5 h-3.5" />
@@ -226,10 +235,10 @@ export function UpcomingEventsCalendar() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedCategory(tab.id)}
-                className={`whitespace-nowrap px-3.5 py-2 text-xs font-normal rounded-sm transition-all duration-200 ${
+                className={`whitespace-nowrap px-3.5 py-2 text-xs font-medium rounded-[4px] transition-all duration-200 ${
                   isActive
-                    ? 'bg-slate-900 text-white shadow-2xs'
-                    : 'bg-[#FAF9FB] text-slate-600 border border-slate-200/90 hover:bg-slate-100 hover:text-slate-900'
+                    ? 'bg-[#111111] text-white shadow-xs'
+                    : 'bg-[#FAFAF8] text-[#6D6D68] border border-[#E8E8E5] hover:bg-[#FFFFFF] hover:text-[#111111]'
                 }`}
               >
                 {tab.label}
@@ -243,37 +252,48 @@ export function UpcomingEventsCalendar() {
           <div className="space-y-4">
             {filteredEvents.map((evt) => {
               const isExpanded = expandedEventId === evt.id;
+              const isConfirmed = evt.status === 'CONFIRMED';
+
               return (
                 <div
                   key={evt.id}
-                  className="bg-[#FAF9FB] border border-slate-200/90 rounded-sm p-6 sm:p-7 hover:border-brand-pink transition-all duration-200 shadow-xs space-y-5"
+                  className="bg-[#FAFAF8] border border-[#E8E8E5] rounded-[8px] p-6 sm:p-7 hover:border-[#EA580C]/30 hover:bg-[#FFFFFF] transition-all duration-200 shadow-xs space-y-5"
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="space-y-1.5">
+                    <div className="space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-light uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#111111] text-white px-2 py-0.5 rounded-[3px]">
                           {evt.format}
                         </span>
-                        <span className="text-[10px] font-light uppercase tracking-wider bg-brand-pink/10 text-brand-pink border border-brand-pink/20 px-2 py-0.5 rounded-xs">
+                        <span
+                          className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[3px] border ${
+                            isConfirmed
+                              ? 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]'
+                              : 'bg-[#FFFBEB] text-[#92400E] border-[#FDE68A]'
+                          }`}
+                        >
                           {evt.status}
                         </span>
-                        <span className="text-[11px] font-light text-slate-400">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#F3F4F6] text-[#4B5563] border border-[#E5E7EB] px-2 py-0.5 rounded-[3px]">
+                          {evt.membershipTier}
+                        </span>
+                        <span className="text-xs text-[#9A9A95] font-light">
                           {evt.targetQuarter}
                         </span>
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-light text-slate-900">
+                      <h3 className="text-lg sm:text-xl font-semibold text-[#111111]">
                         {evt.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-light max-w-3xl leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#6D6D68] font-light max-w-3xl leading-relaxed">
                         {evt.overview}
                       </p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
                       <button
                         onClick={() => setExpandedEventId(isExpanded ? null : evt.id)}
-                        className="btn-outline text-xs py-2 px-3.5"
+                        className="px-4 py-2.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#FAFAF8] border border-[#E8E8E5] text-xs font-semibold text-[#111111] transition-all"
                       >
                         {isExpanded ? 'Hide Agenda' : 'View Sample Agenda'}
                       </button>
@@ -283,53 +303,53 @@ export function UpcomingEventsCalendar() {
                           e.preventDefault();
                           document.querySelector('#event-interest')?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="btn-primary text-xs py-2 px-4 justify-center"
+                        className="px-4 py-2.5 rounded-[4px] bg-[#EA580C] hover:bg-[#C2410C] text-xs font-semibold text-white uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-xs"
                       >
                         <span>Register Interest</span>
-                        <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                     </div>
                   </div>
 
                   {/* Metadata Row */}
-                  <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-500 font-light">
+                  <div className="pt-4 border-t border-[#E8E8E5] flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-[#6D6D68] font-light">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-brand-pink" />
+                      <MapPin className="w-3.5 h-3.5 text-[#EA580C]" />
                       <span>{evt.location}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Audience: <strong className="font-normal text-slate-700">{evt.audience}</strong></span>
+                      <Users className="w-3.5 h-3.5 text-[#9A9A95]" />
+                      <span>Audience: <strong className="font-medium text-[#111111]">{evt.audience}</strong></span>
                     </div>
                   </div>
 
                   {/* Expandable Sample Agenda & Key Topics */}
                   {isExpanded && (
-                    <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-5 rounded-xs border border-slate-200/70 animate-in fade-in duration-300">
+                    <div className="mt-4 pt-4 border-t border-[#E8E8E5] grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#FFFFFF] p-5 rounded-[6px] border border-[#E8E8E5]">
                       <div>
-                        <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light mb-3">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#9A9A95] block mb-3">
                           Example Format &amp; Indicative Agenda:
                         </span>
-                        <div className="space-y-2 border-l-2 border-slate-100 pl-3">
+                        <div className="space-y-2 border-l-2 border-[#EA580C]/30 pl-3">
                           {evt.sampleAgenda.map((item, idx) => (
                             <div key={idx} className="flex items-start gap-3 text-xs">
-                              <span className="text-brand-pink shrink-0 font-medium">
+                              <span className="text-[#EA580C] shrink-0 font-semibold tabular-nums">
                                 {item.time}
                               </span>
-                              <span className="text-slate-700 font-light">{item.activity}</span>
+                              <span className="text-[#2D2D2D] font-light">{item.activity}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       <div className="space-y-3">
-                        <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#9A9A95] block">
                           Key Technical Topics:
                         </span>
-                        <div className="space-y-1.5">
+                        <div className="space-y-2">
                           {evt.keyTopics.map((topic, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-brand-pink shrink-0" />
+                            <div key={idx} className="flex items-center gap-2 text-xs text-[#2D2D2D]">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
                               <span>{topic}</span>
                             </div>
                           ))}
@@ -345,27 +365,27 @@ export function UpcomingEventsCalendar() {
 
         {/* QUARTER / CALENDAR VIEW */}
         {viewMode === 'calendar' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'].map((quarter) => {
               const eventsInQuarter = PLANNED_EVENTS.filter(e => e.targetQuarter.includes(quarter));
               return (
-                <div key={quarter} className="bg-[#FAF9FB] border border-slate-200 rounded-sm p-5 space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <span className="text-sm font-semibold text-slate-900">{quarter}</span>
-                    <span className="text-[10.5px] font-light text-brand-pink uppercase">{eventsInQuarter.length} Sessions</span>
+                <div key={quarter} className="bg-[#FAFAF8] border border-[#E8E8E5] rounded-[8px] p-5 space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-2">
+                    <span className="text-sm font-semibold text-[#111111]">{quarter}</span>
+                    <span className="text-[10px] font-bold text-[#EA580C] uppercase">{eventsInQuarter.length} Sessions</span>
                   </div>
 
                   <div className="space-y-3">
                     {eventsInQuarter.map((evt) => (
-                      <div key={evt.id} className="p-3.5 bg-white border border-slate-200/80 rounded-xs shadow-2xs space-y-2">
-                        <span className="text-[9.5px] font-light uppercase tracking-wider text-slate-400 block">
+                      <div key={evt.id} className="p-3.5 bg-white border border-[#E8E8E5] rounded-[6px] shadow-2xs space-y-2">
+                        <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#9A9A95] block">
                           {evt.format}
                         </span>
-                        <div className="text-xs font-medium text-slate-900 leading-snug">
+                        <div className="text-xs font-semibold text-[#111111] leading-snug">
                           {evt.title}
                         </div>
-                        <div className="text-[10.5px] text-slate-500 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-brand-pink shrink-0" />
+                        <div className="text-[10.5px] text-[#6D6D68] flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#EA580C] shrink-0" />
                           <span className="truncate">{evt.location}</span>
                         </div>
                       </div>
