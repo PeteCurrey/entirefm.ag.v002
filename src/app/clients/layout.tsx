@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
+import { Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: { absolute: 'Client Portal — EntireFM' },
@@ -82,7 +83,19 @@ export default async function ClientsLayout({ children }: { children: React.Reac
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[13px]">
+          <div className="flex items-center gap-3 sm:gap-4 text-[13px]">
+            {/* Multimodal AI Log a Job CTA */}
+            <Link
+              href="/clients/log-a-job"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-electric px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-brand-electric/30 hover:bg-brand-electric/85 hover:scale-[1.02] transition-all"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-white animate-pulse" />
+              <span>Log a Job</span>
+              <span className="rounded bg-white/20 px-1.5 py-0.2 text-[9px] uppercase font-bold tracking-wider text-white">
+                AI
+              </span>
+            </Link>
+
             <span className="hidden md:inline text-brand-mist/70">
               {session.name} <span className="font-normal text-[11px] text-brand-mist/40">({session.role})</span>
             </span>
@@ -100,13 +113,19 @@ export default async function ClientsLayout({ children }: { children: React.Reac
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-md px-3 py-1.5 text-[12.5px] font-normal transition-all whitespace-nowrap ${
+              className={`rounded-md px-3 py-1.5 text-[12.5px] font-normal transition-all whitespace-nowrap flex items-center gap-1.5 ${
                 (item as any).highlight
                   ? 'bg-brand-electric text-white font-medium hover:bg-brand-electric/80 shadow-sm shadow-brand-electric/30'
                   : 'text-brand-mist/70 hover:bg-brand-void hover:text-white'
               }`}
             >
-              {item.name}
+              {(item as any).highlight && <Sparkles className="h-3 w-3 text-white" />}
+              <span>{item.name}</span>
+              {(item as any).highlight && (
+                <span className="rounded bg-white/25 px-1 py-0.2 text-[8.5px] uppercase font-bold tracking-wider">
+                  AI
+                </span>
+              )}
             </Link>
           ))}
         </div>

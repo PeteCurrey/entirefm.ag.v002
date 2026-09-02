@@ -222,6 +222,7 @@ export const SECONDARY_NAV: NavLink[] = [
   { label: 'Client Portal', href: '/client-portal' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
+  { label: 'Log a Job', href: '/clients/log-a-job', detail: 'Multimodal AI-assisted job logging & triage' },
 ];
 
 export const FOOTER_NAV: NavColumn[] = [
@@ -288,6 +289,7 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'Careers', href: '/careers' },
       { label: 'About EntireFM', href: '/about-entire-facilities-management' },
       { label: 'Contact', href: '/contact-us' },
+      { label: 'Log a Job', href: '/clients/log-a-job' },
     ],
   },
   {

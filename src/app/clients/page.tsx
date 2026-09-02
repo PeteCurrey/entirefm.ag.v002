@@ -10,7 +10,7 @@ import React from 'react';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 import Link from 'next/link';
-import { PlusCircle, ArrowRight, Clock, AlertCircle, CheckCircle, FileText } from 'lucide-react';
+import { PlusCircle, ArrowRight, Clock, AlertCircle, CheckCircle, FileText, Sparkles } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,7 +60,11 @@ export default async function ClientDashboardPage() {
           href="/clients/log-a-job"
           className="shrink-0 px-6 py-3.5 rounded-xl bg-brand-electric text-white text-sm font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-2.5 shadow-lg shadow-brand-electric/30 hover:scale-[1.02]"
         >
-          <PlusCircle className="w-5 h-5" /> Log a Job
+          <Sparkles className="w-5 h-5 text-white animate-pulse" />
+          <span>Log a Job</span>
+          <span className="rounded bg-white/20 px-1.5 py-0.5 text-[9.5px] uppercase font-bold tracking-wider">
+            AI Multimodal
+          </span>
         </Link>
       </div>
 

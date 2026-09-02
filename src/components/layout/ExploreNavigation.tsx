@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { X, ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PRIMARY_NAV, SECONDARY_NAV } from '@/config/navigation';
 import editorial from '@/config/location-images.json';
 
@@ -27,6 +27,7 @@ const COMPANY_LINKS = [
   { label: 'About EntireFM', href: '/about-entire-facilities-management', detail: 'Our story, values and leadership' },
   { label: 'Careers', href: '/careers', detail: 'Join our operational, engineering and technical team' },
   { label: 'Contact', href: '/contact-us', detail: 'Get in touch with our team' },
+  { label: 'Log a Job', href: '/clients/log-a-job', detail: 'Multimodal AI-assisted job logging & triage' },
   { label: 'Legal Centre', href: '/legal', detail: 'Privacy, terms and governance' },
 ];
 
@@ -329,6 +330,26 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                 Request Proposal
               </Link>
             </div>
+
+            {/* Log a Job Multimodal AI CTA below Contact */}
+            <Link
+              href="/clients/log-a-job"
+              onClick={onClose}
+              tabIndex={open ? 0 : -1}
+              className="flex items-center justify-between p-3.5 rounded-sm bg-brand-electric/15 border border-brand-electric/40 text-white hover:bg-brand-electric/25 hover:border-brand-electric transition-all group"
+            >
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs uppercase tracking-wider text-brand-electric-bright font-medium">Multimodal AI Helpdesk</span>
+                  <span className="rounded bg-brand-electric px-1.5 py-0.5 text-[9px] uppercase font-bold text-white tracking-wider">AI</span>
+                </div>
+                <span className="text-sm font-light text-white mt-0.5 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-electric-bright shrink-0" />
+                  Log a Job
+                </span>
+              </div>
+              <ArrowRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
         </div>
       </div>
@@ -378,28 +399,43 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
               );
             })}
 
-            {/* Direct Main Navigation Items: Client Portal & Contact */}
+            {/* Direct Main Navigation Items: Client Portal, About, Contact & Log a Job CTA */}
             <li className="pt-4 mt-3 border-t border-white/[0.06]">
               <ul className="space-y-1">
-                {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={onClose}
-                      tabIndex={open ? 0 : -1}
-                      className="group w-full flex items-center justify-between py-2.5 px-4 rounded-sm text-left transition-all duration-200 text-brand-mist/70 hover:text-white hover:bg-white/[0.03]"
-                    >
-                      <span className="text-sm font-light tracking-tight text-brand-mist/70 group-hover:text-white transition-colors">
-                        {link.label}
-                      </span>
-                      {link.href === '/client-portal' ? (
-                        <ArrowUpRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
-                      ) : (
-                        <ArrowRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
-                      )}
-                    </Link>
-                  </li>
-                ))}
+                {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => {
+                  const isLogAJob = link.href === '/clients/log-a-job';
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={onClose}
+                        tabIndex={open ? 0 : -1}
+                        className={`group w-full flex items-center justify-between py-2.5 px-4 rounded-sm text-left transition-all duration-200 ${
+                          isLogAJob
+                            ? 'bg-brand-electric/15 border border-brand-electric/40 text-brand-electric-bright hover:bg-brand-electric/25 hover:border-brand-electric hover:text-white shadow-sm shadow-brand-electric/20 mt-2'
+                            : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.03]'
+                        }`}
+                      >
+                        <span className={`text-sm tracking-tight flex items-center gap-2 ${isLogAJob ? 'font-medium text-white' : 'font-light text-brand-mist/70 group-hover:text-white transition-colors'}`}>
+                          {isLogAJob && <Sparkles className="h-3.5 w-3.5 text-brand-electric-bright shrink-0" />}
+                          <span>{link.label}</span>
+                          {isLogAJob && (
+                            <span className="rounded bg-brand-electric px-1.5 py-0.2 text-[9px] uppercase font-bold text-white tracking-wider">
+                              AI
+                            </span>
+                          )}
+                        </span>
+                        {link.href === '/client-portal' ? (
+                          <ArrowUpRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                        ) : isLogAJob ? (
+                          <ArrowRight className="h-3.5 w-3.5 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
+                        ) : (
+                          <ArrowRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </li>
           </ul>
