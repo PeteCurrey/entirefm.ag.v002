@@ -26,8 +26,8 @@ export function LobbyMasthead() {
         window.requestAnimationFrame(() => {
           if (bgRef.current) {
             const scrollY = window.scrollY;
-            // Parallax offset: moves smoothly at 28% scroll speed with buffer to prevent edge exposure
-            const translateY = Math.max(0, scrollY * 0.28);
+            // Reversed parallax offset: moves background upwards at 28% scroll speed
+            const translateY = -(scrollY * 0.28);
             bgRef.current.style.transform = `translate3d(0, ${translateY}px, 0)`;
           }
           ticking = false;
@@ -56,21 +56,20 @@ export function LobbyMasthead() {
     <header className="relative h-full w-full bg-brand-void text-white overflow-hidden flex flex-col justify-between font-sans">
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Parallax Container with buffer margins */}
+        {/* Parallax Container with buffer margins for upward drift */}
         <div
           ref={bgRef}
-          className="absolute -top-[15%] -left-[5%] w-[110%] h-[130%] transform-gpu will-change-transform"
+          className="absolute -top-[5%] -left-[5%] w-[110%] h-[140%] transform-gpu will-change-transform"
           style={{ transform: 'translate3d(0, 0, 0)' }}
         >
           <Image
-            src="/images/lobby/b54e9629-0e0c-4e27-ae85-7c1be2dff606.png"
-            alt="EntireFM corporate headquarters illuminated reception lobby and meeting lounge"
+            src="/images/lobby/c4f8d6c5-0c3d-4094-90b8-4e2d2247ff16.png"
+            alt="EntireFM corporate headquarters boardroom and executive meeting suite with illuminated 3D faceted brand mark"
             fill
             priority
             sizes="100vw"
             quality={95}
             className="object-cover object-center transform-gpu"
-            style={{ transform: 'scaleX(-1)' }}
           />
         </div>
 
