@@ -12,6 +12,8 @@ import { usePathname } from 'next/navigation';
 interface HeaderProps {
   /** Opt out of the overlay: for pages with no full-bleed hero beneath. */
   solid?: boolean;
+  /** When transparent (before scroll), render dark text/elements for light page backgrounds. Upon scroll, reverts to standard dark header. */
+  lightOnTransparent?: boolean;
 }
 
 /**
@@ -26,6 +28,8 @@ interface HeaderProps {
  *  · Fixed, transparent over hero images; graphite + blur once scrolled.
  *  · `solid` prop opts a page out of overlay mode (used on pages without
  *    a full-bleed hero beneath the header).
+ *  · `lightOnTransparent` prop renders dark text/elements on light transparent backgrounds,
+ *    reverting to dark graphite + white text once scrolled.
  *  · Explore, Search, and Login each have distinct, accessible controls.
  *  · Escape closes whichever overlay is open.
  *  · Body scroll is locked while either overlay is active.
@@ -33,7 +37,7 @@ interface HeaderProps {
  *  · Cmd+K / Ctrl+K opens Search globally.
  */
 
-export function Header({ solid = false }: HeaderProps) {
+export function Header({ solid = false, lightOnTransparent = false }: HeaderProps) {
   const pathname = usePathname();
   const [exploreOpen, setExploreOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -81,20 +85,21 @@ export function Header({ solid = false }: HeaderProps) {
   }, []);
 
   const opaque = solid || scrolled || exploreOpen;
+  const isLight = lightOnTransparent && !opaque;
 
   return (
     <>
       <header
-        className={`on-dark z-50 transition-all duration-500 ease-brand ${
+        className={`z-50 transition-all duration-500 ease-brand ${
           solid ? 'sticky top-0' : 'fixed inset-x-0 top-0'
-        } ${
+        } ${isLight ? '' : 'on-dark'} ${
           opaque
             ? 'border-b border-brand-edge-dark bg-brand-graphite/95 shadow-elevated backdrop-blur-xl'
             : 'border-b border-transparent bg-transparent'
         }`}
       >
         {/* Gradient scrim — improves legibility over bright hero photography */}
-        {!opaque && (
+        {!opaque && !lightOnTransparent && (
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10"
@@ -116,15 +121,25 @@ export function Header({ solid = false }: HeaderProps) {
               <span
                 ref={markRef}
                 data-brand-mark
-                className="brand-mark relative block w-11 text-brand-mist/55 transition-transform duration-500 ease-brand group-hover:scale-105"
+                className={`brand-mark relative block w-11 transition-all duration-500 ease-brand group-hover:scale-105 ${
+                  isLight ? 'text-slate-800' : 'text-brand-mist/55'
+                }`}
               >
                 <BrandMark state={assembled ? 'solid' : 'wire'} className="block w-full" />
               </span>
               <span className="flex flex-col leading-none">
-                <span className="text-[19px] font-extralight tracking-[0.08em] text-white">
+                <span
+                  className={`text-[19px] font-extralight tracking-[0.08em] transition-colors duration-300 ${
+                    isLight ? 'text-slate-900' : 'text-white'
+                  }`}
+                >
                   Entire<span className="font-bold text-hero-pink">FM</span>
                 </span>
-                <span className="mt-1 hidden text-[9px] font-medium tracking-[0.18em] text-brand-mist/45 2xl:block">
+                <span
+                  className={`mt-1 hidden text-[9px] font-medium tracking-[0.18em] transition-colors duration-300 2xl:block ${
+                    isLight ? 'text-slate-600' : 'text-brand-mist/45'
+                  }`}
+                >
                   Facilities Management. Evolved.
                 </span>
               </span>
@@ -145,6 +160,8 @@ export function Header({ solid = false }: HeaderProps) {
                 className={`group flex items-center gap-2 rounded-sm px-3 sm:px-4 py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
                   exploreOpen
                     ? 'bg-white/[0.08] text-white border border-white/20'
+                    : isLight
+                    ? 'text-slate-800 hover:text-black border border-transparent hover:border-slate-300 hover:bg-slate-900/5'
                     : 'text-brand-mist/80 hover:text-white border border-transparent hover:border-white/15 hover:bg-white/[0.04]'
                 }`}
               >
@@ -177,7 +194,11 @@ export function Header({ solid = false }: HeaderProps) {
                   setExploreOpen(false);
                   setSearchOpen(true);
                 }}
-                className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-sm border border-white/12 text-brand-mist/70 transition-all duration-200 hover:border-white/30 hover:text-white hover:bg-white/[0.04]"
+                className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-sm transition-all duration-200 ${
+                  isLight
+                    ? 'border border-slate-300 text-slate-800 hover:border-slate-600 hover:text-black hover:bg-slate-900/5'
+                    : 'border border-white/12 text-brand-mist/70 hover:border-white/30 hover:text-white hover:bg-white/[0.04]'
+                }`}
               >
                 <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
@@ -188,6 +209,8 @@ export function Header({ solid = false }: HeaderProps) {
                 className={`inline-flex items-center justify-center rounded-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
                   pathname?.startsWith('/lobby')
                     ? 'border border-brand-electric/80 bg-brand-electric/25 text-white shadow-glow'
+                    : isLight
+                    ? 'border border-slate-300 bg-white text-slate-800 hover:text-black hover:border-slate-400 hover:bg-slate-50'
                     : 'border border-white/15 bg-white/[0.05] text-brand-mist/90 hover:text-white hover:border-brand-electric/60 hover:bg-brand-electric/15'
                 }`}
                 aria-label="The Lobby — Facilities Management Intelligence & Briefing Room"
@@ -198,7 +221,11 @@ export function Header({ solid = false }: HeaderProps) {
               {/* Login */}
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
+                className={`inline-flex items-center justify-center rounded-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light transition-all duration-300 ease-brand ${
+                  isLight
+                    ? 'border border-brand-electric/60 bg-brand-electric/10 text-brand-electric font-medium hover:border-brand-electric hover:bg-brand-electric hover:text-white'
+                    : 'border border-brand-electric/40 bg-brand-electric/10 text-brand-electric-bright hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white'
+                }`}
               >
                 Login
               </Link>

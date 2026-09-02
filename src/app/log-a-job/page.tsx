@@ -63,7 +63,7 @@ export default async function PublicLogAJobPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F9FA] text-slate-900 font-sans">
-      <Header solid={true} />
+      <Header lightOnTransparent={true} />
       <main className="flex-grow pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <AiLogAJobClient
           clientName={session?.orgName || 'Commercial Client'}
