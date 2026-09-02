@@ -233,11 +233,11 @@ export function TemplateLobbyToday() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               
               {/* Lead Feature Story (Col 7) */}
-              {data.threeThingsThatMatter.lead && (
+              {data.threeThingsThatMatter?.lead && (
                 <div className="lg:col-span-7 bg-[#07090E] text-white rounded-[6px] overflow-hidden flex flex-col justify-between group shadow-sm">
                   <div className="relative min-h-[280px] sm:min-h-[340px] overflow-hidden">
                     <Image
-                      src={data.threeThingsThatMatter.lead.heroImage}
+                      src={data.threeThingsThatMatter.lead.heroImage || '/images/editorial/entirefm-rooftop-plant-night-1200w.webp'}
                       alt={data.threeThingsThatMatter.lead.heroImageAlt || data.threeThingsThatMatter.lead.title}
                       fill
                       priority
@@ -291,7 +291,7 @@ export function TemplateLobbyToday() {
               <div className="lg:col-span-5 flex flex-col justify-between gap-6">
                 
                 {/* Secondary Story 1 */}
-                {data.threeThingsThatMatter.secondary1 && (
+                {data.threeThingsThatMatter?.secondary1 && (
                   <div className="p-6 sm:p-7 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
@@ -328,7 +328,7 @@ export function TemplateLobbyToday() {
                 )}
 
                 {/* Secondary Story 2 */}
-                {data.threeThingsThatMatter.secondary2 && (
+                {data.threeThingsThatMatter?.secondary2 && (
                   <div className="p-6 sm:p-7 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
@@ -367,35 +367,39 @@ export function TemplateLobbyToday() {
             </div>
           </section>
 
-          {/* ── 3. WHAT CHANGED (Compact Statutory & Regulatory Stream - Open Rows) ── */}
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          {/* ── 3. WHAT CHANGED (Granular Regulatory Log - Monospace & High Contrast) ── */}
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-light">
-                  Statutory &amp; Technical Wire
+                  Statutory &amp; Technical Log
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
-                  What Changed
+                  What Changed Today
                 </h2>
               </div>
-              <Link href="/lobby/compliance" className="text-xs font-light text-brand-electric hover:underline">
-                View all statutory updates &rarr;
-              </Link>
+              <span className="text-xs font-light text-neutral-500 hidden sm:inline">
+                Verified compliance developments
+              </span>
             </div>
 
-            <div className="divide-y divide-neutral-200 bg-white border border-neutral-200/90 rounded-[6px] px-6 sm:px-8 shadow-2xs">
-              {data.whatChanged.map((item) => (
+            <div className="space-y-3">
+              {(data.whatChanged || []).map((item) => (
                 <div
                   key={item.id}
-                  className="py-5 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start group"
+                  className="p-5 sm:p-6 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs grid grid-cols-1 lg:grid-cols-12 gap-4 items-start group hover:border-neutral-300 transition-colors"
                 >
-                  <div className="lg:col-span-2 text-xs font-normal text-neutral-500">
-                    <span className="text-neutral-900 font-light block">{item.time}</span>
-                    <span className="text-[10px] uppercase text-brand-electric tracking-wider">{item.discipline}</span>
+                  <div className="lg:col-span-2 space-y-1">
+                    <span className="text-xs font-mono text-neutral-500 block">
+                      {item.time}
+                    </span>
+                    <span className="inline-block text-[10px] uppercase font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-[2px] border border-emerald-200">
+                      {item.discipline}
+                    </span>
                   </div>
 
-                  <div className="lg:col-span-8 space-y-1">
-                    <h4 className="text-base font-light text-neutral-900 group-hover:text-brand-electric transition-colors leading-snug">
+                  <div className="lg:col-span-8 space-y-1.5">
+                    <h4 className="text-base sm:text-lg font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
                       {item.title}
                     </h4>
                     <p className="text-xs sm:text-sm font-extralight text-neutral-600 leading-relaxed">
@@ -439,7 +443,7 @@ export function TemplateLobbyToday() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               
               {/* Featured Major Contract Award */}
-              {data.whoWonWhat.featuredAward && (
+              {data.whoWonWhat?.featuredAward && (
                 <div className="lg:col-span-6 p-6 sm:p-8 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-5 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
@@ -493,7 +497,7 @@ export function TemplateLobbyToday() {
 
               {/* Smaller Award Headlines */}
               <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
-                {data.whoWonWhat.recentAwards.map((award) => (
+                {(data.whoWonWhat?.recentAwards || []).map((award) => (
                   <div
                     key={award.id}
                     className="p-5 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-2 flex-1 flex flex-col justify-between"
@@ -534,7 +538,7 @@ export function TemplateLobbyToday() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {data.onTheHorizon.map((item) => (
+              {(data.onTheHorizon || []).map((item) => (
                 <div
                   key={item.id}
                   className="p-6 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-3"
@@ -580,7 +584,7 @@ export function TemplateLobbyToday() {
               </div>
 
               <div className="space-y-6 divide-y divide-neutral-200 bg-white border border-neutral-200/90 rounded-[6px] p-6 shadow-2xs">
-                {data.fromTheIndustry.map((story) => (
+                {(data.fromTheIndustry || []).map((story) => (
                   <div key={story.id} className="pt-6 first:pt-0 space-y-2">
                     <div className="flex items-center justify-between text-xs font-extralight text-neutral-500">
                       <span className="font-medium text-[10px] uppercase text-brand-electric">{story.category}</span>
