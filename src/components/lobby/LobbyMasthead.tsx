@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Sparkles, Search, ChevronDown } from 'lucide-react';
@@ -16,6 +16,33 @@ export function LobbyMasthead() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [mode, setMode] = useState<'ask' | 'deep_research'>('ask');
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (bgRef.current) {
+            const scrollY = window.scrollY;
+            // Parallax offset: moves smoothly at 28% scroll speed with buffer to prevent edge exposure
+            const translateY = Math.max(0, scrollY * 0.28);
+            bgRef.current.style.transform = `translate3d(0, ${translateY}px, 0)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleSearchSubmit = (e?: React.FormEvent, customQ?: string) => {
     if (e) e.preventDefault();
@@ -28,16 +55,24 @@ export function LobbyMasthead() {
   return (
     <header className="relative h-full w-full bg-brand-void text-white overflow-hidden flex flex-col justify-between font-sans">
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Image
-          src="/images/lobby/b54e9629-0e0c-4e27-ae85-7c1be2dff606.png"
-          alt="EntireFM corporate headquarters illuminated reception lobby and meeting lounge"
-          fill
-          priority
-          sizes="100vw"
-          quality={95}
-          className="object-cover object-center transform-gpu"
-        />
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Parallax Container with buffer margins */}
+        <div
+          ref={bgRef}
+          className="absolute -top-[15%] -left-[5%] w-[110%] h-[130%] transform-gpu will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
+        >
+          <Image
+            src="/images/lobby/b54e9629-0e0c-4e27-ae85-7c1be2dff606.png"
+            alt="EntireFM corporate headquarters illuminated reception lobby and meeting lounge"
+            fill
+            priority
+            sizes="100vw"
+            quality={95}
+            className="object-cover object-center transform-gpu"
+            style={{ transform: 'scaleX(-1)' }}
+          />
+        </div>
 
         {/* Subtle dark gradient overlay allowing background photography to breathe */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-void/90 via-brand-void/40 to-black/40" />
