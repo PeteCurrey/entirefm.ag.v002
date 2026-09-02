@@ -175,7 +175,7 @@ const CROSS_LINKS = [
 export default function JobReadinessCheckPage() {
   return (
     <>
-      <Header />
+      <Header solid />
       <ToolShell
         breadcrumbs={[
           { name: 'Home', url: '/' },

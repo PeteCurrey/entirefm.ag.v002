@@ -148,7 +148,7 @@ const CROSS_LINKS = [
 export default function CoshhReadinessCheckPage() {
   return (
     <>
-      <Header />
+      <Header solid />
       <ToolShell
         breadcrumbs={[
           { name: 'Home', url: '/' },

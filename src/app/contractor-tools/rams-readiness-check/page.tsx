@@ -208,7 +208,7 @@ const CROSS_LINKS = [
 export default function RamsReadinessCheckPage() {
   return (
     <>
-      <Header />
+      <Header solid />
       <ToolShell
         breadcrumbs={[
           { name: 'Home', url: '/' },

@@ -78,7 +78,7 @@ const TOOLS = [
 export default function ContractorToolsHubPage() {
   return (
     <>
-      <Header />
+      <Header solid />
       <main>
         {/* Hero */}
         <section className="relative bg-[#0B1220] overflow-hidden">

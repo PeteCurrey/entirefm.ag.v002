@@ -31,9 +31,9 @@ export function TemplateDroneInspectionPlanner({
 }: TemplateDroneInspectionPlannerProps) {
   return (
     <div className="min-h-screen flex flex-col bg-[#0B1220] text-white">
-      <Header />
+      <Header solid />
 
-      <main id="main" className="flex-grow pt-24 pb-20">
+      <main id="main" className="flex-grow pt-10 pb-20">
         {/* Subtle Background Accent */}
         <div 
           aria-hidden="true" 

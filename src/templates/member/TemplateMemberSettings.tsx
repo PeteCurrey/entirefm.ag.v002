@@ -286,7 +286,7 @@ export function TemplateMemberSettings() {
   if (loading) {
     return (
       <div className="on-dark min-h-screen flex flex-col bg-brand-void text-white font-sans">
-        <Header />
+        <Header solid={true} />
         <main className="flex-1 flex items-center justify-center py-32">
           <div className="flex flex-col items-center gap-3">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-brand-electric" />
@@ -304,7 +304,7 @@ export function TemplateMemberSettings() {
   if (authError || !member) {
     return (
       <div className="on-dark min-h-screen flex flex-col bg-brand-void text-white font-sans">
-        <Header />
+        <Header solid={true} />
         <main className="flex-1 flex items-center justify-center py-28 sm:py-36 px-4">
           <div className="w-full max-w-md text-center space-y-6">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-carbon border border-brand-edge-dark text-brand-electric">
@@ -342,9 +342,9 @@ export function TemplateMemberSettings() {
 
   return (
     <div className="on-dark min-h-screen flex flex-col bg-brand-void text-white font-sans selection:bg-brand-electric/30 selection:text-white">
-      <Header />
+      <Header solid={true} />
 
-      <main className="flex-1 pt-24 sm:pt-28 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 pt-12 sm:pt-16 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1140px] mx-auto w-full">
           {/* Breadcrumb / Back Link */}
           <div className="mb-6">

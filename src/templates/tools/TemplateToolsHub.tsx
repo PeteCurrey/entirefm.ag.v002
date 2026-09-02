@@ -147,10 +147,10 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
 
   return (
     <>
-      <Header />
+      <Header solid />
       <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
         {/* Dark Branded Hero */}
-        <section className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20 bg-[#0B1220] text-white border-b border-slate-800">
+        <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#0B1220] text-white border-b border-slate-800">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-[10%] -top-[25%] h-[35rem] w-[35rem] rounded-full opacity-20 blur-[120px]"

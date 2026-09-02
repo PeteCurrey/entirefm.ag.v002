@@ -280,8 +280,8 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-      <Header />
-      <div className="flex-grow pt-16">
+      <Header solid />
+      <div className="flex-grow">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="Asset Scanner"
@@ -346,7 +346,7 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
 
                 {/* Quick Test Samples */}
                 <div className="mt-4 pt-4 border-t border-slate-100">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">
                       Or Try a Benchmark Sample:
                     </span>
@@ -619,6 +619,163 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
               </div>
             </aside>
           </div>
+
+          {/* ── 3. DETAILED INFORMATION & TECHNICAL GUIDE SECTION ───────────── */}
+          <section className="mt-16 pt-12 border-t border-slate-200/90 space-y-12">
+            {/* Section Header */}
+            <div className="max-w-3xl space-y-2">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-px w-5 bg-brand-electric" />
+                <span className="text-[10px] uppercase tracking-[0.25em] text-brand-electric font-semibold">
+                  Tool Overview &amp; Technical Architecture
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
+                About the EntireFM Plant &amp; Asset Scanner
+              </h2>
+              <p className="text-sm font-light text-slate-600 leading-relaxed">
+                The EntireFM Asset Scanner is an engineering utility designed for UK commercial estates directors, facilities managers, and mechanical &amp; electrical engineers to eliminate manual data entry during plant audits, asset mobilisations, and statutory compliance reviews.
+              </p>
+            </div>
+
+            {/* 3 Core Pillar Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-slate-200/90 rounded-sm p-6 space-y-3 shadow-2xs">
+                <div className="w-9 h-9 rounded-sm bg-brand-electric/10 text-brand-electric flex items-center justify-center">
+                  <Scan className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-normal text-slate-900">
+                  High-Precision Optical Recognition
+                </h3>
+                <p className="text-xs font-light text-slate-600 leading-relaxed">
+                  Extracts manufacturer names, exact model numbers, serial tags, electrical voltages, motor amperages, and refrigerant charge data directly from physical machinery stamps and nameplates.
+                </p>
+              </div>
+
+              <div className="bg-white border border-slate-200/90 rounded-sm p-6 space-y-3 shadow-2xs">
+                <div className="w-9 h-9 rounded-sm bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <FileSpreadsheet className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-normal text-slate-900">
+                  SFG20 Maintenance Alignment
+                </h3>
+                <p className="text-xs font-light text-slate-600 leading-relaxed">
+                  Automatically maps recognized equipment against standard UK SFG20 maintenance schedules, recommending statutory inspection intervals, required engineer skill levels, and standard task scopes.
+                </p>
+              </div>
+
+              <div className="bg-white border border-slate-200/90 rounded-sm p-6 space-y-3 shadow-2xs">
+                <div className="w-9 h-9 rounded-sm bg-purple-50 text-purple-600 flex items-center justify-center">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-normal text-slate-900">
+                  Golden Thread &amp; CAFM Ready
+                </h3>
+                <p className="text-xs font-light text-slate-600 leading-relaxed">
+                  Structures plant data in open, machine-readable formats compliant with Building Safety Act 2022 Part 4 Golden Thread requirements for direct export to your CAFM or 52-week PPM planner.
+                </p>
+              </div>
+            </div>
+
+            {/* Supported Equipment & Document Types Grid */}
+            <div className="bg-white border border-slate-200/90 rounded-sm p-6 sm:p-8 space-y-6 shadow-2xs">
+              <div>
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">
+                  Equipment Coverage
+                </span>
+                <h3 className="text-xl font-light text-slate-900 mt-1">
+                  Supported Plant Categories &amp; Compliance Certificates
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+                <div className="space-y-2 border-l-2 border-brand-electric pl-3.5">
+                  <h4 className="font-medium text-slate-900">HVAC &amp; Refrigeration</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Air Handling Units (AHUs), Water &amp; Air-Cooled Chillers, VRF/VRV Condenser Banks, Split Systems, Fan Coil Units, and Evaporative Cooling Towers.
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-l-2 border-amber-500 pl-3.5">
+                  <h4 className="font-medium text-slate-900">Electrical &amp; Life Safety</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Low-Voltage Switchboards, Sub-Distribution Boards, Emergency Lighting Inverters, Fire Alarm Panels (BS 5839), and EICR Test Certificates.
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-l-2 border-emerald-500 pl-3.5">
+                  <h4 className="font-medium text-slate-900">Mechanical &amp; Hydronics</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Commercial Gas Boilers, Heat Pump Packages, Potable Booster Sets, Pressurisation Units, Domestic Hot Water (DHW) Calorifiers, and TMVs.
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-l-2 border-purple-500 pl-3.5">
+                  <h4 className="font-medium text-slate-900">Access &amp; Building Fabric</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Automatic Sliding &amp; Revolving Doors, Industrial Roller Shutters, Automatic Opening Vents (AOVs), Lifts &amp; Escalators (LOLER).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How To Use On Site Workflow */}
+            <div className="space-y-6">
+              <div>
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">
+                  Step-by-Step Practical Guide
+                </span>
+                <h3 className="text-xl font-light text-slate-900 mt-1">
+                  How to Use the Asset Scanner On-Site
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                <div className="p-5 rounded-sm bg-slate-100/60 border border-slate-200/80 space-y-2">
+                  <span className="inline-block px-2 py-0.5 rounded bg-white text-[10px] font-bold text-slate-800 border border-slate-200">
+                    STEP 01
+                  </span>
+                  <h4 className="text-sm font-medium text-slate-900">Capture or Upload</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Photograph the metal equipment nameplate or upload an existing PDF compliance certificate (EICR, Gas Safety, F-Gas check).
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-sm bg-slate-100/60 border border-slate-200/80 space-y-2">
+                  <span className="inline-block px-2 py-0.5 rounded bg-white text-[10px] font-bold text-slate-800 border border-slate-200">
+                    STEP 02
+                  </span>
+                  <h4 className="text-sm font-medium text-slate-900">Verify Technical Attributes</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Review extracted serial numbers, electrical ratings, capacity kW, and the automatically matched SFG20 maintenance regime.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-sm bg-slate-100/60 border border-slate-200/80 space-y-2">
+                  <span className="inline-block px-2 py-0.5 rounded bg-white text-[10px] font-bold text-slate-800 border border-slate-200">
+                    STEP 03
+                  </span>
+                  <h4 className="text-sm font-medium text-slate-900">Add to PPM or Request Quote</h4>
+                  <p className="text-slate-600 font-light leading-relaxed">
+                    Transfer verified plant items directly into EntireFM&apos;s 52-Week PPM Schedule Builder or request a tailored maintenance proposal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Privacy & Governance Notice */}
+            <div className="p-6 rounded-sm bg-[#0B1220] text-white space-y-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+                <h4 className="text-sm font-medium text-white">
+                  UK Data Governance &amp; Zero Fabrication Policy
+                </h4>
+              </div>
+              <p className="text-xs font-light text-slate-300 leading-relaxed max-w-4xl">
+                EntireFM applies a strict zero-fabrication standard across all diagnostic tools. If a serial number or model code is partially obscured or illegible, the scanner flags the low confidence score rather than guessing. Uploaded files from guest visitors are automatically purged within 24 hours under our automated retention policy.
+              </p>
+            </div>
+          </section>
         </ToolShell>
       </div>
       <Footer />

@@ -158,8 +158,8 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-      <Header />
-      <div className="flex-grow pt-16">
+      <Header solid />
+      <div className="flex-grow">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="Tender / RFP Brief Generator"
