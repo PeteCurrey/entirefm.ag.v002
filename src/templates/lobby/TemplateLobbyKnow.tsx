@@ -871,7 +871,7 @@ export function TemplateLobbyKnow() {
                 {LOBBY_DATA.lobbyPulse.question}
               </h3>
               <p className="text-xs font-light text-neutral-600 leading-relaxed">
-                Anonymous responses from {LOBBY_DATA.lobbyPulse.totalVotesBaseline} verified facilities directors, estates managers, and building services engineers across the UK.
+                Anonymous responses from verified facilities directors, estates managers, and building services engineers across the UK.
               </p>
 
               {/* Poll Options / Results */}

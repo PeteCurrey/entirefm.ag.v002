@@ -1,6 +1,6 @@
 import { LOBBY_ARTICLES } from './content-store';
 import { LOBBY_TOPICS, getTopicBySlug } from './topics';
-import { LOBBY_HOMEPAGE_CURATION } from './curation';
+import { LOBBY_HOMEPAGE_CURATION, getLobbyHomepageCuration } from './curation';
 import { LOBBY_DATA } from '@/data/lobby/content';
 import type { LobbyArticle, Topic, Franchise } from './types';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
@@ -86,7 +86,8 @@ export interface ResolvedLobbyHomepageData {
   lobbyPulse: typeof LOBBY_DATA.lobbyPulse;
 }
 
-export function getLobbyHomepageData(): ResolvedLobbyHomepageData {
+export async function getLobbyHomepageData(): Promise<ResolvedLobbyHomepageData> {
+  const curation = await getLobbyHomepageCuration();
   const all = getAllPublishedLobbyArticles();
 
   // Helper to resolve slot or fallback to latest matching franchise
@@ -98,16 +99,16 @@ export function getLobbyHomepageData(): ResolvedLobbyHomepageData {
     return all[0];
   };
 
-  const leadStory = resolveSlot(LOBBY_HOMEPAGE_CURATION.leadStorySlug, 'week-that-matters');
-  const complianceWatch = resolveSlot(LOBBY_HOMEPAGE_CURATION.complianceWatchSlug, 'compliance-watch');
-  const engineersNote = resolveSlot(LOBBY_HOMEPAGE_CURATION.engineersNoteSlug, 'engineers-note');
-  const usefulThing = resolveSlot(LOBBY_HOMEPAGE_CURATION.usefulThingSlug, 'useful-thing');
-  const fromTheField = resolveSlot(LOBBY_HOMEPAGE_CURATION.fromTheFieldSlug, 'from-the-field');
-  const askEntireFM = resolveSlot(LOBBY_HOMEPAGE_CURATION.askEntireFMSlug, 'ask-entirefm');
-  const worthAttending = resolveSlot(LOBBY_HOMEPAGE_CURATION.worthAttendingSlug, 'worth-attending');
+  const leadStory = resolveSlot(curation.leadStorySlug, 'week-that-matters');
+  const complianceWatch = resolveSlot(curation.complianceWatchSlug, 'compliance-watch');
+  const engineersNote = resolveSlot(curation.engineersNoteSlug, 'engineers-note');
+  const usefulThing = resolveSlot(curation.usefulThingSlug, 'useful-thing');
+  const fromTheField = resolveSlot(curation.fromTheFieldSlug, 'from-the-field');
+  const askEntireFM = resolveSlot(curation.askEntireFMSlug, 'ask-entirefm');
+  const worthAttending = resolveSlot(curation.worthAttendingSlug, 'worth-attending');
 
   return {
-    curation: LOBBY_HOMEPAGE_CURATION,
+    curation,
     leadStory,
     complianceWatch,
     engineersNote,

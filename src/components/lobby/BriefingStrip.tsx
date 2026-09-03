@@ -3,18 +3,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Clock, ShieldCheck, Radio } from 'lucide-react';
 import type { BriefingStripItem } from '@/data/lobby/types';
-import { getLatestNewsStream } from '@/server/news/news-store';
+import { intelligenceStore } from '@/server/intelligence/intelligence-store';
 
 interface BriefingStripProps {
   items: BriefingStripItem[];
 }
 
-export function BriefingStrip({ items }: BriefingStripProps) {
+export async function BriefingStrip({ items }: BriefingStripProps) {
   if (!items || items.length === 0) return null;
 
   const leadItem = items[0];
   const secondaryItems = items.slice(1);
-  const liveWire = getLatestNewsStream(4);
+  const { items: liveWire } = await intelligenceStore.query({ limit: 4 });
 
   const LEAD_DEFAULT = '/images/editorial/entirefm-hvac-refrigerant-check-1200w.webp';
   const STACK1_DEFAULT = '/images/editorial/entirefm-plumbing-booster-set-1200w.webp';
@@ -145,22 +145,32 @@ export function BriefingStrip({ items }: BriefingStripProps) {
                 <span className="font-semibold text-neutral-900">LATEST WIRE</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 text-xs divide-y sm:divide-y-0 sm:divide-x divide-neutral-200">
-                {liveWire.map((item, idx) => (
-                  <Link
-                    key={item.id || idx}
-                    href={`/lobby/news/article/${item.slug}`}
-                    className="group block pt-2 sm:pt-0 sm:px-3 first:pl-0 space-y-1 hover:text-brand-electric transition-colors"
-                  >
-                    <span className="text-[10px] font-normal text-neutral-400 block uppercase">
-                      {item.category.replace('-', ' ')}
-                    </span>
-                    <p className="font-light text-neutral-800 line-clamp-2 leading-snug group-hover:text-brand-electric">
-                      {item.title}
-                    </p>
-                  </Link>
-                ))}
-              </div>
+              {liveWire.length === 0 ? (
+                <div className="flex items-center gap-3 text-xs text-neutral-500 font-light italic py-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                  <span>Regulatory wire updating — no items currently published for this edition cycle.</span>
+                  <span className="text-[10px] text-neutral-400 font-mono">FEED_OFFLINE</span>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 text-xs divide-y sm:divide-y-0 sm:divide-x divide-neutral-200">
+                  {liveWire.map((item, idx) => (
+                    <a
+                      key={item.id || idx}
+                      href={item.canonicalUrl || '/lobby/compliance'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block pt-2 sm:pt-0 sm:px-3 first:pl-0 space-y-1 hover:text-brand-electric transition-colors"
+                    >
+                      <span className="text-[10px] font-normal text-neutral-400 block uppercase">
+                        {item.tradeTags?.[0]?.replace('-', ' ') || 'Regulatory'}
+                      </span>
+                      <p className="font-light text-neutral-800 line-clamp-2 leading-snug group-hover:text-brand-electric">
+                        {item.title}
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

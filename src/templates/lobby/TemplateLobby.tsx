@@ -20,8 +20,8 @@ import { LobbyNewsletter } from '@/components/lobby/LobbyNewsletter';
 import { LobbyCoreDestinations } from '@/components/lobby/LobbyCoreDestinations';
 import { getLobbyHomepageData } from '@/lib/lobby/repository';
 
-export function TemplateLobby() {
-  const data = getLobbyHomepageData();
+export async function TemplateLobby() {
+  const data = await getLobbyHomepageData();
 
   const leadBriefingProps = {
     franchise: data.leadStory.franchise === 'week-that-matters' ? 'THE WEEK THAT MATTERS' : 'LEAD BRIEFING',

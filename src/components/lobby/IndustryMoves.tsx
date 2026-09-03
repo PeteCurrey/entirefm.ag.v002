@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Award, Users } from 'lucide-react';
-import { getContractWins, getPeopleMoves } from '@/server/news/news-store';
+import { opportunityStore } from '@/server/intelligence/opportunity-store';
+import { getPeopleMovesWire, type PeopleMoveItem } from '@/server/wire/wire-store';
+import type { ProcurementOpportunity } from '@/server/intelligence/types';
 
-export function IndustryMoves() {
-  const contracts = getContractWins(2);
-  const people = getPeopleMoves(2);
+export async function IndustryMoves() {
+  const contracts: ProcurementOpportunity[] = await opportunityStore.getContractAwards(2);
+  const people: PeopleMoveItem[] = await getPeopleMovesWire(2);
 
   return (
     <section className="bg-white py-14 sm:py-18 border-b border-neutral-200/80">
@@ -27,39 +28,58 @@ export function IndustryMoves() {
               </div>
 
               <Link
-                href="/lobby/news"
+                href="/lobby/find/opportunities"
                 className="text-xs font-medium uppercase tracking-wider text-neutral-500 hover:text-neutral-900"
               >
                 All Wins &rarr;
               </Link>
             </div>
 
-            <div className="space-y-4 divide-y divide-neutral-100">
-              {contracts.map((item) => (
-                <article key={item.id} className="pt-4 first:pt-0 space-y-2 group">
-                  <div className="flex items-center gap-2">
-                    {item.contractValue && (
-                      <span className="text-[11px] font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-sm">
-                        {item.contractValue}
-                      </span>
-                    )}
-                    <span className="text-xs text-neutral-400 font-normal">
-                      {item.contractClient}
-                    </span>
-                  </div>
+            {contracts.length === 0 ? (
+              <div className="py-8 px-5 border border-dashed border-neutral-200 rounded-sm bg-neutral-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-neutral-500 font-light">
+                <span>No verified UK FM contract awards recorded in the current monitoring cycle.</span>
+                <span className="text-[10px] text-neutral-400 font-mono tracking-wider">FEED_OFFLINE</span>
+              </div>
+            ) : (
+              <div className="space-y-4 divide-y divide-neutral-100">
+                {contracts.map((item) => {
+                  const valString = item.awardDetails?.awardedValue
+                    ? item.awardDetails.awardedValue
+                    : item.estimatedValue?.amount
+                    ? `£${item.estimatedValue.amount.toLocaleString()}`
+                    : undefined;
 
-                  <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
-                    <Link href={`/lobby/news/article/${item.slug}`}>
-                      {item.title}
-                    </Link>
-                  </h4>
+                  return (
+                    <article key={item.id} className="pt-4 first:pt-0 space-y-2 group">
+                      <div className="flex items-center gap-2">
+                        {valString && (
+                          <span className="text-[11px] font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-sm">
+                            {valString}
+                          </span>
+                        )}
+                        <span className="text-xs text-neutral-400 font-normal">
+                          {item.buyerName}
+                        </span>
+                      </div>
 
-                  <p className="text-xs font-light text-neutral-600 line-clamp-2 leading-relaxed">
-                    {item.standfirst}
-                  </p>
-                </article>
-              ))}
-            </div>
+                      <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                        <a
+                          href={item.officialNoticeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.title}
+                        </a>
+                      </h4>
+
+                      <p className="text-xs font-light text-neutral-600 line-clamp-2 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* RIGHT: PEOPLE & APPOINTMENTS */}
@@ -75,32 +95,43 @@ export function IndustryMoves() {
               </div>
 
               <Link
-                href="/lobby/news"
+                href="/lobby/wire"
                 className="text-xs font-medium uppercase tracking-wider text-neutral-500 hover:text-neutral-900"
               >
                 All Moves &rarr;
               </Link>
             </div>
 
-            <div className="space-y-4 divide-y divide-neutral-100">
-              {people.map((item) => (
-                <article key={item.id} className="pt-4 first:pt-0 space-y-2 group">
-                  <div className="text-xs font-normal text-brand-electric">
-                    {item.personName}
-                  </div>
+            {people.length === 0 ? (
+              <div className="py-8 px-5 border border-dashed border-neutral-200 rounded-sm bg-neutral-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-neutral-500 font-light">
+                <span>No executive FM appointments or leadership moves verified in the current monitoring cycle.</span>
+                <span className="text-[10px] text-neutral-400 font-mono tracking-wider">FEED_OFFLINE</span>
+              </div>
+            ) : (
+              <div className="space-y-4 divide-y divide-neutral-100">
+                {people.map((item) => (
+                  <article key={item.id} className="pt-4 first:pt-0 space-y-2 group">
+                    <div className="text-xs font-normal text-brand-electric">
+                      {item.personName}
+                    </div>
 
-                  <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
-                    <Link href={`/lobby/news/article/${item.slug}`}>
-                      {item.personNewRole} — {item.personCompany}
-                    </Link>
-                  </h4>
+                    <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                      <a
+                        href={item.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.newRole} — {item.organisationName}
+                      </a>
+                    </h4>
 
-                  <p className="text-xs font-light text-neutral-600 line-clamp-2 leading-relaxed">
-                    {item.standfirst}
-                  </p>
-                </article>
-              ))}
-            </div>
+                    <p className="text-xs font-light text-neutral-600 line-clamp-2 leading-relaxed">
+                      {item.summary}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
 
         </div>

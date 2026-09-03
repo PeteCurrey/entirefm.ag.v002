@@ -11,6 +11,48 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [pollData, setPollData] = useState<{
+    id: string;
+    question: string;
+    totalVotes: number;
+    options: Array<{ id: string; label: string; votes?: number; percentage: number }>;
+  }>({
+    id: data.id,
+    question: data.question,
+    totalVotes: data.totalVotes ?? data.totalVotesBaseline ?? 0,
+    options: data.options.map((o) => ({
+      id: o.id,
+      label: o.label,
+      votes: (o as any).votes || 0,
+      percentage: o.percentage || 0,
+    })),
+  });
+
+  // Fetch live poll status on mount
+  useEffect(() => {
+    let isMounted = true;
+    fetch('/api/lobby/pulse')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((res) => {
+        if (!isMounted || !res?.poll) return;
+        setPollData({
+          id: res.poll.id,
+          question: res.poll.question,
+          totalVotes: res.poll.totalVotes,
+          options: res.poll.options,
+        });
+        if (res.poll.hasVoted) {
+          setHasVoted(true);
+          setShowResults(true);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (hasVoted) {
@@ -19,7 +61,38 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
     }
   }, [hasVoted]);
 
-  const totalVotes = data.totalVotesBaseline + (hasVoted ? 1 : 0);
+  const handleSubmit = async () => {
+    if (!selectedOptionId || isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch('/api/lobby/pulse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          optionId: selectedOptionId,
+          pollId: pollData.id,
+        }),
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json.poll) {
+          setPollData({
+            id: json.poll.id,
+            question: json.poll.question,
+            totalVotes: json.poll.totalVotes,
+            options: json.poll.options,
+          });
+        }
+      }
+    } catch {
+      // Ignore network errors, proceed to show local vote
+    } finally {
+      setIsSubmitting(false);
+      setHasVoted(true);
+    }
+  };
 
   return (
     <article className="w-full bg-white border border-neutral-200/80 rounded-sm p-8 sm:p-10 lg:p-12 flex flex-col justify-between h-full space-y-8">
@@ -30,12 +103,12 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
             THE PULSE · INDUSTRY DATA
           </span>
           <span className="text-xs text-neutral-400 font-normal">
-            {totalVotes.toLocaleString()} Responses
+            {pollData.totalVotes.toLocaleString()} Responses
           </span>
         </div>
 
         <h3 className="text-2xl sm:text-3xl font-extralight text-neutral-900 leading-snug">
-          {data.question}
+          {pollData.question}
         </h3>
       </div>
 
@@ -44,7 +117,7 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
         {!hasVoted ? (
           // Voting State
           <div className="space-y-3">
-            {data.options.map((option) => (
+            {pollData.options.map((option) => (
               <button
                 key={option.id}
                 type="button"
@@ -58,25 +131,27 @@ export function LobbyPulse({ data }: LobbyPulseProps) {
                 {option.label}
               </button>
             ))}
-            
+
             <div className="pt-4 flex items-center justify-between">
               <button
                 type="button"
-                onClick={() => selectedOptionId && setHasVoted(true)}
-                disabled={!selectedOptionId}
+                onClick={handleSubmit}
+                disabled={!selectedOptionId || isSubmitting}
                 className="text-xs uppercase font-semibold tracking-wider bg-neutral-900 text-white px-6 py-2.5 rounded-sm hover:bg-brand-electric transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                Submit Response
+                {isSubmitting ? 'Submitting...' : 'Submit Response'}
               </button>
               <span className="text-xs text-neutral-400 font-light">
-                Live verified FM consensus
+                {pollData.totalVotes > 0
+                  ? 'Live verified FM consensus'
+                  : 'Open for verified FM practitioner responses'}
               </span>
             </div>
           </div>
         ) : (
           // Results State
           <div className="space-y-4 animate-in fade-in duration-500">
-            {data.options.map((option) => {
+            {pollData.options.map((option) => {
               const percentage = option.percentage;
               return (
                 <div key={option.id} className="space-y-1.5">

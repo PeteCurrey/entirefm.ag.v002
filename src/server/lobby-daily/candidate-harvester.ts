@@ -12,7 +12,6 @@
 
 import { CandidateStory, ImageRightsStatus } from './types';
 import { resolveSafeImage } from './image-fallbacks';
-import { INITIAL_NEWS_ARTICLES } from '@/server/news/news-store';
 import { intelligenceStore } from '@/server/intelligence/intelligence-store';
 import { isDbConfigured } from '@/server/db/client';
 
@@ -149,7 +148,7 @@ export async function harvestCandidateStories(
           contractClient: undefined as string | undefined,
           contractWinner: undefined as string | undefined,
         }))
-      : (!isDbConfigured() ? INITIAL_NEWS_ARTICLES : []);
+      : [];
 
   // Ingest from verified sources
   for (const article of sourceArticles) {

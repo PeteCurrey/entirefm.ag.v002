@@ -155,11 +155,13 @@ export interface LobbyPulseItem {
   imageUrl?: string;
   imageAlt?: string;
   context: string;
-  totalVotesBaseline: number;
+  totalVotes?: number;
+  totalVotesBaseline?: number;
   options: {
     id: string;
     label: string;
     percentage: number;
+    votes?: number;
   }[];
 }
 

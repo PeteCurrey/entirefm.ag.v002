@@ -139,7 +139,7 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
                   </span>
                 )}
                 <span className="text-[11px] text-white/40 font-light">
-                  64% of practitioners answered correctly
+                  Statutory technical standard
                 </span>
               </div>
 
