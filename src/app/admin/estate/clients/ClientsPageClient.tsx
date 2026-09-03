@@ -8,31 +8,30 @@ import {
   Plus,
   Users,
   Briefcase,
-  ShieldCheck,
-  MapPin,
-  FileText,
-  ExternalLink,
+  CheckCircle2,
+  Clock,
   ChevronRight,
   X,
   Mail,
   Phone,
-  CheckCircle2,
-  Clock,
-  AlertTriangle,
   ArrowUpRight,
-  SlidersHorizontal,
+  AlertCircle,
+  Check,
+  UserCheck,
 } from 'lucide-react';
 import { ClientAccount } from '@/server/estate';
+import { EligibleAccountManager } from '@/server/estate/account-managers';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
-import { Badge } from '@/components/admin/ui/Badge';
 import { Button } from '@/components/admin/ui/Button';
 
 interface Props {
   initialClients: ClientAccount[];
+  initialAccountManagers?: EligibleAccountManager[];
 }
 
-export function ClientsPageClient({ initialClients }: Props) {
+export function ClientsPageClient({ initialClients, initialAccountManagers = [] }: Props) {
   const [clients, setClients] = useState<ClientAccount[]>(initialClients);
+  const [accountManagers, setAccountManagers] = useState<EligibleAccountManager[]>(initialAccountManagers);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTier, setSelectedTier] = useState<string>('ALL');
   const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
@@ -45,7 +44,17 @@ export function ClientsPageClient({ initialClients }: Props) {
   const [newTier, setNewTier] = useState<'ENTERPRISE' | 'CORPORATE' | 'REGIONAL' | 'SME'>('CORPORATE');
   const [newEmail, setNewEmail] = useState('');
   const [newPhone, setNewPhone] = useState('');
-  const [newAccountManager, setNewAccountManager] = useState('Sarah Jenkins');
+  const [newAccountManagerId, setNewAccountManagerId] = useState<string>('');
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [actionSuccess, setActionSuccess] = useState<string | null>(null);
+
+  // Drawer reassign state
+  const [isReassigning, setIsReassigning] = useState(false);
+  const [reassignManagerId, setReassignManagerId] = useState('');
+  const [isSavingReassign, setIsSavingReassign] = useState(false);
+  const [reassignError, setReassignError] = useState<string | null>(null);
 
   // Filtered clients list
   const filteredClients = useMemo(() => {
@@ -53,7 +62,7 @@ export function ClientsPageClient({ initialClients }: Props) {
       const matchesSearch =
         searchQuery.trim() === '' ||
         c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        c.account_number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (c.account_number && c.account_number.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (c.organisation?.code && c.organisation.code.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (c.organisation?.email && c.organisation.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (c.account_manager &&
@@ -77,12 +86,27 @@ export function ClientsPageClient({ initialClients }: Props) {
     return { total, active, enterprise, onboarding };
   }, [clients]);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [createError, setCreateError] = useState<string | null>(null);
+  const resetCreateForm = () => {
+    setNewName('');
+    setNewOrgCode('');
+    setNewEmail('');
+    setNewPhone('');
+    setNewTier('CORPORATE');
+    setNewAccountManagerId('');
+    setCreateError(null);
+  };
+
+  const handleOpenCreateModal = () => {
+    resetCreateForm();
+    setIsCreateModalOpen(true);
+  };
 
   const handleCreateClient = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newName.trim()) return;
+    if (!newName.trim()) {
+      setCreateError('Legal Client / Organisation Name is required.');
+      return;
+    }
 
     setIsSubmitting(true);
     setCreateError(null);
@@ -98,6 +122,7 @@ export function ClientsPageClient({ initialClients }: Props) {
           organisation_code: newOrgCode.trim() || undefined,
           email: newEmail.trim() || undefined,
           phone: newPhone.trim() || undefined,
+          account_manager_id: newAccountManagerId || undefined,
         }),
       });
 
@@ -106,16 +131,48 @@ export function ClientsPageClient({ initialClients }: Props) {
         throw new Error(data.error || 'Failed to create client account.');
       }
 
-      setClients([data.client, ...clients]);
+      const createdClient: ClientAccount = data.client;
+      setClients((prev) => [createdClient, ...prev]);
+      setActionSuccess(`Client account "${createdClient.name}" created successfully.`);
       setIsCreateModalOpen(false);
-      setNewName('');
-      setNewOrgCode('');
-      setNewEmail('');
-      setNewPhone('');
+      resetCreateForm();
     } catch (err: any) {
       setCreateError(err.message || 'Error creating client');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Handle Account Manager Reassignment in Drawer
+  const handleSaveReassignment = async () => {
+    if (!selectedClient) return;
+
+    setIsSavingReassign(true);
+    setReassignError(null);
+
+    try {
+      const res = await fetch(`/api/admin/clients/${selectedClient.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          account_manager_id: reassignManagerId || null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to reassign account manager.');
+      }
+
+      const updated = data.client as ClientAccount;
+      setSelectedClient(updated);
+      setClients((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
+      setIsReassigning(false);
+      setActionSuccess(`Account manager updated for ${updated.name}.`);
+    } catch (err: any) {
+      setReassignError(err.message || 'Error reassigning manager.');
+    } finally {
+      setIsSavingReassign(false);
     }
   };
 
@@ -127,16 +184,36 @@ export function ClientsPageClient({ initialClients }: Props) {
         title="Client Accounts"
         description="Comprehensive client organisations, commercial agreements, contracts, and managed property portfolios across the UK."
         action={
-          <Button
-            variant="primary"
-            size="sm"
-            icon={<Plus className="h-3.5 w-3.5" />}
-            onClick={() => setIsCreateModalOpen(true)}
-          >
-            New Client Account
-          </Button>
+          <div className="flex items-center gap-2">
+            <Link href="/admin/estate/team">
+              <Button variant="secondary" size="sm" icon={<Users className="h-3.5 w-3.5" />}>
+                Manage EntireFM Team
+              </Button>
+            </Link>
+            <Button
+              variant="primary"
+              size="sm"
+              icon={<Plus className="h-3.5 w-3.5" />}
+              onClick={handleOpenCreateModal}
+            >
+              New Client Account
+            </Button>
+          </div>
         }
       />
+
+      {/* Success Notification */}
+      {actionSuccess && (
+        <div className="rounded-[8px] bg-emerald-50 border border-emerald-200 p-3.5 flex items-center justify-between text-emerald-800 text-[12.5px]">
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-emerald-600" />
+            <span>{actionSuccess}</span>
+          </div>
+          <button onClick={() => setActionSuccess(null)} className="text-emerald-600 hover:text-emerald-900">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       {/* KPI Metric Summary Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -283,7 +360,11 @@ export function ClientsPageClient({ initialClients }: Props) {
               {filteredClients.map((c) => (
                 <tr
                   key={c.id}
-                  onClick={() => setSelectedClient(c)}
+                  onClick={() => {
+                    setSelectedClient(c);
+                    setIsReassigning(false);
+                    setReassignManagerId(c.account_manager_id || '');
+                  }}
                   className="group hover:bg-[#FAFAF8] transition-colors cursor-pointer"
                 >
                   {/* Name & Org */}
@@ -299,7 +380,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                   {/* Account Ref */}
                   <td className="px-4 py-3.5">
                     <span className="text-[11.5px] font-medium text-[#101010] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
-                      {c.account_number}
+                      {c.account_number || c.id.substring(0, 8)}
                     </span>
                   </td>
 
@@ -350,10 +431,10 @@ export function ClientsPageClient({ initialClients }: Props) {
 
                   {/* Account Manager */}
                   <td className="px-4 py-3.5">
-                    <div className="text-[12.5px] text-[#101010]">
+                    <div className="text-[12.5px] text-[#101010] font-medium">
                       {c.account_manager
                         ? `${c.account_manager.first_name} ${c.account_manager.last_name}`
-                        : 'Unassigned'}
+                        : <span className="text-[#9B9B97] font-normal italic">Unassigned</span>}
                     </div>
                     {c.account_manager?.email && (
                       <div className="font-normal text-[10.5px] text-[#686866]">
@@ -380,6 +461,8 @@ export function ClientsPageClient({ initialClients }: Props) {
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedClient(c);
+                        setIsReassigning(false);
+                        setReassignManagerId(c.account_manager_id || '');
                       }}
                       className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#EA580C] hover:underline"
                     >
@@ -407,7 +490,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                 <h2 className="text-xl font-light text-[#101010] mt-1">{selectedClient.name}</h2>
                 <div className="flex items-center gap-2 mt-1.5">
                   <span className="font-normal text-[11px] bg-[#FAFAF8] px-2 py-0.5 rounded border border-[#E4E4E1]">
-                    {selectedClient.account_number}
+                    {selectedClient.account_number || selectedClient.id.substring(0, 8)}
                   </span>
                   <span className="text-[11px] text-[#686866]">
                     Tier: <strong>{selectedClient.account_tier}</strong>
@@ -418,7 +501,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                 </div>
                 <div className="mt-3">
                   <Link href={`/admin/estate/clients/${selectedClient.id}`}>
-                    <Button variant="primary" size="sm" icon={<ExternalLink className="h-3.5 w-3.5" />}>
+                    <Button variant="primary" size="sm" icon={<ArrowUpRight className="h-3.5 w-3.5" />}>
                       Open Operational Hub
                     </Button>
                   </Link>
@@ -469,28 +552,83 @@ export function ClientsPageClient({ initialClients }: Props) {
                 </div>
               </div>
 
-              {/* Account Management */}
+              {/* Account Management with Interactive Reassignment */}
               <div className="space-y-3">
                 <h3 className="text-[11px] uppercase tracking-wider text-[#686866] font-medium border-b border-[#E4E4E1] pb-1">
                   EntireFM Account Team
                 </h3>
-                <div className="p-3 bg-[#FAFAF8] rounded-[8px] border border-[#E4E4E1] flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] text-[#9B9B97] block">Dedicated Account Manager</span>
-                    <span className="font-medium text-[#101010] text-[13px]">
-                      {selectedClient.account_manager
-                        ? `${selectedClient.account_manager.first_name} ${selectedClient.account_manager.last_name}`
-                        : 'Unassigned'}
-                    </span>
-                    {selectedClient.account_manager?.email && (
-                      <span className="font-normal text-[11px] text-[#686866] block">
-                        {selectedClient.account_manager.email}
+                <div className="p-3 bg-[#FAFAF8] rounded-[8px] border border-[#E4E4E1] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] text-[#9B9B97] block">Dedicated Account Manager</span>
+                      <span className="font-medium text-[#101010] text-[13px]">
+                        {selectedClient.account_manager
+                          ? `${selectedClient.account_manager.first_name} ${selectedClient.account_manager.last_name}`
+                          : 'Unassigned'}
                       </span>
+                      {selectedClient.account_manager?.email && (
+                        <span className="font-normal text-[11px] text-[#686866] block">
+                          {selectedClient.account_manager.email}
+                        </span>
+                      )}
+                    </div>
+                    {!isReassigning && (
+                      <Button
+                        variant="secondary"
+                        size="xs"
+                        onClick={() => {
+                          setReassignManagerId(selectedClient.account_manager_id || '');
+                          setIsReassigning(true);
+                        }}
+                      >
+                        Reassign
+                      </Button>
                     )}
                   </div>
-                  <Button variant="secondary" size="xs">
-                    Reassign
-                  </Button>
+
+                  {/* Inline Reassignment Form */}
+                  {isReassigning && (
+                    <div className="pt-3 border-t border-[#E4E4E1] space-y-2">
+                      <label className="block text-[11px] font-medium text-[#101010]">
+                        Select New Account Manager
+                      </label>
+                      <select
+                        value={reassignManagerId}
+                        onChange={(e) => setReassignManagerId(e.target.value)}
+                        className="w-full p-1.5 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12px] focus:border-[#EA580C] focus:outline-none"
+                      >
+                        <option value="">-- Remove Account Manager (Unassigned) --</option>
+                        {accountManagers.map((mgr) => (
+                          <option key={mgr.id} value={mgr.id}>
+                            {mgr.first_name} {mgr.last_name} ({mgr.role_name || mgr.job_title || 'Account Manager'})
+                          </option>
+                        ))}
+                      </select>
+
+                      {reassignError && (
+                        <p className="text-[11px] text-rose-600">{reassignError}</p>
+                      )}
+
+                      <div className="flex items-center justify-end gap-2 pt-1">
+                        <Button
+                          variant="secondary"
+                          size="xs"
+                          disabled={isSavingReassign}
+                          onClick={() => setIsReassigning(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          variant="primary"
+                          size="xs"
+                          disabled={isSavingReassign}
+                          onClick={handleSaveReassignment}
+                        >
+                          {isSavingReassign ? 'Saving...' : 'Save Assignment'}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -540,7 +678,7 @@ export function ClientsPageClient({ initialClients }: Props) {
                   </Link>
 
                   <Link
-                    href={`/admin/finance/client-invoices`}
+                    href="/admin/finance/client-invoices"
                     className="p-3 rounded-[8px] border border-[#E4E4E1] hover:border-[#EA580C] transition-all bg-[#FFFFFF] flex items-center justify-between group"
                   >
                     <div>
@@ -584,6 +722,13 @@ export function ClientsPageClient({ initialClients }: Props) {
                 <X className="h-4 w-4" />
               </button>
             </div>
+
+            {createError && (
+              <div className="rounded-[6px] bg-rose-50 border border-rose-200 p-2.5 flex items-center gap-2 text-rose-800 text-[11.5px]">
+                <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
+                <span>{createError}</span>
+              </div>
+            )}
 
             <form onSubmit={handleCreateClient} className="space-y-3.5 text-xs">
               <div>
@@ -652,27 +797,60 @@ export function ClientsPageClient({ initialClients }: Props) {
               </div>
 
               <div>
-                <label className="block text-[#101010] font-medium mb-1">
-                  Assign Account Manager
-                </label>
-                <select
-                  value={newAccountManager}
-                  onChange={(e) => setNewAccountManager(e.target.value)}
-                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
-                >
-                  <option value="Sarah Jenkins">Sarah Jenkins (Senior FM Account Director)</option>
-                  <option value="David Hughes">David Hughes (Regional Operations Lead)</option>
-                  <option value="Emma Watson">Emma Watson (Commercial Accounts Manager)</option>
-                  <option value="Michael Zhang">Michael Zhang (Hard FM Technical Lead)</option>
-                </select>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[#101010] font-medium">
+                    Assign Account Manager
+                  </label>
+                  <Link
+                    href="/admin/estate/team"
+                    target="_blank"
+                    className="text-[10.5px] text-[#EA580C] hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Add personnel</span>
+                    <ArrowUpRight className="h-3 w-3" />
+                  </Link>
+                </div>
+
+                {accountManagers.length === 0 ? (
+                  <div className="p-2.5 rounded-[6px] border border-amber-200 bg-amber-50 text-[11.5px] text-amber-800">
+                    No active account managers found in database. You can still create the client and assign an account manager later, or{' '}
+                    <Link href="/admin/estate/team" className="font-semibold underline">
+                      add a team member now
+                    </Link>.
+                  </div>
+                ) : (
+                  <select
+                    value={newAccountManagerId}
+                    onChange={(e) => setNewAccountManagerId(e.target.value)}
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  >
+                    <option value="">-- Select Dedicated Account Manager (Optional) --</option>
+                    {accountManagers.map((mgr) => (
+                      <option key={mgr.id} value={mgr.id}>
+                        {mgr.first_name} {mgr.last_name} ({mgr.role_name || mgr.job_title || 'Account Manager'})
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-[#E4E4E1]">
-                <Button variant="secondary" size="sm" onClick={() => setIsCreateModalOpen(false)}>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => setIsCreateModalOpen(false)}
+                >
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" type="submit">
-                  Create Client Account
+                <Button
+                  variant="primary"
+                  size="sm"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating Client...' : 'Create Client Account'}
                 </Button>
               </div>
             </form>

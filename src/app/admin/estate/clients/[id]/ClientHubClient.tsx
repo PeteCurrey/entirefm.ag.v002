@@ -18,8 +18,16 @@ import {
   ChevronRight,
   Users,
   Layers,
+  Briefcase,
+  Mail,
+  Phone,
+  Edit2,
+  Check,
+  AlertCircle,
+  X,
 } from 'lucide-react';
 import { ClientAccount, Contract, Site, Asset } from '@/server/estate';
+import { EligibleAccountManager } from '@/server/estate/account-managers';
 import { WorkOrder } from '@/server/work';
 import { Quote } from '@/server/commercial';
 import { MaintenancePlan } from '@/server/ppm';
@@ -35,20 +43,59 @@ interface Props {
   workOrders: WorkOrder[];
   quotes: Quote[];
   ppmPlans: MaintenancePlan[];
+  accountManagers?: EligibleAccountManager[];
 }
 
 export function ClientHubClient({
-  client,
+  client: initialClient,
   contracts,
   sites,
   assets,
   workOrders,
   quotes,
   ppmPlans,
+  accountManagers = [],
 }: Props) {
+  const [client, setClient] = useState<ClientAccount>(initialClient);
   const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'SITES' | 'ASSETS' | 'CONTRACTS' | 'JOBS' | 'PPM' | 'QUOTES'>('OVERVIEW');
 
+  // Reassignment state
+  const [isReassignModalOpen, setIsReassignModalOpen] = useState(false);
+  const [selectedManagerId, setSelectedManagerId] = useState<string>(client.account_manager_id || '');
+  const [isSavingManager, setIsSavingManager] = useState(false);
+  const [reassignError, setReassignError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
   const openJobs = workOrders.filter((w) => w.status !== 'COMPLETED' && w.status !== 'CLOSED' && w.status !== 'CANCELLED');
+
+  const handleSaveAccountManager = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingManager(true);
+    setReassignError(null);
+
+    try {
+      const res = await fetch(`/api/admin/clients/${client.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          account_manager_id: selectedManagerId || null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update account manager');
+      }
+
+      setClient(data.client);
+      setSuccessMessage('Dedicated Account Manager updated successfully.');
+      setIsReassignModalOpen(false);
+    } catch (err: any) {
+      setReassignError(err.message || 'Error updating account manager');
+    } finally {
+      setIsSavingManager(false);
+    }
+  };
 
   return (
     <div className="space-y-6 font-sans">
@@ -56,9 +103,21 @@ export function ClientHubClient({
       <AdminPageHeader
         category="Client Operations Hub"
         title={client.name}
-        description={`Account #${client.account_number} · ${client.account_tier} · Status: ${client.account_status}`}
+        description={`Account #${client.account_number || client.id.substring(0, 8)} · ${client.account_tier} · Status: ${client.account_status}`}
         action={
           <div className="flex items-center gap-2">
+            <Button
+              variant="secondary"
+              size="sm"
+              icon={<Users className="h-3.5 w-3.5" />}
+              onClick={() => {
+                setSelectedManagerId(client.account_manager_id || '');
+                setReassignError(null);
+                setIsReassignModalOpen(true);
+              }}
+            >
+              Reassign Manager
+            </Button>
             <Link href="/admin/operations/work-orders">
               <Button variant="primary" size="sm" icon={<Plus className="h-3.5 w-3.5" />}>
                 Raise Job
@@ -67,6 +126,19 @@ export function ClientHubClient({
           </div>
         }
       />
+
+      {/* Success Notification */}
+      {successMessage && (
+        <div className="rounded-[8px] bg-emerald-50 border border-emerald-200 p-3.5 flex items-center justify-between text-emerald-800 text-[12.5px]">
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-emerald-600" />
+            <span>{successMessage}</span>
+          </div>
+          <button onClick={() => setSuccessMessage(null)} className="text-emerald-600 hover:text-emerald-900">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -93,6 +165,51 @@ export function ClientHubClient({
         <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] p-3 shadow-xs">
           <span className="text-[11px] font-normal uppercase text-[#686866]">Quotes</span>
           <p className="text-xl font-light text-[#101010] mt-1">{quotes.length}</p>
+        </div>
+      </div>
+
+      {/* Account Management Banner Strip */}
+      <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center text-[#EA580C]">
+            <Briefcase className="h-5 w-5" />
+          </div>
+          <div>
+            <span className="text-[11px] uppercase font-medium text-[#686866] tracking-wider block">
+              EntireFM Account Lead
+            </span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-sm font-medium text-[#101010]">
+                {client.account_manager
+                  ? `${client.account_manager.first_name} ${client.account_manager.last_name}`
+                  : 'Unassigned Account Manager'}
+              </span>
+              {client.account_manager?.email && (
+                <span className="text-[11.5px] text-[#686866]">
+                  ({client.account_manager.email})
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setSelectedManagerId(client.account_manager_id || '');
+              setReassignError(null);
+              setIsReassignModalOpen(true);
+            }}
+          >
+            {client.account_manager ? 'Change Account Manager' : 'Assign Account Manager'}
+          </Button>
+          <Link href="/admin/estate/team">
+            <Button variant="secondary" size="sm">
+              Team Directory
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -148,7 +265,7 @@ export function ClientHubClient({
           {/* Active Work Orders */}
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[14px] font-medium text-[#101010]">Recent & Open Jobs ({openJobs.length})</h3>
+              <h3 className="text-[14px] font-medium text-[#101010]">Recent &amp; Open Jobs ({openJobs.length})</h3>
               <Link href="/admin/operations/work-orders" className="text-[12px] text-[#EA580C] hover:underline flex items-center gap-1">
                 All Jobs <ArrowUpRight className="h-3 w-3" />
               </Link>
@@ -282,7 +399,7 @@ export function ClientHubClient({
                 <div key={p.id} className="p-3 rounded-[6px] border border-[#E4E4E1] flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[13px] text-[#101010]">{p.name}</div>
-                    <div className="text-[11px] text-[#686866]">Plan #{p.plan_number} · Effective: {p.effective_from}</div>
+                    <div className="text-[11px] text-[#686866]">{p.plan_number} · Effective: {p.effective_from}</div>
                   </div>
                   <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {p.status}
@@ -314,6 +431,78 @@ export function ClientHubClient({
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* ── Reassign Account Manager Modal ── */}
+      {isReassignModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] rounded-[12px] border border-[#E4E4E1] max-w-md w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E4E4E1]">
+              <div>
+                <h3 className="text-base font-light text-[#101010]">Reassign Account Manager</h3>
+                <p className="text-xs text-[#686866]">
+                  Select an active EntireFM internal personnel to manage {client.name}.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsReassignModalOpen(false)}
+                className="text-[#9B9B97] hover:text-[#101010]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {reassignError && (
+              <div className="rounded-[6px] bg-rose-50 border border-rose-200 p-2.5 flex items-center gap-2 text-rose-800 text-[11.5px]">
+                <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
+                <span>{reassignError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSaveAccountManager} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">
+                  Dedicated Account Manager
+                </label>
+                <select
+                  value={selectedManagerId}
+                  onChange={(e) => setSelectedManagerId(e.target.value)}
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                >
+                  <option value="">-- No Assigned Account Manager --</option>
+                  {accountManagers.map((mgr) => (
+                    <option key={mgr.id} value={mgr.id}>
+                      {mgr.first_name} {mgr.last_name} ({mgr.role_name || mgr.job_title || 'Account Manager'})
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[11px] text-[#686866] mt-1.5">
+                  Only active EntireFM personnel with account management capabilities are listed.
+                </p>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E4E4E1]">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  type="button"
+                  disabled={isSavingManager}
+                  onClick={() => setIsReassignModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  type="submit"
+                  disabled={isSavingManager}
+                >
+                  {isSavingManager ? 'Saving...' : 'Save Assignment'}
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

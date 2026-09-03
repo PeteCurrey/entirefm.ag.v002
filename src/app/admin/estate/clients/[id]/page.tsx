@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { getClientAccount, listContracts, listSites, listAssets } from '@/server/estate';
+import { listEligibleAccountManagers } from '@/server/estate/account-managers';
 import { listWorkOrders } from '@/server/work';
 import { listQuotes } from '@/server/commercial';
 import { listMaintenancePlans } from '@/server/ppm';
@@ -20,11 +21,12 @@ export default async function ClientDetailPage({ params }: Props) {
     notFound();
   }
 
-  const [contracts, sites, quotes, ppmPlans] = await Promise.all([
+  const [contracts, sites, quotes, ppmPlans, accountManagers] = await Promise.all([
     listContracts(client.id),
     listSites({ clientAccountId: client.id }),
     listQuotes().catch(() => []),
     listMaintenancePlans({ clientAccountId: client.id }).catch(() => []),
+    listEligibleAccountManagers().catch(() => []),
   ]);
 
   const siteIds = sites.map((s) => s.id);
@@ -47,6 +49,7 @@ export default async function ClientDetailPage({ params }: Props) {
       workOrders={workOrders}
       quotes={clientQuotes}
       ppmPlans={ppmPlans}
+      accountManagers={accountManagers}
     />
   );
 }

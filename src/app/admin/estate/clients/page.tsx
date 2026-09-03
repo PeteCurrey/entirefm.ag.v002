@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { listClientAccounts } from '@/server/estate';
+import { listEligibleAccountManagers } from '@/server/estate/account-managers';
 import { ClientsPageClient } from './ClientsPageClient';
 
 export const metadata: Metadata = {
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function ClientsPage() {
-  const clients = await listClientAccounts();
+  const [clients, accountManagers] = await Promise.all([
+    listClientAccounts(),
+    listEligibleAccountManagers(),
+  ]);
 
-  return <ClientsPageClient initialClients={clients} />;
+  return <ClientsPageClient initialClients={clients} initialAccountManagers={accountManagers} />;
 }

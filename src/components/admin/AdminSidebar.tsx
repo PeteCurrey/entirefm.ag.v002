@@ -69,6 +69,7 @@ const CAFM_GROUPS: NavGroup[] = [
     icon: Building2,
     items: [
       { name: 'Clients Hub', href: '/admin/estate/clients' },
+      { name: 'EntireFM Team', href: '/admin/estate/team' },
       { name: 'Contracts & SLAs', href: '/admin/estate/contracts' },
       { name: 'Managed Sites (Site 360)', href: '/admin/estate/sites' },
       { name: 'Asset Registry', href: '/admin/estate/assets' },

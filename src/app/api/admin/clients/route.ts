@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession } from '@/server/identity';
-import { listClientAccounts, createClientAccount } from '@/server/estate';
-import { sendAdminSignupAlert } from '@/server/notifications/admin-alert';
+import { listClientAccounts, createClientAccount, getClientAccount } from '@/server/estate';
+import { validateAccountManager } from '@/server/estate/account-managers';
+
 
 export async function GET() {
   try {
@@ -24,10 +25,41 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, account_tier, account_status, email, phone, organisation_code } = body;
+    const {
+      name,
+      account_tier,
+      account_status,
+      email,
+      phone,
+      organisation_code,
+      account_manager_id,
+    } = body;
 
     if (!name || typeof name !== 'string' || !name.trim()) {
       return NextResponse.json({ success: false, error: 'Client name is required.' }, { status: 400 });
+    }
+
+    // Server-side validate account_manager_id when provided
+    let validatedManagerId: string | undefined;
+    if (account_manager_id) {
+      if (typeof account_manager_id !== 'string') {
+        return NextResponse.json(
+          { success: false, error: 'Invalid account_manager_id format.' },
+          { status: 400 }
+        );
+      }
+      const manager = await validateAccountManager(account_manager_id);
+      if (!manager) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              'The selected account manager does not exist, is inactive, or is not authorised to manage client accounts.',
+          },
+          { status: 422 }
+        );
+      }
+      validatedManagerId = manager.id;
     }
 
     const client = await createClientAccount({
@@ -37,25 +69,13 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       organisation_code,
+      account_manager_id: validatedManagerId,
     });
 
-    // Dispatch Admin Notification (Client Account Created)
-    sendAdminSignupAlert({
-      type: 'CLIENT_CREATED',
-      name: name.trim(),
-      email: email || session?.email || 'helpdesk@entirefm.com',
-      company: name.trim(),
-      phone,
-      referenceId: client?.account_number || client?.id || 'CLIENT-NEW',
-      actionUrl: '/admin/estate/clients',
-      details: {
-        'Tier': account_tier || 'STANDARD',
-        'Status': account_status || 'ACTIVE',
-        'Created By Admin': session.name || session.email,
-      },
-    }).catch((err) => console.error('[ADMIN_ALERT_ERROR: Client Created]', err));
+    // Fetch the full client record with joins so the response matches ClientAccount shape
+    const fullClient = await getClientAccount(client.id);
 
-    return NextResponse.json({ success: true, client }, { status: 201 });
+    return NextResponse.json({ success: true, client: fullClient || client }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

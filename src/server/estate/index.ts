@@ -123,10 +123,13 @@ export interface Asset {
 export async function listClientAccounts(): Promise<ClientAccount[]> {
   try {
     const { data, error } = await dbQuery<ClientAccount[]>(
-      'client_accounts?select=*,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&order=created_at.desc'
+      'client_accounts?select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&order=created_at.desc'
     );
     if (!error && data) {
       return data;
+    }
+    if (error) {
+      console.error('Error fetching client accounts from DB:', error);
     }
   } catch (err) {
     console.error('Error fetching client accounts from DB:', err);
@@ -136,7 +139,7 @@ export async function listClientAccounts(): Promise<ClientAccount[]> {
 
 export async function getClientAccount(id: string): Promise<ClientAccount | null> {
   const { data } = await dbQuery<ClientAccount[]>(
-    `client_accounts?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&limit=1`
+    `client_accounts?id=eq.${encodeURIComponent(id)}&select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&limit=1`
   );
   return data?.[0] || null;
 }
@@ -180,6 +183,8 @@ export async function createClientAccount(params: {
     method: 'POST',
     body: {
       organisation_id: orgId,
+      // account_code is the legacy unique key, kept for backwards compatibility
+      account_code: accountNumber,
       account_number: accountNumber,
       name: params.name,
       account_status: params.account_status || 'ACTIVE',
