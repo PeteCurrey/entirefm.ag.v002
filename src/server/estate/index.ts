@@ -158,28 +158,59 @@ export async function createClientAccount(params: {
 }): Promise<ClientAccount> {
   let orgId = params.organisation_id;
 
-  // Create organisation if not supplied
+  // Resolve or create organisation if not supplied
   if (!orgId) {
-    const code = params.organisation_code || params.name.substring(0, 6).toUpperCase().replace(/[^A-Z0-9]/g, '');
-    const { data: orgData, error: orgError } = await dbQuery<any[]>('organisations', {
-      method: 'POST',
-      body: {
-        name: params.name,
-        code: code || `ORG-${Date.now().toString().slice(-4)}`,
-        email: params.email || null,
-        phone: params.phone || null,
-        status: 'ACTIVE',
-      },
-    });
-    if (orgError) {
-      throw new Error(`Failed to create organisation: ${orgError}`);
+    const rawCode = (params.organisation_code || params.name.substring(0, 6)).trim();
+    const cleanCode = rawCode.toUpperCase().replace(/[^A-Z0-9]/g, '') || `ORG-${Date.now().toString().slice(-4)}`;
+
+    // 1. Check if an organisation with this code already exists
+    const { data: existingByCode } = await dbQuery<any[]>(
+      `organisations?code=eq.${encodeURIComponent(cleanCode)}&limit=1&select=id,name`
+    );
+
+    if (existingByCode?.[0]) {
+      orgId = existingByCode[0].id;
+    } else {
+      // 2. Attempt creation. If collision occurs, retry with unique suffix
+      let { data: orgData, error: orgError } = await dbQuery<any[]>('organisations', {
+        method: 'POST',
+        body: {
+          name: params.name,
+          code: cleanCode,
+          org_type: 'CLIENT',
+          email: params.email || null,
+          phone: params.phone || null,
+          status: 'ACTIVE',
+        },
+      });
+
+      if (orgError && orgError.includes('23505')) {
+        const fallbackCode = `${cleanCode}-${Math.floor(1000 + Math.random() * 9000)}`;
+        const retry = await dbQuery<any[]>('organisations', {
+          method: 'POST',
+          body: {
+            name: params.name,
+            code: fallbackCode,
+            org_type: 'CLIENT',
+            email: params.email || null,
+            phone: params.phone || null,
+            status: 'ACTIVE',
+          },
+        });
+        orgData = retry.data;
+        orgError = retry.error;
+      }
+
+      if (orgError || !orgData?.[0]) {
+        throw new Error(`Failed to create organisation: ${orgError || 'Unknown error'}`);
+      }
+      orgId = orgData[0].id;
     }
-    orgId = orgData?.[0]?.id;
   }
 
-  const accountNumber = params.account_number || `CLA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+  let accountNumber = params.account_number || `CLA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
-  const { data, error } = await dbQuery<ClientAccount[]>('client_accounts', {
+  let { data, error } = await dbQuery<ClientAccount[]>('client_accounts', {
     method: 'POST',
     body: {
       organisation_id: orgId,
@@ -193,6 +224,25 @@ export async function createClientAccount(params: {
       primary_contact_id: params.primary_contact_id || null,
     },
   });
+
+  if (error && error.includes('23505')) {
+    accountNumber = `CLA-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
+    const retry = await dbQuery<ClientAccount[]>('client_accounts', {
+      method: 'POST',
+      body: {
+        organisation_id: orgId,
+        account_code: accountNumber,
+        account_number: accountNumber,
+        name: params.name,
+        account_status: params.account_status || 'ACTIVE',
+        account_tier: params.account_tier || 'CORPORATE',
+        account_manager_id: params.account_manager_id || null,
+        primary_contact_id: params.primary_contact_id || null,
+      },
+    });
+    data = retry.data;
+    error = retry.error;
+  }
 
   if (error || !data?.[0]) {
     throw new Error(`Failed to create client account: ${error || 'Unknown error'}`);
