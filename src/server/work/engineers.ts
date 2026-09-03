@@ -1,69 +1,59 @@
 /**
- * ENTIREFM ACCOUNT MANAGER ELIGIBILITY MODULE
- * ============================================
+ * ENTIREFM INTERNAL ENGINEER ELIGIBILITY MODULE
+ * ===============================================
  * Queries the canonical persons + organisation_memberships tables to return
  * active EntireFM internal staff who are eligible to be assigned as an
- * Account Manager on a Client Account.
+ * internal engineer / lead engineer on a Work Order or Visit.
  *
- * Eligible internal roles (can manage client relationships):
- *   ACCOUNT_MANAGER, OPERATIONS_MANAGER, DIRECTOR, CEO, SUPER_ADMIN,
- *   ADMINISTRATOR, COMMERCIAL_MANAGER, HELPDESK_MANAGER
+ * Eligible internal roles:
+ *   ENGINEER, OPERATIONS_MANAGER, OPERATIONS_USER, DIRECTOR, CEO, ADMINISTRATOR, SUPER_ADMIN
  *
  * Canonical identity:
- *   person.id  → client_accounts.account_manager_id (UUID FK)
- *   person.first_name + person.last_name → display label
+ *   person.id -> work_orders.lead_engineer_id / visits.assigned_resource_id
  */
 
 import { dbQuery } from '../db/client';
 
-export const ACCOUNT_MANAGER_ELIGIBLE_ROLES = [
-  'ACCOUNT_MANAGER',
+export const ENGINEER_ELIGIBLE_ROLES = [
+  'ENGINEER',
   'OPERATIONS_MANAGER',
+  'OPERATIONS_USER',
   'DIRECTOR',
   'CEO',
-  'SUPER_ADMIN',
   'ADMINISTRATOR',
-  'COMMERCIAL_MANAGER',
-  'HELPDESK_MANAGER',
+  'SUPER_ADMIN',
 ] as const;
 
-export type AccountManagerEligibleRole = (typeof ACCOUNT_MANAGER_ELIGIBLE_ROLES)[number];
+export type EngineerEligibleRole = (typeof ENGINEER_ELIGIBLE_ROLES)[number];
 
-export interface EligibleAccountManager {
-  /** UUID — use this as the value for account_manager_id */
+export interface EligibleInternalEngineer {
   id: string;
   first_name: string;
   last_name: string;
   email: string;
   phone?: string;
   job_title?: string;
-  /** The role code they hold in the ENTIREFM org */
   role_code: string;
-  /** The human-readable role name */
   role_name: string;
 }
 
 /**
  * Returns active EntireFM internal team members who are eligible to act as
- * Account Managers. Only persons with an ACTIVE membership to an ENTIREFM
+ * Internal Engineers. Only persons with an ACTIVE membership to an ENTIREFM
  * organisation holding one of the eligible roles are returned.
- *
- * Uses the service role key — safe server-only call.
  */
-export async function listEligibleAccountManagers(): Promise<EligibleAccountManager[]> {
+export async function listEligibleInternalEngineers(): Promise<EligibleInternalEngineer[]> {
   try {
-    // Query persons who have an active membership in an ENTIREFM org
-    // with an eligible role code, and whose person record is ACTIVE.
     const { data, error } = await dbQuery<any[]>(
       `organisation_memberships?select=person_id,role:roles(code,name),person:persons(id,first_name,last_name,email,phone,job_title,status),organisation:organisations(org_type)&status=eq.ACTIVE&organisation.org_type=eq.ENTIREFM&order=joined_at.desc`
     );
 
     if (error || !data) {
-      console.error('[ACCOUNT_MANAGERS] Query error:', error);
+      console.error('[INTERNAL_ENGINEERS] Query error:', error);
       return [];
     }
 
-    const eligibleRoleSet = new Set<string>(ACCOUNT_MANAGER_ELIGIBLE_ROLES);
+    const eligibleRoleSet = new Set<string>(ENGINEER_ELIGIBLE_ROLES);
 
     return data
       .filter((m: any) => {
@@ -90,25 +80,24 @@ export async function listEligibleAccountManagers(): Promise<EligibleAccountMana
         role_code: m.role.code,
         role_name: m.role.name,
       }))
-      .reduce<EligibleAccountManager[]>((acc, mgr) => {
-        // De-duplicate by person ID (person may have multiple memberships)
-        if (!acc.find((x) => x.id === mgr.id)) acc.push(mgr);
+      .reduce<EligibleInternalEngineer[]>((acc, eng) => {
+        if (!acc.find((x) => x.id === eng.id)) acc.push(eng);
         return acc;
       }, [])
       .sort((a, b) => a.last_name.localeCompare(b.last_name));
   } catch (err: any) {
-    console.error('[ACCOUNT_MANAGERS] Unexpected error:', err);
+    console.error('[INTERNAL_ENGINEERS] Unexpected error:', err);
     return [];
   }
 }
 
 /**
- * Validates that a given person ID is eligible to be assigned as an account
- * manager. Returns the person record on success, null on failure.
+ * Validates that a given person ID is an active EntireFM internal staff member
+ * eligible to be assigned as an engineer.
  */
-export async function validateAccountManager(
+export async function validateInternalEngineer(
   personId: string
-): Promise<EligibleAccountManager | null> {
+): Promise<EligibleInternalEngineer | null> {
   if (!personId || typeof personId !== 'string') return null;
 
   try {
@@ -122,11 +111,6 @@ export async function validateAccountManager(
 
     const person = persons[0];
 
-    // Verify they have an active ENTIREFM membership with eligible role
-    const eligibleRoleList = ACCOUNT_MANAGER_ELIGIBLE_ROLES.map((r) =>
-      encodeURIComponent(r)
-    ).join(',');
-
     const { data: memberships, error: memError } = await dbQuery<any[]>(
       `organisation_memberships?person_id=eq.${encodeURIComponent(personId)}&status=eq.ACTIVE&select=role:roles(code,name),organisation:organisations(org_type)&organisation.org_type=eq.ENTIREFM`
     );
@@ -135,13 +119,15 @@ export async function validateAccountManager(
       return null;
     }
 
-    const eligibleRoleSet = new Set<string>(ACCOUNT_MANAGER_ELIGIBLE_ROLES);
+    const eligibleRoleSet = new Set<string>(ENGINEER_ELIGIBLE_ROLES);
     const eligibleMembership = memberships.find(
       (m: any) =>
         m.organisation?.org_type === 'ENTIREFM' && eligibleRoleSet.has(m.role?.code)
     );
 
-    if (!eligibleMembership) return null;
+    if (!eligibleMembership) {
+      return null;
+    }
 
     return {
       id: person.id,
@@ -154,7 +140,7 @@ export async function validateAccountManager(
       role_name: eligibleMembership.role.name,
     };
   } catch (err: any) {
-    console.error('[ACCOUNT_MANAGERS] Validation error:', err);
+    console.error('[INTERNAL_ENGINEERS] Validation error:', err);
     return null;
   }
 }

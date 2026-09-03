@@ -76,7 +76,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${PRODUCTION_CANONICAL_HOST}/sitemap.xml`,
-    host: PRODUCTION_CANONICAL_HOST,
   };
 }
+
+
 

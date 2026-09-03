@@ -169,7 +169,11 @@ export interface Quote {
   id: string;
   quote_number: string;
   version: number;
+  title?: string;
+  description?: string;
   work_order_id?: string;
+  converted_work_order_id?: string;
+  site_id?: string;
   client_account_id: string;
   provider_org_id?: string;
   status: QuoteStatus;
@@ -180,6 +184,8 @@ export interface Quote {
   subtotal_gbp: number;
   tax_amount_gbp: number;
   total_amount_gbp: number;
+  total_cost_gbp?: number;
+  total_sell_gbp?: number;
   expected_cost_gbp?: number;
   expected_margin_gbp?: number;
   expected_margin_pct?: number;
@@ -1290,11 +1296,26 @@ export function evaluateRequiredApprover(
 }
 
 /**
- * Lists quotes with optional status filter
+ * Lists quotes with optional status filter or filter options
  */
-export async function listQuotes(status?: string): Promise<Quote[]> {
+export async function listQuotes(
+  filters?:
+    | {
+        status?: string;
+        clientAccountId?: string;
+        siteId?: string;
+      }
+    | string
+): Promise<Quote[]> {
   let endpoint = 'quotes?select=*&order=created_at.desc';
-  if (status) endpoint += `&status=eq.${encodeURIComponent(status)}`;
+  if (typeof filters === 'string') {
+    endpoint += `&status=eq.${encodeURIComponent(filters)}`;
+  } else if (filters) {
+    if (filters.status) endpoint += `&status=eq.${encodeURIComponent(filters.status)}`;
+    if (filters.clientAccountId)
+      endpoint += `&client_account_id=eq.${encodeURIComponent(filters.clientAccountId)}`;
+    if (filters.siteId) endpoint += `&site_id=eq.${encodeURIComponent(filters.siteId)}`;
+  }
   const { data } = await dbQuery<Quote[]>(endpoint);
   return data || [];
 }
@@ -1352,6 +1373,7 @@ export async function detectMarginLeakage(): Promise<{
 
 export async function createQuoteDirect(params: {
   client_account_id?: string;
+  site_id?: string;
   contract_id?: string;
   work_order_id?: string;
   defect_id?: string;
@@ -1405,19 +1427,26 @@ export async function createQuoteDirect(params: {
     body: {
       quote_number: quoteNumber,
       client_account_id: params.client_account_id || null,
+      site_id: params.site_id || null,
       contract_id: params.contract_id || null,
       work_order_id: params.work_order_id || null,
       title: params.title,
       description: params.description,
       source_type: params.source_type || 'MANUAL',
       status: 'DRAFT',
-      current_version: 1,
+      version: 1,
       total_cost_gbp: totalCost,
       total_sell_gbp: totalSell,
       margin_gbp: marginGbp,
       margin_pct: marginPct,
       vat_amount_gbp: roundMoney(totalSell * 0.2),
       total_inc_vat_gbp: roundMoney(totalSell * 1.2),
+      subtotal_gbp: totalSell,
+      tax_amount_gbp: roundMoney(totalSell * 0.2),
+      total_amount_gbp: roundMoney(totalSell * 1.2),
+      expected_cost_gbp: totalCost,
+      expected_margin_gbp: marginGbp,
+      expected_margin_pct: marginPct,
     },
   });
 
@@ -1432,13 +1461,182 @@ export async function createQuoteDirect(params: {
     await dbQuery('quote_lines', {
       method: 'POST',
       body: {
-        ...line,
         quote_id: quote.id,
-        version_number: 1,
+        line_type: line.line_type,
+        description: line.description,
+        quantity: line.quantity,
+        unit_price_gbp: line.unit_price_gbp,
+        tax_rate_percent: 20.0,
+        total_gbp: line.total_sell_gbp,
       },
     });
   }
 
   return { quote, error: undefined };
 }
+
+/**
+ * Idempotently converts an approved/accepted quote into a work order.
+ * Ensures strict single canonical dataset usage and immutable audit ledger logging.
+ */
+export async function convertQuoteToWorkOrder(params: {
+  quoteId: string;
+  session?: UserSession;
+  overrideStatus?: boolean;
+}): Promise<{ workOrder: any; alreadyConverted: boolean; error?: string }> {
+  // 1. Fetch quote
+  const { data: quotes, error: qErr } = await dbQuery<Quote[]>(
+    `quotes?id=eq.${encodeURIComponent(params.quoteId)}&select=*,lines:quote_lines(*)`
+  );
+  if (qErr || !quotes?.[0]) {
+    return {
+      workOrder: null,
+      alreadyConverted: false,
+      error: `Quote not found: ${qErr || 'Invalid ID'}`,
+    };
+  }
+  const quote = quotes[0];
+
+  // 2. Check idempotency: already converted?
+  if (quote.converted_work_order_id) {
+    const { data: existingWo } = await dbQuery<any[]>(
+      `work_orders?id=eq.${encodeURIComponent(quote.converted_work_order_id)}&select=*`
+    );
+    if (existingWo?.[0]) {
+      return { workOrder: existingWo[0], alreadyConverted: true };
+    }
+  }
+
+  // Check if work_order exists with quote_id = quote.id
+  const { data: woByQuote } = await dbQuery<any[]>(
+    `work_orders?quote_id=eq.${encodeURIComponent(quote.id)}&select=*`
+  );
+  if (woByQuote?.[0]) {
+    // Back-link quote
+    await dbQuery(`quotes?id=eq.${encodeURIComponent(quote.id)}`, {
+      method: 'PATCH',
+      body: { converted_work_order_id: woByQuote[0].id, work_order_id: woByQuote[0].id },
+    });
+    return { workOrder: woByQuote[0], alreadyConverted: true };
+  }
+
+  // 3. Status validation
+  const validStatuses: QuoteStatus[] = ['APPROVED', 'ACCEPTED'];
+  if (!params.overrideStatus && !validStatuses.includes(quote.status)) {
+    return {
+      workOrder: null,
+      alreadyConverted: false,
+      error: `Quote must be APPROVED or ACCEPTED to convert into a work order (current status: ${quote.status})`,
+    };
+  }
+
+  // 4. Resolve site_id and organisation_id
+  let siteId = quote.site_id;
+  let orgId: string | null = null;
+
+  if (siteId) {
+    const { data: siteData } = await dbQuery<any[]>(
+      `sites?id=eq.${encodeURIComponent(siteId)}&select=organisation_id`
+    );
+    orgId = siteData?.[0]?.organisation_id || null;
+  }
+
+  // If site_id not on quote, check if client account has a site
+  if (!siteId && quote.client_account_id) {
+    const { data: clientSites } = await dbQuery<any[]>(
+      `sites?client_account_id=eq.${encodeURIComponent(quote.client_account_id)}&select=id,organisation_id&limit=1`
+    );
+    if (clientSites?.[0]) {
+      siteId = clientSites[0].id;
+      orgId = clientSites[0].organisation_id;
+    }
+  }
+
+  // If still no orgId, resolve from client_account
+  if (!orgId && quote.client_account_id) {
+    const { data: clientAcc } = await dbQuery<any[]>(
+      `client_accounts?id=eq.${encodeURIComponent(quote.client_account_id)}&select=organisation_id`
+    );
+    orgId = clientAcc?.[0]?.organisation_id || null;
+  }
+
+  if (!orgId) {
+    const { data: defaultOrg } = await dbQuery<any[]>('organisations?limit=1&select=id');
+    orgId = defaultOrg?.[0]?.id || '00000000-0000-0000-0000-000000000000';
+  }
+
+  if (!siteId) {
+    return {
+      workOrder: null,
+      alreadyConverted: false,
+      error: 'Cannot convert quote without an associated site. Please assign a site to the quote or client first.',
+    };
+  }
+
+  // 5. Generate work order number and create work order
+  const year = new Date().getFullYear();
+  const rand = String(Math.floor(Math.random() * 900000) + 100000);
+  const woNumber = `EFM-WO-${year}-${rand}`;
+  const now = new Date().toISOString();
+
+  const { data: newWo, error: woError } = await dbQuery<any[]>('work_orders', {
+    method: 'POST',
+    body: {
+      work_order_number: woNumber,
+      organisation_id: orgId,
+      site_id: siteId,
+      quote_id: quote.id,
+      title: quote.title || `Works as per Quote ${quote.quote_number}`,
+      description: quote.description || quote.scope_description || `Quoted works for ${quote.quote_number}`,
+      work_type: 'QUOTED',
+      priority: 'P3_MEDIUM',
+      status: 'OPEN',
+      disposition_state: 'NONE',
+      total_cost_gbp: quote.total_cost_gbp || quote.expected_cost_gbp || null,
+      total_revenue_gbp: quote.total_sell_gbp || quote.total_amount_gbp || null,
+      billing_status: 'UNBILLED',
+      target_start_at: now,
+    },
+  });
+
+  if (woError || !newWo?.[0]) {
+    return {
+      workOrder: null,
+      alreadyConverted: false,
+      error: `Failed to create work order: ${woError || 'Database insert error'}`,
+    };
+  }
+
+  const createdWo = newWo[0];
+
+  // 6. Update quote with converted_work_order_id and work_order_id
+  await dbQuery(`quotes?id=eq.${encodeURIComponent(quote.id)}`, {
+    method: 'PATCH',
+    body: {
+      converted_work_order_id: createdWo.id,
+      work_order_id: createdWo.id,
+    },
+  });
+
+  // 7. Record immutable audit event
+  await recordAuditEvent({
+    event_type: 'QUOTE_CONVERTED_TO_WORK_ORDER',
+    object_type: 'quote',
+    object_id: quote.id,
+    actor_id: params.session?.personId || undefined,
+    actor_type: params.session ? 'HUMAN' : 'SYSTEM',
+    organisation_id: orgId || undefined,
+    before_state: { quote_id: quote.id, status: quote.status },
+    after_state: {
+      quote_id: quote.id,
+      work_order_id: createdWo.id,
+      work_order_number: createdWo.work_order_number,
+    },
+    reason: `Quote ${quote.quote_number} converted to work order ${createdWo.work_order_number}`,
+    source: 'COMMERCIAL_LIFECYCLE',
+  });
+
+  return { workOrder: createdWo, alreadyConverted: false };
+}
+
 

@@ -2,28 +2,51 @@
 -- ENTIREFM MIGRATION 0058: CAFM OPERATIONAL LIFECYCLE LINKAGES & INTEGRITY
 -- ============================================================================
 -- Purpose:
---   1. Connect quotes directly to sites (site_id on quotes table)
---   2. Support bidirectional, idempotent conversion between quotes and work orders
+--   1. Connect sites directly to client_accounts (client_account_id on sites table)
+--   2. Add missing estate site columns expected by application code (site_type, access_instructions)
+--   3. Connect quotes directly to sites (site_id on quotes table)
+--   4. Support bidirectional, idempotent conversion between quotes and work orders
 --      (converted_work_order_id on quotes, quote_id on work_orders)
---   3. Ensure lead_engineer_id exists on work_orders with proper foreign key
---   4. Add indexes for high-performance tenant-isolated queries and lifecycle joins
---   5. Ensure service_role RLS access across all lifecycle tables
+--   5. Ensure lead_engineer_id exists on work_orders with proper foreign key
+--   6. Add commercial columns to quotes (contract_id, total_sell_gbp, total_cost_gbp, etc.)
+--   7. Add indexes for high-performance tenant-isolated queries and lifecycle joins
+--   8. Ensure service_role RLS access across all lifecycle tables
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
--- 1. EXTEND quotes WITH site_id & converted_work_order_id
+-- 1. EXTEND sites WITH client_account_id & OPERATIONAL ATTRIBUTES
+-- ----------------------------------------------------------------------------
+
+ALTER TABLE public.sites
+  ADD COLUMN IF NOT EXISTS client_account_id uuid REFERENCES public.client_accounts(id) ON DELETE SET NULL,
+  ADD COLUMN IF NOT EXISTS site_type text NOT NULL DEFAULT 'COMMERCIAL_OFFICE',
+  ADD COLUMN IF NOT EXISTS access_instructions text,
+  ADD COLUMN IF NOT EXISTS security_clearance_required boolean DEFAULT false;
+
+CREATE INDEX IF NOT EXISTS idx_sites_client_account_id ON public.sites(client_account_id);
+
+-- ----------------------------------------------------------------------------
+-- 2. EXTEND quotes WITH site_id, converted_work_order_id, & commercial fields
 -- ----------------------------------------------------------------------------
 
 ALTER TABLE public.quotes
   ADD COLUMN IF NOT EXISTS site_id uuid REFERENCES public.sites(id) ON DELETE SET NULL,
-  ADD COLUMN IF NOT EXISTS converted_work_order_id uuid REFERENCES public.work_orders(id) ON DELETE SET NULL;
+  ADD COLUMN IF NOT EXISTS converted_work_order_id uuid REFERENCES public.work_orders(id) ON DELETE SET NULL,
+  ADD COLUMN IF NOT EXISTS contract_id uuid REFERENCES public.contracts(id) ON DELETE SET NULL,
+  ADD COLUMN IF NOT EXISTS total_cost_gbp numeric(10,2),
+  ADD COLUMN IF NOT EXISTS total_sell_gbp numeric(10,2),
+  ADD COLUMN IF NOT EXISTS margin_gbp numeric(10,2),
+  ADD COLUMN IF NOT EXISTS margin_pct numeric(5,2),
+  ADD COLUMN IF NOT EXISTS vat_amount_gbp numeric(10,2),
+  ADD COLUMN IF NOT EXISTS total_inc_vat_gbp numeric(10,2),
+  ADD COLUMN IF NOT EXISTS client_feedback_notes text;
 
 CREATE INDEX IF NOT EXISTS idx_quotes_site_id ON public.quotes(site_id);
 CREATE INDEX IF NOT EXISTS idx_quotes_client_account_id ON public.quotes(client_account_id);
 CREATE INDEX IF NOT EXISTS idx_quotes_converted_work_order_id ON public.quotes(converted_work_order_id);
 
 -- ----------------------------------------------------------------------------
--- 2. EXTEND work_orders WITH quote_id & lead_engineer_id
+-- 3. EXTEND work_orders WITH quote_id & lead_engineer_id
 -- ----------------------------------------------------------------------------
 
 ALTER TABLE public.work_orders
@@ -35,7 +58,7 @@ CREATE INDEX IF NOT EXISTS idx_work_orders_lead_engineer_id ON public.work_order
 CREATE INDEX IF NOT EXISTS idx_work_orders_site_id ON public.work_orders(site_id);
 
 -- ----------------------------------------------------------------------------
--- 3. ENSURE SERVICE ROLE POLICIES ON LIFECYCLE TABLES
+-- 4. ENSURE SERVICE ROLE POLICIES ON LIFECYCLE TABLES
 -- ----------------------------------------------------------------------------
 
 DO $$

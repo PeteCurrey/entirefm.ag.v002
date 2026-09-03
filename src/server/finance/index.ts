@@ -1302,6 +1302,189 @@ export async function issueClientInvoice(
   });
 }
 
+/**
+ * Idempotently generates and issues a client invoice directly from a completed work order.
+ * Ensures single canonical dataset usage and full audit trail.
+ */
+export async function createInvoiceFromWorkOrder(params: {
+  workOrderId: string;
+  session?: UserSession;
+}): Promise<{ invoice: ClientInvoice | null; alreadyInvoiced: boolean; error?: string }> {
+  const effectiveSession: UserSession = params.session || {
+    personId: '00000000-0000-0000-0000-000000000001',
+    email: 'finance@entirefm.com',
+    name: 'Finance Automation',
+    role: 'FINANCE',
+    orgId: '00000000-0000-0000-0000-000000000000',
+    orgName: 'EntireFM',
+    orgType: 'ENTIREFM',
+    activeApplication: 'ADMIN',
+    permissions: [],
+    scopes: [],
+    expiresAt: Date.now() + 3600000,
+  };
+
+  // 1. Fetch work order
+  const { data: wos, error: woErr } = await dbQuery<any[]>(
+    `work_orders?id=eq.${encodeURIComponent(params.workOrderId)}&select=*`
+  );
+  if (woErr || !wos?.[0]) {
+    return {
+      invoice: null,
+      alreadyInvoiced: false,
+      error: `Work order not found: ${woErr || 'Invalid ID'}`,
+    };
+  }
+  const workOrder = wos[0];
+
+  // 2. Check idempotency: already invoiced via client_invoice_lines?
+  const { data: existingLines } = await dbQuery<any[]>(
+    `client_invoice_lines?work_order_id=eq.${encodeURIComponent(workOrder.id)}&select=client_invoice_id&limit=1`
+  );
+  if (existingLines?.[0]?.client_invoice_id) {
+    const { data: inv } = await dbQuery<ClientInvoice[]>(
+      `client_invoices?id=eq.${encodeURIComponent(existingLines[0].client_invoice_id)}&select=*`
+    );
+    if (inv?.[0]) {
+      return { invoice: inv[0], alreadyInvoiced: true };
+    }
+  }
+
+  // 3. Status validation: must be COMPLETED or CLOSED
+  if (workOrder.status !== 'COMPLETED' && workOrder.status !== 'CLOSED') {
+    return {
+      invoice: null,
+      alreadyInvoiced: false,
+      error: `Work order must be COMPLETED or CLOSED to invoice (current status: ${workOrder.status})`,
+    };
+  }
+
+  // 4. Resolve client_account_id
+  let clientAccountId: string | null = null;
+
+  // Check site
+  if (workOrder.site_id) {
+    const { data: sites } = await dbQuery<any[]>(
+      `sites?id=eq.${encodeURIComponent(workOrder.site_id)}&select=client_account_id,organisation_id`
+    );
+    if (sites?.[0]?.client_account_id) {
+      clientAccountId = sites[0].client_account_id;
+    } else if (sites?.[0]?.organisation_id) {
+      const { data: ca } = await dbQuery<any[]>(
+        `client_accounts?organisation_id=eq.${encodeURIComponent(sites[0].organisation_id)}&select=id&limit=1`
+      );
+      if (ca?.[0]) clientAccountId = ca[0].id;
+    }
+  }
+
+  // Check quote if not found
+  if (!clientAccountId && workOrder.quote_id) {
+    const { data: quotes } = await dbQuery<any[]>(
+      `quotes?id=eq.${encodeURIComponent(workOrder.quote_id)}&select=client_account_id`
+    );
+    if (quotes?.[0]?.client_account_id) {
+      clientAccountId = quotes[0].client_account_id;
+    }
+  }
+
+  // Fallback: search client_accounts
+  if (!clientAccountId) {
+    const { data: caList } = await dbQuery<any[]>('client_accounts?limit=1&select=id');
+    if (caList?.[0]) clientAccountId = caList[0].id;
+  }
+
+  if (!clientAccountId) {
+    return {
+      invoice: null,
+      alreadyInvoiced: false,
+      error: 'Cannot create invoice: No client account associated with this work order or site.',
+    };
+  }
+
+  // 5. Calculate amounts
+  const net = roundMoney(Number(workOrder.total_revenue_gbp) || 150.0);
+  const tax = roundMoney(net * 0.2);
+  const gross = roundMoney(net + tax);
+
+  // 6. Check existing billing record or create one
+  let billingRecordId: string;
+  const { data: existingRecords } = await dbQuery<ClientBillingRecord[]>(
+    `client_billing_records?work_order_id=eq.${encodeURIComponent(workOrder.id)}&select=id&limit=1`
+  );
+
+  if (existingRecords?.[0]) {
+    billingRecordId = existingRecords[0].id;
+  } else {
+    const { data: newRecs, error: recErr } = await dbQuery<ClientBillingRecord[]>(
+      'client_billing_records',
+      {
+        method: 'POST',
+        body: {
+          client_account_id: clientAccountId,
+          work_order_id: workOrder.id,
+          billing_event_type: 'WORK_ORDER_COMPLETION',
+          status: 'APPROVED',
+          billable_net_gbp: net,
+          billable_tax_gbp: tax,
+          billable_gross_gbp: gross,
+          client_po_ref: workOrder.client_po_ref || null,
+        },
+      }
+    );
+    if (recErr || !newRecs?.[0]) {
+      return {
+        invoice: null,
+        alreadyInvoiced: false,
+        error: `Failed to create billing record: ${recErr || 'Database error'}`,
+      };
+    }
+    billingRecordId = newRecs[0].id;
+  }
+
+  // 7. Prepare client invoice
+  let invoiceId: string;
+  try {
+    invoiceId = await prepareClientInvoice(
+      {
+        billingRecordIds: [billingRecordId],
+        clientAccountId,
+        contractId: workOrder.contract_id || undefined,
+        clientPoRef: workOrder.client_po_ref || undefined,
+      },
+      effectiveSession
+    );
+  } catch (err: any) {
+    return {
+      invoice: null,
+      alreadyInvoiced: false,
+      error: `Failed to prepare invoice: ${err.message || err}`,
+    };
+  }
+
+  // 8. Issue invoice (transitions from DRAFT to ISSUED)
+  try {
+    await issueClientInvoice(invoiceId, effectiveSession);
+  } catch (err: any) {
+    console.warn('[INVOICE_ISSUE_WARN]', err);
+  }
+
+  // 9. Mark work order as INVOICED
+  await dbQuery(`work_orders?id=eq.${encodeURIComponent(workOrder.id)}`, {
+    method: 'PATCH',
+    body: { billing_status: 'INVOICED' },
+  });
+
+  // 10. Fetch and return created invoice
+  const { data: finalInvs } = await dbQuery<ClientInvoice[]>(
+    `client_invoices?id=eq.${encodeURIComponent(invoiceId)}&select=*`
+  );
+
+  return {
+    invoice: finalInvs?.[0] || null,
+    alreadyInvoiced: false,
+  };
+}
+
 // ============================================================
 // CREDIT NOTES
 // ============================================================

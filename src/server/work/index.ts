@@ -8,6 +8,7 @@
 import { dbQuery } from '../db/client';
 import { recordAuditEvent } from '../audit';
 import { UserSession } from '../identity';
+import { validateInternalEngineer } from './engineers';
 
 export type WorkStatus =
   | 'DRAFT'
@@ -222,6 +223,7 @@ export interface WorkOrder {
   closed_by_id?: string;
   closure_notes?: string;
   lead_engineer_id?: string;
+  quote_id?: string;
   billing_status: 'UNBILLED' | 'WIP' | 'READY_TO_INVOICE' | 'INVOICED';
   total_cost_gbp?: number;
   total_revenue_gbp?: number;
@@ -732,6 +734,9 @@ export async function listWorkOrders(filters?: {
   status?: WorkStatus;
   priority?: WorkPriority;
   siteId?: string;
+  quoteId?: string;
+  leadEngineerId?: string;
+  clientAccountId?: string;
   disposition?: WorkDispositionState;
   limit?: number;
 }): Promise<WorkOrder[]> {
@@ -740,7 +745,19 @@ export async function listWorkOrders(filters?: {
   if (filters?.status) endpoint += `&status=eq.${encodeURIComponent(filters.status)}`;
   if (filters?.priority) endpoint += `&priority=eq.${encodeURIComponent(filters.priority)}`;
   if (filters?.siteId) endpoint += `&site_id=eq.${encodeURIComponent(filters.siteId)}`;
+  if (filters?.quoteId) endpoint += `&quote_id=eq.${encodeURIComponent(filters.quoteId)}`;
+  if (filters?.leadEngineerId) endpoint += `&lead_engineer_id=eq.${encodeURIComponent(filters.leadEngineerId)}`;
   if (filters?.disposition) endpoint += `&disposition_state=eq.${encodeURIComponent(filters.disposition)}`;
+
+  if (filters?.clientAccountId) {
+    const { data: clientSites } = await dbQuery<any[]>(
+      `sites?client_account_id=eq.${encodeURIComponent(filters.clientAccountId)}&select=id`
+    );
+    const siteIds = (clientSites || []).map((s) => s.id);
+    if (siteIds.length === 0) return [];
+    endpoint += `&site_id=in.(${siteIds.join(',')})`;
+  }
+
   if (filters?.limit) endpoint += `&limit=${filters.limit}`;
   const { data } = await dbQuery<WorkOrder[]>(endpoint);
   return data || [];
@@ -856,6 +873,7 @@ export async function createWorkOrder(params: {
   work_type?: 'REACTIVE' | 'PPM' | 'STATUTORY' | 'QUOTED' | 'PROJECT';
   priority?: WorkPriority;
   service_request_id?: string;
+  quote_id?: string;
   organisation_id?: string;
   building_id?: string;
   space_id?: string;
@@ -893,6 +911,7 @@ export async function createWorkOrder(params: {
       organisation_id: orgId,
       work_order_number: woNumber,
       service_request_id: params.service_request_id || null,
+      quote_id: params.quote_id || null,
       site_id: params.site_id,
       building_id: params.building_id || null,
       space_id: params.space_id || null,
@@ -937,7 +956,7 @@ export async function createWorkOrder(params: {
 
 export async function getWorkOrder(id: string): Promise<WorkOrder | null> {
   const { data } = await dbQuery<WorkOrder[]>(
-    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations(name,code)&limit=1`
+    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations(name,code),lead_engineer:persons(first_name,last_name,email)&limit=1`
   );
   return data?.[0] || null;
 }
@@ -1090,4 +1109,131 @@ export async function completeWorkOrder(params: {
   return data[0];
 }
 
+/**
+ * Assigns an internal EntireFM engineer to a work order.
+ * Validates engineer identity against canonical persons + organisation_memberships,
+ * updates lead_engineer_id, schedules a visit, and records audit trail.
+ */
+export async function assignWorkOrderInternalEngineer(params: {
+  work_order_id: string;
+  engineer_person_id: string;
+  scheduled_start_at?: string;
+  scheduled_end_at?: string;
+  session?: UserSession;
+}): Promise<{ workOrder: WorkOrder; visit: Visit }> {
+  // 1. Validate engineer is an active EntireFM team member with eligible role
+  const engineer = await validateInternalEngineer(params.engineer_person_id);
+  if (!engineer) {
+    throw new Error(
+      'Invalid or ineligible internal engineer. Must be an active EntireFM internal team member.'
+    );
+  }
+
+  // 2. Update work order with lead_engineer_id and status SCHEDULED
+  const { data: woData, error: woError } = await dbQuery<WorkOrder[]>(
+    `work_orders?id=eq.${encodeURIComponent(params.work_order_id)}`,
+    {
+      method: 'PATCH',
+      body: {
+        lead_engineer_id: params.engineer_person_id,
+        status: 'SCHEDULED',
+        disposition_state: 'NONE',
+      },
+    }
+  );
+
+  if (woError || !woData?.[0]) {
+    throw new Error(`Failed to assign engineer to work order: ${woError || 'Database error'}`);
+  }
+
+  // 3. Create or update visit for this work order and engineer
+  const now = new Date();
+  const scheduledStart = params.scheduled_start_at || now.toISOString();
+  const scheduledEnd =
+    params.scheduled_end_at || new Date(now.getTime() + 7200000).toISOString();
+
+  const { data: existingVisits } = await dbQuery<Visit[]>(
+    `visits?work_order_id=eq.${encodeURIComponent(params.work_order_id)}&order=created_at.desc&limit=1`
+  );
+
+  let visit: Visit;
+  if (existingVisits && existingVisits.length > 0) {
+    const { data: updatedVisit, error: vErr } = await dbQuery<Visit[]>(
+      `visits?id=eq.${encodeURIComponent(existingVisits[0].id)}`,
+      {
+        method: 'PATCH',
+        body: {
+          assigned_resource_id: params.engineer_person_id,
+          status: 'CONFIRMED',
+          scheduled_start_at: scheduledStart,
+          scheduled_end_at: scheduledEnd,
+        },
+      }
+    );
+    if (vErr || !updatedVisit?.[0]) {
+      throw new Error(`Failed to update visit: ${vErr || 'Database error'}`);
+    }
+    visit = updatedVisit[0];
+  } else {
+    visit = await createVisit({
+      work_order_id: params.work_order_id,
+      assigned_resource_id: params.engineer_person_id,
+      scheduled_start_at: scheduledStart,
+      scheduled_end_at: scheduledEnd,
+    });
+  }
+
+  // 4. Record audit event
+  await recordAuditEvent({
+    event_type: 'WORK_ORDER_ASSIGNED_INTERNAL_ENGINEER',
+    object_type: 'work_order',
+    object_id: params.work_order_id,
+    actor_id: params.session?.personId,
+    actor_type: params.session ? 'HUMAN' : 'SYSTEM',
+    after_state: {
+      lead_engineer_id: params.engineer_person_id,
+      engineer_name: `${engineer.first_name} ${engineer.last_name}`,
+      visit_id: visit.id,
+    },
+    reason: `Assigned internal engineer ${engineer.first_name} ${engineer.last_name}`,
+    source: 'OPERATIONS',
+  });
+
+  return { workOrder: woData[0], visit };
+}
+
+/**
+ * Assigns an external contractor organisation to a work order.
+ * Creates canonical work_assignment and logs audit trail.
+ */
+export async function assignWorkOrderContractor(params: {
+  work_order_id: string;
+  contractor_org_id: string;
+  session?: UserSession;
+}): Promise<WorkAssignment> {
+  const assignment = await createWorkAssignment({
+    work_order_id: params.work_order_id,
+    provider_org_id: params.contractor_org_id,
+    source: 'MANUAL',
+  });
+
+  await recordAuditEvent({
+    event_type: 'WORK_ORDER_ASSIGNED_CONTRACTOR',
+    object_type: 'work_order',
+    object_id: params.work_order_id,
+    actor_id: params.session?.personId,
+    actor_type: params.session ? 'HUMAN' : 'SYSTEM',
+    after_state: {
+      provider_org_id: params.contractor_org_id,
+      assignment_id: assignment.id,
+    },
+    reason: `Assigned external contractor organisation ${params.contractor_org_id}`,
+    source: 'OPERATIONS',
+  });
+
+  return assignment;
+}
+
+export * from './engineers';
 export * from './sla-resolver';
+

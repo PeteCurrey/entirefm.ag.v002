@@ -3,11 +3,15 @@
  * ===============================================================================
  * Handles Client APPROVE / DECLINE / QUESTION actions on quotes.
  * Updates canonical Quote status and creates audit log record.
+ * Strictly verifies tenant isolation and ownership before mutating.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
+import { recordAuditEvent } from '@/server/audit';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(
   req: NextRequest,
@@ -27,15 +31,32 @@ export async function POST(
     const { action, notes } = body;
 
     if (!['APPROVE', 'DECLINE', 'QUESTION'].includes(action)) {
-      return NextResponse.json({ error: 'Invalid action: must be APPROVE, DECLINE, or QUESTION' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid action: must be APPROVE, DECLINE, or QUESTION' },
+        { status: 400 }
+      );
     }
 
-    // Verify quote exists and belongs to client organisation (or client account)
+    // Verify quote exists and load client_account_id
     const { data: quotes } = await dbQuery<any[]>(
-      `quotes?id=eq.${encodeURIComponent(quoteId)}&select=id,quote_number,title,total_price_gbp,status`
+      `quotes?id=eq.${encodeURIComponent(quoteId)}&select=id,quote_number,title,total_price_gbp,status,client_account_id`
     );
     const quote = quotes?.[0];
     if (!quote) return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
+
+    // Strict tenant isolation check: if caller is a CLIENT, verify ownership
+    if (session.orgType === 'CLIENT' && !isViewAs) {
+      const { data: clientAccounts } = await dbQuery<any[]>(
+        `client_accounts?organisation_id=eq.${encodeURIComponent(session.orgId)}&select=id`
+      );
+      const validAccountIds = (clientAccounts || []).map((ca) => ca.id);
+      if (!quote.client_account_id || !validAccountIds.includes(quote.client_account_id)) {
+        return NextResponse.json(
+          { error: 'Forbidden: You do not have permission to act on this quotation' },
+          { status: 403 }
+        );
+      }
+    }
 
     const newStatus =
       action === 'APPROVE'
@@ -53,6 +74,19 @@ export async function POST(
         client_feedback_notes: notes || null,
         updated_at: new Date().toISOString(),
       },
+    });
+
+    await recordAuditEvent({
+      event_type: `CLIENT_QUOTE_${action}`,
+      object_type: 'quote',
+      object_id: quoteId,
+      actor_id: session.personId,
+      actor_type: 'HUMAN',
+      organisation_id: session.orgId,
+      before_state: { status: quote.status },
+      after_state: { status: newStatus, feedback: notes },
+      reason: `Client performed action ${action} on quote ${quote.quote_number}`,
+      source: 'CLIENT_PORTAL',
     });
 
     return NextResponse.json({

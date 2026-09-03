@@ -5,6 +5,7 @@ import { listEligibleAccountManagers } from '@/server/estate/account-managers';
 import { listWorkOrders } from '@/server/work';
 import { listQuotes } from '@/server/commercial';
 import { listMaintenancePlans } from '@/server/ppm';
+import { listClientInvoices } from '@/server/finance';
 import { ClientHubClient } from './ClientHubClient';
 
 export const dynamic = 'force-dynamic';
@@ -21,12 +22,13 @@ export default async function ClientDetailPage({ params }: Props) {
     notFound();
   }
 
-  const [contracts, sites, quotes, ppmPlans, accountManagers] = await Promise.all([
+  const [contracts, sites, quotes, ppmPlans, accountManagers, invoices] = await Promise.all([
     listContracts(client.id),
     listSites({ clientAccountId: client.id }),
-    listQuotes().catch(() => []),
+    listQuotes({ clientAccountId: client.id }).catch(() => []),
     listMaintenancePlans({ clientAccountId: client.id }).catch(() => []),
     listEligibleAccountManagers().catch(() => []),
+    listClientInvoices({ clientAccountId: client.id }).catch(() => []),
   ]);
 
   const siteIds = sites.map((s) => s.id);
@@ -38,8 +40,6 @@ export default async function ClientDetailPage({ params }: Props) {
     await Promise.all(siteIds.map((sId) => listWorkOrders({ siteId: sId })))
   ).flat();
 
-  const clientQuotes = quotes.filter((q) => q.client_account_id === client.id);
-
   return (
     <ClientHubClient
       client={client}
@@ -47,9 +47,10 @@ export default async function ClientDetailPage({ params }: Props) {
       sites={sites}
       assets={assets}
       workOrders={workOrders}
-      quotes={clientQuotes}
+      quotes={quotes}
       ppmPlans={ppmPlans}
       accountManagers={accountManagers}
+      invoices={invoices}
     />
   );
 }

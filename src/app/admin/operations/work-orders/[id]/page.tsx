@@ -124,7 +124,10 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
     provider_organisation_id: workOrder.provider_organisation_id,
     provider_organisation_name: workOrder.provider_organisation?.name,
     assigned_engineer_id: workOrder.lead_engineer_id,
-    assigned_engineer_name: (workOrder as any).assigned_engineer?.full_name,
+    assigned_engineer_name:
+      (workOrder as any).lead_engineer
+        ? `${(workOrder as any).lead_engineer.first_name} ${(workOrder as any).lead_engineer.last_name}`
+        : (workOrder as any).assigned_engineer?.full_name,
     sla_resolution_due_at: workOrder.sla_resolution_due_at,
     sla_attendance_due_at: workOrder.sla_attendance_due_at,
     created_at: workOrder.created_at || new Date().toISOString(),

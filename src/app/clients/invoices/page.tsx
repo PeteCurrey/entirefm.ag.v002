@@ -8,11 +8,25 @@ export default async function ClientInvoicesPage() {
   const session = await getCurrentSession();
   if (!session) return null;
 
-  const { data: invoices } = await dbQuery<any[]>(
-    `client_invoices?select=id,invoice_number,total_gbp,subtotal_gbp,tax_amount_gbp,status,payment_status,due_date,created_at&order=created_at.desc&limit=50`
-  );
+  // Resolve client accounts for the authenticated client organisation
+  let clientAccountIds: string[] = [];
+  if (session.orgId) {
+    const { data: clientAccounts } = await dbQuery<any[]>(
+      `client_accounts?organisation_id=eq.${encodeURIComponent(session.orgId)}&select=id`
+    );
+    clientAccountIds = (clientAccounts || []).map((ca) => ca.id);
+  }
 
-  const list = invoices || [];
+  let list: any[] = [];
+  if (session.orgType !== 'CLIENT' || clientAccountIds.length > 0) {
+    let query =
+      'client_invoices?select=id,invoice_number,total_amount_gbp,total_gbp,subtotal_gbp,tax_amount_gbp,status,payment_status,due_date,created_at&order=created_at.desc&limit=50';
+    if (session.orgType === 'CLIENT') {
+      query += `&client_account_id=in.(${clientAccountIds.join(',')})`;
+    }
+    const { data: invoices } = await dbQuery<any[]>(query);
+    list = invoices || [];
+  }
 
   return (
     <div className="space-y-6">
@@ -45,15 +59,21 @@ export default async function ClientInvoicesPage() {
               list.map((inv) => (
                 <tr key={inv.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-normal text-brand-electric-bright">{inv.invoice_number}</td>
-                  <td className="px-6 py-3.5 font-normal">£{Number(inv.subtotal_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
-                  <td className="px-6 py-3.5 font-normal text-white">£{Number(inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-6 py-3.5 font-normal">
+                    £{Number(inv.subtotal_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
+                  </td>
+                  <td className="px-6 py-3.5 font-normal text-white">
+                    £{Number(inv.total_amount_gbp || inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}
+                  </td>
                   <td className="px-6 py-3.5 font-normal text-[12px]">{inv.due_date || '—'}</td>
                   <td className="px-6 py-3.5">
-                    <span className={`rounded px-2 py-0.5 font-normal text-[10px] border ${
-                      inv.payment_status === 'PAID'
-                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                        : 'bg-amber-500/10 border-amber-500/20 text-amber-300'
-                    }`}>
+                    <span
+                      className={`rounded px-2 py-0.5 font-normal text-[10px] border ${
+                        inv.payment_status === 'PAID'
+                          ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                          : 'bg-amber-500/10 border-amber-500/20 text-amber-300'
+                      }`}
+                    >
                       {inv.payment_status || 'PENDING'}
                     </span>
                   </td>

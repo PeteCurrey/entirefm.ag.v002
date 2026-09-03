@@ -8,13 +8,14 @@ import { EmptyState } from '@/components/admin/EmptyState';
 import { Badge } from '@/components/admin/ui/Badge';
 import { Button } from '@/components/admin/ui/Button';
 import { Building2, MapPin, ArrowUpRight, Plus, X } from 'lucide-react';
-import type { Site } from '@/server/estate';
+import type { Site, ClientAccount } from '@/server/estate';
 
 interface Props {
   initialSites: Site[];
+  clientAccounts?: ClientAccount[];
 }
 
-export function SitesPageClient({ initialSites }: Props) {
+export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
   const [sites, setSites] = useState<Site[]>(initialSites);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -233,6 +234,22 @@ export function SitesPageClient({ initialSites }: Props) {
                     <option value="OTHER">Other</option>
                   </select>
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">Client Account</label>
+                <select
+                  value={form.client_account_id}
+                  onChange={(e) => set('client_account_id', e.target.value)}
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                >
+                  <option value="">-- No Client Account (Internal / Unassigned) --</option>
+                  {clientAccounts.map((ca) => (
+                    <option key={ca.id} value={ca.id}>
+                      {ca.name} ({ca.account_number || ca.id.slice(0, 8)})
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
