@@ -1417,6 +1417,399 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       },
     ],
   },
+
+  '/contractors/cleaning': {
+    path: '/contractors/cleaning',
+    metaTitle: 'Commercial Cleaning Contractors | FM Contractor Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Cleaning Contractor Network. Access commercial facilities management opportunities across corporate office cleaning, floor care, and high-level hygiene.',
+    h1: 'Commercial Cleaning Contractors for Facilities Management',
+    subtitle: 'Connecting commercial contract cleaning companies, hygiene specialists, and floor care contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // CLEANING DISCIPLINE',
+    intro:
+      'EntireFM works with vetted commercial cleaning contractors across the UK. Put your business forward for scheduled daily office cleaning contracts, periodic hard floor restoration, high-level reach-and-wash window cleaning, and specialist industrial sanitisation packages.',
+    heroImage: {
+      src: '/images/editorial/entirefm-corporate-corridor-2000w.webp',
+      alt: 'Commercial cleaning contractor operating industrial scrubber-dryer in high-traffic corporate office corridor',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Cleaning Contractors', url: '/contractors/cleaning' },
+    ],
+    quickSummary: {
+      question: 'How do commercial cleaning contractors access FM work orders through EntireFM?',
+      summary:
+        'Professional commercial cleaning companies submit their business credentials, BICSc standards, COSHH safety compliance packs, and regional team capabilities via our online intake. Approved contractors are matched to scheduled daily/weekly contract cleaning schedules, periodic deep cleaning, and reactive emergency sanitisation call-outs.',
+      keyPoints: [
+        'Commercial cleaning contracts across corporate headquarters, logistics hubs, business parks, and retail centres',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers daily contract cleaning, diamond floor polishing, reach-and-wash glazing, and clinical sanitisation',
+        'Merit-based contract allocation aligned with verified supervision, staff vetting, and geographic coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Cleaning vs Domestic Residential Cleaning',
+      subtitle: 'Understanding the COSHH safety packs, industrial machinery, and colour-coded hygiene protocols in commercial buildings.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Cleaning',
+      rows: [
+        {
+          attribute: 'Chemical Safety & COSHH',
+          colA: 'Mandatory COSHH safety data sheets (SDS), locked chemical dosing stations, diluter units, formal risk assessments',
+          colB: 'Off-the-shelf retail cleaning sprays stored under standard household sinks',
+          highlight: true,
+        },
+        {
+          attribute: 'Industrial Machinery',
+          colA: 'Ride-on/walk-behind scrubber dryers, high-speed rotary burnishers, commercial dry-vapour steam extractors',
+          colB: 'Standard domestic upright vacuum cleaner and traditional manual mop and bucket',
+        },
+        {
+          attribute: 'Hygiene & Infection Standards',
+          colA: 'Strict BICSc 4-colour cross-contamination coding (Red, Green, Blue, Yellow), touchpoint sanitisation logs',
+          colB: 'Informal household cleaning routines without standardized contamination controls',
+          highlight: true,
+        },
+        {
+          attribute: 'Staff Vetting & Supervision',
+          colA: 'BS 7858 security vetting, DBS checks, electronic sign-in verification, area manager mobile auditing',
+          colB: 'Individual domestic cleaner working unsupervised without formal audit checks',
+        },
+        {
+          attribute: 'Service Level Agreements',
+          colA: 'Detailed KPI scorecards, periodic ATP surface swab testing, formalized monthly SLA review meetings',
+          colB: 'Informal verbal feedback directly between homeowner and cleaner',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What accreditations and standards are required for commercial cleaning contractors?',
+        answer:
+          'Contractors must demonstrate robust COSHH management (with complete Safety Data Sheets), valid SSIP accreditation (CHAS, SafeContractor, or Constructionline), and BICSc (British Institute of Cleaning Science) alignment. All attending operatives must hold verified Right to Work documentation, with DBS checks where working in schools or secure environments.',
+      },
+      {
+        question: 'What types of cleaning contracts does EntireFM dispatch?',
+        answer:
+          'Requirements include scheduled daily evening/morning corporate office cleaning, periodic hard floor stripping and diamond-pad polishing, quarterly high-level external window cleaning (water-fed pole & MEWP), industrial warehouse floor degreasing, and 24/7 reactive biohazard/infection control sanitisation.',
+      },
+      {
+        question: 'Why is COSHH compliance critical for commercial FM clients?',
+        answer:
+          'Under the Control of Substances Hazardous to Health Regulations 2002, commercial facilities require strict management of chemical exposure risks. Contractors must provide Safety Data Sheets (SDS), standardized chemical dilution stations, clear hazard labelling, and documented operative training records.',
+      },
+      {
+        question: 'How are cleaning standards audited and monitored?',
+        answer:
+          'EntireFM utilizes structured digital audit checklists and periodic KPI reviews based on British standard cleanliness levels. Contractors receive digital audit reports and must maintain consistent attendance logging through electronic check-in systems.',
+      },
+      {
+        question: 'What is the commercial fee and application process?',
+        answer:
+          'The EntireFM Contractor Network membership is £95 + VAT per year, payable upon application submission. It provides access to our approved supplier framework, compliance management vault, and consideration for commercial cleaning contracts in your operating area.',
+      },
+      {
+        question: 'Does membership guarantee commercial cleaning contract awards?',
+        answer:
+          'No. EntireFM operates a transparent, merit-based supplier network: membership does not buy or guarantee contracts. Work is awarded based on contractor operational capability, staff supervision ratios, quality audits, and geographical coverage.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Find Facilities Management Work',
+        description: 'Learn how commercial FM tenders, managing agents, and supplier frameworks operate.',
+        href: '/contractors/find-work',
+        badge: 'Procurement',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial works.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Guide',
+        category: 'PPM',
+      },
+    ],
+  },
+
+  '/contractors/grounds-maintenance': {
+    path: '/contractors/grounds-maintenance',
+    metaTitle: 'Commercial Grounds Maintenance Contractors | FM Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Grounds Maintenance Contractor Network. Access commercial contracts across estate landscaping, weed control, tree surveys, and winter gritting.',
+    h1: 'Commercial Grounds Maintenance Contractors for Facilities Management',
+    subtitle: 'Connecting commercial landscaping companies, arborists, and winter gritting contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // GROUNDS CARE DISCIPLINE',
+    intro:
+      'EntireFM works with vetted commercial grounds maintenance contractors across the UK. Put your business forward for planned estate landscape maintenance, NPTC weed control, BS 5837 tree hazard management, SUDS pond maintenance, and automated winter gritting packages.',
+    heroImage: {
+      src: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
+      alt: 'Commercial grounds maintenance team maintaining exterior business park landscape and distribution facility perimeter',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Grounds Maintenance Contractors', url: '/contractors/grounds-maintenance' },
+    ],
+    quickSummary: {
+      question: 'How do commercial grounds maintenance contractors access FM work orders through EntireFM?',
+      summary:
+        'Landscape contractors, arborists, and winter maintenance operators submit their machinery inventory (commercial ride-on mowers, tractor flails, gritters), NPTC pesticide qualifications, and operating radius via our online intake. Approved contractors are matched to seasonal landscaping contracts, tree hazard surveys, and automated winter weather gritting.',
+      keyPoints: [
+        'Commercial grounds work across business parks, distribution centres, retail parks, and corporate headquarters',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers scheduled grass care, shrub pruning, NPTC weed control, tree surgery, and winter gritting',
+        'Merit-based contract allocation matched to verified machinery, pesticide licences, and regional coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Grounds Care vs Domestic Gardening Services',
+      subtitle: 'Understanding the heavy commercial machinery, chemical pesticide legislation, and weather SLAs required on corporate estates.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Gardening',
+      rows: [
+        {
+          attribute: 'Scale & Commercial Machinery',
+          colA: 'Commercial zero-turn mowers (60"+ decks), tractor-mounted flails, mechanical kerb sweepers, high-output leaf vacuums',
+          colB: 'Domestic walk-behind rotary push lawnmower and handheld domestic strimmer',
+          highlight: true,
+        },
+        {
+          attribute: 'Chemical Herbicide Application',
+          colA: 'Mandatory NPTC City & Guilds PA1/PA6 certification for commercial pesticide application on hard standing',
+          colB: 'Domestic weedkiller application with basic consumer retail bottles',
+        },
+        {
+          attribute: 'Tree Risk & Safety (BS 5837)',
+          colA: 'Statutory tree hazard surveys (QTRA / BS 5837), NPTC CS30/31 arborists, formal deadwood removal permits',
+          colB: 'Informal domestic garden tree trimming without formal structural defect surveys',
+          highlight: true,
+        },
+        {
+          attribute: 'Winter Gritting & Frost SLAs',
+          colA: 'Automated Road Surface Temperature (RST) forecast monitoring, 3.5t/tractor gritting rigs, 24/7 activation SLAs',
+          colB: 'Ad-hoc manual hand-salting of domestic front driveways',
+        },
+        {
+          attribute: 'Site Safety & Segregation',
+          colA: 'Stone-deflector guards, full Chapter 8 roadside vehicle chevron livery, pedestrian exclusion zones',
+          colB: 'Standard residential safety precautions without formal traffic segregation',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What qualifications and machinery certifications are required for grounds maintenance contractors?',
+        answer:
+          'Contractors must hold NPTC City & Guilds PA1 & PA6 pesticide certificates for chemical weed control, NPTC chainsaw qualifications (CS30/31/38/39) for arboricultural operations, and LANTRA awards for commercial brushcutters and winter gritting. Valid SSIP health & safety accreditation and Upper Tier Waste Carrier Licences are mandatory.',
+      },
+      {
+        question: 'What types of grounds maintenance contracts does EntireFM dispatch?',
+        answer:
+          'Scopes include summer maintenance packages (14-day grass cutting cycles, bed weeding, hedge trimming, litter collection), autumn leaf clearance, bi-annual tree hazard inspections, SUDS attenuation pond maintenance, and winter gritting/snow clearance triggered by Met Office road surface temperatures.',
+      },
+      {
+        question: 'How do winter gritting contracts operate under EntireFM?',
+        answer:
+          'Gritting contractors operate under automated Met Office OpenRoad forecast triggers (typically dispatched when Road Surface Temperature falls below 0°C with predicted frost/ice). Contractors must record time of spread, application rates (g/m²), and upload automated GPS tracker logs.',
+      },
+      {
+        question: 'How is green waste disposal verified on commercial estates?',
+        answer:
+          'All grass cuttings, hedge clippings, and arborist timber removed from client estates must be processed under a valid Environment Agency Waste Carrier Licence and transported to licensed commercial green waste composting or biomass recycling facilities.',
+      },
+      {
+        question: 'What is the membership cost and commercial model?',
+        answer:
+          'Annual membership is £95 + VAT, payable upon application submission. Membership provides access to EntireFM’s approved supplier framework, compliance management tools, and consideration for commercial grounds care contracts across your coverage area.',
+      },
+      {
+        question: 'Does membership guarantee commercial grounds contracts?',
+        answer:
+          'No. EntireFM operates a merit-based allocation system: membership does not guarantee contract awards. Opportunities are awarded based on verified plant capacity (mowers, gritters), pesticide certifications, safety record, and proximity to client estates.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Commercial Maintenance Contractor Network',
+        description: 'Explore opportunities across planned and reactive building maintenance.',
+        href: '/contractors/commercial-maintenance',
+        badge: 'Overview',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Knowledge',
+        category: 'PPM',
+      },
+      {
+        title: 'What Is a Risk Assessment? Principles & Matrix',
+        description: 'Understand 5x5 hazard evaluation and control hierarchies for machinery and chemicals.',
+        href: '/contractor-resources/risk-assessments/what-is-a-risk-assessment',
+        badge: 'Safety',
+        category: 'Compliance',
+      },
+    ],
+  },
+
+  '/contractors/fabric-maintenance': {
+    path: '/contractors/fabric-maintenance',
+    metaTitle: 'Commercial Building Fabric Contractors | FM Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Fabric Maintenance Contractor Network. Connect with commercial facilities management contracts for joinery, suspended ceilings, glazing, and repairs.',
+    h1: 'Commercial Building Fabric Maintenance Contractors for Facilities Management',
+    subtitle: 'Connecting commercial carpentry, suspended ceiling, partitioning, industrial door, and fabric repair contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // BUILDING FABRIC DISCIPLINE',
+    intro:
+      'EntireFM works with vetted commercial building fabric contractors across the UK. Put your business forward for planned preventative building fabric inspections, fire door maintenance, suspended ceiling overhauls, commercial glazing, industrial roller shutter servicing, and reactive structural repairs.',
+    heroImage: {
+      src: '/images/editorial/entirefm-reception-2000w.webp',
+      alt: 'Commercial building fabric engineer inspecting acoustic wall panels and commercial architectural finishes in corporate reception',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Fabric Maintenance Contractors', url: '/contractors/fabric-maintenance' },
+    ],
+    quickSummary: {
+      question: 'How do commercial building fabric contractors access FM work orders through EntireFM?',
+      summary:
+        'Commercial joiners, ceiling fitters, door technicians, and multi-skilled fabric maintenance contractors submit their trade qualifications (CSCS, DHF), insurance, and operating territories via our online intake. Approved contractors are matched to planned bi-annual fabric condition audits, fire door remedial programmes, and reactive interior repairs.',
+      keyPoints: [
+        'Commercial fabric maintenance across corporate offices, retail centres, distribution warehouses, and healthcare sites',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers fire doors, suspended ceilings, drywall partitioning, industrial roller shutters, and glazing',
+        'Merit-based job allocation matched to verified trade competencies, CSCS credentials, and regional coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Fabric Maintenance vs Domestic Property Repairs',
+      subtitle: 'Understanding the fire door compliance regulations, industrial door standards, and acoustic requirements in commercial buildings.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Handyman Repairs',
+      rows: [
+        {
+          attribute: 'Fire Door Standards & Auditing',
+          colA: 'Statutory BS 8214 / BS 9999 fire door inspections (3mm perimeter gaps, intumescent seals, certified closers)',
+          colB: 'Basic domestic interior door hanging without certified fire containment criteria',
+          highlight: true,
+        },
+        {
+          attribute: 'Ceiling & Partitioning Systems',
+          colA: 'Commercial demountable acoustic partition systems (60-min fire rated), suspended grid tile replacements (SAS / Armstrong)',
+          colB: 'Standard domestic timber studwork and single-layer plasterboard',
+        },
+        {
+          attribute: 'Industrial Doors & Shutters',
+          colA: 'DHF-compliant servicing of motorized roller shutters, sectional overhead doors, loading dock levellers, safety brakes',
+          colB: 'Manual residential up-and-over garage doors',
+          highlight: true,
+        },
+        {
+          attribute: 'Commercial Glazing & Safety',
+          colA: 'BS EN 12600 safety impact glass, double-glazed curtain walling units, anti-shatter security films, manifestation decals',
+          colB: 'Standard domestic window pane replacement',
+        },
+        {
+          attribute: 'Reporting & Compliance',
+          colA: 'Comprehensive photographic asset condition surveys, dilapidation schedules, formal Purchase Order billing',
+          colB: 'Simple verbal quotation and informal domestic repair invoice',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What trade qualifications do commercial fabric maintenance contractors require?',
+        answer:
+          'Contractors and operatives should hold NVQ Level 2/3 in Carpentry & Joinery, Plastering, or Interior Systems, valid CSCS Skilled Worker cards, and SSIP accreditation. For industrial door and roller shutter maintenance, DHF (Door & Hardware Federation) certification is strongly preferred. Fire door inspectors must hold recognized certifications (e.g. FDIS / BM TRADA Q-Mark).',
+      },
+      {
+        question: 'What types of building fabric work orders does EntireFM dispatch?',
+        answer:
+          'Work orders include planned annual building fabric condition surveys, statutory fire door gap rectifications and intumescent strip replacements, suspended ceiling grid repairs, drywall patch repairs and painting, commercial lock/panic bar repairs, industrial loading dock leveller maintenance, and reactive boarding-up/glazing repairs.',
+      },
+      {
+        question: 'Why is fire door compliance critical under the Fire Safety Act 2021?',
+        answer:
+          'Under the Fire Safety (England) Regulations 2022 and Building Safety Act 2022, building duty holders must conduct periodic checks on flat entrance and communal fire doors. Contractors must ensure gap dimensions comply strictly with BS 8214 (typically 3mm-4mm perimeter, 8mm-10mm undercut) and that fire-rated ironmongery functions without obstruction.',
+      },
+      {
+        question: 'How are out-of-hours commercial office repairs managed?',
+        answer:
+          'Noisy works (drilling, timber cutting, floor grinding) in occupied corporate offices are scheduled during out-of-hours windows (evenings and weekends). Contractors must submit dust control RAMS, use HEPA-filtered extraction tools, and ensure spotless morning handovers.',
+      },
+      {
+        question: 'What is the commercial pricing model and membership fee?',
+        answer:
+          'Annual membership is £95 + VAT, payable upon application submission. Membership provides access to EntireFM’s approved supplier framework, compliance management vault, and consideration for commercial building fabric work orders in your operating territory.',
+      },
+      {
+        question: 'Does joining the network guarantee commercial fabric maintenance contracts?',
+        answer:
+          'No. EntireFM operates transparently: membership provides panel eligibility but does not guarantee contract awards or minimum work volumes. Work is awarded on merit based on trade competency, response speed, quality craftsmanship, and geographical location.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Approved Contractor Network Overview',
+        description: 'Review our due diligence framework, compliance expectations, and supplier vetting criteria.',
+        href: '/contractors/approved-contractor-network',
+        badge: 'Standards',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial works.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Guide',
+        category: 'PPM',
+      },
+    ],
+  },
 };
 
 export const CONTRACTOR_RESOURCE_PAGES: Record<string, ContractorPageConfig> = {
