@@ -226,7 +226,7 @@ export default function RamsGuidePage() {
             ]}
             primaryBtnText="Explore RAMS Builder in Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"
-            secondaryBtnText="Join Contractor Network (£295/yr)"
+            secondaryBtnText="Join Supplier Network (£95/yr)"
             secondaryBtnHref="/suppliers/membership"
           />
         </div>

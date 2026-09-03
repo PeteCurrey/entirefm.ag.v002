@@ -66,9 +66,9 @@ const ALL_RESOURCE_LINKS: ResourceLink[] = [
     category: "COMPLIANCE",
   },
   {
-    title: "Contractor Platform & Membership",
+    title: "Supplier Platform & Membership",
     href: "/suppliers/membership",
-    description: "Join the EntireFM contractor network with the tools to manage your business (£295/yr).",
+    description: "Join the EntireFM supplier network with the tools to manage your business (£95/yr).",
     category: "MEMBERSHIP",
   },
 ];

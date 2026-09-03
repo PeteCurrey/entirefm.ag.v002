@@ -116,7 +116,7 @@ export default function PlumbingContractorPage() {
           secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
           facts={[
             { figure: "WRAS & Water Regs", label: "Commercial Assurance" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "24/7 Dispatch", label: "Reactive & PPM Jobs" },
           ]}
         />

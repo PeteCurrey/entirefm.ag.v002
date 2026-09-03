@@ -1,8 +1,13 @@
 /**
  * CANONICAL PURE DATA MODULE FOR SUPPLIERS & PARTNERS
  * ===================================================
- * Single source of truth for public supplier pricing, capability disciplines,
- * and commercial transparency FAQ dataset.
+ * Single source of truth for public supplier capability disciplines,
+ * commercial transparency FAQ dataset, and product catalogue.
+ *
+ * COMMERCIAL MODEL:
+ *   EntireFM Supplier Membership — £95 + VAT / year. One membership. No tiers.
+ *   Pricing is owned by @/config/supplier-membership. References below are
+ *   kept for backwards-compatibility while legacy imports are migrated.
  */
 
 export interface FAQEntry {
@@ -24,11 +29,24 @@ export interface CanonicalPublicProduct {
   description: string;
 }
 
-export type MembershipTierCode = 'TIER_1' | 'TIER_2';
+/**
+ * @deprecated No membership tiers exist. Kept as a type alias for legacy
+ * code still referencing it. Update callers to use SUPPLIER_MEMBERSHIP from
+ * @/config/supplier-membership directly.
+ */
+export type MembershipTierCode = 'TIER_1';
 
-export interface ContractorMembershipTier {
+/**
+ * @deprecated No membership tiers exist. Kept to prevent import errors during
+ * migration. Callers MUST be updated to use SUPPLIER_MEMBERSHIP from
+ * @/config/supplier-membership.
+ *
+ * The single entry (TIER_1) returns the current canonical £95 pricing.
+ * Historical TIER_2 (£695) records in the database must NOT be re-priced.
+ */
+export const CONTRACTOR_MEMBERSHIP_TIERS: Record<'TIER_1', {
   id: string;
-  code: MembershipTierCode;
+  code: 'TIER_1';
   internalId: string;
   name: string;
   shortName: string;
@@ -38,80 +56,41 @@ export interface ContractorMembershipTier {
   displayPrice: string;
   description: string;
   features: string[];
-}
-
-export const MEMBERSHIP_PRICING_EFFECTIVE_FROM = '2026-08-28T00:00:00.000Z';
-
-export const CONTRACTOR_MEMBERSHIP_TIERS: Record<MembershipTierCode, ContractorMembershipTier> = {
+}> = {
   TIER_1: {
-    id: 'prod-mem-t1',
+    id: 'prod-mem-v3',
     code: 'TIER_1',
-    internalId: 'MEM-CONTRACTOR-T1',
-    name: 'Contractor Network Membership',
-    shortName: 'Network Member',
-    priceGbp: 295,
+    internalId: 'MEM-SUPPLIER-ANNUAL-V3',
+    name: 'EntireFM Supplier Membership',
+    shortName: 'Supplier Membership',
+    priceGbp: 95,
     vatRate: 0.20,
     billingFrequency: 'ANNUAL',
-    displayPrice: '£295 + VAT/year',
-    description: 'Core commercial network membership, digital CAFM credentials, and compliance management.',
+    displayPrice: '£95 + VAT / year',
+    description: 'Full access to the EntireFM supplier platform, compliance infrastructure, operational tools, business tools, and Partner Network.',
     features: [
-      'Digital Supplier Portal & CAFM Document Vault',
-      'Accreditation & Insurance Expiry Tracking Radar',
-      'Direct BACS Work Order Remittances & Statements',
-      'Verified EntireFM Supply Chain Partner Status',
-      'Trade Updates & Statutory Regulatory Intelligence',
-      'Full Suite of Contractor Operational & Field Tooling'
-    ],
-  },
-  TIER_2: {
-    id: 'prod-mem-t2',
-    code: 'TIER_2',
-    internalId: 'MEM-CONTRACTOR-T2',
-    name: 'Contractor Network Partner Membership',
-    shortName: 'Network Partner',
-    priceGbp: 695,
-    vatRate: 0.20,
-    billingFrequency: 'ANNUAL',
-    displayPrice: '£695 + VAT/year',
-    description: 'Expanded commercial network participation, multi-user accounts, and regional coverage management.',
-    features: [
-      'Everything in Network Membership (£295)',
-      'Multi-User Organisational Portal Seats',
-      'Expanded Multi-Region Operational Coverage Profile',
-      'Priority Supply Chain Communications & Network Directives',
-      'Regional Networking & Technical Industry Forum Access',
-      'Complete CP-01 through CP-09 Platform Capability'
+      'Supplier Platform & Contractor Control Centre',
+      'Compliance Centre & Document Vault',
+      'RAMS & Digital Job Pack tools',
+      'Workforce & Competency management',
+      'Digital field forms & evidence capture',
+      'Business tools & calculators',
+      'Contractor Intelligence alerts',
+      'Events & Technical engagement',
+      'EntireFM Partner Network participation',
     ],
   },
 };
 
 export const CANONICAL_PUBLIC_PRICING: Record<string, CanonicalPublicProduct> = {
-  REGISTERED: {
-    id: 'prod-mem-reg',
-    name: 'Registered Supplier',
-    priceGbp: 0,
+  SUPPLIER_MEMBERSHIP: {
+    id: 'prod-mem-v3',
+    name: 'EntireFM Supplier Membership',
+    priceGbp: 95,
     vatRate: 0.20,
     billingFrequency: 'ANNUAL',
-    displayPrice: '£0',
-    description: 'Initial supplier registration and application profile.',
-  },
-  SUPPLIER_NETWORK_MEMBER: {
-    id: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.id,
-    name: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.name,
-    priceGbp: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.priceGbp,
-    vatRate: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.vatRate,
-    billingFrequency: 'ANNUAL',
-    displayPrice: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.displayPrice,
-    description: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.description,
-  },
-  NETWORK_PARTNER: {
-    id: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.id,
-    name: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.name,
-    priceGbp: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.priceGbp,
-    vatRate: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.vatRate,
-    billingFrequency: 'ANNUAL',
-    displayPrice: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.displayPrice,
-    description: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.description,
+    displayPrice: '£95 + VAT / year',
+    description: 'Full access to the EntireFM supplier platform, compliance infrastructure, operational tools, business tools, and Partner Network.',
   },
   INITIAL_ASSURANCE_REVIEW: {
     id: 'prod-fee-assurance',
@@ -123,6 +102,9 @@ export const CANONICAL_PUBLIC_PRICING: Record<string, CanonicalPublicProduct> = 
     description: 'Administration and independent review of applicable company, H&S, and trade qualifications.',
   },
 };
+
+export const MEMBERSHIP_PRICING_EFFECTIVE_FROM = '2026-09-01T00:00:00.000Z';
+
 
 export interface DisciplineCategory {
   id: string;

@@ -146,7 +146,7 @@ export default function RiskAssessmentTemplatePage() {
               "Integrated risk matrix scoring with pre-populated trade hazard databases",
               "Automated document vault with 90/60/30-day insurance & qualification tracking",
               "Direct work dispatch & purchase orders across EntireFM's client network",
-              "Contractor membership £295+VAT/year with fair, merit-based work allocation",
+              "Supplier membership £95+VAT/year with fair, merit-based work allocation",
             ]}
             primaryBtnText="Explore the Contractor Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"

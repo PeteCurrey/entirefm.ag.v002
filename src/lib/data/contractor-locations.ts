@@ -109,7 +109,7 @@ export const CONTRACTOR_LOCATIONS: Record<string, ContractorLocation> = {
       },
       {
         question: "How does EntireFM allocate work to Sheffield contractors?",
-        answer: "Work orders are dispatched based on trade competency, compliance verification in our Document Vault, geographical proximity, operative availability, and track record. Payment of membership (£295/yr) provides the operating platform; work dispatch remains merit-based without guarantees.",
+        answer: "Work orders are dispatched based on trade competency, compliance verification in our Document Vault, geographical proximity, operative availability, and track record. Payment of membership (£95/yr) provides the operating platform; work dispatch remains merit-based without guarantees.",
       },
     ],
   },

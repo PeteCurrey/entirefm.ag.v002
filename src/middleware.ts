@@ -88,6 +88,24 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  // Extract Lobby Member session token
+  const memberToken = request.cookies.get('efm_member_session')?.value;
+  let memberSession: any = null;
+  if (memberToken) {
+    try {
+      const parts = memberToken.split('.');
+      if (parts.length === 2) {
+        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
+        const parsed = JSON.parse(payloadStr);
+        if (!parsed.expiresAt || parsed.expiresAt >= Date.now()) {
+          memberSession = parsed;
+        }
+      }
+    } catch {
+      memberSession = null;
+    }
+  }
+
   // Inject x-pathname header so Server Components & Layouts know the requested path
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
@@ -241,6 +259,45 @@ export function middleware(request: NextRequest) {
       if (!isEngineerRole && !isViewAs && session.orgType !== 'ENTIREFM') {
         return NextResponse.redirect(new URL('/login?error=forbidden_engineer', request.url));
       }
+    }
+
+    const res = NextResponse.next({ request: { headers: requestHeaders } });
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 4D. LOBBY MEMBER PRIVATE AREA GATING (/member/* & /lobby/messages/*)
+  // ─────────────────────────────────────────────────────────────────────────────
+  const isMemberRoute = pathname === '/member' || pathname.startsWith('/member/');
+  const isPrivateLobbyRoute =
+    pathname.startsWith('/lobby/messages') ||
+    pathname.startsWith('/lobby/notifications') ||
+    pathname.startsWith('/lobby/preferences');
+
+  if (isMemberRoute || isPrivateLobbyRoute) {
+    if (!memberSession) {
+      const signInUrl = new URL('/sign-in', request.url);
+      signInUrl.searchParams.set('redirect', pathname);
+      const res = NextResponse.redirect(signInUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
+    if (memberSession.status === 'pending_verification') {
+      const verifyUrl = new URL('/verify-email', request.url);
+      if (memberSession.email) {
+        verifyUrl.searchParams.set('email', memberSession.email);
+      }
+      const res = NextResponse.redirect(verifyUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
+    if (memberSession.status !== 'active') {
+      const res = NextResponse.redirect(new URL('/sign-in?error=account_restricted', request.url));
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
     }
 
     const res = NextResponse.next({ request: { headers: requestHeaders } });

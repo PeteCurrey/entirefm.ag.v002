@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, AlertCircle, Eye, EyeOff, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { AuthSplitLayout } from '@/components/auth/AuthSplitLayout';
+import { TurnstileWidget } from '@/components/auth/TurnstileWidget';
+import { HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
 
 export function TemplateMemberJoin() {
   const router = useRouter();
+  const formMountTime = useRef<number>(Date.now());
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -21,9 +24,15 @@ export function TemplateMemberJoin() {
     marketingConsent: true,
   });
 
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    formMountTime.current = Date.now();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -64,6 +73,9 @@ export function TemplateMemberJoin() {
           terms_accepted: formData.termsAccepted,
           privacy_acknowledged: formData.privacyAcknowledged,
           marketing_consent: formData.marketingConsent,
+          turnstile_token: turnstileToken,
+          [HONEYPOT_FIELD_NAME]: honeypot,
+          fill_duration_ms: Math.max(0, Date.now() - formMountTime.current),
         }),
       });
 
@@ -305,6 +317,44 @@ export function TemplateMemberJoin() {
               />
               <span>Receive the Tuesday FM Intelligence Briefing and critical statutory alerts.</span>
             </label>
+          </div>
+
+          {/* Honeypot field (hidden from genuine users and screen readers) */}
+          <div
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              top: '-9999px',
+              width: '1px',
+              height: '1px',
+              overflow: 'hidden',
+              opacity: 0,
+              pointerEvents: 'none',
+            }}
+            aria-hidden="true"
+          >
+            <label htmlFor="website_url">Website URL (leave blank)</label>
+            <input
+              id="website_url"
+              name={HONEYPOT_FIELD_NAME}
+              type="text"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
+          {/* Cloudflare Turnstile Anti-Bot Challenge */}
+          <div className="pt-1">
+            <TurnstileWidget
+              onVerify={(token) => {
+                setTurnstileToken(token);
+                setError(null);
+              }}
+              onExpire={() => setTurnstileToken('')}
+              onError={() => setError('Anti-bot challenge could not be loaded. Please refresh the page.')}
+            />
           </div>
 
           {/* Submit CTA */}

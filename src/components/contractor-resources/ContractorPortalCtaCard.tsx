@@ -23,7 +23,7 @@ export function ContractorPortalCtaCard({
   ],
   primaryBtnText = "Explore the Contractor Portal",
   primaryBtnHref = "/suppliers/membership#platform-overview",
-  secondaryBtnText = "View Membership (£295/yr)",
+  secondaryBtnText = "View Membership (£95/yr)",
   secondaryBtnHref = "/suppliers/membership",
 }: ContractorPortalCtaCardProps) {
   return (

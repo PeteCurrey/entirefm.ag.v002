@@ -104,7 +104,7 @@ export function TradePortalShowcase({
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-200">
             <span className="text-xs text-slate-600 font-light">
-              Included with EntireFM Contractor Platform membership (£295+VAT/year).
+              Included with EntireFM Supplier Platform membership (£95+VAT/year).
             </span>
             <Link
               href="/suppliers/membership#platform-overview"

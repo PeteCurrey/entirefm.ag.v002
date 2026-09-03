@@ -47,6 +47,7 @@ import {
   SUPPLIER_CODE_OF_CONDUCT_V2026_1,
   TaxonomyCategory,
 } from '@/config/supplier-data';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
 import { SupplierDocItem } from '@/server/suppliers/supplier-auth-store';
 
 const STEPS = [
@@ -120,8 +121,8 @@ export function OnboardingWizardClient({
           valid: true,
           invitationId: initialDraft.invitationCodeId,
           code: 'ENTIREFM-INVITATION',
-          standardAmountGbp: initialDraft.membershipStandardAmountGbp || 295,
-          waivedAmountGbp: initialDraft.membershipWaivedAmountGbp || 295,
+          standardAmountGbp: initialDraft.membershipStandardAmountGbp || SUPPLIER_MEMBERSHIP.annualPriceExVat,
+          waivedAmountGbp: initialDraft.membershipWaivedAmountGbp || SUPPLIER_MEMBERSHIP.annualPriceExVat,
           finalAmountGbp: 0,
           message: 'EntireFM Invitation Applied — 100% Fee Waived (£0.00 Due)',
         }
@@ -407,13 +408,13 @@ export function OnboardingWizardClient({
             documentVault: documents,
             selectedMembershipTier: formData.selectedMembershipTier,
             invitationCodeId: invitationVerification?.invitationId || formData.invitationCodeId || null,
-            membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+            membershipStandardAmountGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
             membershipWaivedAmountGbp: invitationVerification?.valid
-              ? CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295
+              ? SUPPLIER_MEMBERSHIP.annualPriceExVat
               : 0,
             membershipFinalAmountGbp: invitationVerification?.valid
               ? 0
-              : CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              : SUPPLIER_MEMBERSHIP.annualPriceExVat,
             membershipPaymentStatus: invitationVerification?.valid ? 'WAIVED' : 'UNPAID',
             legalAcceptances: {
               'supplier-code': {
@@ -623,8 +624,8 @@ export function OnboardingWizardClient({
               currentStep: 16,
               selectedMembershipTier: formData.selectedMembershipTier,
               invitationCodeId: invitationVerification?.invitationId || '',
-              membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
-              membershipWaivedAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipStandardAmountGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
+              membershipWaivedAmountGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
               membershipFinalAmountGbp: 0,
               membershipPaymentStatus: 'WAIVED',
               paymentMethod: 'WAIVER',
@@ -655,8 +656,8 @@ export function OnboardingWizardClient({
               documentVault: documents,
               currentStep: 16,
               selectedMembershipTier: formData.selectedMembershipTier,
-              membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
-              membershipFinalAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipStandardAmountGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
+              membershipFinalAmountGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
               membershipPaymentStatus: 'UNPAID',
               paymentMethod: 'CARD',
             },
@@ -2846,75 +2847,51 @@ export function OnboardingWizardClient({
           {currentStep === 14 && (
             <div className="space-y-8 text-xs font-sans">
               <div>
-                <span className="font-bold text-slate-900 block text-sm">Contractor Network Membership Tier</span>
+                <span className="font-bold text-slate-900 block text-sm">EntireFM Supplier Membership</span>
                 <p className="text-slate-500 font-light text-[11.5px] mt-0.5">
-                  Select your annual network membership level. All approved contractors receive complete operational access to CP-01 through CP-09 contractor platforms.
+                  One annual membership fee unlocks full platform access across compliance infrastructure, operational tools, business tools, and the EntireFM Partner Network.
                 </p>
               </div>
 
-              {/* Tier Selection Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {(['TIER_1', 'TIER_2'] as const).map((tierCode) => {
-                  const tier = CONTRACTOR_MEMBERSHIP_TIERS[tierCode];
-                  const isSelected = formData.selectedMembershipTier === tierCode;
-                  return (
-                    <div
-                      key={tierCode}
-                      onClick={() => setFormData({ ...formData, selectedMembershipTier: tierCode })}
-                      className={`cursor-pointer rounded-sm border p-5 transition-all flex flex-col justify-between space-y-4 ${
-                        isSelected
-                          ? 'border-brand-pink ring-1 ring-brand-pink bg-pink-50/20 shadow-sm'
-                          : 'border-slate-200 bg-white hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
-                            {tier.internalId}
-                          </span>
-                          <input
-                            type="radio"
-                            name="membershipTier"
-                            checked={isSelected}
-                            onChange={() => setFormData({ ...formData, selectedMembershipTier: tierCode })}
-                            className="text-brand-pink focus:ring-brand-pink"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="text-base font-bold text-slate-900">{tier.name}</h3>
-                          <div className="text-xl font-light text-slate-900 mt-1">
-                            {tier.displayPrice}
-                          </div>
-                          <p className="text-slate-500 font-light text-[11px] mt-1">
-                            {tier.description}
-                          </p>
-                        </div>
-
-                        <ul className="space-y-2 border-t border-slate-100 pt-3 text-[11.5px] text-slate-600">
-                          {tier.features.map((feat, fIdx) => (
-                            <li key={fIdx} className="flex items-start gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                              <span>{feat}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="pt-2">
-                        <span
-                          className={`block text-center py-2 px-3 rounded text-[11px] font-bold ${
-                            isSelected
-                              ? 'bg-brand-pink text-white'
-                              : 'bg-slate-100 text-slate-700'
-                          }`}
-                        >
-                          {isSelected ? '✓ Selected Tier' : 'Select Tier'}
-                        </span>
-                      </div>
+              {/* Single Membership Card */}
+              <div className="max-w-xl">
+                <div className="rounded-sm border-2 border-[#0B1220] bg-white p-6 shadow-sm flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-widest text-[#EA580C] font-bold">
+                        {SUPPLIER_MEMBERSHIP.internalId}
+                      </span>
+                      <span className="text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-sm">
+                        Standard Supplier Model
+                      </span>
                     </div>
-                  );
-                })}
+
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">{SUPPLIER_MEMBERSHIP.name}</h3>
+                      <div className="text-2xl font-light text-slate-900 mt-1">
+                        £{SUPPLIER_MEMBERSHIP.annualPriceExVat} <span className="text-xs font-normal text-slate-500">+ VAT / year</span>
+                      </div>
+                      <p className="text-slate-500 font-light text-[11.5px] mt-1">
+                        {SUPPLIER_MEMBERSHIP.platformDescription}
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2 border-t border-slate-100 pt-3 text-[11.5px] text-slate-700">
+                      {SUPPLIER_MEMBERSHIP.includedFeatures.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100">
+                    <span className="block text-center py-2 px-3 rounded text-[11px] font-bold bg-[#0B1220] text-white">
+                      ✓ Canonical Supplier Proposition
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* EntireFM Invitation Code Box */}
@@ -2943,7 +2920,7 @@ export function OnboardingWizardClient({
                       </button>
                     </div>
                     <p className="text-[11.5px] text-emerald-800">
-                      100% Membership Fee Waiver Applied. Total payable on submission is <strong>£0.00</strong>. Your selected tier remains <strong>{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name}</strong>.
+                      100% Membership Fee Waiver Applied. Total payable on submission is <strong>£0.00</strong>.
                     </p>
                   </div>
                 ) : (
@@ -2992,17 +2969,17 @@ export function OnboardingWizardClient({
                 <div className="divide-y divide-slate-100 text-xs font-light">
                   <div className="py-2 flex items-center justify-between">
                     <span className="text-slate-600">
-                      {CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name} (Annual)
+                      {SUPPLIER_MEMBERSHIP.name} (Annual)
                     </span>
                     <span className="font-bold text-slate-900">
-                      £{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp.toFixed(2)} + VAT
+                      £{SUPPLIER_MEMBERSHIP.annualPriceExVat.toFixed(2)} + VAT
                     </span>
                   </div>
 
                   {invitationVerification?.valid && (
                     <div className="py-2 flex items-center justify-between text-emerald-700 font-bold">
                       <span>EntireFM Invitation 100% Fee Waiver</span>
-                      <span>-£{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp.toFixed(2)}</span>
+                      <span>-£{SUPPLIER_MEMBERSHIP.annualPriceExVat.toFixed(2)}</span>
                     </div>
                   )}
 
@@ -3011,7 +2988,7 @@ export function OnboardingWizardClient({
                     <span>
                       {invitationVerification?.valid
                         ? '£0.00 (Waived)'
-                        : `£${(CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp * 1.2).toFixed(2)} inc. VAT`}
+                        : `£${SUPPLIER_MEMBERSHIP.totalPriceIncVat.toFixed(2)} inc. VAT`}
                     </span>
                   </div>
                 </div>
@@ -3381,9 +3358,9 @@ export function OnboardingWizardClient({
 
                 <div className="p-3.5 flex items-center justify-between bg-slate-50/50">
                   <div>
-                    <span className="font-bold text-slate-900 block">14. Membership Tier &amp; Commercial Terms</span>
+                    <span className="font-bold text-slate-900 block">14. Supplier Membership &amp; Commercial Terms</span>
                     <span className="text-slate-500 text-[11px]">
-                      {CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name} ({CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.displayPrice})
+                      {SUPPLIER_MEMBERSHIP.name} ({SUPPLIER_MEMBERSHIP.displayPrice})
                       {invitationVerification?.valid && ' — EntireFM Invitation 100% Waived (£0.00 Due)'}
                     </span>
                   </div>

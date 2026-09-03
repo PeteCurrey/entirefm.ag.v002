@@ -196,3 +196,107 @@ This verification link will expire in 24 hours. If you did not create this accou
     return { success: false, error: err.message || 'Delivery exception' };
   }
 }
+
+/**
+ * Sends a branded EntireFM Lobby password reset email.
+ */
+export async function sendMemberPasswordResetEmail(
+  email: string,
+  firstName: string,
+  resetUrl: string
+): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'EntireFM Security <security@entirefm.com>';
+
+  const subject = 'Reset your EntireFM Lobby Password';
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${subject}</title>
+  <style>
+    body { font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FAF9F7; color: #121826; margin: 0; padding: 40px 20px; }
+    .container { max-width: 560px; margin: 0 auto; background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 40px; }
+    .logo { font-size: 16px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: #1E293B; margin-bottom: 24px; }
+    .logo span { font-weight: 600; color: #2563EB; }
+    h1 { font-size: 24px; font-weight: 300; letter-spacing: -0.02em; color: #0F172A; margin: 0 0 16px 0; }
+    p { font-size: 15px; font-weight: 300; line-height: 1.6; color: #475569; margin: 0 0 20px 0; }
+    .btn-wrapper { margin: 32px 0; text-align: left; }
+    .btn { display: inline-block; background-color: #0F172A; color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 6px; font-size: 13px; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; }
+    .alt-link { font-size: 12px; color: #64748B; word-break: break-all; margin-top: 24px; padding-top: 20px; border-top: 1px solid #F1F5F9; }
+    .footer { margin-top: 32px; font-size: 12px; color: #94A3B8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">THE <span>LOBBY</span> · ENTIREFM</div>
+    <h1>Password Reset Request</h1>
+    <p>Hello ${firstName || 'there'},</p>
+    <p>We received a request to reset the password for your EntireFM Lobby account.</p>
+    <p>Click the button below to choose a new, secure password:</p>
+    <div class="btn-wrapper">
+      <a href="${resetUrl}" class="btn">Reset Password →</a>
+    </div>
+    <p class="alt-link">
+      If the button above does not work, copy and paste this link into your browser:<br>
+      <a href="${resetUrl}" style="color: #2563EB;">${resetUrl}</a>
+    </p>
+    <div class="footer">
+      <p>This password reset link will expire in 24 hours. If you did not request a password reset, you can safely ignore this email — your account remains secure.</p>
+      <p>&copy; 2026 Entire Facilities Management Ltd.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  const text = `
+Reset your EntireFM Lobby Password
+
+Hello ${firstName || 'there'},
+
+We received a request to reset the password for your EntireFM Lobby account.
+Please visit the following link to choose a new password:
+${resetUrl}
+
+This link will expire in 24 hours. If you did not request this, you can safely ignore this email.
+
+© 2026 Entire Facilities Management Ltd.
+  `.trim();
+
+  if (!resendApiKey) {
+    console.info(`[MEMBER_PASSWORD_RESET] (Simulated Send) Reset link for ${email}: ${resetUrl}`);
+    return { success: true, messageId: `sim_reset_${Date.now()}` };
+  }
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: email,
+        subject,
+        html,
+        text,
+      }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      console.error('[MEMBER_PASSWORD_RESET] Resend API error:', data);
+      return { success: false, error: data.message || 'Email delivery failed' };
+    }
+
+    return { success: true, messageId: data.id };
+  } catch (err: any) {
+    console.error('[MEMBER_PASSWORD_RESET] Delivery exception:', err);
+    return { success: false, error: err.message || 'Delivery exception' };
+  }
+}
+

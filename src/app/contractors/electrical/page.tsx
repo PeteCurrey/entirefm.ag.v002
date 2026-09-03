@@ -93,7 +93,7 @@ const ELEC_FAQS = [
   {
     question: "Can electrical contractors join the EntireFM supplier network?",
     answer:
-      "Yes. Qualified electrical contractors can apply through the Contractor Platform. Membership (£295+VAT/year) gives you full access to the digital operating platform, document vault, and eligibility for commercial work orders in your coverage area.",
+      "Yes. Qualified electrical contractors can apply through the Contractor Platform. Membership (£95+VAT/year) gives you full access to the digital operating platform, document vault, and eligibility for commercial work orders in your coverage area.",
   },
 ];
 
@@ -112,16 +112,16 @@ export default function ElectricalContractorPage() {
         <TradeHero
           tradeName="Electrical"
           title="Electrical Contractors"
-          subtitle="Commercial FM operating platform &amp; contractor network."
-          intro="A professional operating platform for UK electrical contractors — combining compliance tracking, 18th Edition credentials, electrical RAMS, work order dispatch, and commercial FM delivery."
-          imageSrc="/images/editorial/entirefm-distribution-board-testing-2000w.webp"
-          imageAlt="Commercial electrical engineer testing distribution board"
+          subtitle="Powering commercial estates with verified compliance and calibrated testing."
+          intro="Join the EntireFM Electrical Contractor Network. Upload 18th Edition and NICEIC/NAPIT credentials, track calibration expiry dates, generate digital EICR packs, and deliver commercial electrical works across UK facilities."
+          imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
+          imageAlt="Electrical engineers conducting commercial inspection"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Electrical Network", href: "/suppliers/apply" }}
+          primaryCta={{ label: "Join Electrical Network", href: "/suppliers/apply" }}
           secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
           facts={[
-            { figure: "18th Edition", label: "BS7671 Compliance" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "18th Edition & NICEIC", label: "Scheme Verified" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "Commercial FM", label: "Work Dispatch Eligibility" },
           ]}
         />

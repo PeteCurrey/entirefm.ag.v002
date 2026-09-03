@@ -138,8 +138,8 @@ export function ContractorApplicationWizard() {
 
         <div className="p-6 bg-white border border-slate-200 rounded-sm max-w-lg mx-auto text-left space-y-3 text-xs">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <span className="text-slate-500">Selected Platform Tier:</span>
-            <span className="font-semibold text-slate-900">Contractor Member (£295+VAT/yr)</span>
+            <span className="text-slate-500">Selected Membership:</span>
+            <span className="font-semibold text-slate-900">EntireFM Supplier Membership (£95+VAT/yr)</span>
           </div>
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <span className="text-slate-500">Contact Email:</span>
@@ -494,7 +494,7 @@ export function ContractorApplicationWizard() {
                 &larr; Back
               </button>
               <button type="submit" className="btn-primary text-xs py-3.5 px-8 font-bold">
-                Review Application &rarr;
+                Review &amp; Pay £95 + VAT &rarr;
               </button>
             </div>
           </form>
@@ -536,9 +536,9 @@ export function ContractorApplicationWizard() {
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block">Selected Membership Tier:</span>
+                    <span className="text-slate-500 block">Supplier Membership:</span>
                     <span className="font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-sm inline-block">
-                      Contractor Member (£295+VAT/yr)
+                      EntireFM Supplier Membership (£95+VAT/yr)
                     </span>
                   </div>
                 </div>
@@ -554,7 +554,7 @@ export function ContractorApplicationWizard() {
                     className="w-4 h-4 text-[#EA580C] rounded-xs mt-0.5"
                   />
                   <span className="text-slate-700 text-xs font-light leading-relaxed">
-                    I confirm that the information provided is accurate, that our business holds the declared insurance and accreditations, and I understand that membership (£295+VAT/yr) provides access to the EntireFM Contractor Platform operating environment with merit-based work order eligibility.
+                    I confirm that the information provided is accurate, that our business holds the declared insurance and accreditations, and I understand that membership (£95+VAT/yr) provides access to the EntireFM Supplier Platform operating environment with merit-based work order eligibility.
                   </span>
                 </label>
               </div>
@@ -572,7 +572,7 @@ export function ContractorApplicationWizard() {
                 type="submit"
                 className="btn-primary text-xs py-3.5 px-8 font-bold flex items-center gap-2 shadow-sm"
               >
-                <span>Submit Application &amp; Create Account</span>
+                <span>Review &amp; Pay £95 + VAT</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

@@ -114,7 +114,7 @@ export function LocalPortalShowcase({
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-200">
             <span className="text-xs text-slate-600 font-light">
-              Full platform access included with Contractor Membership (£295+VAT/year).
+              Full platform access included with Supplier Membership (£95+VAT/year).
             </span>
             <Link
               href="/suppliers/membership#platform-overview"

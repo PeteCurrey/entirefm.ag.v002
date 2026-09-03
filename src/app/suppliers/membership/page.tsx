@@ -49,16 +49,16 @@ import {
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
 export const metadata: Metadata = generateRouteMetadata('/suppliers/membership', {
-  title: 'Contractor Portal & Platform Membership (£295/yr) | EntireFM Contractor Network',
+  title: 'Supplier Platform & Membership (£95/yr) | EntireFM Supplier Network',
   description:
-    'EntireFM Contractor Platform — compliance management, RAMS, work orders, job records and document vault for professional UK FM contractors. £295+VAT/year. Part of the EntireFM contractor ecosystem.',
+    'EntireFM Supplier Platform — compliance management, RAMS, work orders, job records and document vault for UK FM suppliers. £95+VAT/year. Part of the EntireFM supplier ecosystem.',
 });
 
 export default function SupplierMembershipPublicPage() {
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Suppliers', url: '/suppliers' },
-    { name: 'Contractor Membership', url: '/suppliers/membership' },
+    { name: 'Supplier Membership', url: '/suppliers/membership' },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function SupplierMembershipPublicPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": "EntireFM Contractor Platform",
+            "name": "EntireFM Supplier Platform",
             "description": "Professional contractor operating platform and supplier network gateway for UK facilities management contractors.",
             "brand": {
               "@type": "Brand",
@@ -81,13 +81,13 @@ export default function SupplierMembershipPublicPage() {
             },
             "offers": {
               "@type": "Offer",
-              "price": "295",
+              "price": "95",
               "priceCurrency": "GBP",
               "availability": "https://schema.org/InStock",
               "url": "https://www.entirefm.com/suppliers/membership",
               "priceSpecification": {
                 "@type": "UnitPriceSpecification",
-                "price": "295",
+                "price": "95",
                 "priceCurrency": "GBP",
                 "unitText": "YEAR"
               }
@@ -98,17 +98,17 @@ export default function SupplierMembershipPublicPage() {
 
         {/* 1. HERO SECTION */}
         <SupplierHero
-          eyebrow="ENTIREFM CONTRACTOR NETWORK // PLATFORM & ECOSYSTEM"
+          eyebrow="ENTIREFM SUPPLIER NETWORK // PLATFORM & ECOSYSTEM"
           title="Run your contracting business"
           subtitle="with the tools behind the work."
           intro="A professional operating platform and network gateway for UK contractors — combining compliance management, RAMS, digital job records, workforce competency and business tools in one connected environment."
           imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
           imageAlt="EntireFM commercial operations and contractor platform control centre"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: 'Join the Contractor Network', href: '/suppliers/apply' }}
+          primaryCta={{ label: 'Join the Supplier Network', href: '/suppliers/apply' }}
           secondaryCta={{ label: 'Explore the Platform', href: '#platform-overview' }}
           facts={[
-            { figure: '£295 + VAT', label: 'Annual Membership', detail: '£24.58 / mo equivalent operating cost' },
+            { figure: '£95 + VAT', label: 'Annual Membership', detail: '~£7.92 / mo equivalent operating cost' },
             { figure: '6 Core Modules', label: 'Integrated Tooling', detail: 'Operations, RAMS, Vault, Matrix & Calculators' },
             { figure: 'Fair Allocation', label: 'Procurement Firewall', detail: 'No pay-to-work. Merited allocation' },
           ]}
@@ -143,7 +143,7 @@ export default function SupplierMembershipPublicPage() {
         {/* 2b. FOUR PILLARS POSITIONING */}
         <ContractorFourPillars />
 
-        {/* 3. CORE POSITIONING & THE £295 QUESTION */}
+        {/* 3. CORE POSITIONING & THE £95 QUESTION */}
         <section className="py-24 bg-white border-b border-slate-200">
           <div className="container-wide space-y-16">
             <div className="max-w-3xl">
@@ -156,31 +156,31 @@ export default function SupplierMembershipPublicPage() {
               </p>
             </div>
 
-            {/* The £295 Question Breakdown */}
+            {/* The £95 Question Breakdown */}
             <div className="p-8 sm:p-10 rounded-sm bg-[#FAF9FB] border border-slate-200 shadow-xs space-y-8">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-200 pb-6">
                 <div>
                   <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#EA580C]">
-                    COMMERCIAL ECONOMICS // THE £295 QUESTION
+                    COMMERCIAL ECONOMICS // THE £95 QUESTION
                   </span>
                   <h3 className="text-2xl font-light text-slate-900 mt-1">
-                    &ldquo;Why would I spend £295 a year?&rdquo;
+                    &ldquo;Why would I spend £95 a year?&rdquo;
                   </h3>
                   <p className="text-xs text-slate-600 font-light mt-1">
-                    £295 per year is approximately <strong>£24.58 per month before VAT</strong> — an operating cost, not an access fee.
+                    £95 per year is approximately <strong>£7.92 per month before VAT</strong> — an operating cost, not an access fee.
                   </p>
                 </div>
 
                 <div className="p-4 rounded-sm bg-white border border-slate-200 text-center shrink-0">
                   <div className="text-xs text-slate-400 uppercase font-medium">Monthly Equivalent</div>
-                  <div className="text-2xl font-light text-slate-900 mt-0.5 font-mono">£24.58<span className="text-xs text-slate-500 font-normal"> / mo</span></div>
-                  <span className="text-[10px] text-emerald-700 font-medium">Billed annually (£295 + VAT)</span>
+                  <div className="text-2xl font-light text-slate-900 mt-0.5 font-mono">£7.92<span className="text-xs text-slate-500 font-normal"> / mo</span></div>
+                  <span className="text-[10px] text-emerald-700 font-medium">Billed annually (£95 + VAT)</span>
                 </div>
               </div>
 
               <div>
                 <p className="text-xs font-semibold text-slate-900 mb-4 uppercase tracking-wider">
-                  Can this platform save your business more than £24.58 per month in operational friction?
+                  Can this platform save your business more than £7.92 per month in operational friction?
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-700 font-light">
@@ -432,16 +432,16 @@ export default function SupplierMembershipPublicPage() {
           </div>
         </section>
 
-        {/* 7. WHAT YOU GET FOR £295 (VALUE STACK) */}
+        {/* 7. WHAT YOU GET FOR £95 (VALUE STACK) */}
         <section className="py-24 bg-white border-b border-slate-200">
           <div className="container-wide space-y-12">
             <div className="max-w-3xl">
               <span className="eyebrow eyebrow-light">PRICING TRANSPARENCY</span>
               <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
-                What £295 a year puts in your business.
+                What £95 a year puts in your business.
               </h2>
               <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-                That&apos;s approximately <strong>£24.58 per month before VAT</strong> — for a complete contractor operating environment rather than another standalone document or calculator subscription.
+                That&apos;s approximately <strong>£7.92 per month before VAT</strong> — for a complete contractor operating environment rather than another standalone document or calculator subscription.
               </p>
             </div>
 
@@ -461,71 +461,71 @@ export default function SupplierMembershipPublicPage() {
               </div>
 
               <div className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-3">
-                <div className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
-                  Compliance
+                <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">
+                  Compliance Vault
                 </div>
                 <ul className="space-y-1.5 text-xs text-slate-600 font-light">
-                  <li>&bull; Document Vault</li>
-                  <li>&bull; Insurance Monitoring</li>
-                  <li>&bull; Accreditation Tracking</li>
-                  <li>&bull; Automated Expiry Radar</li>
-                  <li>&bull; Workforce Competencies</li>
-                  <li>&bull; Audit History Trail</li>
+                  <li>&bull; Statutory Document Storage</li>
+                  <li>&bull; 90/60/30-Day Expiry Radar</li>
+                  <li>&bull; Direct Broker Verification</li>
+                  <li>&bull; Policy Lapsed Warnings</li>
+                  <li>&bull; Multi-Branch Repository</li>
+                  <li>&bull; Exportable Audit Records</li>
                 </ul>
               </div>
 
               <div className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-3">
-                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider">
-                  Business Tools
+                <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">
+                  Workforce &amp; Matrix
                 </div>
                 <ul className="space-y-1.5 text-xs text-slate-600 font-light">
-                  <li>&bull; Labour Rate Calculator</li>
-                  <li>&bull; Job Margin Modeler</li>
-                  <li>&bull; Quote Builder</li>
-                  <li>&bull; Call-Out Cost Matrix</li>
-                  <li>&bull; Mileage / Travel Overheads</li>
-                  <li>&bull; Engineer Utilisation</li>
+                  <li>&bull; Engineer Competency Matrix</li>
+                  <li>&bull; CSCS / JIB Verification</li>
+                  <li>&bull; Gas Safe / F-Gas Tracking</li>
+                  <li>&bull; Site Induction Registers</li>
+                  <li>&bull; Training Expiry Watch</li>
+                  <li>&bull; Operative Mobile Briefings</li>
                 </ul>
               </div>
 
               <div className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-3">
-                <div className="text-xs font-bold text-purple-600 uppercase tracking-wider">
-                  Intelligence
+                <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">
+                  Business Calculators
                 </div>
                 <ul className="space-y-1.5 text-xs text-slate-600 font-light">
-                  <li>&bull; Compliance Watch</li>
-                  <li>&bull; Company Watch (CH)</li>
-                  <li>&bull; Credential Surveillance</li>
-                  <li>&bull; Trade Safety Bulletins</li>
-                  <li>&bull; Building Safety Act Updates</li>
-                  <li>&bull; CPD &amp; Technical Events</li>
+                  <li>&bull; True Labour Rate Calculator</li>
+                  <li>&bull; Gross Margin &amp; Markup Tool</li>
+                  <li>&bull; Call-Out Cost Modeller</li>
+                  <li>&bull; Mileage &amp; Travel Estimator</li>
+                  <li>&bull; Engineer Utilisation Planner</li>
+                  <li>&bull; PPM Frequency Estimator</li>
                 </ul>
               </div>
 
               <div className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-3">
-                <div className="text-xs font-bold text-cyan-600 uppercase tracking-wider">
-                  Network Access
+                <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">
+                  Intelligence &amp; Network
                 </div>
                 <ul className="space-y-1.5 text-xs text-slate-600 font-light">
-                  <li>&bull; Verified Partner Status</li>
-                  <li>&bull; EntireFM Supply Chain</li>
-                  <li>&bull; Regional Hub Profile</li>
-                  <li>&bull; Technical Forums Access</li>
-                  <li>&bull; Direct BACS Remittances</li>
-                  <li>&bull; OEM Manufacturer Sessions</li>
+                  <li>&bull; Company Watch Radar</li>
+                  <li>&bull; Statutory Regulatory Alerts</li>
+                  <li>&bull; Verified Partner Profile</li>
+                  <li>&bull; EntireFM Network Eligibility</li>
+                  <li>&bull; Technical Forum Access</li>
+                  <li>&bull; Event Programme Priority</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 8. COMPARISON TABLE: ONE MEMBERSHIP VS BUYING SEPARATELY */}
+        {/* 8. COMPARISON TABLE */}
         <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-wide space-y-12">
             <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-light">CONNECTED VALUE</span>
+              <span className="eyebrow eyebrow-light">CAPABILITY COMPARISON</span>
               <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
-                One membership. Multiple operating capabilities.
+                Operating platform vs disconnected point solutions.
               </h2>
               <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
                 The value is not a single feature — it is having your compliance, operations, workforce, business tools, and network connection united in one layer.
@@ -537,7 +537,7 @@ export default function SupplierMembershipPublicPage() {
                 <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10.5px]">
                   <tr>
                     <th className="p-4 w-1/3">Operating Capability</th>
-                    <th className="p-4 w-1/3 text-[#EA580C] font-semibold">EntireFM Contractor Platform (£295/yr)</th>
+                    <th className="p-4 w-1/3 text-[#EA580C] font-semibold">EntireFM Supplier Platform (£95/yr)</th>
                     <th className="p-4 w-1/3 text-slate-400">Typical Alternative</th>
                   </tr>
                 </thead>
@@ -688,7 +688,7 @@ export default function SupplierMembershipPublicPage() {
                 <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">Multi-Discipline Contractors</div>
                 <h3 className="text-base font-semibold text-slate-900">Multi-Region Organisations</h3>
                 <p className="text-xs text-slate-600 font-light leading-relaxed">
-                  Utilise Network Partner seats (£695) to manage multiple trades, administrative coordinators, and expanded regional coverage.
+                  Utilise the complete platform to manage multiple trades, administrative coordinators, and regional operational coverage.
                 </p>
               </div>
 
@@ -704,7 +704,7 @@ export default function SupplierMembershipPublicPage() {
                 <div className="text-xs font-bold text-[#EA580C] uppercase tracking-wider">Sole Practitioners</div>
                 <h3 className="text-base font-semibold text-slate-900">Independent Specialists</h3>
                 <p className="text-xs text-slate-600 font-light leading-relaxed">
-                  Gain instant access to commercial calculators, professional document storage, and verified partner credibility for just £24.58/mo.
+                  Gain instant access to commercial calculators, professional document storage, and verified partner credibility for just £7.92/mo.
                 </p>
               </div>
             </div>
@@ -715,33 +715,29 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-wide space-y-12">
             <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-light">CLEAR ONBOARDING</span>
+              <span className="eyebrow eyebrow-light">ONBOARDING LIFECYCLE</span>
               <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
-                The 7-Stage Contractor Journey
+                From application to verified partner.
               </h2>
               <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-                A structured, transparent pathway from initial intake to ongoing operational delivery.
+                A transparent, step-by-step qualification process designed for professional trade suppliers.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
               {[
-                { step: '01', title: 'Apply', desc: 'Tell us who you are, declare your trade capabilities, and specify your operational regions.' },
-                { step: '02', title: 'Verify', desc: 'Submit required statutory evidence, insurance schedules, and trade accreditations.' },
-                { step: '03', title: 'Activate', desc: 'Gain immediate access to your digital Contractor Control Centre and Document Vault.' },
-                { step: '04', title: 'Operate', desc: 'Run jobs, generate site-compliant RAMS, assemble job packs, and capture fieldwork evidence.' },
-                { step: '05', title: 'Maintain', desc: 'Keep workforce qualifications and insurance policies current with automated expiry alerts.' },
-                { step: '06', title: 'Grow', desc: 'Utilise labour and margin calculators, attend technical forums, and professionalise your delivery.' },
-                { step: '07', title: 'Deliver', desc: 'Approved partners may be considered for relevant EntireFM work orders as client requirements arise.' },
-              ].map((st) => (
-                <div key={st.step} className="p-5 bg-white border border-slate-200 rounded-sm space-y-2 shadow-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-[#EA580C] px-2 py-0.5 rounded bg-orange-50 border border-orange-200">
-                      STEP {st.step}
-                    </span>
-                  </div>
-                  <h3 className="text-sm font-semibold text-slate-900 mt-1">{st.title}</h3>
-                  <p className="text-xs text-slate-600 font-light leading-relaxed">{st.desc}</p>
+                { step: '01', title: 'Register', desc: 'Basic business details & trading history' },
+                { step: '02', title: 'Capability', desc: 'Select trade disciplines & operating regions' },
+                { step: '03', title: 'Compliance', desc: 'Upload insurances, accreditations & policies' },
+                { step: '04', title: 'Workforce', desc: 'Register engineers, tickets & competency cards' },
+                { step: '05', title: 'Review & Pay', desc: 'EntireFM review and £95 + VAT membership' },
+                { step: '06', title: 'Verification', desc: 'Broker insurance checks & technical review' },
+                { step: '07', title: 'Active Partner', desc: 'Access platform tools & network consideration' },
+              ].map((s, idx) => (
+                <div key={idx} className="p-4 bg-white border border-slate-200 rounded-sm space-y-2">
+                  <span className="text-[10px] font-mono text-[#EA580C] font-bold">{s.step}</span>
+                  <h3 className="text-xs font-bold text-slate-900">{s.title}</h3>
+                  <p className="text-[11px] text-slate-500 font-light leading-snug">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -754,7 +750,7 @@ export default function SupplierMembershipPublicPage() {
             <div className="max-w-3xl mb-12">
               <span className="eyebrow eyebrow-light">BUSINESS CASE DIAGNOSTIC</span>
               <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
-                Is £295 a sensible business decision?
+                Is £95 a sensible business decision?
               </h2>
               <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
                 Consider the operational economics. If EntireFM helps your business achieve just one of the following:
@@ -763,7 +759,7 @@ export default function SupplierMembershipPublicPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { title: '1 Hour Saved per Month', desc: 'One hour of reduced admin or document searching pays back the monthly £24.58 equivalent.' },
+                { title: '1 Hour Saved per Month', desc: 'One hour of reduced admin or document searching pays back the monthly £7.92 equivalent.' },
                 { title: '1 Avoided Compliance Chase', desc: 'Preventing a lapsed policy hold or emergency insurance scramble protects your work readiness.' },
                 { title: '1 Faster Job Close-Out', desc: 'Submitting timestamped digital evidence and signed service reports accelerates payment approval.' },
                 { title: '1 Better-Prepared Site Visit', desc: 'Having operatives inducted and briefed with digital job packs eliminates wasted journeys.' },
@@ -861,8 +857,8 @@ export default function SupplierMembershipPublicPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
-                  q: 'What does the £295 membership include?',
-                  a: 'The £295 + VAT annual membership includes full access to the EntireFM Contractor Platform: Contractor Control Centre, Document Vault, automated insurance expiry radar, RAMS generator, Job Packs tool, Workforce Matrix, business productivity calculators, and contractor intelligence.',
+                  q: 'What does the £95 membership include?',
+                  a: 'The £95 + VAT annual membership includes full access to the EntireFM Contractor Platform: Contractor Control Centre, Document Vault, automated insurance expiry radar, RAMS generator, Job Packs tool, Workforce Matrix, business productivity calculators, and contractor intelligence.',
                 },
                 {
                   q: 'Is membership mandatory to apply as a supplier?',
@@ -873,12 +869,8 @@ export default function SupplierMembershipPublicPage() {
                   a: 'No. EntireFM strictly separates commercial membership from operational work allocation. Work orders are awarded based on technical capability, geography, compliance status, workforce competency, availability, and client demand.',
                 },
                 {
-                  q: 'Does paying more (£695) increase my chance of receiving work?',
-                  a: 'No. The £695 Network Partner tier provides multi-user organisational portal seats and multi-region profile management for larger operations. It does not buy dispatch priority or preferential procurement.',
-                },
-                {
-                  q: 'What is the difference between £295 and £695?',
-                  a: '£295 is for established trade contractors needing single-seat professional operating tools. £695 is for larger contractors with multiple coordinators, administrative seats, or broad multi-trade regional operations.',
+                  q: 'Are there different membership tiers?',
+                  a: 'No. EntireFM has simplified to a single annual membership of £95 + VAT. Every member receives the complete platform proposition with no artificial feature tiering or upsells.',
                 },
                 {
                   q: 'Can I use the Contractor Platform if I do not currently have EntireFM work?',
@@ -902,7 +894,7 @@ export default function SupplierMembershipPublicPage() {
                 },
                 {
                   q: 'What happens if I have an EntireFM invitation code?',
-                  a: 'Valid EntireFM invitation codes apply a £0 fee waiver across either membership tier during application checkout.',
+                  a: 'Valid EntireFM invitation codes apply a £0 fee waiver across membership during application checkout.',
                 },
                 {
                   q: 'Does technical approval come automatically after payment?',
@@ -935,7 +927,7 @@ export default function SupplierMembershipPublicPage() {
             <div className="p-6 rounded-sm bg-[#FAF9FB] border border-slate-200 max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-left">
                 <div className="text-xs font-bold text-slate-900">Contractor Network Member</div>
-                <div className="text-xl font-light text-slate-900">£295 + VAT<span className="text-xs text-slate-500 font-normal"> / year</span></div>
+                <div className="text-xl font-light text-slate-900">£95 + VAT<span className="text-xs text-slate-500 font-normal"> / year</span></div>
                 <span className="text-[10.5px] text-emerald-700 font-medium">Invitation codes accepted (£0 waiver)</span>
               </div>
 

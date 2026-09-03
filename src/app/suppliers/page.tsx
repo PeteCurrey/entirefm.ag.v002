@@ -93,7 +93,7 @@ export default function SupplierHubPage() {
                 Start Supplier Application <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/suppliers/membership" className="btn-ghost-light">
-                Contractor Platform &amp; Membership (£295/yr)
+                Supplier Platform &amp; Membership (£95/yr)
               </Link>
             </div>
           </div>

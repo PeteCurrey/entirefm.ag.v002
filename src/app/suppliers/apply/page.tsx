@@ -28,7 +28,7 @@ export default function ApplyPage() {
     { step: "02", title: "Scope & Territories", desc: "Select technical trades and declared operational territories." },
     { step: "03", title: "Assurance Information", desc: "Insurance policy limits, expiry dates, and scheme details." },
     { step: "04", title: "Document Vault Upload", desc: "Schedules, certificates, and health & safety documentation." },
-    { step: "05", title: "Membership Selection", desc: "Select network tier (£295 or £695/year). EntireFM Invitation Codes accepted." },
+    { step: "05", title: "Supplier Membership", desc: "EntireFM Supplier Membership (£95 + VAT/year). Authorised invitation codes accepted." },
     { step: "06", title: "Review & Submit", desc: "Verify all details and complete applicant statements." },
     { step: "07", title: "Technical Desk Review", desc: "Technical due diligence against our Assurance Framework." },
     { step: "08", title: "Scoped Portal Activation", desc: "Activated on EntireCAFM and eligible for live job dispatch upon approval." },

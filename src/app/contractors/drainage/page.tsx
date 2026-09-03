@@ -116,7 +116,7 @@ export default function DrainageContractorPage() {
           secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
           facts={[
             { figure: "WJA & Confined Space", label: "Certified Operations" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "24/7 Reactive", label: "Commercial FM Dispatch" },
           ]}
         />

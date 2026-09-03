@@ -123,7 +123,7 @@ export default function ContractorsDirectoryHub() {
           secondaryCta={{ label: "View Membership Details", href: "/suppliers/membership" }}
           facts={[
             { figure: "10 Core Trades", label: "Specialist Disciplines" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "Fair Dispatch", label: "Merit-Based Allocation" },
           ]}
         />

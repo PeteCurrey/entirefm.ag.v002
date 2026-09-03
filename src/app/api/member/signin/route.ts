@@ -7,8 +7,35 @@ import {
   getRolePermissions,
   RoleCode,
 } from '@/server/identity';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { logSecurityEvent } from '@/server/security/security-logger';
 
 export async function POST(request: Request) {
+  const clientIp = getClientIp(request);
+  const userAgent = request.headers.get('user-agent') || undefined;
+
+  // 1. IP-Based Rate Limiting to prevent brute-force attacks
+  const ipCheck = checkRateLimit(`signin:${clientIp}`, RATE_LIMITS.SIGNIN);
+  if (!ipCheck.allowed) {
+    await logSecurityEvent({
+      eventType: 'SIGNIN_RATE_LIMITED',
+      ipAddress: clientIp,
+      userAgent,
+      details: {
+        endpoint: '/api/member/signin',
+        retryAfterSeconds: ipCheck.retryAfterSeconds,
+      },
+    });
+
+    return NextResponse.json(
+      { error: 'Too many sign-in attempts. Please try again later.' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(ipCheck.retryAfterSeconds) },
+      }
+    );
+  }
+
   try {
     const body = await request.json().catch(() => ({}));
     const { email, password, rememberMe } = body;
@@ -20,17 +47,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const authResult = await authenticateMemberCredentials(email, password);
+    const emailClean = String(email).trim().toLowerCase();
+    const authResult = await authenticateMemberCredentials(emailClean, password);
 
     if (!authResult.success) {
       if (authResult.notAMember) {
+        // Do NOT expose authUserId to the client
         return NextResponse.json(
           {
             success: false,
             notAMember: true,
-            authUserId: authResult.authUserId,
             error: 'You have an EntireFM account, but have not joined The Lobby yet.',
-            redirectUrl: `/join?authUserId=${encodeURIComponent(authResult.authUserId || '')}&email=${encodeURIComponent(email)}`,
+            redirectUrl: `/join?email=${encodeURIComponent(emailClean)}`,
           },
           { status: 403 }
         );
@@ -42,7 +70,7 @@ export async function POST(request: Request) {
             success: false,
             requiresVerification: true,
             error: authResult.error || 'Please verify your email address to access Member features.',
-            redirectUrl: `/verify-email?email=${encodeURIComponent(email)}`,
+            redirectUrl: `/verify-email?email=${encodeURIComponent(emailClean)}`,
           },
           { status: 403 }
         );
@@ -118,8 +146,9 @@ export async function POST(request: Request) {
 
     return response;
   } catch (err: any) {
+    console.error('[SIGNIN_ERROR]', err);
     return NextResponse.json(
-      { error: err.message || 'An unexpected error occurred during sign in.' },
+      { error: 'An unexpected error occurred during sign in. Please try again.' },
       { status: 500 }
     );
   }

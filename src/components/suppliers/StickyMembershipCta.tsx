@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
 
 export function StickyMembershipCta() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,29 +33,29 @@ export function StickyMembershipCta() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-900">EntireFM Contractor Membership</span>
+              <span className="text-xs font-semibold text-slate-900">EntireFM Supplier Membership</span>
               <span className="text-[11px] font-bold text-[#EA580C] bg-orange-50 border border-orange-200 px-1.5 py-0.5 rounded-sm">
-                £295 + VAT / year
+                {SUPPLIER_MEMBERSHIP.displayPrice}
               </span>
             </div>
             <p className="text-[11px] text-slate-500 hidden sm:block font-light">
-              Digital operating platform, compliance vault, RAMS, workforce matrix &amp; business tools.
+              Digital operating platform, compliance vault, RAMS, workforce matrix &amp; Partner Network.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
           <Link
-            href="#membership-comparison"
+            href="/suppliers/membership"
             className="text-xs text-slate-600 hover:text-slate-900 px-3 py-2 font-medium hidden lg:inline-block"
           >
-            Compare Tiers (£295 vs £695)
+            Membership Details
           </Link>
           <Link
             href="/suppliers/apply"
             className="btn-primary text-xs py-2 px-4 whitespace-nowrap w-full sm:w-auto text-center"
           >
-            Join the Network <ArrowRight className="h-3.5 w-3.5" />
+            Apply to Join <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </div>

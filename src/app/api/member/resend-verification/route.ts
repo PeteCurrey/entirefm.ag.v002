@@ -11,8 +11,35 @@ import {
   sendMemberVerificationEmail,
   checkVerificationRateLimit,
 } from '@/server/member/verification';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { logSecurityEvent } from '@/server/security/security-logger';
 
 export async function POST(request: Request) {
+  const clientIp = getClientIp(request);
+  const userAgent = request.headers.get('user-agent') || undefined;
+
+  // 1. IP-Based Rate Limiting (prevents email bombing across multiple addresses)
+  const ipCheck = checkRateLimit(`resend_vf:${clientIp}`, RATE_LIMITS.RESEND_VERIFICATION);
+  if (!ipCheck.allowed) {
+    await logSecurityEvent({
+      eventType: 'VERIFICATION_RESEND_RATE_LIMITED',
+      ipAddress: clientIp,
+      userAgent,
+      details: {
+        endpoint: '/api/member/resend-verification',
+        retryAfterSeconds: ipCheck.retryAfterSeconds,
+      },
+    });
+
+    return NextResponse.json(
+      { error: 'Too many verification email requests. Please try again later.' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(ipCheck.retryAfterSeconds) },
+      }
+    );
+  }
+
   try {
     const body = await request.json().catch(() => ({}));
     const { email } = body as { email?: string };
@@ -26,7 +53,7 @@ export async function POST(request: Request) {
 
     const emailClean = email.trim().toLowerCase();
 
-    // Server-side rate limit check (60s cooldown per email)
+    // 2. Server-side email cooldown check (60s cooldown per email address)
     const rateCheck = checkVerificationRateLimit(`resend_${emailClean}`);
     if (!rateCheck.allowed) {
       return NextResponse.json(
@@ -55,8 +82,9 @@ export async function POST(request: Request) {
       message: 'If a pending Member account exists for this address, a new verification link has been sent.',
     });
   } catch (err: any) {
+    console.error('[RESEND_VERIFICATION_ERROR]', err);
     return NextResponse.json(
-      { error: err.message || 'Failed to process resend request.' },
+      { error: 'Unable to process verification request. Please try again later.' },
       { status: 500 }
     );
   }

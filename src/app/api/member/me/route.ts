@@ -13,6 +13,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ authenticated: false, member: null }, { status: 200 });
   }
 
+  // Sanitize policy consents to prevent leaking raw IP addresses and user agents
+  const sanitizedConsents = (member.policy_consents || []).map((c) => ({
+    policyType: c.policyType,
+    version: c.version,
+    consentedAt: c.consentedAt,
+  }));
+
   return NextResponse.json({
     authenticated: true,
     clientLinks: session.clientLinks || [],
@@ -43,27 +50,34 @@ export async function GET(request: Request) {
       joinedAt: member.joined_at,
       emailPreferences: member.email_preferences,
       notificationPreferences: member.notification_preferences,
-      policyConsents: member.policy_consents,
+      policyConsents: sanitizedConsents,
     },
   });
 }
 
 export async function PATCH(request: Request) {
   const session = getMemberSessionFromRequest(request);
-  let memberId = session?.memberId;
 
-  // Bridge for test bearer tokens and headers
-  const authHeader = request.headers.get('authorization');
-  if (!memberId && authHeader && authHeader.startsWith('Bearer ')) {
-    const token = authHeader.slice(7).trim();
-    if (token.startsWith('test') || token.startsWith('curl') || request.headers.get('x-member-uid')) {
-      memberId = request.headers.get('x-member-uid') || `mem-${token}`;
-    }
-  }
-
-  if (!memberId) {
+  if (!session || !session.memberId) {
     return NextResponse.json({ error: 'Unauthorized. Please sign in as a Member.' }, { status: 401 });
   }
+
+  // Enforce account status: unverified or suspended members cannot update profile
+  if (session.status === 'pending_verification') {
+    return NextResponse.json(
+      { error: 'Please verify your email address to update your profile.' },
+      { status: 403 }
+    );
+  }
+
+  if (session.status !== 'active') {
+    return NextResponse.json(
+      { error: 'Your account is currently not active.' },
+      { status: 403 }
+    );
+  }
+
+  const memberId = session.memberId;
 
   try {
     const body = await request.json().catch(() => ({}));
@@ -86,6 +100,7 @@ export async function PATCH(request: Request) {
 
     const updates: Record<string, any> = {};
 
+    // Strict whitelist of permitted profile fields
     if (headline !== undefined) updates.headline = String(headline).trim().slice(0, 140);
     if (bio !== undefined) updates.bio = String(bio).trim().slice(0, 1000);
     if (company !== undefined) updates.company = String(company).trim().slice(0, 100);
@@ -109,8 +124,30 @@ export async function PATCH(request: Request) {
 
     const updated = await updateMemberProfile(memberId, updates);
 
-    return NextResponse.json({ success: true, member: updated });
+    return NextResponse.json({
+      success: true,
+      member: {
+        id: updated.id,
+        displayName: updated.display_name,
+        username: updated.username,
+        headline: updated.headline,
+        bio: updated.bio,
+        company: updated.company,
+        jobTitle: updated.job_title,
+        location: updated.location,
+        website: updated.website,
+        linkedinUrl: updated.linkedin_url,
+        disciplines: updated.disciplines,
+        sectors: updated.sectors,
+        qualifications: updated.qualifications,
+        profileVisibility: updated.profile_visibility,
+        directoryOptIn: updated.directory_opt_in,
+        emailPreferences: updated.email_preferences,
+        notificationPreferences: updated.notification_preferences,
+      },
+    });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to update profile.' }, { status: 400 });
+    console.error('[PROFILE_UPDATE_ERROR]', err);
+    return NextResponse.json({ error: 'Failed to update profile. Please try again.' }, { status: 400 });
   }
 }

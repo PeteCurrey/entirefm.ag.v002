@@ -88,7 +88,7 @@ const MECH_FAQS = [
   {
     question: "Can independent mechanical contractors join EntireFM?",
     answer:
-      "Yes. Approved regional mechanical specialists and building services engineers can join the Contractor Platform (£295+VAT/yr) to manage compliance, access digital job packs, and receive applicable commercial work orders.",
+      "Yes. Approved regional mechanical specialists and building services engineers can join the Contractor Platform (£95+VAT/yr) to manage compliance, access digital job packs, and receive applicable commercial work orders.",
   },
 ];
 
@@ -106,17 +106,17 @@ export default function MechanicalContractorPage() {
       <main id="main" className="flex-grow">
         <TradeHero
           tradeName="Mechanical"
-          title="Mechanical Contractors"
-          subtitle="Commercial FM plantroom operations &amp; contractor network."
-          intro="A professional operating platform for UK mechanical contractors — combining plantroom compliance, pump and pipework RAMS, job execution, and commercial FM work dispatch."
-          imageSrc="/images/editorial/entirefm-hvac-plantroom-pumps-2000w.webp"
-          imageAlt="Commercial mechanical plantroom circulating pump set"
+          title="Mechanical &amp; Plantroom Contractors"
+          subtitle="Commercial FM operating platform &amp; contractor network."
+          intro="A professional operating platform for UK mechanical, HVAC and plantroom contractors — combining compliance tracking, asset maintenance records, boiler RAMS, and commercial FM work order delivery."
+          imageSrc="/images/editorial/entirefm-plantroom-valves-survey-2560w.webp"
+          imageAlt="Commercial heating engineer inspecting plantroom valves"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join Mechanical Network", href: "/suppliers/apply" }}
+          primaryCta={{ label: "Join the Mechanical Network", href: "/suppliers/apply" }}
           secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
           facts={[
-            { figure: "Plantrooms", label: "Commercial M&E Systems" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "Gas Safe / Refcom", label: "Scheme Verified" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "Work Orders", label: "Direct FM Dispatch" },
           ]}
         />

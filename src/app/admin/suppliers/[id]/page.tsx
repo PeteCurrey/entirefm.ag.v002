@@ -360,21 +360,21 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
                 <div className="flex justify-between">
                   <span className="text-slate-500">Standard Value:</span>
                   <span className="font-light text-slate-900">
-                    £{(authDraft.membershipStandardAmountGbp || (authDraft.selectedMembershipTier === 'TIER_1' ? 295 : 695)).toLocaleString()} + VAT
+                    £{(authDraft.membershipStandardAmountGbp || 95).toLocaleString()} + VAT
                   </span>
                 </div>
                 {authDraft.membershipPaymentStatus === 'WAIVED' && (
                   <div className="flex justify-between text-emerald-700">
                     <span>Amount Waived:</span>
                     <span className="font-bold">
-                      -£{(authDraft.membershipWaivedAmountGbp || (authDraft.selectedMembershipTier === 'TIER_1' ? 295 : 695)).toLocaleString()}
+                      -£{(authDraft.membershipWaivedAmountGbp || 95).toLocaleString()}
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between border-t border-slate-100 pt-1.5 font-bold">
                   <span className="text-slate-700">Amount Paid / Due:</span>
                   <span className="text-slate-900">
-                    £{(authDraft.membershipFinalAmountGbp ?? (authDraft.membershipPaymentStatus === 'WAIVED' ? 0 : 295)).toLocaleString()}
+                    £{(authDraft.membershipFinalAmountGbp ?? (authDraft.membershipPaymentStatus === 'WAIVED' ? 0 : 95)).toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between">

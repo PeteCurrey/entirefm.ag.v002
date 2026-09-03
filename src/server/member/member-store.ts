@@ -39,6 +39,8 @@ export interface CreateMemberInput {
   marketingConsent?: boolean;
   ipAddress?: string;
   userAgent?: string;
+  riskScore?: number;
+  securityFlags?: string[];
 }
 
 /**
@@ -185,6 +187,9 @@ export async function createMember(input: CreateMemberInput): Promise<Member> {
       mentionAlerts: true,
     },
     policy_consents: consents,
+    risk_score: input.riskScore || 0,
+    security_flags: input.securityFlags || [],
+    registration_ip: input.ipAddress || null,
     created_at: now,
     updated_at: now,
   };

@@ -200,7 +200,7 @@ export default function RamsTemplatePage() {
         <div className="container-wide">
           <ContractorPortalCtaCard
             headline="Need more than a Word document?"
-            description="Keep your contractor documentation, compliance information, operative competency records, and live job work orders connected in one place with the EntireFM Contractor Platform (£295/yr)."
+            description="Keep your contractor documentation, compliance information, operative competency records, and live job work orders connected in one place with the EntireFM Contractor Platform (£95/yr)."
             bulletPoints={[
               "Cloud RAMS builder with pre-configured risk controls and method steps",
               "Automated expiry tracking across public liability, Gas Safe, NICEIC and Refcom",

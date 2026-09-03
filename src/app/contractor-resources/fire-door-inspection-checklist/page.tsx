@@ -168,7 +168,7 @@ export default function FireDoorChecklistPage() {
         <ContractorPortalCtaCard
           headline="Manage fire door inspection schedules in EntireFM"
           description="Contractor Platform members record gap measurements, attach door photos, and issue BM TRADA / FIRAS maintenance sign-offs directly inside the Contractor Portal."
-          primaryBtnText="Explore Contractor Membership (£295/yr)"
+          primaryBtnText="Explore Contractor Membership (£95/yr)"
           primaryBtnHref="/suppliers/membership"
         />
 

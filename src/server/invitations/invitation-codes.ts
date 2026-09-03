@@ -12,16 +12,15 @@
  * - Atomic concurrency control: Two simultaneous requests against a 1-use code
  *   will result in exactly one successful redemption.
  * - Fee waiver ONLY: Does NOT bypass compliance vetting or auto-approve contractor.
- * - Product identity preserved: The contractor's membership tier remains the selected
- *   tier (£295 / £695) with £0 amount charged. No "Free Tier" product is created.
+ * - Canonical pricing: The standard amount waived is always £95 (the single annual
+ *   membership fee). Historical £295/£695 waivers are preserved in the audit ledger
+ *   as-is — do not alter historical records.
  */
 
 import { randomBytes } from 'node:crypto';
 import { dbQuery, isDbConfigured } from '@/server/db/client';
-import {
-  CONTRACTOR_MEMBERSHIP_TIERS,
-  MembershipTierCode,
-} from '@/config/supplier-data';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
+import type { MembershipTierCode } from '@/config/supplier-data';
 import {
   InvitationCodeRecord,
   InvitationRedemptionRecord,
@@ -250,11 +249,11 @@ export async function validateInvitationCode(
 
   // Check Tier Eligibility
   if (options.tier && codeRecord.tierEligibility !== 'ANY') {
-    if (codeRecord.tierEligibility !== options.tier) {
+    if ((codeRecord.tierEligibility as string) !== (options.tier as string)) {
       const eligibleName =
-        codeRecord.tierEligibility === 'TIER_1'
-          ? CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.name
-          : CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.name;
+        (codeRecord.tierEligibility as string) === 'TIER_1'
+          ? 'Contractor Network Member'
+          : 'Network Partner';
       return {
         valid: false,
         reason: 'TIER_MISMATCH',
@@ -285,10 +284,9 @@ export async function validateInvitationCode(
     }
   }
 
-  // Resolve standard price based on selected tier or default Tier 1
-  const targetTier: MembershipTierCode = options.tier || 'TIER_1';
-  const tierConfig = CONTRACTOR_MEMBERSHIP_TIERS[targetTier];
-  const standardAmountGbp = tierConfig.priceGbp;
+  // Canonical membership price: £95 + VAT / year (single membership, no tiers).
+  // Historical £295/£695 waivers remain in the audit ledger unaltered.
+  const standardAmountGbp = SUPPLIER_MEMBERSHIP.annualPriceExVat; // 95
   const waivedAmountGbp = standardAmountGbp;
   const finalAmountGbp = 0.00;
 
@@ -385,8 +383,7 @@ export async function atomicRedeemInvitationCode(
     return { success: false, error: 'Email does not match invitation assignment', errorCode: 'EMAIL_MISMATCH' };
   }
 
-  const tierConfig = CONTRACTOR_MEMBERSHIP_TIERS[selectedTier] || CONTRACTOR_MEMBERSHIP_TIERS.TIER_1;
-  const standardAmountGbp = tierConfig.priceGbp;
+  const standardAmountGbp = SUPPLIER_MEMBERSHIP.annualPriceExVat;
   const waivedAmountGbp = standardAmountGbp;
   const finalAmountGbp = 0.00;
 

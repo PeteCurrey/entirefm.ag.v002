@@ -178,7 +178,7 @@ export default function FgasChecklistPage() {
         <ContractorPortalCtaCard
           headline="Upload F-Gas logs directly to EntireFM work orders"
           description="Contractor Platform members store Refcom certificates, engineer Cat 1 cards, and digital leak logs inside the Contractor Portal Document Vault."
-          primaryBtnText="Explore Contractor Membership (£295/yr)"
+          primaryBtnText="Explore Contractor Membership (£95/yr)"
           primaryBtnHref="/suppliers/membership"
         />
 

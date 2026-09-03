@@ -52,7 +52,7 @@ export default function ContractorLocationsHub() {
           imageAlt="EntireFM UK regional commercial contractor network"
           breadcrumbs={breadcrumbs}
           primaryCta={{ label: "Apply to Join the Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "View Membership (£295/yr)", href: "/suppliers/membership" }}
+          secondaryCta={{ label: "View Membership (£95/yr)", href: "/suppliers/membership" }}
           statusBadge="UK Multi-Region"
         />
 

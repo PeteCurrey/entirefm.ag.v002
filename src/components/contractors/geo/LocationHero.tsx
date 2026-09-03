@@ -93,8 +93,8 @@ export function LocationHero({
               <dd className="text-[11px] text-slate-400 font-light mt-0.5">{statusBadge}</dd>
             </div>
             <div className="bg-slate-900/80 px-4 py-3 backdrop-blur-sm">
-              <dt className="text-sm font-semibold text-white">£295 / yr</dt>
-              <dd className="text-[11px] text-slate-400 font-light mt-0.5">Platform Membership</dd>
+              <dt className="text-sm font-semibold text-white">£95 / yr</dt>
+              <dd className="text-[11px] text-slate-400 font-light mt-0.5">Supplier Membership</dd>
             </div>
             <div className="bg-slate-900/80 px-4 py-3 backdrop-blur-sm col-span-2 sm:col-span-1">
               <dt className="text-sm font-semibold text-white">Merit Dispatch</dt>

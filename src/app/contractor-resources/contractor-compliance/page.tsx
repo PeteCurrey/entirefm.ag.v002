@@ -72,7 +72,7 @@ export default function ContractorCompliancePage() {
           lastUpdated="2026"
           keyTakeaway="Commercial FM compliance is built on six pillars: statutory insurance, verified trade certifications, operative competency cards, structured RAMS, Companies House good standing, and automated expiry monitoring."
           primaryCta={{ label: "View Compliance Centre in Portal", href: "/suppliers/membership#platform-overview" }}
-          secondaryCta={{ label: "Join EntireFM Contractor Network (£295/yr)", href: "/suppliers/membership" }}
+          secondaryCta={{ label: "Join EntireFM Contractor Network (£95/yr)", href: "/suppliers/membership" }}
         />
 
         {/* MAIN BODY ARTICLE */}
@@ -166,7 +166,7 @@ export default function ContractorCompliancePage() {
         <div className="container-wide">
           <ContractorPortalCtaCard
             headline="Manage your entire compliance footprint from one dashboard."
-            description="Join the EntireFM Contractor Platform (£295/yr) and gain access to the digital Compliance Centre, Document Vault, automated expiry alerts, and commercial FM work eligibility."
+            description="Join the EntireFM Contractor Platform (£95/yr) and gain access to the digital Compliance Centre, Document Vault, automated expiry alerts, and commercial FM work eligibility."
             bulletPoints={[
               "Single-view Compliance Health score tracking all 6 statutory pillars",
               "Document Vault holding verified insurance, trade cards & company policies",

@@ -254,7 +254,7 @@ const CATEGORIES = [
       {
         title: "Joining the EntireFM Supplier Network",
         href: "/suppliers/membership",
-        desc: "Contractor Platform membership (£295/yr): operating system, document vault, and work eligibility.",
+        desc: "Supplier Platform membership (£95/yr): operating system, document vault, and work eligibility.",
         badge: "MEMBERSHIP",
       },
     ],
@@ -280,7 +280,7 @@ const HUB_FAQS = [
   {
     question: "What is the EntireFM Contractor Platform?",
     answer:
-      "The EntireFM Contractor Platform is a dedicated digital operating environment for UK contractors. For £295+VAT/year, members receive an integrated compliance dashboard, document vault with automated 90/60/30-day expiry tracking, FM-specific RAMS builder, workforce competency matrix, business calculators, and eligibility for applicable work across EntireFM's client portfolio.",
+      "The EntireFM Contractor Platform is a dedicated digital operating environment for UK contractors. For £95+VAT/year, members receive an integrated compliance dashboard, document vault with automated 90/60/30-day expiry tracking, FM-specific RAMS builder, workforce competency matrix, business calculators, and eligibility for applicable work across EntireFM's client portfolio.",
   },
 ];
 
@@ -307,7 +307,7 @@ export default function ContractorResourcesHubPage() {
           lastUpdated="2026"
           keyTakeaway="High-intent operational resources for trade contractors: structured RAMS frameworks, chemical safety guidelines, insurance requirements, and commercial compliance standards."
           primaryCta={{ label: "Explore the Contractor Portal", href: "/suppliers/membership#platform-overview" }}
-          secondaryCta={{ label: "Contractor Membership (£295/yr)", href: "/suppliers/membership" }}
+          secondaryCta={{ label: "Supplier Membership (£95/yr)", href: "/suppliers/membership" }}
         />
 
         {/* CATEGORY EXPLORATION MATRIX */}
@@ -381,7 +381,7 @@ export default function ContractorResourcesHubPage() {
               "Centralised Document Vault with automated 90/60/30-day renewal alerts",
               "Integrated RAMS builder with site controls and digital operative sign-offs",
               "Direct work order dispatch, photographic evidence & purchase order tracking",
-              "Verified supply chain partner status within EntireFM's commercial network (£295/yr)",
+              "Verified supply chain partner status within EntireFM's commercial network (£95/yr)",
             ]}
             primaryBtnText="Explore the Contractor Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"

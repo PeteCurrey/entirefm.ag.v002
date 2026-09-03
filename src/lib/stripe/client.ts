@@ -2,11 +2,14 @@
  * ENTIREFM STRIPE CLIENT & CHECKOUT INFRASTRUCTURE
  * =================================================
  * Secure server-side Stripe SDK initialization and helpers for
- * supplier assurance review payments and Partner Network commercial operations.
+ * the EntireFM Supplier Membership annual payment (£95 + VAT = £114.00).
+ *
+ * COMMERCIAL MODEL: One membership. £95 + VAT / year.
+ * All pricing is resolved from SUPPLIER_MEMBERSHIP — never from client input.
  */
 
 import Stripe from 'stripe';
-import { CANONICAL_PUBLIC_PRICING, CONTRACTOR_MEMBERSHIP_TIERS } from '@/config/supplier-data';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
 
 let stripeClientInstance: Stripe | null = null;
 
@@ -21,8 +24,8 @@ export function getStripeClient(): Stripe {
       apiVersion: '2025-02-24.acacia' as any,
       typescript: true,
       appInfo: {
-        name: 'EntireFM Partner Network',
-        version: '2.0.0',
+        name: 'EntireFM Supplier Platform',
+        version: '3.0.0',
       },
     });
   }
@@ -30,7 +33,7 @@ export function getStripeClient(): Stripe {
   return stripeClientInstance;
 }
 
-export interface CreateSupplierAssuranceCheckoutParams {
+export interface CreateMembershipCheckoutParams {
   supplierId: string;
   applicationRef: string;
   companyName: string;
@@ -41,16 +44,18 @@ export interface CreateSupplierAssuranceCheckoutParams {
 }
 
 /**
- * Creates a Stripe Checkout Session for Initial Supplier Assurance Review
- * Strictly resolves canonical server-side pricing (£350 + 20% VAT = £420.00).
+ * Creates a Stripe Checkout Session for the EntireFM Supplier Membership.
+ *
+ * CANONICAL PRICE: £95 + 20% VAT = £114.00 (11,400 pence).
+ * This is resolved server-side only — never trust client-supplied amounts.
  */
-export async function createSupplierAssuranceCheckoutSession(
-  params: CreateSupplierAssuranceCheckoutParams
+export async function createMembershipCheckoutSession(
+  params: CreateMembershipCheckoutParams
 ): Promise<{ url: string | null; sessionId: string }> {
   const stripe = getStripeClient();
-  const pricing = CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW;
 
-  const totalAmountPence = Math.round(pricing.priceGbp * (1 + pricing.vatRate) * 100);
+  // All pricing is derived from the canonical server-side config only
+  const totalAmountPence = SUPPLIER_MEMBERSHIP.totalPricePence; // 11400
 
   const session = await stripe.checkout.sessions.create(
     {
@@ -63,26 +68,31 @@ export async function createSupplierAssuranceCheckoutSession(
           price_data: {
             currency: 'gbp',
             product_data: {
-              name: pricing.name,
-              description:
-                'Administration and independent technical review of applicable company, insurance, H&S, and trade qualifications.',
+              name: SUPPLIER_MEMBERSHIP.name,
+              description: SUPPLIER_MEMBERSHIP.checkoutDescription,
               metadata: {
-                canonical_product_id: pricing.id,
-                billing_frequency: pricing.billingFrequency,
+                canonical_product_id: SUPPLIER_MEMBERSHIP.internalId,
+                billing_interval: SUPPLIER_MEMBERSHIP.billingInterval,
+                net_amount_gbp: SUPPLIER_MEMBERSHIP.annualPriceExVat.toString(),
+                vat_amount_gbp: SUPPLIER_MEMBERSHIP.vatAmount.toString(),
               },
             },
             unit_amount: totalAmountPence,
+            tax_behavior: 'inclusive',
           },
           quantity: 1,
         },
       ],
       metadata: {
+        payment_type: 'SUPPLIER_MEMBERSHIP',
         supplier_id: params.supplierId,
         application_ref: params.applicationRef,
-        commercial_product_id: pricing.id,
-        net_amount_gbp: pricing.priceGbp.toString(),
-        vat_amount_gbp: (pricing.priceGbp * pricing.vatRate).toString(),
-        total_amount_gbp: (pricing.priceGbp * (1 + pricing.vatRate)).toString(),
+        company_name: params.companyName,
+        commercial_product_id: SUPPLIER_MEMBERSHIP.internalId,
+        net_amount_gbp: SUPPLIER_MEMBERSHIP.annualPriceExVat.toString(),
+        vat_amount_gbp: SUPPLIER_MEMBERSHIP.vatAmount.toString(),
+        total_amount_gbp: SUPPLIER_MEMBERSHIP.totalPriceIncVat.toString(),
+        membership_version: 'v3-single-95',
       },
       success_url: params.successUrl,
       cancel_url: params.cancelUrl,
@@ -96,72 +106,27 @@ export async function createSupplierAssuranceCheckoutSession(
   };
 }
 
-export interface CreateContractorMembershipCheckoutParams {
-  supplierId: string;
-  applicationRef: string;
-  companyName: string;
-  contactEmail: string;
-  tier: 'TIER_1' | 'TIER_2';
-  successUrl: string;
-  cancelUrl: string;
-  idempotencyKey?: string;
-}
-
 /**
- * Creates a Stripe Checkout Session for Contractor Network Membership (£295 / £695 + 20% VAT).
- * Price is resolved strictly on the server from CONTRACTOR_MEMBERSHIP_TIERS.
+ * @deprecated Use createMembershipCheckoutSession instead.
+ * Retained for reference during code cleanup — this function should be removed once
+ * all callers have been migrated to the single membership model.
+ *
+ * Historical £295/£695 tier sessions must NOT be recreated with this function.
+ * They remain as historical payment records only.
  */
 export async function createContractorMembershipCheckoutSession(
-  params: CreateContractorMembershipCheckoutParams
+  params: CreateMembershipCheckoutParams & { tier?: string }
 ): Promise<{ url: string | null; sessionId: string }> {
-  const stripe = getStripeClient();
-  const tierConfig = CONTRACTOR_MEMBERSHIP_TIERS[params.tier] || CONTRACTOR_MEMBERSHIP_TIERS.TIER_1;
+  // Redirect all calls to the canonical single-membership checkout session
+  return createMembershipCheckoutSession(params);
+}
 
-  const totalAmountPence = Math.round(tierConfig.priceGbp * (1 + tierConfig.vatRate) * 100);
-
-  const session = await stripe.checkout.sessions.create(
-    {
-      payment_method_types: ['card'],
-      mode: 'payment',
-      customer_email: params.contactEmail,
-      client_reference_id: params.supplierId,
-      line_items: [
-        {
-          price_data: {
-            currency: 'gbp',
-            product_data: {
-              name: tierConfig.name,
-              description: tierConfig.description,
-              metadata: {
-                canonical_product_id: tierConfig.id,
-                internal_id: tierConfig.internalId,
-                tier_code: params.tier,
-                billing_frequency: tierConfig.billingFrequency,
-              },
-            },
-            unit_amount: totalAmountPence,
-          },
-          quantity: 1,
-        },
-      ],
-      metadata: {
-        payment_type: 'MEMBERSHIP',
-        supplier_id: params.supplierId,
-        application_ref: params.applicationRef,
-        membership_tier: params.tier,
-        commercial_product_id: tierConfig.id,
-        net_amount_gbp: tierConfig.priceGbp.toString(),
-        vat_amount_gbp: (tierConfig.priceGbp * tierConfig.vatRate).toString(),
-        total_amount_gbp: (tierConfig.priceGbp * (1 + tierConfig.vatRate)).toString(),
-      },
-      success_url: params.successUrl,
-      cancel_url: params.cancelUrl,
-    },
-    params.idempotencyKey ? { idempotencyKey: params.idempotencyKey } : undefined
-  );
-
-  return {
-    url: session.url,
-    sessionId: session.id,
-  };
+/**
+ * @deprecated The initial assurance review fee has been retired.
+ * Retained as a stub to avoid breaking existing imports during migration.
+ */
+export async function createSupplierAssuranceCheckoutSession(
+  params: CreateMembershipCheckoutParams
+): Promise<{ url: string | null; sessionId: string }> {
+  return createMembershipCheckoutSession(params);
 }

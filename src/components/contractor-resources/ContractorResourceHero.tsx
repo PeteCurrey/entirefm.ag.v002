@@ -26,7 +26,7 @@ export function ContractorResourceHero({
   lastUpdated = "2026",
   keyTakeaway,
   primaryCta = { label: "Explore the Contractor Portal", href: "/suppliers/membership#platform-overview" },
-  secondaryCta = { label: "Contractor Membership (£295/yr)", href: "/suppliers/membership" },
+  secondaryCta = { label: "Supplier Membership (£95/yr)", href: "/suppliers/membership" },
 }: ContractorResourceHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-slate-900 text-white pt-[calc(var(--header-h,72px)+1rem)] pb-16 sm:pb-20 border-b border-slate-800">

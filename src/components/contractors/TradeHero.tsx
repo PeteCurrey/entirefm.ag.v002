@@ -30,7 +30,7 @@ export function TradeHero({
   primaryCta = { label: "Join the Contractor Network", href: "/suppliers/apply" },
   secondaryCta = { label: "Explore the Contractor Portal", href: "/suppliers/membership#platform-overview" },
   facts = [
-    { figure: "£295 / yr", label: "All-Inclusive Platform" },
+    { figure: "£95 / yr", label: "Supplier Membership" },
     { figure: "Audit-Ready", label: "Trade Compliance & RAMS" },
     { figure: "UK-Wide", label: "Commercial FM Network" },
   ],

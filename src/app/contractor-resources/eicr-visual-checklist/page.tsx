@@ -193,7 +193,7 @@ export default function EicrChecklistPage() {
         <ContractorPortalCtaCard
           headline="Attach EICR certificates directly to EntireFM work orders"
           description="Contractor Platform members manage calibrated tester logs, attach digital condition reports, and submit remedial repair quotes directly inside the Contractor Portal."
-          primaryBtnText="Explore Contractor Membership (£295/yr)"
+          primaryBtnText="Explore Contractor Membership (£95/yr)"
           primaryBtnHref="/suppliers/membership"
         />
 

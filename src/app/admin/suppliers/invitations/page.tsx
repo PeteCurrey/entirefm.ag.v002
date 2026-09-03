@@ -306,10 +306,10 @@ export default function AdminInvitationsPage() {
                       <td className="p-3.5">
                         <span className="font-medium text-slate-800">
                           {inv.tierEligibility === 'ANY'
-                            ? 'All Tiers (£295 / £695)'
+                            ? 'Supplier Membership (£95/yr)'
                             : inv.tierEligibility === 'TIER_1'
-                            ? 'Tier 1 (£295 Member)'
-                            : 'Tier 2 (£695 Partner)'}
+                            ? 'Supplier Member (£95/yr)'
+                            : 'Supplier Partner (Legacy)'}
                         </span>
                       </td>
 
@@ -435,9 +435,8 @@ export default function AdminInvitationsPage() {
                     onChange={(e) => setNewTierEligibility(e.target.value as any)}
                     className="w-full p-2.5 border border-slate-200 rounded text-xs bg-white"
                   >
-                    <option value="ANY">Any Membership Tier (£295 or £695)</option>
-                    <option value="TIER_1">Tier 1 Only — Contractor Network Member (£295/yr)</option>
-                    <option value="TIER_2">Tier 2 Only — Contractor Network Partner (£695/yr)</option>
+                    <option value="ANY">EntireFM Supplier Membership (£95/yr)</option>
+                    <option value="TIER_1">Supplier Member (£95/yr)</option>
                   </select>
                 </div>
 

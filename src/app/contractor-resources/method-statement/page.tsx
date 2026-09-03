@@ -151,7 +151,7 @@ export default function MethodStatementGuidePage() {
               "Pre-built step-by-step methods for HVAC, Electrical, Plumbing, Roofing and Cleaning",
               "Integrated document vault ensuring proof of insurance and operative qualifications",
               "Direct connection to work order dispatch and digital purchase orders",
-              "Contractor platform membership (£295/yr) with fair supply chain participation",
+              "Supplier platform membership (£95/yr) with fair supply chain participation",
             ]}
             primaryBtnText="Explore Method Builder in Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"

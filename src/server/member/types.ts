@@ -72,6 +72,9 @@ export interface Member {
   notification_preferences: NotificationPreferences;
   policy_consents: PolicyConsentRecord[];
   directory_opt_in?: boolean; // Explicit opt-in for public directory (default false)
+  risk_score?: number;
+  security_flags?: string[];
+  registration_ip?: string | null;
   created_at: string;
   updated_at: string;
 }

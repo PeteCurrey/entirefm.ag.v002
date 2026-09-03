@@ -161,7 +161,7 @@ export default function MethodStatementTemplatePage() {
               "Integrated method statement builder with trade-specific task libraries",
               "Centralised document vault with automated 90/60/30-day credential alerts",
               "Direct work dispatch, purchase order tracking, and timestamped photo evidence",
-              "Contractor membership £295+VAT/year with fair, merit-based work allocation",
+              "Supplier membership £95+VAT/year with fair, merit-based work allocation",
             ]}
             primaryBtnText="Explore Contractor Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"

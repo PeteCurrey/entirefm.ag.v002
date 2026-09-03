@@ -116,7 +116,7 @@ export default function GroundsMaintenanceContractorPage() {
           secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
           facts={[
             { figure: "NPTC / PA1 / PA6", label: "Pesticide Assurance" },
-            { figure: "£295 / yr", label: "All-Inclusive Platform" },
+            { figure: "£95 / yr", label: "Supplier Membership" },
             { figure: "Commercial Estates", label: "Scheduled & Winter PPM" },
           ]}
         />

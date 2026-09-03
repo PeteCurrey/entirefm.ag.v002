@@ -139,7 +139,7 @@ export default function ChecklistsHubPage() {
         <ContractorPortalCtaCard
           headline="Digitise your site inspections with EntireFM"
           description="Contractor Platform members attach digital checklists, calibrated meter logs, and timestamped photo evidence directly to commercial work orders."
-          primaryBtnText="Explore Contractor Platform (£295/yr)"
+          primaryBtnText="Explore Contractor Platform (£95/yr)"
           primaryBtnHref="/suppliers/membership"
         />
 

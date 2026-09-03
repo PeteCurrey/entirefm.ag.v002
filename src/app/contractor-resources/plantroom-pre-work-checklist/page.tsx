@@ -171,7 +171,7 @@ export default function PlantroomChecklistPage() {
         <ContractorPortalCtaCard
           headline="Manage plantroom permits digitally in EntireFM"
           description="Contractor Platform members upload LOTO logs, attach LOLER lifting certificates, and manage hot works permits through the Contractor Portal."
-          primaryBtnText="Explore Contractor Membership (£295/yr)"
+          primaryBtnText="Explore Contractor Membership (£95/yr)"
           primaryBtnHref="/suppliers/membership"
         />
 

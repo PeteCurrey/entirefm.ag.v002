@@ -25,7 +25,7 @@ export function TradeConversionBridge({ tradeName }: { tradeName: string }) {
               Apply to Join EntireFM &rarr;
             </Link>
             <Link href="/suppliers/membership" className="btn-ghost-light text-xs py-3 px-6 justify-center">
-              View Membership (£295/yr)
+              View Membership (£95/yr)
             </Link>
           </div>
         </div>

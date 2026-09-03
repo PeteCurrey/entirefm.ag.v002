@@ -3,37 +3,45 @@ import {
   getApplicationDraft,
   saveApplicationDraft,
 } from '@/server/suppliers/supplier-auth-store';
-import {
-  createContractorMembershipCheckoutSession,
-} from '@/lib/stripe/client';
-import {
-  CONTRACTOR_MEMBERSHIP_TIERS,
-  MembershipTierCode,
-} from '@/config/supplier-data';
+import { createMembershipCheckoutSession } from '@/lib/stripe/client';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
 
+/**
+ * POST /api/supplier/application/payment/create-checkout
+ *
+ * Creates a Stripe Checkout Session for the EntireFM Supplier Membership (£95 + VAT / year).
+ *
+ * COMMERCIAL MODEL: One membership. One price. No tiers. Pricing is resolved
+ * server-side only from the canonical config — never from client-supplied amounts.
+ *
+ * WAIVER / BYPASS GATE: If membershipPaymentStatus is already WAIVED or PAID
+ * (set by an authorised invitation code or webhook confirmation), returns
+ * { zeroValueBypass: true } without creating a Stripe session.
+ */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { supplierId, orgId, tier } = body;
+    const { supplierId, orgId } = body;
     const targetId = orgId || supplierId;
 
     if (!targetId) {
       return NextResponse.json({ error: 'supplierId or orgId is required' }, { status: 400 });
     }
 
-    // Find draft in canonical supplier-auth-store (Supabase-backed)
+    // Retrieve application draft from the canonical store
     const authDraft = await getApplicationDraft(targetId);
 
-    const legalCompanyName = authDraft?.legalCompanyName || 'Contractor Partner';
-    const applicationRef = authDraft?.applicationReference || `SUP-${Date.now()}`;
+    const legalCompanyName = authDraft?.legalCompanyName || 'Supplier Applicant';
+    const applicationRef = authDraft?.applicationReference || `EFM-${Date.now()}`;
     const contactEmail =
       authDraft?.primaryContactEmail ||
       authDraft?.generalEmail ||
       'finance@supplier.example.co.uk';
 
-    // 1. Zero-Value Checkout Bypass Check:
-    // Gate is ONLY on authDraft.membershipPaymentStatus — the canonical Supabase-persisted field
-    // for the membership fee (£295/£695).
+    // Zero-Value Bypass Gate —————————————————————————————————————————————————
+    // Only bypass if payment status is already authoritative (WAIVED = authorised
+    // invitation code; PAID = Stripe webhook confirmed). Client-side state is
+    // never trusted.
     if (
       authDraft?.membershipPaymentStatus === 'WAIVED' ||
       authDraft?.membershipPaymentStatus === 'PAID'
@@ -43,7 +51,7 @@ export async function POST(req: NextRequest) {
         alreadyPaidOrWaived: true,
         status: authDraft.membershipPaymentStatus,
         applicationRef,
-        message: 'Membership fee is fully waived or settled. Zero payment required.',
+        message: 'Membership fee is fully waived or settled. No payment required.',
       });
     }
 
@@ -54,30 +62,21 @@ export async function POST(req: NextRequest) {
     const successUrl = `${baseUrl}/supplier-portal/application/payment/success?session_id={CHECKOUT_SESSION_ID}&supplierId=${encodeURIComponent(targetId)}`;
     const cancelUrl = `${baseUrl}/supplier-portal/onboarding?cancelled=1`;
 
-    const selectedTier: MembershipTierCode =
-      (tier as MembershipTierCode) ||
-      authDraft?.selectedMembershipTier ||
-      'TIER_1';
-
-    const tierConfig =
-      CONTRACTOR_MEMBERSHIP_TIERS[selectedTier] || CONTRACTOR_MEMBERSHIP_TIERS.TIER_1;
-
-    // Create Stripe Session for Membership Payment
-    const checkout = await createContractorMembershipCheckoutSession({
+    // Create Stripe Session — canonical £95 + 20% VAT = £114 (resolved server-side)
+    const checkout = await createMembershipCheckoutSession({
       supplierId: targetId,
       applicationRef,
       companyName: legalCompanyName,
       contactEmail,
-      tier: selectedTier,
       successUrl,
       cancelUrl,
-      idempotencyKey: `checkout_${targetId}_${selectedTier}_${Date.now()}`,
+      idempotencyKey: `checkout_mem_${targetId}_${Date.now()}`,
     });
 
+    // Persist draft state BEFORE redirecting to Stripe (payment not yet confirmed)
     if (authDraft) {
-      authDraft.selectedMembershipTier = selectedTier;
-      authDraft.membershipStandardAmountGbp = tierConfig.priceGbp;
-      authDraft.membershipFinalAmountGbp = tierConfig.priceGbp;
+      authDraft.membershipStandardAmountGbp = SUPPLIER_MEMBERSHIP.annualPriceExVat;
+      authDraft.membershipFinalAmountGbp = SUPPLIER_MEMBERSHIP.annualPriceExVat;
       authDraft.membershipPaymentStatus = 'UNPAID';
       authDraft.updatedAt = new Date().toISOString();
       await saveApplicationDraft(targetId, authDraft);
@@ -87,9 +86,9 @@ export async function POST(req: NextRequest) {
       checkoutUrl: checkout.url,
       sessionId: checkout.sessionId,
       applicationRef,
-      tier: selectedTier,
-      canonicalPriceGbp: tierConfig.priceGbp,
-      totalAmountIncVatGbp: tierConfig.priceGbp * (1 + tierConfig.vatRate),
+      canonicalPriceExVatGbp: SUPPLIER_MEMBERSHIP.annualPriceExVat,
+      vatAmountGbp: SUPPLIER_MEMBERSHIP.vatAmount,
+      totalAmountIncVatGbp: SUPPLIER_MEMBERSHIP.totalPriceIncVat,
     });
   } catch (error: any) {
     console.error('Error creating Stripe Checkout Session:', error);

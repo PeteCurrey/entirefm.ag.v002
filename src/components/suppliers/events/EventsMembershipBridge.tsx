@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, Tag } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Tag, ShieldCheck } from 'lucide-react';
+import { SUPPLIER_MEMBERSHIP } from '@/config/supplier-membership';
 
 const PILLARS = [
   { label: 'Operate', detail: 'Contractor Control Centre — dashboards, KPIs, task management.' },
@@ -11,44 +12,6 @@ const PILLARS = [
   { label: 'Connect', detail: 'Managed introduction to EntireFM supply chain opportunities.' },
   { label: 'Stay Informed', detail: 'Industry briefings, regulatory updates, and market intelligence.' },
   { label: 'Grow', detail: 'Commercial mentoring, bid support, and business development resources.' },
-];
-
-const TIERS = [
-  {
-    code: 'CN',
-    name: 'Contractor Network Member',
-    price: '£295',
-    period: '/yr',
-    description: 'Core membership for specialist contractors entering or developing within the EntireFM partner network.',
-    features: [
-      'Full contractor dashboard access',
-      'Regional event programme access',
-      'Compliance Radar (self-managed)',
-      'Member directory listing',
-      'Industry bulletin & briefings',
-    ],
-    cta: 'Apply for Membership',
-    href: '/suppliers/membership',
-    highlight: false,
-  },
-  {
-    code: 'NP',
-    name: 'Network Partner',
-    price: '£695',
-    period: '/yr',
-    description: 'Premium partnership tier for contractors seeking enhanced visibility, strategic positioning, and deeper commercial integration.',
-    features: [
-      'All Contractor Network benefits',
-      'Partner Network Summit access',
-      'OEM partner programme invitations',
-      'Priority event registrations',
-      'Enhanced directory profile & visibility',
-      'Commercial advisory sessions',
-    ],
-    cta: 'Explore Network Partner',
-    href: '/suppliers/membership',
-    highlight: true,
-  },
 ];
 
 export function EventsMembershipBridge() {
@@ -93,17 +56,17 @@ export function EventsMembershipBridge() {
         {/* Divider */}
         <div className="border-t border-[#E8E8E5]" />
 
-        {/* Tier Cards */}
+        {/* Single Membership Presentation */}
         <div>
           <div className="max-w-2xl mb-10 space-y-3">
             <div className="inline-flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C]" />
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#EA580C]">
-                MEMBERSHIP TIERS
+                ANNUAL MEMBERSHIP
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#111111]">
-              One membership. A wider professional network.
+              One membership. Full platform access.
             </h2>
           </div>
 
@@ -111,73 +74,62 @@ export function EventsMembershipBridge() {
           <div className="mb-8 flex items-start gap-3 p-4 rounded-[6px] bg-[#FFF7ED] border border-[#FFEDD5]">
             <Tag className="w-4 h-4 text-[#EA580C] flex-shrink-0 mt-0.5" />
             <p className="text-xs text-[#7C2D12] font-light leading-relaxed">
-              <span className="font-semibold">Invitation Code Waiver:</span> Contractors holding a valid EntireFM invitation code are admitted to their first year of membership at <strong>£0</strong>. Speak to your EntireFM contact for details. Standard annual renewal rates apply thereafter.
+              <span className="font-semibold">Invitation Code Waiver:</span> Contractors holding an authorised EntireFM invitation code have the applicable membership fee waived at application. Speak to your EntireFM contact for details.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {TIERS.map((tier) => (
-              <div
-                key={tier.code}
-                className={`relative p-6 sm:p-8 rounded-[10px] border flex flex-col gap-6 ${
-                  tier.highlight
-                    ? 'bg-[#111111] border-[#EA580C]/40 text-white'
-                    : 'bg-[#FFFFFF] border-[#E8E8E5] text-[#111111]'
-                }`}
-              >
-                {tier.highlight && (
-                  <div className="absolute top-4 right-4 px-2 py-0.5 rounded-full bg-[#EA580C] text-white text-[10px] font-bold uppercase tracking-wider">
-                    RECOMMENDED
-                  </div>
-                )}
-
+          <div className="max-w-3xl mx-auto">
+            <div className="relative p-6 sm:p-8 rounded-[10px] border border-[#111111] bg-[#111111] text-white flex flex-col gap-6 shadow-lg">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div>
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <span className={`text-[11px] font-bold uppercase tracking-widest ${tier.highlight ? 'text-[#EA580C]' : 'text-[#EA580C]'}`}>
-                        {tier.code}
-                      </span>
-                      <h3 className={`text-base font-semibold mt-0.5 ${tier.highlight ? 'text-white' : 'text-[#111111]'}`}>
-                        {tier.name}
-                      </h3>
-                    </div>
-                    <div className="text-right">
-                      <span className={`text-2xl font-bold ${tier.highlight ? 'text-white' : 'text-[#111111]'}`}>{tier.price}</span>
-                      <span className={`text-xs ${tier.highlight ? 'text-[#9A9A95]' : 'text-[#6D6D68]'}`}>{tier.period}</span>
-                    </div>
-                  </div>
-                  <p className={`text-xs font-light leading-relaxed ${tier.highlight ? 'text-[#9A9A95]' : 'text-[#6D6D68]'}`}>
-                    {tier.description}
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-[#EA580C]">
+                    ONE COMMERCIAL PROPOSITION
+                  </span>
+                  <h3 className="text-xl font-bold mt-1 text-white">
+                    {SUPPLIER_MEMBERSHIP.name}
+                  </h3>
+                  <p className="text-xs text-slate-300 font-light leading-relaxed mt-2 max-w-xl">
+                    {SUPPLIER_MEMBERSHIP.platformDescription}
                   </p>
                 </div>
+                <div className="sm:text-right shrink-0">
+                  <div className="flex items-baseline sm:justify-end gap-1">
+                    <span className="text-3xl font-bold text-white">£{SUPPLIER_MEMBERSHIP.annualPriceExVat}</span>
+                    <span className="text-xs text-slate-400">+ VAT / year</span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 block font-light">
+                    {SUPPLIER_MEMBERSHIP.displayMonthly}
+                  </span>
+                </div>
+              </div>
 
-                <ul className="space-y-2">
-                  {tier.features.map((feat, fi) => (
-                    <li key={fi} className="flex items-start gap-2">
-                      <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 mt-0.5 ${tier.highlight ? 'text-[#EA580C]' : 'text-[#EA580C]'}`} />
-                      <span className={`text-xs font-light ${tier.highlight ? 'text-[#D1D5DB]' : 'text-[#6D6D68]'}`}>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-slate-800">
+                {SUPPLIER_MEMBERSHIP.includedFeatures.map((feat, fi) => (
+                  <div key={fi} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#EA580C]" />
+                    <span className="text-xs text-slate-200 font-light">{feat}</span>
+                  </div>
+                ))}
+              </div>
 
+              <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span className="text-xs text-slate-400">
+                  Free to start — payment processed upon application submission.
+                </span>
                 <Link
-                  href={tier.href}
-                  className={`mt-auto inline-flex items-center gap-2 px-5 py-3 rounded-[6px] text-xs font-semibold uppercase tracking-wider transition-all ${
-                    tier.highlight
-                      ? 'bg-[#EA580C] hover:bg-[#C2410C] text-white'
-                      : 'bg-[#111111] hover:bg-[#222222] text-white'
-                  }`}
+                  href="/suppliers/apply"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-[6px] text-xs font-semibold uppercase tracking-wider bg-[#EA580C] hover:bg-[#C2410C] text-white transition-colors w-full sm:w-auto justify-center"
                 >
-                  <span>{tier.cta}</span>
+                  <span>Apply for Membership</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-            ))}
+            </div>
           </div>
 
           {/* Procurement Independence Disclaimer */}
           <p className="mt-6 text-center text-xs text-[#9A9A95] font-light max-w-2xl mx-auto leading-relaxed">
-            Membership does not guarantee commercial work or contract award. EntireFM maintains full independence in its client procurement processes. Supply chain introductions are made on merit and client operational requirements.
+            {SUPPLIER_MEMBERSHIP.disclaimer}
           </p>
         </div>
       </div>

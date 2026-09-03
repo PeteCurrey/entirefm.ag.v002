@@ -178,7 +178,7 @@ export default function RiskAssessmentGuidePage() {
               "Pre-built commercial FM risk libraries for M&E, HVAC, Roofing & Cleaning",
               "Operative skills matrix automatically validates engineer training for high-risk tasks",
               "Direct work order integration with photo capture and completion sign-off",
-              "All-inclusive contractor membership (£295/yr) with fair work dispatch eligibility",
+              "All-inclusive supplier membership (£95/yr) with fair work dispatch eligibility",
             ]}
             primaryBtnText="Explore Compliance Tools in Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"

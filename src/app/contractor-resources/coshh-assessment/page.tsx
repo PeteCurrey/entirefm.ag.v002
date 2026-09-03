@@ -171,7 +171,7 @@ export default function CoshhAssessmentGuidePage() {
               "Centralised digital Document Vault for SDS and COSHH assessments",
               "Attach chemical safety sheets directly to digital work orders & RAMS",
               "Automatic verification against EntireFM's commercial supplier standards",
-              "All-inclusive contractor membership (£295/yr) with fair work dispatch eligibility",
+              "All-inclusive supplier membership (£95/yr) with fair work dispatch eligibility",
             ]}
             primaryBtnText="Explore Document Vault in Portal"
             primaryBtnHref="/suppliers/membership#platform-overview"
