@@ -893,6 +893,530 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       },
     ],
   },
+
+  '/contractors/plumbing': {
+    path: '/contractors/plumbing',
+    metaTitle: 'Commercial Plumbing Contractors | FM Contractor Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Plumbing Contractor Network. Access commercial facilities management opportunities across L8 water hygiene, booster sets, unvented systems, and reactive repairs.',
+    h1: 'Commercial Plumbing Contractors for Facilities Management',
+    subtitle: 'Connecting qualified commercial plumbers and water services specialists with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // PLUMBING DISCIPLINE',
+    intro:
+      'EntireFM works with vetted commercial plumbing and water services contractors across the UK. Put your business forward for planned preventative water hygiene maintenance, booster pump servicing, unvented hot water inspections, and 24/7 reactive commercial plumbing repairs.',
+    heroImage: {
+      src: '/images/editorial/entirefm-plumbing-booster-set-2000w.webp',
+      alt: 'Commercial plumber inspecting cold water booster pump set and accumulator vessels in plantroom',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Plumbing Contractors', url: '/contractors/plumbing' },
+    ],
+    quickSummary: {
+      question: 'How do commercial plumbing contractors access FM work orders through EntireFM?',
+      summary:
+        'Qualified commercial plumbers and water hygiene specialists submit their business credentials, Water Regs/WIAPS accreditations, unvented G3 certifications, and coverage areas via our online intake. Approved contractors are considered for scheduled PPM packages (L8 monitoring, TMV testing) and emergency reactive call-outs across commercial property estates.',
+      keyPoints: [
+        'Commercial plumbing opportunities across corporate offices, retail centres, industrial sites, and schools',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers L8 Legionella compliance, booster sets, unvented cylinders, RPZ valves, and reactive leaks',
+        'Merit-based work allocation matched to verified credentials and geographic coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Plumbing vs Domestic Plumbing Services',
+      subtitle: 'Understanding the distinct water hygiene regulations, hydraulic scale, and compliance documentation in commercial buildings.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Plumbing',
+      rows: [
+        {
+          attribute: 'Water Hygiene & Compliance',
+          colA: 'Statutory compliance with ACOP L8 & HSG274, monthly sentinel point logging, TMV failsafe testing',
+          colB: 'Basic domestic hot water temperature check at boiler or cylinder',
+          highlight: true,
+        },
+        {
+          attribute: 'Pressure & Water Supply',
+          colA: 'Multi-stage variable speed cold water booster sets, break tanks, RPZ backflow prevention (CAT 4/5)',
+          colB: 'Direct mains pressure or basic loft gravity cold water storage tank',
+        },
+        {
+          attribute: 'Hot Water Generation',
+          colA: 'Commercial unvented cylinders (>500L), indirect calorifiers, secondary circulation return balancing',
+          colB: 'Domestic combi boiler or standard unvented residential cylinder (<300L)',
+          highlight: true,
+        },
+        {
+          attribute: 'Sanitary & Waste Infrastructure',
+          colA: 'Multi-storey cast iron/soil stacks, sensor urinal flush controllers, commercial grease traps, macerators',
+          colB: 'Standard domestic plastic push-fit soil pipework and residential sanitaryware',
+        },
+        {
+          attribute: 'Reporting & Invoicing',
+          colA: 'Detailed digital water logbooks, calibrated digital thermometer logs, formal Purchase Order billing',
+          colB: 'Paper invoice or standard mobile payment directly from homeowner',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What qualifications and certifications do commercial plumbing contractors need?',
+        answer:
+          'Plumbing contractors should hold NVQ Level 2/3 in Plumbing & Heating (or City & Guilds equivalent), Water Regulations (WRAS / WIAPS) certification, and BPEC Unvented Hot Water Storage Systems (G3) credentials. For water hygiene tasks, City & Guilds Legionella awareness is expected. Public Liability insurance (£5m minimum, £10m preferred) and SSIP accreditation are standard.',
+      },
+      {
+        question: 'What types of commercial plumbing work orders does EntireFM dispatch?',
+        answer:
+          'Requirements include monthly L8 statutory temperature monitoring, annual TMV (Thermostatic Mixing Valve) failsafe overhauls, cold water storage tank clean and disinfections, RPZ valve commissioning, commercial washroom refits, booster pump maintenance, and emergency response for burst pipes or sewer backups.',
+      },
+      {
+        question: 'Why is ACOP L8 water hygiene compliance critical for FM clients?',
+        answer:
+          'Under the Health and Safety at Work etc. Act 1974 and COSHH Regulations, commercial duty holders have a legal obligation to prevent Legionella bacteria growth in water systems. Contractors must record precise sentinel temperatures (hot >50°C within 1 minute, cold <20°C within 2 minutes) on digital log sheets.',
+      },
+      {
+        question: 'How are commercial water isolations and drain-downs managed?',
+        answer:
+          'Commercial multi-tenant buildings require planned isolation notices to prevent disrupting trading floors, commercial kitchens, or medical facilities. Contractors must submit site-specific RAMS detailing localized isolation valves, drain-down procedures, and microbiological disinfection protocols upon refill.',
+      },
+      {
+        question: 'What is the commercial fee and application process?',
+        answer:
+          'Membership is £95 + VAT per year, payable when submitting your application. Membership provides access to EntireFM approved supplier panels, compliance document tracking, and consideration for relevant commercial plumbing work orders in your operating territory.',
+      },
+      {
+        question: 'Does joining guarantee that my business will be awarded plumbing contracts?',
+        answer:
+          'No. EntireFM operates transparently: membership does not guarantee contract awards or minimum work volumes. Work orders are dispatched based on technical competency, response time capabilities, proximity to site, and verified compliance status.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Commercial Maintenance Contractor Network',
+        description: 'Explore opportunities across planned and reactive building maintenance.',
+        href: '/contractors/commercial-maintenance',
+        badge: 'Overview',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance schedules operate for water services.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Knowledge',
+        category: 'PPM',
+      },
+      {
+        title: 'How to Write RAMS: Step-by-Step Guide',
+        description: 'Drafting compliant Risk Assessments and Method Statements for commercial plumbing.',
+        href: '/contractor-resources/rams/how-to-write-rams',
+        badge: 'Guide',
+        category: 'Compliance',
+      },
+    ],
+  },
+
+  '/contractors/drainage': {
+    path: '/contractors/drainage',
+    metaTitle: 'Commercial Drainage Contractors | FM Contractor Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Drainage Contractor Network. Access commercial FM work orders across CCTV surveys, high-pressure water jetting, grease traps, and pump stations.',
+    h1: 'Commercial Drainage Contractors for Facilities Management',
+    subtitle: 'Connecting commercial drainage engineering specialists and tanker operators with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // DRAINAGE DISCIPLINE',
+    intro:
+      'EntireFM partners with specialist commercial drainage contractors across the UK. Put your business forward for planned preventative drainage maintenance, CCTV condition surveys, high-pressure water jetting, grease trap servicing, and emergency sewer unblocking across commercial estates.',
+    heroImage: {
+      src: '/images/editorial/entirefm-plumbing-callout-arrival-2000w.webp',
+      alt: 'Commercial drainage engineer arriving on commercial facility with high-pressure jetting and survey van',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Drainage Contractors', url: '/contractors/drainage' },
+    ],
+    quickSummary: {
+      question: 'How do commercial drainage contractors access FM work orders through EntireFM?',
+      summary:
+        'Certified drainage contractors register their specialist plant (jetting vans, CCTV survey rigs, vacuum tankers), Confined Space certifications, and operating territories via our online intake. Approved contractors are matched to scheduled interceptor/grease trap maintenance packages, CCTV drain mapping, and 24/7 emergency blockage call-outs.',
+      keyPoints: [
+        'Commercial drainage work across corporate business parks, shopping centres, logistics hubs, and industrial sites',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers CCTV surveys (WinCan), HPWJ descaling, grease traps, pump stations, and interceptors',
+        'Merit-based dispatch matched to verified equipment, response times, and regional coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Drainage vs Domestic Blockage Clearance',
+      subtitle: 'Understanding the technical machinery, environmental regulations, and survey standards in commercial drainage.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Unblocking',
+      rows: [
+        {
+          attribute: 'CCTV Survey & Reporting',
+          colA: 'WinCan-coded surveys, structural defect scoring (BS EN 13508-2), CAD drainage mapping for property asset files',
+          colB: 'Basic push-rod camera inspection without formal defect coding',
+          highlight: true,
+        },
+        {
+          attribute: 'Jetting & Descaling Power',
+          colA: 'High-pressure water jetting (HPWJ >3,000 PSI / 15-20 GPM), rotary root cutting, heavy silt vacuum extraction',
+          colB: 'Compact domestic jetters or simple manual drain rods and plunger',
+        },
+        {
+          attribute: 'Environmental Interceptors & FOG',
+          colA: 'Oil/water separators (PPG3/GPP3), automatic commercial grease recovery units, hazardous waste transfer notes',
+          colB: 'Standard domestic sink traps with no statutory environmental controls',
+          highlight: true,
+        },
+        {
+          attribute: 'Pumping Stations',
+          colA: 'Dual submersible macerator/vortex pumps, guide-rail systems, ultrasonic level telemetry, high-level alarms',
+          colB: 'Small single domestic basement sump pump',
+        },
+        {
+          attribute: 'Safety & Permitting',
+          colA: 'Mandatory Confined Space Entry permits, gas monitors (4-gas), escape sets, full traffic management RAMS',
+          colB: 'Standard surface working with basic domestic safety precautions',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What accreditations and equipment are required for drainage contractors?',
+        answer:
+          'Contractors must carry Water Jetting Association (WJA) certifications for operatives, Confined Space Entry qualifications (City & Guilds 6150 or equivalent) where chamber entry is required, and an active Environment Agency Waste Carrier Licence. Industry scheme registration such as NADC (National Association of Drainage Contractors) and valid SSIP accreditation are strongly preferred.',
+      },
+      {
+        question: 'What drainage work orders does EntireFM dispatch?',
+        answer:
+          'Work orders include planned annual stormwater gullies clearing, interceptor emptying and coalescence filter maintenance, automated grease trap waste removal, WinCan CCTV structural surveys, resin patch lining / localized no-dig repairs, and 24/7 reactive sewer unblocking.',
+      },
+      {
+        question: 'Why are formal CCTV drainage survey reports required by commercial clients?',
+        answer:
+          'Commercial property managers and insurance surveyors require validated asset reports following blockage incidents or during lease dilapidations. Survey footage must be coded to BS EN 13508-2 standards with clear defect classification (fractures, root ingress, displacement) and photographic still evidence.',
+      },
+      {
+        question: 'How are environmental and hazardous waste regulations handled?',
+        answer:
+          'All interceptor sludge, grease trap waste (FOG), and heavy silt removed from commercial sites must be transported under a valid Waste Transfer Note or Hazardous Waste Consignment Note, with disposal at licensed, regulated treatment facilities.',
+      },
+      {
+        question: 'What does membership cost and what does it include?',
+        answer:
+          'Annual membership is £95 + VAT, payable upon application submission. It provides access to our approved contractor network, compliance credential tracking (reminding you before WJA, insurance, or waste licences expire), and consideration for relevant commercial drainage opportunities.',
+      },
+      {
+        question: 'Does membership guarantee commercial drainage contracts?',
+        answer:
+          'No. Membership provides access to EntireFM’s supplier panel but does not guarantee contract awards or work volumes. Work is awarded based on contractor capability, tanker/jetting plant availability, response speed, and geographic proximity.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Find Facilities Management Work',
+        description: 'An overview of FM procurement routes, managing agents, and approved panels.',
+        href: '/contractors/find-work',
+        badge: 'Procurement',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial works.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Guide',
+        category: 'PPM',
+      },
+    ],
+  },
+
+  '/contractors/roofing': {
+    path: '/contractors/roofing',
+    metaTitle: 'Commercial Roofing Contractors | FM Contractor Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Roofing Contractor Network. Connect with commercial facilities management contracts across flat roofs, industrial gutters, and reactive roof leaks.',
+    h1: 'Commercial Roofing Contractors for Facilities Management',
+    subtitle: 'Connecting commercial roofing, cladding, and waterproofing engineering contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // ROOFING DISCIPLINE',
+    intro:
+      'EntireFM works with vetted commercial roofing contractors across the UK. Put your business forward for planned preventative roof inspections, gutter clearance packages, single-ply and liquid membrane repairs, industrial cladding overhauls, and emergency reactive leak containment.',
+    heroImage: {
+      src: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
+      alt: 'Commercial roofing survey team conducting electronic leak detection on flat commercial roof deck',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Roofing Contractors', url: '/contractors/roofing' },
+    ],
+    quickSummary: {
+      question: 'How do commercial roofing contractors access FM work orders through EntireFM?',
+      summary:
+        'Commercial roofing contractors, flat roof specialists, and industrial cladding firms submit their company credentials, NFRC memberships, Working at Height certifications, and regional service coverage via our online intake. Approved contractors are matched to planned bi-annual roof audits, gutter clearing packages, and urgent reactive leak call-outs.',
+      keyPoints: [
+        'Commercial roofing work across distribution warehouses, corporate offices, retail parks, and factories',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers flat roofs (single-ply/felt/liquid), industrial gutters, rooflights, and leak repairs',
+        'Merit-based job allocation aligned with verified working-at-height credentials and coverage radius',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Roofing vs Domestic Roofing Works',
+      subtitle: 'Understanding the height safety protocols, industrial membrane specifications, and asset reporting required on commercial estates.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Roofing',
+      rows: [
+        {
+          attribute: 'Roof Deck & Membrane Types',
+          colA: 'Single-ply (EPDM/TPO/PVC), hot-melt structural waterproofing, liquid polyurethane, composite cladding panels',
+          colB: 'Pitched slate/concrete tiles, domestic bitumen felt flat roofs',
+          highlight: true,
+        },
+        {
+          attribute: 'Height Safety & Access',
+          colA: 'Permit-to-work, fixed mansafe latchway systems, designated roof walkways, fragile rooflight demarcation',
+          colB: 'Standard domestic ladder access or temporary residential scaffolding',
+        },
+        {
+          attribute: 'Guttering Scale',
+          colA: 'Industrial boundary box gutters (>600mm), syphonic drainage systems, high-volume leaf and silt extraction',
+          colB: 'Standard domestic half-round UPVC gutters and downpipes',
+          highlight: true,
+        },
+        {
+          attribute: 'Hot Works Safety',
+          colA: 'Strict Safe2Torch guidelines, flame-free liquid/self-adhesive alternatives, mandatory 2-hour fire watches',
+          colB: 'Open torch-on application with standard residential safety precautions',
+        },
+        {
+          attribute: 'Asset Auditing & Reporting',
+          colA: 'Comprehensive photographic condition reports, drone roof surveys, core sampling, electronic leak testing',
+          colB: 'Simple verbal quotation or visual domestic inspection estimate',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What accreditations and safety qualifications are expected for roofing contractors?',
+        answer:
+          'Contracting companies should hold NFRC (National Federation of Roofing Contractors) or CompetentRoofer accreditation, Safe2Torch certification (where torch-applied membranes apply), and valid SSIP health & safety accreditation. Attending operatives must carry CSCS Skilled Worker cards, Working at Height certification, and IPAF/PASMA where MEWPs or mobile towers are used.',
+      },
+      {
+        question: 'What types of roofing work orders does EntireFM dispatch?',
+        answer:
+          'Work orders include bi-annual planned gutter cleaning and roof condition inspections (spring and autumn), flat roof membrane patch repairs, industrial rooflight replacements, cladding sheet repairs, flashing/coping stone resealing, and emergency water ingress tracing.',
+      },
+      {
+        question: 'Why are fragile rooflights and edge protection critical in commercial RAMS?',
+        answer:
+          'Falls through fragile rooflights and unbarricaded edges remain the leading cause of fatal accidents in UK construction and FM. Commercial review desks strictly enforce the Work at Height Regulations 2005. Contractors must document fragile surface covers, crawl boards, harness restraint systems, and exclusion zones in their site-specific RAMS.',
+      },
+      {
+        question: 'How are hot works permits controlled during roof repairs?',
+        answer:
+          'Where torch-applied bitumen is specified, contractors must follow NFRC Safe2Torch protocols, check combustibility of insulation and deck substrates, maintain two 9kg dry powder extinguishers at the workface, and complete a certified continuous fire watch for a minimum of 60 to 120 minutes post-application.',
+      },
+      {
+        question: 'What is the commercial pricing model and membership fee?',
+        answer:
+          'The EntireFM Contractor Network membership is £95 + VAT per year, payable when submitting your application. It gives your business access to our approved supplier framework, compliance expiry tracking, and consideration for commercial roofing works across your operating area.',
+      },
+      {
+        question: 'Does membership guarantee commercial roofing contract allocations?',
+        answer:
+          'No. EntireFM operates on a merit-based allocation framework: membership does not guarantee work or contract volume. Assignments are awarded based on technical capability, roof system expertise, safety compliance record, and proximity to site.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Commercial Maintenance Contractor Network',
+        description: 'Explore opportunities across planned and reactive building maintenance.',
+        href: '/contractors/commercial-maintenance',
+        badge: 'Overview',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Comprehensive guide to planned preventative maintenance schedules and SFG20 standards.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Knowledge',
+        category: 'PPM',
+      },
+      {
+        title: 'What Is a Risk Assessment? Principles & Matrix',
+        description: 'Understand 5x5 hazard evaluation and control hierarchies for working at height.',
+        href: '/contractor-resources/risk-assessments/what-is-a-risk-assessment',
+        badge: 'Safety',
+        category: 'Compliance',
+      },
+    ],
+  },
+
+  '/contractors/fire-security': {
+    path: '/contractors/fire-security',
+    metaTitle: 'Commercial Fire & Security Contractors | FM Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Fire & Security Contractor Network. Access commercial FM work orders across BS 5839 fire alarms, BAFE certification, access control, and CCTV.',
+    h1: 'Commercial Fire & Security Contractors for Facilities Management',
+    subtitle: 'Connecting certified fire safety, alarm systems, and electronic security engineering contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // FIRE & SECURITY DISCIPLINE',
+    intro:
+      'EntireFM works with certified commercial fire safety and electronic security engineering contractors across the UK. Put your business forward for planned quarterly BS 5839 fire alarm testing, emergency lighting compliance, BAFE fire extinguisher servicing, IP CCTV maintenance, and access control integrations.',
+    heroImage: {
+      src: '/images/editorial/entirefm-access-control-install-2000w.webp',
+      alt: 'Commercial fire and security engineer installing networked access control reader and maglock interface',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Fire & Security Contractors', url: '/contractors/fire-security' },
+    ],
+    quickSummary: {
+      question: 'How do commercial fire and security contractors access FM work orders through EntireFM?',
+      summary:
+        'Accredited fire and security companies submit their BAFE, NSI/SSAIB, or FIA certifications, engineer competencies, and service radius via our online contractor intake. Approved contractors are considered for scheduled statutory compliance packages (BS 5839 fire alarms, BS 5266 emergency lighting) and reactive security system fault-finding.',
+      keyPoints: [
+        'Commercial fire & security opportunities across corporate offices, industrial sites, retail parks, and residential blocks',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers BS 5839 fire alarms, BAFE SP203, access control (Paxton/Salto), CCTV, and fire dampers',
+        'Merit-based work allocation matched to verified scheme accreditations and regional coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Fire & Security vs Domestic Alarm Installations',
+      subtitle: 'Understanding the statutory testing intervals, life safety accountability, and network integration in commercial facilities.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Security',
+      rows: [
+        {
+          attribute: 'Fire Alarm System Scale',
+          colA: 'Category L1/L2/P1 addressable multi-loop panels (Advanced, Morley, Gent), cause-and-effect matrix testing',
+          colB: 'Grade D mains smoke/heat alarms with domestic battery back-up',
+          highlight: true,
+        },
+        {
+          attribute: 'Statutory Testing & Logbooks',
+          colA: 'Quarterly and annual BS 5839-1 inspection, digital fire logbooks, acoustic dB(A) sounder audibility checks',
+          colB: 'Ad-hoc homeowner push-button testing with no formal legal logbook',
+        },
+        {
+          attribute: 'Access Control & Security',
+          colA: 'Networked multi-door access control (Paxton, Salto, Gallagher), magnetic locks with fail-safe fire drops, turnstiles',
+          colB: 'Single standalone keypad or simple smart video doorbell',
+          highlight: true,
+        },
+        {
+          attribute: 'Fire Damper & HVAC Interface',
+          colA: 'Statutory BS 9999 annual drop-testing of motorized/fusible link fire dampers with photographic proof',
+          colB: 'Non-applicable in standard residential dwellings',
+        },
+        {
+          attribute: 'Life Safety Accountability',
+          colA: 'Regulatory Reform (Fire Safety) Order 2005 & Fire Safety Act 2021 compliance for commercial duty holders',
+          colB: 'Private homeowner property protection with minimal regulatory oversight',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What accreditations do commercial fire and security contractors require?',
+        answer:
+          'Contractors should hold BAFE SP203-1 accreditation (for fire detection and alarm systems), NSI (National Security Inspectorate) Gold/Silver or SSAIB certification (for electronic security and CCTV), and FIA (Fire Industry Association) training certificates for attending engineers. Valid SSIP accreditation (CHAS, SafeContractor) and appropriate Public and Efficacy Liability insurance are mandatory.',
+      },
+      {
+        question: 'What types of fire and security work orders does EntireFM dispatch?',
+        answer:
+          'Work orders include quarterly/bi-annual BS 5839 addressable fire alarm maintenance, annual 100% detector head testing, BS 5266 emergency lighting battery testing, BAFE SP101 portable fire extinguisher servicing, access control break-glass repair, IP CCTV camera repositioning/NVR maintenance, and BS 9999 fire damper drop tests.',
+      },
+      {
+        question: 'Why is cause-and-effect testing crucial during commercial fire alarm servicing?',
+        answer:
+          'Commercial fire alarm systems interface with critical building life safety systems: releasing magnetic fire doors, recalling passenger lifts to ground, shutting down AHU ventilation fans to prevent smoke spread, and tripping gas solenoid valves. Engineers must test and verify these interfaces without causing inadvertent business disruption.',
+      },
+      {
+        question: 'What documentation must be provided following commercial fire maintenance?',
+        answer:
+          'Engineers must issue a completed Certificate of Inspection and Testing to BS 5839-1, update the on-site physical fire logbook, provide digital asset testing schedules (listing every detector, call point, and sounder tested), and document any outstanding non-compliances (e.g. obscured call points or unserviced interfaces).',
+      },
+      {
+        question: 'What is the membership cost and commercial model?',
+        answer:
+          'Annual membership is £95 + VAT, payable upon application submission. Membership provides access to EntireFM’s approved supplier framework, automated compliance credential tracking, and consideration for commercial fire and security assignments across your coverage area.',
+      },
+      {
+        question: 'Does membership guarantee fire alarm maintenance contract awards?',
+        answer:
+          'No. EntireFM operates a merit-based supplier network: membership does not buy or guarantee contracts. Work orders are awarded based on technical competence, verified BAFE/NSI credentials, response SLA capabilities, and geographical proximity.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Approved Contractor Network Overview',
+        description: 'Review our due diligence framework, compliance expectations, and supplier vetting criteria.',
+        href: '/contractors/approved-contractor-network',
+        badge: 'Standards',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial works.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Guide',
+        category: 'PPM',
+      },
+    ],
+  },
 };
 
 export const CONTRACTOR_RESOURCE_PAGES: Record<string, ContractorPageConfig> = {
