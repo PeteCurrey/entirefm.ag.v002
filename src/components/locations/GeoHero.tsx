@@ -88,9 +88,9 @@ export function GeoHero({
       <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30" />
 
       {/* 3. Hero Content Container */}
-      <div className="container-wide relative flex flex-1 flex-col justify-center pb-12 pt-[calc(var(--header-h,4.5rem)+2rem)]">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-brand-mist/60" data-reveal>
+      <div className="container-wide relative flex flex-1 flex-col pb-12 pt-[calc(var(--header-h,4.5rem)+1.5rem)]">
+        {/* Breadcrumb Navigation - at the very top, directly under header */}
+        <nav aria-label="Breadcrumb" className="mb-4 flex flex-wrap items-center gap-1.5 text-xs text-brand-mist/60" data-reveal>
           {breadcrumbs.map((crumb, idx) => (
             <React.Fragment key={crumb.url}>
               {idx > 0 && <ChevronRight className="h-3 w-3 text-brand-mist/40" />}
@@ -107,7 +107,8 @@ export function GeoHero({
           ))}
         </nav>
 
-        <div className="max-w-3xl">
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="max-w-3xl">
           {/* Eyebrow badge with live pulse */}
           <div className="flex items-center gap-2.5 mb-4" data-reveal>
             <span className="flex h-2 w-2 relative">
@@ -186,6 +187,7 @@ export function GeoHero({
             </div>
           ))}
         </dl>
+        </div>
       </div>
 
       <div aria-hidden="true" className="rule-hero-pink absolute inset-x-0 bottom-0" />
