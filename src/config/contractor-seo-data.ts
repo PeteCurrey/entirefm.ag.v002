@@ -500,6 +500,399 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       },
     ],
   },
+
+  '/contractors/electrical': {
+    path: '/contractors/electrical',
+    metaTitle: 'Commercial Electrical Contractors | FM Contractor Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Electrical Contractor Network. Access commercial facilities management opportunities across planned EICRs, switchgear, emergency lighting, and reactive maintenance.',
+    h1: 'Commercial Electrical Contractors for Facilities Management',
+    subtitle: 'Connecting qualified commercial electricians and electrical engineering contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // ELECTRICAL DISCIPLINE',
+    intro:
+      'EntireFM works with qualified electrical contracting businesses across the UK to deliver planned statutory compliance, periodic testing, switchgear maintenance, and reactive repairs across commercial property portfolios. Put your business forward for consideration on active commercial FM work orders.',
+    heroImage: {
+      src: '/images/editorial/entirefm-distribution-board-testing-2000w.webp',
+      alt: 'Commercial electrical engineer carrying out three-phase distribution board testing and inspection',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Electrical Contractors', url: '/contractors/electrical' },
+    ],
+    quickSummary: {
+      question: 'How do commercial electrical contractors access FM work through EntireFM?',
+      summary:
+        'Qualified electrical contractors can submit their company details, 18th Edition/NICEIC/NAPIT credentials, insurance certificates, and operating territories via our online intake. Following technical desk review, approved contractors are integrated into our network for consideration on commercial planned maintenance (PPM), EICRs, emergency lighting testing, and reactive work orders.',
+      keyPoints: [
+        'Commercial electrical opportunities across corporate, industrial, logistics, and retail properties',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers statutory EICRs, distribution equipment, emergency lighting, and reactive call-outs',
+        'Merit-based job matching aligned with verified accreditations and operating radius',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM Electrical Work vs Domestic Electrical Contracting',
+      subtitle: 'Understanding the distinct compliance, documentation, and technical expectations of commercial facilities.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Works',
+      rows: [
+        {
+          attribute: 'Power Infrastructure',
+          colA: 'Three-phase (400V) distribution, busbar trunking, main switchboards, sub-distribution panels',
+          colB: 'Single-phase (230V) domestic consumer units and standard final circuits',
+          highlight: true,
+        },
+        {
+          attribute: 'Statutory Inspections',
+          colA: 'Periodic EICRs (3 to 5-year cycles), annual thermographic surveys, 3-hour emergency light discharge',
+          colB: 'Tenancy change EICRs, minor works certification, ad-hoc domestic testing',
+        },
+        {
+          attribute: 'Site Safety & Control',
+          colA: 'Mandatory Permit-to-Work, formal Lock-Out Tag-Out (LOTO), approved RAMS, tenant notification',
+          colB: 'Informal isolations, dynamic assessment, direct homeowner arrangement',
+          highlight: true,
+        },
+        {
+          attribute: 'Documentation & Billing',
+          colA: 'Structured CAFM job sheets, before/after photos, calibrated test certificates, Purchase Order invoicing',
+          colB: 'Standard handwritten or basic digital invoice sent directly to consumer',
+        },
+        {
+          attribute: 'Client Relationship',
+          colA: 'Professional facilities managers, managing agents, and chartered surveying practices',
+          colB: 'Private homeowners and individual residential landlords',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What qualifications and accreditations do commercial electrical contractors need?',
+        answer:
+          'Contractors should demonstrate current competence in BS 7671 (18th Edition Wiring Regulations), hold C&G 2391 (or 2394/2395) for periodic inspection and testing, and carry valid ECS Gold Cards for site operatives. Company-level scheme registration such as NICEIC (Approved Contractor) or NAPIT, along with SSIP accreditation (CHAS, SafeContractor, or Constructionline), is standard across commercial FM client frameworks.',
+      },
+      {
+        question: 'Do all electrical contractors need to hold every accreditation to join?',
+        answer:
+          'No. Requirements reflect the specific scope of work. For example, a specialist firm undertaking exclusively commercial EICR testing requires robust test and inspection certification and calibrated instrumentation, whereas a contractor undertaking small remedial works and lighting upgrades may require standard 18th Edition competence and valid insurance. Our technical desk review evaluates each application based on declared capabilities.',
+      },
+      {
+        question: 'What electrical work is commonly required in facilities management?',
+        answer:
+          'Commercial FM electrical requirements span planned statutory compliance (5-year EICRs, monthly/annual emergency lighting discharge tests, thermal imaging surveys), plantroom control wiring, distribution board remedials (Code C1, C2, and FI rectification), LED energy efficiency refits, power supplies for mechanical plant, and 24/7 reactive fault diagnosis.',
+      },
+      {
+        question: 'Why do commercial clients require site-specific RAMS for electrical works?',
+        answer:
+          'Commercial facilities house active business operations, multi-tenant offices, or critical IT infrastructure. Safe isolation procedures, Lock-Out Tag-Out (LOTO) protocols, live testing controls, and contingency plans for inadvertent power interruption must be documented in a site-specific RAMS package before a permit to work is authorised.',
+      },
+      {
+        question: 'What is the commercial pricing and payment process for contractors?',
+        answer:
+          'Contractor network membership is £95 + VAT per year, payable during application submission. When commercial work orders are instructed, they are issued with formal Purchase Orders and agreed commercial rates. Payment is processed against valid completion documentation, test certificates, and approved photo evidence.',
+      },
+      {
+        question: 'Does membership guarantee a specific volume of electrical contracts?',
+        answer:
+          'No. EntireFM does not sell leads or guarantee contract volumes. Membership provides access to our approved supplier framework, compliance management tools, and consideration for relevant commercial work orders within your declared trade scope and operating territory.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Find Facilities Management Work',
+        description: 'An overview of FM procurement routes, managing agents, and approved panels.',
+        href: '/contractors/find-work',
+        badge: 'Procurement',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial works.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Guide',
+        category: 'PPM',
+      },
+    ],
+  },
+
+  '/contractors/hvac': {
+    path: '/contractors/hvac',
+    metaTitle: 'Commercial HVAC Contractors | Facilities Management Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM HVAC Contractor Network. Connect with commercial facilities management requirements for AHUs, chillers, VRF systems, F-Gas compliance, and seasonal PPM.',
+    h1: 'Commercial HVAC Contractors for Facilities Management',
+    subtitle: 'Connecting commercial air conditioning, refrigeration, and ventilation engineering contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // HVAC DISCIPLINE',
+    intro:
+      'EntireFM partners with certified commercial HVAC and refrigeration contractors across the UK to maintain critical environmental systems, rooftop chillers, air handling units, and VRV/VRF air conditioning across commercial estates. Put your business forward for planned maintenance packages and reactive call-outs.',
+    heroImage: {
+      src: '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp',
+      alt: 'Commercial rooftop HVAC condensers and chiller plant on commercial facility',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'HVAC Contractors', url: '/contractors/hvac' },
+    ],
+    quickSummary: {
+      question: 'How can commercial HVAC contractors access FM work orders through EntireFM?',
+      summary:
+        'Certified HVAC and refrigeration contractors can register their company qualifications, Refcom/F-Gas certifications, engineer competencies, and travel radius via our contractor application. After technical verification, approved contractors become eligible for consideration on commercial planned maintenance (PPM), F-Gas leak checks, seasonal overhauls, and reactive cooling/heating repairs.',
+      keyPoints: [
+        'Commercial HVAC opportunities across corporate offices, retail centres, distribution hubs, and data rooms',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers VRF/VRV servicing, chiller maintenance, AHU filtration & belts, and F-Gas compliance',
+        'Merit-based dispatch matched to verified technical credentials and geographic coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial FM HVAC Maintenance vs Domestic Air Conditioning',
+      subtitle: 'Understanding the technical complexity, statutory compliance, and environmental controls in commercial buildings.',
+      colAName: 'Commercial Facilities Management',
+      colBName: 'Domestic / Residential Air Conditioning',
+      rows: [
+        {
+          attribute: 'Plant & Equipment Scope',
+          colA: 'Central chillers, modular VRV/VRF, multi-stage AHUs with heat recovery, chilled beams, rooftop condensers',
+          colB: 'Single-split wall units, small multi-splits, domestic heat pumps',
+          highlight: true,
+        },
+        {
+          attribute: 'Statutory F-Gas Compliance',
+          colA: 'Mandatory digital logbooks, CO2 equivalent leak check schedules (3, 6, 12 months), recovery weight audit trails',
+          colB: 'Basic commissioning record, small charge volume (<5 tonnes CO2 equivalent)',
+        },
+        {
+          attribute: 'Controls & BMS Integration',
+          colA: 'BACnet / Modbus interfacing, centralized Trend/Tridium BMS, scheduled time clocks, tenant zone controls',
+          colB: 'Individual handheld infrared controllers or simple Wi-Fi app',
+          highlight: true,
+        },
+        {
+          attribute: 'Access & Permitting',
+          colA: 'Rooftop plant deck access permits, Work at Height RAMS, crane lifting plans for compressor swaps',
+          colB: 'Standard ground/ladder access with basic residential safety controls',
+        },
+        {
+          attribute: 'Impact of Failure',
+          colA: 'Severe business disruption, server room thermal runaway, office lease SLA penalties',
+          colB: 'Localized domestic discomfort with minimal operational liability',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What qualifications and company certifications are required for HVAC contractors?',
+        answer:
+          'Contracting companies should hold a valid Company F-Gas Certificate (issued by Refcom or Bureau Veritas) and maintain appropriate Public and Employers Liability insurance. Attending engineers must hold valid City & Guilds 2079 (or BESA FG Cat 1) Category 1 F-Gas certification, CSCS/SKILLcard credentials, and Work at Height / IPAF certification where rooftop plant decks or high-level cassettes are involved.',
+      },
+      {
+        question: 'Do HVAC contractors need to provide F-Gas recovery logs and calibration certificates?',
+        answer:
+          'Yes. Commercial facilities management clients operate under strict environmental audit regimes. When refrigerant is added, recovered, or transferred, contractors must record exact cylinder numbers, bottle tare weights, and calibrated scale serial numbers on digital completion reports.',
+      },
+      {
+        question: 'What types of HVAC work orders does EntireFM dispatch?',
+        answer:
+          'Requirements range from quarterly planned maintenance (filter replacements, coil chemical washing, belt tensioning, condensate tray biocidal treatment, drain clearing) to statutory F-Gas leak testing, inverter compressor replacements, 4-way valve overhauls, fan motor rewinds, and emergency 24/7 reactive cooling restoration.',
+      },
+      {
+        question: 'How are rooftop access and height safety managed for HVAC works?',
+        answer:
+          'Many commercial HVAC units are located on high-level plant decks or exposed roofs. Before commencing work, contractors must supply task-specific RAMS detailing edge protection, designated roof walkway usage, harness anchor points (where fall restraint applies), and heavy component manual handling/hoisting procedures.',
+      },
+      {
+        question: 'What does membership cost and what does it include?',
+        answer:
+          'Annual membership is £95 + VAT, payable upon application submission. It provides access to our approved supplier framework, automated compliance credential tracking (reminding you before F-Gas, insurance, or engineer certs expire), and consideration for relevant commercial HVAC jobs across your operating territory.',
+      },
+      {
+        question: 'Does joining guarantee commercial HVAC service contracts?',
+        answer:
+          'No. Membership does not guarantee work or contract allocations. EntireFM allocates assignments based on technical match, proximity, engineer availability, past SLA performance, and client requirements.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Commercial Maintenance Contractor Network',
+        description: 'Explore opportunities across planned and reactive building maintenance.',
+        href: '/contractors/commercial-maintenance',
+        badge: 'Overview',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Comprehensive guide to planned preventative maintenance schedules and SFG20 standards.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Knowledge',
+        category: 'PPM',
+      },
+      {
+        title: 'How to Write RAMS: Step-by-Step Guide',
+        description: 'Practical guide for authoring compliant RAMS for commercial plantroom and rooftop works.',
+        href: '/contractor-resources/rams/how-to-write-rams',
+        badge: 'Guide',
+        category: 'Compliance',
+      },
+    ],
+  },
+
+  '/contractors/mechanical': {
+    path: '/contractors/mechanical',
+    metaTitle: 'Commercial Mechanical Contractors | FM Plantroom Network | EntireFM',
+    metaDescription:
+      'Join the EntireFM Mechanical Contractor Network. Access commercial plantroom, pump set, pressurisation unit, calorifier, and commercial heating FM opportunities.',
+    h1: 'Commercial Mechanical Contractors for Facilities Management',
+    subtitle: 'Connecting mechanical building services engineers and plantroom maintenance contractors with UK facilities management requirements.',
+    eyebrow: 'CONTRACTOR NETWORK // MECHANICAL DISCIPLINE',
+    intro:
+      'EntireFM engages specialist mechanical engineering contractors across the UK to service, maintain, and overhaul commercial plantrooms, heating systems, booster pumps, pressurisation vessels, and hydronic infrastructure. Put your business forward for commercial PPM contracts and reactive mechanical repairs.',
+    heroImage: {
+      src: '/images/editorial/entirefm-plantroom-valves-survey-2560w.webp',
+      alt: 'Mechanical building services engineer inspecting commercial plantroom valves and pump sets',
+    },
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Contractors', url: '/contractors' },
+      { name: 'Mechanical Contractors', url: '/contractors/mechanical' },
+    ],
+    quickSummary: {
+      question: 'How do mechanical engineering contractors access commercial FM work through EntireFM?',
+      summary:
+        'Mechanical contractors can submit their company details, gas/mechanical qualifications, insurance certificates, and regional coverage via our online intake. Following technical verification, approved contractors are placed onto our supplier panel for consideration across planned plantroom maintenance, pressurisation unit servicing, pump overhauls, and commercial heating repairs.',
+      keyPoints: [
+        'Commercial mechanical opportunities across corporate plantrooms, industrial sites, and managed estates',
+        'Transparent £95/year membership payable during application submission',
+        'Work covers commercial boilers, circulating pumps, expansion systems, calorifiers, and valve overhauls',
+        'Merit-based allocation aligned with technical capability, response times, and geographic coverage',
+      ],
+      readTime: '7 min read',
+    },
+    comparison: {
+      eyebrow: 'OPERATIONAL FOCUS',
+      title: 'Commercial Plantroom Mechanical Maintenance vs Domestic Plumbing',
+      subtitle: 'Understanding the heavy engineering, hydronic pressures, and statutory compliance required in commercial plantrooms.',
+      colAName: 'Commercial Plantroom Engineering',
+      colBName: 'Domestic / Light Plumbing',
+      rows: [
+        {
+          attribute: 'System Scale & Pressure',
+          colA: 'High-output commercial boilers (>70kW), pressurized LTHW/MTHW loops (up to 6+ bar), twin-head inverter pumps',
+          colB: 'Domestic combi/system boilers (<35kW), standard gravity or 1.5 bar sealed residential systems',
+          highlight: true,
+        },
+        {
+          attribute: 'Pressure Systems Safety',
+          colA: 'Statutory compliance with Pressure Systems Safety Regulations 2000 (PSSR), written schemes of examination',
+          colB: 'Basic annual appliance service and domestic safety checks',
+        },
+        {
+          attribute: 'Water Treatment & Hydronics',
+          colA: 'Side-stream filtration, chemical dosing pots, de-aerators, glycol testing, water quality monitoring',
+          colB: 'Basic magnetic filter and inline chemical inhibitor bottle',
+          highlight: true,
+        },
+        {
+          attribute: 'Isolation & Permitting',
+          colA: 'Formal mechanical LOTO, drain-down permits, hot works permits for welding/brazing, confined plantroom controls',
+          colB: 'Local isolation valves, basic domestic hot work precautions',
+        },
+        {
+          attribute: 'Client SLA & Continuity',
+          colA: 'Critical heating/hot water continuity for multi-tenant offices, healthcare, or industrial processes',
+          colB: 'Single-dwelling residential heating restoration',
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: 'What qualifications do commercial mechanical contractors require?',
+        answer:
+          'Contractors should demonstrate mechanical building services engineering competence (City & Guilds / NVQ Level 3 in Mechanical Engineering or Heating & Ventilation). For gas-fired commercial plantrooms, engineers must hold relevant Commercial Gas Safe accreditations (e.g. COCN1, CDGA1, CIGA1, CORT1). Trade scheme memberships such as BESA, along with valid SSIP accreditation (CHAS, SafeContractor), are standard across commercial FM client frameworks.',
+      },
+      {
+        question: 'What plantroom equipment does mechanical FM work typically cover?',
+        answer:
+          'Mechanical work orders cover twin-head circulating pumps, variable speed drive booster sets, electronic pressurisation units, expansion vessels, plate heat exchangers, indirect calorifiers, commercial gas/oil boilers, motorized modulating control valves, balancing valves, and district heating interface units (HIUs).',
+      },
+      {
+        question: 'Why are mechanical isolation and LOTO procedures critical in commercial plantrooms?',
+        answer:
+          'Commercial plantrooms operate with high water temperatures (80°C+), stored pressure, and high-voltage electrical supplies to pumps and burners. A robust Lock-Out Tag-Out (LOTO) procedure and proven hydraulic isolation plan are statutory requirements to protect engineers from scalding, sudden pressure release, or unexpected motor starts.',
+      },
+      {
+        question: 'What documentation must mechanical contractors provide upon job completion?',
+        answer:
+          'Engineers must submit a detailed electronic service report recording system operating temperatures, flow/return differentials, static and dynamic pressures, pump running currents, expansion vessel pre-charge readings, and water sample test results, accompanied by clear before/after photographic evidence.',
+      },
+      {
+        question: 'What is the commercial model and membership fee?',
+        answer:
+          'The EntireFM Contractor Network membership is £95 + VAT per year, payable when submitting your application. Membership provides access to our approved supplier framework, compliance management tools, and consideration for relevant commercial FM requirements matching your trade and territory.',
+      },
+      {
+        question: 'Does membership guarantee that EntireFM will award contracts to my business?',
+        answer:
+          'No. Membership does not guarantee work or contract volume. Assignments are awarded strictly on merit, taking into account client requirements, contractor technical competency, proximity to site, insurance verification, and demonstrated SLA reliability.',
+      },
+    ],
+    relatedLinks: [
+      {
+        title: 'Join the EntireFM Contractor Network',
+        description: 'Complete the contractor qualification intake (£95 annual membership).',
+        href: '/contractors/join',
+        badge: 'Apply Now',
+        category: 'Commercial',
+      },
+      {
+        title: 'Facilities Management Subcontractor Opportunities',
+        description: 'Understand how subcontractors operate within commercial FM frameworks.',
+        href: '/contractors/subcontractor-opportunities',
+        badge: 'Opportunities',
+        category: 'Commercial',
+      },
+      {
+        title: 'What Is a Risk Assessment? Principles & Matrix',
+        description: 'Understand 5x5 hazard evaluation and control hierarchies for plantrooms.',
+        href: '/contractor-resources/risk-assessments/what-is-a-risk-assessment',
+        badge: 'Safety',
+        category: 'Compliance',
+      },
+      {
+        title: 'What Is PPM in Facilities Management?',
+        description: 'Explore planned preventative maintenance routines for mechanical building services.',
+        href: '/contractor-resources/facilities-management/what-is-ppm',
+        badge: 'Technical',
+        category: 'PPM',
+      },
+    ],
+  },
 };
 
 export const CONTRACTOR_RESOURCE_PAGES: Record<string, ContractorPageConfig> = {
