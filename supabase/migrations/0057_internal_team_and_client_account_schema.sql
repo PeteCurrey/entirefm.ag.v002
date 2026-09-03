@@ -42,9 +42,16 @@ SET name = 'Client Account ' || id::text
 WHERE name IS NULL OR name = '';
 
 -- Ensure every row has an account_number
-UPDATE public.client_accounts
-SET account_number = 'CLA-' || to_char(created_at, 'YYYY') || '-' || LPAD((ROW_NUMBER() OVER (ORDER BY created_at))::text, 4, '0')
-WHERE account_number IS NULL OR account_number = '';
+WITH numbered AS (
+  SELECT id,
+         'CLA-' || to_char(COALESCE(created_at, NOW()), 'YYYY') || '-' || LPAD((ROW_NUMBER() OVER (ORDER BY created_at))::text, 4, '0') AS gen_account_number
+  FROM public.client_accounts
+  WHERE account_number IS NULL OR account_number = ''
+)
+UPDATE public.client_accounts ca
+SET account_number = n.gen_account_number
+FROM numbered n
+WHERE ca.id = n.id;
 
 -- Add unique constraint on account_number (safe, run after backfill)
 DO $$
@@ -108,3 +115,5 @@ CREATE INDEX IF NOT EXISTS idx_persons_status          ON public.persons (status
 CREATE INDEX IF NOT EXISTS idx_persons_email           ON public.persons (lower(email));
 CREATE INDEX IF NOT EXISTS idx_org_memberships_org     ON public.organisation_memberships (organisation_id, status);
 CREATE INDEX IF NOT EXISTS idx_org_memberships_person  ON public.organisation_memberships (person_id, status);
+
+NOTIFY pgrst, 'reload schema';
