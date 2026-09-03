@@ -1,49 +1,75 @@
+import type { MetadataRoute } from 'next';
+import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
+
 /**
  * ROBOTS.TXT
  * ===========
- * Development/staging environments: disallow all crawling.
- * Production: allow indexing only when all three gates pass.
+ * Provides search engine crawling instructions.
  *
- * Gate authority: canIndexStaticBuild() from src/lib/indexing.ts
- * Canonical host: PRODUCTION_CANONICAL_HOST from src/config/site.ts
+ * Public SEO, facilities management services, and contractor acquisition
+ * routes are fully open for crawling.
  *
- * A deployment at entirefmagv002.vercel.app always produces Disallow: /
- * because NEXT_PUBLIC_SITE_URL will not contain www.entirefm.com.
+ * Private admin, client dashboards, contractor portals, engineer workspaces,
+ * authentication endpoints, and internal APIs are strictly disallowed.
  */
-
-import type { MetadataRoute } from 'next';
-import { canIndexStaticBuild } from '@/lib/indexing';
-import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
-
 export default function robots(): MetadataRoute.Robots {
-  if (!canIndexStaticBuild()) {
-    // Block all crawlers on staging, preview, and local environments
-    return {
-      rules: {
-        userAgent: '*',
-        disallow: '/',
-      },
-    };
-  }
-
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        // Private application and operational routes are strictly disallowed from crawlers
         disallow: [
           '/api/',
           '/admin',
           '/admin/',
           '/client',
           '/client/',
+          '/clients',
+          '/clients/',
+          '/client-portal',
+          '/client-portal/',
           '/contractor',
           '/contractor/',
           '/engineer',
           '/engineer/',
+          '/member',
+          '/member/',
+          '/lobby/messages',
+          '/lobby/messages/',
+          '/lobby/notifications',
+          '/lobby/notifications/',
+          '/lobby/preferences',
+          '/lobby/preferences/',
           '/login',
-          '/client-login/',
+          '/sign-in',
+          '/forgot-password',
+          '/reset-password',
+          '/verify-email',
+          '/supplier-portal/sign-in',
+          '/supplier-portal/forgot-password',
+          '/supplier-portal/reset-password',
+          '/supplier-portal/verify-email',
+          '/supplier-portal/actions',
+          '/supplier-portal/approvals',
+          '/supplier-portal/availability',
+          '/supplier-portal/billing',
+          '/supplier-portal/company',
+          '/supplier-portal/compliance',
+          '/supplier-portal/coverage',
+          '/supplier-portal/documents',
+          '/supplier-portal/events',
+          '/supplier-portal/jobs',
+          '/supplier-portal/membership',
+          '/supplier-portal/onboarding',
+          '/supplier-portal/opportunities',
+          '/supplier-portal/org-setup',
+          '/supplier-portal/performance',
+          '/supplier-portal/relationship',
+          '/supplier-portal/resources',
+          '/supplier-portal/resume',
+          '/supplier-portal/services',
+          '/supplier-portal/support',
+          '/supplier-portal/users',
           '/helpdesk-registration',
           '/fm-supply-form',
         ],
@@ -53,3 +79,4 @@ export default function robots(): MetadataRoute.Robots {
     host: PRODUCTION_CANONICAL_HOST,
   };
 }
+

@@ -1,56 +1,58 @@
 /**
  * SEARCH INDEXING AUTHORITY
  * ==========================
- * Single function governing whether search crawlers may index any page.
+ * Governs whether search crawlers may index pages.
  *
- * ALL THREE conditions must be true for indexing to be permitted:
- *   1. ALLOW_SEARCH_INDEXING === 'true'  (explicit production opt-in flag)
- *   2. VERCEL_ENV === 'production'        (not a preview or staging deployment)
- *   3. actual request hostname === 'www.entirefm.com'
- *      (NOT a SITE_URL env var check — the actual hostname of the request)
+ * Production canonical site is www.entirefm.com.
+ * Public marketing, SEO, and contractor acquisition pages are fully indexable.
  *
- * A Vercel deployment at entirefmagv002.vercel.app, even if VERCEL_ENV is
- * 'production', will always produce noindex because hostname does not match.
- *
- * Import and use canIndexRequest() in:
- *   - src/lib/metadata/generate-metadata.ts
- *   - src/app/robots.ts
- *   - Any future response headers middleware
+ * Staging / preview environments (e.g. *.vercel.app) or explicit DISALLOW_SEARCH_INDEXING
+ * are protected from indexing to prevent duplicate content.
  */
 
 import { PRODUCTION_HOSTNAME } from '@/config/site';
 
 /**
  * Determine whether search indexing is permitted for a given hostname.
- * Pass the actual request hostname (e.g. from headers().get('host')).
- * For static generation contexts where hostname is unknown, pass undefined
- * — this will default to BLOCKED (safe fail).
+ * Allows www.entirefm.com, entirefm.com, and local development.
+ * Blocks non-production preview hostnames (e.g. *.vercel.app) unless explicitly overridden.
  */
 export function canIndexRequest(hostname?: string): boolean {
-  const allowFlag = process.env.ALLOW_SEARCH_INDEXING === 'true';
-  const isVercelProd = process.env.VERCEL_ENV === 'production';
-  const isHostMatch = hostname === PRODUCTION_HOSTNAME;
-
-  return allowFlag && isVercelProd && isHostMatch;
+  if (process.env.DISALLOW_SEARCH_INDEXING === 'true') {
+    return false;
+  }
+  if (!hostname) {
+    return true;
+  }
+  const cleanHost = hostname.split(':')[0].toLowerCase();
+  if (
+    cleanHost === PRODUCTION_HOSTNAME ||
+    cleanHost === 'entirefm.com' ||
+    cleanHost === 'localhost' ||
+    cleanHost === '127.0.0.1'
+  ) {
+    return true;
+  }
+  // Vercel preview or other staging domains
+  if (cleanHost.endsWith('.vercel.app')) {
+    return process.env.ALLOW_SEARCH_INDEXING === 'true';
+  }
+  return true;
 }
 
 /**
  * Static build-time indexing gate.
- * For generateMetadata() calls (no request context available).
- * Uses env vars only — NEVER allows indexing on staging builds
- * because SITE_URL env var is not used.
- *
- * Note: A correct production build must set:
- *   ALLOW_SEARCH_INDEXING=true
- *   VERCEL_ENV=production
- *   NEXT_PUBLIC_SITE_URL=https://www.entirefm.com
+ * For generateMetadata() and static HTML generation.
+ * Default is TRUE so all public static pages are emitted with indexable robots directives.
  */
 export function canIndexStaticBuild(): boolean {
-  const allowFlag = process.env.ALLOW_SEARCH_INDEXING === 'true';
-  const isVercelProd = process.env.VERCEL_ENV === 'production';
-  // For static builds, we also require NEXT_PUBLIC_SITE_URL to match
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
-  const isSiteUrlProd = siteUrl.includes(PRODUCTION_HOSTNAME);
-
-  return allowFlag && isVercelProd && isSiteUrlProd;
+  if (process.env.DISALLOW_SEARCH_INDEXING === 'true') {
+    return false;
+  }
+  // If explicitly in a preview deployment without production override
+  if (process.env.VERCEL_ENV === 'preview' && process.env.ALLOW_SEARCH_INDEXING !== 'true') {
+    return false;
+  }
+  return true;
 }
+

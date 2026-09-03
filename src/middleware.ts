@@ -309,12 +309,11 @@ export function middleware(request: NextRequest) {
   // 5. HOSTNAME-AWARE SEARCH INDEXING PROTECTION FOR PUBLIC ROUTES
   // ─────────────────────────────────────────────────────────────────────────────
   const res = NextResponse.next({ request: { headers: requestHeaders } });
-  const isProductionHost = hostname === PRODUCTION_HOSTNAME;
-  const isIndexingAllowed = process.env.ALLOW_SEARCH_INDEXING === 'true';
-  const isSitemapOrRobots =
-    pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname.startsWith('/sitemaps/');
+  const isProductionHost = hostname === PRODUCTION_HOSTNAME || hostname === 'localhost' || hostname === '127.0.0.1';
+  const isExplicitlyDisallowed = process.env.DISALLOW_SEARCH_INDEXING === 'true';
 
-  if (!isProductionHost || (!isIndexingAllowed && !isSitemapOrRobots)) {
+  // Apply noindex only to staging/preview deployments (e.g. *.vercel.app) or if explicitly disallowed
+  if ((!isProductionHost && process.env.ALLOW_SEARCH_INDEXING !== 'true') || isExplicitlyDisallowed) {
     res.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 

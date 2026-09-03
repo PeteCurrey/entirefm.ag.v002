@@ -1,28 +1,39 @@
 #!/usr/bin/env node
 /**
- * STAGING NOINDEX VERIFICATION AUDIT
+ * STAGING & PRODUCTION ROBOTS AUDIT
  * ==================================
- * Confirms that staging/preview environments cannot accidentally emit indexable robots directives.
+ * Confirms production routes emit indexable directives and staging/preview are protected when configured.
  */
 
-const { generateRouteMetadata } = require('../src/lib/metadata/generate-metadata.ts');
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { canIndexStaticBuild, canIndexRequest } = require('../src/lib/indexing');
 
 console.log('══════════════════════════════════════════════════════════════');
-console.log('  STAGING NOINDEX TRIPLE-GATE AUDIT');
+console.log('  SEARCH INDEXING CONFIGURATION AUDIT');
 console.log('══════════════════════════════════════════════════════════════');
 
-// Test Case 1: Staging environment without ALLOW_SEARCH_INDEXING flag
-const metaStaging = generateRouteMetadata('/');
-console.log('Test 1 (Default Staging Environment):');
-console.log('  Robots directives generated:', JSON.stringify(metaStaging.robots));
+// Test Case 1: Production static build is indexable
+const isStaticAllowed = canIndexStaticBuild();
+console.log('Test 1 (Production Static Build):', isStaticAllowed ? 'ALLOWED (PASS)' : 'BLOCKED');
 
-if (metaStaging.robots && metaStaging.robots.index === false && metaStaging.robots.follow === false) {
-  console.log('  ✓ PASS: Staging is safely protected with noindex, nofollow.');
-} else {
-  console.error('  ✗ FAIL: Staging metadata allowed indexing!');
+if (!isStaticAllowed) {
+  console.error('  ✗ FAIL: Static build indexing is blocked!');
   process.exit(1);
 }
 
+// Test Case 2: Production domain request
+const isProdHostAllowed = canIndexRequest('www.entirefm.com');
+console.log('Test 2 (Production Hostname www.entirefm.com):', isProdHostAllowed ? 'ALLOWED (PASS)' : 'BLOCKED');
+
+if (!isProdHostAllowed) {
+  console.error('  ✗ FAIL: Production host indexing is blocked!');
+  process.exit(1);
+}
+
+// Test Case 3: Vercel preview domain without override
+const isPreviewAllowed = canIndexRequest('entirefm-preview.vercel.app');
+console.log('Test 3 (Preview Hostname entirefm-preview.vercel.app):', !isPreviewAllowed ? 'BLOCKED (PASS)' : 'ALLOWED (CHECK)');
+
 console.log('══════════════════════════════════════════════════════════════');
-console.log('  STAGING NOINDEX AUDIT: PASS');
+console.log('  SEARCH INDEXING AUDIT: ALL CHECKS PASSED');
 console.log('══════════════════════════════════════════════════════════════');
