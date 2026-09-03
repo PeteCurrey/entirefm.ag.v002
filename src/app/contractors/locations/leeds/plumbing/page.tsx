@@ -31,25 +31,25 @@ export default function TradeLocationPage() {
   const tradeDocs = [
     {
       title: `${item.tradeName} RAMS Guide`,
-      href: "/contractor-resources/rams",
+      href: "/contractor-resources/rams/what-are-rams",
       desc: "Complete risk assessment and method statement standard for commercial facilities work.",
       type: "GUIDE" as const,
     },
     {
       title: "RAMS Template (11-Section)",
-      href: "/contractor-resources/rams-template",
+      href: "/contractor-resources/rams/how-to-write-rams",
       desc: "Downloadable commercial RAMS framework covering site safety, isolations, and sign-offs.",
       type: "TEMPLATE" as const,
     },
     {
       title: `${item.tradeName} Risk Assessment`,
-      href: "/contractor-resources/risk-assessment",
+      href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
       desc: "5x5 risk evaluation model and hazard control hierarchy for trade contractors.",
       type: "GUIDE" as const,
     },
     {
       title: "Contractor Compliance Standard",
-      href: "/contractor-resources/contractor-compliance",
+      href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
       desc: "6 statutory compliance pillars, £5m/£10m insurance standards, and automated expiry alerts.",
       type: "COMPLIANCE" as const,
     },
@@ -70,8 +70,8 @@ export default function TradeLocationPage() {
           imageSrc={item.heroImage}
           imageAlt={item.heroImageAlt}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Join ${item.locationName} ${item.tradeName} Network`, href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: `Join ${item.locationName} ${item.tradeName} Network`, href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Portal", href: "/contractors" }}
           statusBadge="Active Trade Hub"
         />
 

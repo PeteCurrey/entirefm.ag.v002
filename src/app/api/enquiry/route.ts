@@ -1,76 +1,77 @@
 /**
  * ENQUIRY SUBMISSION API ENDPOINT — /api/enquiry
  * ===============================================
- * Production-grade durable lead delivery pipeline.
+ * Production-grade durable, anti-spam hardened lead delivery pipeline.
  *
- * Requirements:
- * 1. Zod schema validation
- * 2. Attribution & tracking metadata capture
- * 3. Durable storage, tried in order:
- *      a. Supabase `leads` table  — the primary sink, and what /admin reads
- *      b. Resend transactional email (RESEND_API_KEY)
- *      c. CRM webhook (LEAD_WEBHOOK_URL)
- * 4. FAIL-CLOSED ARCHITECTURE: Never returns success: true if lead was not durably accepted.
- *
- * WHY DATABASE FIRST
- * ------------------
- * Email is a notification, not a record. If the inbox rule moves it, or the
- * send silently fails, the enquiry is gone and nothing can tell you it
- * existed. Writing the row first means every enquiry is recoverable and
- * countable by conversion page — which is the whole point of rebuilding the
- * geo landing pages. Email still goes out, as an alert on top of the record.
- *
- * More than one sink can succeed; the first success is what unblocks the
- * response, and the rest are attempted regardless.
+ * Security Enhancements:
+ * 1. Cloudflare Turnstile anti-bot verification (fail-closed if secret configured)
+ * 2. Invisible honeypot field trapping
+ * 3. Sliding-window IP rate limiting (5 / hr / IP)
+ * 4. Disposable email domain blocking
+ * 5. Rules-based spam content analysis (URLs, crypto, gambling, adult, SEO spam)
+ * 6. Rapid duplicate enquiry fingerprinting and throttling
+ * 7. HTML entity sanitization in stored and dispatched messages (anti-XSS)
+ * 8. Strict anti-header injection safeguards on email reply-to
+ * 9. Quarantine routing: suspends transactional email and notification floods on suspected spam
+ * 10. Privacy-preserving anti-enumeration responses
  */
 
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { CONTACT_CONFIG } from '@/config/contact';
 import { saveLead, leadStoreConfigured } from '@/lib/leads/store';
+import { guardEnquirySubmission } from '@/server/security/enquiry-guard';
+import { HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+import { sanitizeText } from '@/server/security/spam-detector';
 
 const EnquirySchema = z.object({
-  name: z.string().min(2, 'Full name is required (min 2 characters)'),
-  email: z.string().email('A valid email address is required'),
-  phone: z.string().optional().default(''),
-  company: z.string().optional().default(''),
-  service: z.string().optional().default('General Facilities Management'),
-  location: z.string().optional().default('National / UK Wide'),
-  message: z.string().min(5, 'Message must contain at least 5 characters'),
+  name: z.string().min(2, 'Full name is required (min 2 characters)').max(100, 'Name is too long'),
+  email: z.string().email('A valid email address is required').max(254, 'Email is too long'),
+  phone: z.string().max(40, 'Phone is too long').optional().default(''),
+  company: z.string().max(120, 'Company name is too long').optional().default(''),
+  service: z.string().max(150, 'Service is too long').optional().default('General Facilities Management'),
+  location: z.string().max(150, 'Location is too long').optional().default('National / UK Wide'),
+  message: z.string().min(5, 'Message must contain at least 5 characters').max(5000, 'Message is too long (max 5000 characters)'),
   
+  // Security Tokens & Telemetry
+  turnstile_token: z.string().optional(),
+  turnstileToken: z.string().optional(),
+  [HONEYPOT_FIELD_NAME]: z.any().optional(),
+  fill_duration_ms: z.number().optional(),
+
   // Lead Attribution Metadata
-  landing_page: z.string().optional().default(''),
-  conversion_page: z.string().optional().default(''),
-  page_type: z.string().optional().default(''),
-  first_touch_url: z.string().optional().default(''),
-  last_touch_url: z.string().optional().default(''),
-  first_touch_referrer: z.string().optional().default(''),
-  last_touch_referrer: z.string().optional().default(''),
+  landing_page: z.string().max(300).optional().default(''),
+  conversion_page: z.string().max(300).optional().default(''),
+  page_type: z.string().max(100).optional().default(''),
+  first_touch_url: z.string().max(500).optional().default(''),
+  last_touch_url: z.string().max(500).optional().default(''),
+  first_touch_referrer: z.string().max(500).optional().default(''),
+  last_touch_referrer: z.string().max(500).optional().default(''),
   journey_trail: z.array(z.any()).optional().default([]),
   assisted_pages: z.array(z.string()).optional().default([]),
-  gclid: z.string().optional().default(''),
-  msclkid: z.string().optional().default(''),
-  session_id: z.string().optional().default(''),
-  form_id: z.string().optional().default('enquiry-form'),
-  form_page: z.string().optional().default(''),
-  sector_interest: z.string().optional().default(''),
-  location_interest: z.string().optional().default(''),
-  utm_source: z.string().optional().default(''),
-  utm_medium: z.string().optional().default(''),
-  utm_campaign: z.string().optional().default(''),
-  utm_term: z.string().optional().default(''),
-  utm_content: z.string().optional().default(''),
-  referrer: z.string().optional().default(''),
+  gclid: z.string().max(200).optional().default(''),
+  msclkid: z.string().max(200).optional().default(''),
+  session_id: z.string().max(200).optional().default(''),
+  form_id: z.string().max(100).optional().default('enquiry-form'),
+  form_page: z.string().max(300).optional().default(''),
+  sector_interest: z.string().max(150).optional().default(''),
+  location_interest: z.string().max(150).optional().default(''),
+  utm_source: z.string().max(100).optional().default(''),
+  utm_medium: z.string().max(100).optional().default(''),
+  utm_campaign: z.string().max(100).optional().default(''),
+  utm_term: z.string().max(100).optional().default(''),
+  utm_content: z.string().max(100).optional().default(''),
+  referrer: z.string().max(500).optional().default(''),
   drone_brief: z.any().optional(),
   asset_scanner_context: z.any().optional(),
-  lead_source: z.string().optional(),
-  lead_priority: z.string().optional(),
+  lead_source: z.string().max(100).optional(),
+  lead_priority: z.string().max(50).optional(),
   timestamp: z.string().optional().default(() => new Date().toISOString()),
 });
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const result = EnquirySchema.safeParse(body);
 
     if (!result.success) {
@@ -78,7 +79,7 @@ export async function POST(request: Request) {
         {
           success: false,
           errors: result.error.flatten().fieldErrors,
-          message: 'Validation failed. Please complete all required fields.',
+          message: 'Validation failed. Please check the entered information.',
         },
         { status: 400 }
       );
@@ -86,10 +87,63 @@ export async function POST(request: Request) {
 
     const data = result.data;
     const enquiryId = `EFM-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
-    const leadRecord = {
+
+    // Security & Anti-Abuse Verification
+    const turnstileToken = data.turnstile_token || data.turnstileToken;
+    const honeypotValue = (data as any)[HONEYPOT_FIELD_NAME];
+    const fillDurationMs = data.fill_duration_ms;
+
+    const guardResult = await guardEnquirySubmission({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      company: data.company,
+      message: data.message,
+      turnstileToken,
+      honeypotValue,
+      fillDurationMs,
       enquiryId,
-      receivedAt: new Date().toISOString(),
+      request,
+    });
+
+    // Hard bot rejection (e.g. Honeypot triggered, Turnstile failed, IP rate-limited)
+    if (!guardResult.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: guardResult.blockReason,
+          message: guardResult.clientErrorMessage || 'Enquiry verification failed.',
+        },
+        {
+          status: guardResult.blockStatusCode || 400,
+        }
+      );
+    }
+
+    // Sanitize user-facing text
+    const cleanName = guardResult.sanitizedName;
+    const cleanCompany = guardResult.sanitizedCompany;
+    const cleanMessage = guardResult.sanitizedMessage;
+    const cleanLocation = sanitizeText(data.location);
+    const cleanService = sanitizeText(data.service);
+
+    const leadRecord = {
       ...data,
+      enquiryId,
+      name: cleanName,
+      company: cleanCompany,
+      message: cleanMessage,
+      service: cleanService,
+      location: cleanLocation,
+      receivedAt: new Date().toISOString(),
+      spam_score: guardResult.riskScore,
+      spam_flags: guardResult.spamFlags,
+      spam_status: guardResult.spamStatus,
+      submission_ip: guardResult.clientIp,
+      submission_duration_ms: fillDurationMs || null,
+      turnstile_verified: guardResult.turnstileVerified,
+      duplicate_of: guardResult.duplicateOf || null,
+      notification_dispatched: guardResult.dispatchNotification,
     };
 
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -99,19 +153,22 @@ export async function POST(request: Request) {
     let deliveredDurable = false;
     let deliveryMethod = 'none';
 
-    // Method 0: Supabase — the durable record, and the source /admin reads.
+    // Method 0: Supabase — durable record of all enquiries (including quarantined spam for review)
     if (leadStoreConfigured()) {
-      const stored = await saveLead({ ...data, enquiryId });
+      const stored = await saveLead(leadRecord);
       if (stored) {
         deliveredDurable = true;
         deliveryMethod = 'supabase';
       }
     }
 
-    // Method 1: Resend — an alert on top of the record, not a substitute for
-    // it. Runs whether or not the row was written.
-    if (resendApiKey) {
+    // Method 1: Resend Alert — ONLY dispatched for legitimate, clean enquiries!
+    // Quarantined spam or repeated duplicates MUST NOT trigger staff email alerts.
+    if (resendApiKey && guardResult.dispatchNotification) {
       try {
+        // Enforce strict header safety on reply-to address (no newlines/carriage returns)
+        const safeReplyTo = data.email.replace(/[\r\n]/g, '').trim();
+
         const emailRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -121,56 +178,34 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             from: 'EntireFM Commercial Portal <enquiries@entirefm.com>',
             to: [leadDeliveryEmail],
-            reply_to: data.email,
+            reply_to: safeReplyTo,
             subject: data.drone_brief
-              ? `[DRONE INSPECTION BRIEF - ${data.drone_brief.leadPriority || 'HIGH'}] ${data.service} — ${data.company || data.name} (${data.location})`
-              : `[NEW PROPOSAL REQUEST] ${data.service} — ${data.company || data.name} (${data.location})`,
+              ? `[DRONE BRIEF - ${data.drone_brief.leadPriority || 'HIGH'}] ${cleanService} — ${cleanCompany || cleanName} (${cleanLocation})`
+              : `[NEW PROPOSAL REQUEST] ${cleanService} — ${cleanCompany || cleanName} (${cleanLocation})`,
             html: `
               <h2>${data.drone_brief ? 'New Drone Inspection Brief Received' : 'New Commercial Enquiry / Proposal Request'}</h2>
               <p><strong>Enquiry ID:</strong> ${enquiryId}</p>
               ${data.drone_brief ? `<p><strong>Drone Brief Ref:</strong> ${data.drone_brief.referenceNumber || 'N/A'} (Priority: <span style="color:#d946ef;font-weight:bold;">${data.drone_brief.leadPriority || 'HIGH'}</span>)</p>` : ''}
               <hr />
               <h3>Contact Details</h3>
-              <p><strong>Name:</strong> ${data.name}</p>
-              <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-              <p><strong>Phone:</strong> ${data.phone || 'Not provided'}</p>
-              <p><strong>Company:</strong> ${data.company || 'Not provided'}</p>
+              <p><strong>Name:</strong> ${cleanName}</p>
+              <p><strong>Email:</strong> <a href="mailto:${safeReplyTo}">${safeReplyTo}</a></p>
+              <p><strong>Phone:</strong> ${sanitizeText(data.phone) || 'Not provided'}</p>
+              <p><strong>Company:</strong> ${cleanCompany || 'Not provided'}</p>
               <hr />
               <h3>Requirement</h3>
-              <p><strong>Service:</strong> ${data.service}</p>
-              <p><strong>Location:</strong> ${data.location}</p>
-              ${data.drone_brief ? `
-              <div style="background:#0b1220;color:#ffffff;padding:16px;border-radius:6px;margin:12px 0;">
-                <h4 style="color:#ff3e9d;margin-top:0;">Structured Drone Inspection Plan</h4>
-                <p><strong>Primary Service:</strong> ${data.drone_brief.recommendation?.primaryService || 'N/A'}</p>
-                <p><strong>Inspection Pack:</strong> ${data.drone_brief.recommendation?.inspectionPack || 'Custom'}</p>
-                <p><strong>Scope Category:</strong> ${data.drone_brief.recommendation?.scopeCategory || 'Standard'}</p>
-                <p><strong>Site Scale / Height:</strong> ${data.drone_brief.site?.siteScale || 'N/A'} (${data.drone_brief.inspection?.heightBand || 'N/A'})</p>
-                <p><strong>Assets to Inspect:</strong> ${(data.drone_brief.inspection?.assetsToInspect || []).join(', ')}</p>
-                <p><strong>Urgency:</strong> ${data.drone_brief.inspection?.urgency || 'Standard'}</p>
-                <p><strong>Remedial Works Interest:</strong> ${data.drone_brief.inspection?.remediationInterest || 'Not specified'}</p>
-              </div>
-              ` : ''}
-              ${data.asset_scanner_context ? `
-              <div style="background:#0b1220;color:#ffffff;padding:16px;border-radius:6px;margin:12px 0;">
-                <h4 style="color:#00d2ff;margin-top:0;">Asset Scanner Plant Verification Details</h4>
-                <p><strong>Asset Type:</strong> ${data.asset_scanner_context.assetType || 'N/A'}</p>
-                <p><strong>Manufacturer:</strong> ${data.asset_scanner_context.manufacturer || 'Not detected'}</p>
-                <p><strong>Model:</strong> ${data.asset_scanner_context.model || 'Not detected'}</p>
-                <p><strong>Serial Number:</strong> ${data.asset_scanner_context.serialNumber || 'Not detected'}</p>
-                <p><strong>Recommended SFG20 Regime:</strong> ${data.asset_scanner_context.recommendedRegime ? `${data.asset_scanner_context.recommendedRegime.taskRef} (${data.asset_scanner_context.recommendedRegime.frequency})` : 'None / Needs Review'}</p>
-              </div>
-              ` : ''}
+              <p><strong>Service:</strong> ${cleanService}</p>
+              <p><strong>Location:</strong> ${cleanLocation}</p>
               <p><strong>Message / Scope:</strong></p>
-              <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #2563eb;">
-                ${data.message.replace(/\n/g, '<br />')}
+              <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #2563eb;white-space:pre-wrap;">
+                ${cleanMessage}
               </blockquote>
               <hr />
-              <h3>Attribution Metadata</h3>
-              <p><strong>Conversion Page:</strong> ${data.conversion_page || 'N/A'}</p>
-              <p><strong>Landing Page:</strong> ${data.landing_page || 'N/A'}</p>
-              <p><strong>UTM Source / Campaign:</strong> ${data.utm_source || 'direct'} / ${data.utm_campaign || 'none'}</p>
-              <p><strong>Referrer:</strong> ${data.referrer || 'none'}</p>
+              <h3>Attribution &amp; Security</h3>
+              <p><strong>Conversion Page:</strong> ${sanitizeText(data.conversion_page) || 'N/A'}</p>
+              <p><strong>Landing Page:</strong> ${sanitizeText(data.landing_page) || 'N/A'}</p>
+              <p><strong>Spam Score:</strong> ${guardResult.riskScore} (${guardResult.spamStatus})</p>
+              <p><strong>Turnstile Verified:</strong> ${guardResult.turnstileVerified ? 'Yes' : 'Simulated / Dev'}</p>
               <p><strong>Timestamp:</strong> ${leadRecord.receivedAt}</p>
             `,
           }),
@@ -186,8 +221,8 @@ export async function POST(request: Request) {
       }
     }
 
-    // Method 2: Webhook / CRM Ingestion Endpoint
-    if (!deliveredDurable && webhookUrl) {
+    // Method 2: Webhook / CRM Ingestion (clean enquiries only)
+    if (!deliveredDurable && webhookUrl && guardResult.dispatchNotification) {
       try {
         const hookRes = await fetch(webhookUrl, {
           method: 'POST',
@@ -204,7 +239,7 @@ export async function POST(request: Request) {
       }
     }
 
-    // In local dev environment only, allow mock delivery with explicit log
+    // Local dev mock fallback
     const isDev = process.env.NODE_ENV === 'development';
     if (!deliveredDurable && isDev) {
       console.log('[DEV_MODE_LEAD_CAPTURE]', JSON.stringify(leadRecord, null, 2));
@@ -212,10 +247,8 @@ export async function POST(request: Request) {
       deliveryMethod = 'local_dev_mock';
     }
 
-    // FAIL-CLOSED: If production environment cannot guarantee durable storage/delivery
+    // FAIL-CLOSED
     if (!deliveredDurable) {
-      // Logged in full so the enquiry is at least recoverable from the
-      // platform logs while the sink is fixed. Better than losing it.
       console.error('[CRITICAL: LEAD PERSISTENCE FAILED — NO DURABLE SINK AVAILABLE]', JSON.stringify(leadRecord));
       return NextResponse.json(
         {
@@ -227,6 +260,7 @@ export async function POST(request: Request) {
       );
     }
 
+    // Generic friendly success response — never leak spam score or status to client
     return NextResponse.json(
       {
         success: true,
@@ -237,11 +271,11 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Internal server error';
+    console.error('[ENQUIRY_API_ERROR]', err);
     return NextResponse.json(
       {
         success: false,
-        message: 'Failed to process enquiry: ' + message,
+        message: 'An unexpected error occurred while processing your enquiry. Please try again.',
       },
       { status: 500 }
     );

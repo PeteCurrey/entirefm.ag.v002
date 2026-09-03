@@ -43,6 +43,14 @@ export interface LeadInput {
   lead_priority?: string;
   lead_source?: string;
   asset_scanner_context?: any;
+  spam_score?: number;
+  spam_flags?: string[];
+  spam_status?: 'CLEAN' | 'NEEDS_REVIEW' | 'SPAM_SUSPECTED' | 'CONFIRMED_SPAM' | 'CONFIRMED_GENUINE';
+  submission_ip?: string | null;
+  submission_duration_ms?: number | null;
+  turnstile_verified?: boolean;
+  duplicate_of?: string | null;
+  notification_dispatched?: boolean;
 }
 
 export interface LeadRow extends LeadInput {
@@ -106,35 +114,46 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     utm_campaign: lead.utm_campaign || '',
     utm_term: lead.utm_term || '',
     utm_content: lead.utm_content || '',
-    qualification_status: 'NEW',
-    status: 'NEW',
+    qualification_status: (lead.spam_status === 'SPAM_SUSPECTED' ? 'SPAM' : 'NEW') as any,
+    status: (lead.spam_status === 'SPAM_SUSPECTED' ? 'SPAM' : lead.spam_status === 'NEEDS_REVIEW' ? 'REVIEWING' : 'NEW') as any,
     notes: '',
     estimated_value_gbp: 0,
-    is_spam: false,
+    is_spam: lead.spam_status === 'SPAM_SUSPECTED',
+    spam_score: lead.spam_score || 0,
+    spam_flags: lead.spam_flags || [],
+    spam_status: lead.spam_status || 'CLEAN',
+    submission_ip: lead.submission_ip || null,
+    submission_duration_ms: lead.submission_duration_ms || null,
+    turnstile_verified: lead.turnstile_verified || false,
+    duplicate_of: lead.duplicate_of || null,
+    notification_dispatched: Boolean(lead.notification_dispatched),
     drone_brief: lead.drone_brief,
     lead_priority: (lead.lead_priority as any) || (lead.drone_brief?.leadPriority) || 'STANDARD',
   });
 
-  // 2. Trigger real-time admin notification
-  await createNotification({
-    type: 'NEW_ENQUIRY',
-    category: 'LEADS',
-    severity: 'ATTENTION',
-    title: `New Enquiry: ${lead.service || 'General FM'}`,
-    message: `Inbound enquiry from ${lead.company || lead.name} (${lead.location || 'UK'}).`,
-    entity_type: 'lead',
-    entity_id: lead.enquiryId,
-    action_url: `/admin/growth/leads/${lead.enquiryId}`,
-    dedupe_key: `lead:${lead.enquiryId}:new`,
-    created_at: now,
-    metadata: {
-      email: lead.email,
-      phone: lead.phone,
-      source: lead.conversion_page || lead.form_id || lead.landing_page,
-    },
-  }).catch((err) => {
-    console.warn('[NOTIFICATION_TRIGGER_WARN]', err);
-  });
+  // 2. Trigger real-time admin notification ONLY if lead is clean / not quarantined
+  if (lead.notification_dispatched !== false && lead.spam_status !== 'SPAM_SUSPECTED') {
+    await createNotification({
+      type: 'NEW_ENQUIRY',
+      category: 'LEADS',
+      severity: lead.spam_status === 'NEEDS_REVIEW' ? 'WARNING' : 'ATTENTION',
+      title: `${lead.spam_status === 'NEEDS_REVIEW' ? '[REVIEW NEEDED] ' : ''}New Enquiry: ${lead.service || 'General FM'}`,
+      message: `Inbound enquiry from ${lead.company || lead.name} (${lead.location || 'UK'}).`,
+      entity_type: 'lead',
+      entity_id: lead.enquiryId,
+      action_url: `/admin/growth/leads/${lead.enquiryId}`,
+      dedupe_key: `lead:${lead.enquiryId}:new`,
+      created_at: now,
+      metadata: {
+        email: lead.email,
+        phone: lead.phone,
+        source: lead.conversion_page || lead.form_id || lead.landing_page,
+        spam_score: lead.spam_score,
+      },
+    }).catch((err) => {
+      console.warn('[NOTIFICATION_TRIGGER_WARN]', err);
+    });
+  }
 
   const cfg = config();
   if (!cfg) return true; // Stored in memory successfully
@@ -170,6 +189,14 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     utm_term: lead.utm_term ?? '',
     utm_content: lead.utm_content ?? '',
     referrer: lead.referrer ?? '',
+    spam_score: lead.spam_score ?? 0,
+    spam_flags: lead.spam_flags ?? [],
+    spam_status: lead.spam_status ?? 'CLEAN',
+    submission_ip: lead.submission_ip ?? null,
+    submission_duration_ms: lead.submission_duration_ms ?? null,
+    turnstile_verified: lead.turnstile_verified ?? false,
+    duplicate_of: lead.duplicate_of ?? null,
+    notification_dispatched: Boolean(lead.notification_dispatched),
   };
 
   try {
@@ -229,8 +256,14 @@ export async function listLeads(limit = 200): Promise<LeadRow[]> {
 /** Move a lead through the handling states shown in the admin view. */
 export async function setLeadStatus(id: string, status: string): Promise<boolean> {
   const lead = growthMemoryStore.leads.get(id);
+  const isSpam = status === 'SPAM';
+  const spamStatus = isSpam ? 'CONFIRMED_SPAM' : 'CONFIRMED_GENUINE';
+
   if (lead) {
     lead.qualification_status = status as any;
+    lead.status = status as any;
+    lead.is_spam = isSpam;
+    lead.spam_status = spamStatus;
     growthMemoryStore.leads.set(id, lead);
   }
 
@@ -240,7 +273,12 @@ export async function setLeadStatus(id: string, status: string): Promise<boolean
     const res = await fetch(`${cfg.url}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
       method: 'PATCH',
       headers: headers(cfg.key, { Prefer: 'return=minimal' }),
-      body: JSON.stringify({ status, qualification_status: status }),
+      body: JSON.stringify({
+        status,
+        qualification_status: status,
+        is_spam: isSpam,
+        spam_status: spamStatus,
+      }),
       cache: 'no-store',
     });
     return res.ok;

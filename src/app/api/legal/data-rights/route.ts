@@ -27,9 +27,27 @@ const VALID_RELATIONSHIPS = [
   'OTHER',
 ] as const;
 
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`legal-data-rights:${clientIp}`, RATE_LIMITS.ENQUIRY);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests from your connection. Please wait.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
+
+    const honeypot = checkHoneypot(body[HONEYPOT_FIELD_NAME]);
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, reference: 'DSR-RECEIVED' });
+    }
+
     const {
       right_type,
       full_name,

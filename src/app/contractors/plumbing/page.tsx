@@ -50,25 +50,25 @@ const PLUMB_COMPLIANCE = [
 const PLUMB_DOCS = [
   {
     title: "Plumbing RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments for hot water, drainage, pipe freezing, and isolation.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering water isolations, hot works, and testing.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Plumbing Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering scalding, flood risk, confined voids, and chemical jointing.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, WRAS tracking, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function PlumbingContractorPage() {
           imageSrc="/images/editorial/entirefm-plumbing-booster-set-2000w.webp"
           imageAlt="Commercial plumbing water booster pump set"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Plumbing Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Plumbing Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "WRAS & Water Regs", label: "Commercial Assurance" },
             { figure: "£95 / yr", label: "Supplier Membership" },

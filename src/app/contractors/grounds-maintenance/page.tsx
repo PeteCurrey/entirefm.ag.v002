@@ -50,25 +50,25 @@ const GROUNDS_COMPLIANCE = [
 const GROUNDS_DOCS = [
   {
     title: "Grounds Maintenance RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments covering mowers, hedge cutters, tree climbing, and pesticide spray.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering flying debris, pedestrian segregation, and machinery.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Pesticide & Chemical COSHH",
-    href: "/contractor-resources/coshh-assessment",
+    href: "/contractor-resources/rams/what-is-a-method-statement",
     desc: "Chemical safety for Glyphosate weedkillers, fertilisers, and chainsaw bar oils.",
     type: "SAFETY" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, pesticide licence tracking, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function GroundsMaintenanceContractorPage() {
           imageSrc="/images/editorial/entirefm-headquarters-exterior-2000w.webp"
           imageAlt="Commercial property grounds and landscaped estate maintenance"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join Grounds Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join Grounds Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "NPTC / PA1 / PA6", label: "Pesticide Assurance" },
             { figure: "£95 / yr", label: "Supplier Membership" },

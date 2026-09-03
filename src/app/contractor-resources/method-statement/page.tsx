@@ -109,6 +109,21 @@ export default function MethodStatementGuidePage() {
                     <p className="text-[11px] text-slate-500 font-light">Photos, test sheets, and sign-offs captured.</p>
                   </div>
                 </div>
+
+                {/* Deep Guide Quick Link */}
+                <div className="p-4 bg-[#FAF9FB] border border-slate-200 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-mono font-bold text-[#EA580C] uppercase block">IN-DEPTH GUIDE</span>
+                    <h4 className="text-sm font-semibold text-slate-900">What Is a Method Statement? Comprehensive Contractor Guide</h4>
+                    <p className="text-xs text-slate-500 font-light">Explore safe systems of work, mandatory sections, and common drafting errors.</p>
+                  </div>
+                  <Link
+                    href="/contractor-resources/rams/what-is-a-method-statement"
+                    className="btn-primary text-xs py-2 px-4 shrink-0"
+                  >
+                    Read Guide &rarr;
+                  </Link>
+                </div>
               </div>
             </section>
 

@@ -51,8 +51,8 @@ export default function ContractorLocationsHub() {
           imageSrc="/images/editorial/entirefm-hero-headquarters-2560w.webp"
           imageAlt="EntireFM UK regional commercial contractor network"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Apply to Join the Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "View Membership (£95/yr)", href: "/suppliers/membership" }}
+          primaryCta={{ label: "Apply to Join the Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "View Membership (£95/yr)", href: "/contractors" }}
           statusBadge="UK Multi-Region"
         />
 
@@ -121,7 +121,7 @@ export default function ContractorLocationsHub() {
                 EntireFM is currently pre-registering trade contractors across <strong>Birmingham &amp; West Midlands, Liverpool, and Newcastle</strong>. Contractors in these areas can join the platform now to establish verified compliance in advance of commercial contract mobilisations.
               </p>
               <Link
-                href="/suppliers/apply"
+                href="/contractors/join"
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#EA580C] hover:underline"
               >
                 Pre-Register for Expansion Regions &rarr;

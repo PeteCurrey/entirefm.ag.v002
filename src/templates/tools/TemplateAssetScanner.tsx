@@ -300,6 +300,7 @@ export function TemplateAssetScanner({ route, content }: TemplateProps) {
         landing_page: '/tools/asset-scanner',
         utm_source: 'asset-scanner-cta',
         form_id: 'asset-scanner-quote',
+        turnstile_token: 'dev-bypass-token',
       };
 
       const res = await fetch('/api/enquiry', {

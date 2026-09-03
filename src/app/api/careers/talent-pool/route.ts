@@ -12,6 +12,10 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+import { checkEmailDomain } from '@/server/security/disposable-email';
+
 const ALLOWED_MIME_TYPES = [
   'application/pdf',
   'application/msword',
@@ -21,7 +25,24 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 export async function POST(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+
+    // 1. Rate limiting
+    const rateCheck = checkRateLimit(`talent-pool:${clientIp}`, RATE_LIMITS.CAREER_APPLY);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many registration requests from your connection. Please wait.' },
+        { status: 429 }
+      );
+    }
+
     const formData = await req.formData();
+
+    // 2. Honeypot check
+    const honeypot = checkHoneypot(formData.get(HONEYPOT_FIELD_NAME));
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, message: 'Profile saved to Talent Network.' });
+    }
 
     const firstName = formData.get('firstName')?.toString().trim();
     const lastName = formData.get('lastName')?.toString().trim();
@@ -44,6 +65,15 @@ export async function POST(req: NextRequest) {
     if (!firstName || !lastName || !email || !phone || !preferredLocation) {
       return NextResponse.json(
         { error: 'Please provide all required details (Name, Email, Phone, Preferred Location).' },
+        { status: 400 }
+      );
+    }
+
+    // 3. Disposable email check
+    const domainCheck = checkEmailDomain(email);
+    if (domainCheck.isDisposable) {
+      return NextResponse.json(
+        { error: 'Please provide a valid permanent or personal email address.' },
         { status: 400 }
       );
     }

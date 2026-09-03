@@ -22,9 +22,28 @@ export interface DataProtectionComplaintPayload {
   desiredOutcome: string;
 }
 
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+
 export async function POST(req: NextRequest) {
   try {
-    const body = (await req.json()) as DataProtectionComplaintPayload;
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`legal-complaint:${clientIp}`, RATE_LIMITS.ENQUIRY);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many submissions from your connection. Please wait before submitting another complaint.' },
+        { status: 429 }
+      );
+    }
+
+    const rawBody = (await req.json().catch(() => ({}))) as any;
+
+    const honeypot = checkHoneypot(rawBody[HONEYPOT_FIELD_NAME]);
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, reference: 'DPC-RECEIVED' });
+    }
+
+    const body = rawBody as DataProtectionComplaintPayload;
 
     // Validate required fields
     if (!body.fullName || !body.email || !body.relationship || !body.complaintType || !body.description) {

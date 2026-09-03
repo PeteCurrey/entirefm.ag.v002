@@ -42,8 +42,8 @@ export default function CityContractorPage() {
           imageSrc={loc.heroImage}
           imageAlt={loc.heroImageAlt}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Join ${loc.name} Network`, href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: `Join ${loc.name} Network`, href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Portal", href: "/contractors" }}
           statusBadge="Active Operating Hub"
         />
 

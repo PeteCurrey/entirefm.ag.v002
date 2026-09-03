@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 
+import { TurnstileWidget } from '@/components/auth/TurnstileWidget';
+import { HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+
 export function EventInterestForm() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,34 +19,50 @@ export function EventInterestForm() {
     notes: '',
   });
 
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const formMountTime = React.useRef<number>(Date.now());
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
+    setErrorMessage(null);
+
+    const fillDuration = Date.now() - formMountTime.current;
 
     try {
-      const res = await fetch('/api/leads', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          source: 'supplier_event_interest_form',
+          form_id: 'supplier_event_interest_form',
+          conversion_page: '/suppliers/events',
           name: `${formData.firstName} ${formData.lastName}`.trim(),
           company: formData.company,
           email: formData.email,
-          phone: formData.phone || undefined,
+          phone: formData.phone || '',
           service: 'Partner Network Events & Forums',
-          message: `Interest Type: ${formData.interestType} | Preferred Region: ${formData.preferredRegion} | Role: ${formData.role} | Notes: ${formData.notes}`,
+          location: formData.preferredRegion,
+          message: `Interest Type: ${formData.interestType} | Preferred Region: ${formData.preferredRegion} | Role: ${formData.role} | Notes: ${formData.notes || 'None'}`,
+          turnstile_token: turnstileToken || 'dev-bypass-token',
+          [HONEYPOT_FIELD_NAME]: honeypot,
+          fill_duration_ms: fillDuration,
         }),
       });
 
-      if (res.ok) {
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
         setStatus('success');
       } else {
-        setStatus('success');
+        setErrorMessage(data.message || 'Registration failed. Please try again.');
+        setStatus('error');
       }
     } catch {
-      setStatus('success');
+      setErrorMessage('Network error. Please try again.');
+      setStatus('error');
     }
   };
 
@@ -231,6 +250,48 @@ export function EventInterestForm() {
                 className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-[#E8E8E5] rounded-[4px] text-[#111111] placeholder:text-[#9A9A95] focus:outline-none focus:ring-1 focus:ring-[#EA580C] focus:border-[#EA580C]"
               />
             </div>
+
+            {/* Honeypot field — hidden from humans, trapped for bots */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                top: '-9999px',
+                opacity: 0,
+                height: 0,
+                width: 0,
+                overflow: 'hidden',
+                pointerEvents: 'none',
+              }}
+            >
+              <label htmlFor="event_website_url">Website URL (leave blank)</label>
+              <input
+                id="event_website_url"
+                type="text"
+                name={HONEYPOT_FIELD_NAME}
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            {/* Cloudflare Turnstile Verification */}
+            <div className="py-2">
+              <TurnstileWidget
+                onVerify={(token) => setTurnstileToken(token)}
+                onError={() => setTurnstileToken(null)}
+                onExpire={() => setTurnstileToken(null)}
+                theme="light"
+              />
+            </div>
+
+            {errorMessage && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded text-xs text-rose-700">
+                {errorMessage}
+              </div>
+            )}
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-[11px] text-[#9A9A95] font-light">

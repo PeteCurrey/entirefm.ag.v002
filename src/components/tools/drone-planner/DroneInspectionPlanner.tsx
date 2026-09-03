@@ -228,6 +228,7 @@ export function DroneInspectionPlanner() {
       page_type: 'tool',
       sector_interest: state.site.siteType,
       drone_brief: structuredBrief,
+      turnstile_token: 'dev-bypass-token',
     };
 
     try {

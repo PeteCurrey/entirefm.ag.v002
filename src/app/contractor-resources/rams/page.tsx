@@ -102,6 +102,36 @@ export default function RamsGuidePage() {
                 <p>
                   Rather than treating safety as an abstract compliance exercise, a well-structured RAMS bridges the gap between statutory obligations and real-world site execution. It answers two fundamental questions for clients, building managers, and site engineers:
                 </p>
+
+                {/* Deep Guide Quick Links */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+                  <Link
+                    href="/contractor-resources/rams/what-are-rams"
+                    className="p-3.5 bg-[#FAF9FB] border border-slate-200 rounded-sm hover:border-[#EA580C] hover:bg-white transition-all group"
+                  >
+                    <span className="text-[10px] font-mono text-[#EA580C] font-semibold block">DEEP GUIDE</span>
+                    <span className="text-xs font-semibold text-slate-900 group-hover:text-[#EA580C]">What Are RAMS? &rarr;</span>
+                    <span className="text-[11px] text-slate-500 font-light block mt-0.5">Statutory legal basis &amp; meaning</span>
+                  </Link>
+
+                  <Link
+                    href="/contractor-resources/rams/how-to-write-rams"
+                    className="p-3.5 bg-[#FAF9FB] border border-slate-200 rounded-sm hover:border-[#EA580C] hover:bg-white transition-all group"
+                  >
+                    <span className="text-[10px] font-mono text-[#EA580C] font-semibold block">STEP-BY-STEP</span>
+                    <span className="text-xs font-semibold text-slate-900 group-hover:text-[#EA580C]">How to Write RAMS &rarr;</span>
+                    <span className="text-[11px] text-slate-500 font-light block mt-0.5">11-step authoring workflow</span>
+                  </Link>
+
+                  <Link
+                    href="/contractor-resources/rams/what-is-a-method-statement"
+                    className="p-3.5 bg-[#FAF9FB] border border-slate-200 rounded-sm hover:border-[#EA580C] hover:bg-white transition-all group"
+                  >
+                    <span className="text-[10px] font-mono text-[#EA580C] font-semibold block">PROCEDURE</span>
+                    <span className="text-xs font-semibold text-slate-900 group-hover:text-[#EA580C]">Method Statements &rarr;</span>
+                    <span className="text-[11px] text-slate-500 font-light block mt-0.5">Safe Systems of Work guide</span>
+                  </Link>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
                   <div className="p-5 rounded-sm bg-[#FAFAF8] border border-slate-200 space-y-2">
                     <span className="text-[10px] font-bold text-[#EA580C] uppercase tracking-wider block">

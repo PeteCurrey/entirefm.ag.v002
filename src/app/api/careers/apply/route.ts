@@ -11,6 +11,10 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+import { checkEmailDomain } from '@/server/security/disposable-email';
+
 const ALLOWED_MIME_TYPES = [
   'application/pdf',
   'application/msword',
@@ -20,7 +24,24 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 export async function POST(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+
+    // 1. Rate limiting
+    const rateCheck = checkRateLimit(`careers-apply:${clientIp}`, RATE_LIMITS.CAREER_APPLY);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many job applications from your connection. Please wait.' },
+        { status: 429 }
+      );
+    }
+
     const formData = await req.formData();
+
+    // 2. Honeypot check
+    const honeypot = checkHoneypot(formData.get(HONEYPOT_FIELD_NAME));
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, message: 'Application received.' });
+    }
 
     const vacancyId = formData.get('vacancyId')?.toString();
     const firstName = formData.get('firstName')?.toString().trim();
@@ -38,6 +59,15 @@ export async function POST(req: NextRequest) {
     if (!vacancyId || !firstName || !lastName || !email || !phone || !location) {
       return NextResponse.json(
         { error: 'Please complete all required fields (Name, Email, Phone, Location).' },
+        { status: 400 }
+      );
+    }
+
+    // 3. Disposable email check
+    const domainCheck = checkEmailDomain(email);
+    if (domainCheck.isDisposable) {
+      return NextResponse.json(
+        { error: 'Please provide a valid personal or permanent email address.' },
         { status: 400 }
       );
     }

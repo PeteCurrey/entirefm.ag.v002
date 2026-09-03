@@ -50,25 +50,25 @@ const FIRE_COMPLIANCE = [
 const FIRE_DOCS = [
   {
     title: "Fire & Security RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments covering live panel testing, sounder testing, and working at height.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering panel isolations, false alarm prevention, and testing.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Life Safety Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering acoustic shock, ladder access to detectors, and arc flash.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, BAFE/NSI tracking, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function FireSecurityContractorPage() {
           imageSrc="/images/editorial/entirefm-access-control-install-2000w.webp"
           imageAlt="Engineer commissioning commercial access control and security system"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join Fire & Security Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join Fire & Security Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "BAFE & BS5839", label: "Life Safety Assurance" },
             { figure: "£95 / yr", label: "Supplier Membership" },

@@ -50,25 +50,25 @@ const ROOF_COMPLIANCE = [
 const ROOF_DOCS = [
   {
     title: "Working at Height RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Comprehensive guide to edge protection, fragile roof lights, and harness safety.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering roof access, lifting, and weather limits.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Roofing Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering wind thresholds, fragile surfaces, and dropped objects.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, insurance verification, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function RoofingContractorPage() {
           imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
           imageAlt="Commercial roofing survey and inspection on high-level facility"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Roofing Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Roofing Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "Height Safety", label: "Work at Height 2005" },
             { figure: "£95 / yr", label: "Supplier Membership" },

@@ -104,6 +104,29 @@ export default function RiskAssessmentGuidePage() {
                     </div>
                   </div>
                 ))}
+
+                {/* Deep Guide Quick Link */}
+                <div className="p-4 bg-[#FAF9FB] border border-slate-200 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mt-4">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-mono font-bold text-[#EA580C] uppercase block">IN-DEPTH GUIDES</span>
+                    <h4 className="text-sm font-semibold text-slate-900">What Is a Risk Assessment? &amp; How to Write One</h4>
+                    <p className="text-xs text-slate-500 font-light">Explore our deep guides covering hazard identification, 5x5 scoring, and plantroom case studies.</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <Link
+                      href="/contractor-resources/risk-assessments/what-is-a-risk-assessment"
+                      className="btn-ghost-light text-xs py-2 px-3 border border-slate-300"
+                    >
+                      Overview &rarr;
+                    </Link>
+                    <Link
+                      href="/contractor-resources/risk-assessments/how-to-write-a-risk-assessment"
+                      className="btn-primary text-xs py-2 px-4"
+                    >
+                      How-To &rarr;
+                    </Link>
+                  </div>
+                </div>
               </div>
             </section>
 

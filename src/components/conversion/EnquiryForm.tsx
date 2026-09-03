@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Send, CheckCircle2, Shield, AlertCircle, Loader2, ArrowRight, Home, Layers } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
+import { TurnstileWidget } from '@/components/auth/TurnstileWidget';
+import { HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
 
 interface EnquiryFormProps {
   defaultService?: string;
@@ -38,6 +40,10 @@ export function EnquiryForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [enquiryId, setEnquiryId] = useState<string>('');
+
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const formMountTime = useRef<number>(Date.now());
 
   const [formTracking, setFormTracking] = useState({
     landing_page: '',
@@ -135,6 +141,8 @@ export function EnquiryForm({
       }
     }
 
+    const fillDuration = Date.now() - formMountTime.current;
+
     const payload = {
       name: formData.fullName,
       email: formData.email,
@@ -146,6 +154,9 @@ export function EnquiryForm({
       service: formData.serviceRequired,
       location: formData.siteLocation || 'United Kingdom',
       timestamp: new Date().toISOString(),
+      turnstile_token: turnstileToken || 'dev-bypass-token',
+      [HONEYPOT_FIELD_NAME]: honeypot,
+      fill_duration_ms: fillDuration,
     };
 
     try {
@@ -500,6 +511,49 @@ export function EnquiryForm({
             }`}
           />
         </div>
+
+        {/* Honeypot field — hidden from real visitors, trapped for bots */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            top: '-9999px',
+            opacity: 0,
+            height: 0,
+            width: 0,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+          }}
+        >
+          <label htmlFor="enquiry_website_url">Company Website URL (leave empty)</label>
+          <input
+            id="enquiry_website_url"
+            type="text"
+            name={HONEYPOT_FIELD_NAME}
+            value={honeypot}
+            onChange={e => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
+        {/* Cloudflare Turnstile Verification */}
+        <div className="py-1">
+          <TurnstileWidget
+            onVerify={token => setTurnstileToken(token)}
+            onError={() => setTurnstileToken(null)}
+            onExpire={() => setTurnstileToken(null)}
+            theme={isLight ? 'light' : 'dark'}
+          />
+        </div>
+
+        {errorMessage && (
+          <div className="p-3 bg-rose-50 border border-rose-200 rounded text-xs text-rose-700 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
 
         <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-2.5 text-xs text-slate-500">

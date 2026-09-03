@@ -50,25 +50,25 @@ const CLEAN_COMPLIANCE = [
 const CLEAN_DOCS = [
   {
     title: "COSHH Assessment Guide",
-    href: "/contractor-resources/coshh-assessment",
+    href: "/contractor-resources/rams/what-is-a-method-statement",
     desc: "Complete guide to managing cleaning chemicals, dilutions, Safety Data Sheets, and PPE.",
     type: "SAFETY" as const,
   },
   {
     title: "Cleaning RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Standard risk assessment covering wet floors, chemical handling, and trailing electrical leads.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Commercial RAMS template structured for office, industrial, and clinical cleaning tasks.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, DBS vetting management, and automated 90/60/30-day alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function CleaningContractorPage() {
           imageSrc="/images/editorial/entirefm-reception-2000w.webp"
           imageAlt="Commercial corporate office reception and cleaning standard"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Cleaning Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Cleaning Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "BICSc Standards", label: "Colour-Coded Hygiene" },
             { figure: "£95 / yr", label: "Supplier Membership" },

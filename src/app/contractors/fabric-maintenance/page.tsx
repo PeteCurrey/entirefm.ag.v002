@@ -50,25 +50,25 @@ const FABRIC_COMPLIANCE = [
 const FABRIC_DOCS = [
   {
     title: "Fabric Maintenance RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments covering power tools, dust control, asbestos checks, and access.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering occupied building repairs and noise controls.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Building Fabric Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering sharp tools, wood dust, manual handling, and ceiling voids.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, trade card tracking, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function FabricMaintenanceContractorPage() {
           imageSrc="/images/editorial/entirefm-site-arrival-2000w.webp"
           imageAlt="Commercial building fabric maintenance engineer on site"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Fabric Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Fabric Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "Fire Doors & Joinery", label: "Building Safety Act" },
             { figure: "£95 / yr", label: "Supplier Membership" },

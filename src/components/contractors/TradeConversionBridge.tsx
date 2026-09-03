@@ -21,11 +21,11 @@ export function TradeConversionBridge({ tradeName }: { tradeName: string }) {
           </div>
 
           <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
-            <Link href="/suppliers/apply" className="btn-primary text-xs py-3 px-6 font-bold justify-center">
-              Apply to Join EntireFM &rarr;
+            <Link href="/contractors/join" className="btn-primary text-xs py-3 px-6 font-bold justify-center">
+              Apply to Join Network &rarr;
             </Link>
-            <Link href="/suppliers/membership" className="btn-ghost-light text-xs py-3 px-6 justify-center">
-              View Membership (£95/yr)
+            <Link href="/contractors" className="btn-ghost-light text-xs py-3 px-6 justify-center">
+              Contractor Hub (£95/yr)
             </Link>
           </div>
         </div>

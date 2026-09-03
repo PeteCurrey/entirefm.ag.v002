@@ -18,13 +18,20 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
 
   // Compute status counts
   const counts = useMemo(() => {
-    const map: Record<string, number> = { ALL: initialLeads.length, NEW: 0, QUALIFIED: 0, PROPOSAL: 0, WON: 0 };
+    const map: Record<string, number> = { ALL: 0, NEW: 0, QUALIFIED: 0, PROPOSAL: 0, WON: 0, SPAM: 0 };
     initialLeads.forEach((l) => {
       const s = (l.qualification_status || 'NEW').toUpperCase();
-      if (s === 'NEW') map.NEW = (map.NEW || 0) + 1;
-      else if (s === 'QUALIFIED') map.QUALIFIED = (map.QUALIFIED || 0) + 1;
-      else if (s === 'PROPOSAL' || s === 'OPPORTUNITY') map.PROPOSAL = (map.PROPOSAL || 0) + 1;
-      else if (s === 'WON') map.WON = (map.WON || 0) + 1;
+      const isSpam = s === 'SPAM' || l.spam_status === 'SPAM_SUSPECTED' || Boolean(l.is_spam);
+
+      if (isSpam) {
+        map.SPAM = (map.SPAM || 0) + 1;
+      } else {
+        map.ALL += 1;
+        if (s === 'NEW') map.NEW = (map.NEW || 0) + 1;
+        else if (s === 'QUALIFIED') map.QUALIFIED = (map.QUALIFIED || 0) + 1;
+        else if (s === 'PROPOSAL' || s === 'OPPORTUNITY') map.PROPOSAL = (map.PROPOSAL || 0) + 1;
+        else if (s === 'WON') map.WON = (map.WON || 0) + 1;
+      }
     });
     return map;
   }, [initialLeads]);
@@ -41,12 +48,20 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
   // Filtered leads
   const filteredLeads = useMemo(() => {
     return initialLeads.filter((l) => {
-      // Tab filter
       const status = (l.qualification_status || 'NEW').toUpperCase();
-      if (activeTab === 'NEW' && status !== 'NEW') return false;
-      if (activeTab === 'QUALIFIED' && status !== 'QUALIFIED') return false;
-      if (activeTab === 'PROPOSAL' && status !== 'PROPOSAL' && status !== 'OPPORTUNITY') return false;
-      if (activeTab === 'WON' && status !== 'WON') return false;
+      const isSpam = status === 'SPAM' || l.spam_status === 'SPAM_SUSPECTED' || Boolean(l.is_spam);
+
+      // Tab filter
+      if (activeTab === 'SPAM') {
+        if (!isSpam) return false;
+      } else {
+        // Standard commercial tabs exclude quarantined spam
+        if (isSpam) return false;
+        if (activeTab === 'NEW' && status !== 'NEW') return false;
+        if (activeTab === 'QUALIFIED' && status !== 'QUALIFIED') return false;
+        if (activeTab === 'PROPOSAL' && status !== 'PROPOSAL' && status !== 'OPPORTUNITY') return false;
+        if (activeTab === 'WON' && status !== 'WON') return false;
+      }
 
       // Service filter
       if (serviceFilter !== 'ALL' && l.service !== serviceFilter) return false;
@@ -70,11 +85,12 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
   }, [initialLeads, activeTab, serviceFilter, search]);
 
   const filterTabs = [
-    { id: 'ALL', label: 'All Inbound', count: counts.ALL },
+    { id: 'ALL', label: 'Commercial Inbound', count: counts.ALL },
     { id: 'NEW', label: 'New', count: counts.NEW },
     { id: 'QUALIFIED', label: 'Qualified', count: counts.QUALIFIED },
     { id: 'PROPOSAL', label: 'Proposal / Opportunity', count: counts.PROPOSAL },
     { id: 'WON', label: 'Won Commercial', count: counts.WON },
+    { id: 'SPAM', label: 'Quarantine / Spam', count: counts.SPAM },
   ];
 
   return (
@@ -234,14 +250,27 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
                       </div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <StatusDot
-                        status={statusType}
-                        label={
-                          <span className="font-medium text-[11px] uppercase tracking-wider text-[#111111]">
-                            {status}
+                      <div className="flex flex-col gap-1 items-start">
+                        <StatusDot
+                          status={statusType}
+                          label={
+                            <span className="font-medium text-[11px] uppercase tracking-wider text-[#111111]">
+                              {status}
+                            </span>
+                          }
+                        />
+                        {typeof l.spam_score === 'number' && l.spam_score > 0 && (
+                          <span
+                            className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                              l.spam_score >= 65
+                                ? 'bg-rose-100 text-rose-700'
+                                : 'bg-amber-100 text-amber-800'
+                            }`}
+                          >
+                            Risk: {l.spam_score}/100
                           </span>
-                        }
-                      />
+                        )}
+                      </div>
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       <Link

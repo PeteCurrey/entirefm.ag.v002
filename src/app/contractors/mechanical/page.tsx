@@ -50,25 +50,25 @@ const MECH_COMPLIANCE = [
 const MECH_DOCS = [
   {
     title: "Mechanical RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments and method statements for plantroom maintenance and pump overhauls.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering mechanical isolation, lifting, and pressure testing.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Plantroom Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering rotating machinery, hot surfaces, pressure vessels, and heavy lifting.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, insurance verification, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function MechanicalContractorPage() {
           imageSrc="/images/editorial/entirefm-plantroom-valves-survey-2560w.webp"
           imageAlt="Commercial heating engineer inspecting plantroom valves"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Mechanical Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Mechanical Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "Gas Safe / Refcom", label: "Scheme Verified" },
             { figure: "£95 / yr", label: "Supplier Membership" },

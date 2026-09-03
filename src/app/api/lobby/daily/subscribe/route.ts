@@ -1,22 +1,44 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { addSubscriber, checkSuppression } from '@/server/newsletter/store';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+import { checkEmailDomain } from '@/server/security/disposable-email';
 
 const SubscribeDailySchema = z.object({
-  email: z.string().email('Please enter a valid work email address'),
-  firstName: z.string().optional().default(''),
-  company: z.string().optional().default(''),
-  role: z.string().optional().default(''),
-  preferences: z.array(z.string()).optional().default(['DAILY_LOBBY']),
-  signupPage: z.string().optional().default('/lobby'),
-  utmSource: z.string().optional().default('lobby_signup'),
-  utmMedium: z.string().optional().default('organic'),
-  utmCampaign: z.string().optional().default('the_lobby_daily_signup'),
+  email: z.string().email('Please enter a valid work email address').max(254),
+  firstName: z.string().max(100).optional().default(''),
+  company: z.string().max(120).optional().default(''),
+  role: z.string().max(100).optional().default(''),
+  preferences: z.array(z.string().max(50)).optional().default(['DAILY_LOBBY']),
+  signupPage: z.string().max(300).optional().default('/lobby'),
+  utmSource: z.string().max(100).optional().default('lobby_signup'),
+  utmMedium: z.string().max(100).optional().default('organic'),
+  utmCampaign: z.string().max(100).optional().default('the_lobby_daily_signup'),
+  [HONEYPOT_FIELD_NAME]: z.any().optional(),
 });
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const clientIp = getClientIp(req);
+
+    // 1. Rate limiting check
+    const rateCheck = checkRateLimit(`lobby-daily:${clientIp}`, RATE_LIMITS.NEWSLETTER);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many subscription requests from your connection. Please wait.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
+
+    // 2. Honeypot check
+    const honeypot = checkHoneypot(body[HONEYPOT_FIELD_NAME]);
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, message: 'Subscribed to The Lobby Daily.' });
+    }
+
     const result = SubscribeDailySchema.safeParse(body);
 
     if (!result.success) {
@@ -29,6 +51,15 @@ export async function POST(req: Request) {
     const { email, firstName, company, role, preferences, signupPage, utmSource, utmMedium, utmCampaign } =
       result.data;
 
+    // 3. Disposable email check
+    const domainCheck = checkEmailDomain(email);
+    if (domainCheck.isDisposable) {
+      return NextResponse.json(
+        { error: 'Please enter a valid corporate or professional email address.' },
+        { status: 400 }
+      );
+    }
+
     // Check suppression list first
     const isSuppressed = await checkSuppression(email);
     if (isSuppressed) {
@@ -38,7 +69,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { subscriber, created, error } = await addSubscriber({
+    const { created, error } = await addSubscriber({
       email,
       firstName,
       company,
@@ -61,10 +92,14 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       created,
-      message: 'You are confirmed for The Lobby Daily executive intelligence briefing.',
-      preferences,
+      message: created
+        ? 'You are now subscribed to The Lobby Daily edition.'
+        : 'Your subscription preferences have been updated.',
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

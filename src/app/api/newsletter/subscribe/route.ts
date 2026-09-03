@@ -1,27 +1,48 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { addSubscriber, listSubscribers, checkSuppression } from '@/server/newsletter/store';
+import { addSubscriber } from '@/server/newsletter/store';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/server/security/rate-limiter';
+import { checkHoneypot, HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+import { checkEmailDomain } from '@/server/security/disposable-email';
 
 const SubscribeSchema = z.object({
-  email: z.string().email('Please enter a valid work email address'),
-  firstName: z.string().optional().default(''),
-  company: z.string().optional().default(''),
-  role: z.string().optional().default(''),
-  consentTextVersion: z.string().optional().default('2026-V1'),
-  signupPage: z.string().optional().default('/fm-briefing'),
-  utmSource: z.string().optional(),
-  utmMedium: z.string().optional(),
-  utmCampaign: z.string().optional(),
-  utmTerm: z.string().optional(),
-  utmContent: z.string().optional(),
-  interests: z.array(z.string()).optional().default([]),
+  email: z.string().email('Please enter a valid work email address').max(254),
+  firstName: z.string().max(100).optional().default(''),
+  company: z.string().max(120).optional().default(''),
+  role: z.string().max(100).optional().default(''),
+  consentTextVersion: z.string().max(50).optional().default('2026-V1'),
+  signupPage: z.string().max(300).optional().default('/fm-briefing'),
+  utmSource: z.string().max(100).optional(),
+  utmMedium: z.string().max(100).optional(),
+  utmCampaign: z.string().max(100).optional(),
+  utmTerm: z.string().max(100).optional(),
+  utmContent: z.string().max(100).optional(),
+  interests: z.array(z.string().max(100)).optional().default([]),
+  [HONEYPOT_FIELD_NAME]: z.any().optional(),
 });
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const result = SubscribeSchema.safeParse(body);
+    const clientIp = getClientIp(req);
 
+    // 1. IP rate limit check
+    const rateCheck = checkRateLimit(`newsletter:${clientIp}`, RATE_LIMITS.NEWSLETTER);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many subscription requests from your connection. Please wait.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
+
+    // 2. Honeypot check
+    const honeypot = checkHoneypot(body[HONEYPOT_FIELD_NAME]);
+    if (honeypot.triggered) {
+      return NextResponse.json({ success: true, message: 'Subscription preferences updated.' });
+    }
+
+    const result = SubscribeSchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json(
         { error: result.error.errors[0]?.message || 'Invalid input data' },
@@ -29,7 +50,16 @@ export async function POST(req: Request) {
       );
     }
 
-    const { subscriber, created, error } = await addSubscriber({
+    // 3. Disposable email check
+    const domainCheck = checkEmailDomain(result.data.email);
+    if (domainCheck.isDisposable) {
+      return NextResponse.json(
+        { error: 'Please use a valid corporate or permanent email address.' },
+        { status: 400 }
+      );
+    }
+
+    const { created, error } = await addSubscriber({
       email: result.data.email,
       firstName: result.data.firstName,
       company: result.data.company,
@@ -58,17 +88,10 @@ export async function POST(req: Request) {
         ? 'Thank you for subscribing to The FM Briefing.'
         : 'Your subscription preferences have been updated.',
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
-}
-
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const status = searchParams.get('status') || undefined;
-  const limit = parseInt(searchParams.get('limit') || '50', 10);
-  const offset = parseInt(searchParams.get('offset') || '0', 10);
-
-  const data = await listSubscribers({ status, limit, offset });
-  return NextResponse.json(data);
 }

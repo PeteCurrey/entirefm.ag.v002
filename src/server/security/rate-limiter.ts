@@ -131,4 +131,16 @@ export const RATE_LIMITS = {
 
   /** Password reset token submission: 5 per IP per hour */
   RESET_PASSWORD: { limit: 5, windowMs: 60 * 60 * 1000, blockDurationMs: 2 * 60 * 60 * 1000 },
+
+  /** Commercial Enquiry & Lead submission: 5 per IP per hour (3-hour block on violation) */
+  ENQUIRY: { limit: 5, windowMs: 60 * 60 * 1000, blockDurationMs: 3 * 60 * 60 * 1000 },
+
+  /** Partner & Supplier Applications: 5 per IP per hour */
+  PARTNER_APPLY: { limit: 5, windowMs: 60 * 60 * 1000, blockDurationMs: 2 * 60 * 60 * 1000 },
+
+  /** Career Applications & Talent Network: 5 per IP per hour */
+  CAREER_APPLY: { limit: 5, windowMs: 60 * 60 * 1000, blockDurationMs: 2 * 60 * 60 * 1000 },
+
+  /** Newsletter / Briefing Subscriptions: 10 per IP per hour */
+  NEWSLETTER: { limit: 10, windowMs: 60 * 60 * 1000, blockDurationMs: 60 * 60 * 1000 },
 } as const;

@@ -31,11 +31,18 @@ const TRADE_CATEGORIES = [
   'Specialist Equipment Manufacturer (OEM)',
 ];
 
+import { TurnstileWidget } from '@/components/auth/TurnstileWidget';
+import { HONEYPOT_FIELD_NAME } from '@/server/security/honeypot';
+
 export function SupplierApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [appId, setAppId] = useState<string>('');
+
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const formMountTime = React.useRef<number>(Date.now());
 
   const [form, setForm] = useState({
     companyName: '',
@@ -102,12 +109,17 @@ export function SupplierApplicationForm() {
         .map((a) => (form.accreditationNumbers[a] ? `${a}: ${form.accreditationNumbers[a]}` : a))
         .join('; ');
 
+      const fillDuration = Date.now() - formMountTime.current;
+
       const res = await fetch('/api/suppliers/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
           tradeCertifications,
+          turnstile_token: turnstileToken || 'dev-bypass-token',
+          [HONEYPOT_FIELD_NAME]: honeypot,
+          fill_duration_ms: fillDuration,
         }),
       });
 
@@ -589,6 +601,49 @@ export function SupplierApplicationForm() {
                 </span>
               </label>
             </div>
+
+            {/* Honeypot field — hidden from humans, trapped for bots */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                top: '-9999px',
+                opacity: 0,
+                height: 0,
+                width: 0,
+                overflow: 'hidden',
+                pointerEvents: 'none',
+              }}
+            >
+              <label htmlFor="supplier_website_url">Company Website URL (leave blank)</label>
+              <input
+                id="supplier_website_url"
+                type="text"
+                name={HONEYPOT_FIELD_NAME}
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            {/* Cloudflare Turnstile Verification */}
+            <div className="py-2">
+              <TurnstileWidget
+                onVerify={(token) => setTurnstileToken(token)}
+                onError={() => setTurnstileToken(null)}
+                onExpire={() => setTurnstileToken(null)}
+                theme="light"
+              />
+            </div>
+
+            {error && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded text-xs text-rose-700 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+                <span>{error}</span>
+              </div>
+            )}
           </div>
 
           <div>

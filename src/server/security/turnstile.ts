@@ -44,17 +44,17 @@ export async function verifyTurnstileToken(
 
   const secret = process.env.TURNSTILE_SECRET_KEY;
 
-  // If not configured in production, block; in local dev, warn and allow non-empty tokens
+  // If not configured in production, block; in local dev, only allow the explicit dev-bypass-token
   if (!secret) {
     if (process.env.NODE_ENV === 'production') {
       console.error(
         '[TURNSTILE] TURNSTILE_SECRET_KEY is not configured. ' +
-          'All registrations will be BLOCKED in production without it.'
+          'All registrations and submissions will be BLOCKED in production without it.'
       );
       return { success: false, errorCodes: ['secret-not-configured'], shouldBlock: true };
     }
-    // Development: allow non-empty token
-    return { success: true, errorCodes: [], shouldBlock: false };
+    // Development: only dev-bypass-token is accepted
+    return { success: false, errorCodes: ['invalid-dev-token'], shouldBlock: true };
   }
 
   try {

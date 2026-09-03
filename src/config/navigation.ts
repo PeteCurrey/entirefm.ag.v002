@@ -264,15 +264,16 @@ export const FOOTER_NAV: NavColumn[] = [
     ],
   },
   {
-    heading: 'Suppliers & Partners',
+    heading: 'Contractors & Suppliers',
     links: [
-      { label: 'Partner Network', href: '/suppliers/partner-network' },
-      { label: 'How We Work', href: '/suppliers/how-we-work' },
-      { label: 'Partner Network Framework', href: '/suppliers/membership' },
-      { label: 'Events & Forums', href: '/suppliers/events' },
+      { label: 'Contractor Network UK', href: '/contractors' },
+      { label: 'Join Contractor Network', href: '/contractors/join' },
+      { label: 'Contractor Resources Hub', href: '/contractor-resources' },
+      { label: 'Commercial Maintenance', href: '/contractors/commercial-maintenance' },
+      { label: 'Property Management Panel', href: '/contractors/property-management' },
       { label: 'Become a Supplier', href: '/suppliers/apply' },
       { label: 'Supplier Portal', href: '/supplier-portal/sign-in' },
-      { label: 'Supplier FAQ', href: '/suppliers/faq' },
+      { label: 'Supplier Membership', href: '/suppliers/membership' },
     ],
   },
   {

@@ -85,6 +85,14 @@ export interface ExtendedLead {
   location_interest?: string;
   is_test?: boolean;
   is_spam?: boolean;
+  spam_score?: number;
+  spam_flags?: string[];
+  spam_status?: 'CLEAN' | 'NEEDS_REVIEW' | 'SPAM_SUSPECTED' | 'CONFIRMED_SPAM' | 'CONFIRMED_GENUINE';
+  submission_ip?: string | null;
+  submission_duration_ms?: number | null;
+  turnstile_verified?: boolean;
+  duplicate_of?: string | null;
+  notification_dispatched?: boolean;
 }
 
 export interface CommercialOpportunity {

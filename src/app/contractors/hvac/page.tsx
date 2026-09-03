@@ -50,25 +50,25 @@ const HVAC_COMPLIANCE = [
 const HVAC_DOCS = [
   {
     title: "HVAC RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments covering refrigerant handling, roof access, and heavy lifting.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering rooftop plant decks, F-Gas, and isolations.",
     type: "TEMPLATE" as const,
   },
   {
     title: "COSHH & Refrigerant Assessment",
-    href: "/contractor-resources/coshh-assessment",
+    href: "/contractor-resources/rams/what-is-a-method-statement",
     desc: "Chemical safety for R410A, R32, R134a, compressor oils, and acidic coil cleaners.",
     type: "SAFETY" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, F-Gas registration tracking, and automated 90/60/30-day alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function HvacContractorPage() {
           imageSrc="/images/editorial/entirefm-hvac-plant-deck-2000w.webp"
           imageAlt="Commercial HVAC rooftop condenser plant deck"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the HVAC Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the HVAC Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "Refcom / F-Gas", label: "Statutory Compliance" },
             { figure: "£95 / yr", label: "Supplier Membership" },

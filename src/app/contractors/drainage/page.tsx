@@ -50,25 +50,25 @@ const DRAIN_COMPLIANCE = [
 const DRAIN_DOCS = [
   {
     title: "Drainage RAMS Guide",
-    href: "/contractor-resources/rams",
+    href: "/contractor-resources/rams/what-are-rams",
     desc: "Complete guide to risk assessments covering high-pressure jetting, toxic sewer gases, and confined spaces.",
     type: "GUIDE" as const,
   },
   {
     title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
+    href: "/contractor-resources/rams/how-to-write-rams",
     desc: "Standard commercial RAMS framework covering jetting barriers, manhole covers, and gas detection.",
     type: "TEMPLATE" as const,
   },
   {
     title: "Drainage Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
     desc: "5x5 risk evaluation covering hydrogen sulphide (H2S), biohazards (Weil's disease), and high pressure.",
     type: "GUIDE" as const,
   },
   {
     title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
     desc: "6 statutory pillars, WJA tracking, and automated 90/60/30-day credential alerts.",
     type: "COMPLIANCE" as const,
   },
@@ -112,8 +112,8 @@ export default function DrainageContractorPage() {
           imageSrc="/images/editorial/entirefm-external-distribution-dusk-2000w.webp"
           imageAlt="Commercial property external drainage and infrastructure services"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join the Drainage Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join the Drainage Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "WJA & Confined Space", label: "Certified Operations" },
             { figure: "£95 / yr", label: "Supplier Membership" },

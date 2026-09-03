@@ -49,28 +49,28 @@ const ELEC_COMPLIANCE = [
 
 const ELEC_DOCS = [
   {
-    title: "Electrical RAMS Guide",
-    href: "/contractor-resources/rams",
-    desc: "Complete guide to risk assessments and method statements for live and isolated electrical tasks.",
+    title: "What Are RAMS?",
+    href: "/contractor-resources/rams/what-are-rams",
+    desc: "Full statutory explanation of Risk Assessments and Method Statements required for live and isolated electrical tasks.",
     type: "GUIDE" as const,
   },
   {
-    title: "RAMS Template (11-Section)",
-    href: "/contractor-resources/rams-template",
-    desc: "Standard commercial RAMS framework covering isolation, testing, and operative sign-off.",
-    type: "TEMPLATE" as const,
-  },
-  {
-    title: "Electrical Risk Assessment",
-    href: "/contractor-resources/risk-assessment",
-    desc: "5x5 risk evaluation covering arc flash, electric shock, fire inception, and live testing.",
+    title: "How to Write RAMS",
+    href: "/contractor-resources/rams/how-to-write-rams",
+    desc: "Practical 11-step guide covering safe isolation, LOTO controls, hazard scoring, and operative sign-off.",
     type: "GUIDE" as const,
   },
   {
-    title: "Contractor Compliance Standard",
-    href: "/contractor-resources/contractor-compliance",
-    desc: "6 statutory pillars, insurance verification, and automated 90/60/30-day credential alerts.",
-    type: "COMPLIANCE" as const,
+    title: "What Is a Risk Assessment?",
+    href: "/contractor-resources/risk-assessments/what-is-a-risk-assessment",
+    desc: "5x5 risk evaluation covering arc flash, electric shock, fire inception, and live testing protocols.",
+    type: "GUIDE" as const,
+  },
+  {
+    title: "How to Get FM Work",
+    href: "/contractor-resources/winning-work/how-to-get-facilities-management-work",
+    desc: "Commercial procurement routes, NICEIC/SSIP requirements, and joining an approved contractor network.",
+    type: "GUIDE" as const,
   },
 ];
 
@@ -117,8 +117,8 @@ export default function ElectricalContractorPage() {
           imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
           imageAlt="Electrical engineers conducting commercial inspection"
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: "Join Electrical Network", href: "/suppliers/apply" }}
-          secondaryCta={{ label: "Explore Contractor Portal", href: "/suppliers/membership#platform-overview" }}
+          primaryCta={{ label: "Join Electrical Network", href: "/contractors/join" }}
+          secondaryCta={{ label: "Explore Contractor Hub", href: "/contractors" }}
           facts={[
             { figure: "18th Edition & NICEIC", label: "Scheme Verified" },
             { figure: "£95 / yr", label: "Supplier Membership" },
