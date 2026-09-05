@@ -97,7 +97,7 @@ export function Footer() {
               </Link>
 
               <p className="mt-5 sm:mt-6 max-w-xs text-[13px] leading-relaxed text-brand-mist/50">
-                {ORGANIZATION_CONFIG.legalName} provides total facilities management,
+                EntireFM provides total facilities management,
                 mechanical and electrical engineering, planned maintenance and statutory
                 compliance for UK commercial property.
               </p>
