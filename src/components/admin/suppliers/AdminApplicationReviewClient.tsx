@@ -669,7 +669,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({
-                        applicationId: draft.supplier_id,
+                        applicationId: draft.applicantUserId || draft.supplier_id,
                         classifyAs: 'CONTRACTOR',
                         companyNameHint: classifyCompanyName || undefined,
                         classifiedBy: 'Admin',

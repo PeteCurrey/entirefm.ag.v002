@@ -9,6 +9,9 @@ import { ServiceApprovalRecord, GeographicApprovalRecord, ComplianceHoldRecord }
 import { SupplierScorecard } from '../suppliers/performance-types';
 
 /**
+ * @deprecated System A Allocation Engine is superseded by System B (src/server/ai/dispatch/).
+ * Flagged as dead code slated for removal in a follow-up task.
+ *
  * DETERMINISTIC HARD ELIGIBILITY GATE EVALUATOR
  * Enforces strict legal, technical, and regulatory gates before any supplier is considered.
  */

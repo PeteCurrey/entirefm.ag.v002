@@ -87,25 +87,38 @@ export async function runChaseSweep(currentTimeMs: number = Date.now()): Promise
         dbQuery<any[]>(`visits?work_order_id=eq.${wo.id}&order=created_at.desc&limit=1`),
         dbQuery<any[]>(`quotes?work_order_id=eq.${wo.id}&order=created_at.desc&limit=5`),
         wo.provider_organisation_id
-          ? dbQuery<any[]>(`organisations?id=eq.${wo.provider_organisation_id}&select=id,name,primary_contact_email&limit=1`)
+          ? dbQuery<any[]>(`organisations?id=eq.${wo.provider_organisation_id}&select=id,name,email&limit=1`)
           : Promise.resolve({ data: null, error: null, status: 200 }),
       ]);
+
+      if (orgRes.error) {
+        console.warn(
+          `[ChasingSweep:ProviderOrgLookupWarn] Failed to query organisation ${wo.provider_organisation_id}:`,
+          orgRes.error
+        );
+      }
 
       const assignment = assignmentRes.data?.[0];
       const visit = visitsRes.data?.[0];
       const quotes = quotesRes.data || [];
       const providerOrg = orgRes.data?.[0];
 
-      let providerEmail = providerOrg?.primary_contact_email;
+      let providerEmail = providerOrg?.email;
       let providerName = providerOrg?.name || wo.provider_organisation_name;
 
       if (!providerEmail && assignment?.provider_org_id && assignment.provider_org_id !== wo.provider_organisation_id) {
-        const { data: assignOrg } = await dbQuery<any[]>(
-          `organisations?id=eq.${assignment.provider_org_id}&select=id,name,primary_contact_email&limit=1`
+        const assignOrgRes = await dbQuery<any[]>(
+          `organisations?id=eq.${assignment.provider_org_id}&select=id,name,email&limit=1`
         );
-        if (assignOrg?.[0]) {
-          providerEmail = assignOrg[0].primary_contact_email;
-          providerName = assignOrg[0].name;
+        if (assignOrgRes.error) {
+          console.warn(
+            `[ChasingSweep:AssignmentOrgLookupWarn] Failed to query assignment organisation ${assignment.provider_org_id}:`,
+            assignOrgRes.error
+          );
+        }
+        if (assignOrgRes.data?.[0]) {
+          providerEmail = assignOrgRes.data[0].email;
+          providerName = assignOrgRes.data[0].name;
         }
       }
 

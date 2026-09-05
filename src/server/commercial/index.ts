@@ -15,6 +15,7 @@
 import { dbQuery } from '../db/client';
 import { recordAuditEvent } from '../audit';
 import { UserSession } from '../identity';
+import { emitClientCommunicationEvent } from '../communications';
 
 // ─────────────────────────────────────────────────────────────
 // 1. TYPES & INTERFACES
@@ -1004,6 +1005,63 @@ export async function issueQuoteToClient(
     actor_id: session.personId,
     after_state: { status: 'ISSUED', quote_number: quote.quote_number },
   });
+
+  // Trigger Client Notification for Quote Approval
+  let recipientEmail: string | undefined;
+  let workOrderNumber = quote.quote_number;
+
+  // (a) If quote.work_order_id is set, look up work_orders.client_contact_email for that row
+  if (quote.work_order_id) {
+    try {
+      const { data: woData } = await dbQuery<any[]>(
+        `work_orders?id=eq.${encodeURIComponent(quote.work_order_id)}&select=id,work_order_number,client_contact_email&limit=1`
+      );
+      const wo = woData?.[0];
+      if (wo?.client_contact_email) {
+        recipientEmail = wo.client_contact_email;
+      }
+      if (wo?.work_order_number) {
+        workOrderNumber = wo.work_order_number;
+      }
+    } catch {
+      // Non-blocking fallback
+    }
+  }
+
+  // (b) If that's empty, join quote.client_account_id -> client_accounts.organisation_id -> organisations.email
+  if (!recipientEmail && quote.client_account_id) {
+    try {
+      const { data: accData } = await dbQuery<any[]>(
+        `client_accounts?id=eq.${encodeURIComponent(quote.client_account_id)}&select=id,organisation_id&limit=1`
+      );
+      const orgId = accData?.[0]?.organisation_id;
+      if (orgId) {
+        const { data: orgData } = await dbQuery<any[]>(
+          `organisations?id=eq.${encodeURIComponent(orgId)}&select=id,email&limit=1`
+        );
+        if (orgData?.[0]?.email) {
+          recipientEmail = orgData[0].email;
+        }
+      }
+    } catch {
+      // Non-blocking fallback
+    }
+  }
+
+  try {
+    await emitClientCommunicationEvent({
+      work_order_id: quote.work_order_id || quote.id,
+      work_order_number: workOrderNumber,
+      eventType: 'QUOTE_APPROVAL_REQUIRED',
+      data: {
+        quote_amount_net_gbp: quote.total_amount_gbp,
+        recipient_email: recipientEmail || undefined,
+      },
+      idempotencyKey: `${quoteId}:CLIENT:QUOTE_APPROVAL_REQUIRED:v${quote.version || 1}`,
+    });
+  } catch (commsErr: any) {
+    console.warn('[Commercial:QuoteApprovalCommsWarn]', commsErr?.message);
+  }
 
   return { success: true };
 }

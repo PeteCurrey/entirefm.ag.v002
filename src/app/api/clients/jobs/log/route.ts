@@ -1,15 +1,25 @@
 /**
- * ENTIREFM AI LOG A JOB SUBMISSION API (Phase 01)
- * ===============================================
+ * ENTIREFM AI LOG A JOB SUBMISSION API (Phase 01 + 0M AI Triage)
+ * ===============================================================
  * Creates canonical ServiceRequest & WorkOrder from the AI Log a Job interface,
  * uploads evidence to Supabase Storage, links completion_evidences records,
- * and maintains complete AI auditability.
+ * and wires the real AI triage engine (parseHelpdeskIntake) for structured
+ * extraction, priority reconciliation, and trade disagreement capture.
+ *
+ * Public / Tenant Path (unauthenticated):
+ *   Branch A — Site resolved via estate context → real SR + WO + dispatch
+ *   Branch B — No site match → saves lead, returns honest enquiry receipt
+ *              (NO fabricated work_order or service_request UUIDs)
+ *
+ * Authenticated Path:
+ *   Runs parseHelpdeskIntake, reconciles priority (never downgrade),
+ *   captures trade disagreements, persists triage metadata.
  *
  * Security & Governance:
  *   - Authenticated session enforcement
  *   - Site scope and organization tenant verification
  *   - No secret exposure
- *   - Complete audit trail (Service Request -> Work Order -> Dispatch -> Evidence)
+ *   - Complete audit trail (Service Request → Work Order → Dispatch → Evidence)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,12 +27,25 @@ import { getCurrentSession, hasScope } from '@/server/identity';
 import { dbQuery, getDbConfig } from '@/server/db/client';
 import { createServiceRequest, createWorkOrder } from '@/server/work';
 import { orchestrateReactiveDispatch } from '@/server/ai/dispatch/orchestrator';
-import { CANONICAL_SLA_HOURS } from '@/server/ai/helpdesk/intake';
+import {
+  CANONICAL_SLA_HOURS,
+  parseHelpdeskIntake,
+  resolveEstateContext,
+} from '@/server/ai/helpdesk/intake';
 import { TradeCategory, UrgencyLevel } from '@/server/ai/helpdesk/types';
 import { recordAuditEvent } from '@/server/audit';
 import { saveLead, leadStoreConfigured } from '@/lib/leads/store';
 
 export const dynamic = 'force-dynamic';
+
+// Priority severity map — higher number = higher severity (P1 wins over P5)
+const PRIORITY_SEVERITY: Record<string, number> = {
+  P1_CRITICAL: 5,
+  P2_HIGH: 4,
+  P3_MEDIUM: 3,
+  P4_LOW: 2,
+  P5_ROUTINE: 1,
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -94,13 +117,9 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Safe institutional reference EFM-XXXXXX
-      const reference = `EFM-${Math.floor(100000 + Math.random() * 900000)}`;
-      const woId = crypto.randomUUID();
-      const srId = crypto.randomUUID();
-
+      // Build structured message for lead/context
       const structuredMessageLines = [
-        `[TENANT / OCCUPIER MAINTENANCE REQUEST: ${reference}]`,
+        `[TENANT / OCCUPIER MAINTENANCE REQUEST]`,
         title ? `Title: ${title}` : null,
         `Property: ${property_address || 'Unspecified'}`,
         managing_agent_name ? `Managing Agent / Landlord: ${managing_agent_name}` : null,
@@ -117,35 +136,22 @@ export async function POST(req: NextRequest) {
         preferred_contact_method ? `Preferred Contact: ${preferred_contact_method}` : null,
         `\nIssue Description:\n${description}`,
       ].filter(Boolean);
+      const fullMessage = structuredMessageLines.join('\n');
 
-      // Store lead in durable leads table
-      if (leadStoreConfigured()) {
-        try {
-          await saveLead({
-            enquiryId: reference,
-            name: publicName,
-            email: publicEmail,
-            phone: contact_phone || '',
-            company: company_name || managing_agent_name || '',
-            service: category,
-            location: publicLocation,
-            message: structuredMessageLines.join('\n'),
-            form_id: 'TENANT_SAFE_LOG_A_JOB',
-            conversion_page: '/log-a-job',
-            landing_page: '/log-a-job',
-          });
-        } catch (e) {
-          console.warn('[PUBLIC_LEAD_SAVE_WARNING]:', e);
-        }
-      }
+      // Attempt estate resolution
+      const estateCtx = await resolveEstateContext({
+        siteHint: property_address || location_description,
+        clientHint: managing_agent_name || company_name,
+      }).catch(() => ({ siteId: undefined, clientId: undefined, contractId: undefined }));
 
-      // Handle file uploads if storage is available
+      // Handle evidence uploads (common to both branches)
       const dbConfig = getDbConfig();
       const storedEvidenceIds: string[] = [];
+      const uploadTempId = crypto.randomUUID();
 
       if (Array.isArray(evidence) && evidence.length > 0) {
         for (const item of evidence) {
-          const storagePath = item.storagePath || `tenant-jobs/${woId}/${Date.now()}-${item.filename || 'evidence'}`;
+          const storagePath = item.storagePath || `tenant-jobs/${uploadTempId}/${Date.now()}-${item.filename || 'evidence'}`;
           if (item.base64Data && dbConfig) {
             try {
               const base64Clean = item.base64Data.includes(',')
@@ -153,7 +159,6 @@ export async function POST(req: NextRequest) {
                 : item.base64Data;
               const buffer = Buffer.from(base64Clean, 'base64');
               const uploadUrl = `${dbConfig.url}/storage/v1/object/work-evidence/${storagePath}`;
-
               await fetch(uploadUrl, {
                 method: 'POST',
                 headers: {
@@ -172,29 +177,157 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      const slaHours = CANONICAL_SLA_HOURS[priority as UrgencyLevel] || 24;
-      const slaResolutionDue = new Date(Date.now() + slaHours * 3600 * 1000).toISOString();
+      // ── Branch A: Site matched → create real records ──────────────────────────
+      if (estateCtx.siteId) {
+        try {
+          // Run triage on the combined message
+          const triageResult = await parseHelpdeskIntake({
+            text: `${title ? title + '\n' : ''}${description}`,
+            channel: 'CLIENT_PORTAL',
+          }).catch(() => null);
+
+          const resolvedPriority = (priority as string) || 'P3_MEDIUM';
+          const aiPriority = triageResult?.canonical_priority;
+          const finalPriority = (
+            aiPriority &&
+            (PRIORITY_SEVERITY[aiPriority] || 0) > (PRIORITY_SEVERITY[resolvedPriority] || 0)
+              ? aiPriority
+              : resolvedPriority
+          ) as UrgencyLevel;
+
+          const triageStatus = triageResult
+            ? triageResult.triage_status === 'READY_FOR_DISPATCH'
+              ? 'AUTO_TRIAGED'
+              : triageResult.triage_status
+            : 'PENDING';
+
+          const sr = await createServiceRequest({
+            site_id: estateCtx.siteId,
+            organisation_id: estateCtx.clientId,
+            title: title || description.slice(0, 80),
+            description: fullMessage,
+            category,
+            priority: finalPriority as any,
+            source: 'AI_HELPDESK',
+            requester_name: publicName,
+            requester_email: publicEmail,
+            triage_status: triageStatus,
+            ai_summary: triageResult?.intake.issue_summary || null,
+            ai_model_provider: triageResult?.model_provider || null,
+            ai_model_name: triageResult?.model_name || null,
+            ai_confidence_score: triageResult?.intake.confidence_score ?? null,
+            ai_disagreement_notes: triageResult?.disagreement_notes
+              ? JSON.stringify(triageResult.disagreement_notes)
+              : null,
+            ai_suggested_trade: triageResult?.intake.trade || null,
+            ai_suggested_priority: triageResult?.canonical_priority || null,
+            sla_due_at: triageResult?.sla_resolution_due_at || null,
+          });
+
+          const wo = await createWorkOrder({
+            site_id: estateCtx.siteId,
+            organisation_id: estateCtx.clientId,
+            service_request_id: sr.id,
+            title: title || description.slice(0, 80),
+            description: fullMessage,
+            work_type: 'REACTIVE',
+            priority: finalPriority as any,
+            contract_id: estateCtx.contractId,
+          });
+
+          let dispatchResult = null;
+          try {
+            dispatchResult = await orchestrateReactiveDispatch({
+              work_order_id: wo.id,
+              work_order_number: wo.work_order_number,
+              title: wo.title,
+              trade: (triageResult?.intake.trade || category) as TradeCategory,
+              priority: finalPriority,
+              site_id: estateCtx.siteId,
+              site_name: triageResult?.resolved_site_name || property_address || 'Unknown Site',
+              site_city: '',
+              client_id: estateCtx.clientId || '',
+              client_name: managing_agent_name || company_name || 'Tenant Submission',
+              automation_level: 'AUTO_DISPATCH_AND_PO',
+            });
+          } catch (err: any) {
+            console.warn('[PUBLIC_DISPATCH_NOTICE]:', err?.message);
+          }
+
+          const slaHours = CANONICAL_SLA_HOURS[finalPriority] || 24;
+
+          return NextResponse.json({
+            success: true,
+            reference: sr.reference,
+            service_request: {
+              id: sr.id,
+              reference: sr.reference,
+              title: sr.title,
+              status: sr.status,
+              priority: finalPriority,
+              created_at: sr.created_at,
+              sla_hours: slaHours,
+              sla_resolution_due: triageResult?.sla_resolution_due_at || null,
+            },
+            work_order: {
+              id: wo.id,
+              work_order_number: wo.work_order_number,
+              status: wo.status,
+            },
+            evidence_stored_count: storedEvidenceIds.length,
+            dispatch: dispatchResult
+              ? {
+                  status: dispatchResult.status,
+                  assigned_supplier: dispatchResult.assigned_supplier_name,
+                  client_message: dispatchResult.client_update_message,
+                }
+              : null,
+            triage: triageResult
+              ? {
+                  trade: triageResult.intake.trade,
+                  priority: finalPriority,
+                  confidence: triageResult.intake.confidence_score,
+                  status: triageStatus,
+                }
+              : null,
+            message: `Your maintenance request has been received and logged under reference ${sr.reference}.`,
+          });
+        } catch (branchAError: any) {
+          console.error('[PUBLIC_BRANCH_A_ERROR]:', branchAError);
+          // Fall through to Branch B on unexpected failure
+        }
+      }
+
+      // ── Branch B: No site matched → honest enquiry receipt ───────────────────
+      const leadReference = `EFM-ENQ-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      if (leadStoreConfigured()) {
+        try {
+          await saveLead({
+            enquiryId: leadReference,
+            name: publicName,
+            email: publicEmail,
+            phone: contact_phone || '',
+            company: company_name || managing_agent_name || '',
+            service: category,
+            location: publicLocation,
+            message: fullMessage,
+            form_id: 'TENANT_SAFE_LOG_A_JOB',
+            conversion_page: '/log-a-job',
+            landing_page: '/log-a-job',
+          });
+        } catch (e) {
+          console.warn('[PUBLIC_LEAD_SAVE_WARNING]:', e);
+        }
+      }
 
       return NextResponse.json({
         success: true,
-        reference,
-        service_request: {
-          id: srId,
-          reference,
-          title: title || description.slice(0, 50),
-          status: 'RECEIVED',
-          priority,
-          created_at: new Date().toISOString(),
-          sla_hours: slaHours,
-          sla_resolution_due: slaResolutionDue,
-        },
-        work_order: {
-          id: woId,
-          work_order_number: reference,
-          status: 'PENDING_TRIAGE',
-        },
+        status: 'enquiry_received',
+        lead_reference: leadReference,
         evidence_stored_count: storedEvidenceIds.length,
-        message: `Your maintenance request has been received. Reference: ${reference}.`,
+        message:
+          'Thank you for your request. We have received your details and an operator will review your submission and contact you to confirm your site location and log a formal work order.',
       });
     }
 
@@ -236,7 +369,56 @@ export async function POST(req: NextRequest) {
     );
     const clientAccountId = clientAccounts?.[0]?.id;
 
-    // 3. Create Canonical Service Request
+    // 3. Run AI Triage Engine
+    const fullText = [title, description].filter(Boolean).join('\n');
+    let triageResult = null;
+    try {
+      triageResult = await parseHelpdeskIntake({
+        text: fullText,
+        channel: 'CLIENT_PORTAL',
+        correlationId: `auth-log-${Date.now()}`,
+      });
+    } catch (triageErr: any) {
+      console.warn('[TRIAGE_WARN]:', triageErr?.message);
+    }
+
+    // 4. Priority Reconciliation — never downgrade client's priority
+    const clientSeverity = PRIORITY_SEVERITY[priority as string] || 0;
+    const aiPrioritySeverity = PRIORITY_SEVERITY[triageResult?.canonical_priority || ''] || 0;
+    const finalPriority: string =
+      aiPrioritySeverity > clientSeverity ? triageResult!.canonical_priority : (priority as string);
+
+    // 5. Trade Disagreement Detection
+    const aiTrade = triageResult?.intake.trade;
+    const tradeDisagreement = aiTrade && aiTrade !== category && aiTrade !== 'OTHER';
+    let triageStatus = 'PENDING';
+    let triageExceptionReason: string | undefined;
+    let disagreementNotes: string[] | undefined;
+
+    if (triageResult) {
+      if (tradeDisagreement && triageResult.triage_status === 'READY_FOR_DISPATCH') {
+        triageStatus = 'MODEL_DISAGREEMENT';
+        triageExceptionReason = `AI suggested trade '${aiTrade}' but client selected '${category}'. Client trade used for dispatch.`;
+        disagreementNotes = [triageExceptionReason];
+      } else if (tradeDisagreement) {
+        triageStatus = triageResult.triage_status || 'REQUIRES_OPERATOR_TRIAGE';
+        triageExceptionReason = `Trade conflict: AI='${aiTrade}' client='${category}'.`;
+        disagreementNotes = triageResult.disagreement_notes
+          ? [...triageResult.disagreement_notes, triageExceptionReason]
+          : [triageExceptionReason];
+      } else if (finalPriority !== priority) {
+        triageStatus = 'REQUIRES_OPERATOR_TRIAGE';
+        triageExceptionReason = `Priority escalated from '${priority}' to '${finalPriority}' by AI triage.`;
+      } else {
+        triageStatus =
+          triageResult.triage_status === 'READY_FOR_DISPATCH'
+            ? 'AUTO_TRIAGED'
+            : triageResult.triage_status || 'AUTO_TRIAGED';
+        disagreementNotes = triageResult.disagreement_notes;
+      }
+    }
+
+    // 6. Build full description
     const fullDescription = [
       description,
       location_description ? `Location on site: ${location_description}` : null,
@@ -250,6 +432,7 @@ export async function POST(req: NextRequest) {
       .filter(Boolean)
       .join('\n\n');
 
+    // 7. Create Canonical Service Request with triage metadata
     const sr = await createServiceRequest({
       organisation_id: session.orgId,
       client_account_id: clientAccountId,
@@ -258,13 +441,24 @@ export async function POST(req: NextRequest) {
       title,
       description: fullDescription,
       category,
-      priority: priority as any,
+      priority: finalPriority as any,
       source: ai_accepted ? 'AI_HELPDESK' : 'PORTAL',
       requester_name: session.name,
       requester_email: session.email,
+      triage_status: triageStatus,
+      ai_summary: triageResult?.intake.issue_summary || null,
+      ai_model_provider: triageResult?.model_provider || null,
+      ai_model_name: triageResult?.model_name || null,
+      ai_confidence_score: triageResult?.intake.confidence_score ?? null,
+      ai_disagreement_notes: disagreementNotes ? JSON.stringify(disagreementNotes) : null,
+      ai_candidate_count: 1,
+      triage_exception_reason: triageExceptionReason || null,
+      ai_suggested_trade: aiTrade || null,
+      ai_suggested_priority: triageResult?.canonical_priority || null,
+      sla_due_at: triageResult?.sla_resolution_due_at || null,
     });
 
-    // 4. Create Canonical Work Order
+    // 8. Create Canonical Work Order — use CLIENT'S trade for dispatch (authoritative)
     const wo = await createWorkOrder({
       organisation_id: session.orgId,
       site_id,
@@ -273,10 +467,10 @@ export async function POST(req: NextRequest) {
       title,
       description: sr.description,
       work_type: 'REACTIVE',
-      priority: priority as any,
+      priority: finalPriority as any,
     });
 
-    // 5. Evidence Storage & Attachment Persistence
+    // 9. Evidence Storage & Attachment Persistence
     const dbConfig = getDbConfig();
     const storedEvidenceIds: string[] = [];
 
@@ -285,7 +479,6 @@ export async function POST(req: NextRequest) {
         let storagePath = item.storagePath || `work-orders/${wo.id}/${Date.now()}-${item.filename || 'evidence'}`;
         let publicUrl = item.storageUrl || '';
 
-        // If base64 data is present and Supabase is configured, upload to storage
         if (item.base64Data && dbConfig) {
           try {
             const base64Clean = item.base64Data.includes(',')
@@ -313,7 +506,6 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // Save evidence reference to completion_evidences table
         try {
           const evidenceRecord = {
             id: crypto.randomUUID(),
@@ -340,7 +532,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 6. Record Audit Trail Event
+    // 10. Record Audit Trail Event
     await recordAuditEvent({
       event_type: 'AI_JOB_LOGGED',
       object_type: 'work_orders',
@@ -351,13 +543,18 @@ export async function POST(req: NextRequest) {
         work_order_number: wo.work_order_number,
         ai_assisted: !!ai_assessment,
         ai_confidence: ai_assessment?.confidence,
+        triage_status: triageStatus,
+        priority_escalated: finalPriority !== priority,
+        trade_disagreement: tradeDisagreement,
         evidence_count: evidence.length,
       },
     });
 
-    // 7. Calculate SLA & Trigger Reactive Dispatch Orchestrator
-    const slaHours = CANONICAL_SLA_HOURS[priority as UrgencyLevel] || 24;
-    const slaResolutionDue = new Date(Date.now() + slaHours * 3600 * 1000).toISOString();
+    // 11. Calculate SLA & Trigger Reactive Dispatch Orchestrator (client trade stays authoritative)
+    const slaHours = CANONICAL_SLA_HOURS[finalPriority as UrgencyLevel] || 24;
+    const slaResolutionDue =
+      triageResult?.sla_resolution_due_at ||
+      new Date(Date.now() + slaHours * 3600 * 1000).toISOString();
 
     let dispatchResult = null;
     try {
@@ -365,8 +562,8 @@ export async function POST(req: NextRequest) {
         work_order_id: wo.id,
         work_order_number: wo.work_order_number,
         title: wo.title,
-        trade: category as TradeCategory,
-        priority: priority as UrgencyLevel,
+        trade: category as TradeCategory, // client trade is authoritative for dispatch
+        priority: finalPriority as UrgencyLevel,
         site_id: targetSite.id,
         site_name: targetSite.name,
         site_city: targetSite.city,
@@ -385,10 +582,11 @@ export async function POST(req: NextRequest) {
         reference: sr.reference,
         title: sr.title,
         status: sr.status,
-        priority: sr.priority,
+        priority: finalPriority,
         created_at: sr.created_at,
         sla_hours: slaHours,
         sla_resolution_due: slaResolutionDue,
+        triage_status: triageStatus,
       },
       work_order: {
         id: wo.id,
@@ -401,6 +599,15 @@ export async function POST(req: NextRequest) {
             status: dispatchResult.status,
             assigned_supplier: dispatchResult.assigned_supplier_name,
             client_message: dispatchResult.client_update_message,
+          }
+        : null,
+      triage: triageResult
+        ? {
+            trade: aiTrade,
+            priority: finalPriority,
+            confidence: triageResult.intake.confidence_score,
+            status: triageStatus,
+            exception_reason: triageExceptionReason || null,
           }
         : null,
       message: `Job successfully logged under reference ${sr.reference} (${wo.work_order_number}).`,

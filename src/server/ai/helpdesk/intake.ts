@@ -33,6 +33,23 @@ export const CANONICAL_SLA_HOURS: Record<UrgencyLevel, number> = {
   P5_ROUTINE: 720, // 30 days
 };
 
+// ─── HIGH-RISK SAFETY CATEGORY CHECK ──────────────────────────────────────────
+
+/**
+ * Returns true when the text contains keywords that indicate a potential life-safety
+ * or fire/gas hazard. Used to gate dual-model verification in both the triage engine
+ * and the conversational chat route.
+ */
+export function isHighRiskSafetyCategory(text: string): boolean {
+  const lower = (text || '').toLowerCase();
+  return (
+    lower.includes('fire') ||
+    lower.includes('alarm') ||
+    lower.includes('gas') ||
+    lower.includes('smoke')
+  );
+}
+
 // ─── DETERMINISTIC FALLBACK PARSER ────────────────────────────────────────────
 
 export function deterministicKeywordTriage(text: string, channel: InboundHelpdeskChannel): StructuredHelpdeskIntake {
@@ -68,7 +85,7 @@ export function deterministicKeywordTriage(text: string, channel: InboundHelpdes
   }
 
   // Priority keywords
-  if (lower.includes('emergency') || lower.includes('flooding') || lower.includes('burst') || lower.includes('fire') || lower.includes('power outage') || lower.includes('danger') || lower.includes('gas leak')) {
+  if (lower.includes('emergency') || lower.includes('flooding') || lower.includes('burst') || lower.includes('fire') || lower.includes('power outage') || lower.includes('danger') || lower.includes('gas leak') || lower.includes('gas') || lower.includes('smoke')) {
     priority = 'P1_CRITICAL';
     urgencyReason = 'Identified critical safety or severe operational disruption trigger';
   } else if (lower.includes('urgent') || lower.includes('heavy leak') || lower.includes('no heating') || lower.includes('no hot water') || lower.includes('main entrance')) {
@@ -215,13 +232,7 @@ Governance rules:
   let disagreementNotes: string[] | undefined = undefined;
 
   // Check if text indicates high-risk (fire/life-safety or ambiguous) -> use Dual-Model Verification
-  const isHighRiskCandidate =
-    input.text.toLowerCase().includes('fire') ||
-    input.text.toLowerCase().includes('alarm') ||
-    input.text.toLowerCase().includes('gas') ||
-    input.text.toLowerCase().includes('smoke');
-
-  if (isHighRiskCandidate) {
+  if (isHighRiskSafetyCategory(input.text)) {
     const dualRes = await executeDualModelVerification<any>(
       {
         systemPrompt,

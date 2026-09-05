@@ -146,9 +146,9 @@ export const RouteRecordSchema = z.object({
 
   /**
    * Canonical URL behaviour. Protected routes must be 'self'.
-   * Changing to 'other' triggers a build validation error.
+   * Unprotected or non-indexed routes can specify a canonical destination path.
    */
-  canonical: z.literal('self'),
+  canonical: z.string(),
 
   /**
    * Whether this route requires its own unique page content record.

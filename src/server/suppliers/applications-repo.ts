@@ -11,6 +11,7 @@
  */
 
 import { dbQuery, isDbConfigured } from '@/server/db/client';
+import { geocodePostcode } from '@/server/geo/geocoding';
 import {
   SupplierApplicationDraft,
   SupplierDocItem,
@@ -487,6 +488,57 @@ export async function approveSupplierApplicationAndActivateProvider(params: {
 
         // 4.1 Promote/link pre-approval assurance records to canonical organisation id
         await linkAssuranceRecordsOnApproval(orgId, canonicalOrgId);
+
+        // 4.2 Create / Ensure provider_locations HQ depot with geocoding
+        try {
+          const { data: existingLocs } = await dbQuery<any[]>(
+            `provider_locations?provider_org_id=eq.${canonicalOrgId}&limit=1`
+          );
+          if (!existingLocs || existingLocs.length === 0) {
+            const addr = existingOrg?.address_json || {};
+            let postcode = addr.postcode || '';
+            let city = addr.city || '';
+            let line1 = addr.line1 || addr.address_line1 || '';
+
+            const tradingAddress = app.rawDraft?.tradingAddress || '';
+            if (!postcode && tradingAddress) {
+              const pcMatch = tradingAddress.match(/[A-Z]{1,2}[0-9][A-Z0-9]?\s*[0-9][A-Z]{2}/i);
+              if (pcMatch) postcode = pcMatch[0].toUpperCase();
+            }
+
+            let lat: number | null = null;
+            let lng: number | null = null;
+            if (postcode) {
+              try {
+                const coords = await geocodePostcode(postcode, 'GB');
+                if (coords) {
+                  lat = coords.latitude;
+                  lng = coords.longitude;
+                }
+              } catch {
+                // Non-blocking
+              }
+            }
+
+            await dbQuery('provider_locations', {
+              method: 'POST',
+              body: {
+                provider_org_id: canonicalOrgId,
+                name: `${app.companyName || 'Contractor'} - Operating HQ`,
+                address_line1: line1 || tradingAddress.slice(0, 100) || 'Head Office',
+                city: city || 'Sheffield',
+                postcode: postcode || 'S9 2TT',
+                latitude: lat,
+                longitude: lng,
+                is_hq: true,
+                is_dispatch_point: true,
+                emergency_available: true,
+              },
+            });
+          }
+        } catch (locErr) {
+          console.warn('[SUPPLIER_APPROVAL_LOCATION_NOTICE] Could not seed depot location:', locErr);
+        }
 
         // 5. Link applicant user to provider organisation in organisation_memberships
         if (app.applicantUserId) {

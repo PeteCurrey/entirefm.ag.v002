@@ -31,6 +31,7 @@ export default async function AdminApplicationReviewPage({
   // Shape into draft-compatible shape for AdminApplicationReviewClient
   const draft = {
     supplier_id: app.id,
+    applicantUserId: app.applicantUserId,
     application_reference: app.applicationReference,
     legalCompanyName: app.companyName,
     legal_company_name: app.companyName,

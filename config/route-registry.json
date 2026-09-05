@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "EntireFM Route Registry — Single Authoritative Source of Truth",
+  "description": "EntireFM Route Registry \u2014 Single Authoritative Source of Truth",
   "version": "2.0.0",
   "generated": "2026-08-22",
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
@@ -225,10 +225,10 @@
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/arena-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P2",
@@ -1057,7 +1057,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/asbestos-management",
@@ -1076,7 +1076,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/commercial-gas-safety",
@@ -1095,7 +1095,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/emergency-lighting-testing",
@@ -1114,7 +1114,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/f-gas-regulations",
@@ -1133,7 +1133,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/fire-risk-assessment",
@@ -1152,7 +1152,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/fixed-wire-testing-eicr",
@@ -1171,7 +1171,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/legionella-water-hygiene",
@@ -1190,7 +1190,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/lifting-equipment-loler",
@@ -1209,7 +1209,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/pat-testing",
@@ -1228,7 +1228,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/compliance/work-at-height",
@@ -1247,7 +1247,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "Compliance Centre — additive authority content, not a legacy path."
+      "note": "Compliance Centre \u2014 additive authority content, not a legacy path."
     },
     {
       "path": "/concierge-services",
@@ -1450,10 +1450,10 @@
       "routeType": "company",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/helpdesk-registration",
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
@@ -1469,10 +1469,10 @@
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/industrial-cleaning",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
@@ -1488,10 +1488,10 @@
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/what-is-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
@@ -2648,7 +2648,7 @@
         "wix-generation-2"
       ],
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-industries",
-      "recoveryNote": "Sector index page. Wix manifest title read \"Login\", which appears to be an editor labelling error — the page renders sector content.",
+      "recoveryNote": "Sector index page. Wix manifest title read \"Login\", which appears to be an editor labelling error \u2014 the page renders sector content.",
       "discoveredVia": "wix-internal-page-manifest"
     },
     {
@@ -3828,10 +3828,10 @@
       "routeType": "home",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P2",
@@ -3841,7 +3841,7 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/home",
-      "recoveryNote": "Homepage variant on the older estate. Duplicate of / — live, expected noindex.",
+      "recoveryNote": "Homepage variant on the older estate. Duplicate of / \u2014 live, expected noindex.",
       "discoveredVia": "wix-internal-page-manifest"
     },
     {
@@ -3849,10 +3849,10 @@
       "routeType": "home",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P2",
@@ -3862,7 +3862,7 @@
         "wix-generation-2"
       ],
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/home-1-1",
-      "recoveryNote": "Homepage variant retained by Wix. Duplicate of / — restored as a live page, expected to be held noindex by the tier gate.",
+      "recoveryNote": "Homepage variant retained by Wix. Duplicate of / \u2014 restored as a live page, expected to be held noindex by the tier gate.",
       "discoveredVia": "wix-internal-page-manifest"
     },
     {
@@ -3870,10 +3870,10 @@
       "routeType": "home",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P2",
@@ -3883,7 +3883,7 @@
         "wix-generation-2"
       ],
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/home-1-1-1",
-      "recoveryNote": "Later homepage design variant. Duplicate of / — live, expected noindex.",
+      "recoveryNote": "Later homepage design variant. Duplicate of / \u2014 live, expected noindex.",
       "discoveredVia": "wix-internal-page-manifest"
     },
     {
@@ -3891,10 +3891,10 @@
       "routeType": "home",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P2",
@@ -3904,7 +3904,7 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/homeab",
-      "recoveryNote": "A/B homepage variant. Duplicate of / — live, expected noindex.",
+      "recoveryNote": "A/B homepage variant. Duplicate of / \u2014 live, expected noindex.",
       "discoveredVia": "wix-internal-page-manifest"
     },
     {
@@ -3964,7 +3964,7 @@
       "historicSources": [
         "new-growth-directive"
       ],
-      "note": "HTML sitemap — crawl path to every route, including those held at noindex."
+      "note": "HTML sitemap \u2014 crawl path to every route, including those held at noindex."
     },
     {
       "path": "/hvac-contractor",
@@ -5360,10 +5360,10 @@
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/manchester-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
@@ -6071,10 +6071,10 @@
       "routeType": "post",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/post/the-importance-of-regular-maintenance-and-inspections",
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
@@ -6132,10 +6132,10 @@
       "routeType": "post",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/post/what-are-hard-services-in-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
@@ -6190,10 +6190,10 @@
       "routeType": "post",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/post/what-is-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
@@ -6211,10 +6211,10 @@
       "routeType": "post",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/post/what-is-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
@@ -7891,10 +7891,10 @@
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
       "historic": true,
-      "protected": true,
-      "indexable": true,
+      "protected": false,
+      "indexable": false,
       "statusRequired": 200,
-      "canonical": "self",
+      "canonical": "/tier-one-facilities-management",
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
@@ -9805,7 +9805,7 @@
         ]
       },
       "wix demo content": {
-        "reason": "Unused Wix template demo pages. Never EntireFM content — recommend 410 Gone.",
+        "reason": "Unused Wix template demo pages. Never EntireFM content \u2014 recommend 410 Gone.",
         "paths": [
           "/fm/epic-battle-montage",
           "/fm/good-morning-london",

@@ -463,6 +463,16 @@ export function isValidUuid(id?: string | null): boolean {
   return typeof id === 'string' && UUID_REGEX.test(id);
 }
 
+const COMMUNICATIONS_IDEMPOTENCY_CACHE = new Map<
+  string,
+  {
+    id: string;
+    delivery_state: EmailDeliveryState;
+    provider_message_id?: string;
+    body: string;
+  }
+>();
+
 /**
  * Ensures a parent communication thread exists before message insertion to satisfy foreign key constraints.
  */
@@ -659,12 +669,31 @@ export async function emitClientCommunicationEvent(params: {
 }> {
   const key = params.idempotencyKey || `${params.work_order_id}:CLIENT:${params.eventType}`;
 
-  // 1. DB Idempotency Check — survives serverless cold starts
+  // 1. In-memory idempotency check
+  if (COMMUNICATIONS_IDEMPOTENCY_CACHE.has(key)) {
+    const cached = COMMUNICATIONS_IDEMPOTENCY_CACHE.get(key)!;
+    return {
+      is_duplicate: true,
+      message_id: cached.id,
+      email_delivery_state: cached.delivery_state,
+      provider_message_id: cached.provider_message_id,
+      subject: '',
+      body: cached.body,
+    };
+  }
+
+  // 2. DB Idempotency Check — survives serverless cold starts
   const { data: existing } = await dbQuery<CommunicationMessage[]>(
     `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
   );
   if (existing && existing.length > 0) {
     const found = existing[0];
+    COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+      id: found.id,
+      delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
+      body: found.body,
+    });
     return {
       is_duplicate: true,
       message_id: found.id,
@@ -681,49 +710,83 @@ export async function emitClientCommunicationEvent(params: {
     ...params.data,
   });
 
-  const msgId = `MSG-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+  const msgId = randomUUID();
   let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
   let providerMessageId: string | undefined;
   const now = new Date().toISOString();
 
   if (params.simulateFailure) {
     deliveryState = 'FAILED';
-  } else if (config.apiKey) {
-    const recipient = params.data.recipient_email || 'delivered@resend.dev';
-    const dispatchResult = await sendOutboundEmailViaProvider({ to: recipient, subject, text: body });
-    if (dispatchResult.success) {
-      deliveryState = 'SENT'; // Correct semantics: SENT on API accept; DELIVERED only via webhook
-      providerMessageId = dispatchResult.provider_message_id;
+  } else if (params.data.recipient_email) {
+    if (config.apiKey) {
+      const dispatchResult = await sendOutboundEmailViaProvider({
+        to: params.data.recipient_email,
+        subject,
+        text: body,
+      });
+      if (dispatchResult.success) {
+        deliveryState = 'SENT'; // Correct semantics: SENT on API accept; DELIVERED only via webhook
+        providerMessageId = dispatchResult.provider_message_id;
+      } else {
+        deliveryState = 'FAILED';
+      }
     } else {
-      deliveryState = 'FAILED';
+      deliveryState = 'INTERFACE_ONLY';
     }
+  } else {
+    deliveryState = 'INTERFACE_ONLY';
+    console.warn(
+      `[ClientComms:NoRecipient] No recipient email resolved for ${params.eventType} on work order ${params.work_order_number || params.work_order_id}. Logged as INTERFACE_ONLY.`
+    );
   }
 
-  // 2. Persist full record to DB
-  await dbQuery('communication_messages', {
-    method: 'POST',
-    body: {
-      id: msgId,
-      thread_id: params.work_order_id,
-      work_order_id: params.work_order_id,
-      sender_name: 'EntireFM Helpdesk Autopilot',
-      sender_email: config.fromAddress,
-      reply_to_email: config.replyToAddress,
-      channel: 'EMAIL',
-      visibility: 'CLIENT_VISIBLE',
-      body,
-      is_incoming: false,
-      is_ai_generated: false,
-      idempotency_key: key,
-      delivery_state: deliveryState,
-      provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
-      provider_message_id: providerMessageId ?? null,
-      recipient_email: params.data.recipient_email || 'delivered@resend.dev',
-      queued_at: now,
-      sent_at: deliveryState === 'SENT' ? now : null,
-      failed_at: deliveryState === 'FAILED' ? now : null,
-      created_at: now,
-    },
+  // Ensure parent communication thread exists to satisfy foreign key constraint
+  const threadId = await ensureCommunicationThread({
+    threadId: params.work_order_id,
+    subject: `Work Order ${params.work_order_number || params.work_order_id}`,
+    threadType: 'CLIENT',
+    relatedObjectType: 'WORK_ORDER',
+    relatedObjectId: isValidUuid(params.work_order_id) ? params.work_order_id : undefined,
+  }).catch(() => {
+    return isValidUuid(params.work_order_id) ? params.work_order_id : randomUUID();
+  });
+
+  // 3. Persist full record to DB
+  try {
+    await dbQuery('communication_messages', {
+      method: 'POST',
+      body: {
+        id: msgId,
+        thread_id: threadId,
+        work_order_id: params.work_order_id,
+        sender_name: 'EntireFM Helpdesk Autopilot',
+        sender_email: config.fromAddress,
+        reply_to_email: config.replyToAddress,
+        channel: 'EMAIL',
+        visibility: 'CLIENT_VISIBLE',
+        body,
+        is_incoming: false,
+        is_ai_generated: false,
+        idempotency_key: key,
+        delivery_state: deliveryState,
+        provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
+        provider_message_id: providerMessageId ?? null,
+        recipient_email: params.data.recipient_email || null,
+        queued_at: now,
+        sent_at: deliveryState === 'SENT' ? now : null,
+        failed_at: deliveryState === 'FAILED' ? now : null,
+        created_at: now,
+      },
+    });
+  } catch (dbErr) {
+    console.warn('[ClientComms:DbInsertWarn]', dbErr);
+  }
+
+  COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+    id: msgId,
+    delivery_state: deliveryState,
+    provider_message_id: providerMessageId,
+    body,
   });
 
   return {
@@ -765,12 +828,31 @@ export async function emitContractorCommunicationEvent(params: {
 }> {
   const key = params.idempotencyKey || `${params.work_order_id}:CONTRACTOR:${params.eventType}:${params.data.attempt_number || 1}`;
 
-  // 1. DB Idempotency Check — survives serverless cold starts
+  // 1. In-memory idempotency check
+  if (COMMUNICATIONS_IDEMPOTENCY_CACHE.has(key)) {
+    const cached = COMMUNICATIONS_IDEMPOTENCY_CACHE.get(key)!;
+    return {
+      is_duplicate: true,
+      message_id: cached.id,
+      email_delivery_state: cached.delivery_state,
+      provider_message_id: cached.provider_message_id,
+      subject: '',
+      body: cached.body,
+    };
+  }
+
+  // 2. DB Idempotency Check — survives serverless cold starts
   const { data: existing } = await dbQuery<CommunicationMessage[]>(
     `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
   );
   if (existing && existing.length > 0) {
     const found = existing[0];
+    COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+      id: found.id,
+      delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
+      body: found.body,
+    });
     return {
       is_duplicate: true,
       message_id: found.id,
@@ -787,49 +869,83 @@ export async function emitContractorCommunicationEvent(params: {
     ...params.data,
   });
 
-  const msgId = `MSG-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+  const msgId = randomUUID();
   let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
   let providerMessageId: string | undefined;
   const now = new Date().toISOString();
 
   if (params.simulateFailure) {
     deliveryState = 'FAILED';
-  } else if (config.apiKey) {
-    const recipient = params.data.recipient_email || 'delivered@resend.dev';
-    const dispatchResult = await sendOutboundEmailViaProvider({ to: recipient, subject, text: body });
-    if (dispatchResult.success) {
-      deliveryState = 'SENT';
-      providerMessageId = dispatchResult.provider_message_id;
+  } else if (params.data.recipient_email) {
+    if (config.apiKey) {
+      const dispatchResult = await sendOutboundEmailViaProvider({
+        to: params.data.recipient_email,
+        subject,
+        text: body,
+      });
+      if (dispatchResult.success) {
+        deliveryState = 'SENT';
+        providerMessageId = dispatchResult.provider_message_id;
+      } else {
+        deliveryState = 'FAILED';
+      }
     } else {
-      deliveryState = 'FAILED';
+      deliveryState = 'INTERFACE_ONLY';
     }
+  } else {
+    deliveryState = 'INTERFACE_ONLY';
+    console.warn(
+      `[ContractorComms:NoRecipient] No recipient email resolved for ${params.eventType} on work order ${params.work_order_number || params.work_order_id}. Logged as INTERFACE_ONLY.`
+    );
   }
 
-  // 2. Persist full record to DB
-  await dbQuery('communication_messages', {
-    method: 'POST',
-    body: {
-      id: msgId,
-      thread_id: params.work_order_id,
-      work_order_id: params.work_order_id,
-      sender_name: 'EntireFM Dispatch Engine',
-      sender_email: config.fromAddress,
-      reply_to_email: config.replyToAddress,
-      channel: 'EMAIL',
-      visibility: 'PROVIDER_VISIBLE',
-      body,
-      is_incoming: false,
-      is_ai_generated: false,
-      idempotency_key: key,
-      delivery_state: deliveryState,
-      provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
-      provider_message_id: providerMessageId ?? null,
-      recipient_email: params.data.recipient_email || 'delivered@resend.dev',
-      queued_at: now,
-      sent_at: deliveryState === 'SENT' ? now : null,
-      failed_at: deliveryState === 'FAILED' ? now : null,
-      created_at: now,
-    },
+  // Ensure parent communication thread exists to satisfy foreign key constraint
+  const threadId = await ensureCommunicationThread({
+    threadId: params.work_order_id,
+    subject: `Work Order ${params.work_order_number || params.work_order_id}`,
+    threadType: 'CONTRACTOR',
+    relatedObjectType: 'WORK_ORDER',
+    relatedObjectId: isValidUuid(params.work_order_id) ? params.work_order_id : undefined,
+  }).catch(() => {
+    return isValidUuid(params.work_order_id) ? params.work_order_id : randomUUID();
+  });
+
+  // 3. Persist full record to DB
+  try {
+    await dbQuery('communication_messages', {
+      method: 'POST',
+      body: {
+        id: msgId,
+        thread_id: threadId,
+        work_order_id: params.work_order_id,
+        sender_name: 'EntireFM Dispatch Engine',
+        sender_email: config.fromAddress,
+        reply_to_email: config.replyToAddress,
+        channel: 'EMAIL',
+        visibility: 'PROVIDER_VISIBLE',
+        body,
+        is_incoming: false,
+        is_ai_generated: false,
+        idempotency_key: key,
+        delivery_state: deliveryState,
+        provider: config.apiKey ? 'Resend' : 'INTERFACE_ONLY',
+        provider_message_id: providerMessageId ?? null,
+        recipient_email: params.data.recipient_email || null,
+        queued_at: now,
+        sent_at: deliveryState === 'SENT' ? now : null,
+        failed_at: deliveryState === 'FAILED' ? now : null,
+        created_at: now,
+      },
+    });
+  } catch (dbErr) {
+    console.warn('[ContractorComms:DbInsertWarn]', dbErr);
+  }
+
+  COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+    id: msgId,
+    delivery_state: deliveryState,
+    provider_message_id: providerMessageId,
+    body,
   });
 
   return {

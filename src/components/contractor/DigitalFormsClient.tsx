@@ -35,9 +35,9 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
 
   // Form filling state
   const [formData, setFormData] = useState<Record<string, any>>({});
-  const [workOrderNumber, setWorkOrderNumber] = useState('WO-2026-9812');
+  const [workOrderNumber, setWorkOrderNumber] = useState('');
   const [signerName, setSignerName] = useState('');
-  const [signerRole, setSignerRole] = useState('Site Facilities Manager');
+  const [signerRole, setSignerRole] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 

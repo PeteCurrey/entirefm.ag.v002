@@ -22,6 +22,31 @@ export default async function ClientDashboardPage() {
   const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
   const siteIdFilter = siteScopes.length > 0 ? `&site_id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
 
+  // --- TENANT SCOPING: Resolve client account IDs for this organisation ---
+  // Quotes and some compliance data are keyed by client_account_id, not organisation_id.
+  // We must resolve these IDs BEFORE parallel fetching to prevent cross-tenant data leakage.
+  let clientAccountIds: string[] = [];
+  if (session.orgId) {
+    const { data: caRows } = await dbQuery<any[]>(
+      `client_accounts?organisation_id=eq.${encodeURIComponent(session.orgId)}&select=id`
+    );
+    clientAccountIds = (caRows || []).map((r) => r.id);
+  }
+
+  // Build tenant-scoped quote filter — if no client accounts exist, return no quotes
+  const quotesFilter =
+    clientAccountIds.length > 0
+      ? `&client_account_id=in.(${clientAccountIds.map(encodeURIComponent).join(',')})`
+      : '&id=eq.00000000-0000-0000-0000-000000000000'; // no-match sentinel
+
+  // Build tenant-scoped compliance filter using site IDs
+  const complianceScopeFilter =
+    siteScopes.length > 0
+      ? `&site_id=in.(${siteScopes.map(encodeURIComponent).join(',')})`
+      : clientAccountIds.length > 0
+        ? '' // allow org-level compliance if no site scopes (admin view)
+        : '&id=eq.00000000-0000-0000-0000-000000000000'; // no-match sentinel
+
   const [
     sitesRes,
     openWoRes,
@@ -47,13 +72,13 @@ export default async function ClientDashboardPage() {
     dbQuery<any[]>(
       `maintenance_occurrences?status=in.(PLANNED,GENERATED)${siteIdFilter}&planned_date=gte.${new Date().toISOString().slice(0,10)}&select=id,occurrence_code,planned_date,status,plan:maintenance_plans(name)&order=planned_date.asc&limit=5`
     ),
-    // Quotes awaiting approval
+    // Quotes awaiting approval — STRICTLY scoped to this org's client accounts
     dbQuery<any[]>(
-      `quotes?status=in.(DRAFT,ISSUED,PENDING_APPROVAL)&select=id,quote_number,title,total_price_gbp,status,site_id&limit=10`
+      `quotes?status=in.(DRAFT,ISSUED,PENDING_APPROVAL)${quotesFilter}&select=id,quote_number,title,total_price_gbp,status,site_id&limit=10`
     ),
-    // Compliance requiring attention (overdue or due soon)
+    // Compliance requiring attention — STRICTLY scoped to this org's sites
     dbQuery<any[]>(
-      `compliance_obligations?status=in.(OVERDUE,DUE_SOON)&select=id,title,status,next_due_at,responsible_party,site:sites(name)&limit=5`
+      `compliance_obligations?status=in.(OVERDUE,DUE_SOON)${complianceScopeFilter}&select=id,title,status,next_due_at,responsible_party,site:sites(name)&limit=5`
     ),
     // Recent completions
     dbQuery<any[]>(

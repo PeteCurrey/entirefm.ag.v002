@@ -23,6 +23,11 @@ import {
   EligibleContractorCandidate,
 } from './types';
 import { TradeCategory, UrgencyLevel } from '../helpdesk/types';
+import { geocodePostcode, haversineDistanceMiles } from '../../geo/geocoding';
+import {
+  emitClientCommunicationEvent,
+  emitContractorCommunicationEvent,
+} from '../../communications';
 
 export interface DispatchOrchestratorParams {
   work_order_id: string;
@@ -34,6 +39,8 @@ export interface DispatchOrchestratorParams {
   site_name?: string;
   site_city?: string;
   site_postcode?: string;
+  site_latitude?: number;
+  site_longitude?: number;
   client_id?: string;
   client_name?: string;
   automation_level?: AutomationLevel;
@@ -50,20 +57,163 @@ export async function orchestrateReactiveDispatch(
   const autoPoPolicy = params.auto_po_policy || 'AUTO_RAISE';
   const declineHistory = params.decline_history || [];
 
-  // 1. Fetch Candidate Contractors from DB (or use override in testing)
+  // 1. Resolve Work Order Site Coordinates
+  let siteLat: number | null = params.site_latitude ?? null;
+  let siteLng: number | null = params.site_longitude ?? null;
+  let sitePostcode = params.site_postcode || '';
+  let siteCity = params.site_city || '';
+
+  if (params.site_id && (siteLat == null || siteLng == null)) {
+    try {
+      const { data: siteData } = await dbQuery<any[]>(
+        `sites?id=eq.${encodeURIComponent(params.site_id)}&select=id,name,city,postcode,latitude,longitude&limit=1`
+      );
+      const siteRow = siteData?.[0];
+      if (siteRow) {
+        if (!siteCity && siteRow.city) siteCity = siteRow.city;
+        if (!sitePostcode && siteRow.postcode) sitePostcode = siteRow.postcode;
+        if (siteRow.latitude != null && siteRow.longitude != null) {
+          siteLat = Number(siteRow.latitude);
+          siteLng = Number(siteRow.longitude);
+        }
+      }
+    } catch {
+      // Non-blocking
+    }
+  }
+
+  if ((siteLat == null || siteLng == null) && sitePostcode) {
+    try {
+      const coords = await geocodePostcode(sitePostcode, 'GB');
+      if (coords) {
+        siteLat = coords.latitude;
+        siteLng = coords.longitude;
+      }
+    } catch {
+      // Non-blocking
+    }
+  }
+
+  // 2. Fetch Candidate Contractors & Ancillary Records from DB (or use override in testing)
   let rawSuppliers: any[] = [];
+  const provProfilesByOrgId = new Map<string, any>();
+  const locationsByOrgId = new Map<string, any[]>();
+  const coverageByOrgId = new Map<string, any[]>();
+
   if (params.candidate_suppliers_override && params.candidate_suppliers_override.length > 0) {
     rawSuppliers = params.candidate_suppliers_override;
   } else {
-    const { data: dbSuppliers } = await dbQuery<any[]>(
-      `organisations?org_type=in.(CONTRACTOR,SUPPLIER)&select=*&order=name.asc`
-    );
+    const [
+      { data: dbSuppliers },
+      { data: dbProviderProfiles },
+      { data: dbLocations },
+      { data: dbCoverageAreas },
+    ] = await Promise.all([
+      dbQuery<any[]>('organisations?org_type=in.(CONTRACTOR,SUPPLIER)&status=eq.ACTIVE&select=*&order=name.asc'),
+      dbQuery<any[]>('provider_organisations?select=*'),
+      dbQuery<any[]>('provider_locations?select=*'),
+      dbQuery<any[]>('coverage_areas?is_active=eq.true&select=*'),
+    ]);
+
     rawSuppliers = dbSuppliers || [];
+
+    if (dbProviderProfiles) {
+      for (const p of dbProviderProfiles) provProfilesByOrgId.set(p.organisation_id, p);
+    }
+    if (dbLocations) {
+      for (const l of dbLocations) {
+        const arr = locationsByOrgId.get(l.provider_org_id) || [];
+        arr.push(l);
+        locationsByOrgId.set(l.provider_org_id, arr);
+      }
+    }
+    if (dbCoverageAreas) {
+      for (const ca of dbCoverageAreas) {
+        const arr = coverageByOrgId.get(ca.provider_org_id) || [];
+        arr.push(ca);
+        coverageByOrgId.set(ca.provider_org_id, arr);
+      }
+    }
   }
 
-  // 2. Evaluate Hard Eligibility Gates
+  // 3. Evaluate Hard Eligibility Gates with Multi-Depot Nearest Proximity
   const rawCandidates: RawCandidateInput[] = [];
   for (const s of rawSuppliers) {
+    const provProfile = provProfilesByOrgId.get(s.id);
+    const linkedLocs = locationsByOrgId.get(s.id) || s.provider_locations || [];
+    const linkedCov = coverageByOrgId.get(s.id) || s.coverage_areas || [];
+
+    // Trades (fail-closed: never default to [params.trade])
+    let suppTrades = s.trades;
+    if (!suppTrades || suppTrades.length === 0) {
+      if (provProfile?.primary_trade) {
+        suppTrades = [provProfile.primary_trade];
+      } else if (Array.isArray(s.settings?.trades)) {
+        suppTrades = s.settings.trades;
+      } else if (Array.isArray(s.subcontractor_trades)) {
+        suppTrades = s.subcontractor_trades;
+      } else {
+        suppTrades = [];
+      }
+    }
+
+    // Covered cities (fail-closed: never default to [params.site_city])
+    let coveredCities = s.covered_cities;
+    if (!coveredCities || coveredCities.length === 0) {
+      const cities = new Set<string>();
+      for (const loc of linkedLocs) {
+        if (loc.city) cities.add(loc.city);
+      }
+      for (const cov of linkedCov) {
+        if (cov.boundary_value) cities.add(cov.boundary_value);
+      }
+      coveredCities = Array.from(cities);
+    }
+
+    const isNational = Boolean(s.is_national ?? provProfile?.is_national ?? s.settings?.is_national ?? false);
+    const emergencyCapable = Boolean(
+      s.emergency_24_7_capable ??
+      provProfile?.emergency_24_7_capable ??
+      s.settings?.emergency_24_7 ??
+      linkedLocs.some((l: any) => l.emergency_available) ??
+      false
+    );
+    const coverageRadius = s.coverage_radius_miles ?? provProfile?.coverage_radius_miles ?? 25;
+
+    // Multi-depot nearest distance calculation
+    let minDistanceMiles: number | null = s.distance_miles ?? null;
+
+    if (minDistanceMiles == null && siteLat != null && siteLng != null) {
+      const candidateLocs: Array<{ latitude?: number | null; longitude?: number | null; postcode?: string | null }> = [...linkedLocs];
+      if (candidateLocs.length === 0 && (s.latitude != null || s.postcode != null)) {
+        candidateLocs.push({ latitude: s.latitude, longitude: s.longitude, postcode: s.postcode });
+      }
+
+      for (const loc of candidateLocs) {
+        let locLat = loc.latitude != null ? Number(loc.latitude) : null;
+        let locLng = loc.longitude != null ? Number(loc.longitude) : null;
+
+        if ((locLat == null || locLng == null) && loc.postcode) {
+          try {
+            const coords = await geocodePostcode(loc.postcode, 'GB');
+            if (coords) {
+              locLat = coords.latitude;
+              locLng = coords.longitude;
+            }
+          } catch {
+            // Non-blocking
+          }
+        }
+
+        if (locLat != null && locLng != null && !isNaN(locLat) && !isNaN(locLng)) {
+          const d = haversineDistanceMiles(locLat, locLng, siteLat, siteLng);
+          if (minDistanceMiles == null || d < minDistanceMiles) {
+            minDistanceMiles = d;
+          }
+        }
+      }
+    }
+
     const eligibilityGate = evaluateContractorEligibility({
       supplier: {
         id: s.id,
@@ -71,19 +221,21 @@ export async function orchestrateReactiveDispatch(
         code: s.code || 'SUP-00',
         status: s.status || 'ACTIVE',
         org_type: s.org_type || 'CONTRACTOR',
-        trades: s.trades || [params.trade],
-        covered_cities: s.covered_cities || (params.site_city ? [params.site_city] : []),
-        is_national: s.is_national ?? true,
-        is_suspended: s.is_suspended ?? false,
-        emergency_24_7_capable: s.emergency_24_7_capable ?? true,
+        trades: suppTrades,
+        covered_cities: coveredCities,
+        is_national: isNational,
+        is_suspended: Boolean(s.is_suspended),
+        emergency_24_7_capable: emergencyCapable,
+        distance_miles: minDistanceMiles,
+        coverage_radius_miles: coverageRadius,
         blacklisted_client_ids: s.blacklisted_client_ids,
         blacklisted_site_ids: s.blacklisted_site_ids,
       },
       requirement: {
         trade: params.trade,
         site_id: params.site_id,
-        site_city: params.site_city,
-        site_postcode: params.site_postcode,
+        site_city: siteCity,
+        site_postcode: sitePostcode,
         client_id: params.client_id,
         priority: params.priority,
       },
@@ -93,13 +245,13 @@ export async function orchestrateReactiveDispatch(
       supplier_id: s.id,
       supplier_name: s.name,
       supplier_code: s.code || 'SUP',
-      contact_email: s.email || `${s.code?.toLowerCase() || 'contractor'}@example.com`,
+      contact_email: s.email || undefined,
       contact_phone: s.phone || '',
-      trades: s.trades,
-      distance_miles: s.distance_miles ?? 8.5,
+      trades: suppTrades,
+      distance_miles: minDistanceMiles ?? undefined,
       sla_adherence_pct: s.sla_adherence_pct ?? 96,
       acceptance_pct: s.acceptance_pct ?? 94,
-      current_open_jobs: s.current_open_jobs ?? 1,
+      current_open_jobs: s.current_open_jobs ?? 0,
       agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? 85,
       agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? 55,
       eligibility_gate: eligibilityGate,
@@ -193,6 +345,75 @@ export async function orchestrateReactiveDispatch(
       },
     });
   } catch {}
+
+  // 7. Trigger Transactional Email Notifications
+  let clientRecipientEmail: string | undefined;
+  if (params.client_id) {
+    try {
+      const { data: clientOrg } = await dbQuery<any[]>(
+        `organisations?id=eq.${encodeURIComponent(params.client_id)}&select=email&limit=1`
+      );
+      if (clientOrg?.[0]?.email) clientRecipientEmail = clientOrg[0].email;
+    } catch {}
+  }
+  if (!clientRecipientEmail && params.work_order_id) {
+    try {
+      const { data: woData } = await dbQuery<any[]>(
+        `work_orders?id=eq.${encodeURIComponent(params.work_order_id)}&select=client_contact_email,organisation_id&limit=1`
+      );
+      const woRow = woData?.[0];
+      if (woRow?.client_contact_email) {
+        clientRecipientEmail = woRow.client_contact_email;
+      } else if (woRow?.organisation_id) {
+        const { data: cOrg } = await dbQuery<any[]>(
+          `organisations?id=eq.${encodeURIComponent(woRow.organisation_id)}&select=email&limit=1`
+        );
+        if (cOrg?.[0]?.email) clientRecipientEmail = cOrg[0].email;
+      }
+    } catch {}
+  }
+
+  const isReassignment = declineHistory.length > 0;
+
+  try {
+    await emitClientCommunicationEvent({
+      work_order_id: params.work_order_id,
+      work_order_number: params.work_order_number,
+      eventType: 'CONTRACTOR_ASSIGNED',
+      data: {
+        site_name: params.site_name,
+        trade: params.trade,
+        contractor_name: selected.supplier_name,
+        recipient_email: clientRecipientEmail,
+      },
+      idempotencyKey: isReassignment
+        ? `${params.work_order_id}:CLIENT:CONTRACTOR_ASSIGNED:${selected.supplier_id}`
+        : `${params.work_order_id}:CLIENT:CONTRACTOR_ASSIGNED`,
+    });
+  } catch (clientCommsErr: any) {
+    console.warn('[DispatchComms:ClientEventWarn]', clientCommsErr?.message);
+  }
+
+  try {
+    await emitContractorCommunicationEvent({
+      work_order_id: params.work_order_id,
+      work_order_number: params.work_order_number,
+      eventType: 'NEW_ASSIGNMENT',
+      data: {
+        site_name: params.site_name,
+        trade: params.trade,
+        priority: params.priority,
+        po_number: poNumber,
+        nte_amount_gbp: poGross,
+        recipient_email: selected.contact_email || undefined,
+      },
+      idempotencyKey: isReassignment
+        ? `${params.work_order_id}:CONTRACTOR:NEW_ASSIGNMENT:${selected.supplier_id}`
+        : `${params.work_order_id}:CONTRACTOR:NEW_ASSIGNMENT`,
+    });
+  } catch (contractorCommsErr: any) {
+    console.warn('[DispatchComms:ContractorEventWarn]', contractorCommsErr?.message);
+  }
 
   const clientMsg = `Work order ${params.work_order_number} for ${params.site_name || 'your site'} has been assigned to approved partner ${selected.supplier_name}. Priority: ${params.priority}. Target response active.`;
   const contractorMsg = `New Work Order ${params.work_order_number}: ${params.title} at ${params.site_name || 'Site'}. Priority: ${params.priority}. Please accept attendance.`;

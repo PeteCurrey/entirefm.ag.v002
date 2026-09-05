@@ -53,30 +53,7 @@ export default async function ContractorWorkOrderDetailPage({
   }
 
   if (!workOrder) {
-    // If running in development without live work order record, provide graceful fallback
-    workOrder = {
-      id,
-      work_order_number: `WO-2026-${id.slice(0, 5)}`,
-      title: 'Commercial HVAC Air Handling Maintenance',
-      description: 'Quarterly planned maintenance of AHU-01 and AHU-02 supply fans, replacement of pre-filters, and belt tension check.',
-      trade: 'HVAC_AND_REFRIGERATION',
-      priority: 'P3_ROUTINE',
-      status: 'ACCEPTED',
-      target_start_at: new Date().toISOString(),
-      site: {
-        id: 'site-01',
-        name: 'St James House — Commercial Offices',
-        address_line1: '10 St James Street',
-        city: 'Manchester',
-        postcode: 'M1 4BT',
-        access_hours: '08:00 - 18:00',
-        contact_name: 'Building Security Desk',
-        contact_phone: '0161 800 9000',
-      },
-      client_account: {
-        name: 'Savills Property Management',
-      },
-    };
+    notFound();
   }
 
   // 2. Assemble Job Pack

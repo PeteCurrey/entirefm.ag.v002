@@ -459,9 +459,11 @@ async function runLifecycleOrchestratorSuite() {
   console.log('\nSection 9: Client Communication Events & Delivery Tracking');
   // ──────────────────────────────────────────────────────────────
 
+  const testWoId = `wo-orch-test-${Date.now()}`;
+
   await test('9.1 — Client communication event creates canonical message with delivery state (SENT / INTERFACE_ONLY)', async () => {
     const res = await emitClientCommunicationEvent({
-      work_order_id: 'wo-orch-test-01',
+      work_order_id: testWoId,
       work_order_number: 'WO-ORCH-001',
       eventType: 'ATTENDANCE_ARRANGED',
       data: {
@@ -479,7 +481,7 @@ async function runLifecycleOrchestratorSuite() {
 
   await test('9.2 — Repeated client communication event with same key is strictly deduplicated', async () => {
     const res = await emitClientCommunicationEvent({
-      work_order_id: 'wo-orch-test-01',
+      work_order_id: testWoId,
       work_order_number: 'WO-ORCH-001',
       eventType: 'ATTENDANCE_ARRANGED',
       data: { site_name: 'Manchester Hub', contractor_name: 'Acme Mechanical' },

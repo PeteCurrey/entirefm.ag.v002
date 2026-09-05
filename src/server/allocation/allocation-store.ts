@@ -1,3 +1,8 @@
+/**
+ * @deprecated System A Allocation Store is superseded by System B (src/server/ai/dispatch/).
+ * Flagged as dead code slated for removal in a follow-up task.
+ */
+
 import {
   WorkAllocationRequirement,
   SupplierOpportunityRecord,
@@ -20,6 +25,8 @@ import { listSupplierOrganisations, getSupplierOrganisation } from '../suppliers
 import { listServiceApprovals, listGeographicApprovals, listComplianceHolds } from '../suppliers/assurance-store';
 import { getSupplierScorecard } from '../suppliers/performance-store';
 import { evaluateSupplierHardGates, calculateCandidateSuitability } from './allocation-engine';
+import { geocodePostcode, haversineDistanceMiles } from '../geo/geocoding';
+import { calculateLocationDistanceMiles } from './geo-distance';
 import { dbQuery, isDbConfigured } from '@/server/db/client';
 
 function isUuid(val: string): boolean {
@@ -187,12 +194,17 @@ export async function evaluateCandidatesForRequirement(requirementId: string): P
       activeHolds,
     });
 
+    const calculatedDistance = calculateLocationDistanceMiles(
+      { postcode: supplier.headquarters_postcode },
+      { postcode: requirement.site_postcode }
+    );
+
     return calculateCandidateSuitability({
       supplier,
       requirement,
       hardGate,
       scorecard,
-      distanceMiles: 10.0,
+      distanceMiles: calculatedDistance ?? undefined,
       currentOpenWorkload: 0,
     });
   });

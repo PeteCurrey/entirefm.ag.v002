@@ -78,7 +78,8 @@ export function generateRouteMetadata(
     };
   }
 
-  const canonicalUrl = getCanonicalUrl(path);
+  const canonicalTarget = route.canonical && route.canonical !== 'self' ? route.canonical : path;
+  const canonicalUrl = getCanonicalUrl(canonicalTarget);
   const robots = getRobots(route);
 
   const title = overrides?.title ?? content?.title ?? `Page: ${path} | Entire FM`;

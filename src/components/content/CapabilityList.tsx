@@ -93,11 +93,17 @@ export function FAQAccordion({
                   <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-electric' : ''}`} />
                 </button>
 
-                {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs text-slate-600 leading-relaxed border-t border-brand-edge/40">
-                    <p>{faq.answer}</p>
+                <div
+                  className={`grid transition-all duration-200 ease-in-out ${
+                    isOpen ? 'grid-rows-[1fr] opacity-100 border-t border-brand-edge/40' : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-5 pb-5 pt-2 text-xs text-slate-600 leading-relaxed">
+                      <p>{faq.answer}</p>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

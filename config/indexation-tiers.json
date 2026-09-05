@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Indexation tiers. Controls noindex only — never routing. Every path here is a live 200 page regardless of its indexable value. Regenerate with: npm run tiers:generate",
+  "description": "Indexation tiers. Controls noindex only \u2014 never routing. Every path here is a live 200 page regardless of its indexable value. Regenerate with: npm run tiers:generate",
   "generated": "2026-08-23",
   "method": "8-word shingle Jaccard within route type, threshold 0.7",
   "guarantees": {
@@ -23,7 +23,7 @@
     "/24-7-fm-support": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.2% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.2% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.872,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -31,7 +31,7 @@
     "/bocker-crane-hire": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.1% similar to /mobile-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.1% similar to /mobile-crane-hire. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.891,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -39,7 +39,7 @@
     "/building-inspecting-testing": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.878,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -47,7 +47,7 @@
     "/carpark-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.0% similar to /washroom-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.0% similar to /washroom-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.89,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -55,7 +55,7 @@
     "/cleaning-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.5% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.5% similar to /contract-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.875,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -63,7 +63,7 @@
     "/contract-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.9% similar to /internal-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.9% similar to /internal-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.889,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -71,7 +71,7 @@
     "/facilities-management-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.5% similar to /facilities-management-services-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.5% similar to /facilities-management-services-london. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.895,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -79,7 +79,7 @@
     "/facilities-management-services-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.5% similar to /facilities-management-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.5% similar to /facilities-management-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.895,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -87,7 +87,7 @@
     "/fm-technical-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.4% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.4% similar to /hard-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.884,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -95,7 +95,7 @@
     "/grounds-maintenance": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.3% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.3% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.883,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -110,7 +110,7 @@
     "/internal-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.889,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -118,7 +118,7 @@
     "/landscaping": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.3% similar to /carpark-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.3% similar to /carpark-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.883,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -126,7 +126,7 @@
     "/mechanical-electrical/access-control": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.878,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -134,7 +134,7 @@
     "/mechanical-electrical/emergency-light-testing": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.3% similar to /building-inspecting-testing. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.3% similar to /building-inspecting-testing. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.873,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -142,7 +142,7 @@
     "/media-digital-displays": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.878,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -150,7 +150,7 @@
     "/medical-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.889,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -158,7 +158,7 @@
     "/mobile-crane-hire": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.8% similar to /mobile-crane-hire/truck-mount-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.8% similar to /mobile-crane-hire/truck-mount-crane-hire. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.898,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -166,7 +166,7 @@
     "/mobile-crane-hire/truck-mount-crane-hire": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.8% similar to /mobile-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.8% similar to /mobile-crane-hire. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.898,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -174,7 +174,7 @@
     "/office-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.889,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -182,7 +182,7 @@
     "/pressure-washing": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.5% similar to /cleaning-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.5% similar to /cleaning-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.875,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -190,7 +190,7 @@
     "/reactive-cleaning-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "72.8% similar to /cleaning-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "72.8% similar to /cleaning-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.728,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -198,7 +198,7 @@
     "/security-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.0% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.0% similar to /hard-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.89,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -206,7 +206,7 @@
     "/soft-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.0% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.0% similar to /hard-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.89,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -214,7 +214,7 @@
     "/vending-supplier": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.3% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.3% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.883,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -222,7 +222,7 @@
     "/washroom-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.0% similar to /carpark-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.0% similar to /carpark-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.89,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -230,7 +230,7 @@
     "/window-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.9% similar to /contract-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.889,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -238,7 +238,7 @@
     "/working-at-heights": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.8% similar to /landscaping. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.878,
       "clusterSize": 28,
       "representative": "/hard-services"
@@ -258,7 +258,7 @@
     "/accessibility-statement": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "95.2% similar to /privacy-policy. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "95.2% similar to /privacy-policy. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.952,
       "clusterSize": 3,
       "representative": "/privacy-policy"
@@ -273,7 +273,7 @@
     "/terms-and-conditions": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "94.8% similar to /accessibility-statement. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "94.8% similar to /accessibility-statement. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.948,
       "clusterSize": 3,
       "representative": "/privacy-policy"
@@ -281,7 +281,7 @@
     "/account-registration": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "73.4% similar to /search. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "73.4% similar to /search. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.734,
       "clusterSize": 2,
       "representative": "/search"
@@ -315,7 +315,7 @@
     "/facilities-management-for/sports-venue-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.0% similar to /sport-centre-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.0% similar to /sport-centre-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.9,
       "clusterSize": 5,
       "representative": "/arena-facilities-management"
@@ -323,7 +323,7 @@
     "/facilities-management-for/stadium-%26-arena-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.6% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.6% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.896,
       "clusterSize": 5,
       "representative": "/arena-facilities-management"
@@ -331,7 +331,7 @@
     "/sport-centre-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.0% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.0% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.9,
       "clusterSize": 5,
       "representative": "/arena-facilities-management"
@@ -339,21 +339,23 @@
     "/transport-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.6% similar to /arena-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.6% similar to /arena-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.896,
       "clusterSize": 5,
       "representative": "/arena-facilities-management"
     },
     "/arena-facilities-management-1": {
-      "indexable": true,
-      "tier": "UNIQUE",
-      "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.555
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /arena-facilities-management.",
+      "peakSimilarity": 0.555,
+      "clusterSize": 2,
+      "representative": "/arena-facilities-management"
     },
     "/best-facilities-management-company": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.8% similar to /facilities-management-team. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.8% similar to /facilities-management-team. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.878,
       "clusterSize": 2,
       "representative": "/facilities-management-team"
@@ -381,7 +383,7 @@
     "/facilities-management-blog": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.1% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "92.1% similar to /blog. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.921,
       "clusterSize": 2,
       "representative": "/blog"
@@ -389,7 +391,7 @@
     "/bolton-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-bolton. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-bolton. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-bolton"
@@ -397,7 +399,7 @@
     "/facilities-management-bolton": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-bolton. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-bolton. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-bolton"
@@ -412,7 +414,7 @@
     "/bradford-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-bradford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-bradford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/facilities-management-bradford"
@@ -427,7 +429,7 @@
     "/fm-bradford": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /facilities-management-bradford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /facilities-management-bradford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/facilities-management-bradford"
@@ -441,7 +443,7 @@
     "/bury-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-bury. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-bury. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-bury"
@@ -449,7 +451,7 @@
     "/facilities-management-bury": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-bury. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-bury. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-bury"
@@ -471,7 +473,7 @@
     "/concierge-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.8% similar to /caretaker. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.8% similar to /caretaker. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.918,
       "clusterSize": 2,
       "representative": "/caretaker"
@@ -486,7 +488,7 @@
     "/portfolio": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "97.7% similar to /case-studies. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "97.7% similar to /case-studies. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.977,
       "clusterSize": 2,
       "representative": "/case-studies"
@@ -500,7 +502,7 @@
     "/chesterfield-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-chesterfield. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-chesterfield"
@@ -508,7 +510,7 @@
     "/facilities-management-chesterfield": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "75.5% similar to /fm-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "75.5% similar to /fm-chesterfield. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.755,
       "clusterSize": 3,
       "representative": "/fm-chesterfield"
@@ -523,7 +525,7 @@
     "/client-login": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.1% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "93.1% similar to /helpdesk. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.931,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -531,7 +533,7 @@
     "/client-login/account-registration": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.8% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "92.8% similar to /helpdesk-registration. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.928,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -539,15 +541,15 @@
     "/copy-of-helpdesk-registration": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.2% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /helpdesk-registration.",
       "peakSimilarity": 0.932,
       "clusterSize": 8,
-      "representative": "/fm-supply-chain"
+      "representative": "/helpdesk-registration"
     },
     "/fm-client-info": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.5% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "92.5% similar to /helpdesk. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.925,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -562,7 +564,7 @@
     "/fm-supply-form": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.8% similar to /fm-supply-chain. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "92.8% similar to /fm-supply-chain. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.928,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -570,7 +572,7 @@
     "/helpdesk": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.7% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "93.7% similar to /helpdesk-registration. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.937,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -578,7 +580,7 @@
     "/helpdesk-registration": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.7% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "93.7% similar to /helpdesk. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.937,
       "clusterSize": 8,
       "representative": "/fm-supply-chain"
@@ -586,7 +588,7 @@
     "/commercial-cleaning-birmingham": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /external-cleaning-birmingham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /external-cleaning-birmingham. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 3,
       "representative": "/pressure-washing-birmingham"
@@ -594,7 +596,7 @@
     "/external-cleaning-birmingham": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /commercial-cleaning-birmingham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /commercial-cleaning-birmingham. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 3,
       "representative": "/pressure-washing-birmingham"
@@ -609,7 +611,7 @@
     "/commercial-cleaning-chesterfield": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /contract-cleaning-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /contract-cleaning-chesterfield. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 2,
       "representative": "/contract-cleaning-chesterfield"
@@ -624,7 +626,7 @@
     "/commercial-cleaning-leeds": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /contract-cleaning-leeds. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /contract-cleaning-leeds. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 2,
       "representative": "/contract-cleaning-leeds"
@@ -639,7 +641,7 @@
     "/commercial-cleaning-lincoln": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /office-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /office-cleaning-lincoln. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 5,
       "representative": "/office-cleaning-lincoln"
@@ -647,7 +649,7 @@
     "/contract-cleaning-lincoln": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.5% similar to /external-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.5% similar to /external-cleaning-lincoln. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.905,
       "clusterSize": 5,
       "representative": "/office-cleaning-lincoln"
@@ -655,7 +657,7 @@
     "/external-cleaning-lincoln": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.5% similar to /contract-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.5% similar to /contract-cleaning-lincoln. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.905,
       "clusterSize": 5,
       "representative": "/office-cleaning-lincoln"
@@ -670,7 +672,7 @@
     "/pressure-washing-lincoln": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /commercial-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /commercial-cleaning-lincoln. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 5,
       "representative": "/office-cleaning-lincoln"
@@ -678,7 +680,7 @@
     "/commercial-cleaning-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /office-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /office-cleaning-london. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 5,
       "representative": "/office-cleaning-london"
@@ -686,7 +688,7 @@
     "/contract-cleaning-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.3% similar to /external-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.3% similar to /external-cleaning-london. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.903,
       "clusterSize": 5,
       "representative": "/office-cleaning-london"
@@ -694,7 +696,7 @@
     "/external-cleaning-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.3% similar to /contract-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.3% similar to /contract-cleaning-london. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.903,
       "clusterSize": 5,
       "representative": "/office-cleaning-london"
@@ -709,7 +711,7 @@
     "/pressure-washing-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /commercial-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /commercial-cleaning-london. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 5,
       "representative": "/office-cleaning-london"
@@ -717,7 +719,7 @@
     "/commercial-cleaning-manchester": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /manchester-office-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /manchester-office-cleaning. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 5,
       "representative": "/external-cleaning-manchester"
@@ -725,7 +727,7 @@
     "/contract-cleaning-manchester": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.8% similar to /external-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.8% similar to /external-cleaning-manchester. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.898,
       "clusterSize": 5,
       "representative": "/external-cleaning-manchester"
@@ -740,7 +742,7 @@
     "/manchester-office-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /commercial-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /commercial-cleaning-manchester. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 5,
       "representative": "/external-cleaning-manchester"
@@ -748,7 +750,7 @@
     "/pressure-washing-manchester": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /commercial-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /commercial-cleaning-manchester. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 5,
       "representative": "/external-cleaning-manchester"
@@ -762,7 +764,7 @@
     "/commercial-cleaning-sheffield": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /contract-cleaning-sheffield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /contract-cleaning-sheffield. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 3,
       "representative": "/pressure-washing-sheffield"
@@ -770,7 +772,7 @@
     "/contract-cleaning-sheffield": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /commercial-cleaning-sheffield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /commercial-cleaning-sheffield. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 3,
       "representative": "/pressure-washing-sheffield"
@@ -792,7 +794,7 @@
     "/construction-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.882,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -800,7 +802,7 @@
     "/facilities-management-for/construction-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /facilities-management-for/leisure-centre-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /facilities-management-for/leisure-centre-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -808,7 +810,7 @@
     "/facilities-management-for/leisure-centre-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -816,7 +818,7 @@
     "/facilities-management-for/offices%2C-corporate-%26-co-working": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "85.8% similar to /facilities-management-offices. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "85.8% similar to /facilities-management-offices. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.858,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -824,7 +826,7 @@
     "/facilities-management-for/restaurant-%26-hospitality-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.6% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.6% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.876,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -832,7 +834,7 @@
     "/facilities-management-offices": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "86.8% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "86.8% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.868,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -840,7 +842,7 @@
     "/landmark-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.882,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -848,7 +850,7 @@
     "/public-sector-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.7% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.7% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.877,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -856,7 +858,7 @@
     "/restaurant-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.2% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.882,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -864,7 +866,7 @@
     "/service-station-fm": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "85.3% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "85.3% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.853,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -872,7 +874,7 @@
     "/tier-one-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "87.7% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "87.7% similar to /commercial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.877,
       "clusterSize": 13,
       "representative": "/commercial-facilities-management"
@@ -880,10 +882,10 @@
     "/tierone-facilities-managment": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "85.3% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Typo slug \u2014 spelling error in URL. Redirecting to /tier-one-facilities-management via 301. noindex applied as belt-and-braces.",
       "peakSimilarity": 0.853,
-      "clusterSize": 13,
-      "representative": "/commercial-facilities-management"
+      "clusterSize": 1,
+      "representative": "/tier-one-facilities-management"
     },
     "/commercial-fm-lincoln": {
       "indexable": true,
@@ -967,7 +969,7 @@
     "/fm-support-n-contact": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "99.2% similar to /contact-us. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "99.2% similar to /contact-us. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.992,
       "clusterSize": 2,
       "representative": "/contact-us"
@@ -975,7 +977,7 @@
     "/copy-of-industrial-cleaning": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.8% similar to /industrial-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /industrial-cleaning.",
       "peakSimilarity": 0.908,
       "clusterSize": 2,
       "representative": "/industrial-cleaning"
@@ -990,7 +992,7 @@
     "/copy-of-what-is-facilities-manageme": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.5% similar to /what-is-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /what-is-facilities-management.",
       "peakSimilarity": 0.895,
       "clusterSize": 2,
       "representative": "/what-is-facilities-management"
@@ -1011,7 +1013,7 @@
     "/doncaster-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-doncaster. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-doncaster. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-doncaster"
@@ -1019,7 +1021,7 @@
     "/facilities-management-doncaster": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-doncaster. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-doncaster. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-doncaster"
@@ -1047,7 +1049,7 @@
     "/facilities-management-for/education-%26-schools-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /education-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /education-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 2,
       "representative": "/education-facilities-management"
@@ -1061,7 +1063,7 @@
     "/employment-portal": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.3% similar to /job-board. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "93.3% similar to /job-board. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.933,
       "clusterSize": 2,
       "representative": "/job-board"
@@ -1088,7 +1090,7 @@
     "/facilities-management-for/healthcare-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.1% similar to /healthcare-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.1% similar to /healthcare-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.881,
       "clusterSize": 2,
       "representative": "/healthcare-facilities-management"
@@ -1103,7 +1105,7 @@
     "/facilities-management-for/hotels-%26-resort-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.0% similar to /hotel-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.0% similar to /hotel-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.9,
       "clusterSize": 2,
       "representative": "/hotel-facilities-management"
@@ -1118,7 +1120,7 @@
     "/facilities-management-for/industrial-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.7% similar to /industrial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.7% similar to /industrial-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.887,
       "clusterSize": 2,
       "representative": "/industrial-facilities-management"
@@ -1133,7 +1135,7 @@
     "/facilities-management-for/logistics-%26-distribution-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.4% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.4% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.894,
       "clusterSize": 4,
       "representative": "/warehouse-facilities-management"
@@ -1141,7 +1143,7 @@
     "/facilities-management-for/warehouse-%26-distribution": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /logistics-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /logistics-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 4,
       "representative": "/warehouse-facilities-management"
@@ -1149,7 +1151,7 @@
     "/logistics-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 4,
       "representative": "/warehouse-facilities-management"
@@ -1164,7 +1166,7 @@
     "/facilities-management-for/managing-agent-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.7% similar to /property-manager-fm-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.7% similar to /property-manager-fm-services. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.897,
       "clusterSize": 2,
       "representative": "/property-manager-fm-services"
@@ -1179,7 +1181,7 @@
     "/facilities-management-for/residential-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.4% similar to /residential-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.4% similar to /residential-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.894,
       "clusterSize": 2,
       "representative": "/residential-facilities-management"
@@ -1194,7 +1196,7 @@
     "/facilities-management-for/retail-%26-shopping-centre-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "88.0% similar to /retail-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "88.0% similar to /retail-facilities-management. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.88,
       "clusterSize": 2,
       "representative": "/retail-facilities-management"
@@ -1215,7 +1217,7 @@
     "/facilities-management-grimsby": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-grimsby. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-grimsby. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-grimsby"
@@ -1230,7 +1232,7 @@
     "/grimsby-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-grimsby. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-grimsby. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-grimsby"
@@ -1238,7 +1240,7 @@
     "/facilities-management-in-telford": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.8% similar to /facilities-management-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.8% similar to /facilities-management-telford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.918,
       "clusterSize": 4,
       "representative": "/fm-telford"
@@ -1246,7 +1248,7 @@
     "/facilities-management-telford": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.8% similar to /facilities-management-in-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.8% similar to /facilities-management-in-telford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.918,
       "clusterSize": 4,
       "representative": "/fm-telford"
@@ -1261,7 +1263,7 @@
     "/telford-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-telford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 4,
       "representative": "/fm-telford"
@@ -1269,7 +1271,7 @@
     "/facilities-management-in-the-midlands": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /facilities-management-midlands. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /facilities-management-midlands. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 2,
       "representative": "/facilities-management-midlands"
@@ -1326,7 +1328,7 @@
     "/facilities-management-oxford": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-oxford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-oxford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-oxford"
@@ -1341,7 +1343,7 @@
     "/oxford-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-oxford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-oxford. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-oxford"
@@ -1349,7 +1351,7 @@
     "/facilities-management-preston": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-preston. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-preston. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-preston"
@@ -1364,7 +1366,7 @@
     "/preston-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-preston. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-preston. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-preston"
@@ -1372,7 +1374,7 @@
     "/facilities-management-rotherham": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-rotherham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-rotherham. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-rotherham"
@@ -1387,7 +1389,7 @@
     "/rotherham-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-rotherham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-rotherham. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-rotherham"
@@ -1401,7 +1403,7 @@
     "/facilities-management-wigan": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.2% similar to /fm-wigan. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "91.2% similar to /fm-wigan. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.912,
       "clusterSize": 3,
       "representative": "/fm-wigan"
@@ -1416,7 +1418,7 @@
     "/wigan-facilities-management": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.2% similar to /fm-wigan. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.2% similar to /fm-wigan. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.902,
       "clusterSize": 3,
       "representative": "/fm-wigan"
@@ -1424,7 +1426,7 @@
     "/fire-emergency-systems": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "90.4% similar to /safety-critical-emergency-systems. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "90.4% similar to /safety-critical-emergency-systems. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.904,
       "clusterSize": 2,
       "representative": "/safety-critical-emergency-systems"
@@ -1515,35 +1517,36 @@
       "peakSimilarity": 0.657
     },
     "/home": {
-      "indexable": true,
-      "tier": "CLUSTER_REPRESENTATIVE",
-      "reason": "Strongest page in a 4-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "Duplicate of real homepage (/). Page remains live and returns 200 \u2014 noindex with canonical pointing to /. Wix-era template duplicate.",
       "peakSimilarity": 0.985,
-      "clusterSize": 4
+      "clusterSize": 4,
+      "representative": "/"
     },
     "/home-1-1": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "98.4% similar to /home-1-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Duplicate of real homepage (/). Page remains live and returns 200 \u2014 noindex with canonical pointing to /. Wix-era template duplicate.",
       "peakSimilarity": 0.984,
       "clusterSize": 4,
-      "representative": "/home"
+      "representative": "/"
     },
     "/home-1-1-1": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "98.4% similar to /home-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Duplicate of real homepage (/). Page remains live and returns 200 \u2014 noindex with canonical pointing to /. Wix-era template duplicate.",
       "peakSimilarity": 0.984,
       "clusterSize": 4,
-      "representative": "/home"
+      "representative": "/"
     },
     "/homeab": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "98.5% similar to /home. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Duplicate of real homepage (/). Page remains live and returns 200 \u2014 noindex with canonical pointing to /. Wix-era template duplicate.",
       "peakSimilarity": 0.985,
       "clusterSize": 4,
-      "representative": "/home"
+      "representative": "/"
     },
     "/hot-tub-relocation": {
       "indexable": true,
@@ -1620,7 +1623,7 @@
     "/items": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "96.1% similar to /resources. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "96.1% similar to /resources. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.961,
       "clusterSize": 3,
       "representative": "/services"
@@ -1628,7 +1631,7 @@
     "/resources": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "96.1% similar to /items. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "96.1% similar to /items. Page remains live and returns 200 \u2014 noindex only until it carries distinct content.",
       "peakSimilarity": 0.961,
       "clusterSize": 3,
       "representative": "/services"
@@ -1689,10 +1692,12 @@
       "peakSimilarity": 0.388
     },
     "/manchester-facilities-managment": {
-      "indexable": true,
-      "tier": "UNIQUE",
-      "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "Typo slug \u2014 spelling error in URL. Redirecting to /manchester-facilities-management via 301. noindex applied as belt-and-braces.",
+      "peakSimilarity": 0,
+      "clusterSize": 1,
+      "representative": "/manchester-facilities-management"
     },
     "/mechanical-electrical": {
       "indexable": true,
@@ -1758,7 +1763,7 @@
     "/post/the-importance-of-regular-maintenance-and-inspections-1": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.8% similar to /post/the-importance-of-regular-maintenance-and-inspections. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /post/the-importance-of-regular-maintenance-and-inspections.",
       "peakSimilarity": 0.918,
       "clusterSize": 2,
       "representative": "/post/the-importance-of-regular-maintenance-and-inspections"
@@ -1779,7 +1784,7 @@
     "/post/what-are-hard-services-in-facilities-management-1": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.8% similar to /post/what-are-hard-services-in-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /post/what-are-hard-services-in-facilities-management.",
       "peakSimilarity": 0.938,
       "clusterSize": 2,
       "representative": "/post/what-are-hard-services-in-facilities-management"
@@ -1791,19 +1796,20 @@
       "peakSimilarity": 0.489
     },
     "/post/what-is-facilities-management-1": {
-      "indexable": true,
-      "tier": "CLUSTER_REPRESENTATIVE",
-      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /post/what-is-facilities-management.",
       "peakSimilarity": 0.979,
-      "clusterSize": 2
+      "clusterSize": 2,
+      "representative": "/post/what-is-facilities-management"
     },
     "/post/what-is-facilities-management-1-1": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "97.9% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "Wix-era duplicate. Page remains live and returns 200 \u2014 noindex with canonical pointing to /post/what-is-facilities-management.",
       "peakSimilarity": 0.979,
       "clusterSize": 2,
-      "representative": "/post/what-is-facilities-management-1"
+      "representative": "/post/what-is-facilities-management"
     },
     "/ppm": {
       "indexable": true,

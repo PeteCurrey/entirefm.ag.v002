@@ -99,8 +99,14 @@ function selectTemplate(
 ): React.ReactElement {
   const path = route.path;
 
-  // 1. Homepage
-  if (path === '/') {
+  // 1. Homepage & legacy home clones (which return 200 with noindex & canonical to /)
+  if (
+    path === '/' ||
+    path === '/home' ||
+    path === '/home-1-1' ||
+    path === '/home-1-1-1' ||
+    path === '/homeab'
+  ) {
     return <TemplateHome />;
   }
 

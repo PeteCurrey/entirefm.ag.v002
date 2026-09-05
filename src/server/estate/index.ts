@@ -6,6 +6,7 @@
  */
 
 import { dbQuery } from '../db/client';
+import { geocodePostcode } from '../geo/geocoding';
 
 export interface ClientAccount {
   id: string;
@@ -208,6 +209,67 @@ export async function createClientAccount(params: {
     }
   }
 
+  let primaryContactId = params.primary_contact_id || null;
+
+  // If primary contact wasn't directly passed by ID but email was provided, resolve or create person & membership
+  if (!primaryContactId && params.email) {
+    try {
+      const emailLower = params.email.trim().toLowerCase();
+      const { data: existingPerson } = await dbQuery<any[]>(
+        `persons?email=eq.${encodeURIComponent(emailLower)}&limit=1`
+      );
+      if (existingPerson && existingPerson.length > 0) {
+        primaryContactId = existingPerson[0].id;
+      } else {
+        const nameParts = params.name.trim().split(/\s+/);
+        const firstName = nameParts[0] || 'Client';
+        const lastName = nameParts.slice(1).join(' ') || 'Admin';
+
+        const { data: newPerson } = await dbQuery<any[]>('persons', {
+          method: 'POST',
+          body: {
+            first_name: firstName,
+            last_name: lastName,
+            email: emailLower,
+            phone: params.phone || null,
+            job_title: 'Client Administrator',
+            status: 'ACTIVE',
+            metadata: { auto_provisioned: true, client_org_id: orgId },
+          },
+        });
+        if (newPerson && newPerson.length > 0) {
+          primaryContactId = newPerson[0].id;
+        }
+      }
+
+      // Ensure membership in this organisation with CLIENT_ADMIN role
+      if (primaryContactId && orgId) {
+        const { data: existingMembership } = await dbQuery<any[]>(
+          `organisation_memberships?person_id=eq.${encodeURIComponent(primaryContactId)}&organisation_id=eq.${encodeURIComponent(orgId)}&limit=1`
+        );
+        if (!existingMembership || existingMembership.length === 0) {
+          const { data: roleRow } = await dbQuery<any[]>(
+            `roles?code=eq.CLIENT_ADMIN&limit=1`
+          );
+          const roleId = roleRow?.[0]?.id || 'febc08c9-c92c-4068-b26d-ae77a35ef230';
+
+          await dbQuery('organisation_memberships', {
+            method: 'POST',
+            body: {
+              person_id: primaryContactId,
+              organisation_id: orgId,
+              role_id: roleId,
+              is_primary: true,
+              status: 'ACTIVE',
+            },
+          });
+        }
+      }
+    } catch (contactErr) {
+      console.warn('[CreateClientAccount:ContactLinkageWarn]', contactErr);
+    }
+  }
+
   let accountNumber = params.account_number || `CLA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
   let { data, error } = await dbQuery<ClientAccount[]>('client_accounts', {
@@ -221,7 +283,7 @@ export async function createClientAccount(params: {
       account_status: params.account_status || 'ACTIVE',
       account_tier: params.account_tier || 'CORPORATE',
       account_manager_id: params.account_manager_id || null,
-      primary_contact_id: params.primary_contact_id || null,
+      primary_contact_id: primaryContactId,
     },
   });
 
@@ -368,6 +430,20 @@ export async function createSite(params: {
 
   const siteCode = params.site_code || `STE-${params.name.substring(0, 4).toUpperCase().replace(/[^A-Z0-9]/g, '')}-${Math.floor(100 + Math.random() * 900)}`;
 
+  let latitude: number | null = null;
+  let longitude: number | null = null;
+  if (params.postcode) {
+    try {
+      const coords = await geocodePostcode(params.postcode, params.country || 'GB');
+      if (coords) {
+        latitude = coords.latitude;
+        longitude = coords.longitude;
+      }
+    } catch {
+      // Non-blocking geocoding failure
+    }
+  }
+
   const { data, error } = await dbQuery<Site[]>('sites', {
     method: 'POST',
     body: {
@@ -383,6 +459,8 @@ export async function createSite(params: {
       county: params.county || null,
       postcode: params.postcode,
       country: params.country || 'United Kingdom',
+      latitude,
+      longitude,
       access_instructions: params.access_instructions || null,
       security_clearance_required: params.security_clearance_required ?? false,
       status: params.status || 'ACTIVE',

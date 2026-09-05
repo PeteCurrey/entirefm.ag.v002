@@ -15,8 +15,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
-import { executeModelRequest, wrapUntrustedEvidence } from '@/server/ai/models/router';
-import { CANONICAL_SLA_HOURS, deterministicKeywordTriage } from '@/server/ai/helpdesk/intake';
+import { executeModelRequest, executeDualModelVerification, wrapUntrustedEvidence } from '@/server/ai/models/router';
+import { CANONICAL_SLA_HOURS, deterministicKeywordTriage, isHighRiskSafetyCategory } from '@/server/ai/helpdesk/intake';
 import { TradeCategory, UrgencyLevel } from '@/server/ai/helpdesk/types';
 
 export interface ConversationalHelpdeskState {
@@ -140,6 +140,43 @@ Your task:
       'FAST_TRIAGE'
     );
 
+    // High-risk safety messages: run dual-model verification and halt auto-submit on disagreement
+    let dualModelDisagreement = false;
+    let dualModelClarification: string | undefined;
+
+    if (isHighRiskSafetyCategory(message)) {
+      try {
+        const dualRes = await executeDualModelVerification<any>(
+          {
+            systemPrompt,
+            prompt: `Conversation History:\n${history.map((h: any) => `${h.role}: ${h.text}`).join('\n')}\n\nLatest Client Message:\n${wrappedInput}`,
+            temperature: 0.1,
+            agentCode: 'CLIENT_CONVERSATIONAL_HELPDESK_SAFETY',
+            deterministicFallbackOutput: modelRes.structuredOutput || {},
+          },
+          (a, b) => {
+            const agreed = a.extracted_trade === b.extracted_trade && a.extracted_priority === b.extracted_priority;
+            const reasons: string[] = [];
+            if (a.extracted_trade !== b.extracted_trade)
+              reasons.push(`Trade disagreement: Model A (${a.extracted_trade}) vs Model B (${b.extracted_trade})`);
+            if (a.extracted_priority !== b.extracted_priority)
+              reasons.push(`Priority disagreement: Model A (${a.extracted_priority}) vs Model B (${b.extracted_priority})`);
+            return { agreed, divergenceReasons: reasons };
+          }
+        );
+
+        if (!dualRes.agreed) {
+          dualModelDisagreement = true;
+          dualModelClarification =
+            'I want to make sure I categorise this correctly — this sounds like it could be a safety issue. ' +
+            'Could you confirm: is there an active fire, gas leak, or smoke you can detect right now? ' +
+            'If yes, please call emergency services immediately. Otherwise, please describe the hazard so I can raise the correct urgent job.';
+        }
+      } catch (dualErr: any) {
+        console.warn('[CHAT_DUAL_MODEL_WARN]:', dualErr?.message);
+      }
+    }
+
     const extracted = modelRes.structuredOutput || {};
 
     // 5. Update State
@@ -195,8 +232,16 @@ Your task:
 
     state.is_ready_to_submit = state.missing_fields.length === 0;
 
+    // If dual-model safety verification detected a disagreement, block submission
+    // and ask the tenant to clarify the nature of the hazard
+    if (dualModelDisagreement) {
+      state.is_ready_to_submit = false;
+    }
+
     let replyMessage = extracted.response_message || 'Thank you, I have recorded those details.';
-    if (state.is_ready_to_submit && !history.some((h: any) => h.is_summary_prompt)) {
+    if (dualModelDisagreement && dualModelClarification) {
+      replyMessage = dualModelClarification;
+    } else if (state.is_ready_to_submit && !history.some((h: any) => h.is_summary_prompt)) {
       replyMessage = `I have everything needed to raise this request. Please review the summary below and click 'Report Issue' to submit.`;
     }
 

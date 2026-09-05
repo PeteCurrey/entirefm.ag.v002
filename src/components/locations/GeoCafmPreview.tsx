@@ -68,9 +68,9 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80 inline-block" />
                   <span className="ml-2 font-light text-slate-200">EntireCAFM Enterprise // {city.toUpperCase()} DASHBOARD</span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] text-emerald-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>SYNCED LIVE</span>
+                <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                  <span>Illustrative Example</span>
                 </div>
               </div>
 
@@ -96,7 +96,7 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
               {/* Simulated Live Feed Rows */}
               <div className="p-4 sm:p-5 space-y-3 font-normal text-xs">
                 <p className="text-[11px] font-normal uppercase text-slate-400 tracking-wider">
-                  Live Dispatch &amp; PPM Feed ({city} Regional Sector):
+                  Sample PPM Feed — Illustrative ({city} Regional Sector):
                 </p>
 
                 <div className="rounded-sm bg-slate-950/60 p-3 border border-white/5 flex items-center justify-between gap-2">

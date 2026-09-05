@@ -816,14 +816,26 @@ export async function createServiceRequest(params: {
   category?: string;
   priority?: WorkPriority;
   source?: 'MANUAL' | 'PHONE' | 'EMAIL' | 'PORTAL' | 'AI_HELPDESK';
-  organisation_id?: string;
-  client_account_id?: string;
-  building_id?: string;
-  space_id?: string;
-  asset_id?: string;
-  requester_name?: string;
-  requester_email?: string;
-  trade_id?: string;
+  organisation_id?: string | null;
+  client_account_id?: string | null;
+  building_id?: string | null;
+  space_id?: string | null;
+  asset_id?: string | null;
+  requester_name?: string | null;
+  requester_email?: string | null;
+  trade_id?: string | null;
+  // AI triage metadata (from parseHelpdeskIntake) — nullable for backwards compat
+  triage_status?: string | null;
+  ai_summary?: string | null;
+  ai_model_provider?: string | null;
+  ai_model_name?: string | null;
+  ai_confidence_score?: number | null;
+  ai_disagreement_notes?: string | null; // JSON.stringify(string[])
+  ai_candidate_count?: number | null;
+  triage_exception_reason?: string | null;
+  ai_suggested_trade?: string | null;
+  ai_suggested_priority?: string | null;
+  sla_due_at?: string | null;
 }): Promise<ServiceRequest> {
   let orgId = params.organisation_id;
   if (!orgId) {
@@ -856,6 +868,18 @@ export async function createServiceRequest(params: {
       requester_name: params.requester_name || null,
       requester_email: params.requester_email || null,
       trade_id: params.trade_id || null,
+      // AI triage metadata
+      triage_status: params.triage_status || 'PENDING',
+      ai_summary: params.ai_summary || null,
+      ai_model_provider: params.ai_model_provider || null,
+      ai_model_name: params.ai_model_name || null,
+      ai_confidence_score: params.ai_confidence_score ?? null,
+      ai_disagreement_notes: params.ai_disagreement_notes || null,
+      ai_candidate_count: params.ai_candidate_count ?? 1,
+      triage_exception_reason: params.triage_exception_reason || null,
+      ai_suggested_trade: params.ai_suggested_trade || null,
+      ai_suggested_priority: params.ai_suggested_priority || null,
+      sla_due_at: params.sla_due_at || null,
     },
   });
 
@@ -865,6 +889,7 @@ export async function createServiceRequest(params: {
 
   return data[0];
 }
+
 
 export async function createWorkOrder(params: {
   site_id: string;

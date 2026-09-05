@@ -39,7 +39,7 @@ export async function POST(
 
     // Verify quote exists and load client_account_id
     const { data: quotes } = await dbQuery<any[]>(
-      `quotes?id=eq.${encodeURIComponent(quoteId)}&select=id,quote_number,title,total_price_gbp,status,client_account_id`
+      `quotes?id=eq.${encodeURIComponent(quoteId)}&select=id,quote_number,title,total_price_gbp,status,client_account_id,work_order_id,converted_work_order_id,site_id`
     );
     const quote = quotes?.[0];
     if (!quote) return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
@@ -88,6 +88,21 @@ export async function POST(
       reason: `Client performed action ${action} on quote ${quote.quote_number}`,
       source: 'CLIENT_PORTAL',
     });
+
+    // When client approves quote, unblock linked work order or trigger conversion
+    if (action === 'APPROVE') {
+      const targetWoId = quote.work_order_id || quote.converted_work_order_id;
+      if (targetWoId) {
+        // Remedial quote approved: unblock work order disposition state
+        await dbQuery(`work_orders?id=eq.${encodeURIComponent(targetWoId)}`, {
+          method: 'PATCH',
+          body: {
+            disposition_state: 'APPROVED',
+            updated_at: new Date().toISOString(),
+          },
+        });
+      }
+    }
 
     return NextResponse.json({
       success: true,

@@ -54,18 +54,26 @@ export function rankEligibleContractors(
     }
 
     // 2. Geographic Locality Score (Max 25 pts)
-    const dist = c.distance_miles ?? 15;
-    let geoScore = 10;
-    let geoExp = 'National coverage authorised';
-    if (dist <= 10) {
-      geoScore = 25;
-      geoExp = `Local primary depot (${dist.toFixed(1)} miles from ${requirement.site_city || 'site'})`;
-    } else if (dist <= 25) {
-      geoScore = 20;
-      geoExp = `Regional radius coverage (${dist.toFixed(1)} miles)`;
-    } else if (dist <= 50) {
-      geoScore = 15;
-      geoExp = `Extended regional coverage (${dist.toFixed(1)} miles)`;
+    const dist = c.distance_miles;
+    let geoScore = 0;
+    let geoExp = 'No verified depot distance available (unranked proximity tier)';
+    if (dist != null) {
+      if (dist <= 10) {
+        geoScore = 25;
+        geoExp = `Local primary depot (${dist.toFixed(1)} miles from ${requirement.site_city || 'site'})`;
+      } else if (dist <= 25) {
+        geoScore = 20;
+        geoExp = `Regional radius coverage (${dist.toFixed(1)} miles)`;
+      } else if (dist <= 50) {
+        geoScore = 15;
+        geoExp = `Extended regional coverage (${dist.toFixed(1)} miles)`;
+      } else {
+        geoScore = 5;
+        geoExp = `Extended transit distance (${dist.toFixed(1)} miles)`;
+      }
+    } else {
+      geoScore = 0;
+      geoExp = 'No verified depot distance available (unranked proximity tier)';
     }
 
     // 3. SLA Performance Score (Max 20 pts)

@@ -590,7 +590,7 @@
       "source": "/partners",
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "Legacy partners page → About page (partnerships destination does not exist)"
+      "reason": "Legacy partners page \u2192 About page (partnerships destination does not exist)"
     },
     {
       "source": "/partners/commercial-surveyors",
@@ -1544,7 +1544,7 @@
       "source": "/services/drainage-cctv-surveys",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Drainage CCTV surveys → Plumbing & Gas historic page (drainage-services not in registry)"
+      "reason": "Drainage CCTV surveys \u2192 Plumbing & Gas historic page (drainage-services not in registry)"
     },
     {
       "source": "/services/drone-inspections",
@@ -2234,7 +2234,7 @@
       "source": "/services/water-hygiene",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Water hygiene → Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
+      "reason": "Water hygiene \u2192 Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
     },
     {
       "source": "/services/water-optimisation",
@@ -2306,7 +2306,7 @@
       "source": "/sitemap",
       "destination": "/services",
       "statusCode": 301,
-      "reason": "Legacy /sitemap path → /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
+      "reason": "Legacy /sitemap path \u2192 /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
     },
     {
       "source": "/social-value",
@@ -2451,6 +2451,48 @@
       "destination": "/facilities-management-services-london",
       "statusCode": 301,
       "reason": "Permanent typo migration: shortened lond slug to canonical london"
+    },
+    {
+      "source": "/manchester-facilities-managment",
+      "destination": "/manchester-facilities-management",
+      "statusCode": 301,
+      "reason": "Typo slug fix: missing \"e\" in \"management\". Previously protected; protection removed to allow this redirect."
+    },
+    {
+      "source": "/tierone-facilities-managment",
+      "destination": "/tier-one-facilities-management",
+      "statusCode": 301,
+      "reason": "Typo slug fix: missing \"e\" in \"management\" + inconsistent hyphenation. Previously protected; protection removed."
+    },
+    {
+      "source": "/sectors/commercial-offices",
+      "destination": "/commercial-facilities-management",
+      "statusCode": 301,
+      "reason": "Safety-net: /sectors/* links on regional pages pointed here; real route is /commercial-facilities-management"
+    },
+    {
+      "source": "/sectors/logistics-distribution",
+      "destination": "/logistics-facilities-management",
+      "statusCode": 301,
+      "reason": "Safety-net: /sectors/* links on regional pages pointed here; real route is /logistics-facilities-management"
+    },
+    {
+      "source": "/sectors/industrial-manufacturing",
+      "destination": "/industrial-facilities-management",
+      "statusCode": 301,
+      "reason": "Safety-net: /sectors/* links on regional pages pointed here; real route is /industrial-facilities-management"
+    },
+    {
+      "source": "/sectors/retail-shopping-centres",
+      "destination": "/retail-facilities-management",
+      "statusCode": 301,
+      "reason": "Safety-net: /sectors/* links on regional pages pointed here; real route is /retail-facilities-management"
+    },
+    {
+      "source": "/sectors/education-public-sector",
+      "destination": "/public-sector-facilities-management",
+      "statusCode": 301,
+      "reason": "Safety-net: /sectors/* links on regional pages pointed here; real route is /public-sector-facilities-management"
     }
   ],
   "changeLog": [
