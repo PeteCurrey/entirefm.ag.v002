@@ -434,3 +434,17 @@ export async function getStandardFunnels(): Promise<FunnelData[]> {
 export async function getCommercialRecommendations(): Promise<CommercialRecommendation[]> {
   return growthMemoryStore.recommendations;
 }
+
+export async function deleteLead(leadId: string): Promise<boolean> {
+  if (isDbConfigured()) {
+    const { error } = await dbQuery(`leads?id=eq.${leadId}`, { method: 'DELETE' });
+    if (!error) {
+      growthMemoryStore.leads.delete(leadId);
+      return true;
+    }
+    return false;
+  } else {
+    growthMemoryStore.leads.delete(leadId);
+    return true;
+  }
+}

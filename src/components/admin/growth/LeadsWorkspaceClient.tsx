@@ -4,7 +4,8 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ExtendedLead } from '@/server/growth/types';
 import { StatusDot } from '@/components/admin/DataTable';
-import { Search, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight, Trash2 } from 'lucide-react';
+import { deleteLeadAction } from '@/app/admin/growth/leads/actions';
 
 interface LeadsWorkspaceClientProps {
   initialLeads: ExtendedLead[];
@@ -273,13 +274,26 @@ export function LeadsWorkspaceClient({ initialLeads, totalCount }: LeadsWorkspac
                       </div>
                     </td>
                     <td className="py-3.5 px-4 text-right">
-                      <Link
-                        href={`/admin/growth/leads/${l.id}`}
-                        className="inline-flex items-center gap-1 text-[12px] font-normal text-[#EA580C] hover:text-[#C2410C] hover:underline"
-                      >
-                        <span>View</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </Link>
+                      <div className="flex items-center justify-end gap-3">
+                        <Link
+                          href={`/admin/growth/leads/${l.id}`}
+                          className="inline-flex items-center gap-1 text-[12px] font-normal text-[#EA580C] hover:text-[#C2410C] hover:underline"
+                        >
+                          <span>View</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Link>
+                        <button
+                          onClick={async () => {
+                            if (confirm('Are you sure you want to delete this lead?')) {
+                              await deleteLeadAction(l.id || l.enquiry_id);
+                            }
+                          }}
+                          className="text-[#9A9A95] hover:text-red-500 transition-colors"
+                          title="Delete Lead"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );
