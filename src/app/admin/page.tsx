@@ -24,6 +24,11 @@ export default async function AdminCommandCentrePage() {
     getWebsiteAnalytics('30d').catch(() => null),
   ]);
 
+  const googleMapsApiKey =
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
+    process.env.GOOGLE_MAPS_API_KEY ||
+    '';
+
   return (
     <ControlCentreClient
       session={session}
@@ -34,6 +39,7 @@ export default async function AdminCommandCentrePage() {
       leads={leadsData.leads}
       unreadNotifications={unreadNotifications}
       analytics={analyticsData}
+      googleMapsApiKey={googleMapsApiKey}
     />
   );
 }

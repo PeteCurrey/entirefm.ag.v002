@@ -14,7 +14,7 @@
  *   - Production Sending Domain: updates.entirefm.com (Reply-To: helpdesk@entirefm.com).
  */
 
-import { createHmac, randomUUID } from 'node:crypto';
+import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { dbQuery } from '../db/client';
 import { UserSession } from '../identity';
 
@@ -969,7 +969,9 @@ export interface ResendWebhookPayload {
     | 'email.bounced'
     | 'email.failed'
     | 'email.complained'
-    | 'email.suppressed';
+    | 'email.suppressed'
+    | 'email.opened'
+    | 'email.clicked';
   created_at: string;
   data: {
     id: string; // Resend email id
@@ -980,11 +982,23 @@ export interface ResendWebhookPayload {
     bounce_type?: string;
     bounce_code?: string;
     reason?: string;
+    tags?: Record<string, string>;
+    headers?: Record<string, string>;
   };
 }
 
 /**
- * Authenticate Resend Svix Webhook Signature
+ * Authenticate Resend Svix Webhook Signature.
+ *
+ * Resend webhooks are signed via Svix. RESEND_WEBHOOK_SECRET is expected in the
+ * form "whsec_<base64>" (as shown in the Resend dashboard) or a raw string.
+ * The Svix signature header format is "v1,<base64sig>".
+ *
+ * Reject conditions (return false):
+ *  - Secret not configured → REJECT (cannot operate without verification)
+ *  - Any Svix header missing → REJECT
+ *  - Timestamp outside ±5 minute tolerance → REJECT (replay protection)
+ *  - HMAC does not match → REJECT
  */
 export function verifyResendWebhookSignature(
   rawBody: string,
@@ -995,34 +1009,79 @@ export function verifyResendWebhookSignature(
   }
 ): boolean {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
-  // If webhook secret is configured, enforce cryptographic verification
-  if (secret) {
-    const svixId = headers['svix-id'];
-    const svixTimestamp = headers['svix-timestamp'];
-    const svixSignature = headers['svix-signature'];
-
-    if (!svixId || !svixTimestamp || !svixSignature) {
-      return false;
-    }
-
-    // Tolerance window: 5 minutes
-    const timestampMs = parseInt(svixTimestamp, 10) * 1000;
-    if (Math.abs(Date.now() - timestampMs) > 300000) {
-      return false;
-    }
-
-    const payload = `${svixId}.${svixTimestamp}.${rawBody}`;
-    const expectedSig = createHmac('sha256', secret).update(payload).digest('base64');
-    return svixSignature.includes(expectedSig);
+  if (!secret) {
+    console.error('[ResendWebhook] RESEND_WEBHOOK_SECRET not configured — rejecting request');
+    return false;
   }
 
-  // If in local development or test without secret, require at least non-empty body
-  return rawBody.length > 0;
+  const svixId = headers['svix-id'];
+  const svixTimestamp = headers['svix-timestamp'];
+  const svixSignature = headers['svix-signature'];
+
+  if (!svixId || !svixTimestamp || !svixSignature) {
+    return false;
+  }
+
+  // Replay protection: ±5 minute tolerance window
+  const timestampSeconds = parseInt(svixTimestamp, 10);
+  if (!Number.isFinite(timestampSeconds) || Math.abs(Date.now() - timestampSeconds * 1000) > 300_000) {
+    return false;
+  }
+
+  // Key decoding: Resend dashboard supplies "whsec_<base64>" — strip prefix and decode
+  let keyBuffer: Buffer;
+  try {
+    keyBuffer = secret.startsWith('whsec_')
+      ? Buffer.from(secret.slice(6), 'base64')
+      : Buffer.from(secret, 'utf8');
+  } catch {
+    return false;
+  }
+
+  const toSign = `${svixId}.${svixTimestamp}.${rawBody}`;
+  const expectedRaw = createHmac('sha256', keyBuffer).update(toSign).digest();
+
+  // Svix header may contain multiple space-separated signatures: "v1,<sig1> v1,<sig2>"
+  const signatures = svixSignature.split(' ').map((s) => s.replace(/^v1,/, '').trim()).filter(Boolean);
+  for (const sig of signatures) {
+    try {
+      const sigBuf = Buffer.from(sig, 'base64');
+      if (sigBuf.length === expectedRaw.length && timingSafeEqual(sigBuf, expectedRaw)) {
+        return true;
+      }
+    } catch {
+      // malformed base64 segment — keep checking others
+    }
+  }
+  return false;
+}
+
+// ─── Delivery state ordering for regression protection ────────────────────────
+// Higher ordinal = more terminal. We never allow regression to a lower-ordinal state.
+const DELIVERY_STATE_ORDINAL: Partial<Record<EmailDeliveryState, number>> = {
+  NOT_CONFIGURED: 0,
+  INTERFACE_ONLY: 1,
+  QUEUED: 2,
+  RETRY_PENDING: 3,
+  DELIVERY_DELAYED: 4,
+  SENT: 5,
+  DELIVERED: 6,
+  COMPLAINED: 7,
+  SUPPRESSED: 8,
+  FAILED: 9,
+  BOUNCED: 10,
+};
+
+function isStateRegression(current: EmailDeliveryState, next: EmailDeliveryState): boolean {
+  const cur = DELIVERY_STATE_ORDINAL[current] ?? 0;
+  const nxt = DELIVERY_STATE_ORDINAL[next] ?? 0;
+  return nxt < cur;
 }
 
 /**
- * Process inbound Resend Webhook Event with strict idempotency.
- * Updates message delivery state to DELIVERED, BOUNCED, FAILED, etc.
+ * Process inbound Resend Webhook Event with strict idempotency and regression
+ * protection. Updates communication_messages delivery state and raises an
+ * operational notification for bounced/failed messages linked to a work order.
  */
 export async function processResendWebhookEvent(
   event: ResendWebhookPayload,
@@ -1030,6 +1089,7 @@ export async function processResendWebhookEvent(
 ): Promise<{
   processed: boolean;
   is_duplicate: boolean;
+  state_regression_skipped?: boolean;
   delivery_state: EmailDeliveryState;
   provider_message_id: string;
   message_id?: string;
@@ -1044,7 +1104,7 @@ export async function processResendWebhookEvent(
     };
   }
 
-  // 1. Fetch message from DB
+  // 1. Fetch existing message record from DB
   const { data: existingMessages } = await dbQuery<CommunicationMessage[]>(
     `communication_messages?provider_message_id=eq.${encodeURIComponent(resendId)}&limit=1`
   );
@@ -1100,10 +1160,33 @@ export async function processResendWebhookEvent(
       break;
   }
 
-  // 2. Check duplicate / already in target state
-  const isDuplicate = message ? message.delivery_state === newState : false;
+  // 2. Idempotency: same event already processed to this exact state
+  if (message && message.delivery_state === newState) {
+    return {
+      processed: true,
+      is_duplicate: true,
+      delivery_state: newState,
+      provider_message_id: resendId,
+      message_id: message.id,
+    };
+  }
 
-  // 3. Update DB record if message exists and state is changing or needs updating
+  // 3. State regression guard — never downgrade a more terminal state
+  if (message && isStateRegression(message.delivery_state, newState)) {
+    console.warn(
+      `[ResendWebhook] Regression skipped: ${resendId} is ${message.delivery_state}, refusing to regress to ${newState}`
+    );
+    return {
+      processed: true,
+      is_duplicate: false,
+      state_regression_skipped: true,
+      delivery_state: message.delivery_state,
+      provider_message_id: resendId,
+      message_id: message.id,
+    };
+  }
+
+  // 4. Update DB record
   if (message && Object.keys(updateFields).length > 0) {
     await dbQuery(`communication_messages?provider_message_id=eq.${encodeURIComponent(resendId)}`, {
       method: 'PATCH',
@@ -1111,9 +1194,33 @@ export async function processResendWebhookEvent(
     });
   }
 
+  // 5. Operational escalation: bounce or failure on a work-order-linked transactional message
+  if ((newState === 'BOUNCED' || newState === 'FAILED') && message?.work_order_id) {
+    const toAddr = Array.isArray(event.data.to) ? event.data.to[0] : (event.data.to ?? 'unknown');
+    await dbQuery('notifications', {
+      method: 'POST',
+      body: {
+        type: 'EMAIL_DELIVERY_FAILURE',
+        category: 'COMMUNICATION',
+        severity: 'HIGH',
+        title: `Email ${newState.toLowerCase()} — work order communication undelivered`,
+        message: `${event.type} for ${toAddr} (Resend ID: ${resendId}). Subject: "${event.data.subject || '—'}". Manual follow-up required.`,
+        entity_type: 'work_order',
+        entity_id: message.work_order_id,
+        action_url: `/admin/operations/work-orders/${message.work_order_id}`,
+        is_read: false,
+        dedupe_key: `email_delivery_failure:${resendId}`,
+        created_at: now,
+      },
+    }).catch((err: unknown) => {
+      // Notification failure must NOT prevent webhook acknowledgement
+      console.error('[ResendWebhook] Failed to create bounce notification:', err);
+    });
+  }
+
   return {
     processed: true,
-    is_duplicate: isDuplicate,
+    is_duplicate: false,
     delivery_state: newState,
     provider_message_id: resendId,
     message_id: message?.id,

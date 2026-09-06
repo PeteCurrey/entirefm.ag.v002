@@ -741,7 +741,7 @@ export async function listWorkOrders(filters?: {
   limit?: number;
 }): Promise<WorkOrder[]> {
   let endpoint =
-    'work_orders?select=*,organisation:organisations(name),site:sites(name,site_code,postcode),asset:assets(name,asset_reference),provider_organisation:organisations(name,code)&order=created_at.desc';
+    'work_orders?select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code)&order=created_at.desc';
   if (filters?.status) endpoint += `&status=eq.${encodeURIComponent(filters.status)}`;
   if (filters?.priority) endpoint += `&priority=eq.${encodeURIComponent(filters.priority)}`;
   if (filters?.siteId) endpoint += `&site_id=eq.${encodeURIComponent(filters.siteId)}`;
@@ -786,7 +786,7 @@ export async function listTasks(workOrderId: string): Promise<Task[]> {
 
 export async function listActiveSLARisks(): Promise<WorkOrder[]> {
   const { data } = await dbQuery<WorkOrder[]>(
-    `work_orders?status=not.in.(COMPLETED,CLOSED,CANCELLED)&sla_resolution_due_at=not.is.null&select=*,organisation:organisations(name),site:sites(name,site_code)&order=sla_resolution_due_at.asc&limit=20`
+    `work_orders?status=not.in.(COMPLETED,CLOSED,CANCELLED)&sla_resolution_due_at=not.is.null&select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code)&order=sla_resolution_due_at.asc&limit=20`
   );
   return data || [];
 }
@@ -981,7 +981,7 @@ export async function createWorkOrder(params: {
 
 export async function getWorkOrder(id: string): Promise<WorkOrder | null> {
   const { data } = await dbQuery<WorkOrder[]>(
-    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations(name,code),lead_engineer:persons(first_name,last_name,email)&limit=1`
+    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code),lead_engineer:persons(first_name,last_name,email)&limit=1`
   );
   return data?.[0] || null;
 }

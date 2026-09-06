@@ -47,7 +47,7 @@ export interface PPMBatchCluster {
   batch_po_id?: string;
   batch_po_number?: string;
   batch_po_gross_gbp?: number;
-  status: 'OPTIMISED' | 'DISPATCHED' | 'AWAITING_REVIEW';
+  status: 'OPTIMISED' | 'DISPATCHED' | 'AWAITING_REVIEW' | 'PENDING_COMMERCIAL_REVIEW';
 }
 
 export interface PPMBatchPlanResult {
@@ -90,7 +90,21 @@ export async function planPPMContractorBatches(params: {
     const { data: dbSuppliers } = await dbQuery<any[]>(
       `organisations?org_type=in.(CONTRACTOR,SUPPLIER)&select=*&order=name.asc`
     );
-    suppliers = dbSuppliers || [];
+    const { data: provProfiles } = await dbQuery<any[]>(`provider_organisations?select=*`);
+    const profileMap = new Map<string, any>((provProfiles || []).map((p: any) => [p.org_id || p.id, p]));
+    suppliers = (dbSuppliers || []).map((s: any) => {
+      const p = profileMap.get(s.id);
+      return {
+        ...s,
+        trades: s.trades || p?.trades,
+        covered_cities: s.covered_cities || p?.covered_cities,
+        is_national: s.is_national ?? p?.is_national,
+        agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? p?.hourly_rate_gbp ?? s.settings?.agreed_hourly_rate_gbp ?? s.settings?.rates?.hourly,
+        agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? p?.callout_rate_gbp ?? s.settings?.agreed_callout_rate_gbp ?? s.settings?.rates?.callout,
+        sla_adherence_pct: s.sla_adherence_pct ?? p?.sla_adherence_rate ?? s.settings?.sla_adherence_pct,
+        acceptance_pct: s.acceptance_pct ?? s.settings?.acceptance_pct,
+      };
+    });
   }
 
   // 2. Form clusters and match eligible contractor
@@ -99,7 +113,7 @@ export async function planPPMContractorBatches(params: {
     const trade = tradeStr as TradeCategory;
 
     const uniqueSites = new Set(occs.map((o) => o.site_id)).size;
-    const totalHours = occs.reduce((sum, o) => sum + (o.estimated_hours || 2.5), 0);
+    const totalHours = occs.reduce((sum, o) => sum + (o.estimated_hours || 0), 0);
 
     // Evaluate eligibility for this cluster
     const candidates: RawCandidateInput[] = [];
@@ -111,9 +125,9 @@ export async function planPPMContractorBatches(params: {
           code: s.code || 'SUP',
           status: s.status || 'ACTIVE',
           org_type: s.org_type || 'CONTRACTOR',
-          trades: s.trades || [trade],
-          covered_cities: s.covered_cities || [city],
-          is_national: s.is_national ?? true,
+          trades: s.trades || [],
+          covered_cities: s.covered_cities || [],
+          is_national: s.is_national ?? false,
           is_suspended: s.is_suspended ?? false,
         },
         requirement: {
@@ -130,12 +144,12 @@ export async function planPPMContractorBatches(params: {
         contact_email: s.email,
         contact_phone: s.phone,
         trades: s.trades,
-        distance_miles: s.distance_miles ?? 10,
-        sla_adherence_pct: s.sla_adherence_pct ?? 97,
-        acceptance_pct: s.acceptance_pct ?? 95,
-        current_open_jobs: s.current_open_jobs ?? 2,
-        agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? 50,
-        agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? 75,
+        distance_miles: s.distance_miles,
+        sla_adherence_pct: s.sla_adherence_pct,
+        acceptance_pct: s.acceptance_pct,
+        current_open_jobs: s.current_open_jobs ?? 0,
+        agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp,
+        agreed_callout_rate_gbp: s.agreed_callout_rate_gbp,
         eligibility_gate: gate,
       });
     }
@@ -152,19 +166,28 @@ export async function planPPMContractorBatches(params: {
     }
 
     const bestSupplier = ranked[0];
-    const hourlyRate = bestSupplier.agreed_hourly_rate_gbp || 50;
-    const batchCostNet = totalHours * hourlyRate;
-    const batchCostGross = Math.round(batchCostNet * 1.2 * 100) / 100;
-    totalForecastGbp += batchCostGross;
+    const hourlyRate = bestSupplier.agreed_hourly_rate_gbp;
+    const hasValidHourlyRate = typeof hourlyRate === 'number' && !isNaN(hourlyRate) && hourlyRate > 0;
 
-    const batchId = crypto.randomUUID();
+    let batchCostGross: number | undefined = undefined;
     let poId: string | undefined;
     let poNum: string | undefined;
+    let status: PPMBatchCluster['status'] = 'OPTIMISED';
 
-    if (autoPoPolicy === 'AUTO_RAISE') {
-      poId = crypto.randomUUID();
-      poNum = `PO-PPM-BATCH-${Date.now().toString().slice(-6)}`;
+    if (!hasValidHourlyRate) {
+      status = 'PENDING_COMMERCIAL_REVIEW';
+    } else {
+      const batchCostNet = totalHours * hourlyRate;
+      batchCostGross = Math.round(batchCostNet * 1.2 * 100) / 100;
+      totalForecastGbp += batchCostGross;
+
+      if (autoPoPolicy === 'AUTO_RAISE') {
+        poId = crypto.randomUUID();
+        poNum = `PO-PPM-BATCH-${Date.now().toString().slice(-6)}`;
+      }
     }
+
+    const batchId = crypto.randomUUID();
 
     batches.push({
       batch_id: batchId,
@@ -181,7 +204,7 @@ export async function planPPMContractorBatches(params: {
       batch_po_id: poId,
       batch_po_number: poNum,
       batch_po_gross_gbp: batchCostGross,
-      status: 'OPTIMISED',
+      status,
     });
   }
 

@@ -197,7 +197,7 @@ export async function orchestrateReactiveDispatch(
     }
 
     // Covered cities (fail-closed: never default to [params.site_city])
-    let coveredCities = s.covered_cities;
+    let coveredCities = s.covered_cities || s.settings?.covered_cities;
     if (!coveredCities || coveredCities.length === 0) {
       const cities = new Set<string>();
       for (const loc of linkedLocs) {
@@ -280,6 +280,46 @@ export async function orchestrateReactiveDispatch(
       },
     });
 
+    // Authoritative performance data (fail-closed: do NOT fabricate 96% / 94%)
+    const slaAdherence =
+      s.sla_adherence_pct != null
+        ? Number(s.sla_adherence_pct)
+        : provProfile?.sla_adherence_rate != null
+        ? Number(provProfile.sla_adherence_rate)
+        : s.settings?.sla_adherence_pct != null
+        ? Number(s.settings.sla_adherence_pct)
+        : undefined;
+
+    const acceptanceRate =
+      s.acceptance_pct != null
+        ? Number(s.acceptance_pct)
+        : s.settings?.acceptance_pct != null
+        ? Number(s.settings.acceptance_pct)
+        : undefined;
+
+    // Authoritative commercial rates (fail-closed: do NOT fabricate £85 / £55)
+    const calloutRate =
+      s.agreed_callout_rate_gbp != null
+        ? Number(s.agreed_callout_rate_gbp)
+        : provProfile?.callout_rate_gbp != null
+        ? Number(provProfile.callout_rate_gbp)
+        : s.settings?.agreed_callout_rate_gbp != null
+        ? Number(s.settings.agreed_callout_rate_gbp)
+        : s.settings?.rates?.callout != null
+        ? Number(s.settings.rates.callout)
+        : undefined;
+
+    const hourlyRate =
+      s.agreed_hourly_rate_gbp != null
+        ? Number(s.agreed_hourly_rate_gbp)
+        : provProfile?.hourly_rate_gbp != null
+        ? Number(provProfile.hourly_rate_gbp)
+        : s.settings?.agreed_hourly_rate_gbp != null
+        ? Number(s.settings.agreed_hourly_rate_gbp)
+        : s.settings?.rates?.hourly != null
+        ? Number(s.settings.rates.hourly)
+        : undefined;
+
     rawCandidates.push({
       supplier_id: s.id,
       supplier_name: s.name,
@@ -288,11 +328,11 @@ export async function orchestrateReactiveDispatch(
       contact_phone: s.phone || '',
       trades: suppTrades,
       distance_miles: minDistanceMiles ?? undefined,
-      sla_adherence_pct: s.sla_adherence_pct ?? 96,
-      acceptance_pct: s.acceptance_pct ?? 94,
+      sla_adherence_pct: slaAdherence,
+      acceptance_pct: acceptanceRate,
       current_open_jobs: s.current_open_jobs ?? 0,
-      agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? 85,
-      agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? 55,
+      agreed_callout_rate_gbp: calloutRate,
+      agreed_hourly_rate_gbp: hourlyRate,
       eligibility_gate: eligibilityGate,
     });
   }
@@ -341,18 +381,77 @@ export async function orchestrateReactiveDispatch(
     };
   }
 
-  // 6. Execute Autonomous Dispatch
+  // 6. Fail-Closed Auto-PO Validation & Autonomous Dispatch
   let poId: string | undefined;
   let poNumber: string | undefined;
   let poGross: number | undefined;
 
   // If Auto-PO policy permits
   if (automationLevel === 'AUTO_DISPATCH_AND_PO' && autoPoPolicy === 'AUTO_RAISE') {
+    const hasValidCallout =
+      selected.agreed_callout_rate_gbp != null &&
+      !isNaN(selected.agreed_callout_rate_gbp) &&
+      selected.agreed_callout_rate_gbp > 0;
+    const hasValidHourly =
+      selected.agreed_hourly_rate_gbp != null &&
+      !isNaN(selected.agreed_hourly_rate_gbp) &&
+      selected.agreed_hourly_rate_gbp > 0;
+
+    if (!hasValidCallout || !hasValidHourly) {
+      // Fail closed: do NOT create PO, do NOT create false financial state.
+      const unverifiedReason = `Contractor '${selected.supplier_name}' (${selected.supplier_code}) lacks verified commercial rates (callout: ${
+        selected.agreed_callout_rate_gbp != null ? `£${selected.agreed_callout_rate_gbp}` : 'MISSING'
+      }, hourly: ${
+        selected.agreed_hourly_rate_gbp != null ? `£${selected.agreed_hourly_rate_gbp}` : 'MISSING'
+      }). Autonomous PO creation halted for human commercial review.`;
+
+      // 1. Record blocking exception in commercial_exceptions ledger
+      try {
+        await dbQuery('commercial_exceptions', {
+          method: 'POST',
+          body: {
+            object_type: 'WORK_ORDER',
+            object_id: params.work_order_id,
+            exception_code: 'COMMERCIAL_RATE_UNVERIFIED',
+            severity: 'BLOCKING',
+            detail: unverifiedReason,
+            is_resolved: false,
+          },
+        });
+      } catch {}
+
+      // 2. Put work order into explicit human-review ON_HOLD state
+      try {
+        await dbQuery(`work_orders?id=eq.${encodeURIComponent(params.work_order_id)}`, {
+          method: 'PATCH',
+          body: {
+            status: 'ON_HOLD',
+            hold_reason: `COMMERCIAL_RATE_UNVERIFIED: ${unverifiedReason}`,
+            provider_organisation_id: selected.supplier_id,
+            updated_at: new Date().toISOString(),
+          },
+        });
+      } catch {}
+
+      return {
+        status: 'COMMERCIAL_RATE_UNVERIFIED',
+        work_order_id: params.work_order_id,
+        work_order_number: params.work_order_number,
+        assigned_supplier_id: selected.supplier_id,
+        assigned_supplier_name: selected.supplier_name,
+        ranked_candidates: availableRanked,
+        decline_history: declineHistory,
+        exception_reason: unverifiedReason,
+        client_update_message: `Work Order ${params.work_order_number} has been logged and is undergoing commercial rate review before dispatch.`,
+      };
+    }
+
+    // Both rates are strictly verified positive numbers sourced from authoritative data
     poId = crypto.randomUUID();
     poNumber = `PO-AUTO-${Date.now().toString().slice(-6)}`;
-    const callout = selected.agreed_callout_rate_gbp || 85;
-    const hourly = selected.agreed_hourly_rate_gbp || 55;
-    const estNet = callout + hourly * 2; // 2 hours estimated
+    const callout = selected.agreed_callout_rate_gbp!;
+    const hourly = selected.agreed_hourly_rate_gbp!;
+    const estNet = callout + hourly * 2; // 2 hours estimated standard initial attendance
     poGross = Math.round(estNet * 1.2 * 100) / 100;
 
     try {

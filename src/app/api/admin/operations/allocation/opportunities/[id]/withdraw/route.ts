@@ -16,7 +16,7 @@ import { withdrawSupplierOpportunity } from '@/server/allocation/allocation-stor
 
 export async function POST(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const session = await getCurrentSession();
   if (!session) {

@@ -34,8 +34,11 @@ export interface EligibleContractorCandidate {
   contact_phone?: string;
   trade_match_score: number; // 0-100
   geographic_distance_miles?: number;
-  sla_adherence_rate: number; // 0-100
-  acceptance_rate: number; // 0-100
+  sla_adherence_rate?: number; // 0-100, undefined if unrated
+  acceptance_rate?: number; // 0-100, undefined if unrated
+  performance_rating_status: 'RATED' | 'UNRATED';
+  is_sla_rated: boolean;
+  is_acceptance_rated: boolean;
   current_open_jobs: number;
   agreed_callout_rate_gbp?: number;
   agreed_hourly_rate_gbp?: number;
@@ -64,7 +67,8 @@ export interface DispatchExecutionResult {
     | 'NO_ELIGIBLE_PROVIDER'
     | 'ESCALATED'
     | 'DECLINED_REASSIGNED'
-    | 'BLOCKED_ACTIVE_MARKETPLACE_OFFER';
+    | 'BLOCKED_ACTIVE_MARKETPLACE_OFFER'
+    | 'COMMERCIAL_RATE_UNVERIFIED';
   work_order_id: string;
   work_order_number: string;
   assigned_supplier_id?: string;

@@ -77,17 +77,33 @@ export function rankEligibleContractors(
     }
 
     // 3. SLA Performance Score (Max 20 pts)
-    const slaRate = c.sla_adherence_pct ?? 95;
-    const slaScore = Math.round((slaRate / 100) * 20);
-    const slaExp = `Historic on-time SLA adherence: ${slaRate.toFixed(1)}%`;
+    const isSlaRated = c.sla_adherence_pct != null;
+    let slaScore = 10; // Documented neutral baseline for unrated contractors (50% of 20 pts)
+    let slaRate: number | undefined = undefined;
+    let slaExp = 'No historic SLA track record (UNRATED — neutral baseline: 10/20 pts)';
+
+    if (isSlaRated && c.sla_adherence_pct != null) {
+      slaRate = Math.max(0, Math.min(100, c.sla_adherence_pct));
+      slaScore = Math.round((slaRate / 100) * 20);
+      slaExp = `Historic on-time SLA adherence: ${slaRate.toFixed(1)}% (RATED)`;
+    }
 
     // 4. Acceptance Rate Score (Max 15 pts)
-    const accRate = c.acceptance_pct ?? 92;
-    const accScore = Math.round((accRate / 100) * 15);
-    const accExp = `Historic job acceptance rate: ${accRate.toFixed(1)}%`;
+    const isAccRated = c.acceptance_pct != null;
+    let accScore = 7; // Documented neutral baseline for unrated contractors (~50% of 15 pts)
+    let accRate: number | undefined = undefined;
+    let accExp = 'No historic acceptance track record (UNRATED — neutral baseline: 7/15 pts)';
+
+    if (isAccRated && c.acceptance_pct != null) {
+      accRate = Math.max(0, Math.min(100, c.acceptance_pct));
+      accScore = Math.round((accRate / 100) * 15);
+      accExp = `Historic job acceptance rate: ${accRate.toFixed(1)}% (RATED)`;
+    }
+
+    const performanceRatingStatus: 'RATED' | 'UNRATED' = isSlaRated || isAccRated ? 'RATED' : 'UNRATED';
 
     // 5. Workload Capacity Score (Max 15 pts)
-    const openJobs = c.current_open_jobs ?? 1;
+    const openJobs = c.current_open_jobs ?? 0;
     let workScore = 15;
     let workExp = `High capacity (${openJobs} active work orders)`;
     if (openJobs >= 6) {
@@ -100,9 +116,10 @@ export function rankEligibleContractors(
 
     const totalScore = tradeScore + geoScore + slaScore + accScore + workScore;
 
-    const rateExp = c.agreed_hourly_rate_gbp
-      ? `Agreed contract rate: £${c.agreed_hourly_rate_gbp}/hr (Callout: £${c.agreed_callout_rate_gbp || 0})`
-      : 'Standard commercial tariff applies';
+    const rateExp =
+      c.agreed_hourly_rate_gbp != null && c.agreed_callout_rate_gbp != null
+        ? `Agreed contract rate: £${c.agreed_hourly_rate_gbp}/hr (Callout: £${c.agreed_callout_rate_gbp})`
+        : 'No agreed commercial rates on file (COMMERCIAL_RATE_UNVERIFIED)';
 
     ranked.push({
       supplier_id: c.supplier_id,
@@ -114,6 +131,9 @@ export function rankEligibleContractors(
       geographic_distance_miles: dist,
       sla_adherence_rate: slaRate,
       acceptance_rate: accRate,
+      performance_rating_status: performanceRatingStatus,
+      is_sla_rated: isSlaRated,
+      is_acceptance_rated: isAccRated,
       current_open_jobs: openJobs,
       agreed_callout_rate_gbp: c.agreed_callout_rate_gbp,
       agreed_hourly_rate_gbp: c.agreed_hourly_rate_gbp,

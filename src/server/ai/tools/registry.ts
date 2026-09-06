@@ -189,9 +189,12 @@ export async function executeGovernedTool(
 
       case 'getEligibleProviders': {
         const { data: dbSuppliers } = await dbQuery<any[]>(`organisations?org_type=in.(CONTRACTOR,SUPPLIER)&select=*&order=name.asc`);
+        const { data: provProfiles } = await dbQuery<any[]>(`provider_organisations?select=*`);
+        const profileMap = new Map<string, any>((provProfiles || []).map((p: any) => [p.org_id || p.id, p]));
         const rawCandidates: RawCandidateInput[] = [];
 
         for (const s of dbSuppliers || []) {
+          const provProfile = profileMap.get(s.id);
           const gate = evaluateContractorEligibility({
             supplier: {
               id: s.id,
@@ -199,8 +202,10 @@ export async function executeGovernedTool(
               code: s.code || 'SUP',
               status: s.status || 'ACTIVE',
               org_type: s.org_type || 'CONTRACTOR',
-              covered_cities: s.covered_cities || [args.city],
-              is_national: s.is_national ?? true,
+              trades: s.trades || provProfile?.trades || [],
+              covered_cities: s.covered_cities || provProfile?.covered_cities || [],
+              is_national: s.is_national ?? provProfile?.is_national ?? false,
+              is_suspended: s.is_suspended ?? provProfile?.is_suspended ?? false,
             },
             requirement: {
               trade: args.trade as TradeCategory,
@@ -215,13 +220,13 @@ export async function executeGovernedTool(
             supplier_code: s.code || 'SUP',
             contact_email: s.email,
             contact_phone: s.phone,
-            trades: s.trades,
-            distance_miles: s.distance_miles ?? 9.0,
-            sla_adherence_pct: s.sla_adherence_pct ?? 96,
-            acceptance_pct: s.acceptance_pct ?? 94,
-            current_open_jobs: s.current_open_jobs ?? 1,
-            agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? 55,
-            agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? 85,
+            trades: s.trades || provProfile?.trades,
+            distance_miles: s.distance_miles ?? provProfile?.distance_miles,
+            sla_adherence_pct: s.sla_adherence_pct ?? provProfile?.sla_adherence_rate ?? s.settings?.sla_adherence_pct,
+            acceptance_pct: s.acceptance_pct ?? s.settings?.acceptance_pct,
+            current_open_jobs: s.current_open_jobs ?? 0,
+            agreed_hourly_rate_gbp: s.agreed_hourly_rate_gbp ?? provProfile?.hourly_rate_gbp ?? s.settings?.agreed_hourly_rate_gbp ?? s.settings?.rates?.hourly,
+            agreed_callout_rate_gbp: s.agreed_callout_rate_gbp ?? provProfile?.callout_rate_gbp ?? s.settings?.agreed_callout_rate_gbp ?? s.settings?.rates?.callout,
             eligibility_gate: gate,
           });
         }

@@ -30,6 +30,7 @@ interface ControlCentreClientProps {
   leads?: ExtendedLead[];
   unreadNotifications?: NotificationRecord[];
   analytics?: AnalyticsSummary | null;
+  googleMapsApiKey?: string;
 }
 
 export function ControlCentreClient({
@@ -41,6 +42,7 @@ export function ControlCentreClient({
   leads = [],
   unreadNotifications = [],
   analytics = null,
+  googleMapsApiKey,
 }: ControlCentreClientProps) {
   const [activePersona, setActivePersona] = useState<string>('FM_DIRECTOR');
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');
@@ -154,6 +156,7 @@ export function ControlCentreClient({
             sites={sites as SiteWithTelemetry[]}
             selectedSiteId={selectedSite?.id || null}
             onSelectSite={handleSelectSite}
+            googleMapsApiKey={googleMapsApiKey}
           />
           <OperationsTimeline events={[]} />
         </div>

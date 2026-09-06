@@ -27,7 +27,7 @@ const VALID_DECISIONS: OpportunityResponseDecision[] = [
 
 export async function POST(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getCurrentSession();
