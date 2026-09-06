@@ -18,11 +18,14 @@ import {
   AlertCircle,
   Check,
   UserCheck,
+  Upload,
 } from 'lucide-react';
 import { ClientAccount } from '@/server/estate';
 import { EligibleAccountManager } from '@/server/estate/account-managers';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { Button } from '@/components/admin/ui/Button';
+import { BulkUploadModal } from '@/components/admin/estate/BulkUploadModal';
+
 
 interface Props {
   initialClients: ClientAccount[];
@@ -37,6 +40,19 @@ export function ClientsPageClient({ initialClients, initialAccountManagers = [] 
   const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
   const [selectedClient, setSelectedClient] = useState<ClientAccount | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isBulkUploadOpen, setIsBulkUploadOpen] = useState(false);
+
+  const refreshClients = async () => {
+    try {
+      const res = await fetch('/api/admin/clients');
+      const data = await res.json();
+      if (data.success && data.clients) {
+        setClients(data.clients);
+      }
+    } catch (err) {
+      console.error('Failed to refresh clients:', err);
+    }
+  };
 
   // Form states for adding a client
   const [newName, setNewName] = useState('');
@@ -191,6 +207,14 @@ export function ClientsPageClient({ initialClients, initialAccountManagers = [] 
               </Button>
             </Link>
             <Button
+              variant="secondary"
+              size="sm"
+              icon={<Upload className="h-3.5 w-3.5" />}
+              onClick={() => setIsBulkUploadOpen(true)}
+            >
+              Bulk Upload Clients
+            </Button>
+            <Button
               variant="primary"
               size="sm"
               icon={<Plus className="h-3.5 w-3.5" />}
@@ -198,6 +222,7 @@ export function ClientsPageClient({ initialClients, initialAccountManagers = [] 
             >
               New Client Account
             </Button>
+
           </div>
         }
       />
@@ -857,6 +882,15 @@ export function ClientsPageClient({ initialClients, initialAccountManagers = [] 
           </div>
         </div>
       )}
+
+      {/* Bulk Upload Modal */}
+      <BulkUploadModal
+        isOpen={isBulkUploadOpen}
+        onClose={() => setIsBulkUploadOpen(false)}
+        type="clients"
+        onSuccess={refreshClients}
+      />
     </div>
   );
 }
+

@@ -497,3 +497,275 @@ export function evaluateSupplierWorkEligibility(params: {
 
   return { isEligible: true };
 }
+
+/**
+ * MANDATORY TRADE ACCREDITATION RESOLUTION
+ */
+export function getMandatoryAccreditationCodesForTrade(trade: string): string[] {
+  const norm = trade.toLowerCase().replace(/_/g, '-');
+  const codes: string[] = [];
+  if (norm.includes('hvac') || norm.includes('refrigeration')) {
+    codes.push('TECH_FGAS_REFCOM');
+  }
+  if (norm.includes('electrical')) {
+    codes.push('TECH_NICEIC_NAPIT');
+  }
+  if (norm.includes('gas') || norm.includes('heating')) {
+    codes.push('TECH_GAS_SAFE');
+  }
+  if (norm.includes('fire')) {
+    codes.push('TECH_BAFE_FIA');
+  }
+  if (norm.includes('rope') || norm.includes('height')) {
+    codes.push('TECH_IRATA_ACCESS');
+  }
+  return codes;
+}
+
+export interface SupplierAssuranceFirewallParams {
+  supplierId: string;
+  trade: string;
+  clientId?: string;
+  siteId?: string;
+  cityOrRegion?: string;
+  isSuspended?: boolean;
+  complianceHolds?: ComplianceHoldRecord[];
+  insuranceRecords?: SupplierInsuranceRecord[];
+  documentRecords?: SupplierDocumentRecord[];
+  providerProfile?: {
+    insurance_verified?: boolean;
+    public_liability_limit?: number;
+    employers_liability_limit?: number;
+    insurance_expiry?: string;
+    vetting_status?: string;
+  };
+  settingsInsurance?: {
+    public_liability?: { limit_gbp?: number; expiry_date?: string; status?: string };
+    employers_liability?: { limit_gbp?: number; expiry_date?: string; status?: string };
+  };
+  lookupFailed?: boolean;
+  now?: Date;
+}
+
+export interface SupplierAssuranceFirewallResult {
+  isCompliant: boolean;
+  passedChecks: string[];
+  failedChecks: string[];
+  exclusionReasons: string[];
+  activeHolds: ComplianceHoldRecord[];
+  blockingDetails?: {
+    reason: string;
+    hold?: ComplianceHoldRecord;
+    expiryDate?: string;
+    evidenceType?: string;
+  };
+}
+
+/**
+ * CANONICAL SYSTEM B SUPPLIER ASSURANCE FIREWALL
+ * ===============================================
+ * Authoritative fail-closed assurance gate.
+ * A supplier NEVER receives COMPLIANCE_CLEAR merely because is_suspended === false.
+ * Must have unexpired £5M Public Liability, £10M Employers Liability, zero active holds,
+ * and valid statutory trade accreditations where applicable.
+ */
+export function evaluateSupplierAssuranceFirewall(
+  params: SupplierAssuranceFirewallParams
+): SupplierAssuranceFirewallResult {
+  const passedChecks: string[] = [];
+  const failedChecks: string[] = [];
+  const exclusionReasons: string[] = [];
+  const activeHoldsList: ComplianceHoldRecord[] = [];
+  const now = params.now || new Date();
+
+  // 1. Fail-closed on Database / Lookup Failure
+  if (params.lookupFailed) {
+    failedChecks.push('ASSURANCE_UNVERIFIED');
+    exclusionReasons.push('Authoritative compliance assurance records could not be verified (system fail-closed)');
+    return {
+      isCompliant: false,
+      passedChecks,
+      failedChecks,
+      exclusionReasons,
+      activeHolds: [],
+      blockingDetails: { reason: 'ASSURANCE_UNVERIFIED', evidenceType: 'SYSTEM_LOOKUP' },
+    };
+  }
+
+  // 2. Administrative / Compliance Suspension Gate
+  if (params.isSuspended) {
+    failedChecks.push('CONTRACTOR_SUSPENDED');
+    exclusionReasons.push('Contractor has an active administrative or compliance suspension');
+  }
+
+  // 3. Active Compliance Holds Gate
+  const activeHolds = (params.complianceHolds || []).filter((h) => h.is_active);
+  const normTrade = params.trade.toLowerCase().replace(/_/g, '-');
+
+  for (const hold of activeHolds) {
+    let matchesHold = false;
+    let holdDetail = '';
+
+    if (hold.hold_scope === 'GLOBAL') {
+      matchesHold = true;
+      holdDetail = `Active Global Compliance Hold: ${hold.hold_reason} (Raised: ${hold.raised_at})`;
+    } else if (
+      hold.hold_scope === 'SERVICE' &&
+      hold.affected_service_slug &&
+      (normTrade.includes(hold.affected_service_slug.toLowerCase()) ||
+        hold.affected_service_slug.toLowerCase().includes(normTrade))
+    ) {
+      matchesHold = true;
+      holdDetail = `Active Service Compliance Hold on '${params.trade}': ${hold.hold_reason} (Raised: ${hold.raised_at})`;
+    } else if (hold.hold_scope === 'CLIENT' && params.clientId && hold.affected_client_id === params.clientId) {
+      matchesHold = true;
+      holdDetail = `Active Client Compliance Hold for '${params.clientId}': ${hold.hold_reason} (Raised: ${hold.raised_at})`;
+    } else if (
+      hold.hold_scope === 'GEOGRAPHY' &&
+      params.cityOrRegion &&
+      hold.affected_city &&
+      hold.affected_city.toLowerCase().trim() === params.cityOrRegion.toLowerCase().trim()
+    ) {
+      matchesHold = true;
+      holdDetail = `Active Regional Compliance Hold for '${params.cityOrRegion}': ${hold.hold_reason} (Raised: ${hold.raised_at})`;
+    }
+
+    if (matchesHold) {
+      activeHoldsList.push(hold);
+      if (!failedChecks.includes('COMPLIANCE_HOLD')) {
+        failedChecks.push('COMPLIANCE_HOLD');
+      }
+      exclusionReasons.push(holdDetail);
+    }
+  }
+
+  // 4. Mandatory Public & Products Liability Insurance (£5,000,000 Minimum)
+  const plRecord = (params.insuranceRecords || []).find((i) => i.insurance_type === 'PUBLIC_LIABILITY');
+  const plLimit = plRecord
+    ? plRecord.limit_gbp
+    : (params.settingsInsurance?.public_liability?.limit_gbp ?? params.providerProfile?.public_liability_limit);
+  const plExpiry = plRecord
+    ? plRecord.expiry_date
+    : (params.settingsInsurance?.public_liability?.expiry_date ?? params.providerProfile?.insurance_expiry);
+  const plStatus = plRecord
+    ? plRecord.status
+    : (params.settingsInsurance?.public_liability?.status ??
+      (params.providerProfile?.insurance_verified ? 'VALID' : undefined));
+
+  if (plLimit == null || !plExpiry) {
+    failedChecks.push('INSURANCE_MISSING');
+    exclusionReasons.push('Mandatory Public & Products Liability Insurance (£5,000,000 minimum) is missing from file');
+  } else {
+    const isPlExpired = new Date(plExpiry).getTime() < now.getTime();
+    if (isPlExpired || plStatus === 'EXPIRED') {
+      failedChecks.push('INSURANCE_EXPIRED');
+      exclusionReasons.push(`Public Liability Insurance expired on ${plExpiry}`);
+    } else if (plLimit < 5000000 || plStatus === 'BELOW_LIMIT') {
+      failedChecks.push('INSURANCE_BELOW_LIMIT');
+      exclusionReasons.push(
+        `Public Liability Insurance indemnity (£${plLimit.toLocaleString()}) is below mandatory £5,000,000 minimum`
+      );
+    } else {
+      passedChecks.push('PUBLIC_LIABILITY_VERIFIED');
+    }
+  }
+
+  // 5. Mandatory Employers Liability Insurance (£10,000,000 Statutory Minimum)
+  const elRecord = (params.insuranceRecords || []).find((i) => i.insurance_type === 'EMPLOYERS_LIABILITY');
+  const elLimit = elRecord
+    ? elRecord.limit_gbp
+    : (params.settingsInsurance?.employers_liability?.limit_gbp ?? params.providerProfile?.employers_liability_limit);
+  const elExpiry = elRecord
+    ? elRecord.expiry_date
+    : (params.settingsInsurance?.employers_liability?.expiry_date ?? params.providerProfile?.insurance_expiry);
+  const elStatus = elRecord
+    ? elRecord.status
+    : (params.settingsInsurance?.employers_liability?.status ??
+      (params.providerProfile?.insurance_verified && elLimit ? 'VALID' : undefined));
+
+  if (elLimit == null || !elExpiry) {
+    failedChecks.push('INSURANCE_MISSING');
+    exclusionReasons.push('Mandatory Employers Liability Insurance (£10,000,000 statutory) is missing from file');
+  } else {
+    const isElExpired = new Date(elExpiry).getTime() < now.getTime();
+    if (isElExpired || elStatus === 'EXPIRED') {
+      failedChecks.push('INSURANCE_EXPIRED');
+      exclusionReasons.push(`Employers Liability Insurance expired on ${elExpiry}`);
+    } else if (elLimit < 10000000 || elStatus === 'BELOW_LIMIT') {
+      failedChecks.push('INSURANCE_BELOW_LIMIT');
+      exclusionReasons.push(
+        `Employers Liability Insurance indemnity (£${elLimit.toLocaleString()}) is below mandatory £10,000,000 statutory requirement`
+      );
+    } else {
+      passedChecks.push('EMPLOYERS_LIABILITY_VERIFIED');
+    }
+  }
+
+  // 6. Mandatory Technical Trade Accreditations
+  const requiredAccredCodes = getMandatoryAccreditationCodesForTrade(params.trade);
+  if (requiredAccredCodes.length > 0) {
+    const docs = params.documentRecords || [];
+    for (const reqCode of requiredAccredCodes) {
+      const matchDoc = docs.find((d) => {
+        const dt = (d.document_type || '').toUpperCase().replace(/[-]/g, '_');
+        const rc = reqCode.toUpperCase().replace(/[-]/g, '_');
+        return dt === rc || rc.includes(dt) || dt.includes(rc) ||
+          (rc.includes('FGAS') && dt.includes('FGAS')) ||
+          (rc.includes('GAS_SAFE') && dt.includes('GAS')) ||
+          (rc.includes('NICEIC') && (dt.includes('NICEIC') || dt.includes('NAPIT'))) ||
+          (rc.includes('BAFE') && (dt.includes('BAFE') || dt.includes('FIA'))) ||
+          (rc.includes('IRATA') && dt.includes('IRATA'));
+      });
+
+      if (!matchDoc) {
+        failedChecks.push('ACCREDITATION_MISSING');
+        exclusionReasons.push(`Mandatory technical accreditation '${reqCode}' for trade '${params.trade}' is missing from file`);
+      } else {
+        const isDocExpired =
+          Boolean(matchDoc.expiry_date && new Date(matchDoc.expiry_date).getTime() < now.getTime()) ||
+          matchDoc.document_state === 'EXPIRED';
+
+        if (isDocExpired) {
+          failedChecks.push('ACCREDITATION_EXPIRED');
+          exclusionReasons.push(`Mandatory technical accreditation '${matchDoc.document_type}' expired on ${matchDoc.expiry_date}`);
+        } else if (matchDoc.review_status && matchDoc.review_status !== 'ACCEPTED') {
+          failedChecks.push('ACCREDITATION_UNVERIFIED');
+          exclusionReasons.push(
+            `Mandatory technical accreditation '${matchDoc.document_type}' is unverified (status: '${matchDoc.review_status}')`
+          );
+        } else {
+          passedChecks.push(`ACCREDITATION_VERIFIED_${reqCode}`);
+        }
+      }
+    }
+  } else {
+    passedChecks.push('TRADE_ACCREDITATION_NOT_APPLICABLE');
+  }
+
+  const isCompliant = failedChecks.length === 0;
+  if (isCompliant) {
+    passedChecks.push('COMPLIANCE_CLEAR');
+  }
+
+  let blockingDetails: SupplierAssuranceFirewallResult['blockingDetails'] = undefined;
+  if (!isCompliant) {
+    const primaryReason = failedChecks[0];
+    const primaryHold = activeHoldsList[0];
+    blockingDetails = {
+      reason: primaryReason,
+      hold: primaryHold,
+      expiryDate: primaryReason === 'INSURANCE_EXPIRED' ? (plExpiry || elExpiry) : undefined,
+      evidenceType: primaryReason.startsWith('INSURANCE') ? 'INSURANCE' : primaryReason.startsWith('ACCREDITATION') ? 'DOCUMENT' : 'COMPLIANCE_HOLD',
+    };
+  }
+
+  return {
+    isCompliant,
+    passedChecks,
+    failedChecks,
+    exclusionReasons,
+    activeHolds: activeHoldsList,
+    blockingDetails,
+  };
+}
+

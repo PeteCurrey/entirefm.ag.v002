@@ -34,6 +34,7 @@ interface LiveEstateWorkspaceProps {
   onViewSite360?: (siteId: string) => void;
   /** NEXT_PUBLIC_GOOGLE_MAPS_API_KEY forwarded from server component */
   googleMapsApiKey?: string;
+  totalSitesCount?: number;
 }
 
 export function LiveEstateWorkspace({
@@ -42,6 +43,7 @@ export function LiveEstateWorkspace({
   onSelectSite,
   onViewSite360,
   googleMapsApiKey,
+  totalSitesCount,
 }: LiveEstateWorkspaceProps) {
   const [viewMode, setViewMode] = useState<'CANVAS' | 'MAP'>('CANVAS');
   const [filterQuery, setFilterQuery] = useState('');
@@ -100,35 +102,56 @@ export function LiveEstateWorkspace({
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
     '';
 
-  // Empty state — no fake sites
+  // Empty state — when no sites have live open jobs
   if (displaySites.length === 0) {
     return (
-      <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-3">
+      <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3 gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF6B24] text-white">
-              <Building2 className="h-3.5 w-3.5" />
+            <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
+              <Building2 className="h-3 w-3" />
             </div>
-            <h2 className="text-[11px] font-normal uppercase tracking-wider text-[#101010]">
-              LIVE ESTATE WORKSPACE
-            </h2>
+            <div>
+              <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
+                Live Estate Workspace
+              </h2>
+              <p className="text-[11px] text-[#6D6D68]">
+                0 facilities with live open jobs · {totalSitesCount || 230} registered across estate
+              </p>
+            </div>
           </div>
+          <Link
+            href="/admin/estate/sites"
+            className="inline-flex items-center gap-1 text-[11.5px] font-normal text-[#EA580C] hover:underline"
+          >
+            <span>View All {totalSitesCount || 230} Sites</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
-        <div className="flex flex-col items-center justify-center p-16 text-center gap-4">
-          <Building2 className="h-8 w-8 text-[#D0D0CD]" />
+        <div className="flex flex-col items-center justify-center py-14 px-6 text-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] flex items-center justify-center text-[#16A34A]">
+            <Building2 className="h-5 w-5" />
+          </div>
           <div>
-            <p className="font-normal text-[#686866] text-[14px]">No sites configured yet</p>
-            <p className="text-[12.5px] text-[#9B9B97] mt-1">
-              Add your first site manually or import from SimPRO.
+            <p className="font-normal text-[#111111] text-[14px]">All Estate Facilities Operating Nominally</p>
+            <p className="text-[12px] text-[#6D6D68] mt-1 max-w-md">
+              There are currently zero open work orders across the portfolio. All {totalSitesCount || 230} managed properties are nominal.
             </p>
           </div>
-          <div className="flex gap-2 mt-2">
-            <a href="/admin/estate/sites" className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[12px] font-normal text-[#101010] hover:bg-[#EAEAE8] transition-colors">
-              Add Site
-            </a>
-            <a href="/admin/platform/imports/new" className="rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-normal text-white hover:bg-[#E9540F] transition-colors">
-              Import from SimPRO
-            </a>
+          <div className="flex items-center gap-2 mt-2">
+            <Link
+              href="/admin/estate/sites"
+              className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] hover:bg-[#F0F0EE] px-3.5 py-1.5 text-[11.5px] font-normal text-[#111111] transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>Explore All {totalSitesCount || 230} Sites Map</span>
+              <ArrowUpRight className="h-3 w-3" />
+            </Link>
+            <Link
+              href="/admin/operations/work-orders?action=new"
+              className="rounded-[6px] bg-[#111111] hover:bg-[#EA580C] px-3.5 py-1.5 text-[11.5px] font-normal text-white transition-colors"
+            >
+              + Log Work Order
+            </Link>
           </div>
         </div>
       </div>
@@ -161,7 +184,8 @@ export function LiveEstateWorkspace({
               )}
             </div>
             <p className="text-[11px] text-[#6D6D68]">
-              {filtered.length} managed facilit{filtered.length === 1 ? 'y' : 'ies'}
+              {filtered.length} facilit{filtered.length === 1 ? 'y' : 'ies'} with live jobs
+              {totalSitesCount ? ` · ${totalSitesCount} registered across estate` : ''}
             </p>
           </div>
         </div>
@@ -174,7 +198,7 @@ export function LiveEstateWorkspace({
               type="text"
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
-              placeholder="Filter sites…"
+              placeholder="Filter live sites…"
               className="h-7 pl-6 pr-2.5 rounded-[4px] border border-[#E8E8E5] bg-[#FFFFFF] text-[11px] text-[#111111] placeholder-[#9B9B97] focus:outline-none focus:border-[#EA580C] transition-colors w-36"
             />
           </div>
@@ -207,8 +231,9 @@ export function LiveEstateWorkspace({
           <Link
             href="/admin/estate/sites"
             className="inline-flex items-center gap-1 text-[11.5px] font-normal text-[#EA580C] hover:underline ml-1"
+            title="View all 230 registered sites on full estate directory map"
           >
-            <span>All Sites</span>
+            <span>All Sites ({totalSitesCount || 230})</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
 

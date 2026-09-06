@@ -9,5 +9,17 @@ export default async function SitesPage() {
     listSites(),
     listClientAccounts().catch(() => []),
   ]);
-  return <SitesPageClient initialSites={sites} clientAccounts={clientAccounts} />;
+
+  const googleMapsApiKey =
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
+    process.env.GOOGLE_MAPS_API_KEY ||
+    '';
+
+  return (
+    <SitesPageClient
+      initialSites={sites}
+      clientAccounts={clientAccounts}
+      googleMapsApiKey={googleMapsApiKey}
+    />
+  );
 }

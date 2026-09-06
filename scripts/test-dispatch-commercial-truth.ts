@@ -186,7 +186,7 @@ async function runTests() {
     },
   ];
 
-  // Supplier WITHOUT agreed rates
+  // Supplier WITHOUT agreed rates (has valid compliance so commercial rates can be evaluated)
   const unpricedSupplier = {
     id: 'supp-ppm-unpriced',
     name: 'Unpriced HVAC Ltd',
@@ -198,6 +198,20 @@ async function runTests() {
     org_type: 'CONTRACTOR',
     agreed_hourly_rate_gbp: undefined,
     agreed_callout_rate_gbp: undefined,
+    insurance: {
+      public_liability: { limit_gbp: 5000000, expiry_date: '2028-01-01', status: 'VALID' },
+      employers_liability: { limit_gbp: 10000000, expiry_date: '2028-01-01', status: 'VALID' },
+    },
+    accreditation_documents: [
+      {
+        id: 'doc-ppm-1',
+        supplier_id: 'supp-ppm-unpriced',
+        document_type: 'TECH_FGAS_REFCOM',
+        document_state: 'CURRENT',
+        review_status: 'ACCEPTED',
+        expiry_date: '2028-01-01',
+      },
+    ],
   };
 
   const unpricedPlan = await planPPMContractorBatches({
@@ -236,6 +250,20 @@ async function runTests() {
     org_type: 'CONTRACTOR',
     agreed_hourly_rate_gbp: 65, // £65/hr
     agreed_callout_rate_gbp: 90,
+    insurance: {
+      public_liability: { limit_gbp: 5000000, expiry_date: '2028-01-01', status: 'VALID' },
+      employers_liability: { limit_gbp: 10000000, expiry_date: '2028-01-01', status: 'VALID' },
+    },
+    accreditation_documents: [
+      {
+        id: 'doc-ppm-2',
+        supplier_id: 'supp-ppm-priced',
+        document_type: 'TECH_FGAS_REFCOM',
+        document_state: 'CURRENT',
+        review_status: 'ACCEPTED',
+        expiry_date: '2028-01-01',
+      },
+    ],
   };
 
   const pricedPlan = await planPPMContractorBatches({
@@ -243,6 +271,7 @@ async function runTests() {
     auto_po_policy: 'AUTO_RAISE',
     available_suppliers: [pricedSupplier],
   });
+
 
   assert(pricedPlan.batches.length === 1, 'PPM cluster formed for priced supplier');
   assert(pricedPlan.batches[0].status === 'OPTIMISED', 'Priced supplier batch is OPTIMISED');
@@ -309,6 +338,10 @@ async function runTests() {
           is_national: false,
           agreed_hourly_rate_gbp: 60, // hourly rate present
           // Callout rate MISSING
+          insurance: {
+            public_liability: { limit_gbp: 5000000, expiry_date: '2028-01-01', status: 'VALID' },
+            employers_liability: { limit_gbp: 10000000, expiry_date: '2028-01-01', status: 'VALID' },
+          },
         },
       },
     });
@@ -341,6 +374,7 @@ async function runTests() {
       site_city: 'Leeds',
       site_postcode: 'LS1 1AA',
       auto_po_policy: 'AUTO_RAISE',
+      will_disturb_building_fabric: false,
     });
 
     assert(
@@ -389,9 +423,14 @@ async function runTests() {
           is_national: false,
           agreed_callout_rate_gbp: 95,
           agreed_hourly_rate_gbp: 70,
+          insurance: {
+            public_liability: { limit_gbp: 5000000, expiry_date: '2028-01-01', status: 'VALID' },
+            employers_liability: { limit_gbp: 10000000, expiry_date: '2028-01-01', status: 'VALID' },
+          },
         },
       },
     });
+
 
     const wo2Id = crypto.randomUUID();
     await dbQuery('work_orders', {
@@ -419,7 +458,9 @@ async function runTests() {
       site_city: 'Leeds',
       site_postcode: 'LS1 1AA',
       auto_po_policy: 'AUTO_RAISE',
+      will_disturb_building_fabric: false,
     });
+
 
     assert(
       res2.status === 'DISPATCHED',

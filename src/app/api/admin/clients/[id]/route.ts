@@ -12,8 +12,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
-import { getClientAccount } from '@/server/estate';
+import { getClientAccount, updateClientAccount } from '@/server/estate';
 import { validateAccountManager } from '@/server/estate/account-managers';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -55,36 +56,13 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     }
 
     const body = await request.json();
-    const { name, account_tier, account_status, account_manager_id } = body;
+    const { name, account_tier, account_status, account_manager_id, email, phone, organisation_code } = body;
 
-    const updates: Record<string, any> = {};
-
-    if (name !== undefined) {
-      if (!name || typeof name !== 'string' || !name.trim()) {
-        return NextResponse.json({ error: 'Client name cannot be empty' }, { status: 400 });
-      }
-      updates.name = name.trim();
-    }
-
-    if (account_tier !== undefined) {
-      const validTiers = ['ENTERPRISE', 'CORPORATE', 'REGIONAL', 'SME'];
-      if (!validTiers.includes(account_tier)) {
-        return NextResponse.json({ error: `Invalid account tier: ${account_tier}` }, { status: 400 });
-      }
-      updates.account_tier = account_tier;
-    }
-
-    if (account_status !== undefined) {
-      const validStatuses = ['PROSPECT', 'ONBOARDING', 'ACTIVE', 'AT_RISK', 'SUSPENDED', 'CHURNED'];
-      if (!validStatuses.includes(account_status)) {
-        return NextResponse.json({ error: `Invalid account status: ${account_status}` }, { status: 400 });
-      }
-      updates.account_status = account_status;
-    }
+    let validatedManagerId: string | null | undefined = undefined;
 
     if (account_manager_id !== undefined) {
       if (account_manager_id === null || account_manager_id === '') {
-        updates.account_manager_id = null;
+        validatedManagerId = null;
       } else {
         const validMgr = await validateAccountManager(account_manager_id);
         if (!validMgr) {
@@ -95,26 +73,33 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
             { status: 422 }
           );
         }
-        updates.account_manager_id = validMgr.id;
+        validatedManagerId = validMgr.id;
       }
     }
 
-    updates.updated_at = new Date().toISOString();
-
-    const { error: updateError } = await dbQuery<any[]>(
-      `client_accounts?id=eq.${encodeURIComponent(id)}`,
-      {
-        method: 'PATCH',
-        body: updates,
+    if (account_tier !== undefined) {
+      const validTiers = ['ENTERPRISE', 'CORPORATE', 'REGIONAL', 'SME'];
+      if (!validTiers.includes(account_tier)) {
+        return NextResponse.json({ error: `Invalid account tier: ${account_tier}` }, { status: 400 });
       }
-    );
-
-    if (updateError) {
-      console.error('[CLIENT_PATCH_ERROR]', updateError);
-      return NextResponse.json({ error: `Failed to update client account: ${updateError}` }, { status: 500 });
     }
 
-    const updatedClient = await getClientAccount(id);
+    if (account_status !== undefined) {
+      const validStatuses = ['PROSPECT', 'ONBOARDING', 'ACTIVE', 'AT_RISK', 'SUSPENDED', 'CHURNED'];
+      if (!validStatuses.includes(account_status)) {
+        return NextResponse.json({ error: `Invalid account status: ${account_status}` }, { status: 400 });
+      }
+    }
+
+    const updatedClient = await updateClientAccount(id, {
+      name: name !== undefined ? name.trim() : undefined,
+      account_tier,
+      account_status,
+      account_manager_id: validatedManagerId,
+      email: email !== undefined ? (email ? email.trim() : null) : undefined,
+      phone: phone !== undefined ? (phone ? phone.trim() : null) : undefined,
+      organisation_code: organisation_code !== undefined ? (organisation_code ? organisation_code.trim() : null) : undefined,
+    });
 
     return NextResponse.json({ success: true, client: updatedClient });
   } catch (error: any) {
@@ -122,3 +107,4 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+

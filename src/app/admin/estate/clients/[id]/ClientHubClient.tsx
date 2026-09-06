@@ -76,6 +76,70 @@ export function ClientHubClient({
   const [reassignError, setReassignError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // Edit Client Profile state
+  const [isEditClientModalOpen, setIsEditClientModalOpen] = useState(false);
+  const [clientForm, setClientForm] = useState({
+    name: client.name || '',
+    account_tier: client.account_tier || 'CORPORATE',
+    account_status: client.account_status || 'ACTIVE',
+    account_manager_id: client.account_manager_id || '',
+    email: client.organisation?.email || '',
+    phone: client.organisation?.phone || '',
+    organisation_code: client.organisation?.code || '',
+  });
+  const [isUpdatingClient, setIsUpdatingClient] = useState(false);
+  const [updateClientError, setUpdateClientError] = useState<string | null>(null);
+
+  const handleOpenEditClientModal = () => {
+    setClientForm({
+      name: client.name || '',
+      account_tier: client.account_tier || 'CORPORATE',
+      account_status: client.account_status || 'ACTIVE',
+      account_manager_id: client.account_manager_id || '',
+      email: client.organisation?.email || '',
+      phone: client.organisation?.phone || '',
+      organisation_code: client.organisation?.code || '',
+    });
+    setUpdateClientError(null);
+    setIsEditClientModalOpen(true);
+  };
+
+  const handleUpdateClient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUpdatingClient(true);
+    setUpdateClientError(null);
+
+    try {
+      const res = await fetch(`/api/admin/clients/${client.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: clientForm.name.trim(),
+          account_tier: clientForm.account_tier,
+          account_status: clientForm.account_status,
+          account_manager_id: clientForm.account_manager_id || null,
+          email: clientForm.email.trim() || null,
+          phone: clientForm.phone.trim() || null,
+          organisation_code: clientForm.organisation_code.trim() || null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update client profile');
+      }
+
+      setClient(data.client);
+      setIsEditClientModalOpen(false);
+      setSuccessMessage('Client profile updated successfully.');
+    } catch (err: any) {
+      setUpdateClientError(err.message || 'Error updating client profile');
+    } finally {
+      setIsUpdatingClient(false);
+    }
+  };
+
+
   // Quote Creation Modal state
   const [isCreateQuoteOpen, setIsCreateQuoteOpen] = useState(false);
   const [quoteForm, setQuoteForm] = useState({
@@ -257,6 +321,14 @@ export function ClientHubClient({
             <Button
               variant="secondary"
               size="sm"
+              icon={<Edit2 className="h-3.5 w-3.5" />}
+              onClick={handleOpenEditClientModal}
+            >
+              Edit Client Profile
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               icon={<Users className="h-3.5 w-3.5" />}
               onClick={() => {
                 setSelectedManagerId(client.account_manager_id || '');
@@ -266,6 +338,7 @@ export function ClientHubClient({
             >
               Reassign Manager
             </Button>
+
             <Button
               variant="secondary"
               size="sm"
@@ -985,6 +1058,147 @@ export function ClientHubClient({
           </div>
         </div>
       )}
+
+      {/* ── Edit Client Profile Modal ── */}
+      {isEditClientModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#FFFFFF] rounded-[14px] border border-[#E4E4E1] max-w-lg w-full p-6 space-y-4 shadow-2xl my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E4E4E1]">
+              <div>
+                <h3 className="text-base font-semibold text-[#101010]">Edit Client Profile</h3>
+                <p className="text-xs text-[#686866]">
+                  Update organisation details, account status, tier, and contact information.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsEditClientModalOpen(false)}
+                className="text-[#9B9B97] hover:text-[#101010]"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {updateClientError && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-[6px] text-xs text-red-700 flex items-center gap-2">
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                <span>{updateClientError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleUpdateClient} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">
+                  Client / Company Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={clientForm.name}
+                  onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Account Tier</label>
+                  <select
+                    value={clientForm.account_tier}
+                    onChange={(e) => setClientForm({ ...clientForm, account_tier: e.target.value as any })}
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  >
+                    <option value="ENTERPRISE">ENTERPRISE</option>
+                    <option value="CORPORATE">CORPORATE</option>
+                    <option value="REGIONAL">REGIONAL</option>
+                    <option value="SME">SME</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Account Status</label>
+                  <select
+                    value={clientForm.account_status}
+                    onChange={(e) => setClientForm({ ...clientForm, account_status: e.target.value as any })}
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  >
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="ONBOARDING">ONBOARDING</option>
+                    <option value="PROSPECT">PROSPECT</option>
+                    <option value="AT_RISK">AT_RISK</option>
+                    <option value="SUSPENDED">SUSPENDED</option>
+                    <option value="CHURNED">CHURNED</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Contact Email</label>
+                  <input
+                    type="email"
+                    value={clientForm.email}
+                    onChange={(e) => setClientForm({ ...clientForm, email: e.target.value })}
+                    placeholder="e.g. accounts@client.co.uk"
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Contact Phone</label>
+                  <input
+                    type="tel"
+                    value={clientForm.phone}
+                    onChange={(e) => setClientForm({ ...clientForm, phone: e.target.value })}
+                    placeholder="e.g. 01246 555123"
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">Dedicated Account Manager</label>
+                <select
+                  value={clientForm.account_manager_id}
+                  onChange={(e) => setClientForm({ ...clientForm, account_manager_id: e.target.value })}
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                >
+                  <option value="">-- No Assigned Account Manager --</option>
+                  {accountManagers.map((mgr) => (
+                    <option key={mgr.id} value={mgr.id}>
+                      {mgr.first_name} {mgr.last_name} ({mgr.role_name || mgr.job_title || 'Account Manager'})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">Organisation Code (Optional)</label>
+                <input
+                  type="text"
+                  value={clientForm.organisation_code}
+                  onChange={(e) => setClientForm({ ...clientForm, organisation_code: e.target.value.toUpperCase() })}
+                  placeholder="e.g. ORG-ACTN"
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E4E4E1]">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  type="button"
+                  disabled={isUpdatingClient}
+                  onClick={() => setIsEditClientModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button variant="primary" size="sm" type="submit" disabled={isUpdatingClient}>
+                  {isUpdatingClient ? 'Saving Changes...' : 'Save Profile Changes'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

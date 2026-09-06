@@ -124,7 +124,7 @@ export interface Asset {
 export async function listClientAccounts(): Promise<ClientAccount[]> {
   try {
     const { data, error } = await dbQuery<ClientAccount[]>(
-      'client_accounts?select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&order=created_at.desc'
+      'client_accounts?select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons!client_accounts_account_manager_id_fkey(first_name,last_name,email)&order=created_at.desc'
     );
     if (!error && data) {
       return data;
@@ -140,10 +140,11 @@ export async function listClientAccounts(): Promise<ClientAccount[]> {
 
 export async function getClientAccount(id: string): Promise<ClientAccount | null> {
   const { data } = await dbQuery<ClientAccount[]>(
-    `client_accounts?id=eq.${encodeURIComponent(id)}&select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&limit=1`
+    `client_accounts?id=eq.${encodeURIComponent(id)}&select=id,name,account_number,account_status,account_tier,account_manager_id,primary_contact_id,organisation_id,created_at,organisation:organisations(name,code,phone,email),account_manager:persons!client_accounts_account_manager_id_fkey(first_name,last_name,email)&limit=1`
   );
   return data?.[0] || null;
 }
+
 
 export async function createClientAccount(params: {
   name: string;
@@ -602,3 +603,97 @@ export async function createSpace(params: {
   if (error || !data?.[0]) throw new Error(`Failed to create space: ${error}`);
   return data[0];
 }
+
+export async function updateSite(
+  id: string,
+  params: {
+    name?: string;
+    site_code?: string;
+    client_account_id?: string | null;
+    portfolio_id?: string | null;
+    site_type?: string;
+    address_line1?: string;
+    address_line2?: string | null;
+    city?: string;
+    county?: string | null;
+    postcode?: string;
+    country?: string;
+    access_instructions?: string | null;
+    security_clearance_required?: boolean;
+    status?: 'ACTIVE' | 'SUSPENDED' | 'DECOMMISSIONED';
+  }
+): Promise<Site> {
+  const updates: Record<string, any> = { ...params, updated_at: new Date().toISOString() };
+  if (params.client_account_id) {
+    const client = await getClientAccount(params.client_account_id);
+    if (client?.organisation_id) {
+      updates.organisation_id = client.organisation_id;
+    }
+  }
+
+  const { error } = await dbQuery(`sites?id=eq.${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    body: updates,
+  });
+
+  if (error) {
+    throw new Error(`Failed to update site: ${error}`);
+  }
+
+  const updated = await getSite(id);
+  if (!updated) {
+    throw new Error(`Site not found after update: ${id}`);
+  }
+  return updated;
+}
+
+export async function updateClientAccount(
+  id: string,
+  params: {
+    name?: string;
+    account_tier?: 'ENTERPRISE' | 'CORPORATE' | 'REGIONAL' | 'SME';
+    account_status?: 'PROSPECT' | 'ONBOARDING' | 'ACTIVE' | 'AT_RISK' | 'SUSPENDED' | 'CHURNED';
+    account_manager_id?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    organisation_code?: string | null;
+  }
+): Promise<ClientAccount> {
+  const clientUpdates: Record<string, any> = { updated_at: new Date().toISOString() };
+  if (params.name !== undefined) clientUpdates.name = params.name;
+  if (params.account_tier !== undefined) clientUpdates.account_tier = params.account_tier;
+  if (params.account_status !== undefined) clientUpdates.account_status = params.account_status;
+  if (params.account_manager_id !== undefined) clientUpdates.account_manager_id = params.account_manager_id;
+
+  const { error: clientError } = await dbQuery(`client_accounts?id=eq.${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    body: clientUpdates,
+  });
+
+  if (clientError) {
+    throw new Error(`Failed to update client account: ${clientError}`);
+  }
+
+  if (params.name !== undefined || params.email !== undefined || params.phone !== undefined || params.organisation_code !== undefined) {
+    const existing = await getClientAccount(id);
+    if (existing?.organisation_id) {
+      const orgUpdates: Record<string, any> = { updated_at: new Date().toISOString() };
+      if (params.name !== undefined) orgUpdates.name = params.name;
+      if (params.email !== undefined) orgUpdates.email = params.email;
+      if (params.phone !== undefined) orgUpdates.phone = params.phone;
+      if (params.organisation_code !== undefined) orgUpdates.code = params.organisation_code;
+
+      await dbQuery(`organisations?id=eq.${encodeURIComponent(existing.organisation_id)}`, {
+        method: 'PATCH',
+        body: orgUpdates,
+      });
+    }
+  }
+
+  const updated = await getClientAccount(id);
+  if (!updated) {
+    throw new Error(`Client account not found after update: ${id}`);
+  }
+  return updated;
+}
+

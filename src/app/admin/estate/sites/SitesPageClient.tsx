@@ -7,19 +7,38 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { Badge } from '@/components/admin/ui/Badge';
 import { Button } from '@/components/admin/ui/Button';
-import { Building2, MapPin, ArrowUpRight, Plus, X } from 'lucide-react';
+import { Building2, MapPin, ArrowUpRight, Plus, X, Upload, Map as MapIcon, Grid as GridIcon } from 'lucide-react';
 import type { Site, ClientAccount } from '@/server/estate';
+import { BulkUploadModal } from '@/components/admin/estate/BulkUploadModal';
+import { EstateDirectoryGoogleMap } from '@/components/admin/estate/EstateDirectoryGoogleMap';
 
 interface Props {
   initialSites: Site[];
   clientAccounts?: ClientAccount[];
+  googleMapsApiKey?: string;
 }
 
-export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
+export function SitesPageClient({ initialSites, clientAccounts = [], googleMapsApiKey }: Props) {
   const [sites, setSites] = useState<Site[]>(initialSites);
+  const [selectedSiteId, setSelectedSiteId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'SPLIT' | 'MAP' | 'GRID'>('SPLIT');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBulkUploadOpen, setIsBulkUploadOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const refreshSites = async () => {
+    try {
+      const res = await fetch('/api/admin/sites');
+      const data = await res.json();
+      if (data.success && data.sites) {
+        setSites(data.sites);
+      }
+    } catch (err) {
+      console.error('Failed to refresh sites:', err);
+    }
+  };
+
 
   // Form state
   const [form, setForm] = useState({
@@ -87,6 +106,11 @@ export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
     }
   };
 
+  const mapsKey =
+    googleMapsApiKey ||
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
+    '';
+
   return (
     <div className="space-y-6">
       <AdminPageHeader
@@ -94,27 +118,87 @@ export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
         title="Managed Sites & Portfolios"
         description="Comprehensive physical property registry featuring Site 360 interactive building workspaces and live sensor telemetry."
         action={
-          <Button
-            variant="primary"
-            size="sm"
-            icon={<Plus className="h-3.5 w-3.5" />}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Add New Facility
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* View Mode Toggle */}
+            <div className="flex items-center rounded-[6px] border border-[#E8E8E5] bg-white p-0.5">
+              <button
+                type="button"
+                onClick={() => setViewMode('SPLIT')}
+                className={`rounded-[4px] px-2.5 py-1 text-[11px] font-normal transition-colors ${
+                  viewMode === 'SPLIT' ? 'bg-[#111111] text-white' : 'text-[#6D6D68] hover:text-[#111111]'
+                }`}
+                title="View Map and Facilities Grid"
+              >
+                Map & Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('MAP')}
+                className={`flex items-center gap-1 rounded-[4px] px-2.5 py-1 text-[11px] font-normal transition-colors ${
+                  viewMode === 'MAP' ? 'bg-[#111111] text-white' : 'text-[#6D6D68] hover:text-[#111111]'
+                }`}
+                title="View Map Only"
+              >
+                <MapIcon className="h-3 w-3" />
+                <span>Map</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('GRID')}
+                className={`flex items-center gap-1 rounded-[4px] px-2.5 py-1 text-[11px] font-normal transition-colors ${
+                  viewMode === 'GRID' ? 'bg-[#111111] text-white' : 'text-[#6D6D68] hover:text-[#111111]'
+                }`}
+                title="View Grid Only"
+              >
+                <GridIcon className="h-3 w-3" />
+                <span>Grid</span>
+              </button>
+            </div>
+
+            <Button
+              variant="secondary"
+              size="sm"
+              icon={<Upload className="h-3.5 w-3.5" />}
+              onClick={() => setIsBulkUploadOpen(true)}
+            >
+              Bulk Upload Sites
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              icon={<Plus className="h-3.5 w-3.5" />}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Add New Facility
+            </Button>
+          </div>
         }
       />
 
-      {sites.length === 0 ? (
-        <EmptyState
-          icon={<Building2 className="h-10 w-10 text-[#9B9B97]" />}
-          title="No sites registered"
-          description="Your estate hierarchy has no registered physical sites or facilities yet. Import your estate via Migration Tools or add your first property."
-          actionText="Add Facility"
-          onActionClick={() => setIsModalOpen(true)}
-        />
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+      {/* 1. Map Section showing a pin per site across the UK */}
+      {(viewMode === 'SPLIT' || viewMode === 'MAP') && sites.length > 0 && (
+        <section aria-label="Estate Geospatial Map" className="w-full">
+          <EstateDirectoryGoogleMap
+            sites={sites}
+            apiKey={mapsKey}
+            selectedSiteId={selectedSiteId}
+            onSelectSite={(s) => setSelectedSiteId(s.id)}
+          />
+        </section>
+      )}
+
+      {/* 2. Registered Facilities Grid */}
+      {(viewMode === 'SPLIT' || viewMode === 'GRID') && (
+        sites.length === 0 ? (
+          <EmptyState
+            icon={<Building2 className="h-10 w-10 text-[#9B9B97]" />}
+            title="No sites registered"
+            description="Your estate hierarchy has no registered physical sites or facilities yet. Import your estate via Migration Tools or add your first property."
+            actionText="Add Facility"
+            onActionClick={() => setIsModalOpen(true)}
+          />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
           {sites.map((s, idx) => (
             <Link
               key={s.id}
@@ -166,7 +250,7 @@ export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
             </Link>
           ))}
         </div>
-      )}
+      ))}
 
       {/* Create Site Modal */}
       {isModalOpen && (
@@ -312,6 +396,15 @@ export function SitesPageClient({ initialSites, clientAccounts = [] }: Props) {
           </div>
         </div>
       )}
+
+      {/* Bulk Upload Modal */}
+      <BulkUploadModal
+        isOpen={isBulkUploadOpen}
+        onClose={() => setIsBulkUploadOpen(false)}
+        type="sites"
+        onSuccess={refreshSites}
+      />
     </div>
   );
 }
+

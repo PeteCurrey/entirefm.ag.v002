@@ -954,16 +954,20 @@ export async function postActualCost(
 
   // Post to each Work Order
   for (const [woId, actualCostGbp] of woTotals) {
-    const { data: wos } = await dbQuery<Array<{ id: string; actual_cost_gbp: number; expected_cost_gbp: number }>>(
-      `work_orders?id=eq.${encodeURIComponent(woId)}&select=id,actual_cost_gbp,expected_cost_gbp`
+    const { data: wos } = await dbQuery<Array<{ id: string; total_cost_gbp?: number; actual_cost_gbp?: number }>>(
+      `work_orders?id=eq.${encodeURIComponent(woId)}&select=id,total_cost_gbp`
     );
     if (!wos || wos.length === 0) continue;
     const wo = wos[0];
-    const newActualCost = roundMoney((Number(wo.actual_cost_gbp) || 0) + actualCostGbp);
+    const currentCost = Number(wo.total_cost_gbp ?? wo.actual_cost_gbp) || 0;
+    const newActualCost = roundMoney(currentCost + actualCostGbp);
 
     await dbQuery(`work_orders?id=eq.${encodeURIComponent(woId)}`, {
       method: 'PATCH',
-      body: { actual_cost_gbp: newActualCost },
+      body: {
+        total_cost_gbp: newActualCost,
+        billing_status: 'READY_TO_BILL',
+      },
     });
     workOrdersUpdated.push(woId);
   }
@@ -971,18 +975,19 @@ export async function postActualCost(
   // Consume Cost Commitment if linked
   if (invoice.matched_po_id) {
     const { data: commitments } = await dbQuery<Array<{
-      id: string; committed_amount_gbp: number; actual_amount_gbp: number; status: string;
+      id: string; committed_amount_gbp: number; actual_invoiced_gbp?: number; actual_amount_gbp?: number; status: string;
     }>>(`cost_commitments?purchase_order_id=eq.${encodeURIComponent(invoice.matched_po_id)}&select=*`);
 
     for (const commitment of commitments || []) {
-      const newActual = roundMoney((Number(commitment.actual_amount_gbp) || 0) + invoice.total_amount_gbp);
+      const currentInvoiced = Number(commitment.actual_invoiced_gbp ?? commitment.actual_amount_gbp) || 0;
+      const newActual = roundMoney(currentInvoiced + invoice.total_amount_gbp);
       const remaining = roundMoney(commitment.committed_amount_gbp - newActual);
-      const newStatus = remaining <= 0 ? 'CONSUMED' : 'PARTIALLY_CONSUMED';
+      const newStatus = remaining <= 0 ? 'INVOICED' : 'COMMITTED';
 
       await dbQuery(`cost_commitments?id=eq.${encodeURIComponent(commitment.id)}`, {
         method: 'PATCH',
         body: {
-          actual_amount_gbp: newActual,
+          actual_invoiced_gbp: newActual,
           status: newStatus,
         },
       });

@@ -129,6 +129,11 @@ export async function planPPMContractorBatches(params: {
           covered_cities: s.covered_cities || [],
           is_national: s.is_national ?? false,
           is_suspended: s.is_suspended ?? false,
+          compliance_holds: s.compliance_holds,
+          insurance_records: s.insurance_records,
+          accreditation_documents: s.accreditation_documents,
+          provider_profile: s.provider_profile,
+          settings_insurance: s.settings?.insurance || s.insurance,
         },
         requirement: {
           trade,
@@ -136,6 +141,7 @@ export async function planPPMContractorBatches(params: {
           priority: 'P5_ROUTINE',
         },
       });
+
 
       candidates.push({
         supplier_id: s.id,

@@ -28,6 +28,7 @@ import {
   emitClientCommunicationEvent,
   emitContractorCommunicationEvent,
 } from '../../communications';
+import { evaluateAsbestosWorkOrderRisk, AsbestosJobAssessment } from '../../asbestos';
 
 export interface DispatchOrchestratorParams {
   work_order_id: string;
@@ -48,7 +49,10 @@ export interface DispatchOrchestratorParams {
   not_to_exceed_limit_gbp?: number;
   decline_history?: DeclineRecord[];
   candidate_suppliers_override?: any[];
+  will_disturb_building_fabric?: boolean;
+  asbestos_assessment?: AsbestosJobAssessment;
 }
+
 
 export async function orchestrateReactiveDispatch(
   params: DispatchOrchestratorParams
@@ -96,7 +100,105 @@ export async function orchestrateReactiveDispatch(
     console.warn('[DispatchOrchestrator:MarketplaceGuardWarn]', guardErr);
   }
 
+  // 0.5 Asbestos Safety Gate (CAR 2012 / Reg 4 Duty to Manage)
+  // Strict Fail-Closed: Intrusive work without statutory survey / dutyholder documentation
+  // or human QHSE sign-off halts dispatch BEFORE contractor selection.
+  try {
+    let assessment = params.asbestos_assessment;
+    let willDisturb = params.will_disturb_building_fabric;
+
+    if (!assessment) {
+      const isIdUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(params.work_order_id);
+      const woFilter = isIdUuid
+        ? `id=eq.${encodeURIComponent(params.work_order_id)}`
+        : `work_order_number=eq.${encodeURIComponent(params.work_order_id)}`;
+      const { data: woData } = await dbQuery<any[]>(`work_orders?${woFilter}&select=*&limit=1`);
+      const wo = woData?.[0];
+
+
+      if (willDisturb == null) {
+        const text = `${params.title || ''} ${wo?.description || ''}`.toLowerCase();
+        const INTRUSIVE_KEYWORDS = [
+          'drill', 'drilling', 'penetrat', 'breakthrough', 'wall removal',
+          'demolition', 'destructive', 'refurbish', 'chasing', 'cut into',
+          'ceiling void', 'riser access', 'structural'
+        ];
+        willDisturb = INTRUSIVE_KEYWORDS.some((kw) => text.includes(kw));
+      }
+
+      let constructionYear: number | undefined = undefined;
+      if (wo?.building_id) {
+        const { data: bldData } = await dbQuery<any[]>(
+          `buildings?id=eq.${encodeURIComponent(wo.building_id)}&select=id,construction_year&limit=1`
+        );
+        if (bldData?.[0]?.construction_year) {
+          constructionYear = Number(bldData[0].construction_year);
+        }
+      }
+
+      const scopeStatus = willDisturb
+        ? 'SURVEY_REQUIRED'
+        : 'DUTY_NOT_APPLICABLE';
+
+      assessment = {
+        workOrderId: params.work_order_id,
+        siteId: params.site_id || wo?.site_id || '',
+        siteAddress: params.site_name || '',
+        buildingConstructionYear: constructionYear,
+        jobWorkArea: params.title,
+        workType: willDisturb ? 'INTRUSIVE_DRILLING' : 'SERVICING_NO_FABRIC_DISTURBANCE',
+        willDisturbBuildingFabric: Boolean(willDisturb),
+        scopeStatus,
+        acmLocationsIdentified: [],
+        presumedAcms: [],
+        documents: [],
+      };
+    }
+
+    const asbestosEval = evaluateAsbestosWorkOrderRisk(assessment);
+
+    // AI/system may NEVER grant safety clearance - only authorized human QHSE clearance allows bypass
+    const hasHumanClearance = Boolean(assessment.humanQhseClearedBy && assessment.humanQhseClearedAt);
+
+    if (asbestosEval.isBlockedForIntrusiveWork && !hasHumanClearance) {
+      const holdMsg = `BLOCKED_SAFETY_HOLD: Intrusive work requires statutory asbestos clearance/survey before dispatch. Status: ${assessment.scopeStatus}. Flags: ${asbestosEval.riskFlags.join('; ')}`;
+      try {
+        await dbQuery(`work_orders?id=eq.${encodeURIComponent(params.work_order_id)}`, {
+          method: 'PATCH',
+          body: {
+            status: 'ON_HOLD',
+            hold_reason: holdMsg,
+          },
+        });
+      } catch (patchErr) {
+        console.warn('[DispatchOrchestrator:AsbestosHoldPatchWarn]', patchErr);
+      }
+
+      return {
+        status: 'BLOCKED_SAFETY_HOLD',
+        work_order_id: params.work_order_id,
+        work_order_number: params.work_order_number,
+        ranked_candidates: [],
+        decline_history: declineHistory,
+        exception_reason: holdMsg,
+        client_update_message: `Work Order ${params.work_order_number} is held on safety hold. Intrusive fabric disturbance cannot proceed without required statutory asbestos documentation or survey.`,
+      };
+    }
+  } catch (asbestosErr) {
+    console.error('[DispatchOrchestrator:AsbestosFailClosed]', asbestosErr);
+    return {
+      status: 'BLOCKED_SAFETY_HOLD',
+      work_order_id: params.work_order_id,
+      work_order_number: params.work_order_number,
+      ranked_candidates: [],
+      decline_history: declineHistory,
+      exception_reason: `Asbestos safety verification failed with error: ${asbestosErr instanceof Error ? asbestosErr.message : String(asbestosErr)} (fail-closed)`,
+      client_update_message: `Work Order ${params.work_order_number} held on safety hold: safety records could not be verified.`,
+    };
+  }
+
   // 1. Resolve Work Order Site Coordinates
+
   let siteLat: number | null = params.site_latitude ?? null;
   let siteLng: number | null = params.site_longitude ?? null;
   let sitePostcode = params.site_postcode || '';
@@ -138,40 +240,92 @@ export async function orchestrateReactiveDispatch(
   const provProfilesByOrgId = new Map<string, any>();
   const locationsByOrgId = new Map<string, any[]>();
   const coverageByOrgId = new Map<string, any[]>();
+  const holdsByOrgId = new Map<string, any[]>();
+  const insurancesByOrgId = new Map<string, any[]>();
+  const docsByOrgId = new Map<string, any[]>();
+  let assuranceLookupFailed = false;
 
   if (params.candidate_suppliers_override && params.candidate_suppliers_override.length > 0) {
     rawSuppliers = params.candidate_suppliers_override;
   } else {
-    const [
-      { data: dbSuppliers },
-      { data: dbProviderProfiles },
-      { data: dbLocations },
-      { data: dbCoverageAreas },
-    ] = await Promise.all([
-      dbQuery<any[]>('organisations?org_type=in.(CONTRACTOR,SUPPLIER)&status=eq.ACTIVE&select=*&order=name.asc'),
-      dbQuery<any[]>('provider_organisations?select=*'),
-      dbQuery<any[]>('provider_locations?select=*'),
-      dbQuery<any[]>('coverage_areas?is_active=eq.true&select=*'),
-    ]);
+    try {
+      const [
+        { data: dbSuppliers, error: errSupp },
+        { data: dbProviderProfiles },
+        { data: dbLocations },
+        { data: dbCoverageAreas },
+        { data: dbHolds, error: errHolds },
+        { data: dbInsurances, error: errIns },
+        { data: dbDocs, error: errDocs },
+      ] = await Promise.all([
+        dbQuery<any[]>('organisations?org_type=in.(CONTRACTOR,SUPPLIER)&status=eq.ACTIVE&select=*&order=name.asc'),
+        dbQuery<any[]>('provider_organisations?select=*'),
+        dbQuery<any[]>('provider_locations?select=*'),
+        dbQuery<any[]>('coverage_areas?is_active=eq.true&select=*'),
+        dbQuery<any[]>('supplier_compliance_holds?is_active=eq.true&select=*'),
+        dbQuery<any[]>('supplier_insurance_records?select=*'),
+        dbQuery<any[]>('supplier_document_records?select=*'),
+      ]);
 
-    rawSuppliers = dbSuppliers || [];
+      if (errSupp) {
+        assuranceLookupFailed = true;
+      }
+      if (errHolds || errIns || errDocs) {
+        assuranceLookupFailed = true;
+      }
 
-    if (dbProviderProfiles) {
-      for (const p of dbProviderProfiles) provProfilesByOrgId.set(p.organisation_id, p);
-    }
-    if (dbLocations) {
-      for (const l of dbLocations) {
-        const arr = locationsByOrgId.get(l.provider_org_id) || [];
-        arr.push(l);
-        locationsByOrgId.set(l.provider_org_id, arr);
+      rawSuppliers = dbSuppliers || [];
+
+      if (dbProviderProfiles) {
+        for (const p of dbProviderProfiles) provProfilesByOrgId.set(p.organisation_id, p);
       }
-    }
-    if (dbCoverageAreas) {
-      for (const ca of dbCoverageAreas) {
-        const arr = coverageByOrgId.get(ca.provider_org_id) || [];
-        arr.push(ca);
-        coverageByOrgId.set(ca.provider_org_id, arr);
+      if (dbLocations) {
+        for (const l of dbLocations) {
+          const arr = locationsByOrgId.get(l.provider_org_id) || [];
+          arr.push(l);
+          locationsByOrgId.set(l.provider_org_id, arr);
+        }
       }
+      if (dbCoverageAreas) {
+        for (const ca of dbCoverageAreas) {
+          const arr = coverageByOrgId.get(ca.provider_org_id) || [];
+          arr.push(ca);
+          coverageByOrgId.set(ca.provider_org_id, arr);
+        }
+      }
+      if (dbHolds) {
+        for (const h of dbHolds) {
+          const ownerId = h.organisation_id || h.supplier_org_id;
+          if (ownerId) {
+            const arr = holdsByOrgId.get(ownerId) || [];
+            arr.push(h);
+            holdsByOrgId.set(ownerId, arr);
+          }
+        }
+      }
+      if (dbInsurances) {
+        for (const ins of dbInsurances) {
+          const ownerId = ins.organisation_id || ins.supplier_org_id;
+          if (ownerId) {
+            const arr = insurancesByOrgId.get(ownerId) || [];
+            arr.push(ins);
+            insurancesByOrgId.set(ownerId, arr);
+          }
+        }
+      }
+      if (dbDocs) {
+        for (const doc of dbDocs) {
+          const ownerId = doc.organisation_id || doc.supplier_org_id;
+          if (ownerId) {
+            const arr = docsByOrgId.get(ownerId) || [];
+            arr.push(doc);
+            docsByOrgId.set(ownerId, arr);
+          }
+        }
+      }
+    } catch (fetchErr) {
+      console.warn('[DispatchOrchestrator:SupplierAssuranceFetchError]', fetchErr);
+      assuranceLookupFailed = true;
     }
   }
 
@@ -181,6 +335,9 @@ export async function orchestrateReactiveDispatch(
     const provProfile = provProfilesByOrgId.get(s.id);
     const linkedLocs = locationsByOrgId.get(s.id) || s.provider_locations || [];
     const linkedCov = coverageByOrgId.get(s.id) || s.coverage_areas || [];
+    const linkedHolds = holdsByOrgId.get(s.id) || s.compliance_holds || [];
+    const linkedInsurances = insurancesByOrgId.get(s.id) || s.insurance_records || [];
+    const linkedDocs = docsByOrgId.get(s.id) || s.accreditation_documents || [];
 
     // Trades (fail-closed: never default to [params.trade])
     let suppTrades = s.trades;
@@ -269,6 +426,12 @@ export async function orchestrateReactiveDispatch(
         coverage_radius_miles: coverageRadius,
         blacklisted_client_ids: s.blacklisted_client_ids,
         blacklisted_site_ids: s.blacklisted_site_ids,
+        compliance_holds: linkedHolds,
+        insurance_records: linkedInsurances,
+        accreditation_documents: linkedDocs,
+        provider_profile: provProfile,
+        settings_insurance: s.settings?.insurance,
+        assurance_lookup_failed: assuranceLookupFailed || s.assurance_lookup_failed,
       },
       requirement: {
         trade: params.trade,
@@ -279,6 +442,7 @@ export async function orchestrateReactiveDispatch(
         priority: params.priority,
       },
     });
+
 
     // Authoritative performance data (fail-closed: do NOT fabricate 96% / 94%)
     const slaAdherence =

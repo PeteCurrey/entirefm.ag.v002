@@ -24,6 +24,12 @@ export interface HardEligibilityGate {
   passed_checks: string[];
   failed_checks: string[];
   exclusion_reasons: string[];
+  blocking_details?: {
+    reason: string;
+    hold?: any;
+    expiryDate?: string;
+    evidenceType?: string;
+  };
 }
 
 export interface EligibleContractorCandidate {
@@ -68,7 +74,8 @@ export interface DispatchExecutionResult {
     | 'ESCALATED'
     | 'DECLINED_REASSIGNED'
     | 'BLOCKED_ACTIVE_MARKETPLACE_OFFER'
-    | 'COMMERCIAL_RATE_UNVERIFIED';
+    | 'COMMERCIAL_RATE_UNVERIFIED'
+    | 'BLOCKED_SAFETY_HOLD';
   work_order_id: string;
   work_order_number: string;
   assigned_supplier_id?: string;
@@ -83,3 +90,4 @@ export interface DispatchExecutionResult {
   audit_run_id?: string;
   exception_reason?: string;
 }
+

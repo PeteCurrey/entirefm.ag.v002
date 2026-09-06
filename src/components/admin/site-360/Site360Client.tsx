@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Site, Asset, Building, Space } from '@/server/estate';
+import { Site, Asset, Building, Space, ClientAccount } from '@/server/estate';
 import { WorkOrder } from '@/server/work';
 import { ComplianceObligation } from '@/server/compliance';
 import { SiteVisualMode } from './VisualModeSelector';
@@ -20,6 +20,7 @@ import Link from 'next/link';
 interface Site360ClientProps {
   currentSite: Site;
   allSites: Site[];
+  clientAccounts?: ClientAccount[];
   assets?: Asset[];
   buildings?: Building[];
   spaces?: Space[];
@@ -28,8 +29,9 @@ interface Site360ClientProps {
 }
 
 export function Site360Client({
-  currentSite,
+  currentSite: initialSite,
   allSites,
+  clientAccounts = [],
   assets = [],
   buildings = [],
   spaces = [],
@@ -37,12 +39,14 @@ export function Site360Client({
   complianceObligations = [],
 }: Site360ClientProps) {
   const router = useRouter();
+  const [currentSite, setCurrentSite] = useState<Site>(initialSite);
   const [visualMode, setVisualMode] = useState<SiteVisualMode>('PHOTO');
   const [activeTab, setActiveTab] = useState<BuildingNavTab>('overview');
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
   const [selectedWorkOrder, setSelectedWorkOrder] = useState<WorkOrder | null>(
     workOrders.length > 0 ? workOrders[0] : null
   );
+
   const [assetDrawerOpen, setAssetDrawerOpen] = useState(false);
 
   // Compute real compliance percentage
@@ -109,8 +113,14 @@ export function Site360Client({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left Profile Inspector (6 Cols) */}
             <div className="lg:col-span-6">
-              <SiteProfileInspector site={currentSite} buildings={buildings} />
+              <SiteProfileInspector
+                site={currentSite}
+                buildings={buildings}
+                clientAccounts={clientAccounts}
+                onSiteUpdated={setCurrentSite}
+              />
             </div>
+
 
             {/* Right Live Operations Inspector (6 Cols) */}
             <div className="lg:col-span-6">

@@ -11,6 +11,7 @@ import {
   Receipt, CheckCircle2, XCircle, AlertTriangle,
   ShieldAlert, ArrowLeft, Building2, Calendar, FileText
 } from 'lucide-react';
+import { SupplierInvoiceActions } from '@/components/admin/finance/SupplierInvoiceActions';
 
 export const dynamic = 'force-dynamic';
 
@@ -82,6 +83,18 @@ export default async function SupplierInvoiceDetailPage({
             <div className="text-xl font-light text-brand-electric">£{(Number(invoice.total_amount_gbp) || 0).toFixed(2)}</div>
           </div>
         </div>
+      </div>
+
+      {/* OPERATIONAL ACTIONS (Approve, Post Actual Cost, Dispute) */}
+      <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark/60 rounded-xl">
+        <SupplierInvoiceActions
+          invoiceId={invoice.id}
+          processingStatus={invoice.processing_status}
+          actualCostPosted={Boolean(invoice.actual_cost_posted)}
+          bankDetailsAlert={Boolean(invoice.bank_details_change_alert)}
+          bankAlertReviewed={Boolean(invoice.bank_alert_reviewed_at)}
+          isHighValue={(Number(invoice.total_amount_gbp) || 0) > 5000}
+        />
       </div>
 
       {/* BANK ALERT BANNER */}

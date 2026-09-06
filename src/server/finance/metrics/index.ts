@@ -402,17 +402,18 @@ async function computeExpectedRevenue(ctx: MetricFilterContext): Promise<number>
   const dateF = buildDateFilter('issued_at', ctx);
 
   // 1. Fixed Contract revenue (active periodic contracts)
-  const { data: contracts } = await dbQuery<Array<{ id: string; monthly_charge_gbp?: number | string; annual_value_gbp?: number | string }>>(
-    `contracts?is_active=eq.true&select=id,monthly_charge_gbp,annual_value_gbp${orgF}`
+  const { data: contracts } = await dbQuery<Array<{ id: string; monthly_charge_gbp?: number | string; annual_value_gbp?: number | string; status?: string }>>(
+    `contracts?status=eq.ACTIVE&select=id,annual_value_gbp${orgF}`
   );
   const fixedContractRev = (contracts || []).reduce((acc, c) => {
-    const m = Number(c.monthly_charge_gbp) || (Number(c.annual_value_gbp) ? Number(c.annual_value_gbp) / 12 : 0);
+    const annual = Number(c.annual_value_gbp) || 0;
+    const m = Number(c.monthly_charge_gbp) || (annual > 0 ? annual / 12 : 0);
     return acc + m;
   }, 0);
 
   // 2. Fetch accepted additional quotes
-  const { data: quotes } = await dbQuery<Array<{ id: string; total_price_gbp: number | string; is_additional?: boolean; status: string }>>(
-    `quotes?status=in.(ACCEPTED,ISSUED)&select=id,total_price_gbp,is_additional,status${orgF}${dateF}`
+  const { data: quotes } = await dbQuery<Array<{ id: string; total_amount_gbp?: number | string; total_sell_gbp?: number | string; total_price_gbp?: number | string; subtotal_gbp?: number | string; is_additional?: boolean; status: string }>>(
+    `quotes?status=in.(ACCEPTED,ISSUED)&select=id,total_amount_gbp,total_sell_gbp,subtotal_gbp,status${orgF}${dateF}`
   );
 
   // 3. Fetch client billing records (all statuses)
@@ -424,12 +425,13 @@ async function computeExpectedRevenue(ctx: MetricFilterContext): Promise<number>
     status: string;
     client_invoice_id?: string;
     billing_model?: string;
-  }>>(`client_billing_records?select=id,quote_id,source_quote_id,billable_net_gbp,status,client_invoice_id,billing_model${orgF}`);
+  }>>(`client_billing_records?select=id,quote_id,billable_net_gbp,status,client_invoice_id,billing_model${orgF}`);
 
   // Map quote economic exposures and their lifecycle fulfillment
   const quoteExposureMap = new Map<string, { total: number; billedOrInvoiced: number }>();
   for (const q of quotes || []) {
-    quoteExposureMap.set(q.id, { total: Number(q.total_price_gbp) || 0, billedOrInvoiced: 0 });
+    const val = Number(q.total_amount_gbp ?? q.total_sell_gbp ?? q.total_price_gbp ?? q.subtotal_gbp) || 0;
+    quoteExposureMap.set(q.id, { total: val, billedOrInvoiced: 0 });
   }
 
   // Aggregate billing records by quote
@@ -456,7 +458,7 @@ async function computeExpectedRevenue(ctx: MetricFilterContext): Promise<number>
 
   // 4. Subtract approved CLIENT credit notes only (supplier credit notes NEVER reduce client revenue)
   const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
-    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type${orgF}`
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,credit_note_type,credit_type${orgF}`
   );
   const clientCredits = (cns || [])
     .filter((c) => (c.credit_note_type || c.credit_type) === 'CLIENT')
@@ -467,11 +469,10 @@ async function computeExpectedRevenue(ctx: MetricFilterContext): Promise<number>
 
 async function computeApprovedRevenue(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
-  const dateF = buildDateFilter('accepted_at', ctx);
-  const { data } = await dbQuery<Array<{ total_price_gbp: number | string }>>(
-    `quotes?status=eq.ACCEPTED&select=total_price_gbp${orgF}${dateF}`
+  const { data } = await dbQuery<Array<{ total_amount_gbp?: number | string; total_sell_gbp?: number | string; total_price_gbp?: number | string; subtotal_gbp?: number | string }>>(
+    `quotes?status=eq.ACCEPTED&select=id,total_amount_gbp,total_sell_gbp,subtotal_gbp${orgF}`
   );
-  const sum = (data || []).reduce((acc, r) => acc + (Number(r.total_price_gbp) || 0), 0);
+  const sum = (data || []).reduce((acc, r) => acc + (Number(r.total_amount_gbp ?? r.total_sell_gbp ?? r.total_price_gbp ?? r.subtotal_gbp) || 0), 0);
   return roundMoney(sum);
 }
 
@@ -496,7 +497,7 @@ async function computeInvoicedRevenue(ctx: MetricFilterContext): Promise<number>
 
   // Subtract CLIENT credit notes ONLY (supplier credits must NEVER reduce client revenue)
   const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
-    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type${orgF}`
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,credit_note_type,credit_type${orgF}`
   );
   const clientCreditNotes = (cns || [])
     .filter((c) => (c.credit_note_type || c.credit_type) === 'CLIENT')
@@ -513,10 +514,13 @@ async function computeInvoicedRevenue(ctx: MetricFilterContext): Promise<number>
 async function computeCashReceived(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
   const dateF = buildDateFilter('paid_at', ctx);
-  const { data } = await dbQuery<Array<{ paid_amount_gbp: number | string }>>(
-    `client_invoices?payment_status=in.(PAID,PART_PAID)&select=paid_amount_gbp${orgF}${dateF}`
+  const { data } = await dbQuery<Array<{ total_amount_gbp?: number | string; paid_amount_gbp?: number | string; payment_status?: string }>>(
+    `client_invoices?payment_status=in.(PAID,PART_PAID)&select=id,total_amount_gbp,payment_status${orgF}${dateF}`
   );
-  const sum = (data || []).reduce((acc, r) => acc + (Number(r.paid_amount_gbp) || 0), 0);
+  const sum = (data || []).reduce((acc, r) => {
+    const val = Number(r.paid_amount_gbp ?? r.total_amount_gbp) || 0;
+    return acc + val;
+  }, 0);
   return roundMoney(sum);
 }
 
@@ -544,26 +548,26 @@ async function computeExpectedCost(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
   const [qRes, woRes] = await Promise.all([
     dbQuery<Array<{ id: string; expected_cost_gbp: number | string }>>(`quotes?expected_cost_gbp=not.is.null&status=in.(ACCEPTED,ISSUED)&select=id,expected_cost_gbp${orgF}`),
-    dbQuery<Array<{ expected_cost_gbp: number | string; quote_id?: string }>>(`work_orders?expected_cost_gbp=not.is.null&select=expected_cost_gbp,quote_id${orgF}`),
+    dbQuery<Array<{ total_cost_gbp?: number | string; expected_cost_gbp?: number | string; quote_id?: string }>>(`work_orders?total_cost_gbp=gt.0&select=id,total_cost_gbp,quote_id${orgF}`),
   ]);
 
   const quoteCost = (qRes.data || []).reduce((acc, r) => acc + (Number(r.expected_cost_gbp) || 0), 0);
   // Only include Work Orders that did NOT originate from a counted quote to avoid double counting
   const nonQuoteWoCost = (woRes.data || [])
     .filter((w) => !w.quote_id)
-    .reduce((acc, w) => acc + (Number(w.expected_cost_gbp) || 0), 0);
+    .reduce((acc, w) => acc + (Number(w.total_cost_gbp ?? w.expected_cost_gbp) || 0), 0);
 
   return roundMoney(quoteCost + nonQuoteWoCost);
 }
 
 async function computeCommittedCost(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
-  const { data } = await dbQuery<Array<{ committed_amount_gbp: number | string; actual_amount_gbp: number | string }>>(
-    `cost_commitments?status=in.(OPEN,PARTIAL)&select=committed_amount_gbp,actual_amount_gbp${orgF}`
+  const { data } = await dbQuery<Array<{ committed_amount_gbp: number | string; actual_invoiced_gbp?: number | string; actual_amount_gbp?: number | string }>>(
+    `cost_commitments?status=in.(OPEN,PARTIAL,COMMITTED,PARTIALLY_CONSUMED)&select=committed_amount_gbp,actual_invoiced_gbp${orgF}`
   );
   const sum = (data || []).reduce((acc, r) => {
     const comm = Number(r.committed_amount_gbp) || 0;
-    const act = Number(r.actual_amount_gbp) || 0;
+    const act = Number(r.actual_invoiced_gbp ?? r.actual_amount_gbp) || 0;
     return acc + Math.max(0, comm - act);
   }, 0);
   return roundMoney(sum);
@@ -575,7 +579,7 @@ async function computeCommittedCost(ctx: MetricFilterContext): Promise<number> {
  */
 async function computeActualCost(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
-  const dateF = buildDateFilter('invoice_date', ctx);
+  const dateF = buildDateFilter('issue_date', ctx);
   const { data: invs } = await dbQuery<Array<{ subtotal_gbp: number | string }>>(
     `supplier_invoices?actual_cost_posted=eq.true&select=subtotal_gbp${orgF}${dateF}`
   );
@@ -583,7 +587,7 @@ async function computeActualCost(ctx: MetricFilterContext): Promise<number> {
 
   // Subtract SUPPLIER credit notes only
   const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
-    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type`
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,credit_note_type,credit_type`
   );
   const supplierCredits = (cns || [])
     .filter((c) => (c.credit_note_type || c.credit_type) === 'SUPPLIER')
@@ -691,11 +695,11 @@ function buildAgeingBuckets(rows: Array<{ overdue_days: number; outstanding: num
 async function computeAccountsReceivable(ctx: MetricFilterContext): Promise<AgeingBucket[]> {
   const orgF = buildOrgFilter(ctx);
   const [invsRes, creditsRes] = await Promise.all([
-    dbQuery<Array<{ id: string; total_gbp?: number | string; subtotal_gbp: number | string; tax_amount_gbp?: number | string; paid_amount_gbp: number | string; due_date: string }>>(
-      `client_invoices?payment_status=not.in.(PAID,VOID)&status=not.in.(VOID,DRAFT)&select=id,total_gbp,subtotal_gbp,tax_amount_gbp,paid_amount_gbp,due_date${orgF}`
+    dbQuery<Array<{ id: string; total_amount_gbp?: number | string; total_gbp?: number | string; subtotal_gbp: number | string; tax_amount_gbp?: number | string; paid_amount_gbp?: number | string; payment_status?: string; due_date: string }>>(
+      `client_invoices?payment_status=not.in.(PAID,VOID)&status=not.in.(VOID,DRAFT)&select=id,total_amount_gbp,subtotal_gbp,tax_amount_gbp,payment_status,due_date${orgF}`
     ),
-    dbQuery<Array<{ client_invoice_id?: string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
-      `credit_notes?status=not.in.(VOID,DRAFT)&select=client_invoice_id,total_gbp,gross_amount_gbp,subtotal_gbp,credit_note_type,credit_type${orgF}`
+    dbQuery<Array<{ client_invoice_id?: string; total_amount_gbp?: number | string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+      `credit_notes?status=not.in.(VOID,DRAFT)&select=client_invoice_id,total_amount_gbp,subtotal_gbp,credit_note_type,credit_type${orgF}`
     ),
   ]);
 
@@ -703,7 +707,7 @@ async function computeAccountsReceivable(ctx: MetricFilterContext): Promise<Agei
   const creditByInv: Record<string, number> = {};
   for (const c of clientCredits) {
     if (c.client_invoice_id) {
-      const grossCred = Number(c.total_gbp) || Number(c.gross_amount_gbp) || Number(c.subtotal_gbp) || 0;
+      const grossCred = Number(c.total_amount_gbp ?? c.total_gbp ?? c.gross_amount_gbp ?? c.subtotal_gbp) || 0;
       creditByInv[c.client_invoice_id] = (creditByInv[c.client_invoice_id] || 0) + grossCred;
     }
   }
@@ -712,8 +716,8 @@ async function computeAccountsReceivable(ctx: MetricFilterContext): Promise<Agei
   const rows = (invsRes.data || []).map((r) => {
     const due = r.due_date ? new Date(r.due_date).getTime() : now;
     const diffDays = Math.max(0, Math.floor((now - due) / (1000 * 60 * 60 * 24)));
-    const grossTotal = Number(r.total_gbp) || (Number(r.subtotal_gbp) + (Number(r.tax_amount_gbp) || 0));
-    const paid = Number(r.paid_amount_gbp) || 0;
+    const grossTotal = Number(r.total_amount_gbp ?? r.total_gbp) || ((Number(r.subtotal_gbp) || 0) + (Number(r.tax_amount_gbp) || 0));
+    const paid = r.payment_status === 'PAID' ? grossTotal : (Number(r.paid_amount_gbp) || 0);
     const credited = creditByInv[r.id] || 0;
     const out = Math.max(0, grossTotal - credited - paid);
     return { overdue_days: diffDays, outstanding: out };
@@ -728,11 +732,11 @@ async function computeAccountsReceivable(ctx: MetricFilterContext): Promise<Agei
  */
 async function computeSupplierPayables(_ctx: MetricFilterContext): Promise<AgeingBucket[]> {
   const [invsRes, creditsRes] = await Promise.all([
-    dbQuery<Array<{ id: string; total_gbp?: number | string; subtotal_gbp?: number | string; tax_amount_gbp?: number | string; amount_paid_gbp: number | string; due_date: string }>>(
-      `supplier_invoices?approval_status=eq.APPROVED&payment_status=not.in.(PAID,VOID)&select=id,total_gbp,subtotal_gbp,tax_amount_gbp,amount_paid_gbp,due_date`
+    dbQuery<Array<{ id: string; total_amount_gbp?: number | string; total_gbp?: number | string; subtotal_gbp?: number | string; tax_amount_gbp?: number | string; paid_amount_gbp?: number | string; amount_paid_gbp?: number | string; due_date: string }>>(
+      `supplier_invoices?status=eq.APPROVED&payment_status=not.in.(PAID,VOID)&select=id,total_amount_gbp,subtotal_gbp,tax_amount_gbp,paid_amount_gbp,due_date`
     ),
-    dbQuery<Array<{ supplier_invoice_id?: string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
-      `credit_notes?status=not.in.(VOID,DRAFT)&select=supplier_invoice_id,total_gbp,gross_amount_gbp,subtotal_gbp,credit_note_type,credit_type`
+    dbQuery<Array<{ supplier_invoice_id?: string; total_amount_gbp?: number | string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+      `credit_notes?status=not.in.(VOID,DRAFT)&select=supplier_invoice_id,total_amount_gbp,subtotal_gbp,credit_note_type,credit_type`
     ),
   ]);
 
@@ -740,7 +744,7 @@ async function computeSupplierPayables(_ctx: MetricFilterContext): Promise<Agein
   const creditByInv: Record<string, number> = {};
   for (const c of supplierCredits) {
     if (c.supplier_invoice_id) {
-      const grossCred = Number(c.total_gbp) || Number(c.gross_amount_gbp) || Number(c.subtotal_gbp) || 0;
+      const grossCred = Number(c.total_amount_gbp ?? c.total_gbp ?? c.gross_amount_gbp ?? c.subtotal_gbp) || 0;
       creditByInv[c.supplier_invoice_id] = (creditByInv[c.supplier_invoice_id] || 0) + grossCred;
     }
   }
@@ -749,8 +753,8 @@ async function computeSupplierPayables(_ctx: MetricFilterContext): Promise<Agein
   const rows = (invsRes.data || []).map((r) => {
     const due = r.due_date ? new Date(r.due_date).getTime() : now;
     const diffDays = Math.max(0, Math.floor((now - due) / (1000 * 60 * 60 * 24)));
-    const grossTotal = Number(r.total_gbp) || ((Number(r.subtotal_gbp) || 0) + (Number(r.tax_amount_gbp) || 0));
-    const paid = Number(r.amount_paid_gbp) || 0;
+    const grossTotal = Number(r.total_amount_gbp ?? r.total_gbp) || ((Number(r.subtotal_gbp) || 0) + (Number(r.tax_amount_gbp) || 0));
+    const paid = Number(r.paid_amount_gbp ?? r.amount_paid_gbp) || 0;
     const credited = creditByInv[r.id] || 0;
     const out = Math.max(0, grossTotal - credited - paid);
     return { overdue_days: diffDays, outstanding: out };

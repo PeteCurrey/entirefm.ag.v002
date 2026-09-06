@@ -25,6 +25,7 @@ interface ControlCentreClientProps {
   session: UserSession | null;
   metrics: OperationalMetrics;
   sites: Site[];
+  liveSites?: SiteWithTelemetry[];
   dbConnected: boolean;
   complianceKpis?: Record<string, number>;
   leads?: ExtendedLead[];
@@ -37,6 +38,7 @@ export function ControlCentreClient({
   session,
   metrics,
   sites,
+  liveSites,
   dbConnected,
   complianceKpis,
   leads = [],
@@ -153,7 +155,8 @@ export function ControlCentreClient({
         {/* Left / Central Focus: Live Estate Workspace + Timeline (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           <LiveEstateWorkspace
-            sites={sites as SiteWithTelemetry[]}
+            sites={liveSites ?? []}
+            totalSitesCount={sites.length}
             selectedSiteId={selectedSite?.id || null}
             onSelectSite={handleSelectSite}
             googleMapsApiKey={googleMapsApiKey}

@@ -16,6 +16,7 @@
 
 import { HardEligibilityGate } from './types';
 import { TradeCategory, UrgencyLevel } from '../helpdesk/types';
+import { evaluateSupplierAssuranceFirewall } from '@/server/suppliers/assurance-engine';
 
 export interface ContractorEligibilityContext {
   supplier: {
@@ -35,6 +36,19 @@ export interface ContractorEligibilityContext {
     coverage_radius_miles?: number;
     blacklisted_client_ids?: string[];
     blacklisted_site_ids?: string[];
+    // Authoritative assurance records & context
+    compliance_holds?: any[];
+    insurance_records?: any[];
+    accreditation_documents?: any[];
+    provider_profile?: {
+      insurance_verified?: boolean;
+      public_liability_limit?: number;
+      employers_liability_limit?: number;
+      insurance_expiry?: string;
+      vetting_status?: string;
+    };
+    settings_insurance?: any;
+    assurance_lookup_failed?: boolean;
   };
   requirement: {
     trade: TradeCategory;
@@ -45,6 +59,7 @@ export interface ContractorEligibilityContext {
     client_id?: string;
     priority: UrgencyLevel;
   };
+  now?: Date;
 }
 
 export function evaluateContractorEligibility(
@@ -63,13 +78,27 @@ export function evaluateContractorEligibility(
     exclusionReasons.push(`Supplier organisation status '${supplier.status}' / type '${supplier.org_type}' is not active for dispatch`);
   }
 
-  // Gate 2: Compliance & Suspension Check
-  if (supplier.is_suspended) {
-    failedChecks.push('CONTRACTOR_SUSPENDED');
-    exclusionReasons.push('Contractor has an active administrative or compliance suspension');
-  } else {
-    passedChecks.push('COMPLIANCE_CLEAR');
-  }
+  // Gate 2: Authoritative Compliance & Assurance Firewall (Strict Fail-Closed)
+  const assuranceResult = evaluateSupplierAssuranceFirewall({
+    supplierId: supplier.id,
+    trade: requirement.trade,
+    clientId: requirement.client_id,
+    siteId: requirement.site_id,
+    cityOrRegion: requirement.site_city,
+    isSuspended: Boolean(supplier.is_suspended),
+    complianceHolds: supplier.compliance_holds,
+    insuranceRecords: supplier.insurance_records,
+    documentRecords: supplier.accreditation_documents,
+    providerProfile: supplier.provider_profile,
+    settingsInsurance: supplier.settings_insurance,
+    lookupFailed: supplier.assurance_lookup_failed,
+    now: context.now,
+  });
+
+  passedChecks.push(...assuranceResult.passedChecks);
+  failedChecks.push(...assuranceResult.failedChecks);
+  exclusionReasons.push(...assuranceResult.exclusionReasons);
+
 
   // Gate 3: Trade & Discipline Capability (Strict Fail-Closed)
   const reqTrade = requirement.trade.toUpperCase();
@@ -158,5 +187,7 @@ export function evaluateContractorEligibility(
     passed_checks: passedChecks,
     failed_checks: failedChecks,
     exclusion_reasons: exclusionReasons,
+    blocking_details: assuranceResult.blockingDetails,
   };
 }
+
