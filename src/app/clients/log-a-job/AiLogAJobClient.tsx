@@ -315,12 +315,13 @@ export default function AiLogAJobClient({
   // ── Form Validation ──
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
+    const isManualAddress = initialSites.length === 0 || selectedSiteId === 'UNLISTED';
 
     if (initialSites.length > 1 && !selectedSiteId) {
-      errors.siteId = 'Please select the property from your authorised list.';
+      errors.siteId = 'Please select a property from your authorised list or choose "Other / Unlisted Property".';
     }
 
-    if (isPublic && !propertyAddress.trim()) {
+    if (isManualAddress && !propertyAddress.trim()) {
       errors.propertyAddress = 'Please enter the building name, property address, or postcode.';
     }
 
@@ -362,9 +363,12 @@ export default function AiLogAJobClient({
       title.trim() ||
       `${categoryObj?.label || 'General Maintenance'}${locationNotes ? ` — ${locationNotes}` : ''}`;
 
+    const isManualAddress = initialSites.length === 0 || selectedSiteId === 'UNLISTED';
+    const effectiveSiteId = (!isManualAddress && selectedSiteId) ? selectedSiteId : (isPublic ? 'PUBLIC_ESTATE' : '');
+
     try {
       const payload = {
-        site_id: selectedSiteId || (isPublic ? 'PUBLIC_ESTATE' : ''),
+        site_id: effectiveSiteId,
         title: resolvedTitle,
         description: description.trim(),
         location_type: locationTypeLabel,
@@ -794,9 +798,36 @@ export default function AiLogAJobClient({
                           {s.name} {s.city ? `(${s.city})` : ''}
                         </option>
                       ))}
+                      <option value="UNLISTED">Other / Unlisted Property (Enter Address Manually)</option>
                     </select>
                     {formErrors.siteId && (
                       <p className="text-xs text-red-600 mt-1 font-normal">{formErrors.siteId}</p>
+                    )}
+
+                    {selectedSiteId === 'UNLISTED' && (
+                      <div className="mt-3">
+                        <label htmlFor="unlisted-property-address" className="text-xs font-medium text-slate-800 block mb-1">
+                          Building Name &amp; Address / Postcode <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="unlisted-property-address"
+                          type="text"
+                          value={propertyAddress}
+                          onChange={(e) => {
+                            setPropertyAddress(e.target.value);
+                            if (formErrors.propertyAddress) setFormErrors((prev) => ({ ...prev, propertyAddress: '' }));
+                          }}
+                          placeholder="e.g. St Paul's House, 10 Norfolk Street, Sheffield, S1 2JE"
+                          className={`w-full rounded-sm border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-1 ${
+                            formErrors.propertyAddress
+                              ? 'border-red-400 focus:border-red-500 focus:ring-red-400'
+                              : 'border-slate-300 focus:border-slate-800 focus:ring-slate-800'
+                          }`}
+                        />
+                        {formErrors.propertyAddress && (
+                          <p className="text-xs text-red-600 mt-1 font-normal">{formErrors.propertyAddress}</p>
+                        )}
+                      </div>
                     )}
                   </div>
                 ) : (
@@ -1400,7 +1431,7 @@ export default function AiLogAJobClient({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm bg-hero-pink px-7 py-3 text-sm font-medium text-white shadow-sm hover:bg-hero-pink/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm btn-hero-pink bg-[#ED3899] text-white hover:bg-[#D82583] px-7 py-3 text-sm font-medium shadow-elevated disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {isSubmitting ? (
                   <span>Submitting request...</span>

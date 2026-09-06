@@ -65,13 +65,20 @@ export default async function PublicLogAJobPage({ searchParams }: PageProps) {
   let initialAssets: any[] = [];
 
   if (isClient && session) {
-    // Authenticated client context: strictly scope to authorised sites
+    const isEntireFm = session.orgType === 'ENTIREFM';
     const siteScopes = session.scopes.filter((s) => s.type === 'SITE').map((s) => s.id);
-    const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
 
-    const { data: sites } = await dbQuery<any[]>(
-      `sites?organisation_id=eq.${encodeURIComponent(session.orgId)}${siteFilter}&select=id,name,site_code,city,postcode,address_line1&order=name.asc`
-    );
+    let siteQuery = '';
+    if (isEntireFm) {
+      // EntireFM operations: can see all active managed estate sites
+      siteQuery = `sites?status=neq.ARCHIVED&select=id,name,site_code,city,postcode,address_line1&order=name.asc&limit=300`;
+    } else {
+      // Client user: strictly scope to authorised client sites
+      const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
+      siteQuery = `sites?organisation_id=eq.${encodeURIComponent(session.orgId)}${siteFilter}&select=id,name,site_code,city,postcode,address_line1&order=name.asc`;
+    }
+
+    const { data: sites } = await dbQuery<any[]>(siteQuery);
 
     initialSites = (sites || []).map((s) => ({
       id: s.id,
@@ -83,7 +90,7 @@ export default async function PublicLogAJobPage({ searchParams }: PageProps) {
     }));
 
     const siteIds = initialSites.map((s) => s.id);
-    if (siteIds.length > 0) {
+    if (siteIds.length > 0 && !isEntireFm) {
       const { data: assets } = await dbQuery<any[]>(
         `assets?site_id=in.(${siteIds.map(encodeURIComponent).join(',')})&status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,site_id,manufacturer,model,serial_number&limit=200`
       );

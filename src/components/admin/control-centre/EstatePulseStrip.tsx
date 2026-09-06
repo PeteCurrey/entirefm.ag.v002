@@ -79,8 +79,8 @@ export function EstatePulseStrip({
   ];
 
   return (
-    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-[#E8E8E5]">
+    <div className="rounded-[10px] border border-cafm-border bg-cafm-surface-card overflow-hidden">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-cafm-border">
         {metrics.map((m) => {
           const Icon = m.icon;
           const isActive = activeMetric === m.key;
@@ -91,32 +91,32 @@ export function EstatePulseStrip({
               onClick={() => onMetricClick?.(m.key)}
               className={`p-4 text-left transition-all relative ${
                 isActive
-                  ? 'bg-[#FAFAF8] shadow-[inset_0_-2px_0_#EA580C]'
-                  : 'hover:bg-[#FAFAF8]'
+                  ? 'bg-cafm-surface-muted shadow-[inset_0_-2px_0_#EA580C]'
+                  : 'hover:bg-cafm-surface-muted'
               }`}
             >
               <div className="flex items-center justify-between gap-1.5 mb-1.5">
-                <span className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide">
+                <span className="text-[11px] font-normal text-cafm-text-secondary uppercase tracking-wide">
                   {m.label}
                 </span>
-                <Icon className={`h-3.5 w-3.5 ${m.alert ? 'text-[#DC2626]' : 'text-[#9A9A95]'}`} />
+                <Icon className={`h-3.5 w-3.5 ${m.alert ? 'text-cafm-critical-dot' : 'text-cafm-text-muted'}`} />
               </div>
 
               <div className="flex items-baseline gap-2">
                 <span
                   className={`text-2xl lg:text-3xl font-light tracking-tight ${
                     isNoData
-                      ? 'text-[#9A9A95]'
+                      ? 'text-cafm-text-muted'
                       : m.alert
-                      ? 'text-[#DC2626] font-normal'
-                      : 'text-[#111111] font-normal'
+                      ? 'text-cafm-critical-dot font-normal'
+                      : 'text-cafm-text-primary font-normal'
                   }`}
                 >
                   {m.value}
                 </span>
               </div>
 
-              <div className="mt-1 text-[11.5px] text-[#6D6D68] truncate">
+              <div className="mt-1 text-[11.5px] text-cafm-text-secondary truncate">
                 {m.subtext}
               </div>
             </button>

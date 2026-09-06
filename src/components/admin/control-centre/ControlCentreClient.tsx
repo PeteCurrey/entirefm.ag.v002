@@ -137,8 +137,8 @@ export function ControlCentreClient({
       />
 
       {!dbConnected && (
-        <div className="rounded-[10px] border border-[#FDE68A] bg-[#FFFBEB] p-3.5 text-[12.5px] text-[#B45309] flex items-center gap-3">
-          <strong className="font-light text-[#92400E]">Database Offline / Local Mode.</strong>{' '}
+        <div className="rounded-[10px] border border-cafm-warning-border bg-cafm-warning-surface p-3.5 text-[12.5px] text-cafm-warning-text flex items-center gap-3">
+          <strong className="font-light text-cafm-warning-darkText">Database Offline / Local Mode.</strong>{' '}
           Inbound leads and notifications are actively persisting in memory and syncing with telemetry.
         </div>
       )}

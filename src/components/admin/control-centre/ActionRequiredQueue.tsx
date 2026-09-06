@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
+import { Badge, Button } from '@/components/ui';
 import { AlertCircle, Clock, ShieldAlert, DollarSign, Wrench, ArrowRight, CheckCircle2, Users } from 'lucide-react';
 import Link from 'next/link';
 
@@ -26,11 +25,11 @@ interface ActionRequiredQueueProps {
 }
 
 const typeConfig: Record<ActionRequiredItem['type'], { icon: React.ElementType; label: string; badgeVariant: string }> = {
-  CRITICAL: { icon: AlertCircle, label: 'P1 Critical', badgeVariant: 'red' },
-  OVERDUE: { icon: ShieldAlert, label: 'Overdue', badgeVariant: 'red' },
-  SLA_RISK: { icon: Clock, label: 'SLA Risk', badgeVariant: 'yellow' },
-  APPROVAL: { icon: DollarSign, label: 'Approval', badgeVariant: 'blue' },
-  NEW_LEAD: { icon: Users, label: 'New Lead', badgeVariant: 'purple' },
+  CRITICAL: { icon: AlertCircle, label: 'P1 Critical', badgeVariant: 'critical' },
+  OVERDUE: { icon: ShieldAlert, label: 'Overdue', badgeVariant: 'critical' },
+  SLA_RISK: { icon: Clock, label: 'SLA Risk', badgeVariant: 'warning' },
+  APPROVAL: { icon: DollarSign, label: 'Approval', badgeVariant: 'info' },
+  NEW_LEAD: { icon: Users, label: 'New Lead', badgeVariant: 'orange' },
 };
 
 export function ActionRequiredQueue({
@@ -39,22 +38,22 @@ export function ActionRequiredQueue({
   onItemInspect,
 }: ActionRequiredQueueProps) {
   return (
-    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
-      <div className="flex items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3">
+    <div className="rounded-[10px] border border-cafm-border bg-cafm-surface-card overflow-hidden">
+      <div className="flex items-center justify-between border-b border-cafm-border bg-cafm-surface-muted px-4 py-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#DC2626] text-white">
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-cafm-critical-dot text-white">
             <AlertCircle className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-cafm-text-primary uppercase tracking-wide">
               Action Required
             </h2>
-            <p className="text-[11px] text-[#6D6D68]">
+            <p className="text-[11px] text-cafm-text-secondary">
               {items.length > 0 ? `${items.length} item${items.length !== 1 ? 's' : ''} need attention` : 'All clear'}
             </p>
           </div>
         </div>
-        <Link href="/admin/growth/leads" className="text-[11.5px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors">
+        <Link href="/admin/growth/leads" className="text-[11.5px] font-normal text-cafm-text-secondary hover:text-cafm-text-primary transition-colors">
           Inbound Leads →
         </Link>
       </div>

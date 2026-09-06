@@ -66,11 +66,85 @@ const config: Config = {
           pink: '#ED3899',
           magenta: '#C026D3',
         },
+
+        // ══════════════════════════════════════════════════════════════════
+        // ENTIRECAFM OPERATIONAL BACKEND DESIGN SYSTEM
+        // ══════════════════════════════════════════════════════════════════
+        // Deliberately distinct from the public marketing site's cool blue/indigo
+        // brand spectrum. The CAFM backend (Admin Control Centre, Contractor
+        // Portal, and Client Portal) uses a warm, high-contrast operational
+        // visual language: clean white/light-grey surfaces, deep charcoal text,
+        // precision hairlines, and an authoritative industrial orange accent for
+        // live operations, active navigation states, and primary CTAs.
+        // ══════════════════════════════════════════════════════════════════
+        cafm: {
+          // ── Primary Orange Accent Hierarchy ─────────────────────────────
+          orange: {
+            DEFAULT: '#EA580C', // Canonical primary action & active indicator
+            hover: '#C2410C',   // Hover state on primary buttons/actions
+            active: '#9A3412',  // Pressed/active state
+            light: '#FFF7ED',   // Tinted pill/badge background
+            border: '#FED7AA',  // Tinted pill/badge border
+            vibrant: '#FF6B24', // High-visibility highlight & telemetry glow
+          },
+
+          // ── Operational Neutral / Surface Scale ─────────────────────────
+          surface: {
+            canvas: '#F5F5F3',  // Global page background / workspace floor
+            card: '#FFFFFF',    // Elevated white card panels
+            muted: '#FAFAF8',   // Header bars, toolbars, secondary container ground
+            subtle: '#F0F0EE',  // Interactive hover states, nested sub-elements
+          },
+
+          // ── Precision Hairline Borders ──────────────────────────────────
+          border: {
+            DEFAULT: '#E8E8E5', // Standard structural border & divider
+            card: '#E4E4E1',    // Card perimeter boundary
+            subtle: '#D4D4D0',  // Interactive/input hover hairline
+          },
+
+          // ── Typographic Contrast Scale ──────────────────────────────────
+          text: {
+            primary: '#111111',   // High-contrast titles, metrics, primary copy
+            secondary: '#6D6D68', // Metadata, descriptions, field labels
+            muted: '#9B9B97',     // Placeholders, timestamps, tertiary icons
+          },
+
+          // ── Semantic Operational Status Scales ──────────────────────────
+          // (Standardised from live ControlCentre telemetry and alerts)
+          warning: {
+            surface: '#FFFBEB',
+            border: '#FDE68A',
+            text: '#B45309',
+            darkText: '#92400E',
+            dot: '#D97706',
+          },
+          nominal: {
+            surface: '#F0FDF4',
+            border: '#BBF7D0',
+            text: '#15803D',
+            dot: '#16A34A',
+          },
+          critical: {
+            surface: '#FEF2F2',
+            border: '#FECACA',
+            text: '#B91C1C',
+            dot: '#DC2626',
+          },
+          info: {
+            surface: '#EFF6FF',
+            border: '#BFDBFE',
+            text: '#1D4ED8',
+            dot: '#2563EB',
+          },
+        },
       },
       fontFamily: {
         sans: ['var(--font-work-sans)', 'Work Sans', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         display: ['var(--font-work-sans)', 'Work Sans', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // CAFM backend font stack (currently Work Sans; seamless swap when Lufga is licensed)
+        cafm: ['var(--font-work-sans)', 'Work Sans', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       fontSize: {
         // Display scale for hero and section headings.

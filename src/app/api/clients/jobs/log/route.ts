@@ -96,11 +96,14 @@ export async function POST(req: NextRequest) {
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // A. PUBLIC / TENANT UNAUTHENTICATED SUBMISSION PIPELINE
+    // A. PROPERTY ADDRESS / PUBLIC INTAKE PIPELINE
     // ─────────────────────────────────────────────────────────────────────────────
-    if (isPublic) {
-      const publicName = contact_name || occupier_name || 'Tenant / Occupier';
-      const publicEmail = contact_email || '';
+    const isAddressBasedSubmission =
+      isPublic || !site_id || site_id === 'PUBLIC_ESTATE' || site_id === 'UNLISTED' || site_id === 'OTHER';
+
+    if (isAddressBasedSubmission) {
+      const publicName = contact_name || occupier_name || session?.name || 'Tenant / Occupier';
+      const publicEmail = contact_email || session?.email || '';
       const publicLocation = [
         property_address,
         unit_number ? `Unit/Suite: ${unit_number}` : null,
@@ -110,7 +113,14 @@ export async function POST(req: NextRequest) {
         .filter(Boolean)
         .join(' — ') || 'Commercial Estate';
 
-      if (!contact_email) {
+      if (!property_address && !location_description) {
+        return NextResponse.json(
+          { error: 'Site selection or property address is required' },
+          { status: 400 }
+        );
+      }
+
+      if (!publicEmail) {
         return NextResponse.json(
           { error: 'Email address is required so EntireFM operations can confirm your job reference.' },
           { status: 400 }
@@ -141,7 +151,7 @@ export async function POST(req: NextRequest) {
       // Attempt estate resolution
       const estateCtx = await resolveEstateContext({
         siteHint: property_address || location_description,
-        clientHint: managing_agent_name || company_name,
+        clientHint: managing_agent_name || company_name || (session?.orgType === 'CLIENT' ? session.orgName : undefined),
       }).catch(() => ({ siteId: undefined, clientId: undefined, contractId: undefined }));
 
       // Handle evidence uploads (common to both branches)
@@ -180,6 +190,19 @@ export async function POST(req: NextRequest) {
       // ── Branch A: Site matched → create real records ──────────────────────────
       if (estateCtx.siteId) {
         try {
+          // Resolve authoritative organization ID
+          let resolvedOrgId = estateCtx.clientId;
+          if (!resolvedOrgId && estateCtx.siteId) {
+            const { data: sRec } = await dbQuery<any[]>(
+              `sites?id=eq.${encodeURIComponent(estateCtx.siteId)}&select=organisation_id&limit=1`
+            );
+            resolvedOrgId = sRec?.[0]?.organisation_id;
+          }
+          if (!resolvedOrgId && session?.orgType === 'CLIENT') {
+            resolvedOrgId = session.orgId;
+          }
+          resolvedOrgId = resolvedOrgId || '00000000-0000-0000-0000-000000000001';
+
           // Run triage on the combined message
           const triageResult = await parseHelpdeskIntake({
             text: `${title ? title + '\n' : ''}${description}`,
@@ -203,7 +226,7 @@ export async function POST(req: NextRequest) {
 
           const sr = await createServiceRequest({
             site_id: estateCtx.siteId,
-            organisation_id: estateCtx.clientId,
+            organisation_id: resolvedOrgId,
             title: title || description.slice(0, 80),
             description: fullMessage,
             category,
@@ -226,7 +249,7 @@ export async function POST(req: NextRequest) {
 
           const wo = await createWorkOrder({
             site_id: estateCtx.siteId,
-            organisation_id: estateCtx.clientId,
+            organisation_id: resolvedOrgId,
             service_request_id: sr.id,
             title: title || description.slice(0, 80),
             description: fullMessage,
@@ -246,8 +269,8 @@ export async function POST(req: NextRequest) {
               site_id: estateCtx.siteId,
               site_name: triageResult?.resolved_site_name || property_address || 'Unknown Site',
               site_city: '',
-              client_id: estateCtx.clientId || '',
-              client_name: managing_agent_name || company_name || 'Tenant Submission',
+              client_id: resolvedOrgId,
+              client_name: managing_agent_name || company_name || session?.orgName || 'Tenant Submission',
               automation_level: 'AUTO_DISPATCH_AND_PO',
             });
           } catch (err: any) {
@@ -258,7 +281,6 @@ export async function POST(req: NextRequest) {
 
           return NextResponse.json({
             success: true,
-            reference: sr.reference,
             service_request: {
               id: sr.id,
               reference: sr.reference,
@@ -267,7 +289,7 @@ export async function POST(req: NextRequest) {
               priority: finalPriority,
               created_at: sr.created_at,
               sla_hours: slaHours,
-              sla_resolution_due: triageResult?.sla_resolution_due_at || null,
+              triage_status: triageStatus,
             },
             work_order: {
               id: wo.id,
@@ -290,11 +312,12 @@ export async function POST(req: NextRequest) {
                   status: triageStatus,
                 }
               : null,
-            message: `Your maintenance request has been received and logged under reference ${sr.reference}.`,
+            reference: sr.reference,
+            message: `Job successfully logged under reference ${sr.reference} (${wo.work_order_number}).`,
           });
-        } catch (branchAError: any) {
-          console.error('[PUBLIC_BRANCH_A_ERROR]:', branchAError);
-          // Fall through to Branch B on unexpected failure
+        } catch (err: any) {
+          console.error('[ESTATE_MATCHED_JOB_CREATION_ERROR]:', err);
+          // Fall through to honest lead receipt if creation fails
         }
       }
 
@@ -308,7 +331,7 @@ export async function POST(req: NextRequest) {
             name: publicName,
             email: publicEmail,
             phone: contact_phone || '',
-            company: company_name || managing_agent_name || '',
+            company: company_name || managing_agent_name || session?.orgName || '',
             service: category,
             location: publicLocation,
             message: fullMessage,
@@ -325,6 +348,7 @@ export async function POST(req: NextRequest) {
         success: true,
         status: 'enquiry_received',
         lead_reference: leadReference,
+        reference: leadReference,
         evidence_stored_count: storedEvidenceIds.length,
         message:
           'Thank you for your request. We have received your details and an operator will review your submission and contact you to confirm your site location and log a formal work order.',
@@ -332,12 +356,8 @@ export async function POST(req: NextRequest) {
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // B. AUTHENTICATED CLIENT SUBMISSION PIPELINE
+    // B. AUTHENTICATED SITE-SCOPED SUBMISSION PIPELINE (site_id provided)
     // ─────────────────────────────────────────────────────────────────────────────
-    if (!site_id) {
-      return NextResponse.json({ error: 'Site selection is required' }, { status: 400 });
-    }
-
     // 1. Authorisation & Site Validation
     const { data: siteRecords } = await dbQuery<any[]>(
       `sites?id=eq.${encodeURIComponent(site_id)}&select=id,name,organisation_id,city,postcode`
@@ -345,10 +365,10 @@ export async function POST(req: NextRequest) {
     const targetSite = siteRecords?.[0];
 
     if (!targetSite) {
-      return NextResponse.json({ error: 'Site not found in database' }, { status: 404 });
+      return NextResponse.json({ error: 'Selected site not found in database' }, { status: 404 });
     }
 
-    if (session.orgType === 'CLIENT' && !isViewAs) {
+    if (session && session.orgType === 'CLIENT' && !isViewAs) {
       if (targetSite.organisation_id !== session.orgId) {
         return NextResponse.json(
           { error: 'Forbidden: You are not authorised to log jobs for this site' },
@@ -363,9 +383,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 2. Resolve Client Account
+    // 2. Resolve Client Account & Target Organization
+    const targetOrgId = targetSite.organisation_id || session?.orgId || '00000000-0000-0000-0000-000000000001';
     const { data: clientAccounts } = await dbQuery<any[]>(
-      `client_accounts?organisation_id=eq.${encodeURIComponent(session.orgId)}&limit=1`
+      `client_accounts?organisation_id=eq.${encodeURIComponent(targetOrgId)}&limit=1`
     );
     const clientAccountId = clientAccounts?.[0]?.id;
 
@@ -434,7 +455,7 @@ export async function POST(req: NextRequest) {
 
     // 7. Create Canonical Service Request with triage metadata
     const sr = await createServiceRequest({
-      organisation_id: session.orgId,
+      organisation_id: targetOrgId,
       client_account_id: clientAccountId,
       site_id,
       asset_id: asset_id || undefined,
@@ -460,7 +481,7 @@ export async function POST(req: NextRequest) {
 
     // 8. Create Canonical Work Order — use CLIENT'S trade for dispatch (authoritative)
     const wo = await createWorkOrder({
-      organisation_id: session.orgId,
+      organisation_id: targetOrgId,
       site_id,
       asset_id: asset_id || undefined,
       service_request_id: sr.id,

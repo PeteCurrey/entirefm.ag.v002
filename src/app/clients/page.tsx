@@ -4,13 +4,27 @@
  * Estate overview: Needs Your Attention, activity summary,
  * property cards, and recent activity. Strictly scoped to
  * client organisation and assigned sites.
+ * Built with the unified EntireCAFM backend design system.
  */
 
 import React from 'react';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 import Link from 'next/link';
-import { CheckCircle2, AlertCircle, Clock, ArrowRight, MapPin, Building2, FileCheck, CalendarClock } from 'lucide-react';
+import {
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  ArrowRight,
+  MapPin,
+  Building2,
+  FileCheck,
+  CalendarClock,
+  Plus,
+  ShieldCheck,
+  Wrench,
+} from 'lucide-react';
+import { Card, Badge, Button, StatTile } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,8 +37,6 @@ export default async function ClientDashboardPage() {
   const siteIdFilter = siteScopes.length > 0 ? `&site_id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
 
   // --- TENANT SCOPING: Resolve client account IDs for this organisation ---
-  // Quotes and some compliance data are keyed by client_account_id, not organisation_id.
-  // We must resolve these IDs BEFORE parallel fetching to prevent cross-tenant data leakage.
   let clientAccountIds: string[] = [];
   if (session.orgId) {
     const { data: caRows } = await dbQuery<any[]>(
@@ -37,15 +49,15 @@ export default async function ClientDashboardPage() {
   const quotesFilter =
     clientAccountIds.length > 0
       ? `&client_account_id=in.(${clientAccountIds.map(encodeURIComponent).join(',')})`
-      : '&id=eq.00000000-0000-0000-0000-000000000000'; // no-match sentinel
+      : '&id=eq.00000000-0000-0000-0000-000000000000';
 
   // Build tenant-scoped compliance filter using site IDs
   const complianceScopeFilter =
     siteScopes.length > 0
       ? `&site_id=in.(${siteScopes.map(encodeURIComponent).join(',')})`
       : clientAccountIds.length > 0
-        ? '' // allow org-level compliance if no site scopes (admin view)
-        : '&id=eq.00000000-0000-0000-0000-000000000000'; // no-match sentinel
+        ? ''
+        : '&id=eq.00000000-0000-0000-0000-000000000000';
 
   const [
     sitesRes,
@@ -56,31 +68,24 @@ export default async function ClientDashboardPage() {
     complianceAttentionRes,
     recentCompletedRes,
   ] = await Promise.all([
-    // All authorised sites
     dbQuery<any[]>(
       `sites?organisation_id=eq.${encodeURIComponent(session.orgId)}${siteFilter}&select=id,name,site_code,city,postcode,address_line1,site_type,status`
     ),
-    // All open work orders
     dbQuery<any[]>(
       `work_orders?organisation_id=eq.${encodeURIComponent(session.orgId)}&status=not.in.(COMPLETED,CLOSED,CANCELLED)&select=id,work_order_number,title,priority,status,disposition_state,site_id,created_at&order=created_at.desc&limit=50`
     ),
-    // Jobs awaiting client action
     dbQuery<any[]>(
       `work_orders?organisation_id=eq.${encodeURIComponent(session.orgId)}&disposition_state=in.(AWAITING_CLIENT_APPROVAL,AWAITING_ACCESS)&status=not.in.(COMPLETED,CLOSED,CANCELLED)&select=id,work_order_number,title,disposition_state,site_id&limit=10`
     ),
-    // Upcoming PPM (next 60 days)
     dbQuery<any[]>(
       `maintenance_occurrences?status=in.(PLANNED,GENERATED)${siteIdFilter}&planned_date=gte.${new Date().toISOString().slice(0,10)}&select=id,occurrence_code,planned_date,status,plan:maintenance_plans(name)&order=planned_date.asc&limit=5`
     ),
-    // Quotes awaiting approval — STRICTLY scoped to this org's client accounts
     dbQuery<any[]>(
       `quotes?status=in.(DRAFT,ISSUED,PENDING_APPROVAL)${quotesFilter}&select=id,quote_number,title,total_price_gbp,status,site_id&limit=10`
     ),
-    // Compliance requiring attention — STRICTLY scoped to this org's sites
     dbQuery<any[]>(
       `compliance_obligations?status=in.(OVERDUE,DUE_SOON)${complianceScopeFilter}&select=id,title,status,next_due_at,responsible_party,site:sites(name)&limit=5`
     ),
-    // Recent completions
     dbQuery<any[]>(
       `work_orders?organisation_id=eq.${encodeURIComponent(session.orgId)}&status=in.(COMPLETED,CLOSED)&select=id,work_order_number,title,status,completed_at,site_id&order=completed_at.desc&limit=5`
     ),
@@ -108,9 +113,10 @@ export default async function ClientDashboardPage() {
   });
 
   awaitingClientJobs.forEach((wo: any) => {
-    const label = wo.disposition_state === 'AWAITING_ACCESS'
-      ? `${wo.work_order_number} requires access to be arranged`
-      : `${wo.work_order_number} requires your approval to proceed`;
+    const label =
+      wo.disposition_state === 'AWAITING_ACCESS'
+        ? `${wo.work_order_number} requires facility access to be arranged`
+        : `${wo.work_order_number} requires client approval to proceed`;
     attentionItems.push({
       type: 'JOB',
       message: label,
@@ -138,229 +144,259 @@ export default async function ClientDashboardPage() {
   // Upcoming PPM: first date
   const nextPpmDate = upcomingPpm.length > 0 ? upcomingPpm[0].planned_date : null;
 
-  // Hour greeting
+  // Greeting
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div className="space-y-8">
-
-      {/* ─── GREETING HEADER ─────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6 lg:space-y-8 font-cafm">
+      {/* ─── GREETING & COMMAND HEADER ───────────────────────────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cafm-border pb-5">
         <div>
-          <p className="text-[11px] uppercase tracking-widest text-brand-mist/40 font-normal">
+          <span className="text-[10.5px] uppercase tracking-wider text-cafm-text-secondary font-normal block">
             {greeting}
-          </p>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight mt-0.5">
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-light text-cafm-text-primary tracking-tight mt-0.5">
             {session.orgName}
           </h1>
-          <p className="text-sm text-brand-mist/60 mt-1">
+          <p className="text-[13px] text-cafm-text-secondary mt-1">
             {sites.length === 0
-              ? 'No properties currently managed by EntireFM.'
+              ? 'No properties currently under active management.'
               : sites.length === 1
-              ? 'Showing activity for your managed property.'
-              : `Showing activity across ${sites.length} managed properties.`}
+              ? 'Real-time operational status for your managed property.'
+              : `Real-time operational status across ${sites.length} managed properties.`}
           </p>
         </div>
-        <Link
-          href="/log-a-job"
-          className="shrink-0 inline-flex items-center gap-2 rounded-sm border border-brand-electric/50 bg-brand-electric/15 px-5 py-2.5 text-sm font-light tracking-wide text-brand-electric-bright transition-all hover:border-brand-electric hover:bg-brand-electric/25 hover:text-white"
-        >
-          Log a Job
-          <ArrowRight className="w-4 h-4" />
+        <Link href="/log-a-job" className="shrink-0">
+          <Button variant="primary" size="md" icon={<Plus className="h-4 w-4" />}>
+            Log a Job
+          </Button>
         </Link>
       </div>
 
       {/* ─── NEEDS YOUR ATTENTION ─────────────────────────────────────────── */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
-        <div className="px-6 py-4 border-b border-brand-edge-dark/60 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-brand-electric-bright" />
-          <h2 className="text-sm font-normal text-white">Needs Your Attention</h2>
-        </div>
+      <Card
+        title="Needs Your Attention"
+        subtitle="Action items requiring client review, authorization, or access confirmation"
+        icon={<AlertCircle className="h-3.5 w-3.5 text-cafm-orange" />}
+        compact
+      >
         {attentionItems.length === 0 ? (
-          <div className="px-6 py-8 flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+          <div className="py-6 px-4 flex items-center gap-3 bg-cafm-nominal-surface/30 rounded-[8px] border border-cafm-nominal-border/40">
+            <CheckCircle2 className="w-5 h-5 text-cafm-nominal-dot shrink-0" />
             <div>
-              <p className="text-sm font-normal text-white">You&apos;re all caught up.</p>
-              <p className="text-xs text-brand-mist/50 mt-0.5">Nothing currently requires your attention.</p>
+              <p className="text-[13px] font-medium text-cafm-text-primary">You&apos;re completely up to date.</p>
+              <p className="text-[11.5px] text-cafm-text-secondary mt-0.5">
+                All maintenance requests, quotations, and statutory obligations are nominal.
+              </p>
             </div>
           </div>
         ) : (
-          <div className="divide-y divide-brand-edge-dark/30">
+          <div className="divide-y divide-cafm-border">
             {attentionItems.map((item, i) => (
               <Link
                 key={i}
                 href={item.href}
-                className="flex items-center justify-between gap-4 px-6 py-3.5 hover:bg-brand-void/30 transition-colors group"
+                className="flex items-center justify-between gap-4 py-3 px-2 hover:bg-cafm-surface-muted rounded-[6px] transition-colors group"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <span className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
-                    item.type === 'COMPLIANCE' ? 'bg-rose-400' :
-                    item.type === 'QUOTE' ? 'bg-purple-400' : 'bg-amber-400'
-                  }`} />
-                  <span className="text-sm text-brand-mist/90 truncate">{item.message}</span>
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Badge
+                    variant={
+                      item.type === 'COMPLIANCE'
+                        ? 'critical'
+                        : item.type === 'QUOTE'
+                        ? 'orange'
+                        : 'warning'
+                    }
+                    size="xs"
+                  >
+                    {item.type}
+                  </Badge>
+                  <span className="text-[13px] text-cafm-text-primary group-hover:text-cafm-orange transition-colors truncate">
+                    {item.message}
+                  </span>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright shrink-0 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-cafm-text-muted group-hover:text-cafm-orange group-hover:translate-x-0.5 transition-all shrink-0" />
               </Link>
             ))}
           </div>
         )}
-      </div>
+      </Card>
 
-      {/* ─── ACTIVITY SUMMARY — 3 TILES ───────────────────────────────────── */}
+      {/* ─── ACTIVITY SUMMARY — 3 STAT TILES ──────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Open Jobs */}
-        <Link
+        <StatTile
+          label="Open Work Orders"
+          value={openWorkOrders.length}
+          sublabel="Active maintenance requests"
+          icon={<Wrench className="h-3.5 w-3.5" />}
           href="/clients/work-orders"
-          className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 hover:border-brand-electric/40 transition-colors group"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase tracking-widest text-brand-mist/50">Open Jobs</span>
-            <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright transition-colors" />
-          </div>
-          <p className="text-3xl font-light text-white mt-2">{openWorkOrders.length}</p>
-          <p className="text-xs text-brand-mist/40 mt-1">Active maintenance requests</p>
-        </Link>
+          active={openWorkOrders.length > 0}
+        />
 
         {/* PPM */}
-        <Link
+        <StatTile
+          label="Planned Preventive Maintenance"
+          value={upcomingPpm.length}
+          sublabel={
+            nextPpmDate
+              ? `Next visit: ${new Date(nextPpmDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
+              : 'No upcoming visits scheduled'
+          }
+          icon={<CalendarClock className="h-3.5 w-3.5" />}
           href="/clients/ppm"
-          className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 hover:border-brand-electric/40 transition-colors group"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase tracking-widest text-brand-mist/50">Planned Maintenance</span>
-            <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright transition-colors" />
-          </div>
-          <p className="text-3xl font-light text-white mt-2">{upcomingPpm.length}</p>
-          <p className="text-xs text-brand-mist/40 mt-1">
-            {nextPpmDate
-              ? `Next scheduled: ${new Date(nextPpmDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
-              : 'No visits currently scheduled'}
-          </p>
-        </Link>
+        />
 
         {/* Compliance */}
-        <Link
-          href="/clients/compliance"
-          className={`rounded-xl border p-5 hover:border-rose-400/40 transition-colors group ${
+        <StatTile
+          label="Statutory Compliance"
+          value={
             complianceAttention.some((o: any) => o.status === 'OVERDUE')
-              ? 'border-rose-500/30 bg-rose-500/5'
+              ? `${complianceAttention.filter((o: any) => o.status === 'OVERDUE').length} Overdue`
               : complianceAttention.length > 0
-              ? 'border-amber-500/20 bg-brand-carbon/40'
-              : 'border-brand-edge-dark bg-brand-carbon/40'
-          }`}
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase tracking-widest text-brand-mist/50">Compliance</span>
-            <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-rose-400 transition-colors" />
-          </div>
-          {complianceAttention.some((o: any) => o.status === 'OVERDUE') ? (
-            <>
-              <p className="text-3xl font-light text-rose-400 mt-2">
-                {complianceAttention.filter((o: any) => o.status === 'OVERDUE').length}
-              </p>
-              <p className="text-xs text-rose-400/70 mt-1">Obligation{complianceAttention.filter((o: any) => o.status === 'OVERDUE').length !== 1 ? 's' : ''} overdue</p>
-            </>
-          ) : complianceAttention.length > 0 ? (
-            <>
-              <p className="text-3xl font-light text-amber-400 mt-2">{complianceAttention.length}</p>
-              <p className="text-xs text-amber-400/70 mt-1">Due soon — no action required yet</p>
-            </>
-          ) : (
-            <>
-              <p className="text-3xl font-light text-emerald-400 mt-2">All current</p>
-              <p className="text-xs text-brand-mist/40 mt-1">No compliance actions required</p>
-            </>
-          )}
-        </Link>
+              ? `${complianceAttention.length} Due Soon`
+              : '100% Compliant'
+          }
+          sublabel={
+            complianceAttention.some((o: any) => o.status === 'OVERDUE')
+              ? 'Immediate duty-holder action required'
+              : complianceAttention.length > 0
+              ? 'Upcoming obligations in next 30 days'
+              : 'All statutory certificates current'
+          }
+          icon={<ShieldCheck className="h-3.5 w-3.5" />}
+          href="/clients/compliance"
+          variant={
+            complianceAttention.some((o: any) => o.status === 'OVERDUE')
+              ? 'critical'
+              : complianceAttention.length > 0
+              ? 'warning'
+              : 'nominal'
+          }
+        />
       </div>
 
       {/* ─── YOUR PROPERTIES ──────────────────────────────────────────────── */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-normal text-white">Your Properties</h2>
-          <Link href="/clients/sites" className="text-xs text-brand-electric hover:underline">
-            View all →
+          <div>
+            <h2 className="text-[13px] font-medium text-cafm-text-primary uppercase tracking-wide">
+              Managed Properties &amp; Portfolios
+            </h2>
+            <p className="text-[11.5px] text-cafm-text-secondary">
+              Physical facilities under active EntireFM operational management
+            </p>
+          </div>
+          <Link
+            href="/clients/sites"
+            className="text-xs text-cafm-orange font-medium hover:underline inline-flex items-center gap-1"
+          >
+            <span>View All ({sites.length})</span>
+            <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
+
         {sites.length === 0 ? (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 px-6 py-10 text-center">
-            <Building2 className="w-8 h-8 text-brand-mist/30 mx-auto mb-3" />
-            <p className="text-sm text-brand-mist/60">No properties have been assigned to your account yet.</p>
-            <p className="text-xs text-brand-mist/40 mt-1">Contact your EntireFM account manager to get started.</p>
-          </div>
+          <Card compact className="p-8 text-center bg-cafm-surface-muted border-dashed">
+            <Building2 className="w-8 h-8 text-cafm-text-muted mx-auto mb-2" />
+            <p className="text-[13px] text-cafm-text-primary font-medium">No properties assigned yet.</p>
+            <p className="text-[11.5px] text-cafm-text-secondary mt-0.5">
+              Contact your EntireFM account manager to associate facilities with your account.
+            </p>
+          </Card>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {sites.slice(0, 6).map((site: any) => {
               const openCount = openJobsBySite[site.id] || 0;
               return (
-                <Link
+                <Card
                   key={site.id}
-                  href={`/clients/sites/${site.id}`}
-                  className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 hover:border-brand-electric/40 transition-colors group"
+                  hoverable
+                  compact
+                  className="group"
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-normal">
-                        {site.site_code}
-                      </span>
-                      <h3 className="text-sm font-normal text-white mt-0.5 truncate">{site.name}</h3>
-                      <p className="text-xs text-brand-mist/50 mt-0.5 flex items-center gap-1">
-                        <MapPin className="w-3 h-3 shrink-0" />
-                        {[site.city, site.postcode].filter(Boolean).join(' ')}
-                      </p>
+                  <Link href={`/clients/sites/${site.id}`} className="block space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <Badge variant="neutral" size="xs">
+                            {site.site_code}
+                          </Badge>
+                          <span className="text-[10px] uppercase text-cafm-text-secondary">
+                            {site.site_type?.replace(/_/g, ' ') || 'Commercial Site'}
+                          </span>
+                        </div>
+                        <h3 className="text-[14px] font-medium text-cafm-text-primary group-hover:text-cafm-orange transition-colors truncate">
+                          {site.name}
+                        </h3>
+                        <p className="text-[11.5px] text-cafm-text-secondary mt-0.5 flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-cafm-text-muted shrink-0" />
+                          <span className="truncate">
+                            {[site.city, site.postcode].filter(Boolean).join(', ')}
+                          </span>
+                        </p>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-cafm-text-muted group-hover:text-cafm-orange group-hover:translate-x-0.5 transition-all shrink-0 mt-1" />
                     </div>
-                    <ArrowRight className="w-4 h-4 text-brand-mist/30 group-hover:text-brand-electric-bright shrink-0 mt-0.5 transition-colors" />
-                  </div>
-                  <div className="mt-4 flex items-center gap-2">
-                    {openCount > 0 ? (
-                      <span className="rounded border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-400">
-                        {openCount} open job{openCount !== 1 ? 's' : ''}
+
+                    <div className="pt-2 border-t border-cafm-border flex items-center justify-between text-[11px]">
+                      {openCount > 0 ? (
+                        <Badge variant="orange" size="xs">
+                          {openCount} Open Job{openCount !== 1 ? 's' : ''}
+                        </Badge>
+                      ) : (
+                        <Badge variant="nominal" size="xs">
+                          Zero Open Jobs
+                        </Badge>
+                      )}
+                      <span className="text-cafm-orange font-medium group-hover:underline">
+                        Launch Site 360 →
                       </span>
-                    ) : (
-                      <span className="rounded border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400">
-                        No open jobs
-                      </span>
-                    )}
-                    <span className="rounded border border-brand-edge-dark px-2 py-0.5 text-[10px] text-brand-mist/50">
-                      {site.site_type?.replace(/_/g, ' ') || 'Managed Site'}
-                    </span>
-                  </div>
-                </Link>
+                    </div>
+                  </Link>
+                </Card>
               );
             })}
           </div>
         )}
       </div>
 
-      {/* ─── RECENT ACTIVITY ──────────────────────────────────────────────── */}
+      {/* ─── RECENT COMPLETIONS ───────────────────────────────────────────── */}
       {recentCompleted.length > 0 && (
-        <div>
-          <h2 className="text-sm font-normal text-white mb-3">Recent Completions</h2>
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 divide-y divide-brand-edge-dark/30">
+        <Card
+          title="Recent Completions & Sign-Offs"
+          subtitle="Recently resolved work orders across your property portfolio"
+          icon={<CheckCircle2 className="h-3.5 w-3.5 text-cafm-nominal-dot" />}
+          compact
+        >
+          <div className="divide-y divide-cafm-border">
             {recentCompleted.map((wo: any) => (
               <Link
                 key={wo.id}
                 href={`/clients/work-orders/${wo.id}`}
-                className="flex items-center justify-between gap-4 px-5 py-3.5 hover:bg-brand-void/30 transition-colors group"
+                className="flex items-center justify-between gap-4 py-3 px-2 hover:bg-cafm-surface-muted rounded-[6px] transition-colors group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-cafm-nominal-dot shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-[13px] font-normal text-white truncate">{wo.title}</p>
-                    <p className="text-[11px] text-brand-mist/40 mt-0.5">
+                    <p className="text-[13px] font-medium text-cafm-text-primary group-hover:text-cafm-orange transition-colors truncate">
+                      {wo.title}
+                    </p>
+                    <p className="text-[11px] text-cafm-text-secondary mt-0.5">
                       {wo.work_order_number}
-                      {wo.completed_at ? ` · Completed ${new Date(wo.completed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}` : ''}
+                      {wo.completed_at
+                        ? ` · Completed ${new Date(wo.completed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
+                        : ''}
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-white shrink-0 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-cafm-text-muted group-hover:text-cafm-orange group-hover:translate-x-0.5 transition-all shrink-0" />
               </Link>
             ))}
           </div>
-        </div>
+        </Card>
       )}
-
     </div>
   );
 }

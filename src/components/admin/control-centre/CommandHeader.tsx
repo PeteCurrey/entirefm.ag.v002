@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { UserSession } from '@/server/identity';
-import { Button } from '../ui/Button';
+import { Button, Badge } from '@/components/ui';
 import { Plus, SlidersHorizontal, ChevronDown, Calendar, Building, Filter } from 'lucide-react';
 
 interface CommandHeaderProps {
@@ -45,18 +45,18 @@ export function CommandHeader({
   });
 
   return (
-    <div className="flex flex-col gap-4 border-b border-[#E8E8E5] pb-5 lg:flex-row lg:items-center lg:justify-between">
+    <div className="flex flex-col gap-4 border-b border-cafm-border pb-5 lg:flex-row lg:items-center lg:justify-between">
       {/* Greeting & Subtitle */}
       <div>
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl lg:text-3xl font-light tracking-tight text-[#111111]">
+          <h1 className="text-2xl lg:text-3xl font-light tracking-tight text-cafm-text-primary">
             Good morning, <span className="font-light">{firstName}</span>
           </h1>
-          <span className="inline-flex items-center gap-1 rounded-[4px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 text-[10px] text-[#C2410C] font-light">
+          <Badge variant="orange" size="xs" pulse>
             LIVE DESK
-          </span>
+          </Badge>
         </div>
-        <p className="mt-1 text-[13px] text-[#6D6D68]">
+        <p className="mt-1 text-[13px] text-cafm-text-secondary">
           Here&apos;s what is happening across your estate.
         </p>
       </div>

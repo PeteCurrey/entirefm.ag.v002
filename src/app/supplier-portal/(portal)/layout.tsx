@@ -154,30 +154,30 @@ export default async function AuthenticatedSupplierPortalLayout({
 
   const navSections = isApproved ? approvedNav : applicationNav;
 
-  const statusColor = {
-    green: 'text-emerald-400',
-    amber: 'text-amber-400',
-    slate: 'text-slate-400',
-  }[orgDisplay.statusColour];
+  const statusBadge = {
+    green: 'bg-cafm-nominal-surface text-cafm-nominal-text border-cafm-nominal-border',
+    amber: 'bg-cafm-warning-surface text-cafm-warning-text border-cafm-warning-border',
+    slate: 'bg-cafm-surface-muted text-cafm-text-secondary border-cafm-border',
+  }[orgDisplay.statusColour] || 'bg-cafm-surface-muted text-cafm-text-secondary border-cafm-border';
 
   return (
-    <div className="min-h-screen bg-[#F7F6F9] text-slate-900 flex flex-col md:flex-row">
-      {/* Authenticated Supplier Sidebar */}
-      <aside className="w-full md:w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 border-r border-slate-800">
+    <div className="min-h-screen bg-cafm-surface-canvas text-cafm-text-primary flex flex-col md:flex-row font-cafm selection:bg-cafm-orange/20 selection:text-cafm-text-primary">
+      {/* Authenticated Supplier Sidebar in CAFM Clean SaaS Style */}
+      <aside className="w-full md:w-64 bg-cafm-surface-card text-cafm-text-primary flex flex-col justify-between shrink-0 border-r border-cafm-border shadow-xs">
         <div>
-          <div className="p-6 border-b border-slate-800 flex items-center justify-between">
-            <Link href="/supplier-portal" className="font-bold text-lg tracking-tight">
-              Entire<span className="text-brand-pink">FM</span>{' '}
-              <span className="text-xs font-light text-slate-400 block">
-                {isApproved ? 'Partner Portal' : 'Supplier Application'}
+          <div className="p-5 border-b border-cafm-border flex items-center justify-between">
+            <Link href="/supplier-portal" className="font-light text-lg tracking-tight text-cafm-text-primary">
+              Entire<span className="font-medium text-cafm-orange">FM</span>{' '}
+              <span className="text-[10.5px] uppercase tracking-wider text-cafm-text-secondary block mt-0.5 font-normal">
+                {isApproved ? 'Partner Network Portal' : 'Supplier Assurance Hub'}
               </span>
             </Link>
           </div>
 
-          <nav className="p-4 space-y-4 text-xs">
+          <nav className="p-3 space-y-4 text-xs">
             {navSections.map((sec, idx) => (
               <div key={idx} className="space-y-1">
-                <span className="text-[9.5px] font-light uppercase tracking-wider text-slate-400 px-3 font-bold block">
+                <span className="text-[9.5px] font-normal uppercase tracking-wider text-cafm-text-muted px-3 block">
                   {sec.heading}
                 </span>
                 {sec.items.map((item) => {
@@ -186,10 +186,10 @@ export default async function AuthenticatedSupplierPortalLayout({
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-slate-800 transition-colors font-medium"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] text-cafm-text-secondary hover:text-cafm-text-primary hover:bg-cafm-surface-muted transition-all font-normal group"
                     >
-                      <Icon className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                      <span>{item.label}</span>
+                      <Icon className="h-3.5 w-3.5 text-cafm-text-muted group-hover:text-cafm-text-primary shrink-0 transition-colors" />
+                      <span className="truncate">{item.label}</span>
                     </Link>
                   );
                 })}
@@ -199,18 +199,20 @@ export default async function AuthenticatedSupplierPortalLayout({
         </div>
 
         {/* Organisation Status Footer & Logout */}
-        <div className="p-4 border-t border-slate-800 space-y-3">
-          <div className="text-[11px] font-light text-slate-400">
-            <span className="text-slate-300 font-bold block truncate">{orgDisplay.orgName}</span>
-            <span className={`text-[10px] block mt-0.5 ${statusColor}`}>{orgDisplay.statusLabel}</span>
+        <div className="p-4 border-t border-cafm-border bg-cafm-surface-muted/40 space-y-3">
+          <div className="text-[11.5px] text-cafm-text-secondary">
+            <span className="text-cafm-text-primary font-medium block truncate">{orgDisplay.orgName}</span>
+            <span className={`inline-block text-[10px] px-2 py-0.5 rounded-[4px] border mt-1 font-medium uppercase tracking-wider ${statusBadge}`}>
+              {orgDisplay.statusLabel}
+            </span>
           </div>
 
           <form action="/api/auth/logout?redirect=/supplier-portal/sign-in" method="post">
             <button
               type="submit"
-              className="flex items-center gap-2 text-[11px] text-slate-400 hover:text-rose-300 transition-colors pt-2 border-t border-slate-800/80 w-full"
+              className="flex items-center gap-2 text-[11.5px] text-cafm-text-secondary hover:text-cafm-critical-text transition-colors pt-2.5 border-t border-cafm-border w-full"
             >
-              <LogOut className="h-3 w-3" />
+              <LogOut className="h-3.5 w-3.5" />
               <span>Sign Out</span>
             </button>
           </form>
@@ -218,7 +220,7 @@ export default async function AuthenticatedSupplierPortalLayout({
       </aside>
 
       {/* Main Authenticated Workspace Area */}
-      <main className="flex-1 min-w-0 w-full p-4 sm:p-6 lg:p-8 xl:p-10">
+      <main className="flex-1 min-w-0 w-full p-4 sm:p-6 lg:p-8 xl:p-10 max-w-[1760px] mx-auto">
         {children}
       </main>
     </div>
