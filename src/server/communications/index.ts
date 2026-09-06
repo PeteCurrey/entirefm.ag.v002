@@ -1139,3 +1139,273 @@ export async function listThreads(status?: string): Promise<CommunicationThread[
 
 /** Canonical export used by admin communications page */
 export const listCommunicationThreads = listThreads;
+
+/**
+ * Emit an Opportunity Response Event (System A).
+ * Notifies the opportunity issuer / EntireFM Helpdesk that a contractor has responded with a quote or decline.
+ */
+export async function emitOpportunityResponseEvent(params: {
+  opportunity_id: string;
+  opportunity_title: string;
+  supplier_id: string;
+  supplier_name: string;
+  decision: string;
+  quoted_price_gbp?: number | null;
+  decline_reason?: string | null;
+  recipient_email?: string;
+  idempotencyKey?: string;
+}): Promise<{
+  is_duplicate: boolean;
+  message_id: string;
+  email_delivery_state: EmailDeliveryState;
+  subject: string;
+  body: string;
+}> {
+  const key = params.idempotencyKey || `${params.opportunity_id}:RESPONSE:${params.supplier_id}:${params.decision}`;
+
+  // 1. In-memory idempotency check
+  if (COMMUNICATIONS_IDEMPOTENCY_CACHE.has(key)) {
+    const cached = COMMUNICATIONS_IDEMPOTENCY_CACHE.get(key)!;
+    return {
+      is_duplicate: true,
+      message_id: cached.id,
+      email_delivery_state: cached.delivery_state,
+      subject: '',
+      body: cached.body,
+    };
+  }
+
+  // 2. DB Idempotency check
+  const { data: existing } = await dbQuery<CommunicationMessage[]>(
+    `communication_messages?idempotency_key=eq.${encodeURIComponent(key)}&limit=1`
+  );
+  if (existing && existing.length > 0) {
+    const found = existing[0];
+    COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+      id: found.id,
+      delivery_state: found.delivery_state,
+      provider_message_id: found.provider_message_id,
+      body: found.body,
+    });
+    return {
+      is_duplicate: true,
+      message_id: found.id,
+      email_delivery_state: found.delivery_state,
+      subject: '',
+      body: found.body,
+    };
+  }
+
+  const subject = `[OPPORTUNITY RESPONSE] ${params.supplier_name} responded: ${params.decision.replace(/_/g, ' ')} — ${params.opportunity_title}`;
+  const body = `Opportunity Response Received
+=============================
+Opportunity: ${params.opportunity_title} (ID: ${params.opportunity_id})
+Supplier: ${params.supplier_name} (ID: ${params.supplier_id})
+Decision: ${params.decision.replace(/_/g, ' ')}
+${params.quoted_price_gbp != null ? `Quoted Price: £${Number(params.quoted_price_gbp).toFixed(2)} net\n` : ''}${params.decline_reason ? `Decline Reason: ${params.decline_reason}\n` : ''}
+Submitted via EntireFM Supplier Portal. Review responses and proceed to award in the Operations Console.`;
+
+  const config = getTransactionalEmailConfig();
+  const msgId = randomUUID();
+  let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
+  let providerMessageId: string | undefined;
+  const now = new Date().toISOString();
+
+  if (params.recipient_email) {
+    if (config.apiKey) {
+      const dispatchResult = await sendOutboundEmailViaProvider({
+        to: params.recipient_email,
+        subject,
+        text: body,
+      });
+      if (dispatchResult.success) {
+        deliveryState = 'SENT';
+        providerMessageId = dispatchResult.provider_message_id;
+      } else {
+        deliveryState = 'FAILED';
+      }
+    } else {
+      deliveryState = 'INTERFACE_ONLY';
+    }
+  } else {
+    deliveryState = 'INTERFACE_ONLY';
+  }
+
+  const threadId = await ensureCommunicationThread({
+    threadId: params.opportunity_id,
+    subject: `Opportunity: ${params.opportunity_title}`,
+    threadType: 'INTERNAL',
+    relatedObjectType: 'OPPORTUNITY',
+    relatedObjectId: isValidUuid(params.opportunity_id) ? params.opportunity_id : undefined,
+  }).catch(() => {
+    return isValidUuid(params.opportunity_id) ? params.opportunity_id : randomUUID();
+  });
+
+  try {
+    await dbQuery('communication_messages', {
+      method: 'POST',
+      body: {
+        id: msgId,
+        thread_id: threadId,
+        work_order_id: null,
+        sender_name: params.supplier_name,
+        sender_email: config.fromAddress,
+        reply_to_email: config.replyToAddress,
+        channel: 'PORTAL',
+        visibility: 'INTERNAL_ONLY',
+        body,
+        is_incoming: true,
+        is_ai_generated: false,
+        idempotency_key: key,
+        delivery_state: deliveryState,
+        provider: config.apiKey && params.recipient_email ? 'Resend' : 'INTERFACE_ONLY',
+        provider_message_id: providerMessageId ?? null,
+        recipient_email: params.recipient_email || null,
+        queued_at: now,
+        sent_at: deliveryState === 'SENT' ? now : null,
+        failed_at: deliveryState === 'FAILED' ? now : null,
+        created_at: now,
+      },
+    });
+  } catch (dbErr) {
+    console.warn('[OpportunityResponseComms:DbInsertWarn]', dbErr);
+  }
+
+  COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+    id: msgId,
+    delivery_state: deliveryState,
+    provider_message_id: providerMessageId,
+    body,
+  });
+
+  return {
+    is_duplicate: false,
+    message_id: msgId,
+    email_delivery_state: deliveryState,
+    subject,
+    body,
+  };
+}
+
+/**
+ * Emit a notification to a responding contractor that an opportunity was withdrawn.
+ */
+export async function emitOpportunityWithdrawnNotification(params: {
+  opportunity_id: string;
+  opportunity_title: string;
+  supplier_id: string;
+  supplier_name: string;
+  recipient_email?: string;
+  reason?: string;
+  withdrawn_by: string;
+}): Promise<{
+  is_duplicate: boolean;
+  message_id: string;
+  email_delivery_state: EmailDeliveryState;
+  subject: string;
+  body: string;
+}> {
+  const key = `${params.opportunity_id}:WITHDRAWN:${params.supplier_id}`;
+
+  if (COMMUNICATIONS_IDEMPOTENCY_CACHE.has(key)) {
+    const cached = COMMUNICATIONS_IDEMPOTENCY_CACHE.get(key)!;
+    return {
+      is_duplicate: true,
+      message_id: cached.id,
+      email_delivery_state: cached.delivery_state,
+      subject: '',
+      body: cached.body,
+    };
+  }
+
+  const subject = `[OPPORTUNITY WITHDRAWN] ${params.opportunity_title}`;
+  const body = `Opportunity Withdrawn from Marketplace
+======================================
+Opportunity: ${params.opportunity_title} (ID: ${params.opportunity_id})
+Status: WITHDRAWN
+${params.reason ? `Reason: ${params.reason}\n` : ''}Withdrawn By: ${params.withdrawn_by}
+
+Notice for ${params.supplier_name}:
+This work opportunity has been withdrawn from the EntireFM contractor marketplace. Any quotes or expressions of interest submitted against this opportunity have been closed. Thank you for your response.`;
+
+  const config = getTransactionalEmailConfig();
+  const msgId = randomUUID();
+  let deliveryState: EmailDeliveryState = 'INTERFACE_ONLY';
+  let providerMessageId: string | undefined;
+  const now = new Date().toISOString();
+
+  if (params.recipient_email) {
+    if (config.apiKey) {
+      const dispatchResult = await sendOutboundEmailViaProvider({
+        to: params.recipient_email,
+        subject,
+        text: body,
+      });
+      if (dispatchResult.success) {
+        deliveryState = 'SENT';
+        providerMessageId = dispatchResult.provider_message_id;
+      } else {
+        deliveryState = 'FAILED';
+      }
+    } else {
+      deliveryState = 'INTERFACE_ONLY';
+    }
+  } else {
+    deliveryState = 'INTERFACE_ONLY';
+  }
+
+  const threadId = await ensureCommunicationThread({
+    threadId: params.opportunity_id,
+    subject: `Opportunity: ${params.opportunity_title}`,
+    threadType: 'INTERNAL',
+    relatedObjectType: 'OPPORTUNITY',
+    relatedObjectId: isValidUuid(params.opportunity_id) ? params.opportunity_id : undefined,
+  }).catch(() => {
+    return isValidUuid(params.opportunity_id) ? params.opportunity_id : randomUUID();
+  });
+
+  try {
+    await dbQuery('communication_messages', {
+      method: 'POST',
+      body: {
+        id: msgId,
+        thread_id: threadId,
+        work_order_id: null,
+        sender_name: 'EntireFM Operations',
+        sender_email: config.fromAddress,
+        reply_to_email: config.replyToAddress,
+        channel: 'PORTAL',
+        visibility: 'CONTRACTOR_VISIBLE',
+        body,
+        is_incoming: false,
+        is_ai_generated: false,
+        idempotency_key: key,
+        delivery_state: deliveryState,
+        provider: config.apiKey && params.recipient_email ? 'Resend' : 'INTERFACE_ONLY',
+        provider_message_id: providerMessageId ?? null,
+        recipient_email: params.recipient_email || null,
+        queued_at: now,
+        sent_at: deliveryState === 'SENT' ? now : null,
+        failed_at: deliveryState === 'FAILED' ? now : null,
+        created_at: now,
+      },
+    });
+  } catch (dbErr) {
+    console.warn('[OpportunityWithdrawnComms:DbInsertWarn]', dbErr);
+  }
+
+  COMMUNICATIONS_IDEMPOTENCY_CACHE.set(key, {
+    id: msgId,
+    delivery_state: deliveryState,
+    provider_message_id: providerMessageId,
+    body,
+  });
+
+  return {
+    is_duplicate: false,
+    message_id: msgId,
+    email_delivery_state: deliveryState,
+    subject,
+    body,
+  };
+}

@@ -82,38 +82,66 @@ const FIRE_SECURITY_STEPS = [
 ];
 
 export default function FireSecurityContractorPage() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': 'https://www.entirefm.com/contractors/fire-security#service',
+        name: 'Commercial Fire and Security Contractor Network',
+        serviceType: 'Facilities Management Commercial Fire & Security Contractor Onboarding & Work Allocation',
+        description: config.metaDescription,
+        provider: {
+          '@type': 'Organization',
+          name: 'EntireFM',
+          url: 'https://www.entirefm.com',
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'United Kingdom',
+        },
+        offers: {
+          '@type': 'Offer',
+          price: '95',
+          priceCurrency: 'GBP',
+          description: 'Annual Contractor Network Membership (£95+VAT/year)',
+          url: 'https://www.entirefm.com/contractors/join',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://www.entirefm.com/contractors/fire-security#breadcrumb',
+        itemListElement: config.breadcrumbs.map((crumb, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: crumb.name,
+          item: `https://www.entirefm.com${crumb.url}`,
+        })),
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://www.entirefm.com/contractors/fire-security#faq',
+        mainEntity: config.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       <Header />
 
       <main id="main" className="flex-grow">
-        {/* Service Schema */}
+        {/* Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Service',
-              name: 'Commercial Fire and Security Contractor Network',
-              serviceType: 'Facilities Management Commercial Fire & Security Contractor Onboarding & Work Allocation',
-              provider: {
-                '@type': 'Organization',
-                name: 'EntireFM',
-                url: 'https://www.entirefm.com',
-              },
-              areaServed: {
-                '@type': 'Country',
-                name: 'United Kingdom',
-              },
-              offers: {
-                '@type': 'Offer',
-                price: '95',
-                priceCurrency: 'GBP',
-                description: 'Annual Contractor Network Membership (£95+VAT/year)',
-                url: 'https://www.entirefm.com/contractors/join',
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
         {/* 1. CINEMATIC HERO */}
@@ -168,7 +196,7 @@ export default function FireSecurityContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">BS 5839-1 Addressable Fire Alarm Servicing</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Executing quarterly and annual testing across multi-loop addressable panels (Advanced, Morley, Gent, C-TEC). 100% detector head testing, optical smoke aerosol checks, thermal sensor verification, and digital certificate issuing.
+                  Executing quarterly and annual testing across multi-loop analogue addressable panels including Advanced Electronics, Morley-IAS, Gent by Honeywell, and C-TEC. Requires systematic 100% detector head testing across the annual cycle, optical smoke aerosol checks, thermal rate-of-rise sensor verification, aspirating (VESDA) system filter maintenance, loop voltage checks, and digital inspection certificate issuing.
                 </p>
               </div>
 
@@ -178,7 +206,7 @@ export default function FireSecurityContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">Cause-and-Effect Matrix Verification</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Controlled verification of fire alarm interfaces with building management systems (BMS): passenger lift grounding, HVAC fan shutdown, motorized smoke damper release, magnetic door hold-open release, and gas shut-off valves.
+                  Conducting planned, controlled verification of complex fire alarm interface outputs: primary and secondary passenger lift grounding, HVAC Air Handling Unit (AHU) ventilation fan shutdown to halt smoke migration, automatic motorized smoke damper release, magnetic fire door hold-open release, and natural gas solenoid emergency shut-off valves without disrupting core business trading.
                 </p>
               </div>
 
@@ -186,9 +214,9 @@ export default function FireSecurityContractorPage() {
                 <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Lock className="w-5 h-5 text-emerald-500" />
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Access Control &amp; Door Interlocks</h3>
+                <h3 className="text-base font-semibold text-slate-900">Access Control &amp; Integrated Turnstiles</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Maintaining networked access control systems (Paxton Net2, Salto Space, Gallagher). Servicing electro-magnetic shear locks, fail-safe green break-glass units, motorized turnstiles, and emergency escape door hardware.
+                  Servicing networked commercial access control architectures (Paxton Net2, Salto Space, Gallagher, Honeywell Pro-Watch). Routine maintenance of electro-magnetic shear locks, fail-safe green break-glass emergency overrides, motorized speed lanes, revolving turnstiles, and fire alarm interfaced escape door hardware to guarantee unimpeded escape during building evacuations.
                 </p>
               </div>
 
@@ -198,7 +226,7 @@ export default function FireSecurityContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">Commercial IP CCTV &amp; ANPR Systems</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Servicing multi-terabyte Network Video Recorders (NVRs), PTZ dome cameras, PoE network switches, UPS backup batteries, and car park automatic number plate recognition (ANPR) barrier controls.
+                  Preventative servicing of high-definition multi-terabyte Network Video Recorders (NVRs), PTZ speed dome cameras, PoE industrial network distribution switches, uninterrupted power supplies (UPS), and automatic number plate recognition (ANPR) parking barriers. Ensuring 31-day recording retention compliance and GDPR privacy masking verification.
                 </p>
               </div>
 
@@ -208,7 +236,7 @@ export default function FireSecurityContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">BS 5266 Emergency Lighting &amp; BAFE Extinguishers</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Monthly key-switch flick testing, annual 3-hour battery discharge testing of self-contained and central battery emergency lighting luminaires, alongside annual BAFE SP101 fire extinguisher inspections and weight checks.
+                  Conducting monthly key-switch functional flicker tests alongside annual full 3-hour battery discharge testing of self-contained and central battery emergency lighting systems (often coordinated with our <Link href="/contractors/electrical" className="text-[#EA580C] underline font-medium">commercial electrical contractors</Link> for distribution board isolations). Servicing escape route signage, high-bay luminaire battery packs, and executing annual BAFE SP101 portable fire extinguisher inspections, weight verifications, and refilling.
                 </p>
               </div>
 
@@ -218,7 +246,7 @@ export default function FireSecurityContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">BS 9999 Fire Damper Drop-Testing</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Statutory annual physical drop-testing and reset of fusible link and motorized fire dampers in ductwork, providing timestamped photographic proof of blade closure and internal visual condition.
+                  Executing statutory annual physical drop-testing and operational resetting of mechanical fusible link and motorized smoke/fire dampers within commercial HVAC ductwork. Providing geo-timestamped photographic records of open, closed, and reset blade states, verifying microswitch telemetry to the main fire indicator panel.
                 </p>
               </div>
             </div>
@@ -234,48 +262,68 @@ export default function FireSecurityContractorPage() {
                 Where Commercial Fire &amp; Security Contractors Operate
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Commercial life safety and security systems protect diverse facilities with stringent regulatory compliance:
+                Commercial life safety and security contractors operate across diverse environments, each presenting distinct acoustic parameters, occupancy dynamics, and duty-holder constraints:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Building2 className="w-4 h-4 text-[#EA580C]" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">Multi-Storey Corporate Offices</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Phased evacuation sounders, optical beam detectors in atriums, speed lanes, turnstiles, and multi-tenant access control.
+                  High-specification Grade A office towers requiring phased evacuation sounders, optical beam detectors across multi-tier atriums, motorized speed lane turnstiles, and tenant demise access partitions. All testing must be scheduled strictly out-of-hours or within contracted silent testing windows to prevent acoustic disruption to commercial tenants.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Layers className="w-4 h-4 text-blue-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">High-Bay Logistics Hubs</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Industrial &amp; Logistics Hubs</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Aspirating smoke detection (VESDA), high-level beam detectors, perimeter security fencing, and gatehouse barrier intercoms.
+                  High-bay distribution centres and manufacturing facilities featuring aspirating smoke detection (ASD/VESDA) sampling pipe networks, explosion-proof ATEX call points, high-level beam smoke detectors, external perimeter thermal fence cameras, and automatic gate/barrier control systems operating 24 hours a day.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <Clock className="w-4 h-4 text-emerald-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Retail &amp; Shopping Complexes</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Retail &amp; Leisure Parks</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Voice alarm (PA/VA) systems, EAS security tag gates, customer counting cameras, and landlord-tenant fire alarm interfaces.
+                  Regional shopping centres and retail leisure parks demanding integrated Public Address Voice Alarm (PAVA) systems, panic attack alarms in cash offices, tenant sub-alarm monitoring, sprinkler flow switch telemetry, and ANPR surveillance covering extensive customer parking facilities.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <Wrench className="w-4 h-4 text-purple-500" />
+                  <ShieldCheck className="w-4 h-4 text-purple-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Manufacturing &amp; Hazardous Sites</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Education &amp; Healthcare Campuses</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  ATEX flameproof detectors, intrinsically safe sounder circuits, chemical extinguishing systems, and strict permit-to-work controls.
+                  Universities, colleges, and healthcare estates requiring lockdown alarm protocols, disabled refuge emergency voice communication (EVC) outstations, nurse call monitoring interfaces, magnetic door hold-backs on cross-corridor fire partitions, and enhanced DBS-cleared engineering teams.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
+                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
+                  <Building2 className="w-4 h-4 text-rose-500" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900">Multi-Occupancy Residential Portfolios</h3>
+                <p className="text-slate-600 font-light leading-relaxed">
+                  Residential block portfolios governed by the Building Safety Act 2022. Maintenance covers communal BS 5839-1 systems, Automatic Opening Vent (AOV) stairwell smoke clearance dampers, dry riser inlet monitoring, and BS 8629 evacuation alert systems designed specifically for Fire and Rescue Service operational control.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
+                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
+                  <Wrench className="w-4 h-4 text-amber-500" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900">Critical Infrastructure &amp; Data Centres</h3>
+                <p className="text-slate-600 font-light leading-relaxed">
+                  Mission-critical environments equipped with gaseous fire suppression systems (Inergen, Novec 1230, FM-200), coincidence loop detection, pressure relief dampers, biometric access control airlocks, and dual-path secure Alarm Receiving Centre (ARC) signalling.
                 </p>
               </div>
             </div>
@@ -341,7 +389,7 @@ export default function FireSecurityContractorPage() {
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
-                    <span>Priority 1 arrival (2 to 4 hours) to diagnose and rectify fire panel loop faults.</span>
+                    <span>Urgent reactive attendance aligned with individual work order priority targets to diagnose loop faults, silence false alarms, and restore life-safety system integrity.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
@@ -386,65 +434,69 @@ export default function FireSecurityContractorPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-light">
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  01
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs font-light">
+              <div className="space-y-6">
+                <div className="border-l-2 border-[#EA580C] pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-[#EA580C] uppercase tracking-wider">
+                    SPECIFICATION 01 // THIRD-PARTY ASSURANCE
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">BAFE &amp; NSI Accreditation</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Commercial clients and managing agents frequently specify third-party scheme registration (such as BAFE SP203-1, NSI Gold/Silver, or SSAIB) to independently verify management systems, technical design capabilities, and ongoing engineer competency audits.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">BAFE &amp; NSI Accreditation</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Third-party scheme certification (BAFE SP203-1, NSI Gold/Silver, SSAIB) demonstrating external auditing of management systems, engineer competencies, and design/maintenance standards.
-                </p>
+
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 02 // INTERFACE INTEGRITY
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Controlled Cause &amp; Effect Protocols</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Managing building interfaces with absolute care. Always isolating Alarm Receiving Centre (ARC) monitoring links before testing, coordinating passenger lift grounding and AHU fan shutdown with on-site building managers to prevent disruptive false alarms or blue-light callouts.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 03 // AUDIT EVIDENCE
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Defensible Digital Test Certificates</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Providing completed BS 5839 and BS 5266 inspection certificates upon completion, itemizing tested device counts, loop voltages, standby battery load-test results, and clearly documenting any client variations or site defects.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  02
+              <div className="space-y-6">
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 04 // SECURITY VETTING
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">BS 7858 Operative Screening</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Ensuring all attending security and fire engineers hold verified 5-year BS 7858 security screening and DBS clearances where required for sensitive client demises, data rooms, financial institutions, or multi-tenant commercial HQs.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Strict Cause &amp; Effect Protocols</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Managing building interfaces with absolute care. Taking panels offline with ARC (Alarm Receiving Centre) monitoring stations before testing to prevent false alarm dispatches of emergency blue-light services.
-                </p>
-              </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  03
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 05 // STATUTORY LOGS
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">On-Site Logbook Updates</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Physically signing and dating the on-site statutory fire safety logbook after every maintenance attendance, ensuring duty holders have immediate physical records available for local Fire &amp; Rescue Service audits.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Detailed Digital Test Certificates</h3>
-                <p className="text-slate-600 font-light leading-relaxed">
-                  Providing completed BS 5839 and BS 5266 inspection certificates, itemizing tested device counts, loop voltages, battery standby load test calculations, and outstanding variations.
-                </p>
-              </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  04
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 06 // FINANCIAL PROCESS
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Purchase Order Discipline</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Ensuring all extra works, replacement detector heads, sounder bases, and standby batteries are formally pre-authorised under a valid Purchase Order, guaranteeing swift billing verification and automated invoice payment.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">BS 7858 Operative Vetting</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Ensuring all attending security and fire engineers hold verified 5-year BS 7858 security screening and DBS clearances when accessing sensitive client premises.
-                </p>
-              </div>
-
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  05
-                </div>
-                <h3 className="text-base font-semibold text-slate-900">On-Site Logbook Updates</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Physically completing the on-site statutory fire safety logbook after every maintenance visit to provide immediate evidence for inspecting Fire &amp; Rescue Service officers.
-                </p>
-              </div>
-
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  06
-                </div>
-                <h3 className="text-base font-semibold text-slate-900">Purchase Order Discipline</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Pre-authorised Purchase Orders with clear parts breakdowns (batteries, sensors, sounder bases) ensuring swift billing approval and prompt automated payment.
-                </p>
               </div>
             </div>
           </div>
@@ -459,7 +511,7 @@ export default function FireSecurityContractorPage() {
                 Fire &amp; Security Compliance &amp; Competence Framework
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Requirements reflect strict life-safety legislation, efficacy liabilities, and third-party scheme auditing:
+                Commercial facilities managers and property directors evaluate contractors across statutory health and safety compliance, insurance cover, and scheme credentials:
               </p>
             </div>
 
@@ -467,20 +519,23 @@ export default function FireSecurityContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-[#EA580C] font-semibold text-sm">
                   <ShieldCheck className="w-5 h-5" />
-                  <span>Statutory Insurance</span>
+                  <span>Insurance Cover Expectations</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  Commercial clients and managing agents set insurance criteria based on property scale and life-safety exposure:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Public Liability:</strong> Minimum £5,000,000 (£10,000,000 for high-occupancy commercial portfolios).</span>
+                    <span><strong>Public Liability:</strong> £5,000,000 indemnity is commonly expected; £10,000,000 is frequently specified on high-occupancy corporate or public-sector portfolios.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Employers Liability:</strong> £10,000,000 statutory minimum.</span>
+                    <span><strong>Employers Liability:</strong> £10,000,000 statutory requirement for all businesses employing personnel.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Efficacy Insurance:</strong> Failure to perform / inefficacy cover (mandatory for life safety).</span>
+                    <span><strong>Efficacy Endorsement:</strong> Failure-to-perform / inefficacy cover is widely required by commercial insurers for fire alarm and security systems.</span>
                   </li>
                 </ul>
               </div>
@@ -488,20 +543,23 @@ export default function FireSecurityContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">
                   <Award className="w-5 h-5" />
-                  <span>Trade Accreditations</span>
+                  <span>Scheme &amp; Trade Accreditations</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  Third-party scheme memberships commonly expected or preferred by commercial procurement frameworks:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>BAFE SP203-1:</strong> Fire detection and alarm system design/maintenance scheme.</span>
+                    <span><strong>BAFE SP203-1:</strong> Fire detection and alarm system design, installation, commissioning, and maintenance scheme.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>NSI / SSAIB:</strong> Gold or Silver certification for electronic security and CCTV.</span>
+                    <span><strong>NSI / SSAIB:</strong> Gold or Silver certification verifying technical capability for electronic security, CCTV, and access control.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>FIA Membership:</strong> Fire Industry Association certified training.</span>
+                    <span><strong>FIA Certified Training:</strong> Fire Industry Association certified technical qualification modules for engineers.</span>
                   </li>
                 </ul>
               </div>
@@ -509,20 +567,23 @@ export default function FireSecurityContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-emerald-600 font-semibold text-sm">
                   <FileCheck className="w-5 h-5" />
-                  <span>Operative Qualifications</span>
+                  <span>Operative Competence &amp; Site Standards</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  Health, safety, and security verification required during client vendor onboarding:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>SSIP Accreditation:</strong> CHAS, SafeContractor, or Constructionline health &amp; safety.</span>
+                    <span><strong>SSIP Accreditation:</strong> Recognised safety schemes (CHAS, SafeContractor, Constructionline) confirming core H&amp;S compliance.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>BS 7858 Screening:</strong> Verified security screening and criminal record checks.</span>
+                    <span><strong>BS 7858 Screening:</strong> 5-year security screening and criminal record checks often required for high-security commercial premises.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>ECS Fire &amp; Security Card:</strong> Electrotechnical certification for attending engineers.</span>
+                    <span><strong>ECS Fire &amp; Security Cards:</strong> Electrotechnical certification verifying individual operative skill and health &amp; safety awareness.</span>
                   </li>
                 </ul>
               </div>
@@ -530,8 +591,88 @@ export default function FireSecurityContractorPage() {
           </div>
         </section>
 
-        {/* 9. HOW THE CONTRACTOR NETWORK WORKS */}
+        {/* 9. WHY COMMERCIAL CONTRACTORS NEED STRONG RAMS & DOCUMENTATION */}
         <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
+          <div className="container-custom space-y-12">
+            <div className="max-w-3xl space-y-3">
+              <span className="eyebrow eyebrow-light">COMPLIANCE RIGOUR</span>
+              <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight leading-tight">
+                Why Fire &amp; Security Contractors Need Robust RAMS
+              </h2>
+              <p className="text-sm font-light text-slate-600 leading-relaxed">
+                Facilities managers, building surveyors, and institutional landlords cannot compromise on life-safety liabilities. Working in commercial premises demands site-specific, auditable Risk Assessments and Method Statements before access permits are issued.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs font-light">
+              <div className="p-8 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="p-2 bg-slate-900 text-white rounded-sm">
+                    <FileCheck className="w-5 h-5 text-[#EA580C]" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900">Method Statements &amp; Safe Systems of Work</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">Site-Specific RAMS • Working at Height • Live Systems</p>
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed">
+                  Fire and security installations frequently involve live alarm panels, suppression systems, and energised circuits. Commercial clients and principal contractors expect site-specific method statements before access permits are issued.
+                </p>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Working at height risk controls (MEWP/IPAF certification, scaffold towers, or specialised telescopic detector poles).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Isolation and reinstatement sequences for live panel interfaces and cause-and-effect matrices.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Explore our practical guide on <Link href="/contractor-resources/rams/how-to-write-rams" className="text-[#EA580C] underline font-medium">how to write compliant RAMS</Link> for facilities engineering.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-8 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="p-2 bg-slate-900 text-white rounded-sm">
+                    <ShieldCheck className="w-5 h-5 text-blue-500" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900">Risk Assessment Matrices &amp; Duty of Care</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">5x5 Risk Evaluation • Hazard Mitigation</p>
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed">
+                  Commercial building duty holders are legally liable under health and safety legislation. Review desks rigorously check risk assessments for public protection, tenant demarcation, electrical lock-off (LOTO), and hazardous area precautions.
+                </p>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>Comprehensive hazard identification: electrical arc-flash, accidental activation of gaseous suppression, and lone working.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>Residual risk scoring verified through hierarchical control measures before any operative sets foot on site.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>Review our technical reference on <Link href="/contractor-resources/risk-assessments/what-is-a-risk-assessment" className="text-[#EA580C] underline font-medium">what constitutes a commercial risk assessment</Link>.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Professional Responsibility Note */}
+            <div className="rounded-sm border border-slate-200 bg-[#FAFAF8] p-5 text-xs text-slate-500 font-light leading-relaxed max-w-4xl mx-auto text-center">
+              <strong className="text-slate-800 font-semibold">Professional Competency Notice:</strong> Site-specific RAMS, isolation sequences, and cause-and-effect controls must always be drafted, reviewed, and signed off by the contractor's own qualified competent persons to reflect the specific layout, plant, and operational risks of each individual commercial building.
+            </div>
+          </div>
+        </section>
+
+        {/* 10. HOW THE CONTRACTOR NETWORK WORKS */}
+        <section className="py-20 sm:py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom space-y-12">
             <ContractorStepByStep
               eyebrow="ONBOARDING ROADMAP"

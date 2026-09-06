@@ -63,7 +63,8 @@ export interface DispatchExecutionResult {
     | 'AWAITING_APPROVAL'
     | 'NO_ELIGIBLE_PROVIDER'
     | 'ESCALATED'
-    | 'DECLINED_REASSIGNED';
+    | 'DECLINED_REASSIGNED'
+    | 'BLOCKED_ACTIVE_MARKETPLACE_OFFER';
   work_order_id: string;
   work_order_number: string;
   assigned_supplier_id?: string;

@@ -1,6 +1,9 @@
 /**
- * @deprecated System A Allocation Store is superseded by System B (src/server/ai/dispatch/).
- * Flagged as dead code slated for removal in a follow-up task.
+ * ENTIREFM SUPPLIER OPPORTUNITIES & ALLOCATION STORE (System A)
+ * ==============================================================
+ * Manages contractor opportunities marketplace, competitive quotes,
+ * tender invitations, supplier responses, awards, and operating availability.
+ * Coexists with System B (Autonomous Reactive Auto-Dispatch).
  */
 
 import {
@@ -25,9 +28,9 @@ import { listSupplierOrganisations, getSupplierOrganisation } from '../suppliers
 import { listServiceApprovals, listGeographicApprovals, listComplianceHolds } from '../suppliers/assurance-store';
 import { getSupplierScorecard } from '../suppliers/performance-store';
 import { evaluateSupplierHardGates, calculateCandidateSuitability } from './allocation-engine';
-import { geocodePostcode, haversineDistanceMiles } from '../geo/geocoding';
 import { calculateLocationDistanceMiles } from './geo-distance';
 import { dbQuery, isDbConfigured } from '@/server/db/client';
+import { emitOpportunityWithdrawnNotification } from '../communications';
 
 function isUuid(val: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
@@ -224,7 +227,7 @@ export async function evaluateCandidatesForRequirement(requirementId: string): P
 export async function createSupplierOpportunity(
   opp: Omit<SupplierOpportunityRecord, 'id' | 'status' | 'issued_at'>
 ): Promise<SupplierOpportunityRecord> {
-  const id = `opp-${Date.now()}`;
+  const id = crypto.randomUUID();
   const now = new Date().toISOString();
 
   const record: SupplierOpportunityRecord = {
@@ -235,6 +238,41 @@ export async function createSupplierOpportunity(
   };
 
   if (isDbConfigured()) {
+    // Mutual Exclusion Guard: Verify underlying work order is not already dispatched or assigned (System B)
+    if (opp.requirement_id) {
+      const requirement = await getWorkAllocationRequirement(opp.requirement_id);
+      if (requirement?.source_id) {
+        const sourceRef = requirement.source_id;
+
+        // Build query carefully: work_orders.id is UUID, so only include the id filter when sourceRef
+        // is actually a valid UUID to avoid a Postgres type cast error on WO numbers like "WO-2026-001".
+        const woQuery = isUuid(sourceRef)
+          ? `work_orders?or=(work_order_number.eq.${encodeURIComponent(sourceRef)},id.eq.${encodeURIComponent(sourceRef)})&select=id,work_order_number,status,provider_organisation_id&limit=1`
+          : `work_orders?work_order_number=eq.${encodeURIComponent(sourceRef)}&select=id,work_order_number,status,provider_organisation_id&limit=1`;
+
+        const { data: woRows } = await dbQuery<any[]>(woQuery);
+        const wo = woRows?.[0];
+
+        if (wo) {
+          if (wo.status === 'ISSUED' || wo.status === 'DISPATCHED') {
+            throw new Error(
+              `Cannot issue marketplace opportunity: Work Order ${wo.work_order_number || sourceRef} is already in '${wo.status}' status (assigned to contractor).`
+            );
+          }
+
+          // Check active work_order_dispatches (work_order_id is text in that table)
+          const { data: dispatches } = await dbQuery<any[]>(
+            `work_order_dispatches?work_order_id=eq.${encodeURIComponent(wo.id)}&status=not.in.(COMPLETED,CANCELLED,REASSIGNED)&limit=1`
+          );
+          if (dispatches && dispatches.length > 0) {
+            throw new Error(
+              `Cannot issue marketplace opportunity: Work Order ${wo.work_order_number || sourceRef} has an active contractor dispatch (status: ${dispatches[0].status}).`
+            );
+          }
+        }
+      }
+    }
+
     await dbQuery('supplier_opportunities', {
       method: 'POST',
       body: {
@@ -265,7 +303,11 @@ export async function createSupplierOpportunity(
 export async function listSupplierOpportunities(supplierId?: string): Promise<SupplierOpportunityRecord[]> {
   if (!isDbConfigured()) return [];
 
-  const { data } = await dbQuery<any[]>('supplier_opportunities?order=issued_at.desc');
+  const endpoint = supplierId
+    ? `supplier_opportunities?invited_supplier_ids=cs.{${encodeURIComponent(supplierId)}}&order=issued_at.desc`
+    : 'supplier_opportunities?order=issued_at.desc';
+
+  const { data } = await dbQuery<any[]>(endpoint);
   if (!data) return [];
 
   const list: SupplierOpportunityRecord[] = data.map((o) => ({
@@ -325,7 +367,26 @@ export async function getSupplierOpportunity(id: string): Promise<SupplierOpport
 export async function submitOpportunityResponse(
   resp: Omit<SupplierOpportunityResponse, 'id' | 'responded_at'>
 ): Promise<SupplierOpportunityResponse> {
-  const id = `resp-${Date.now()}`;
+  if (!resp.supplier_id) {
+    throw new Error('supplier_id is required to submit an opportunity response');
+  }
+  if (!resp.opportunity_id) {
+    throw new Error('opportunity_id is required to submit an opportunity response');
+  }
+
+  // 1. Fetch target opportunity first and validate that supplier is actually invited
+  const opp = await getSupplierOpportunity(resp.opportunity_id);
+  if (!opp) {
+    throw new Error(`Opportunity '${resp.opportunity_id}' not found`);
+  }
+  if (!opp.invited_supplier_ids.includes(resp.supplier_id)) {
+    throw new Error(
+      `Forbidden: Supplier '${resp.supplier_id}' is not in the invited suppliers list for opportunity '${resp.opportunity_id}'`
+    );
+  }
+
+  // 2. Generate unique UUID for the response
+  const id = crypto.randomUUID();
   const now = new Date().toISOString();
   const ownerCols = getOwnerInsert(resp.supplier_id);
 
@@ -336,7 +397,7 @@ export async function submitOpportunityResponse(
   };
 
   if (isDbConfigured()) {
-    await dbQuery('supplier_opportunity_responses', {
+    const { error: insertErr } = await dbQuery('supplier_opportunity_responses', {
       method: 'POST',
       body: {
         id,
@@ -345,8 +406,8 @@ export async function submitOpportunityResponse(
         supplier_name: resp.supplier_name,
         decision: resp.decision,
         decline_reason: resp.decline_reason || null,
-        quoted_price_gbp: resp.quoted_price_gbp || null,
-        quoted_lead_time_hours: resp.quoted_lead_time_hours || null,
+        quoted_price_gbp: resp.quoted_price_gbp != null ? Number(resp.quoted_price_gbp) : null,
+        quoted_lead_time_hours: resp.quoted_lead_time_hours != null ? Number(resp.quoted_lead_time_hours) : null,
         planned_attendance_date: resp.planned_attendance_date || null,
         clarification_question: resp.clarification_question || null,
         clarification_response: resp.clarification_response || null,
@@ -355,6 +416,10 @@ export async function submitOpportunityResponse(
         responded_by: resp.responded_by,
       },
     });
+
+    if (insertErr) {
+      throw new Error(`Failed to insert opportunity response: ${insertErr}`);
+    }
 
     await dbQuery(`supplier_opportunities?id=eq.${encodeURIComponent(resp.opportunity_id)}`, {
       method: 'PATCH',
@@ -389,6 +454,98 @@ export async function listOpportunityResponses(opportunityId: string): Promise<S
     responded_at: r.responded_at,
     responded_by: r.responded_by,
   }));
+}
+
+/**
+ * Explicitly withdraw an opportunity from the marketplace.
+ * Transitions opportunity status to WITHDRAWN and notifies any responding contractors.
+ */
+export async function withdrawSupplierOpportunity(params: {
+  opportunity_id: string;
+  reason?: string;
+  withdrawn_by: string;
+}): Promise<{
+  success: boolean;
+  opportunity: SupplierOpportunityRecord;
+  notified_contractors: number;
+}> {
+  const opp = await getSupplierOpportunity(params.opportunity_id);
+  if (!opp) {
+    throw new Error(`Opportunity '${params.opportunity_id}' not found`);
+  }
+
+  if (opp.status === 'AWARDED') {
+    throw new Error(`Cannot withdraw opportunity '${params.opportunity_id}': Opportunity is already awarded.`);
+  }
+
+  if (opp.status === 'WITHDRAWN') {
+    return { success: true, opportunity: opp, notified_contractors: 0 };
+  }
+
+  // Update opportunity status in database
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_opportunities?id=eq.${encodeURIComponent(params.opportunity_id)}`, {
+      method: 'PATCH',
+      body: { status: 'WITHDRAWN' },
+    });
+  }
+
+  opp.status = 'WITHDRAWN';
+
+  // Find all contractors who submitted quotes/responses and notify them
+  let notifiedCount = 0;
+  if (isDbConfigured()) {
+    try {
+      const responses = await listOpportunityResponses(params.opportunity_id);
+      const uniqueResponders = new Map<string, { supplier_id: string; supplier_name: string }>();
+
+      for (const resp of responses) {
+        if (resp.supplier_id && !uniqueResponders.has(resp.supplier_id)) {
+          uniqueResponders.set(resp.supplier_id, {
+            supplier_id: resp.supplier_id,
+            supplier_name: resp.supplier_name,
+          });
+        }
+      }
+
+      for (const [suppId, respInfo] of uniqueResponders) {
+        let recipientEmail: string | undefined;
+        try {
+          const { data: orgData } = await dbQuery<any[]>(
+            `organisations?id=eq.${encodeURIComponent(suppId)}&select=email&limit=1`
+          );
+          if (orgData?.[0]?.email) {
+            recipientEmail = orgData[0].email;
+          } else {
+            const { data: suppOrgData } = await dbQuery<any[]>(
+              `supplier_organisations?id=eq.${encodeURIComponent(suppId)}&select=email&limit=1`
+            );
+            if (suppOrgData?.[0]?.email) recipientEmail = suppOrgData[0].email;
+          }
+        } catch {}
+
+        await emitOpportunityWithdrawnNotification({
+          opportunity_id: opp.id,
+          opportunity_title: opp.title,
+          supplier_id: suppId,
+          supplier_name: respInfo.supplier_name,
+          recipient_email: recipientEmail,
+          reason: params.reason,
+          withdrawn_by: params.withdrawn_by,
+        });
+
+        notifiedCount++;
+      }
+    } catch (notifyErr) {
+      console.warn('[WithdrawOpportunity:NotificationWarn]', notifyErr);
+    }
+  }
+
+  return {
+    success: true,
+    opportunity: opp,
+    notified_contractors: notifiedCount,
+  };
 }
 
 /**

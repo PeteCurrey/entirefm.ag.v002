@@ -955,6 +955,12 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           colB: 'Standard domestic plastic push-fit soil pipework and residential sanitaryware',
         },
         {
+          attribute: 'Isolation & Drain-Down Impact',
+          colA: 'Requires pipe freezing kits or scheduled out-of-hours isolations to prevent disrupting dozens of commercial tenants',
+          colB: 'Simple stopcock shutoff affecting only a single household',
+          highlight: true,
+        },
+        {
           attribute: 'Reporting & Invoicing',
           colA: 'Detailed digital water logbooks, calibrated digital thermometer logs, formal Purchase Order billing',
           colB: 'Paper invoice or standard mobile payment directly from homeowner',
@@ -965,7 +971,7 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'What qualifications and certifications do commercial plumbing contractors need?',
         answer:
-          'Plumbing contractors should hold NVQ Level 2/3 in Plumbing & Heating (or City & Guilds equivalent), Water Regulations (WRAS / WIAPS) certification, and BPEC Unvented Hot Water Storage Systems (G3) credentials. For water hygiene tasks, City & Guilds Legionella awareness is expected. Public Liability insurance (£5m minimum, £10m preferred) and SSIP accreditation are standard.',
+          'Commercial clients and framework specifications typically expect plumbing contractors to hold NVQ Level 2/3 in Plumbing & Heating (or City & Guilds equivalent), Water Regulations (WRAS / WIAPS) registration, and BPEC Unvented Hot Water Storage Systems (G3) credentials. For water hygiene tasks, certified Legionella awareness is expected. Commercial property managers generally require appropriate insurance (with £5m or £10m Public Liability commonly specified depending on estate scale) alongside SSIP accreditation (such as CHAS or SafeContractor).',
       },
       {
         question: 'What types of commercial plumbing work orders does EntireFM dispatch?',
@@ -980,7 +986,17 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'How are commercial water isolations and drain-downs managed?',
         answer:
-          'Commercial multi-tenant buildings require planned isolation notices to prevent disrupting trading floors, commercial kitchens, or medical facilities. Contractors must submit site-specific RAMS detailing localized isolation valves, drain-down procedures, and microbiological disinfection protocols upon refill.',
+          'Commercial multi-tenant buildings require planned isolation notices to prevent disrupting trading floors, commercial kitchens, or medical facilities. Contractors must submit site-specific RAMS detailing localized isolation valves, pipe freezing protocols where whole-system drain-down is avoided, and microbiological disinfection protocols upon refill.',
+      },
+      {
+        question: 'What should a commercial plumbing contractor provide in job close-out documentation?',
+        answer:
+          'Following completion, contractors must supply digital job sheets, timestamped photographs of completed works and plantroom condition, calibrated immersion probe temperature logs (for water hygiene or TMV services), statutory disinfection or test certificates, and itemised materials referenced against the approved Purchase Order.',
+      },
+      {
+        question: 'What RAMS and safety protocols apply when working in commercial plantrooms?',
+        answer:
+          'Commercial plantroom RAMS must detail safe isolation (LOTO) of pumps and immersion heaters, hot works controls for brazing or soldering, confined space or working at height controls for high-level pipework or tank access, and emergency isolation procedures in the event of uncontrolled flooding.',
       },
       {
         question: 'What is the commercial fee and application process?',
@@ -1002,10 +1018,10 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'Commercial',
       },
       {
-        title: 'Commercial Maintenance Contractor Network',
-        description: 'Explore opportunities across planned and reactive building maintenance.',
-        href: '/contractors/commercial-maintenance',
-        badge: 'Overview',
+        title: 'Commercial Mechanical Contractors',
+        description: 'Explore opportunities across HVAC, plantrooms, and commercial pipework.',
+        href: '/contractors/mechanical',
+        badge: 'Adjacent Trade',
         category: 'Commercial',
       },
       {
@@ -1016,10 +1032,10 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'PPM',
       },
       {
-        title: 'How to Write RAMS: Step-by-Step Guide',
-        description: 'Drafting compliant Risk Assessments and Method Statements for commercial plumbing.',
-        href: '/contractor-resources/rams/how-to-write-rams',
-        badge: 'Guide',
+        title: 'What Are RAMS? Meaning & Requirements',
+        description: 'Comprehensive guide to Risk Assessments and Method Statements for commercial engineering.',
+        href: '/contractor-resources/rams/what-are-rams',
+        badge: 'Compliance',
         category: 'Compliance',
       },
     ],
@@ -1221,13 +1237,19 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           colA: 'Comprehensive photographic condition reports, drone roof surveys, core sampling, electronic leak testing',
           colB: 'Simple verbal quotation or visual domestic inspection estimate',
         },
+        {
+          attribute: 'Permit-to-Work & Inductions',
+          colA: 'Mandatory client roof access permits, asbestos register check, dynamic wind speed threshold cut-offs',
+          colB: 'Informal homeowner verbal agreement with no formal permits',
+          highlight: true,
+        },
       ],
     },
     faqs: [
       {
         question: 'What accreditations and safety qualifications are expected for roofing contractors?',
         answer:
-          'Contracting companies should hold NFRC (National Federation of Roofing Contractors) or CompetentRoofer accreditation, Safe2Torch certification (where torch-applied membranes apply), and valid SSIP health & safety accreditation. Attending operatives must carry CSCS Skilled Worker cards, Working at Height certification, and IPAF/PASMA where MEWPs or mobile towers are used.',
+          'Commercial clients and framework tenders typically look for recognised trade affiliations such as NFRC (National Federation of Roofing Contractors) or CompetentRoofer registration, Safe2Torch certification (where torch-applied membranes are utilized), and valid SSIP health & safety accreditation (e.g., CHAS or SafeContractor). For site operations, operatives are generally expected to hold relevant CSCS cards, Working at Height training, and IPAF/PASMA credentials where access plant is mobilized.',
       },
       {
         question: 'What types of roofing work orders does EntireFM dispatch?',
@@ -1243,6 +1265,16 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         question: 'How are hot works permits controlled during roof repairs?',
         answer:
           'Where torch-applied bitumen is specified, contractors must follow NFRC Safe2Torch protocols, check combustibility of insulation and deck substrates, maintain two 9kg dry powder extinguishers at the workface, and complete a certified continuous fire watch for a minimum of 60 to 120 minutes post-application.',
+      },
+      {
+        question: 'What RAMS and height safety controls must be provided before accessing a commercial roof?',
+        answer:
+          'Contractors must submit site-specific RAMS identifying roof access routes (fixed ladders, stairs, MEWP), demarcation of fragile surfaces (like rooflights), edge protection or mansafe cable harness systems, rescue procedures in the event of a fall arrest, and wind speed threshold cut-offs. Hot work permits are mandatory for any application of heat.',
+      },
+      {
+        question: 'What does commercial close-out documentation for roofing require?',
+        answer:
+          'FM clients require high-resolution, geo-timestamped before-and-after photographs of gutters, outlets, and repaired membranes, written condition appraisals, core sample moisture readings where taken, waste transfer notes for cleared silt or debris, and clear manufacturer warranty paperwork for remedial overlays.',
       },
       {
         question: 'What is the commercial pricing model and membership fee?',
@@ -1264,10 +1296,10 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'Commercial',
       },
       {
-        title: 'Commercial Maintenance Contractor Network',
-        description: 'Explore opportunities across planned and reactive building maintenance.',
-        href: '/contractors/commercial-maintenance',
-        badge: 'Overview',
+        title: 'Fabric Maintenance Contractors',
+        description: 'Explore opportunities across building envelopes, cladding, and commercial fabric.',
+        href: '/contractors/fabric-maintenance',
+        badge: 'Adjacent Trade',
         category: 'Commercial',
       },
       {
@@ -1278,9 +1310,9 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'PPM',
       },
       {
-        title: 'What Is a Risk Assessment? Principles & Matrix',
+        title: 'What Are RAMS? Meaning & Requirements',
         description: 'Understand 5x5 hazard evaluation and control hierarchies for working at height.',
-        href: '/contractor-resources/risk-assessments/what-is-a-risk-assessment',
+        href: '/contractor-resources/rams/what-are-rams',
         badge: 'Safety',
         category: 'Compliance',
       },
@@ -1352,13 +1384,19 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           colA: 'Regulatory Reform (Fire Safety) Order 2005 & Fire Safety Act 2021 compliance for commercial duty holders',
           colB: 'Private homeowner property protection with minimal regulatory oversight',
         },
+        {
+          attribute: 'Staff Screening & Security Clearance',
+          colA: 'Mandatory BS 7858 security screening and DBS vetting for all attending engineers',
+          colB: 'Informal trade checks with no standardized 5-year background auditing',
+          highlight: true,
+        },
       ],
     },
     faqs: [
       {
         question: 'What accreditations do commercial fire and security contractors require?',
         answer:
-          'Contractors should hold BAFE SP203-1 accreditation (for fire detection and alarm systems), NSI (National Security Inspectorate) Gold/Silver or SSAIB certification (for electronic security and CCTV), and FIA (Fire Industry Association) training certificates for attending engineers. Valid SSIP accreditation (CHAS, SafeContractor) and appropriate Public and Efficacy Liability insurance are mandatory.',
+          'Commercial clients and framework tenders commonly require or prioritize contractors with third-party accredited scheme memberships, such as BAFE SP203-1 (for fire detection and alarms), NSI Gold/Silver or SSAIB (for electronic security and CCTV), and FIA certified engineering training. In addition, commercial managing agents generally expect valid SSIP health & safety accreditation (e.g. CHAS, SafeContractor) and appropriate Public and Efficacy (failure-to-perform) Liability cover suited to the commercial estate.',
       },
       {
         question: 'What types of fire and security work orders does EntireFM dispatch?',
@@ -1374,6 +1412,16 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         question: 'What documentation must be provided following commercial fire maintenance?',
         answer:
           'Engineers must issue a completed Certificate of Inspection and Testing to BS 5839-1, update the on-site physical fire logbook, provide digital asset testing schedules (listing every detector, call point, and sounder tested), and document any outstanding non-compliances (e.g. obscured call points or unserviced interfaces).',
+      },
+      {
+        question: 'What are the specific RAMS requirements for testing commercial life safety systems?',
+        answer:
+          'Life safety RAMS must detail false alarm prevention protocols, ARC (Alarm Receiving Centre) off-line notification steps, phased sounder testing times to avoid tenant panic, passenger lift grounding controls, HVAC damper isolation, and safe electrical isolation of mains panel supplies.',
+      },
+      {
+        question: 'What is required in the commercial fire close-out package?',
+        answer:
+          'Contractors must provide a completed BS 5839-1 / BS 5266-1 certificate of testing, a signed physical on-site logbook entry, a digitized schedule of tested devices by loop and zone, timestamped photographs of any defective or rectified components, and formal quotation details for any critical non-conformities identified.',
       },
       {
         question: 'What is the membership cost and commercial model?',
@@ -1395,11 +1443,11 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'Commercial',
       },
       {
-        title: 'Approved Contractor Network Overview',
-        description: 'Review our due diligence framework, compliance expectations, and supplier vetting criteria.',
-        href: '/contractors/approved-contractor-network',
-        badge: 'Standards',
-        category: 'Compliance',
+        title: 'Commercial Electrical Contractors',
+        description: 'Review electrical engineering and statutory periodic inspection requirements.',
+        href: '/contractors/electrical',
+        badge: 'Adjacent Trade',
+        category: 'Commercial',
       },
       {
         title: 'What Are RAMS? Meaning & Requirements',
@@ -1409,11 +1457,11 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         category: 'Compliance',
       },
       {
-        title: 'What Is PPM in Facilities Management?',
-        description: 'Learn how planned preventative maintenance contracts operate across commercial property.',
-        href: '/contractor-resources/facilities-management/what-is-ppm',
+        title: 'How to Write RAMS: Step-by-Step Guide',
+        description: 'Drafting compliant Risk Assessments and Method Statements for commercial life safety.',
+        href: '/contractor-resources/rams/how-to-write-rams',
         badge: 'Guide',
-        category: 'PPM',
+        category: 'Compliance',
       },
     ],
   },

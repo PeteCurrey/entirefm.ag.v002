@@ -57,6 +57,45 @@ export async function orchestrateReactiveDispatch(
   const autoPoPolicy = params.auto_po_policy || 'AUTO_RAISE';
   const declineHistory = params.decline_history || [];
 
+  // 0. Mutual Exclusion Guard: Check for Active Marketplace Opportunity (System A)
+  try {
+    const targetSourceIds: string[] = [];
+    if (params.work_order_number) targetSourceIds.push(params.work_order_number);
+    if (params.work_order_id && params.work_order_id !== params.work_order_number) {
+      targetSourceIds.push(params.work_order_id);
+    }
+
+    if (targetSourceIds.length > 0) {
+      const { data: matchedReqs } = await dbQuery<any[]>(
+        `work_allocation_requirements?source_id=in.(${targetSourceIds.map((id) => encodeURIComponent(id)).join(',')})&select=id,source_id,source_type`
+      );
+
+      if (matchedReqs && matchedReqs.length > 0) {
+        const reqIds = matchedReqs.map((r) => r.id);
+        const { data: matchedOpps } = await dbQuery<any[]>(
+          `supplier_opportunities?requirement_id=in.(${reqIds.map((id) => encodeURIComponent(id)).join(',')})&select=id,title,status,opportunity_type,requirement_id`
+        );
+
+        const NON_TERMINAL_STATUSES = new Set(['ISSUED', 'RESPONSES_RECEIVED', 'AWAITING_AWARD']);
+        const activeOpp = matchedOpps?.find((opp) => NON_TERMINAL_STATUSES.has(opp.status));
+
+        if (activeOpp) {
+          return {
+            status: 'BLOCKED_ACTIVE_MARKETPLACE_OFFER',
+            work_order_id: params.work_order_id,
+            work_order_number: params.work_order_number,
+            ranked_candidates: [],
+            decline_history: declineHistory,
+            exception_reason: `Work Order ${params.work_order_number} has an active contractor marketplace opportunity '${activeOpp.title}' (ID: ${activeOpp.id}, status: ${activeOpp.status}). Auto-dispatch suspended to prevent double-assignment.`,
+            client_update_message: `Work Order ${params.work_order_number} is currently active on the Contractor Marketplace (Opportunity: ${activeOpp.title}). Automatic assignment paused pending marketplace award or manual withdrawal.`,
+          };
+        }
+      }
+    }
+  } catch (guardErr) {
+    console.warn('[DispatchOrchestrator:MarketplaceGuardWarn]', guardErr);
+  }
+
   // 1. Resolve Work Order Site Coordinates
   let siteLat: number | null = params.site_latitude ?? null;
   let siteLng: number | null = params.site_longitude ?? null;

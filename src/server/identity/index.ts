@@ -557,7 +557,12 @@ export async function validateLiveSession(session: UserSession | null): Promise<
 }
 
 export async function getCurrentSession(): Promise<UserSession | null> {
-  const jar = await cookies();
+  let jar;
+  try {
+    jar = await cookies();
+  } catch {
+    return null;
+  }
   const token = jar.get(AUTH_COOKIE_NAME)?.value || jar.get('efm_admin')?.value;
   if (!token) return null;
 
