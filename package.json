@@ -37,6 +37,7 @@
     "test:field-intelligence": "tsx --env-file=.env.local scripts/test-field-intelligence.ts",
     "test:talk-to-quote": "tsx scripts/test-talk-to-quote-e2e.ts",
     "test:talk-to-quote-phase2": "tsx scripts/test-phase2-field-scenarios.ts",
+    "test:talk-to-quote-phase3": "tsx scripts/test-phase3-certification.ts",
     "test:ppm-autopilot": "tsx --env-file=.env.local scripts/test-ppm-autopilot.ts",
     "test:monthly-estate-report": "tsx --env-file=.env.local scripts/test-monthly-estate-report.ts",
     "test:commercial-intelligence": "tsx scripts/test-commercial-intelligence.ts",

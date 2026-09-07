@@ -35,6 +35,32 @@ export async function GET(
 
     const quote = quotes[0];
 
+    // Check if a specific historical version was requested
+    const { searchParams } = new URL(request.url);
+    const versionParam = searchParams.get('version');
+
+    if (versionParam) {
+      const targetVersion = parseInt(versionParam, 10);
+      if (!isNaN(targetVersion) && targetVersion !== quote.version) {
+        const { data: versionRecords } = await dbQuery<any[]>(
+          `quote_versions?quote_id=eq.${encodeURIComponent(id)}&version=eq.${targetVersion}&limit=1`
+        );
+        if (versionRecords && versionRecords.length > 0) {
+          const snapshot = versionRecords[0].snapshot_json;
+          return NextResponse.json({
+            success: true,
+            quote: {
+              ...quote,
+              ...snapshot,
+              version: targetVersion,
+              isSnapshot: true,
+              change_reason: versionRecords[0].change_reason,
+            },
+          });
+        }
+      }
+    }
+
     // Fetch lines
     const { data: lines } = await dbQuery<QuoteLine[]>(
       `quote_lines?quote_id=eq.${encodeURIComponent(id)}&order=created_at.asc&select=*`
@@ -120,11 +146,18 @@ export async function PATCH(
       const marginPct = subtotal > 0 ? roundMoney((marginGbp / subtotal) * 100) : 0;
       const nextVersion = (currentQuote.version || 1) + 1;
 
+      // If quote was already ISSUED, resetting status to INTERNAL_REVIEW for re-approval
+      const newStatus = (currentQuote.status === 'ISSUED' || (currentQuote as any).internal_status === 'ISSUED')
+        ? 'INTERNAL_REVIEW'
+        : currentQuote.status;
+
       // Update quote header
       await dbQuery(`quotes?id=eq.${encodeURIComponent(id)}`, {
         method: 'PATCH',
         body: {
           version: nextVersion,
+          status: newStatus,
+          internal_status: newStatus,
           subtotal_gbp: subtotal,
           tax_amount_gbp: taxGbp,
           total_amount_gbp: grossGbp,
@@ -142,7 +175,7 @@ export async function PATCH(
           id: crypto.randomUUID(),
           quote_id: id,
           version: nextVersion,
-          snapshot_json: { ...currentQuote, lines, version: nextVersion, subtotal_gbp: subtotal, total_amount_gbp: grossGbp },
+          snapshot_json: { ...currentQuote, lines, version: nextVersion, subtotal_gbp: subtotal, total_amount_gbp: grossGbp, status: newStatus },
           change_reason: changeReason,
           created_by_person_id: session.personId,
         },
@@ -153,12 +186,13 @@ export async function PATCH(
         object_type: 'quotes',
         object_id: id,
         actor_id: session.personId,
-        after_state: { version: nextVersion, subtotal, gross: grossGbp, changeReason },
+        after_state: { version: nextVersion, subtotal, gross: grossGbp, changeReason, status: newStatus },
       });
 
       return NextResponse.json({
         success: true,
         version: nextVersion,
+        status: newStatus,
         subtotal,
         taxAmount: taxGbp,
         totalGross: grossGbp,

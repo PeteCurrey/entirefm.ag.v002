@@ -40,6 +40,49 @@ export async function POST(
 
     const quote = quotes[0];
 
+    // Fetch quote lines to check commercial safety
+    const { data: lines } = await dbQuery<any[]>(
+      `quote_lines?quote_id=eq.${encodeURIComponent(id)}&select=*`
+    );
+
+    // If attempting to deploy directly to client, verify all line items have valid rates
+    if (deployToClient) {
+      const isFreeIssue = (l: any) => {
+        const notes = (l.pricing_notes || '').toLowerCase();
+        const desc = (l.description || '').toLowerCase();
+        return (
+          notes.includes('van stock') ||
+          notes.includes('free issue') ||
+          notes.includes('client supply') ||
+          notes.includes('foc') ||
+          notes.includes('zero rate') ||
+          desc.includes('van stock') ||
+          desc.includes('free issue') ||
+          desc.includes('client supply') ||
+          desc.includes('foc')
+        );
+      };
+
+      const unpricedLines = (lines || []).filter(
+        (l) => (l.is_missing_rate === true || Number(l.unit_price_gbp) === 0) && !isFreeIssue(l)
+      );
+
+      if (unpricedLines.length > 0) {
+        return NextResponse.json(
+          {
+            error: 'Missing catalogue prices prevent direct client issuance. All line items must have verified rates or be designated as van stock / free issue before deploying to client.',
+            unpricedLines: unpricedLines.map((l) => ({
+              description: l.description,
+              line_type: l.line_type,
+              pricing_notes: l.pricing_notes,
+            })),
+            blocked: true,
+          },
+          { status: 422 }
+        );
+      }
+    }
+
     await dbQuery(`quotes?id=eq.${encodeURIComponent(id)}`, {
       method: 'PATCH',
       body: {

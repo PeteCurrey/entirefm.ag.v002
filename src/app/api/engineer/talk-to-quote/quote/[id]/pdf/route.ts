@@ -32,11 +32,33 @@ export async function GET(
       return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
     }
 
-    const quote = quotes[0];
+    let quote = quotes[0];
+    let lines: QuoteLine[] = [];
 
-    const { data: lines } = await dbQuery<QuoteLine[]>(
-      `quote_lines?quote_id=eq.${encodeURIComponent(id)}&order=created_at.asc&select=*`
-    );
+    // Check if historical version was requested
+    const { searchParams } = new URL(request.url);
+    const versionParam = searchParams.get('version');
+
+    if (versionParam) {
+      const targetVersion = parseInt(versionParam, 10);
+      if (!isNaN(targetVersion) && targetVersion !== quote.version) {
+        const { data: versionRecords } = await dbQuery<any[]>(
+          `quote_versions?quote_id=eq.${encodeURIComponent(id)}&version=eq.${targetVersion}&limit=1`
+        );
+        if (versionRecords && versionRecords.length > 0) {
+          const snapshot = versionRecords[0].snapshot_json;
+          quote = { ...quote, ...snapshot, version: targetVersion };
+          lines = snapshot.lines || [];
+        }
+      }
+    }
+
+    if (lines.length === 0) {
+      const { data: currentLines } = await dbQuery<QuoteLine[]>(
+        `quote_lines?quote_id=eq.${encodeURIComponent(id)}&order=created_at.asc&select=*`
+      );
+      lines = currentLines || [];
+    }
 
     const assetRef = quote.work_order?.asset?.asset_reference || quote.site?.name ? 'Site Asset' : '';
     const assetName = quote.work_order?.asset?.name || '';
@@ -44,7 +66,7 @@ export async function GET(
     const html = buildQuoteHtml({
       quote: {
         ...quote,
-        lines: lines || [],
+        lines: lines,
       },
       clientName: quote.client?.name || 'EntireCAFM Client',
       siteName: quote.site?.name || 'Commercial Site',

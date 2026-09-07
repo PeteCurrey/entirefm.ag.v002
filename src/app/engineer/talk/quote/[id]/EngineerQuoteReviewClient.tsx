@@ -83,6 +83,27 @@ export function EngineerQuoteReviewClient({ quote: initialQuote, engineerName }:
     }
   };
 
+  const isFreeIssue = (l: any) => {
+    const notes = (l.pricing_notes || '').toLowerCase();
+    const desc = (l.description || '').toLowerCase();
+    return (
+      notes.includes('van stock') ||
+      notes.includes('free issue') ||
+      notes.includes('client supply') ||
+      notes.includes('foc') ||
+      notes.includes('zero rate') ||
+      desc.includes('van stock') ||
+      desc.includes('free issue') ||
+      desc.includes('client supply') ||
+      desc.includes('foc')
+    );
+  };
+
+  const unpricedLines = lines.filter(
+    (l) => (l.is_missing_rate === true || Number(l.unit_price_gbp) === 0) && !isFreeIssue(l)
+  );
+  const hasUnpricedItems = unpricedLines.length > 0;
+
   const handleDeploy = async (deployToClient: boolean) => {
     setIsDeploying(true);
     setError(null);
@@ -99,6 +120,10 @@ export function EngineerQuoteReviewClient({ quote: initialQuote, engineerName }:
 
       const data = await res.json();
       if (!res.ok || !data.success) {
+        if (res.status === 422 && data.unpricedLines) {
+          const names = data.unpricedLines.map((u: any) => u.description).join(', ');
+          throw new Error(`Commercial Guardrail: Missing rates on [${names}]. Submit for Ops Review or enter unit prices.`);
+        }
         throw new Error(data.error || 'Failed to deploy quotation');
       }
 
@@ -148,6 +173,18 @@ export function EngineerQuoteReviewClient({ quote: initialQuote, engineerName }:
         </div>
       </div>
 
+      {hasUnpricedItems && (
+        <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-amber-300 text-xs flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <div>
+            <span className="font-semibold block text-amber-200">Commercial Safety Guardrail: Unpriced Line Items</span>
+            <span>
+              {unpricedLines.length} line item(s) require verified catalogue pricing. Direct client issuance is blocked until rates are set. You may still submit for Operations Review.
+            </span>
+          </div>
+        </div>
+      )}
+
       {deploySuccess && (
         <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-emerald-300 text-xs flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
@@ -180,66 +217,84 @@ export function EngineerQuoteReviewClient({ quote: initialQuote, engineerName }:
         </div>
 
         <div className="space-y-3">
-          {lines.map((line, idx) => (
-            <div
-              key={idx}
-              className="bg-brand-void border border-brand-edge-dark rounded-xl p-3.5 space-y-2.5 text-xs"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex-1">
-                  <span className="text-[9.5px] uppercase font-bold text-brand-electric-bright block mb-0.5">
-                    {line.line_type}
-                  </span>
-                  <input
-                    type="text"
-                    value={line.description}
-                    onChange={(e) => handleLineChange(idx, 'description', e.target.value)}
-                    className="w-full bg-transparent text-xs text-white font-medium focus:outline-none border-b border-transparent focus:border-brand-electric"
-                  />
-                  {line.pricing_notes && (
-                    <div className="text-[10px] text-brand-mist/50 mt-0.5">{line.pricing_notes}</div>
-                  )}
+          {lines.map((line, idx) => {
+            const lineIsUnpriced = (line.is_missing_rate === true || Number(line.unit_price_gbp) === 0) && !isFreeIssue(line);
+            return (
+              <div
+                key={idx}
+                className={`border rounded-xl p-3.5 space-y-2.5 text-xs transition-colors ${
+                  lineIsUnpriced
+                    ? 'bg-amber-500/5 border-amber-500/40'
+                    : 'bg-brand-void border-brand-edge-dark'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[9.5px] uppercase font-bold text-brand-electric-bright block">
+                        {line.line_type}
+                      </span>
+                      {lineIsUnpriced && (
+                        <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] px-1.5 py-0.2 rounded font-bold">
+                          RATE REQUIRED (£0.00)
+                        </span>
+                      )}
+                    </div>
+                    <input
+                      type="text"
+                      value={line.description}
+                      onChange={(e) => handleLineChange(idx, 'description', e.target.value)}
+                      className="w-full bg-transparent text-xs text-white font-medium focus:outline-none border-b border-transparent focus:border-brand-electric"
+                    />
+                    {line.pricing_notes && (
+                      <div className="text-[10px] text-brand-mist/50 mt-0.5">{line.pricing_notes}</div>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveLine(idx)}
+                    className="text-brand-mist/40 hover:text-rose-400 p-1 transition-colors"
+                    title="Remove Line"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveLine(idx)}
-                  className="text-brand-mist/40 hover:text-rose-400 p-1 transition-colors"
-                  title="Remove Line"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-              </div>
 
-              <div className="grid grid-cols-3 gap-2 pt-1 border-t border-brand-edge-dark/60">
-                <div>
-                  <span className="text-[9.5px] text-brand-mist/40 uppercase block">Qty</span>
-                  <input
-                    type="number"
-                    step="0.5"
-                    value={line.quantity}
-                    onChange={(e) => handleLineChange(idx, 'quantity', Number(e.target.value))}
-                    className="w-full bg-brand-carbon border border-brand-edge-dark rounded px-2 py-1 text-xs text-white"
-                  />
-                </div>
-                <div>
-                  <span className="text-[9.5px] text-brand-mist/40 uppercase block">Unit Price (£)</span>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={line.unit_price_gbp}
-                    onChange={(e) => handleLineChange(idx, 'unit_price_gbp', Number(e.target.value))}
-                    className="w-full bg-brand-carbon border border-brand-edge-dark rounded px-2 py-1 text-xs text-white"
-                  />
-                </div>
-                <div className="text-right">
-                  <span className="text-[9.5px] text-brand-mist/40 uppercase block">Total (£)</span>
-                  <div className="text-xs font-bold text-white pt-1">
-                    £{(Number(line.total_gbp) || 0).toFixed(2)}
+                <div className="grid grid-cols-3 gap-2 pt-1 border-t border-brand-edge-dark/60">
+                  <div>
+                    <span className="text-[9.5px] text-brand-mist/40 uppercase block">Qty</span>
+                    <input
+                      type="number"
+                      step="0.5"
+                      value={line.quantity}
+                      onChange={(e) => handleLineChange(idx, 'quantity', Number(e.target.value))}
+                      className="w-full bg-brand-carbon border border-brand-edge-dark rounded px-2 py-1 text-xs text-white"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[9.5px] text-brand-mist/40 uppercase block">Unit Price (£)</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={line.unit_price_gbp}
+                      onChange={(e) => handleLineChange(idx, 'unit_price_gbp', Number(e.target.value))}
+                      className={`w-full border rounded px-2 py-1 text-xs text-white ${
+                        lineIsUnpriced
+                          ? 'bg-amber-500/10 border-amber-500/50 text-amber-200'
+                          : 'bg-brand-carbon border-brand-edge-dark'
+                      }`}
+                    />
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[9.5px] text-brand-mist/40 uppercase block">Total (£)</span>
+                    <div className="text-xs font-bold text-white pt-1">
+                      £{(Number(line.total_gbp) || 0).toFixed(2)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Totals Breakdown */}
@@ -295,12 +350,22 @@ export function EngineerQuoteReviewClient({ quote: initialQuote, engineerName }:
           <button
             type="button"
             onClick={() => handleDeploy(true)}
-            disabled={isDeploying}
-            className="bg-brand-electric hover:bg-brand-indigo text-white rounded-xl py-3 px-3 text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-brand-electric/25 transition-colors disabled:opacity-50"
+            disabled={isDeploying || hasUnpricedItems}
+            title={hasUnpricedItems ? 'Cannot deploy directly to client with unpriced lines (£0.00)' : 'Deploy and issue quote directly to client'}
+            className={`rounded-xl py-3 px-3 text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg transition-colors ${
+              hasUnpricedItems
+                ? 'bg-brand-mist/20 text-brand-mist/40 cursor-not-allowed border border-brand-edge-dark'
+                : 'bg-brand-electric hover:bg-brand-indigo text-white shadow-brand-electric/25'
+            } disabled:opacity-50`}
           >
             {isDeploying ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />} Deploy &amp; Issue Quote
           </button>
         </div>
+        {hasUnpricedItems && (
+          <p className="text-[11px] text-amber-300/80 text-center">
+            * Direct client issuance is locked because rate card prices are required for {unpricedLines.length} item(s).
+          </p>
+        )}
       </div>
     </div>
   );
