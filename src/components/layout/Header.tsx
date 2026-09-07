@@ -157,12 +157,12 @@ export function Header({ solid = false, lightOnTransparent = false }: HeaderProp
                   setSearchOpen(false);
                   setExploreOpen((v) => !v);
                 }}
-                className={`group flex items-center gap-2 rounded-sm px-3 sm:px-4 py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
+                className={`group flex items-center gap-2 rounded-sm px-3 sm:px-4 py-2 text-xs sm:text-sm font-normal tracking-wide transition-all duration-300 ease-brand ${
                   exploreOpen
-                    ? 'bg-white/[0.08] text-white border border-white/20'
+                    ? 'bg-white/[0.12] text-white border border-white/30 shadow-sm'
                     : isLight
                     ? 'text-slate-800 hover:text-black border border-transparent hover:border-slate-300 hover:bg-slate-900/5'
-                    : 'text-brand-mist/80 hover:text-white border border-transparent hover:border-white/15 hover:bg-white/[0.04]'
+                    : 'text-white/90 hover:text-white border border-transparent hover:border-white/20 hover:bg-white/[0.08]'
                 }`}
               >
                 <span>Explore</span>
@@ -197,7 +197,7 @@ export function Header({ solid = false, lightOnTransparent = false }: HeaderProp
                 className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-sm transition-all duration-200 ${
                   isLight
                     ? 'border border-slate-300 text-slate-800 hover:border-slate-600 hover:text-black hover:bg-slate-900/5'
-                    : 'border border-white/12 text-brand-mist/70 hover:border-white/30 hover:text-white hover:bg-white/[0.04]'
+                    : 'border border-white/15 text-white/85 hover:border-white/30 hover:text-white hover:bg-white/[0.08]'
                 }`}
               >
                 <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -206,12 +206,12 @@ export function Header({ solid = false, lightOnTransparent = false }: HeaderProp
               {/* The Lobby Primary Editorial Destination */}
               <Link
                 href="/lobby"
-                className={`inline-flex items-center justify-center rounded-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
+                className={`inline-flex items-center justify-center rounded-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal tracking-wide transition-all duration-300 ease-brand ${
                   pathname?.startsWith('/lobby')
                     ? 'border border-brand-electric/80 bg-brand-electric/25 text-white shadow-glow'
                     : isLight
                     ? 'border border-slate-300 bg-white text-slate-800 hover:text-black hover:border-slate-400 hover:bg-slate-50'
-                    : 'border border-white/15 bg-white/[0.05] text-brand-mist/90 hover:text-white hover:border-brand-electric/60 hover:bg-brand-electric/15'
+                    : 'border border-white/20 bg-white/[0.06] text-white hover:text-white hover:border-brand-electric/70 hover:bg-brand-electric/20'
                 }`}
                 aria-label="The Lobby — Facilities Management Intelligence & Briefing Room"
               >

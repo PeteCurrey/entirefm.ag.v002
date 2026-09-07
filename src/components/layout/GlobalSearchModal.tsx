@@ -500,9 +500,9 @@ export function GlobalSearchModal({
       aria-label="Search EntireFM"
       className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[14vh] px-4 sm:px-6 animate-in fade-in duration-200"
       style={{
-        backgroundColor: 'rgba(4, 10, 20, 0.78)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(11, 21, 40, 0.85)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -511,20 +511,20 @@ export function GlobalSearchModal({
       {/* ── Search Panel Container ────────────────────────────────────────── */}
       <div
         ref={panelRef}
-        className="w-full max-w-[940px] bg-[#09111F] border border-white/[0.08] rounded-lg sm:rounded-xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9),0_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col animate-in slide-in-from-top-3 duration-200"
+        className="w-full max-w-[940px] bg-[#0C162C] border border-white/12 rounded-lg sm:rounded-xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.7),0_0_1px_1px_rgba(255,255,255,0.08)] overflow-hidden flex flex-col animate-in slide-in-from-top-3 duration-200"
       >
         {/* ── Search Header & Context Bar ───────────────────────────────── */}
-        <div className="px-5 sm:px-7 pt-5 pb-3 flex items-start justify-between border-b border-white/[0.04] bg-[#060C16]">
+        <div className="px-5 sm:px-7 pt-5 pb-3 flex items-start justify-between border-b border-white/10 bg-[#0F1B35]">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-pink-light">
+              <span className="text-[10.5px] font-medium tracking-[0.2em] uppercase text-brand-pink-light">
                 SEARCH ENTIREFM
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-light text-white tracking-tight">
+            <h2 className="text-base sm:text-lg font-normal text-white tracking-tight">
               What are you looking for?
             </h2>
-            <p className="text-xs font-light text-brand-mist/55 hidden sm:block">
+            <p className="text-xs font-light text-white/80 hidden sm:block">
               Search services, sectors, locations, resources and compliance guidance.
             </p>
           </div>
@@ -533,23 +533,23 @@ export function GlobalSearchModal({
             type="button"
             onClick={onClose}
             aria-label="Close search dialog"
-            className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border border-white/10 bg-white/[0.03] text-brand-mist/60 hover:text-white hover:border-white/25 hover:bg-white/[0.07] transition-all text-xs font-light"
+            className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border border-white/15 bg-white/[0.05] text-white/80 hover:text-white hover:border-white/30 hover:bg-white/[0.12] transition-all text-xs font-normal"
           >
-            <span className="text-[10px] tracking-wider uppercase hidden sm:inline-block text-brand-mist/50 group-hover:text-brand-mist/80">ESC</span>
+            <span className="text-[10px] tracking-wider uppercase hidden sm:inline-block text-white/70 group-hover:text-white">ESC</span>
             <X className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* ── Primary Search Input Bar ─────────────────────────────────── */}
-        <div className="relative flex items-center px-4 sm:px-6 py-4 bg-[#09111F] border-b border-white/[0.06] transition-colors focus-within:border-brand-electric/50 focus-within:bg-white/[0.01]">
-          <Search className="w-5 h-5 text-brand-mist/50 shrink-0 mr-3.5 transition-colors group-focus-within:text-brand-electric-bright" />
+        <div className="relative flex items-center px-4 sm:px-6 py-4 bg-[#0C162C] border-b border-white/10 transition-colors focus-within:border-brand-electric/60 focus-within:bg-white/[0.02]">
+          <Search className="w-5 h-5 text-white/60 shrink-0 mr-3.5 transition-colors group-focus-within:text-brand-electric-bright" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search services, sectors, locations, tools and guides…"
-            className="w-full bg-transparent text-base sm:text-lg text-white placeholder:text-brand-mist/35 font-light focus:outline-none tracking-wide"
+            className="w-full bg-transparent text-base sm:text-lg text-white placeholder:text-white/45 font-light focus:outline-none tracking-wide"
             aria-autocomplete="list"
             aria-controls="search-results-list"
           />
@@ -580,7 +580,7 @@ export function GlobalSearchModal({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7">
                 {/* 1. POPULAR */}
                 <div className="space-y-3">
-                  <span className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-brand-mist/45 block pb-1 border-b border-white/[0.04]">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70 block pb-1 border-b border-white/10">
                     Popular
                   </span>
                   <div className="space-y-1">
@@ -610,17 +610,17 @@ export function GlobalSearchModal({
                         key={item.href}
                         href={item.href}
                         onClick={onClose}
-                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.04] transition-colors"
+                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.06] transition-colors"
                       >
                         <div className="min-w-0 pr-2">
-                          <p className="text-sm font-light text-brand-mist/90 group-hover:text-white transition-colors truncate">
+                          <p className="text-sm font-normal text-white group-hover:text-brand-pink-light transition-colors truncate">
                             {item.title}
                           </p>
-                          <p className="text-[11px] font-light text-brand-mist/45 group-hover:text-brand-mist/70 transition-colors truncate">
+                          <p className="text-[12px] font-light text-white/75 group-hover:text-white transition-colors truncate">
                             {item.sub}
                           </p>
                         </div>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white/50 group-hover:text-brand-pink-light group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                       </Link>
                     ))}
                   </div>
@@ -628,7 +628,7 @@ export function GlobalSearchModal({
 
                 {/* 2. EXPLORE */}
                 <div className="space-y-3">
-                  <span className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-brand-mist/45 block pb-1 border-b border-white/[0.04]">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70 block pb-1 border-b border-white/10">
                     Explore
                   </span>
                   <div className="space-y-1">
@@ -658,17 +658,17 @@ export function GlobalSearchModal({
                         key={item.href}
                         href={item.href}
                         onClick={onClose}
-                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.04] transition-colors"
+                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.06] transition-colors"
                       >
                         <div className="min-w-0 pr-2">
-                          <p className="text-sm font-light text-brand-mist/90 group-hover:text-white transition-colors truncate">
+                          <p className="text-sm font-normal text-white group-hover:text-brand-pink-light transition-colors truncate">
                             {item.title}
                           </p>
-                          <p className="text-[11px] font-light text-brand-mist/45 group-hover:text-brand-mist/70 transition-colors truncate">
+                          <p className="text-[12px] font-light text-white/75 group-hover:text-white transition-colors truncate">
                             {item.sub}
                           </p>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright group-hover:translate-x-0.5 transition-all shrink-0" />
+                        <ArrowRight className="w-3.5 h-3.5 text-white/50 group-hover:text-brand-pink-light group-hover:translate-x-0.5 transition-all shrink-0" />
                       </Link>
                     ))}
                   </div>
@@ -676,7 +676,7 @@ export function GlobalSearchModal({
 
                 {/* 3. FOR CONTRACTORS */}
                 <div className="space-y-3">
-                  <span className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-brand-mist/45 block pb-1 border-b border-white/[0.04]">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70 block pb-1 border-b border-white/10">
                     For Contractors
                   </span>
                   <div className="space-y-1">
@@ -706,17 +706,17 @@ export function GlobalSearchModal({
                         key={item.href}
                         href={item.href}
                         onClick={onClose}
-                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.04] transition-colors"
+                        className="group flex items-center justify-between p-2.5 -mx-1 rounded-sm hover:bg-white/[0.06] transition-colors"
                       >
                         <div className="min-w-0 pr-2">
-                          <p className="text-sm font-light text-brand-mist/90 group-hover:text-white transition-colors truncate">
+                          <p className="text-sm font-normal text-white group-hover:text-brand-pink-light transition-colors truncate">
                             {item.title}
                           </p>
-                          <p className="text-[11px] font-light text-brand-mist/45 group-hover:text-brand-mist/70 transition-colors truncate">
+                          <p className="text-[12px] font-light text-white/75 group-hover:text-white transition-colors truncate">
                             {item.sub}
                           </p>
                         </div>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-brand-mist/30 group-hover:text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white/50 group-hover:text-brand-pink-light group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                       </Link>
                     ))}
                   </div>
@@ -728,13 +728,13 @@ export function GlobalSearchModal({
             <div className="p-8 sm:p-10 text-center space-y-5">
               <div className="space-y-1.5 max-w-md mx-auto">
                 <h3 className="text-base font-normal text-white">No exact matches</h3>
-                <p className="text-xs sm:text-sm font-light text-brand-mist/60 leading-relaxed">
+                <p className="text-xs sm:text-sm font-light text-white/80 leading-relaxed">
                   Try searching for a service, location, sector, interactive tool or compliance topic.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-white/[0.06] max-w-lg mx-auto">
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-brand-mist/40 mb-3">
+              <div className="pt-2 border-t border-white/10 max-w-lg mx-auto">
+                <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/60 mb-3">
                   Suggested Pathways
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-2">
@@ -748,7 +748,7 @@ export function GlobalSearchModal({
                       key={link.href}
                       href={link.href}
                       onClick={onClose}
-                      className="px-3.5 py-1.5 rounded-sm bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 text-xs font-light text-brand-mist hover:text-white transition-colors"
+                      className="px-3.5 py-1.5 rounded-sm bg-white/[0.05] hover:bg-white/[0.12] border border-white/15 text-xs font-normal text-white hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -769,8 +769,8 @@ export function GlobalSearchModal({
                     onMouseEnter={() => setSelectedIndex(index)}
                     className={`group flex items-center justify-between gap-3 px-4 py-3 rounded-md transition-all duration-150 cursor-pointer ${
                       isSelected
-                        ? 'bg-white/[0.07] border border-brand-electric/40 text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]'
-                        : 'text-brand-mist/80 hover:bg-white/[0.03] border border-transparent'
+                        ? 'bg-white/[0.10] border border-brand-electric/50 text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]'
+                        : 'text-white/90 hover:bg-white/[0.05] border border-transparent'
                     }`}
                   >
                     <div className="flex items-start gap-3 min-w-0 flex-1">
@@ -778,7 +778,7 @@ export function GlobalSearchModal({
                         className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-sm transition-colors shrink-0 ${
                           isSelected
                             ? 'bg-brand-electric/25 text-brand-electric-bright border border-brand-electric/40'
-                            : 'bg-white/[0.04] text-brand-mist/50 border border-white/[0.06]'
+                            : 'bg-white/[0.06] text-white/80 border border-white/10'
                         }`}
                       >
                         {getCategoryIcon(item.category)}
@@ -787,24 +787,22 @@ export function GlobalSearchModal({
                       <div className="space-y-0.5 min-w-0 flex-1">
                         <div className="flex items-center gap-2.5 flex-wrap">
                           <span
-                            className={`text-sm sm:text-[15px] font-normal transition-colors truncate ${
-                              isSelected ? 'text-white font-medium' : 'text-brand-mist/95'
-                            }`}
+                            className="text-sm sm:text-[15px] font-normal transition-colors truncate text-white"
                           >
                             {item.title}
                           </span>
 
-                          <span className="text-[9.5px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded-xs bg-white/[0.06] text-brand-mist/60 border border-white/[0.06]">
+                          <span className="text-[9.5px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded-xs bg-white/[0.08] text-white/80 border border-white/10">
                             {item.category}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-2 text-xs font-light text-brand-mist/50 truncate">
+                        <div className="flex items-center gap-2 text-xs font-light text-white/70 truncate">
                           <span>{item.breadcrumb}</span>
                           {item.description && (
                             <>
                               <span className="text-white/20">·</span>
-                              <span className="text-brand-mist/40 truncate hidden sm:inline">
+                              <span className="text-white/60 truncate hidden sm:inline">
                                 {item.description}
                               </span>
                             </>
@@ -818,7 +816,7 @@ export function GlobalSearchModal({
                         className={`w-4 h-4 transition-all duration-200 ${
                           isSelected
                             ? 'text-brand-electric-bright translate-x-0.5 opacity-100'
-                            : 'text-brand-mist/20 opacity-0 group-hover:opacity-100 group-hover:text-brand-mist/60'
+                            : 'text-white/40 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5'
                         }`}
                       />
                     </div>

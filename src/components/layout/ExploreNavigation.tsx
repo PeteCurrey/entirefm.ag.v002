@@ -151,19 +151,30 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
   return (
     <div
       ref={overlayRef}
+      id="explore-navigation"
       role="dialog"
       aria-modal="true"
       aria-label="Site Navigation"
       aria-hidden={!open}
-      className={`fixed inset-0 z-50 bg-brand-void transition-all duration-300 ease-brand ${
+      className={`fixed inset-0 z-50 bg-[#0B1528]/95 backdrop-blur-2xl transition-all duration-300 ease-brand ${
         open
           ? 'opacity-100 visible pointer-events-auto'
           : 'opacity-0 invisible pointer-events-none'
       }`}
       style={{ height: '100dvh' }}
     >
+      {/* Soft ambient lighting to soften pitch darkness and ease eye strain */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      >
+        <div className="absolute -top-32 left-1/4 h-[520px] w-[580px] rounded-full bg-brand-electric/15 blur-[130px]" />
+        <div className="absolute top-1/3 right-10 h-[480px] w-[520px] rounded-full bg-brand-violet/12 blur-[140px]" />
+        <div className="absolute -bottom-20 left-1/3 h-[420px] w-[500px] rounded-full bg-brand-pink/10 blur-[130px]" />
+      </div>
+
       {/* Top Header Bar */}
-      <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 sm:px-8 lg:px-10 h-[72px] border-b border-white/[0.08] bg-brand-void/90 backdrop-blur-md">
+      <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 sm:px-8 lg:px-10 h-[72px] border-b border-white/10 bg-[#0B1528]/85 backdrop-blur-xl">
         {/* Logo wordmark */}
         <Link
           href="/"
@@ -180,10 +191,10 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
           onClick={onClose}
           tabIndex={open ? 0 : -1}
           aria-label="Close navigation"
-          className="group flex items-center gap-2 text-brand-mist/70 hover:text-white transition-colors duration-200 py-2 px-1 focus-visible:ring-1 focus-visible:ring-brand-pink rounded-sm"
+          className="group flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-200 py-2 px-1 focus-visible:ring-1 focus-visible:ring-brand-pink rounded-sm"
         >
-          <span className="text-xs font-light tracking-widest uppercase hidden sm:block">Close</span>
-          <span className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 bg-white/[0.03] group-hover:border-white/30 group-hover:bg-white/[0.08] transition-all">
+          <span className="text-xs font-normal tracking-widest uppercase hidden sm:block text-white/90 group-hover:text-white">Close</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/20 bg-white/[0.05] text-white group-hover:border-white/40 group-hover:bg-white/[0.12] transition-all">
             <X className="h-4 w-4" />
           </span>
         </button>
@@ -219,8 +230,8 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                         {cat.label}
                       </span>
                       <span
-                        className={`flex h-7 w-7 items-center justify-center rounded-sm border border-white/10 text-brand-mist/60 group-hover:text-white transition-transform duration-300 ${
-                          isExpanded ? 'rotate-90 bg-white/[0.08] text-white border-brand-pink/40' : ''
+                        className={`flex h-7 w-7 items-center justify-center rounded-sm border border-white/15 text-white/80 group-hover:text-white transition-transform duration-300 ${
+                          isExpanded ? 'rotate-90 bg-white/[0.12] text-white border-brand-pink/40' : ''
                         }`}
                       >
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -237,7 +248,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                           href={cat.href}
                           onClick={onClose}
                           tabIndex={open ? 0 : -1}
-                          className="inline-flex items-center gap-2 text-sm font-normal text-brand-pink-light hover:text-white py-1.5 transition-colors"
+                          className="inline-flex items-center gap-2 text-sm font-medium text-brand-pink-light hover:text-white py-1.5 transition-colors"
                         >
                           <span>{cat.label === 'Locations' ? 'View National Map & Locations' : cat.label === 'Company' ? 'About EntireFM Overview' : `All ${cat.label} Overview`}</span>
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -247,7 +258,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       {/* Columns / Sub-links */}
                       {cat.columns?.map((col) => (
                         <div key={col.heading} className="space-y-2">
-                          <p className="text-[10px] font-normal uppercase tracking-wider text-brand-mist/45">
+                          <p className="text-[11px] font-medium uppercase tracking-wider text-white/75">
                             {col.heading}
                           </p>
                           <div className="space-y-1">
@@ -257,14 +268,14 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                                 href={link.href}
                                 onClick={onClose}
                                 tabIndex={open ? 0 : -1}
-                                className="block py-2 px-3 rounded-sm bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.06] hover:border-white/15 transition-all"
+                                className="block py-2 px-3 rounded-sm bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-white/20 transition-all"
                               >
-                                <div className="flex items-center justify-between text-sm font-light text-brand-mist/90">
+                                <div className="flex items-center justify-between text-sm font-normal text-white">
                                   <span>{link.label}</span>
-                                  <ArrowUpRight className="h-3.5 w-3.5 text-brand-electric-bright shrink-0 opacity-70" />
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-white/70 shrink-0" />
                                 </div>
                                 {link.detail && (
-                                  <p className="text-[11.5px] font-light text-brand-mist/50 mt-0.5 leading-snug line-clamp-1">
+                                  <p className="text-[12px] font-light text-white/80 mt-0.5 leading-snug line-clamp-1">
                                     {link.detail}
                                   </p>
                                 )}
@@ -282,7 +293,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
 
           {/* Quick Access Portal & Contact Buttons */}
           <div className="pt-6 space-y-3">
-            <p className="text-[10.5px] font-normal uppercase tracking-widest text-brand-mist/40 px-1">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-white/75 px-1">
               Direct Access &amp; Portals
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -290,11 +301,11 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                 href="/client-portal"
                 onClick={onClose}
                 tabIndex={open ? 0 : -1}
-                className="flex items-center justify-between p-3.5 rounded-sm bg-brand-carbon border border-brand-edge-dark hover:border-brand-electric/60 transition-all group"
+                className="flex items-center justify-between p-3.5 rounded-sm bg-white/[0.04] border border-white/10 hover:border-brand-electric/60 hover:bg-white/[0.08] transition-all group"
               >
                 <div className="flex flex-col">
                   <span className="text-xs uppercase tracking-wider text-brand-pink-light font-normal">Client Portal</span>
-                  <span className="text-sm font-light text-white">EntireCAFM Console</span>
+                  <span className="text-sm font-normal text-white">EntireCAFM Console</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
@@ -303,11 +314,11 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                 href="/supplier-portal"
                 onClick={onClose}
                 tabIndex={open ? 0 : -1}
-                className="flex items-center justify-between p-3.5 rounded-sm bg-brand-carbon border border-brand-edge-dark hover:border-brand-electric/60 transition-all group"
+                className="flex items-center justify-between p-3.5 rounded-sm bg-white/[0.04] border border-white/10 hover:border-brand-electric/60 hover:bg-white/[0.08] transition-all group"
               >
                 <div className="flex flex-col">
-                  <span className="text-xs uppercase tracking-wider text-brand-mist/60 font-normal">Supply Chain</span>
-                  <span className="text-sm font-light text-white">Supplier Portal</span>
+                  <span className="text-xs uppercase tracking-wider text-white/80 font-normal">Supply Chain</span>
+                  <span className="text-sm font-normal text-white">Supplier Portal</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
@@ -318,7 +329,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                 href="/login"
                 onClick={onClose}
                 tabIndex={open ? 0 : -1}
-                className="flex items-center justify-center p-3 rounded-sm bg-white/[0.04] border border-white/10 text-xs font-light text-white hover:bg-white/[0.08] transition-all"
+                className="flex items-center justify-center p-3 rounded-sm bg-white/[0.06] border border-white/15 text-xs font-normal text-white hover:bg-white/[0.12] transition-all"
               >
                 Portal Login
               </Link>
@@ -337,7 +348,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
               href="/log-a-job"
               onClick={onClose}
               tabIndex={open ? 0 : -1}
-              className="inline-flex w-full items-center justify-center rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-4 py-2.5 text-center text-xs sm:text-sm font-light tracking-wide text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
+              className="inline-flex w-full items-center justify-center rounded-sm border border-brand-electric/50 bg-brand-electric/15 px-4 py-2.5 text-center text-xs sm:text-sm font-normal tracking-wide text-white transition-all duration-300 ease-brand hover:border-brand-electric/80 hover:bg-brand-electric/30 hover:text-white"
             >
               Log a Job
             </Link>
@@ -356,7 +367,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
         {/* LEFT — Primary category list */}
         <nav
           aria-label="Main categories"
-          className="shrink-0 w-[260px] xl:w-[300px] border-r border-white/[0.06] overflow-y-auto py-8 xl:py-10"
+          className="shrink-0 w-[260px] xl:w-[300px] border-r border-white/10 overflow-y-auto py-8 xl:py-10 bg-white/[0.01]"
         >
           <ul className="space-y-1 px-6 xl:px-10">
             {CATEGORIES.map((cat) => {
@@ -371,18 +382,18 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                     onClick={() => setActiveId(id)}
                     className={`group w-full flex items-center justify-between py-3 px-4 rounded-sm text-left transition-all duration-200 ${
                       isActive
-                        ? 'bg-white/[0.06] text-white'
-                        : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.03]'
+                        ? 'bg-white/[0.12] text-white shadow-sm'
+                        : 'text-white/85 hover:text-white hover:bg-white/[0.06]'
                     }`}
                     aria-expanded={isActive}
                     aria-controls={`explore-panel-${id}`}
                   >
-                    <span className={`text-[15px] font-light tracking-tight ${isActive ? 'text-white' : ''}`}>
+                    <span className="text-[15px] font-normal tracking-tight text-white">
                       {cat.label}
                     </span>
                     <span
                       className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
-                        isActive ? 'bg-brand-pink scale-125' : 'bg-transparent group-hover:bg-white/30'
+                        isActive ? 'bg-brand-pink scale-125' : 'bg-transparent group-hover:bg-white/50'
                       }`}
                     />
                   </button>
@@ -391,7 +402,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
             })}
 
             {/* Direct Main Navigation Items: Client Portal, About, Contact & Log a Job CTA */}
-            <li className="pt-4 mt-3 border-t border-white/[0.06]">
+            <li className="pt-4 mt-3 border-t border-white/10">
               <ul className="space-y-1">
                 {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => {
                   const isLogAJob = link.href === '/log-a-job' || link.href === '/clients/log-a-job';
@@ -403,21 +414,21 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                         tabIndex={open ? 0 : -1}
                         className={`group w-full flex items-center justify-between py-2 px-3.5 rounded-sm text-left transition-all duration-300 ease-brand ${
                           isLogAJob
-                            ? 'border border-brand-electric/40 bg-brand-electric/10 text-brand-electric-bright hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white mt-1.5'
-                            : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.03]'
+                            ? 'border border-brand-electric/50 bg-brand-electric/15 text-white font-normal hover:border-brand-electric hover:bg-brand-electric/25 hover:text-white mt-1.5'
+                            : 'text-white/85 hover:text-white hover:bg-white/[0.06]'
                         }`}
                       >
-                        <span className="text-sm tracking-wide font-light">
+                        <span className="text-sm tracking-wide font-normal text-white">
                           {link.label}
                         </span>
                         {link.href === '/client-portal' ? (
-                          <ArrowUpRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                          <ArrowUpRight className="h-3.5 w-3.5 text-white/60 group-hover:text-white transition-colors" />
                         ) : (
                           <ArrowRight
                             className={`h-3.5 w-3.5 transition-transform duration-200 ${
                               isLogAJob
-                                ? 'text-brand-electric-bright group-hover:translate-x-0.5'
-                                : 'text-brand-mist/40 group-hover:text-white group-hover:translate-x-0.5'
+                                ? 'text-white group-hover:translate-x-0.5'
+                                : 'text-white/60 group-hover:text-white group-hover:translate-x-0.5'
                             }`}
                           />
                         )}
@@ -454,14 +465,14 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                   <div className="flex-1 py-10 px-8 xl:px-14">
                     {/* Category header */}
                     <div className="mb-8">
-                      <span className="text-[10.5px] font-normal uppercase tracking-[0.18em] text-brand-pink block mb-2">
+                      <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-brand-pink block mb-2">
                         {cat.label}
                       </span>
                       <Link
                         href={cat.href}
                         onClick={onClose}
                         tabIndex={isActive && open ? 0 : -1}
-                        className="group inline-flex items-center gap-2 text-2xl xl:text-3xl font-light tracking-tight text-white hover:text-brand-mist transition-colors"
+                        className="group inline-flex items-center gap-2 text-2xl xl:text-3xl font-normal tracking-tight text-white hover:text-brand-pink-light transition-colors"
                       >
                         {cat.label === 'Locations' ? 'Our Locations' :
                          cat.label === 'Company' ? 'About EntireFM' :
@@ -483,7 +494,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       >
                         {cat.columns.map((column) => (
                           <div key={column.heading}>
-                            <p className="text-[10.5px] font-normal uppercase tracking-[0.15em] text-brand-mist/50 mb-4">
+                            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/75 mb-4">
                               {column.heading}
                             </p>
                             <ul className="space-y-1">
@@ -493,16 +504,16 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                                     href={link.href}
                                     onClick={onClose}
                                     tabIndex={isActive && open ? 0 : -1}
-                                    className="group/link block py-2 px-3 -mx-3 rounded-sm hover:bg-white/[0.04] transition-colors duration-200"
+                                    className="group/link block py-2 px-3 -mx-3 rounded-sm hover:bg-white/[0.07] border border-transparent hover:border-white/10 transition-colors duration-200"
                                   >
                                     <span className="flex items-center justify-between gap-2">
-                                      <span className="text-[13.5px] font-light text-brand-mist group-hover/link:text-white transition-colors">
+                                      <span className="text-[14px] font-normal text-white group-hover/link:text-brand-pink-light transition-colors">
                                         {link.label}
                                       </span>
-                                      <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-brand-electric-bright opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-250" />
+                                      <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-white/60 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 group-hover/link:text-brand-pink-light transition-all duration-250" />
                                     </span>
                                     {link.detail && (
-                                      <span className="mt-0.5 block text-[11.5px] font-light leading-snug text-brand-silver group-hover/link:text-brand-mist/70 transition-colors">
+                                      <span className="mt-0.5 block text-[12px] font-light leading-snug text-white/80 group-hover/link:text-white transition-colors">
                                         {link.detail}
                                       </span>
                                     )}
@@ -519,7 +530,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                   {/* Feature image plate */}
                   {cat.feature && (
                     <div className="shrink-0 xl:w-[320px] 2xl:w-[380px] hidden xl:block">
-                      <div className="h-full relative overflow-hidden border-l border-white/[0.06]">
+                      <div className="h-full relative overflow-hidden border-l border-white/10">
                         {image && (
                           <>
                             <Image
@@ -529,27 +540,27 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                               sizes="380px"
                               className="object-cover transition-transform duration-700 ease-brand scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-brand-void via-brand-void/80 to-brand-void/25" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528] via-[#0B1528]/85 to-transparent" />
                           </>
                         )}
                         {!image && (
-                          <div className="absolute inset-0 bg-brand-carbon" />
+                          <div className="absolute inset-0 bg-[#0e1b33]" />
                         )}
                         <div className="absolute bottom-0 inset-x-0 p-8">
                           <span className="text-[10px] font-normal uppercase tracking-[0.18em] text-brand-pink block mb-3">
                             {cat.feature.eyebrow}
                           </span>
-                          <p className="text-[16px] font-light text-white leading-snug mb-2">
+                          <p className="text-[16px] font-normal text-white leading-snug mb-2">
                             {cat.feature.title}
                           </p>
-                          <p className="text-[12.5px] font-light text-brand-mist/65 leading-relaxed mb-5">
+                          <p className="text-[13px] font-light text-white/85 leading-relaxed mb-5">
                             {cat.feature.body}
                           </p>
                           <Link
                             href={cat.feature.href}
                             onClick={onClose}
                             tabIndex={isActive && open ? 0 : -1}
-                            className="inline-flex items-center gap-1.5 text-[12.5px] font-normal text-brand-electric-bright hover:underline"
+                            className="inline-flex items-center gap-1.5 text-[12.5px] font-normal text-brand-electric-bright hover:text-white hover:underline transition-colors"
                           >
                             {cat.feature.cta}
                             <ArrowRight className="h-3.5 w-3.5" />
