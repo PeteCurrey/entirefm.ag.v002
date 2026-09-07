@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { Button } from '@/components/admin/ui/Button';
+import { WorkOrdersMapCard } from '@/components/admin/WorkOrdersMapCard';
 import { Plus, X, Trash2, ChevronDown, Loader2, AlertTriangle } from 'lucide-react';
 
 import type { WorkOrder } from '@/server/work';
@@ -192,6 +193,14 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
             New Work Order
           </Button>
         }
+      />
+
+      {/* Full-width Map Card showing open work orders pins */}
+      <WorkOrdersMapCard
+        workOrders={workOrders}
+        sites={sites}
+        statusFilter={statusFilter}
+        onFilterChange={setStatusFilter}
       />
 
       {/* Filters */}

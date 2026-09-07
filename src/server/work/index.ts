@@ -230,7 +230,7 @@ export interface WorkOrder {
   sla_snapshot?: Record<string, any>;
   created_at: string;
   organisation?: { name: string };
-  site?: { name: string; site_code: string; postcode?: string };
+  site?: { name: string; site_code: string; postcode?: string; city?: string; latitude?: number; longitude?: number };
   asset?: { name: string; asset_reference: string };
   provider_organisation?: { name: string; code: string };
 }
@@ -741,7 +741,7 @@ export async function listWorkOrders(filters?: {
   limit?: number;
 }): Promise<WorkOrder[]> {
   let endpoint =
-    'work_orders?select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code)&order=created_at.desc';
+    'work_orders?select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode,city,latitude,longitude),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code)&order=created_at.desc';
   if (filters?.status) endpoint += `&status=eq.${encodeURIComponent(filters.status)}`;
   if (filters?.priority) endpoint += `&priority=eq.${encodeURIComponent(filters.priority)}`;
   if (filters?.siteId) endpoint += `&site_id=eq.${encodeURIComponent(filters.siteId)}`;

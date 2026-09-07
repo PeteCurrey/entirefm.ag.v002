@@ -2,70 +2,29 @@ import React from 'react';
 import { listSites } from '@/server/estate';
 import { listWorkOrders } from '@/server/work';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { WorkOrdersMapCard } from '@/components/admin/WorkOrdersMapCard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function OperationsMapPage() {
   const [sites, activeJobs] = await Promise.all([
     listSites({ status: 'ACTIVE' }),
-    listWorkOrders({ limit: 50 }),
+    listWorkOrders({ limit: 100 }),
   ]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <AdminPageHeader
         category="Operations"
         title="Operations Radar Map"
         description="Geospatial distribution of managed client sites, active emergency callouts, and field contractor coverage points."
       />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Map Canvas / Visual Radar */}
-        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5 lg:col-span-2">
-          <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
-            <h2 className="text-[12px] font-normal uppercase tracking-wider text-[#111111]">
-              UK Operational Estate Radar ({sites.length} Managed Sites)
-            </h2>
-            <span className="font-normal text-[11px] text-emerald-400">Live Telemetry</span>
-          </div>
-
-          <div className="mt-4 flex h-[400px] flex-col items-center justify-center rounded-lg border border-dashed border-[#E8E8E5] bg-[#FAFAF8] p-8 text-center">
-            <div className="h-12 w-12 rounded-full border border-brand-electric/40 bg-brand-electric/10 p-2.5 text-brand-electric-bright">
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h3 className="mt-3 text-sm font-normal text-[#111111]">Geospatial Estate Density Active</h3>
-            <p className="mt-1 max-w-sm text-[12px] text-[#6D6D68]">
-              Interactive Leaflet / Mapbox tile rendering ready. Sites with valid latitude/longitude coordinates are plotted alongside active reactive work orders.
-            </p>
-          </div>
-        </div>
-
-        {/* Active Site Feeds */}
-        <div className="space-y-4">
-          <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
-            <h2 className="text-[12px] font-normal uppercase tracking-wider text-[#111111]">
-              Active Regional Hubs
-            </h2>
-            <div className="mt-3 space-y-2.5">
-              {sites.length > 0 ? (
-                sites.slice(0, 5).map((s) => (
-                  <div key={s.id} className="rounded border border-[#E8E8E5] bg-[#FAFAF8] p-2.5 text-[12px]">
-                    <div className="font-light text-[#111111]">{s.name}</div>
-                    <div className="font-normal text-[11px] text-[#9A9A95]">
-                      {s.city} · {s.postcode}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="text-[12px] text-[#9A9A95]">No geocoded sites registered.</div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      <WorkOrdersMapCard
+        workOrders={activeJobs}
+        sites={sites}
+        statusFilter="ALL"
+      />
     </div>
   );
 }
