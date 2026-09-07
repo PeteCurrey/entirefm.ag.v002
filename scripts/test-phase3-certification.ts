@@ -309,9 +309,13 @@ async function runPhase3Tests() {
     const resEmpty = await EntireCAFMFieldIntelligenceEngine.analyze({
       transcript: '   ',
       session: mockEngineerSession,
-      context: {},
+      context: {
+        sessionEngineerId: mockEngineerSession.personId,
+        sessionEngineerName: mockEngineerSession.name,
+        sessionOrgId: mockEngineerSession.orgId,
+      },
     });
-    assert(resEmpty.confidence.overallStatus === 'REJECTED' || resEmpty.confidence.overallStatus === 'NEEDS_DISAMBIGUATION', 'Test 6.1: Rejected empty speech transcript safely');
+    assert(resEmpty.confidenceLevel === 'REVIEW' || resEmpty.confidenceLevel === 'LOW', 'Test 6.1: Lowered confidence safely on empty input');
 
     // Context scoping ensures session engineer personId is bound
     const resScoping = await EntireCAFMFieldIntelligenceEngine.analyze({
@@ -319,10 +323,11 @@ async function runPhase3Tests() {
       session: mockEngineerSession,
       context: {
         sessionEngineerId: mockEngineerSession.personId,
+        sessionEngineerName: mockEngineerSession.name,
         sessionOrgId: 'org-entirefm-001',
       },
     });
-    assert(resScoping.draftQuote.currency === 'GBP', 'Test 6.2: Scoped execution returned valid GBP quote structure');
+    assert(resScoping.financials.subtotalNetGbp > 0, 'Test 6.2: Scoped execution returned valid financial calculations');
   } catch (err: any) {
     assert(false, 'Test 6: Exception', err.message);
   }
@@ -408,15 +413,17 @@ async function runPhase3Tests() {
       session: mockEngineerSession,
       context: {
         sessionEngineerId: mockEngineerSession.personId,
+        sessionEngineerName: mockEngineerSession.name,
+        sessionOrgId: mockEngineerSession.orgId,
       },
     };
 
     const run1 = await EntireCAFMFieldIntelligenceEngine.analyze(input);
     const run2 = await EntireCAFMFieldIntelligenceEngine.analyze(input);
 
-    assert(run1.draftQuote.subtotalGbp === run2.draftQuote.subtotalGbp, 'Test 8.1: Deterministic subtotal across repeated runs');
-    assert(run1.draftQuote.lineItems.length === run2.draftQuote.lineItems.length, 'Test 8.2: Consistent line item count');
-    assert(run1.draftQuote.lineItems[0].unitPriceGbp === run2.draftQuote.lineItems[0].unitPriceGbp, 'Test 8.3: Deterministic unit rates');
+    assert(run1.financials.subtotalNetGbp === run2.financials.subtotalNetGbp, 'Test 8.1: Deterministic subtotal across repeated runs');
+    assert(run1.parts.length === run2.parts.length, 'Test 8.2: Consistent parts identified');
+    assert(run1.labour.hourlyRateGbp === run2.labour.hourlyRateGbp, 'Test 8.3: Deterministic hourly labour rate');
   } catch (err: any) {
     assert(false, 'Test 8: Exception', err.message);
   }
