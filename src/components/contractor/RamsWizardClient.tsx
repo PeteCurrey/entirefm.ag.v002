@@ -313,7 +313,7 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
   return (
     <div className="space-y-6">
       {/* Wizard Step Nav Bar */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-4 overflow-x-auto">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4 overflow-x-auto">
         <div className="flex items-center gap-1.5 min-w-[700px]">
           {stepsList.map((stepLabel, idx) => {
             const stepNum = idx + 1;
@@ -328,8 +328,8 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                   isCurrent
                     ? 'bg-brand-electric text-white font-medium'
                     : isCompleted
-                    ? 'bg-brand-void text-emerald-400 border border-emerald-500/20'
-                    : 'text-brand-mist/50 hover:text-white'
+                    ? 'bg-[#FAFAF8] text-emerald-400 border border-emerald-500/20'
+                    : 'text-[#9A9A95] hover:text-white'
                 }`}
               >
                 {isCompleted && <CheckCircle2 className="w-3 h-3" />}
@@ -360,12 +360,12 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                   <span className="text-[10px] uppercase font-bold tracking-wider text-brand-electric-bright">
                     Active Template Starting Point
                   </span>
-                  <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-brand-carbon text-brand-mist/70 border border-brand-edge-dark font-mono">
+                  <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-white text-[#6D6D68] border border-[#E8E8E5] font-mono">
                     {activeTemplatePreset.templateId}
                   </span>
                 </div>
-                <h4 className="text-sm font-medium text-white">{activeTemplatePreset.templateTitle}</h4>
-                <p className="text-[11px] text-brand-mist/70">{activeTemplatePreset.templateDescription}</p>
+                <h4 className="text-sm font-medium text-[#111111]">{activeTemplatePreset.templateTitle}</h4>
+                <p className="text-[11px] text-[#6D6D68]">{activeTemplatePreset.templateDescription}</p>
               </div>
             </div>
 
@@ -391,10 +391,10 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
           {showChecklistDrawer && (
             <div className="pt-3 border-t border-brand-electric/20 space-y-3 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-[11px] font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
                   <Info className="w-3.5 h-3.5 text-brand-electric" /> In-Page Template Regulatory &amp; Safety Checkpoints:
                 </span>
-                <span className="text-[10.5px] text-brand-mist/60">
+                <span className="text-[10.5px] text-[#6D6D68]">
                   Tick items as you verify them across the wizard steps
                 </span>
               </div>
@@ -403,9 +403,9 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                 {activeTemplatePreset.checklistSections.map((sec, secIdx) => (
                   <div
                     key={secIdx}
-                    className="p-3 rounded-lg bg-brand-carbon/80 border border-brand-edge-dark space-y-2"
+                    className="p-3 rounded-lg bg-white border border-[#E8E8E5] space-y-2"
                   >
-                    <span className="text-xs font-semibold text-brand-electric-bright block border-b border-brand-edge-dark/60 pb-1">
+                    <span className="text-xs font-semibold text-brand-electric-bright block border-b border-[#E8E8E5] pb-1">
                       {sec.title}
                     </span>
                     <div className="space-y-1.5">
@@ -416,14 +416,14 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                           <label
                             key={itemIdx}
                             className={`flex items-start gap-2 text-[11.5px] cursor-pointer p-1.5 rounded transition-colors ${
-                              isChecked ? 'bg-emerald-950/20 text-emerald-300' : 'text-brand-mist/80 hover:bg-brand-void'
+                              isChecked ? 'bg-emerald-950/20 text-emerald-300' : 'text-[#6D6D68] hover:bg-[#FAFAF8]'
                             }`}
                           >
                             <input
                               type="checkbox"
                               checked={isChecked}
                               onChange={() => toggleChecklistItem(key)}
-                              className="mt-0.5 rounded border-brand-edge-dark bg-brand-void text-brand-electric focus:ring-0 shrink-0"
+                              className="mt-0.5 rounded border-[#E8E8E5] bg-[#FAFAF8] text-brand-electric focus:ring-0 shrink-0"
                             />
                             <span className={isChecked ? 'line-through opacity-80' : ''}>{item}</span>
                           </label>
@@ -439,35 +439,35 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
       )}
 
       {/* Main Step Body */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
         {/* STEP 1: Job */}
         {step === 1 && (
           <div className="space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-edge-dark/60 pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8E8E5] pb-3">
               <div>
-                <h2 className="text-base font-light text-white">Step 1 — Work Order &amp; Job Context</h2>
-                <p className="text-xs text-brand-mist/70">
+                <h2 className="text-base font-light text-[#111111]">Step 1 — Work Order &amp; Job Context</h2>
+                <p className="text-xs text-[#6D6D68]">
                   Define the core job parameters, or start from a pre-configured FM safety template.
                 </p>
               </div>
             </div>
 
             {/* Template Quick Starter Selector */}
-            <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void/70 space-y-3">
+            <div className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-brand-electric" /> Start From A Business Safety Template
                 </span>
                 <Link
                   href="/contractor/templates"
                   target="_blank"
-                  className="text-[11px] text-brand-mist/60 hover:text-white flex items-center gap-1"
+                  className="text-[11px] text-[#6D6D68] hover:text-white flex items-center gap-1"
                 >
                   <span>Browse all 50+ templates in library</span>
                   <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
-              <p className="text-[11.5px] text-brand-mist/70 font-light">
+              <p className="text-[11.5px] text-[#6D6D68] font-light">
                 Click any template below to pre-populate sequential method steps, 5x5 scored hazards, PPE, access plant, and permit requirements:
               </p>
 
@@ -482,7 +482,7 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                       className={`px-3 py-1.5 rounded-lg text-xs font-normal transition-all flex items-center gap-1.5 border ${
                         isActive
                           ? 'bg-brand-electric text-white border-brand-electric font-medium shadow-sm'
-                          : 'bg-brand-carbon/80 border-brand-edge-dark text-brand-mist/80 hover:border-brand-electric hover:text-white'
+                          : 'bg-white border-[#E8E8E5] text-[#6D6D68] hover:border-brand-electric hover:text-white'
                       }`}
                     >
                       <Shield className={`w-3 h-3 ${isActive ? 'text-white' : 'text-brand-electric'}`} />
@@ -495,42 +495,42 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-normal">
               <div className="sm:col-span-2">
-                <label className="text-brand-mist/70 block mb-1">RAMS Document Title *</label>
+                <label className="text-[#6D6D68] block mb-1">RAMS Document Title *</label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Client Name *</label>
+                <label className="text-[#6D6D68] block mb-1">Client Name *</label>
                 <input
                   type="text"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Site / Facility Name *</label>
+                <label className="text-[#6D6D68] block mb-1">Site / Facility Name *</label>
                 <input
                   type="text"
                   value={siteName}
                   onChange={(e) => setSiteName(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Trade Discipline</label>
+                <label className="text-[#6D6D68] block mb-1">Trade Discipline</label>
                 <select
                   value={workCategory}
                   onChange={(e) => setWorkCategory(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal"
                 >
                   <option value="ELECTRICAL">Electrical &amp; M&amp;E</option>
                   <option value="HVAC_AND_REFRIGERATION">HVAC &amp; Refrigeration</option>
@@ -544,22 +544,22 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Planned Start Date</label>
+                <label className="text-[#6D6D68] block mb-1">Planned Start Date</label>
                 <input
                   type="date"
                   value={plannedStartDate}
                   onChange={(e) => setPlannedStartDate(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-xs"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="text-brand-mist/70 block mb-1">Detailed Work Scope Description *</label>
+                <label className="text-[#6D6D68] block mb-1">Detailed Work Scope Description *</label>
                 <textarea
                   rows={3}
                   value={workScopeDescription}
                   onChange={(e) => setWorkScopeDescription(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs"
                 />
               </div>
             </div>
@@ -569,12 +569,12 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 2: People & CP-04 Eligibility */}
         {step === 2 && (
           <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step 2 — People &amp; Competency Validation
             </h2>
 
             <div className="space-y-3">
-              <span className="text-xs text-brand-mist/70 block font-normal">
+              <span className="text-xs text-[#6D6D68] block font-normal">
                 Select Operatives Assigned to Undertake Work (CP-04 Live Eligibility):
               </span>
 
@@ -592,12 +592,12 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                       className={`p-3.5 rounded-lg border cursor-pointer transition-colors flex items-center justify-between gap-3 ${
                         isSelected
                           ? 'bg-brand-electric/10 border-brand-electric text-white'
-                          : 'bg-brand-void border-brand-edge-dark text-brand-mist hover:border-brand-edge-dark/80'
+                          : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#111111] hover:border-[#E8E8E5]'
                       }`}
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-white text-sm">{op.fullName}</span>
+                          <span className="font-semibold text-[#111111] text-sm">{op.fullName}</span>
                           <span
                             className={`text-[9.5px] font-normal px-1.5 py-0.2 rounded border ${
                               op.isEligibleForDispatch
@@ -608,13 +608,13 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                             {op.isEligibleForDispatch ? 'ELIGIBLE' : 'ACTION'}
                           </span>
                         </div>
-                        <span className="text-brand-mist/50 text-[11px] font-normal block">
+                        <span className="text-[#9A9A95] text-[11px] font-normal block">
                           {op.jobTitle} &bull; {op.trades.join(', ')}
                         </span>
                       </div>
 
                       <CheckCircle2
-                        className={`w-5 h-5 ${isSelected ? 'text-brand-electric' : 'text-brand-mist/30'}`}
+                        className={`w-5 h-5 ${isSelected ? 'text-brand-electric' : 'text-[#9A9A95]'}`}
                       />
                     </div>
                   );
@@ -627,17 +627,17 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 3: Work Environment */}
         {step === 3 && (
           <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step 3 — Work Environment &amp; Site Controls
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-normal">
               <div>
-                <label className="text-brand-mist/70 block mb-1">Building Occupancy Type</label>
+                <label className="text-[#6D6D68] block mb-1">Building Occupancy Type</label>
                 <select
                   value={occupancyState}
                   onChange={(e) => setOccupancyState(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs"
                 >
                   <option value="Occupied">Fully Occupied</option>
                   <option value="Partially Occupied">Partially Occupied</option>
@@ -646,18 +646,18 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Working Hours</label>
+                <label className="text-[#6D6D68] block mb-1">Working Hours</label>
                 <input
                   type="text"
                   value={workingHours}
                   onChange={(e) => setWorkingHours(e.target.value)}
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal"
                 />
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-brand-edge-dark/40">
-              <span className="text-brand-mist/70 text-xs font-normal block">Key High-Risk Environmental Factors:</span>
+            <div className="space-y-2 pt-2 border-t border-[#E8E8E5]">
+              <span className="text-[#6D6D68] text-xs font-normal block">Key High-Risk Environmental Factors:</span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
                   { label: 'Working at Height', state: requiresWorkingAtHeight, set: setRequiresWorkingAtHeight },
@@ -672,7 +672,7 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                     className={`p-3 rounded-lg border text-left flex items-center justify-between text-xs transition-colors ${
                       item.state
                         ? 'bg-brand-electric/10 border-brand-electric text-white font-medium'
-                        : 'bg-brand-void border-brand-edge-dark text-brand-mist/60'
+                        : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68]'
                     }`}
                   >
                     <span>{item.label}</span>
@@ -687,15 +687,15 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 4: Hazards & 5x5 Matrix */}
         {step === 4 && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
-              <h2 className="text-base font-light text-white">
+            <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
+              <h2 className="text-base font-light text-[#111111]">
                 Step 4 — Hazard Identification &amp; 5x5 Risk Matrix
               </h2>
               <button
                 type="button"
                 onClick={handleFetchAiSuggestions}
                 disabled={isLoadingAi}
-                className="px-3 py-1.5 rounded-lg bg-brand-void border border-brand-electric/40 text-brand-electric-bright hover:bg-brand-electric/10 text-xs font-normal flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                className="px-3 py-1.5 rounded-lg bg-[#FAFAF8] border border-brand-electric/40 text-brand-electric-bright hover:bg-brand-electric/10 text-xs font-normal flex items-center gap-1.5 transition-colors disabled:opacity-50"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 {isLoadingAi ? 'Analyzing Scope...' : 'AI Suggest Hazards'}
@@ -704,17 +704,17 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
 
             {/* AI Suggestions Box */}
             {aiSuggestions.length > 0 && (
-              <div className="p-4 rounded-xl border border-brand-electric/40 bg-brand-void/80 space-y-3">
+              <div className="p-4 rounded-xl border border-brand-electric/40 bg-[#FAFAF8] space-y-3">
                 <div className="flex items-center gap-2 text-xs text-brand-electric-bright font-bold">
                   <Sparkles className="w-4 h-4" />
                   <span>AI Suggested Hazards for Scope Review:</span>
                 </div>
                 <div className="space-y-2">
                   {aiSuggestions.map((sugg) => (
-                    <div key={sugg.id} className="p-2.5 rounded bg-brand-carbon border border-brand-edge-dark flex items-center justify-between gap-3 text-xs">
+                    <div key={sugg.id} className="p-2.5 rounded bg-white border border-[#E8E8E5] flex items-center justify-between gap-3 text-xs">
                       <div>
-                        <span className="text-white font-medium block">{sugg.hazard}</span>
-                        <span className="text-[11px] text-brand-mist/60 font-light block">{sugg.reason}</span>
+                        <span className="text-[#111111] font-medium block">{sugg.hazard}</span>
+                        <span className="text-[11px] text-[#6D6D68] font-light block">{sugg.reason}</span>
                       </div>
                       <button
                         type="button"
@@ -732,11 +732,11 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
             {/* Hazards Table */}
             <div className="space-y-3">
               {hazards.map((h, idx) => (
-                <div key={h.id} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-2 text-xs font-normal">
+                <div key={h.id} className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-2 text-xs font-normal">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <span className="text-white font-bold font-sans text-sm block">{h.hazard}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block mt-0.5">
+                      <span className="text-[#111111] font-bold font-sans text-sm block">{h.hazard}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block mt-0.5">
                         Persons at Risk: {h.personsAtRisk.join(', ')}
                       </span>
                     </div>
@@ -750,8 +750,8 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-brand-mist/80 font-sans space-y-1 pt-2 border-t border-brand-edge-dark/50">
-                    <span className="font-bold text-white block">Key Controls:</span>
+                  <div className="text-[11px] text-[#6D6D68] font-sans space-y-1 pt-2 border-t border-[#E8E8E5]">
+                    <span className="font-bold text-[#111111] block">Key Controls:</span>
                     <ul className="list-disc list-inside space-y-0.5">
                       {h.controls.slice(0, 3).map((c, cIdx) => (
                         <li key={cIdx}>{c}</li>
@@ -767,23 +767,23 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 6: Method Statement */}
         {step === 6 && (
           <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step 6 — Sequential Work Method Statement
             </h2>
 
             <div className="space-y-3">
               {methodSteps.map((s) => (
-                <div key={s.sequence} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-1.5 text-xs">
+                <div key={s.sequence} className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-1.5 text-xs">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 font-normal">
                       <span className="w-5 h-5 rounded bg-brand-electric/20 text-brand-electric flex items-center justify-center font-bold text-xs">
                         {s.sequence}
                       </span>
-                      <span className="text-white font-bold">{s.title}</span>
+                      <span className="text-[#111111] font-bold">{s.title}</span>
                     </div>
-                    <span className="text-[10px] font-normal text-brand-mist/50 uppercase">{s.responsibleRole}</span>
+                    <span className="text-[10px] font-normal text-[#9A9A95] uppercase">{s.responsibleRole}</span>
                   </div>
-                  <p className="text-brand-mist/80 font-light leading-relaxed pl-7">{s.description}</p>
+                  <p className="text-[#6D6D68] font-light leading-relaxed pl-7">{s.description}</p>
                 </div>
               ))}
             </div>
@@ -793,34 +793,34 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 7: PPE & Plant */}
         {step === 7 && (
           <div className="space-y-4 text-xs font-normal">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3 font-sans">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3 font-sans">
               Step 7 — PPE, Access Plant &amp; Permits
             </h2>
 
             <div className="space-y-2">
-              <span className="text-brand-mist/70 block">Selected Mandatory PPE:</span>
+              <span className="text-[#6D6D68] block">Selected Mandatory PPE:</span>
               <div className="flex flex-wrap gap-1.5">
                 {selectedPpe.map((p) => (
-                  <span key={p} className="px-2.5 py-1 rounded bg-brand-void border border-brand-edge-dark text-white">
+                  <span key={p} className="px-2.5 py-1 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111]">
                     {p}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-brand-edge-dark/40">
-              <span className="text-brand-mist/70 block">Selected Plant &amp; Access Equipment:</span>
+            <div className="space-y-2 pt-2 border-t border-[#E8E8E5]">
+              <span className="text-[#6D6D68] block">Selected Plant &amp; Access Equipment:</span>
               <div className="flex flex-wrap gap-1.5">
                 {selectedPlant.map((pl) => (
-                  <span key={pl} className="px-2.5 py-1 rounded bg-brand-void border border-brand-edge-dark text-white">
+                  <span key={pl} className="px-2.5 py-1 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111]">
                     {pl}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-brand-edge-dark/40">
-              <span className="text-brand-mist/70 block">Mandatory Site Permits:</span>
+            <div className="space-y-2 pt-2 border-t border-[#E8E8E5]">
+              <span className="text-[#6D6D68] block">Mandatory Site Permits:</span>
               <div className="flex flex-wrap gap-1.5">
                 {requiredPermits.map((pm) => (
                   <span key={pm} className="px-2.5 py-1 rounded bg-rose-950/40 text-rose-300 border border-rose-800">
@@ -835,16 +835,16 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 9: Review */}
         {step === 9 && (
           <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step 9 — Pre-Issue Quality &amp; Completeness Review
             </h2>
 
             <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-300 space-y-2 text-xs">
-              <div className="flex items-center gap-2 font-bold text-white">
+              <div className="flex items-center gap-2 font-bold text-[#111111]">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                 <span>RAMS Readiness: Ready for Contractor Approval</span>
               </div>
-              <p className="text-brand-mist font-light">
+              <p className="text-[#111111] font-light">
                 All 4 identified hazards contain specific physical controls. 2 assigned operatives are verified eligible under CP-04 standards.
               </p>
             </div>
@@ -854,18 +854,18 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
         {/* STEP 10: Approve & Issue */}
         {step === 10 && (
           <div className="space-y-4">
-            <h2 className="text-base font-light text-white border-b border-brand-edge-dark/60 pb-3">
+            <h2 className="text-base font-light text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step 10 — Contractor Safety Declaration &amp; Issue
             </h2>
 
-            <div className="p-5 rounded-xl border border-brand-edge-dark bg-brand-void/60 space-y-4 text-xs">
+            <div className="p-5 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-4 text-xs">
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
                   id="decl"
                   checked={declarationAccepted}
                   onChange={(e) => setDeclarationAccepted(e.target.checked)}
-                  className="mt-0.5 rounded border-brand-edge-dark bg-brand-carbon text-brand-electric focus:ring-0"
+                  className="mt-0.5 rounded border-[#E8E8E5] bg-white text-brand-electric focus:ring-0"
                 />
                 <label htmlFor="decl" className="text-white font-light leading-relaxed cursor-pointer">
                   I confirm that I have reviewed this RAMS pack, that the information reflects the planned work, and that the identified controls will be communicated to the operatives undertaking the task prior to site commencement.
@@ -877,12 +877,12 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
       </div>
 
       {/* Wizard Footer Controls */}
-      <div className="flex items-center justify-between p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon">
+      <div className="flex items-center justify-between p-4 rounded-xl border border-[#E8E8E5] bg-white shadow-sm">
         {step > 1 ? (
           <button
             type="button"
             onClick={() => setStep(step - 1)}
-            className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white transition-colors"
+            className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white transition-colors"
           >
             &larr; Previous Step
           </button>
@@ -895,7 +895,7 @@ export function RamsWizardClient({ contractorOrgId, operatives, initialWorkOrder
             type="button"
             onClick={() => handleSaveRams(false)}
             disabled={isSaving}
-            className="px-4 py-2 rounded-lg border border-brand-edge-dark bg-brand-void text-xs text-brand-mist hover:text-white transition-colors flex items-center gap-1.5"
+            className="px-4 py-2 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] text-xs text-[#111111] hover:text-white transition-colors flex items-center gap-1.5"
           >
             <Save className="w-3.5 h-3.5" />
             Save Draft

@@ -18,7 +18,7 @@ export default async function ComplianceRulesPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
+            className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-white"
           >
             ← Command Centre
           </Link>
@@ -26,10 +26,10 @@ export default async function ComplianceRulesPage() {
       />
 
       {rules.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Rule Code & Title</th>
                 <th className="px-5 py-3">Rule Family</th>
                 <th className="px-5 py-3">Source Reference</th>
@@ -37,17 +37,17 @@ export default async function ComplianceRulesPage() {
                 <th className="px-5 py-3">Default Responsibility</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {rules.map((r) => (
-                <tr key={r.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={r.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{r.title}</div>
-                    <div className="font-normal text-[11px] text-brand-mist/50">{r.code}</div>
+                    <div className="font-light text-[#111111]">{r.title}</div>
+                    <div className="font-normal text-[11px] text-[#9A9A95]">{r.code}</div>
                   </td>
                   <td className="px-5 py-4 font-normal text-[11px] text-brand-electric">
                     {r.rule_family || r.category}
                   </td>
-                  <td className="px-5 py-4 text-brand-mist/70">
+                  <td className="px-5 py-4 text-[#6D6D68]">
                     {r.source?.name || 'Statutory Source'}
                   </td>
                   <td className="px-5 py-4">

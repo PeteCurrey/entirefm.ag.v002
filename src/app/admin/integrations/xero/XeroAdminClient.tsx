@@ -145,9 +145,9 @@ export function XeroAdminClient({
         <div className="flex items-center gap-3 p-4 rounded-xl border border-emerald-800/40 bg-emerald-950/40 text-emerald-300 text-xs font-normal">
           <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
           <div>
-            <div className="font-medium text-white">Xero Authorisation Successful</div>
+            <div className="font-medium text-[#111111]">Xero Authorisation Successful</div>
             <div>
-              Connected to organisation: <span className="text-white font-medium">{bannerTenant || 'Xero Organisation'}</span>. Tokens securely encrypted and stored.
+              Connected to organisation: <span className="text-[#111111] font-medium">{bannerTenant || 'Xero Organisation'}</span>. Tokens securely encrypted and stored.
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@ export function XeroAdminClient({
         <div className="flex items-center gap-3 p-4 rounded-xl border border-red-800/40 bg-red-950/40 text-red-300 text-xs font-normal">
           <AlertTriangle className="h-5 w-5 shrink-0 text-red-400" />
           <div>
-            <div className="font-medium text-white">Xero Connection Error</div>
+            <div className="font-medium text-[#111111]">Xero Connection Error</div>
             <div>{bannerError}</div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function XeroAdminClient({
               ? 'border-emerald-800/40 bg-emerald-950/40 text-emerald-300'
               : syncFeedback.type === 'error'
               ? 'border-red-800/40 bg-red-950/40 text-red-300'
-              : 'border-brand-edge-dark bg-brand-carbon/60 text-brand-mist'
+              : 'border-[#E8E8E5] bg-white text-[#111111]'
           }`}
         >
           <div className="flex items-center gap-3">
@@ -181,7 +181,7 @@ export function XeroAdminClient({
           </div>
           <button
             onClick={() => setSyncFeedback(null)}
-            className="text-xs text-brand-mist/60 hover:text-white ml-4"
+            className="text-xs text-[#6D6D68] hover:text-white ml-4"
           >
             Dismiss
           </button>
@@ -189,15 +189,15 @@ export function XeroAdminClient({
       )}
 
       {/* CONNECTION STATUS HERO CARD */}
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-6 space-y-6">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-brand-void rounded-xl border border-brand-edge-dark">
+            <div className="p-3 bg-[#FAFAF8] rounded-xl border border-[#E8E8E5]">
               <Building2 className="h-7 w-7 text-sky-400" />
             </div>
             <div>
               <div className="flex items-center gap-3">
-                <h2 className="text-lg font-light text-white">Xero Accounting Integration</h2>
+                <h2 className="text-lg font-light text-[#111111]">Xero Accounting Integration</h2>
                 <span
                   className={`px-2.5 py-0.5 rounded text-[11px] font-normal border ${
                     isConnected
@@ -208,7 +208,7 @@ export function XeroAdminClient({
                   {isConnected ? 'CONNECTED' : 'DISCONNECTED'}
                 </span>
               </div>
-              <p className="text-xs text-brand-mist/60 font-normal mt-1">
+              <p className="text-xs text-[#6D6D68] font-normal mt-1">
                 Official OAuth 2.0 synchronisation for Contacts, Issued Invoices, and Payment Reconciliation
               </p>
             </div>
@@ -218,7 +218,7 @@ export function XeroAdminClient({
             <button
               onClick={handleRefreshStatus}
               title="Refresh connection status"
-              className="p-2 rounded-lg border border-brand-edge-dark bg-brand-void text-brand-mist hover:text-white hover:border-brand-mist/30 transition"
+              className="p-2 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] text-[#111111] hover:text-white hover:border-brand-mist/30 transition"
             >
               <RefreshCw className="h-4 w-4" />
             </button>
@@ -256,25 +256,25 @@ export function XeroAdminClient({
 
         {/* TENANT & CONNECTION DETAILS */}
         {isConnected && data.connection && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-lg bg-brand-void/60 border border-brand-edge-dark/60 text-xs">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-xs">
             <div>
-              <div className="text-brand-mist/60 text-[11px]">Connected Organisation</div>
-              <div className="text-white font-medium mt-0.5">{data.connection.tenantName}</div>
+              <div className="text-[#6D6D68] text-[11px]">Connected Organisation</div>
+              <div className="text-[#111111] font-medium mt-0.5">{data.connection.tenantName}</div>
             </div>
             <div>
-              <div className="text-brand-mist/60 text-[11px]">Xero Tenant ID</div>
-              <div className="text-brand-mist/80 font-mono text-[11px] mt-0.5">
+              <div className="text-[#6D6D68] text-[11px]">Xero Tenant ID</div>
+              <div className="text-[#6D6D68] font-mono text-[11px] mt-0.5">
                 {data.connection.tenantId.slice(0, 14)}...
               </div>
             </div>
             <div>
-              <div className="text-brand-mist/60 text-[11px]">Connected At</div>
-              <div className="text-brand-mist/90 mt-0.5">
+              <div className="text-[#6D6D68] text-[11px]">Connected At</div>
+              <div className="text-[#6D6D68] mt-0.5">
                 {new Date(data.connection.connectedAt).toLocaleDateString('en-GB')}
               </div>
             </div>
             <div>
-              <div className="text-brand-mist/60 text-[11px]">Token Lifecycle</div>
+              <div className="text-[#6D6D68] text-[11px]">Token Lifecycle</div>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
                 <span className="text-emerald-300 text-[11px]">Auto-refresh active</span>
@@ -285,15 +285,15 @@ export function XeroAdminClient({
 
         {/* PERMISSIONS & SCOPES */}
         {isConnected && data.connection && (
-          <div className="border-t border-brand-edge-dark/60 pt-4 space-y-2">
-            <div className="flex items-center gap-2 text-[11px] text-brand-mist/70">
+          <div className="border-t border-[#E8E8E5] pt-4 space-y-2">
+            <div className="flex items-center gap-2 text-[11px] text-[#6D6D68]">
               <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />
               <span>Granted Scopes:</span>
               <div className="flex flex-wrap gap-1.5">
                 {data.connection.scopes.map((s) => (
                   <span
                     key={s}
-                    className="px-2 py-0.5 rounded bg-brand-void text-brand-mist/80 font-mono text-[10px] border border-brand-edge-dark"
+                    className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#6D6D68] font-mono text-[10px] border border-[#E8E8E5]"
                   >
                     {s}
                   </span>
@@ -306,68 +306,68 @@ export function XeroAdminClient({
 
       {/* SYNCHRONISATION METRICS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2">
-          <div className="flex items-center justify-between text-brand-mist/60 text-xs">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-2">
+          <div className="flex items-center justify-between text-[#6D6D68] text-xs">
             <span>Synced Invoices</span>
             <FileText className="h-4 w-4 text-emerald-400" />
           </div>
-          <div className="text-2xl font-light text-white">{data.stats.syncedInvoicesCount}</div>
-          <div className="text-[11px] text-brand-mist/60">Fully matched in Xero ledger</div>
+          <div className="text-2xl font-light text-[#111111]">{data.stats.syncedInvoicesCount}</div>
+          <div className="text-[11px] text-[#6D6D68]">Fully matched in Xero ledger</div>
         </div>
 
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2">
-          <div className="flex items-center justify-between text-brand-mist/60 text-xs">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-2">
+          <div className="flex items-center justify-between text-[#6D6D68] text-xs">
             <span>Pending Sync</span>
             <Clock className="h-4 w-4 text-amber-400" />
           </div>
-          <div className="text-2xl font-light text-white">{data.stats.pendingInvoicesCount}</div>
-          <div className="text-[11px] text-brand-mist/60">Issued, awaiting batch push</div>
+          <div className="text-2xl font-light text-[#111111]">{data.stats.pendingInvoicesCount}</div>
+          <div className="text-[11px] text-[#6D6D68]">Issued, awaiting batch push</div>
         </div>
 
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2">
-          <div className="flex items-center justify-between text-brand-mist/60 text-xs">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-2">
+          <div className="flex items-center justify-between text-[#6D6D68] text-xs">
             <span>Sync Errors</span>
             <AlertTriangle className="h-4 w-4 text-red-400" />
           </div>
-          <div className="text-2xl font-light text-white">{data.stats.failedInvoicesCount}</div>
-          <div className="text-[11px] text-brand-mist/60">Require retry or attention</div>
+          <div className="text-2xl font-light text-[#111111]">{data.stats.failedInvoicesCount}</div>
+          <div className="text-[11px] text-[#6D6D68]">Require retry or attention</div>
         </div>
 
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2">
-          <div className="flex items-center justify-between text-brand-mist/60 text-xs">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-2">
+          <div className="flex items-center justify-between text-[#6D6D68] text-xs">
             <span>Synced Contacts</span>
             <Users className="h-4 w-4 text-sky-400" />
           </div>
-          <div className="text-2xl font-light text-white">{data.stats.syncedContactsCount}</div>
-          <div className="text-[11px] text-brand-mist/60">Mapped client accounts</div>
+          <div className="text-2xl font-light text-[#111111]">{data.stats.syncedContactsCount}</div>
+          <div className="text-[11px] text-[#6D6D68]">Mapped client accounts</div>
         </div>
       </div>
 
       {/* WEBHOOK READINESS & ARCHITECTURE (PHASE 1) */}
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-6 space-y-4">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Radio className="h-5 w-5 text-sky-400" />
             <div>
-              <h3 className="text-sm font-light text-white">Webhook Ingestion Architecture</h3>
-              <p className="text-xs text-brand-mist/60 font-normal mt-0.5">
+              <h3 className="text-sm font-light text-[#111111]">Webhook Ingestion Architecture</h3>
+              <p className="text-xs text-[#6D6D68] font-normal mt-0.5">
                 Phase 1 Webhook Readiness: Endpoint reserved and HMAC-SHA256 signature verification enabled
               </p>
             </div>
           </div>
-          <span className="px-2.5 py-0.5 rounded text-[11px] font-normal border bg-brand-void text-brand-mist/70 border-brand-edge-dark">
+          <span className="px-2.5 py-0.5 rounded text-[11px] font-normal border bg-[#FAFAF8] text-[#6D6D68] border-[#E8E8E5]">
             ENDPOINT READY
           </span>
         </div>
 
-        <div className="p-4 rounded-lg bg-brand-void/50 border border-brand-edge-dark/60 text-xs space-y-2 text-brand-mist/80">
+        <div className="p-4 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-xs space-y-2 text-[#6D6D68]">
           <div className="flex items-center gap-2">
-            <span className="text-brand-mist/60">Reserved Webhook URL:</span>
-            <code className="px-2 py-0.5 rounded bg-brand-void font-mono text-[11px] text-white border border-brand-edge-dark">
+            <span className="text-[#6D6D68]">Reserved Webhook URL:</span>
+            <code className="px-2 py-0.5 rounded bg-[#FAFAF8] font-mono text-[11px] text-white border border-[#E8E8E5]">
               https://www.entirefm.com/api/integrations/xero/webhooks
             </code>
           </div>
-          <p className="text-[11.5px] leading-relaxed text-brand-mist/70">
+          <p className="text-[11.5px] leading-relaxed text-[#6D6D68]">
             Phase 1 provides complete on-demand and batch synchronisation without requiring active webhooks.
             When you register the webhook URL and generate a Webhook Key in the Xero Developer Portal, EntireCAFM
             will immediately begin processing real-time events for automated payment reconciliation and contact updates.
@@ -378,20 +378,20 @@ export function XeroAdminClient({
       {/* RECENT SYNC LOGS */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-normal uppercase tracking-wider text-white">
+          <h3 className="text-xs font-normal uppercase tracking-wider text-[#111111]">
             Recent Accounting Sync Logs ({data.recentLogs.length})
           </h3>
-          <span className="text-[11px] text-brand-mist/50">Stored in accounting_sync_logs</span>
+          <span className="text-[11px] text-[#9A9A95]">Stored in accounting_sync_logs</span>
         </div>
 
         {data.recentLogs.length === 0 ? (
-          <div className="p-6 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60 text-center">
+          <div className="p-6 bg-white border border-[#E8E8E5] rounded-xl text-xs font-normal text-[#6D6D68] text-center">
             No Xero synchronisation logs recorded yet. Initiate a sync above or issue a client invoice.
           </div>
         ) : (
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-normal text-brand-mist">
-              <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+            <table className="w-full text-left text-xs font-normal text-[#111111]">
+              <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
                 <tr>
                   <th className="p-3.5">Entity</th>
                   <th className="p-3.5">Direction</th>
@@ -401,13 +401,13 @@ export function XeroAdminClient({
                   <th className="p-3.5">Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {data.recentLogs.map((log: any) => (
-                  <tr key={log.id} className="hover:bg-brand-edge-dark/20">
+                  <tr key={log.id} className="hover:bg-[#F5F5F3]">
                     <td className="p-3.5 font-light text-white">
-                      {log.entity_type} <span className="text-brand-mist/50 text-[11px]">({log.entity_id?.slice(0, 8)})</span>
+                      {log.entity_type} <span className="text-[#9A9A95] text-[11px]">({log.entity_id?.slice(0, 8)})</span>
                     </td>
-                    <td className="p-3.5 text-brand-mist/70">{log.direction}</td>
+                    <td className="p-3.5 text-[#6D6D68]">{log.direction}</td>
                     <td className="p-3.5">
                       <span
                         className={`px-2 py-0.5 rounded text-[10.5px] border ${
@@ -421,13 +421,13 @@ export function XeroAdminClient({
                         {log.status}
                       </span>
                     </td>
-                    <td className="p-3.5 font-mono text-[11px] text-brand-mist/80">
+                    <td className="p-3.5 font-mono text-[11px] text-[#6D6D68]">
                       {log.external_id ? `${log.external_id.slice(0, 12)}...` : '—'}
                     </td>
                     <td className="p-3.5 font-mono text-[10.5px] text-zinc-500 truncate max-w-[200px]">
                       {log.idempotency_key}
                     </td>
-                    <td className="p-3.5 text-brand-mist/60 text-[11px]">
+                    <td className="p-3.5 text-[#6D6D68] text-[11px]">
                       {new Date(log.created_at).toLocaleString('en-GB')}
                     </td>
                   </tr>

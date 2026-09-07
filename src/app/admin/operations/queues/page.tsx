@@ -73,12 +73,12 @@ function QueueStrip({ icon, label, count, items, color, href, priority }: QueueS
   }[color];
 
   return (
-    <div className={`bg-brand-carbon border ${borderCls} rounded-xl overflow-hidden`}>
-      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-edge-dark/60">
+    <div className={`bg-white border ${borderCls} rounded-xl overflow-hidden`}>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#E8E8E5]">
         <div className="flex items-center gap-2.5">
           <span className={countCls}>{icon}</span>
           <div>
-            <div className="text-[10px] uppercase font-medium text-brand-mist/50">{label}</div>
+            <div className="text-[10px] uppercase font-medium text-[#9A9A95]">{label}</div>
             <div className={`text-lg font-extralight${countCls}`}>{count}</div>
           </div>
         </div>
@@ -93,18 +93,18 @@ function QueueStrip({ icon, label, count, items, color, href, priority }: QueueS
       {count === 0 ? (
         <div className="px-4 py-3 text-[11px] text-zinc-600 italic">Queue empty</div>
       ) : (
-        <div className="divide-y divide-brand-edge-dark/30">
+        <div className="divide-y divide-[#E8E8E5]">
           {items.slice(0, 4).map((item: any) => (
             <Link
               key={item.id}
               href={`/admin/operations/work-orders/${item.id}`}
-              className="flex items-center justify-between px-4 py-2.5 hover:bg-brand-void/30 transition-colors group"
+              className="flex items-center justify-between px-4 py-2.5 hover:bg-[#FAFAF8] transition-colors group"
             >
               <div className="flex-1 min-w-0">
-                <div className="text-[11.5px] font-light text-white truncate">
+                <div className="text-[11.5px] font-light text-[#111111] truncate">
                   {item.work_order_number || item.id?.slice(0, 8)?.toUpperCase()} — {item.title || item.description || 'Work Order'}
                 </div>
-                <div className="text-[10.5px] text-brand-mist/50 font-normal mt-0.5">
+                <div className="text-[10.5px] text-[#9A9A95] font-normal mt-0.5">
                   {item.priority || 'P3'} · {item.trade || 'GENERAL'} · {item.sites?.name || item.site_id?.slice(0, 8)}
                 </div>
               </div>

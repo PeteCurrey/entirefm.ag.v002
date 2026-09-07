@@ -13,11 +13,11 @@ const FORMAT_COLOURS: Record<string, string> = {
   CSV: 'bg-blue-900/40 text-blue-300',
   COBIE: 'bg-purple-900/40 text-purple-300',
   DOCUMENT_OCR: 'bg-amber-900/40 text-amber-300',
-  MANUAL: 'bg-brand-edge-dark text-brand-mist/60',
+  MANUAL: 'bg-[#F5F5F3] text-[#6D6D68]',
 };
 
 const STATUS_COLOURS: Record<string, string> = {
-  DRAFT: 'bg-brand-edge-dark text-brand-mist/60',
+  DRAFT: 'bg-[#F5F5F3] text-[#6D6D68]',
   MAPPED: 'bg-amber-900/40 text-amber-300',
   VALIDATING: 'bg-blue-900/40 text-blue-300',
   READY_FOR_PREVIEW: 'bg-cyan-900/40 text-cyan-300',

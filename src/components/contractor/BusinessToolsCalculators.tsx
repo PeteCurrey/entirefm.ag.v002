@@ -41,18 +41,18 @@ function fmt(v: number, decimals = 2) {
 function CurrencyInput({ label, value, onChange, note }: { label: string; value: number; onChange: (v: number) => void; note?: string }) {
   return (
     <div className="space-y-0.5">
-      <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">{label}</label>
+      <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">{label}</label>
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-normal">£</span>
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9A9A95] text-xs font-normal">£</span>
         <input
           type="number"
           value={value}
           min={0}
           onChange={(e) => onChange(Number(e.target.value) || 0)}
-          className="w-full pl-6 pr-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
+          className="w-full pl-6 pr-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
         />
       </div>
-      {note && <p className="text-[10.5px] text-brand-mist/40 font-sans">{note}</p>}
+      {note && <p className="text-[10.5px] text-[#9A9A95] font-sans">{note}</p>}
     </div>
   );
 }
@@ -60,27 +60,27 @@ function CurrencyInput({ label, value, onChange, note }: { label: string; value:
 function NumberInput({ label, value, onChange, suffix, note }: { label: string; value: number; onChange: (v: number) => void; suffix?: string; note?: string }) {
   return (
     <div className="space-y-0.5">
-      <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">{label}</label>
+      <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">{label}</label>
       <div className="relative">
         <input
           type="number"
           value={value}
           min={0}
           onChange={(e) => onChange(Number(e.target.value) || 0)}
-          className="w-full pl-3 pr-8 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
+          className="w-full pl-3 pr-8 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-sm focus:outline-none focus:border-brand-electric"
         />
-        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-mist/50 text-xs font-normal">{suffix}</span>}
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9A9A95] text-xs font-normal">{suffix}</span>}
       </div>
-      {note && <p className="text-[10.5px] text-brand-mist/40 font-sans">{note}</p>}
+      {note && <p className="text-[10.5px] text-[#9A9A95] font-sans">{note}</p>}
     </div>
   );
 }
 
 function ResultRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div className={`flex items-center justify-between py-2 ${highlight ? 'border-t border-brand-edge-dark' : ''}`}>
-      <span className="text-[11.5px] font-normal text-brand-mist/70">{label}</span>
-      <span className={`text-sm font-semibold${highlight ? 'text-brand-electric-bright' : 'text-white'}`}>{value}</span>
+    <div className={`flex items-center justify-between py-2 ${highlight ? 'border-t border-[#E8E8E5]' : ''}`}>
+      <span className="text-[11.5px] font-normal text-[#6D6D68]">{label}</span>
+      <span className={`text-sm font-semibold${highlight ? 'text-brand-electric-bright' : 'text-[#111111]'}`}>{value}</span>
     </div>
   );
 }
@@ -239,14 +239,14 @@ export function BusinessToolsCalculators() {
   return (
     <div className="space-y-6">
       {/* Tool Selector — grouped */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-4">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
         <div className="flex flex-wrap gap-1.5">
           {['PRICING', 'PLANNING', 'COSTS'].map((group) => {
             const groupTools = TOOLS.filter((t) => t.group === group);
             return (
               <React.Fragment key={group}>
                 <div className="flex items-center gap-1.5 mr-3">
-                  <span className="text-[9px] font-medium uppercase tracking-widest text-brand-mist/30 hidden sm:inline">
+                  <span className="text-[9px] font-medium uppercase tracking-widest text-[#9A9A95] hidden sm:inline">
                     {group}
                   </span>
                   {groupTools.map((tool) => (
@@ -256,7 +256,7 @@ export function BusinessToolsCalculators() {
                       className={`px-3 py-1.5 rounded-lg text-xs font-normal flex items-center gap-1.5 transition-colors whitespace-nowrap ${
                         activeTool === tool.id
                           ? 'bg-brand-electric text-white font-semibold'
-                          : 'border border-brand-edge-dark text-brand-mist/70 hover:text-white hover:border-brand-mist/30'
+                          : 'border border-[#E8E8E5] text-[#6D6D68] hover:text-white hover:border-brand-mist/30'
                       }`}
                     >
                       {tool.icon}
@@ -276,13 +276,13 @@ export function BusinessToolsCalculators() {
       {activeTool === 'LABOUR' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Inputs */}
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Labour Rate Calculator — True Cost per Productive Hour
             </h3>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Employment Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Employment Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <CurrencyInput label="Annual Base Salary" value={lSalary} onChange={setLSalary} />
                 <NumberInput label="Employer NI Rate" value={lNiPct} onChange={setLNiPct} suffix="%" note="Current: 13.8%" />
@@ -292,7 +292,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Working Time</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Working Time</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <NumberInput label="Contracted Hrs/Week" value={lHoursWeek} onChange={setLHoursWeek} suffix="hrs" />
                 <NumberInput label="Working Weeks/Year" value={lWeeksYear} onChange={setLWeeksYear} suffix="wks" />
@@ -305,7 +305,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Vehicle & Direct Operative Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Vehicle & Direct Operative Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <CurrencyInput label="Van Lease & Insurance /Mo" value={lVanMonthly} onChange={setLVanMonthly} />
                 <CurrencyInput label="Annual Fuel" value={lFuelAnnual} onChange={setLFuelAnnual} />
@@ -317,7 +317,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Overhead & Target</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Overhead & Target</div>
               <div className="grid grid-cols-2 gap-3">
                 <CurrencyInput label="Annual Overhead Allocation" value={lOverhead} onChange={setLOverhead} note="Office, management, admin etc." />
                 <NumberInput label="Target Gross Margin" value={lTargetMargin} onChange={setLTargetMargin} suffix="%" note="Margin ≠ Markup" />
@@ -327,21 +327,21 @@ export function BusinessToolsCalculators() {
             {/* Expandable explainer */}
             <button
               onClick={() => setShowHowCalc(!showHowCalc)}
-              className="flex items-center gap-1.5 text-[11px] text-brand-mist/50 hover:text-brand-mist font-normal transition-colors"
+              className="flex items-center gap-1.5 text-[11px] text-[#9A9A95] hover:text-[#111111] font-normal transition-colors"
             >
               <Info className="w-3.5 h-3.5" />
               Why productive hours matter
               {showHowCalc ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
             {showHowCalc && (
-              <div className="p-4 rounded-lg bg-brand-void border border-brand-edge-dark text-[11.5px] text-brand-mist/70 font-sans leading-relaxed space-y-2">
+              <div className="p-4 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[11.5px] text-[#6D6D68] font-sans leading-relaxed space-y-2">
                 <p>
                   Your engineer may be contracted for approximately <strong className="text-white">{labourResult.grossPaidHours.toLocaleString()} hours</strong> this year — but annual leave, bank holidays, training days, and non-billable administration reduce the available billable time to around <strong className="text-white">{labourResult.annualBillableHours.toLocaleString()} hours</strong>.
                 </p>
                 <p>
                   Every recoverable cost — salary, employer contributions, vehicle, tools, and overhead — is divided across those productive hours only. This produces a break-even rate of <strong className="text-brand-electric-bright">£{fmt(labourResult.trueCostPerProductiveHour)}/hr</strong> before any margin.
                 </p>
-                <p className="text-brand-mist/50 text-[10.5px]">
+                <p className="text-[#9A9A95] text-[10.5px]">
                   Note: 30% margin means 30% of the sell price is profit. This is not the same as 30% markup (which is 30% added to cost).
                 </p>
               </div>
@@ -349,22 +349,22 @@ export function BusinessToolsCalculators() {
           </div>
 
           {/* Results */}
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
             <div className="space-y-4">
               <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
                 CHARGE-OUT RATE — {lTargetMargin}% MARGIN
               </span>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-5xl font-light text-white">£{fmt(labourResult.chargeOutRateAtTargetMargin, 2)}</span>
-                  <span className="text-brand-mist/50 text-sm font-normal">/hr + VAT</span>
+                  <span className="text-5xl font-light text-[#111111]">£{fmt(labourResult.chargeOutRateAtTargetMargin, 2)}</span>
+                  <span className="text-[#9A9A95] text-sm font-normal">/hr + VAT</span>
                 </div>
-                <p className="text-xs text-brand-mist/60 mt-1">
+                <p className="text-xs text-[#6D6D68] mt-1">
                   Day rate (8h): <strong className="text-white font-normal">£{fmt(labourResult.equivalentDayRate)}</strong>
                 </p>
               </div>
 
-              <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+              <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
                 <ResultRow label="Break-Even Rate" value={`£${fmt(labourResult.trueCostPerProductiveHour)}/hr`} />
                 <ResultRow label="Markup at Target Rate" value={`${fmt(labourResult.markupAtTargetRatePct, 1)}%`} />
                 <ResultRow label="Billable Hours (Annual)" value={`${labourResult.annualBillableHours.toLocaleString()} hrs`} />
@@ -373,20 +373,20 @@ export function BusinessToolsCalculators() {
               </div>
 
               {/* Scenarios */}
-              <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">Utilisation Scenarios</div>
+              <div className="border-t border-[#E8E8E5] pt-3 space-y-2">
+                <div className="text-[10px] font-normal uppercase text-[#9A9A95] tracking-wide">Utilisation Scenarios</div>
                 {(['conservative', 'base', 'target'] as const).map((s) => {
                   const row = labourResult.scenarios[s];
                   return (
                     <div key={s} className="flex items-center justify-between text-xs font-normal">
-                      <span className="text-brand-mist/50 capitalize">{s}</span>
-                      <span className="text-white">{row.billableHours.toLocaleString()}h → <span className="text-brand-electric-bright">£{fmt(row.targetRate)}/hr</span></span>
+                      <span className="text-[#9A9A95] capitalize">{s}</span>
+                      <span className="text-[#111111]">{row.billableHours.toLocaleString()}h → <span className="text-brand-electric-bright">£{fmt(row.targetRate)}/hr</span></span>
                     </div>
                   );
                 })}
               </div>
 
-              <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-[10.5px] text-brand-mist/50 font-sans leading-relaxed">
+              <div className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[10.5px] text-[#9A9A95] font-sans leading-relaxed">
                 Minimum call-out suggestion: <strong className="text-white">£{fmt(labourResult.minimumCallOutChargeSuggested)}</strong> + VAT (1.5× rate)
               </div>
             </div>
@@ -399,13 +399,13 @@ export function BusinessToolsCalculators() {
       ═══════════════════════════════════════ */}
       {activeTool === 'MARGIN' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Job Margin Calculator — Revenue, Cost, Profit &amp; Sensitivity
             </h3>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Revenue</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Revenue</div>
               <div className="grid grid-cols-2 gap-3">
                 <CurrencyInput label="Quoted Sell Price (Net)" value={mSell} onChange={setMSell} />
                 <NumberInput label="Target Gross Margin" value={mTargetMargin} onChange={setMTargetMargin} suffix="%" />
@@ -413,7 +413,7 @@ export function BusinessToolsCalculators() {
             </div>
 
             <div className="space-y-4">
-              <div className="text-[10px] font-medium uppercase tracking-widest text-brand-mist/40 border-b border-brand-edge-dark/40 pb-1.5">Direct Costs</div>
+              <div className="text-[10px] font-medium uppercase tracking-widest text-[#9A9A95] border-b border-[#E8E8E5] pb-1.5">Direct Costs</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <NumberInput label="Labour Hours" value={mLabourHrs} onChange={setMLabourHrs} suffix="hrs" />
                 <CurrencyInput label="Labour Cost Rate /Hr" value={mLabourRate} onChange={setMLabourRate} note="Use Labour Rate calc output" />
@@ -429,7 +429,7 @@ export function BusinessToolsCalculators() {
           </div>
 
           {/* Results */}
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5 flex flex-col justify-between">
             <div className="space-y-4">
               <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
                 JOB ECONOMICS
@@ -461,12 +461,12 @@ export function BusinessToolsCalculators() {
                     {fmt(marginResult.grossMarginPct, 1)}%
                   </span>
                 </div>
-                <p className="text-xs text-brand-mist/60 mt-1">
+                <p className="text-xs text-[#6D6D68] mt-1">
                   Gross Margin (Profit as % of Revenue)
                 </p>
               </div>
 
-              <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+              <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
                 <ResultRow label="Revenue (Net)" value={`£${fmt(marginResult.sellPriceNet)}`} />
                 <ResultRow label="Total Direct Cost" value={`£${fmt(marginResult.totalDirectCost)}`} />
                 <ResultRow label="Cost with Overhead" value={`£${fmt(marginResult.totalCostWithOverhead)}`} />
@@ -474,20 +474,20 @@ export function BusinessToolsCalculators() {
                 <ResultRow label="Markup %" value={`${fmt(marginResult.markupPct, 1)}%`} />
               </div>
 
-              <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">To Achieve {mTargetMargin}% Margin</div>
+              <div className="border-t border-[#E8E8E5] pt-3 space-y-2">
+                <div className="text-[10px] font-normal uppercase text-[#9A9A95] tracking-wide">To Achieve {mTargetMargin}% Margin</div>
                 <div className="text-xl font-semibold text-brand-electric-bright">£{fmt(marginResult.targetSellPriceForDesiredMargin)}</div>
               </div>
 
-              <div className="border-t border-brand-edge-dark/60 pt-3 space-y-2">
-                <div className="text-[10px] font-normal uppercase text-brand-mist/40 tracking-wide">Sensitivity</div>
+              <div className="border-t border-[#E8E8E5] pt-3 space-y-2">
+                <div className="text-[10px] font-normal uppercase text-[#9A9A95] tracking-wide">Sensitivity</div>
                 <div className="space-y-1.5 text-xs font-normal">
                   <div className="flex justify-between">
-                    <span className="text-brand-mist/60">+4 hrs labour:</span>
+                    <span className="text-[#6D6D68]">+4 hrs labour:</span>
                     <span className="text-amber-400">{fmt(marginResult.sensitivity.ifExtra4HoursLabour.newMarginPct, 1)}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-brand-mist/60">Materials +10%:</span>
+                    <span className="text-[#6D6D68]">Materials +10%:</span>
                     <span className="text-amber-400">{fmt(marginResult.sensitivity.ifMaterialsPlus10Pct.newMarginPct, 1)}%</span>
                   </div>
                 </div>
@@ -502,8 +502,8 @@ export function BusinessToolsCalculators() {
       ═══════════════════════════════════════ */}
       {activeTool === 'CALLOUT' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Call-Out &amp; Emergency Attendance Pricing
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -512,11 +512,11 @@ export function BusinessToolsCalculators() {
               <NumberInput label="Travel Time" value={coTravelHrs} onChange={setCoTravelHrs} suffix="hrs" />
               <NumberInput label="On-Site Time" value={coOnSiteHrs} onChange={setCoOnSiteHrs} suffix="hrs" />
               <div className="space-y-0.5">
-                <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Rate Type Multiplier</label>
+                <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Rate Type Multiplier</label>
                 <select
                   value={coMultiplier}
                   onChange={(e) => setCoMultiplier(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
                 >
                   <option value={1.0}>1.0× — Standard Daytime</option>
                   <option value={1.5}>1.5× — Evening / Saturday</option>
@@ -531,18 +531,18 @@ export function BusinessToolsCalculators() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               CALL-OUT PRICING
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white">£{fmt(callOutResult.recommendedSellPrice, 0)}</span>
-                <span className="text-brand-mist/50 text-sm font-normal">+ VAT</span>
+                <span className="text-5xl font-light text-[#111111]">£{fmt(callOutResult.recommendedSellPrice, 0)}</span>
+                <span className="text-[#9A9A95] text-sm font-normal">+ VAT</span>
               </div>
-              <p className="text-xs text-brand-mist/60 mt-1">Recommended sell price at {coMargin}% margin</p>
+              <p className="text-xs text-[#6D6D68] mt-1">Recommended sell price at {coMargin}% margin</p>
             </div>
-            <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+            <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
               <ResultRow label="Vehicle Cost" value={`£${fmt(callOutResult.vehicleCost)}`} />
               <ResultRow label="Travel Labour" value={`£${fmt(callOutResult.travelLabourCost)}`} />
               <ResultRow label="On-Site Labour" value={`£${fmt(callOutResult.onSiteLabourCost)}`} />
@@ -558,8 +558,8 @@ export function BusinessToolsCalculators() {
       ═══════════════════════════════════════ */}
       {activeTool === 'TRAVEL' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Mileage &amp; True Visit Travel Cost
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -570,22 +570,22 @@ export function BusinessToolsCalculators() {
               <CurrencyInput label="Parking" value={trParking} onChange={setTrParking} />
               <CurrencyInput label="Tolls / ULEZ" value={trTolls} onChange={setTrTolls} />
             </div>
-            <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-[11px] text-brand-mist/50 font-sans">
+            <div className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[11px] text-[#9A9A95] font-sans">
               HMRC mileage allowance (currently 45p/mi) represents tax relief on employee expenses — not the true business cost, which includes depreciation, insurance, and maintenance.
             </div>
           </div>
 
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               VISIT TRAVEL COST
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white">£{fmt(travelResult.totalTrueTravelCost, 0)}</span>
+                <span className="text-5xl font-light text-[#111111]">£{fmt(travelResult.totalTrueTravelCost, 0)}</span>
               </div>
-              <p className="text-xs text-brand-mist/60 mt-1">True total cost to send this engineer</p>
+              <p className="text-xs text-[#6D6D68] mt-1">True total cost to send this engineer</p>
             </div>
-            <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+            <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
               <ResultRow label="Vehicle Cost" value={`£${fmt(travelResult.vehicleCost)}`} />
               <ResultRow label="Labour Travel Cost" value={`£${fmt(travelResult.labourTravelCost)}`} />
               <ResultRow label="Other (Parking/Tolls)" value={`£${fmt(travelResult.otherTravelCost)}`} />
@@ -601,8 +601,8 @@ export function BusinessToolsCalculators() {
       ═══════════════════════════════════════ */}
       {activeTool === 'UTILISATION' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Engineer Utilisation &amp; Revenue Delivery Capacity
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -615,27 +615,27 @@ export function BusinessToolsCalculators() {
               <NumberInput label="Target Billable Utilisation" value={uTargetPct} onChange={setUTargetPct} suffix="%" />
               <CurrencyInput label="Average Charge-Out Rate/Hr" value={uChargeRate} onChange={setUChargeRate} note="Optional — from Labour Rate" />
             </div>
-            <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-[11px] text-brand-mist/50 font-sans">
+            <div className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[11px] text-[#9A9A95] font-sans">
               Illustrative planning estimate only. Revenue capacity assumes all billable hours are sold at the stated rate with no downtime, sickness, or sales pipeline gaps.
             </div>
           </div>
 
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               TEAM DELIVERY CAPACITY
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white">
+                <span className="text-5xl font-light text-[#111111]">
                   {utilisationResult.targetBillableHoursAnnual.toLocaleString()}
                 </span>
-                <span className="text-brand-mist/50 text-sm font-normal">billable hrs/yr</span>
+                <span className="text-[#9A9A95] text-sm font-normal">billable hrs/yr</span>
               </div>
-              <p className="text-xs text-brand-mist/60 mt-1">
+              <p className="text-xs text-[#6D6D68] mt-1">
                 Across {uEngineers} engineer{uEngineers > 1 ? 's' : ''} at {uTargetPct}% utilisation
               </p>
             </div>
-            <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+            <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
               <ResultRow label="Total Paid Hours" value={utilisationResult.totalPaidHours.toLocaleString()} />
               <ResultRow label="Total Productive Hours" value={utilisationResult.totalProductiveHours.toLocaleString()} />
               <ResultRow label="Weekly Billable Target" value={`${utilisationResult.targetBillableHoursWeekly.toLocaleString()} hrs`} />
@@ -656,19 +656,19 @@ export function BusinessToolsCalculators() {
       ═══════════════════════════════════════ */}
       {activeTool === 'VAT' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               VAT Calculator — Add or Remove
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <CurrencyInput label="Amount" value={vatAmount} onChange={setVatAmount} />
               <NumberInput label="VAT Rate" value={vatRate} onChange={setVatRate} suffix="%" note="Standard: 20%" />
               <div className="space-y-0.5">
-                <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Direction</label>
+                <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Direction</label>
                 <select
                   value={vatDirection}
                   onChange={(e) => setVatDirection(e.target.value as 'ADD' | 'REMOVE')}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal focus:outline-none focus:border-brand-electric"
                 >
                   <option value="ADD">Add VAT to Net Amount</option>
                   <option value="REMOVE">Remove VAT from Gross Amount</option>
@@ -677,17 +677,17 @@ export function BusinessToolsCalculators() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-5">
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
               VAT BREAKDOWN
             </span>
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-5xl font-light text-white">£{fmt(vatResult.grossAmount)}</span>
+                <span className="text-5xl font-light text-[#111111]">£{fmt(vatResult.grossAmount)}</span>
               </div>
-              <p className="text-xs text-brand-mist/60 mt-1">Gross (Inc. VAT)</p>
+              <p className="text-xs text-[#6D6D68] mt-1">Gross (Inc. VAT)</p>
             </div>
-            <div className="border-t border-brand-edge-dark/60 pt-3 space-y-0.5">
+            <div className="border-t border-[#E8E8E5] pt-3 space-y-0.5">
               <ResultRow label="Net (Excl. VAT)" value={`£${fmt(vatResult.netAmount)}`} />
               <ResultRow label={`VAT (${vatRate}%)`} value={`£${fmt(vatResult.vatAmount)}`} />
               <ResultRow label="Gross (Inc. VAT)" value={`£${fmt(vatResult.grossAmount)}`} highlight />

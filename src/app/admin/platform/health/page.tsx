@@ -20,9 +20,9 @@ export default async function PlatformHealthPage() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Database Connectivity */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Database Engine</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">Database Engine</span>
             <span
               className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                 dbConfigured
@@ -33,16 +33,16 @@ export default async function PlatformHealthPage() {
               {dbConfigured ? 'CONNECTED' : 'STANDBY'}
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">PostgreSQL / Supabase</div>
-          <p className="mt-1 font-normal text-[11px] text-brand-mist/50 truncate">
+          <div className="mt-3 text-lg font-light text-[#111111]">PostgreSQL / Supabase</div>
+          <p className="mt-1 font-normal text-[11px] text-[#9A9A95] truncate">
             {dbInfo?.url || 'Awaiting SUPABASE_SERVICE_ROLE_KEY'}
           </p>
         </div>
 
         {/* Auth Subsystem */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Identity & Auth</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">Identity & Auth</span>
             <span
               className={`rounded px-2 py-0.5 font-normal text-[10px] ${
                 authConfigured
@@ -53,64 +53,64 @@ export default async function PlatformHealthPage() {
               {authConfigured ? 'HARDENED' : 'UNCONFIGURED'}
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">HMAC + Supabase Auth</div>
-          <p className="mt-1 text-[11.5px] text-brand-mist/50">
+          <div className="mt-3 text-lg font-light text-[#111111]">HMAC + Supabase Auth</div>
+          <p className="mt-1 text-[11.5px] text-[#9A9A95]">
             SHA-256 tamper-proof signed session cookies & RLS identity claims.
           </p>
         </div>
 
         {/* Row Level Security */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">PostgreSQL RLS</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">PostgreSQL RLS</span>
             <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               ENFORCED
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">Multi-Tenant Isolation</div>
-          <p className="mt-1 text-[11.5px] text-brand-mist/50">
+          <div className="mt-3 text-lg font-light text-[#111111]">Multi-Tenant Isolation</div>
+          <p className="mt-1 text-[11.5px] text-[#9A9A95]">
             Database-level isolation active across 11 core operational domains.
           </p>
         </div>
 
         {/* Outbox & Automation */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Event Outbox</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">Event Outbox</span>
             <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               IDEMPOTENT
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">Transactional Broker</div>
-          <p className="mt-1 text-[11.5px] text-brand-mist/50">
+          <div className="mt-3 text-lg font-light text-[#111111]">Transactional Broker</div>
+          <p className="mt-1 text-[11.5px] text-[#9A9A95]">
             Deduplication keys and dead-letter queue governance active.
           </p>
         </div>
 
         {/* AI Control Plane */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">AI Governance</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">AI Governance</span>
             <span className="rounded bg-purple-500/20 px-2 py-0.5 font-normal text-[10px] text-purple-300">
               ASSIST MODE
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">Controlled Autonomy</div>
-          <p className="mt-1 text-[11.5px] text-brand-mist/50">
+          <div className="mt-3 text-lg font-light text-[#111111]">Controlled Autonomy</div>
+          <p className="mt-1 text-[11.5px] text-[#9A9A95]">
             External actions require human authorization; spend limits active.
           </p>
         </div>
 
         {/* Audit Immutability */}
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-[11px] uppercase text-brand-mist/50">Audit Engine</span>
+            <span className="font-medium text-[11px] uppercase text-[#9A9A95]">Audit Engine</span>
             <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
               IMMUTABLE
             </span>
           </div>
-          <div className="mt-3 text-lg font-light text-white">Forensic Ledger</div>
-          <p className="mt-1 text-[11.5px] text-brand-mist/50">
+          <div className="mt-3 text-lg font-light text-[#111111]">Forensic Ledger</div>
+          <p className="mt-1 text-[11.5px] text-[#9A9A95]">
             Database trigger blocks any UPDATE or DELETE operations.
           </p>
         </div>

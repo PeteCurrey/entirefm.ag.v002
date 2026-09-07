@@ -99,13 +99,13 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Search Input */}
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-brand-mist/50 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#9A9A95] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search documents, policy numbers, insurers..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
           />
         </div>
 
@@ -132,7 +132,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
               className={`px-3 py-1.5 rounded-lg text-xs font-normal transition-all whitespace-nowrap ${
                 selectedCategory === cat.id
                   ? 'bg-brand-electric text-white font-medium'
-                  : 'bg-brand-carbon border border-brand-edge-dark text-brand-mist/70 hover:text-white hover:bg-brand-edge-dark/50'
+                  : 'bg-white border border-[#E8E8E5] text-[#6D6D68] hover:text-white hover:bg-[#F5F5F3]'
               }`}
             >
               {cat.label}
@@ -142,11 +142,11 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
 
         {/* Expiry Horizon Pills */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-[10px] font-normal uppercase text-brand-mist/40 mr-1">Horizon:</span>
+          <span className="text-[10px] font-normal uppercase text-[#9A9A95] mr-1">Horizon:</span>
           <button
             onClick={() => setExpiryFilter('ALL')}
             className={`px-2.5 py-1 rounded text-[11px] font-normal ${
-              expiryFilter === 'ALL' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
+              expiryFilter === 'ALL' ? 'bg-[#FAFAF8] text-white border border-[#E8E8E5]' : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             All Dates ({documents.length})
@@ -178,7 +178,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           <button
             onClick={() => setExpiryFilter('31_60')}
             className={`px-2.5 py-1 rounded text-[11px] font-normal ${
-              expiryFilter === '31_60' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
+              expiryFilter === '31_60' ? 'bg-[#FAFAF8] text-white border border-[#E8E8E5]' : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             31–60 Days
@@ -186,7 +186,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           <button
             onClick={() => setExpiryFilter('61_90')}
             className={`px-2.5 py-1 rounded text-[11px] font-normal ${
-              expiryFilter === '61_90' ? 'bg-brand-void text-white border border-brand-edge-dark' : 'text-brand-mist/60 hover:text-white'
+              expiryFilter === '61_90' ? 'bg-[#FAFAF8] text-white border border-[#E8E8E5]' : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             61–90 Days
@@ -196,10 +196,10 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
 
       {/* Document Records Table / List */}
       {filteredDocuments.length === 0 ? (
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-12 text-center space-y-3">
-          <FileText className="w-10 h-10 text-brand-mist/30 mx-auto" />
-          <h3 className="text-base font-light text-white">No documents found</h3>
-          <p className="text-xs text-brand-mist/50 max-w-sm mx-auto">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-12 text-center space-y-3">
+          <FileText className="w-10 h-10 text-[#9A9A95] mx-auto" />
+          <h3 className="text-base font-light text-[#111111]">No documents found</h3>
+          <p className="text-xs text-[#9A9A95] max-w-sm mx-auto">
             {searchQuery || selectedCategory !== 'ALL' || expiryFilter !== 'ALL'
               ? 'Try adjusting your search query or filters to find what you are looking for.'
               : 'Your organisation has not uploaded any documents in this category yet.'}
@@ -212,11 +212,11 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
           </button>
         </div>
       ) : (
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-brand-void/80 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-normal text-[10.5px]">
+                <tr className="bg-[#FAFAF8] border-b border-[#E8E8E5] text-[#6D6D68] uppercase font-normal text-[10.5px]">
                   <th className="py-3 px-4">Document Title</th>
                   <th className="py-3 px-4">Category</th>
                   <th className="py-3 px-4">Insurer / Authority</th>
@@ -225,7 +225,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/40">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {filteredDocuments.map((doc) => {
                   const isExp = doc.daysRemaining !== null && doc.daysRemaining !== undefined && doc.daysRemaining < 0;
                   const isExpSoon = doc.daysRemaining !== null && doc.daysRemaining !== undefined && doc.daysRemaining >= 0 && doc.daysRemaining <= 30;
@@ -234,25 +234,25 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                     <tr
                       key={doc.id}
                       onClick={() => setSelectedDoc(doc)}
-                      className="hover:bg-brand-edge-dark/30 transition-colors cursor-pointer group"
+                      className="hover:bg-[#F5F5F3] transition-colors cursor-pointer group"
                     >
                       <td className="py-3.5 px-4 font-normal text-white">
                         <div className="flex items-center gap-2.5">
-                          <FileText className="w-4 h-4 text-brand-mist/40 group-hover:text-brand-electric transition-colors shrink-0" />
+                          <FileText className="w-4 h-4 text-[#9A9A95] group-hover:text-brand-electric transition-colors shrink-0" />
                           <div>
-                            <span className="font-normal text-white group-hover:text-brand-electric-bright transition-colors">
+                            <span className="font-normal text-[#111111] group-hover:text-brand-electric-bright transition-colors">
                               {doc.documentTitle}
                             </span>
-                            <span className="text-[10.5px] font-normal text-brand-mist/40 block">
+                            <span className="text-[10.5px] font-normal text-[#9A9A95] block">
                               {doc.fileName} &bull; {(doc.fileSizeBytes / 1024).toFixed(0)} KB
                             </span>
                           </div>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-brand-mist/70">
+                      <td className="py-3.5 px-4 text-[#6D6D68]">
                         <span className="font-normal text-[10.5px] uppercase">{doc.category}</span>
                       </td>
-                      <td className="py-3.5 px-4 text-brand-mist">
+                      <td className="py-3.5 px-4 text-[#111111]">
                         {doc.insurerOrIssuer || '—'}
                       </td>
                       <td className="py-3.5 px-4">
@@ -264,19 +264,19 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                                   ? 'text-rose-400 font-bold'
                                   : isExpSoon
                                   ? 'text-amber-400 font-semibold'
-                                  : 'text-brand-mist'
+                                  : 'text-[#111111]'
                               }`}
                             >
                               {doc.expiryDate}
                             </span>
                             {doc.daysRemaining !== null && doc.daysRemaining !== undefined && (
-                              <span className="text-[10px] text-brand-mist/40 block font-normal">
+                              <span className="text-[10px] text-[#9A9A95] block font-normal">
                                 {isExp ? `Expired ${Math.abs(doc.daysRemaining)}d ago` : `${doc.daysRemaining} days remaining`}
                               </span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-brand-mist/40 font-normal">No Expiry</span>
+                          <span className="text-[#9A9A95] font-normal">No Expiry</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4">
@@ -287,7 +287,7 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                               : doc.verificationState === 'REJECTED'
                               ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
                               : doc.verificationState === 'SUPERSEDED'
-                              ? 'bg-brand-edge-dark text-brand-mist border-brand-edge-dark'
+                              ? 'bg-[#F5F5F3] text-[#111111] border-[#E8E8E5]'
                               : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
                           }`}
                         >
@@ -301,13 +301,13 @@ export function DocumentVaultClient({ initialDocuments, orgId }: Props) {
                               setReplaceTargetDoc(doc);
                               setIsUploadModalOpen(true);
                             }}
-                            className="px-2.5 py-1 rounded bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white hover:border-brand-electric text-[11px] transition-colors"
+                            className="px-2.5 py-1 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] hover:text-white hover:border-brand-electric text-[11px] transition-colors"
                           >
                             Replace
                           </button>
                           <button
                             onClick={() => setSelectedDoc(doc)}
-                            className="p-1 rounded text-brand-mist/50 hover:text-white"
+                            className="p-1 rounded text-[#9A9A95] hover:text-white"
                           >
                             <ChevronRight className="w-4 h-4" />
                           </button>

@@ -91,17 +91,17 @@ export default function ContractorComplianceClient({
       {isUploading && (
         <form
           onSubmit={handleUploadSubmit}
-          className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-6 space-y-4"
+          className="bg-white border border-[#E8E8E5] rounded-xl p-6 space-y-4"
         >
-          <h2 className="text-lg font-light text-white">Upload New Compliance Record</h2>
+          <h2 className="text-lg font-light text-[#111111]">Upload New Compliance Record</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs font-normal text-brand-mist block mb-1">Document Type *</label>
+              <label className="text-xs font-normal text-[#111111] block mb-1">Document Type *</label>
               <select
                 value={docType}
                 onChange={e => setDocType(e.target.value)}
-                className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-sm text-white"
+                className="w-full bg-[#FAFAF8] border border-[#E8E8E5] rounded-lg p-2.5 text-sm text-white"
               >
                 {docTypes.map(t => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -110,24 +110,24 @@ export default function ContractorComplianceClient({
             </div>
 
             <div>
-              <label className="text-xs font-normal text-brand-mist block mb-1">Title / Policy Number *</label>
+              <label className="text-xs font-normal text-[#111111] block mb-1">Title / Policy Number *</label>
               <input
                 type="text"
                 required
                 value={docTitle}
                 onChange={e => setDocTitle(e.target.value)}
                 placeholder="e.g. QBE Policy #984920"
-                className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-sm text-white"
+                className="w-full bg-[#FAFAF8] border border-[#E8E8E5] rounded-lg p-2.5 text-sm text-white"
               />
             </div>
 
             <div>
-              <label className="text-xs font-normal text-brand-mist block mb-1">Expiry Date</label>
+              <label className="text-xs font-normal text-[#111111] block mb-1">Expiry Date</label>
               <input
                 type="date"
                 value={expiryDate}
                 onChange={e => setExpiryDate(e.target.value)}
-                className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-sm text-white"
+                className="w-full bg-[#FAFAF8] border border-[#E8E8E5] rounded-lg p-2.5 text-sm text-white"
               />
             </div>
           </div>
@@ -136,7 +136,7 @@ export default function ContractorComplianceClient({
             <button
               type="button"
               onClick={() => setIsUploading(false)}
-              className="border border-brand-edge-dark py-2 px-4 rounded-lg text-sm text-brand-mist hover:text-white"
+              className="border border-[#E8E8E5] py-2 px-4 rounded-lg text-sm text-[#111111] hover:text-white"
             >
               Cancel
             </button>
@@ -158,9 +158,9 @@ export default function ContractorComplianceClient({
           icon="ShieldCheck"
         />
       ) : (
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-          <table className="w-full text-left text-sm text-brand-mist">
-            <thead className="bg-brand-void text-xs uppercase font-light text-brand-mist border-b border-brand-edge-dark">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+          <table className="w-full text-left text-sm text-[#111111]">
+            <thead className="bg-[#FAFAF8] text-xs uppercase font-light text-[#111111] border-b border-[#E8E8E5]">
               <tr>
                 <th className="p-4">Document Title</th>
                 <th className="p-4">Type</th>
@@ -168,9 +168,9 @@ export default function ContractorComplianceClient({
                 <th className="p-4">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {docs.map(doc => (
-                <tr key={doc.id} className="hover:bg-brand-edge-dark/30 transition-colors">
+                <tr key={doc.id} className="hover:bg-[#F5F5F3] transition-colors">
                   <td className="p-4 font-light text-white">{doc.document_title}</td>
                   <td className="p-4 text-xs font-normal">{doc.document_type}</td>
                   <td className="p-4 text-xs font-normal">{doc.expiry_date || 'No Expiry'}</td>

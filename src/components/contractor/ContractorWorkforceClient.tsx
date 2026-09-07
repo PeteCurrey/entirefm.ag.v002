@@ -71,42 +71,42 @@ export function ContractorWorkforceClient({
     <div className="space-y-6">
       {/* Top Controls & Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Active Operatives</span>
-          <p className="text-2xl font-light text-white mt-1">{operatives.length}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Registered team</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Active Operatives</span>
+          <p className="text-2xl font-light text-[#111111] mt-1">{operatives.length}</p>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Registered team</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Fully Compliant</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Fully Compliant</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{fullyCompliantCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Eligible for work allocation</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Eligible for work allocation</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Action Required</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Action Required</span>
           <p className={`text-2xl font-light mt-1 ${actionRequiredCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {actionRequiredCount}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Expired/missing certificates</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Expired/missing certificates</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Competency Matrix</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Competency Matrix</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{competencies.length}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Tracked qualifications</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Tracked qualifications</span>
         </div>
       </div>
 
       {/* Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-3">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('ROSTER')}
             className={`px-4 py-2 rounded-lg text-xs font-normal transition-colors flex items-center gap-2 ${
               activeTab === 'ROSTER'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             <List className="w-4 h-4" />
@@ -115,17 +115,17 @@ export function ContractorWorkforceClient({
 
           <Link
             href="/contractor/workforce/training-matrix"
-            className="px-4 py-2 rounded-lg text-xs font-normal text-brand-mist hover:text-white hover:bg-brand-carbon transition-colors flex items-center gap-2"
+            className="px-4 py-2 rounded-lg text-xs font-normal text-[#111111] hover:text-white hover:bg-white transition-colors flex items-center gap-2"
           >
             <Grid className="w-4 h-4" />
-            Training Matrix <ExternalLink className="w-3 h-3 text-brand-mist/50" />
+            Training Matrix <ExternalLink className="w-3 h-3 text-[#9A9A95]" />
           </Link>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setIsImportModalOpen(true)}
-            className="px-3.5 py-2 rounded-lg border border-brand-edge-dark bg-brand-carbon hover:bg-brand-edge-dark text-brand-mist hover:text-white text-xs font-normal transition-colors flex items-center gap-2"
+            className="px-3.5 py-2 rounded-lg border border-[#E8E8E5] bg-white shadow-sm hover:bg-[#F5F5F3] text-[#111111] hover:text-white text-xs font-normal transition-colors flex items-center gap-2"
           >
             <Upload className="w-3.5 h-3.5" />
             Import CSV
@@ -146,21 +146,21 @@ export function ContractorWorkforceClient({
         <div className="space-y-4">
           {/* Search bar */}
           <div className="relative max-w-sm">
-            <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search operatives by name or job title..."
-              className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
             />
           </div>
 
           {filteredOperatives.length === 0 ? (
-            <div className="p-12 text-center rounded-xl border border-brand-edge-dark bg-brand-carbon/40 space-y-3">
-              <Users className="w-8 h-8 text-brand-mist/30 mx-auto" />
-              <h3 className="text-base font-light text-white">No operatives found</h3>
-              <p className="text-xs text-brand-mist/50 max-w-sm mx-auto">
+            <div className="p-12 text-center rounded-xl border border-[#E8E8E5] bg-white shadow-sm space-y-3">
+              <Users className="w-8 h-8 text-[#9A9A95] mx-auto" />
+              <h3 className="text-base font-light text-[#111111]">No operatives found</h3>
+              <p className="text-xs text-[#9A9A95] max-w-sm mx-auto">
                 Add field engineers to track competencies, ensure compliance, and unlock work order dispatch eligibility.
               </p>
               <button
@@ -176,7 +176,7 @@ export function ContractorWorkforceClient({
                 <div
                   key={op.id}
                   onClick={() => setSelectedOperative(op)}
-                  className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-5 space-y-4 hover:border-brand-electric/50 transition-all cursor-pointer group"
+                  className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-4 hover:border-brand-electric/50 transition-all cursor-pointer group"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -184,10 +184,10 @@ export function ContractorWorkforceClient({
                         {op.firstName.charAt(0)}{op.lastName.charAt(0)}
                       </div>
                       <div>
-                        <h4 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
+                        <h4 className="text-sm font-medium text-[#111111] group-hover:text-brand-electric-bright transition-colors">
                           {op.fullName}
                         </h4>
-                        <p className="text-xs text-brand-mist/50 font-normal">{op.jobTitle}</p>
+                        <p className="text-xs text-[#9A9A95] font-normal">{op.jobTitle}</p>
                       </div>
                     </div>
 
@@ -203,13 +203,13 @@ export function ContractorWorkforceClient({
                   </div>
 
                   {op.trades && op.trades.length > 0 && (
-                    <div className="space-y-1.5 pt-2 border-t border-brand-edge-dark/50">
-                      <span className="text-[10px] font-normal uppercase text-brand-mist/40 block">Approved Trades</span>
+                    <div className="space-y-1.5 pt-2 border-t border-[#E8E8E5]">
+                      <span className="text-[10px] font-normal uppercase text-[#9A9A95] block">Approved Trades</span>
                       <div className="flex flex-wrap gap-1">
                         {op.trades.map((t) => (
                           <span
                             key={t}
-                            className="px-2 py-0.5 rounded bg-brand-void text-[11px] font-light text-brand-mist border border-brand-edge-dark"
+                            className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[11px] font-light text-[#111111] border border-[#E8E8E5]"
                           >
                             {t}
                           </span>
@@ -218,7 +218,7 @@ export function ContractorWorkforceClient({
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-[11px] font-normal text-brand-mist/40 pt-2 border-t border-brand-edge-dark/30">
+                  <div className="flex items-center justify-between text-[11px] font-normal text-[#9A9A95] pt-2 border-t border-[#E8E8E5]">
                     <span>{op.employmentStatus}</span>
                     <span className="text-brand-electric-bright hover:underline">View Profile &rarr;</span>
                   </div>

@@ -37,7 +37,7 @@ export default async function UserDetailPage({
   const person = personData?.[0];
   if (!person) {
     return (
-      <div className="py-16 text-center text-brand-mist/50">
+      <div className="py-16 text-center text-[#9A9A95]">
         User not found. <Link href="/admin/platform/users" className="text-brand-electric hover:underline">Back to Users</Link>
       </div>
     );
@@ -64,22 +64,22 @@ export default async function UserDetailPage({
   return (
     <div className="space-y-8">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-[12.5px] text-brand-mist/50">
+      <div className="flex items-center gap-2 text-[12.5px] text-[#9A9A95]">
         <Link href="/admin/platform/users" className="hover:text-white transition-colors">Platform Users</Link>
         <span>/</span>
-        <span className="text-white">{person.first_name} {person.last_name}</span>
+        <span className="text-[#111111]">{person.first_name} {person.last_name}</span>
       </div>
 
       {/* Identity Block */}
-      <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-5">
+      <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-5">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-xl font-extralight text-white">
+            <h1 className="text-xl font-extralight text-[#111111]">
               {person.first_name} {person.last_name}
             </h1>
-            <div className="mt-1 font-normal text-[12.5px] text-brand-mist/60">{person.email}</div>
+            <div className="mt-1 font-normal text-[12.5px] text-[#6D6D68]">{person.email}</div>
             {person.mobile && (
-              <div className="mt-0.5 font-normal text-[12px] text-brand-mist/40">{person.mobile}</div>
+              <div className="mt-0.5 font-normal text-[12px] text-[#9A9A95]">{person.mobile}</div>
             )}
           </div>
           <div className="flex items-center gap-3">
@@ -95,15 +95,15 @@ export default async function UserDetailPage({
 
         {/* Memberships */}
         <div>
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95] mb-3">
             Organisation Memberships
           </div>
           <div className="space-y-2">
             {memberships.map((m: any) => (
-              <div key={m.id} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-3">
+              <div key={m.id} className="flex items-center justify-between rounded border border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3">
                 <div>
-                  <span className="text-[13px] font-normal text-white">{m.organisation?.name || 'Organisation'}</span>
-                  <span className="ml-2 font-normal text-[10px] text-brand-mist/50">{m.organisation?.org_type}</span>
+                  <span className="text-[13px] font-normal text-[#111111]">{m.organisation?.name || 'Organisation'}</span>
+                  <span className="ml-2 font-normal text-[10px] text-[#9A9A95]">{m.organisation?.org_type}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-normal text-[11px] text-brand-electric-bright">{m.role?.code}</span>
@@ -119,12 +119,12 @@ export default async function UserDetailPage({
         {/* Scope Summary */}
         {scopes.length > 0 && (
           <div>
-            <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50 mb-3">
+            <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95] mb-3">
               Active Scopes ({scopes.length})
             </div>
             <div className="flex flex-wrap gap-2">
               {scopes.map((s: any, idx: number) => (
-                <span key={idx} className="rounded border border-brand-edge-dark bg-brand-void/60 px-2.5 py-1 font-normal text-[11px] text-brand-mist/60">
+                <span key={idx} className="rounded border border-[#E8E8E5] bg-[#FAFAF8] px-2.5 py-1 font-normal text-[11px] text-[#6D6D68]">
                   {s.type}: {s.id.split('-')[0]}…
                 </span>
               ))}
@@ -134,14 +134,14 @@ export default async function UserDetailPage({
       </div>
 
       {/* Effective Access Inspector */}
-      <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
-        <h2 className="text-[15px] font-extralight text-white mb-4">Effective Access Inspector</h2>
+      <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-6">
+        <h2 className="text-[15px] font-extralight text-[#111111] mb-4">Effective Access Inspector</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {keyResources.map((res) => {
             const canAccess = permissions.includes(res.permission as any);
             return (
-              <div key={res.permission} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-2.5">
-                <span className="text-[13px] text-brand-mist/80">{res.label}</span>
+              <div key={res.permission} className="flex items-center justify-between rounded border border-[#E8E8E5] bg-[#FAFAF8] px-4 py-2.5">
+                <span className="text-[13px] text-[#6D6D68]">{res.label}</span>
                 <span className={`text-[11px] font-normal${canAccess ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {canAccess ? '✓ CAN VIEW' : '✗ BLOCKED'}
                 </span>
@@ -153,8 +153,8 @@ export default async function UserDetailPage({
 
       {/* Account Controls */}
       <div className="rounded-lg border border-rose-500/20 bg-rose-500/5 p-6">
-        <h2 className="text-[15px] font-extralight text-white mb-2">Account Controls</h2>
-        <p className="text-[12.5px] text-brand-mist/50 mb-4">
+        <h2 className="text-[15px] font-extralight text-[#111111] mb-2">Account Controls</h2>
+        <p className="text-[12.5px] text-[#9A9A95] mb-4">
           Disabling or revoking access immediately invalidates all active sessions across all portals, APIs, and AI tools.
         </p>
         <div className="flex items-center gap-3">
@@ -179,8 +179,8 @@ export default async function UserDetailPage({
       {/* Audited VIEW-AS Launch */}
       {session.permissions.includes(PERMISSION.VIEW_AS_USER as any) || session.role === 'SUPER_ADMIN' ? (
         <div className="rounded-lg border border-brand-electric/20 bg-brand-electric/5 p-6">
-          <h2 className="text-[15px] font-extralight text-white mb-2">Audited Support View-As</h2>
-          <p className="text-[12.5px] text-brand-mist/50 mb-4">
+          <h2 className="text-[15px] font-extralight text-[#111111] mb-2">Audited Support View-As</h2>
+          <p className="text-[12.5px] text-[#9A9A95] mb-4">
             Launch a read-only audited session as this user. All actions are logged against your operator identity ({session.email}). 
             This does NOT impersonate their token — it records your operator identity on every event.
           </p>

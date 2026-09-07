@@ -52,8 +52,8 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-brand-carbon border border-rose-800 rounded-xl w-full max-w-lg overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white border border-rose-800 rounded-xl w-full max-w-lg overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-rose-800/40 bg-rose-950/30">
           <div className="flex items-center gap-2.5">
@@ -62,10 +62,10 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
               <span className="text-[10px] uppercase tracking-widest text-rose-300 font-bold">
                 SAFETY ESCALATION
               </span>
-              <h2 className="text-base font-light text-white">Stop Work &bull; {workOrderNumber}</h2>
+              <h2 className="text-base font-light text-[#111111]">Stop Work &bull; {workOrderNumber}</h2>
             </div>
           </div>
-          <button onClick={onClose} className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark">
+          <button onClick={onClose} className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -79,16 +79,16 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
             </div>
           )}
 
-          <p className="text-brand-mist/80 font-sans leading-relaxed">
+          <p className="text-[#6D6D68] font-sans leading-relaxed">
             If you encounter unmanaged safety risks, unexpected live services, suspect asbestos materials, or missing permits, engage the safety stop-work procedure immediately.
           </p>
 
           <div className="space-y-1">
-            <label className="text-brand-mist/70 block font-sans">Primary Safety Reason *</label>
+            <label className="text-[#6D6D68] block font-sans">Primary Safety Reason *</label>
             <select
               value={reasonCategory}
               onChange={(e) => setReasonCategory(e.target.value)}
-              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:outline-none focus:border-rose-500"
+              className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal focus:outline-none focus:border-rose-500"
             >
               <option value="UNSAFE_SITE_CONDITION">Unsafe Site / Structural Condition</option>
               <option value="ASBESTOS_SUSPECTED">Suspect Asbestos Material Identified</option>
@@ -101,26 +101,26 @@ export function StopWorkModal({ isOpen, onClose, onSuccess, jobPackId, workOrder
           </div>
 
           <div className="space-y-1">
-            <label className="text-brand-mist/70 block font-sans">Detailed Observations &amp; Actions Taken *</label>
+            <label className="text-[#6D6D68] block font-sans">Detailed Observations &amp; Actions Taken *</label>
             <textarea
               rows={4}
               required
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="Detail the exact location, condition observed, initial make-safe actions taken, and who on site was notified..."
-              className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:outline-none focus:border-rose-500"
+              className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:outline-none focus:border-rose-500"
             />
           </div>
 
-          <div className="p-3 rounded-lg bg-brand-void/50 border border-brand-edge-dark text-[11px] text-brand-mist/60 font-sans">
+          <div className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[11px] text-[#6D6D68] font-sans">
             Engaging Stop Work will immediately update the Job Pack readiness state, notify EntireFM 24/7 Operations, and record an immutable safety audit event.
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-brand-edge-dark/50">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#E8E8E5]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-brand-edge-dark text-brand-mist hover:text-white"
+              className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-[#111111] hover:text-white"
             >
               Cancel
             </button>

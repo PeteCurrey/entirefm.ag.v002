@@ -54,42 +54,42 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
     <div className="space-y-6">
       {/* Metrics Scorecard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">TOTAL RAMS PACKS</span>
-          <p className="text-2xl font-light text-white mt-1">{totalCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Job-specific safety packs</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">TOTAL RAMS PACKS</span>
+          <p className="text-2xl font-light text-[#111111] mt-1">{totalCount}</p>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Job-specific safety packs</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACCEPTED &amp; ISSUED</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">ACCEPTED &amp; ISSUED</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{issuedCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Active work clearance</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Active work clearance</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">UNDER REVIEW</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">UNDER REVIEW</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">{underReviewCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Awaiting compliance check</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Awaiting compliance check</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">CHANGES REQUESTED</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">CHANGES REQUESTED</span>
           <p className={`text-2xl font-light mt-1 ${changesRequestedCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {changesRequestedCount}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Revision required</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Revision required</span>
         </div>
       </div>
 
       {/* Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-3">
         <div className="flex items-center gap-1.5 text-xs font-normal">
           <button
             onClick={() => setFilterType('ALL')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filterType === 'ALL'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             All RAMS ({ramsList.length})
@@ -99,7 +99,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filterType === 'ENTIREFM'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             EntireFM Jobs ({ramsList.filter((r) => !r.isIndependentRams).length})
@@ -109,7 +109,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filterType === 'INDEPENDENT'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             Independent RAMS ({ramsList.filter((r) => r.isIndependentRams).length})
@@ -128,22 +128,22 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
       {/* Search & Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="relative max-w-sm flex-1">
-          <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search RAMS by title, site, or ref..."
-            className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 text-xs font-normal">
-          <span className="text-brand-mist/50">Status:</span>
+          <span className="text-[#9A9A95]">Status:</span>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs focus:outline-none focus:border-brand-electric"
+            className="px-2.5 py-1.5 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs focus:outline-none focus:border-brand-electric"
           >
             <option value="ALL">All Statuses</option>
             <option value="DRAFT">Draft</option>
@@ -156,11 +156,11 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
       </div>
 
       {/* RAMS Table */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
-              <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
+              <tr className="bg-[#FAFAF8] border-b border-[#E8E8E5] text-[#6D6D68] uppercase text-[10px]">
                 <th className="py-3 px-4">Document Ref</th>
                 <th className="py-3 px-4">Job Scope &amp; Activity</th>
                 <th className="py-3 px-4">Client &amp; Site</th>
@@ -169,16 +169,16 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/30">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-brand-mist/50 font-sans text-xs">
+                  <td colSpan={6} className="py-12 text-center text-[#9A9A95] font-sans text-xs">
                     No RAMS packs found matching criteria.
                   </td>
                 </tr>
               ) : (
                 filtered.map((rams) => (
-                  <tr key={rams.id} className="hover:bg-brand-edge-dark/20 transition-colors">
+                  <tr key={rams.id} className="hover:bg-[#F5F5F3] transition-colors">
                     <td className="py-3 px-4 font-bold text-white">
                       <Link
                         href={`/contractor/rams/${encodeURIComponent(rams.id)}`}
@@ -186,15 +186,15 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
                       >
                         {rams.id}
                       </Link>
-                      <span className="text-[10px] text-brand-mist/40 block font-normal">v{rams.version}</span>
+                      <span className="text-[10px] text-[#9A9A95] block font-normal">v{rams.version}</span>
                     </td>
                     <td className="py-3 px-4 text-white">
                       <span className="font-medium block">{rams.title}</span>
-                      <span className="text-[10px] text-brand-mist/50 block">{rams.workCategory}</span>
+                      <span className="text-[10px] text-[#9A9A95] block">{rams.workCategory}</span>
                     </td>
-                    <td className="py-3 px-4 text-brand-mist">
-                      <span className="text-white block">{rams.siteName}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block">{rams.clientName}</span>
+                    <td className="py-3 px-4 text-[#111111]">
+                      <span className="text-[#111111] block">{rams.siteName}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block">{rams.clientName}</span>
                     </td>
                     <td className="py-3 px-4">
                       <span
@@ -203,13 +203,13 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
                             ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                             : rams.status === 'CHANGES_REQUESTED'
                             ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 font-bold'
-                            : 'bg-brand-void text-brand-mist border-brand-edge-dark'
+                            : 'bg-[#FAFAF8] text-[#111111] border-[#E8E8E5]'
                         }`}
                       >
                         {rams.status.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-brand-mist">
+                    <td className="py-3 px-4 text-[#111111]">
                       {rams.operativeBriefings.length} signed
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -218,7 +218,7 @@ export function RamsDashboardClient({ initialRamsList, contractorOrgId }: Props)
                           href={`/api/contractor/rams/${encodeURIComponent(rams.id)}/pdf`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 rounded hover:bg-brand-edge-dark text-brand-mist hover:text-white transition-colors"
+                          className="p-1.5 rounded hover:bg-[#F5F5F3] text-[#111111] hover:text-white transition-colors"
                           title="Print / View PDF"
                         >
                           <Download className="w-3.5 h-3.5" />

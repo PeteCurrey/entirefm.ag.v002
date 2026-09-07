@@ -87,22 +87,22 @@ export function Site360ClientView({
   return (
     <div className="space-y-6">
       {/* ─── SITE HEADER ─────────────────────────────────────────────────── */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-6">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-medium">
                 SITE360 · PROPERTY OPERATIONAL VIEW
               </span>
-              <span className="rounded bg-brand-void border border-brand-edge-dark px-2 py-0.5 text-[10px] font-mono text-brand-mist/60">
+              <span className="rounded bg-[#FAFAF8] border border-[#E8E8E5] px-2 py-0.5 text-[10px] font-mono text-[#6D6D68]">
                 {site.site_code || 'SITE'}
               </span>
               <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] text-emerald-400">
                 {site.status || 'ACTIVE'}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{site.name}</h1>
-            <p className="text-xs text-brand-mist/70 flex items-center gap-1.5">
+            <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">{site.name}</h1>
+            <p className="text-xs text-[#6D6D68] flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-brand-electric" />
               {[site.address_line1, site.address_line2, site.city, site.postcode]
                 .filter(Boolean)
@@ -122,19 +122,19 @@ export function Site360ClientView({
         </div>
 
         {/* Quick Highlights Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-brand-edge-dark/60 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-[#E8E8E5] text-xs">
           <div>
-            <span className="text-[10px] uppercase text-brand-mist/40 block">Open Jobs</span>
+            <span className="text-[10px] uppercase text-[#9A9A95] block">Open Jobs</span>
             <span className={`text-base font-light ${openJobs.length > 0 ? 'text-amber-400' : 'text-white'}`}>
               {openJobs.length} active
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase text-brand-mist/40 block">Maintainable Assets</span>
-            <span className="text-base font-light text-white">{assets.length} registered</span>
+            <span className="text-[10px] uppercase text-[#9A9A95] block">Maintainable Assets</span>
+            <span className="text-base font-light text-[#111111]">{assets.length} registered</span>
           </div>
           <div>
-            <span className="text-[10px] uppercase text-brand-mist/40 block">Compliance</span>
+            <span className="text-[10px] uppercase text-[#9A9A95] block">Compliance</span>
             <span className={`text-base font-light ${
               complianceObligations.some((o) => o.status === 'OVERDUE')
                 ? 'text-rose-400'
@@ -146,8 +146,8 @@ export function Site360ClientView({
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase text-brand-mist/40 block">Quotes Pending</span>
-            <span className={`text-base font-light ${pendingQuotes.length > 0 ? 'text-purple-300' : 'text-brand-mist/60'}`}>
+            <span className="text-[10px] uppercase text-[#9A9A95] block">Quotes Pending</span>
+            <span className={`text-base font-light ${pendingQuotes.length > 0 ? 'text-purple-300' : 'text-[#6D6D68]'}`}>
               {pendingQuotes.length} awaiting
             </span>
           </div>
@@ -155,15 +155,15 @@ export function Site360ClientView({
       </div>
 
       {/* ─── NAVIGATION TABS ─────────────────────────────────────────────── */}
-      <div className="flex items-center gap-1 overflow-x-auto border-b border-brand-edge-dark/60 pb-px">
+      <div className="flex items-center gap-1 overflow-x-auto border-b border-[#E8E8E5] pb-px">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2.5 text-xs font-light whitespace-nowrap transition-all border-b-2 -mb-px flex items-center gap-1.5 ${
               activeTab === tab.id
-                ? 'border-brand-electric text-white font-normal bg-brand-carbon/40'
-                : 'border-transparent text-brand-mist/60 hover:text-white hover:bg-brand-carbon/20'
+                ? 'border-brand-electric text-white font-normal bg-white'
+                : 'border-transparent text-[#6D6D68] hover:text-white hover:bg-white'
             }`}
           >
             {tab.label}
@@ -172,7 +172,7 @@ export function Site360ClientView({
                 className={`rounded-full px-1.5 py-0.2 text-[10px] ${
                   tab.alert
                     ? 'bg-amber-500/20 text-amber-300'
-                    : 'bg-brand-void text-brand-mist/60'
+                    : 'bg-[#FAFAF8] text-[#6D6D68]'
                 }`}
               >
                 {tab.count}
@@ -188,37 +188,37 @@ export function Site360ClientView({
       {activeTab === 'property' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-4">
-              <h2 className="text-sm font-normal text-white">Property Details</h2>
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+              <h2 className="text-sm font-normal text-[#111111]">Property Details</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <span className="text-brand-mist/50 block">Property Name</span>
-                  <p className="text-white font-light text-sm mt-0.5">{site.name}</p>
+                  <span className="text-[#9A9A95] block">Property Name</span>
+                  <p className="text-[#111111] font-light text-sm mt-0.5">{site.name}</p>
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Site Code</span>
-                  <p className="text-white font-mono mt-0.5">{site.site_code || '—'}</p>
+                  <span className="text-[#9A9A95] block">Site Code</span>
+                  <p className="text-[#111111] font-mono mt-0.5">{site.site_code || '—'}</p>
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Property Type</span>
-                  <p className="text-white mt-0.5">{site.site_type?.replace(/_/g, ' ') || 'Commercial Facility'}</p>
+                  <span className="text-[#9A9A95] block">Property Type</span>
+                  <p className="text-[#111111] mt-0.5">{site.site_type?.replace(/_/g, ' ') || 'Commercial Facility'}</p>
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Managing Client</span>
-                  <p className="text-white mt-0.5">{clientName}</p>
+                  <span className="text-[#9A9A95] block">Managing Client</span>
+                  <p className="text-[#111111] mt-0.5">{clientName}</p>
                 </div>
                 <div className="sm:col-span-2">
-                  <span className="text-brand-mist/50 block">Full Address</span>
-                  <p className="text-white mt-0.5">
+                  <span className="text-[#9A9A95] block">Full Address</span>
+                  <p className="text-[#111111] mt-0.5">
                     {[site.address_line1, site.address_line2, site.city, site.county, site.postcode, site.country]
                       .filter(Boolean)
                       .join(', ')}
                   </p>
                 </div>
                 {site.access_instructions && (
-                  <div className="sm:col-span-2 pt-2 border-t border-brand-edge-dark/40">
-                    <span className="text-brand-mist/50 block">Access & Attendance Notes</span>
-                    <p className="text-brand-mist mt-1 leading-relaxed">{site.access_instructions}</p>
+                  <div className="sm:col-span-2 pt-2 border-t border-[#E8E8E5]">
+                    <span className="text-[#9A9A95] block">Access & Attendance Notes</span>
+                    <p className="text-[#111111] mt-1 leading-relaxed">{site.access_instructions}</p>
                   </div>
                 )}
               </div>
@@ -226,20 +226,20 @@ export function Site360ClientView({
 
             {/* Buildings and floor zones if present */}
             {buildings.length > 0 && (
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-3">
-                <h2 className="text-sm font-normal text-white">Buildings & Demarcations</h2>
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+                <h2 className="text-sm font-normal text-[#111111]">Buildings & Demarcations</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {buildings.map((b) => (
                     <div
                       key={b.id}
-                      className="border border-brand-edge-dark bg-brand-void/40 rounded-lg p-3 text-xs"
+                      className="border border-[#E8E8E5] bg-[#FAFAF8] rounded-lg p-3 text-xs"
                     >
                       <span className="text-[10px] text-brand-electric-bright font-mono">
                         {b.building_code}
                       </span>
-                      <p className="text-white font-normal mt-0.5">{b.name}</p>
+                      <p className="text-[#111111] font-normal mt-0.5">{b.name}</p>
                       {b.gross_internal_area_sqm && (
-                        <p className="text-brand-mist/50 mt-1">GIA: {b.gross_internal_area_sqm.toLocaleString()} m²</p>
+                        <p className="text-[#9A9A95] mt-1">GIA: {b.gross_internal_area_sqm.toLocaleString()} m²</p>
                       )}
                     </div>
                   ))}
@@ -249,30 +249,30 @@ export function Site360ClientView({
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-3">
-              <h3 className="text-xs uppercase tracking-wider text-brand-mist/50 font-normal">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-3">
+              <h3 className="text-xs uppercase tracking-wider text-[#9A9A95] font-normal">
                 EntireFM Contract Scope
               </h3>
-              <p className="text-xs text-brand-mist/80 leading-relaxed">
+              <p className="text-xs text-[#6D6D68] leading-relaxed">
                 EntireFM provides contracted facilities management services for this site. Work orders, maintenance visits, compliance tests, and documentation are recorded against this property.
               </p>
-              <div className="pt-2 border-t border-brand-edge-dark/40 space-y-2 text-xs">
-                <div className="flex items-center justify-between text-brand-mist/60">
+              <div className="pt-2 border-t border-[#E8E8E5] space-y-2 text-xs">
+                <div className="flex items-center justify-between text-[#6D6D68]">
                   <span>Site Status:</span>
                   <span className="text-emerald-400">{site.status || 'Active'}</span>
                 </div>
-                <div className="flex items-center justify-between text-brand-mist/60">
+                <div className="flex items-center justify-between text-[#6D6D68]">
                   <span>Security Clearance:</span>
-                  <span className="text-white">{site.security_clearance_required ? 'Required' : 'Standard'}</span>
+                  <span className="text-[#111111]">{site.security_clearance_required ? 'Required' : 'Standard'}</span>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-2">
-              <h3 className="text-xs uppercase tracking-wider text-brand-mist/50 font-normal">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-2">
+              <h3 className="text-xs uppercase tracking-wider text-[#9A9A95] font-normal">
                 Need Assistance?
               </h3>
-              <p className="text-xs text-brand-mist/70">
+              <p className="text-xs text-[#6D6D68]">
                 To report an urgent issue or request service attendance for this site, contact the 24/7 EntireFM Helpdesk.
               </p>
               <Link
@@ -290,17 +290,17 @@ export function Site360ClientView({
       {activeTab === 'jobs' && (
         <div className="space-y-6">
           <div>
-            <h2 className="text-sm font-normal text-white mb-3">Open Work Orders ({openJobs.length})</h2>
+            <h2 className="text-sm font-normal text-[#111111] mb-3">Open Work Orders ({openJobs.length})</h2>
             {openJobs.length === 0 ? (
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
                 <CheckCircle2 className="w-7 h-7 text-emerald-400 mx-auto mb-2 opacity-70" />
-                <p className="text-sm text-brand-mist font-normal">No open maintenance jobs for this property.</p>
-                <p className="text-xs text-brand-mist/40 mt-1">All reactive tasks for this site are up to date.</p>
+                <p className="text-sm text-[#111111] font-normal">No open maintenance jobs for this property.</p>
+                <p className="text-xs text-[#9A9A95] mt-1">All reactive tasks for this site are up to date.</p>
               </div>
             ) : (
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
                 <table className="w-full text-left text-[13px]">
-                  <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                  <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                     <tr>
                       <th className="px-5 py-3">Reference</th>
                       <th className="px-5 py-3">Issue Title</th>
@@ -309,14 +309,14 @@ export function Site360ClientView({
                       <th className="px-5 py-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                  <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                     {openJobs.map((wo) => (
-                      <tr key={wo.id} className="hover:bg-brand-void/30 transition-colors">
+                      <tr key={wo.id} className="hover:bg-[#FAFAF8] transition-colors">
                         <td className="px-5 py-3.5 font-mono text-brand-electric-bright text-xs">
                           {wo.work_order_number}
                         </td>
                         <td className="px-5 py-3.5 text-white font-normal">{wo.title}</td>
-                        <td className="px-5 py-3.5 text-xs text-brand-mist/70">{wo.priority}</td>
+                        <td className="px-5 py-3.5 text-xs text-[#6D6D68]">{wo.priority}</td>
                         <td className="px-5 py-3.5">
                           <span className={`rounded border px-2 py-0.5 text-[10px] font-normal ${
                             wo.status === 'IN_PROGRESS'
@@ -344,10 +344,10 @@ export function Site360ClientView({
 
           {completedJobs.length > 0 && (
             <div>
-              <h2 className="text-sm font-normal text-white mb-3">Recently Completed Jobs</h2>
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+              <h2 className="text-sm font-normal text-[#111111] mb-3">Recently Completed Jobs</h2>
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
                 <table className="w-full text-left text-[13px]">
-                  <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                  <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                     <tr>
                       <th className="px-5 py-3">Reference</th>
                       <th className="px-5 py-3">Issue Title</th>
@@ -355,14 +355,14 @@ export function Site360ClientView({
                       <th className="px-5 py-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                  <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                     {completedJobs.slice(0, 10).map((wo) => (
-                      <tr key={wo.id} className="hover:bg-brand-void/30 transition-colors">
-                        <td className="px-5 py-3.5 font-mono text-brand-mist/70 text-xs">
+                      <tr key={wo.id} className="hover:bg-[#FAFAF8] transition-colors">
+                        <td className="px-5 py-3.5 font-mono text-[#6D6D68] text-xs">
                           {wo.work_order_number}
                         </td>
                         <td className="px-5 py-3.5 text-white">{wo.title}</td>
-                        <td className="px-5 py-3.5 text-xs text-brand-mist/50">
+                        <td className="px-5 py-3.5 text-xs text-[#9A9A95]">
                           {wo.completed_at
                             ? new Date(wo.completed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
                             : 'Completed'}
@@ -370,7 +370,7 @@ export function Site360ClientView({
                         <td className="px-5 py-3.5 text-right">
                           <Link
                             href={`/clients/work-orders/${wo.id}`}
-                            className="text-xs text-brand-mist/60 hover:text-white"
+                            className="text-xs text-[#6D6D68] hover:text-white"
                           >
                             View Record →
                           </Link>
@@ -389,15 +389,15 @@ export function Site360ClientView({
       {activeTab === 'ppm' && (
         <div>
           {ppmOccurrences.length === 0 ? (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
-              <CalendarClock className="w-7 h-7 text-brand-mist/30 mx-auto mb-2" />
-              <p className="text-sm text-brand-mist font-normal">No planned maintenance visits currently scheduled for this site.</p>
-              <p className="text-xs text-brand-mist/40 mt-1">PPM schedules are coordinated according to contract requirements.</p>
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
+              <CalendarClock className="w-7 h-7 text-[#9A9A95] mx-auto mb-2" />
+              <p className="text-sm text-[#111111] font-normal">No planned maintenance visits currently scheduled for this site.</p>
+              <p className="text-xs text-[#9A9A95] mt-1">PPM schedules are coordinated according to contract requirements.</p>
             </div>
           ) : (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
               <table className="w-full text-left text-[13px]">
-                <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                   <tr>
                     <th className="px-5 py-3">Schedule Ref</th>
                     <th className="px-5 py-3">Asset / Equipment</th>
@@ -406,14 +406,14 @@ export function Site360ClientView({
                     <th className="px-5 py-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                   {ppmOccurrences.map((occ) => (
-                    <tr key={occ.id} className="hover:bg-brand-void/30 transition-colors">
+                    <tr key={occ.id} className="hover:bg-[#FAFAF8] transition-colors">
                       <td className="px-5 py-3.5 font-mono text-brand-electric-bright text-xs">
                         {occ.occurrence_code}
                       </td>
                       <td className="px-5 py-3.5 text-white font-normal">{occ.asset?.name || 'Site Asset'}</td>
-                      <td className="px-5 py-3.5 text-brand-mist/70">{occ.plan?.name || 'Standard Service'}</td>
+                      <td className="px-5 py-3.5 text-[#6D6D68]">{occ.plan?.name || 'Standard Service'}</td>
                       <td className="px-5 py-3.5 text-xs text-white">
                         {occ.planned_date
                           ? new Date(occ.planned_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -437,16 +437,16 @@ export function Site360ClientView({
       {activeTab === 'compliance' && (
         <div className="space-y-6">
           <div>
-            <h2 className="text-sm font-normal text-white mb-3">Statutory Obligations</h2>
+            <h2 className="text-sm font-normal text-[#111111] mb-3">Statutory Obligations</h2>
             {complianceObligations.length === 0 ? (
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
-                <ShieldCheck className="w-7 h-7 text-brand-mist/30 mx-auto mb-2" />
-                <p className="text-sm text-brand-mist font-normal">No statutory obligations currently registered for this site.</p>
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
+                <ShieldCheck className="w-7 h-7 text-[#9A9A95] mx-auto mb-2" />
+                <p className="text-sm text-[#111111] font-normal">No statutory obligations currently registered for this site.</p>
               </div>
             ) : (
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
                 <table className="w-full text-left text-[13px]">
-                  <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                  <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                     <tr>
                       <th className="px-5 py-3">Obligation</th>
                       <th className="px-5 py-3">Responsible Party</th>
@@ -454,13 +454,13 @@ export function Site360ClientView({
                       <th className="px-5 py-3">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                  <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                     {complianceObligations.map((ob) => (
-                      <tr key={ob.id} className="hover:bg-brand-void/30 transition-colors">
+                      <tr key={ob.id} className="hover:bg-[#FAFAF8] transition-colors">
                         <td className="px-5 py-3.5 text-white font-normal">
                           {ob.rule_version?.rule?.title || ob.title || 'Statutory Inspection'}
                         </td>
-                        <td className="px-5 py-3.5 text-brand-mist/70">{ob.responsible_party || 'EntireFM'}</td>
+                        <td className="px-5 py-3.5 text-[#6D6D68]">{ob.responsible_party || 'EntireFM'}</td>
                         <td className="px-5 py-3.5 text-xs text-white">
                           {ob.next_due_at
                             ? new Date(ob.next_due_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -487,10 +487,10 @@ export function Site360ClientView({
 
           {certificates.length > 0 && (
             <div>
-              <h2 className="text-sm font-normal text-white mb-3">Filed Certificates</h2>
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+              <h2 className="text-sm font-normal text-[#111111] mb-3">Filed Certificates</h2>
+              <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
                 <table className="w-full text-left text-[13px]">
-                  <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                  <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                     <tr>
                       <th className="px-5 py-3">Certificate Type</th>
                       <th className="px-5 py-3">Issued Date</th>
@@ -498,12 +498,12 @@ export function Site360ClientView({
                       <th className="px-5 py-3">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                  <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                     {certificates.map((c) => (
-                      <tr key={c.id} className="hover:bg-brand-void/30 transition-colors">
+                      <tr key={c.id} className="hover:bg-[#FAFAF8] transition-colors">
                         <td className="px-5 py-3.5 text-white">{c.certificate_type}</td>
-                        <td className="px-5 py-3.5 text-xs text-brand-mist/60">{c.issued_date || '—'}</td>
-                        <td className="px-5 py-3.5 text-xs text-brand-mist/60">{c.expiry_date || '—'}</td>
+                        <td className="px-5 py-3.5 text-xs text-[#6D6D68]">{c.issued_date || '—'}</td>
+                        <td className="px-5 py-3.5 text-xs text-[#6D6D68]">{c.expiry_date || '—'}</td>
                         <td className="px-5 py-3.5">
                           <span className="rounded border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400">
                             {c.status}
@@ -523,15 +523,15 @@ export function Site360ClientView({
       {activeTab === 'assets' && (
         <div>
           {assets.length === 0 ? (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
-              <Cpu className="w-7 h-7 text-brand-mist/30 mx-auto mb-2" />
-              <p className="text-sm text-brand-mist font-normal">No assets currently registered to this property.</p>
-              <p className="text-xs text-brand-mist/40 mt-1">Maintainable equipment is catalogued during contract mobilisation.</p>
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
+              <Cpu className="w-7 h-7 text-[#9A9A95] mx-auto mb-2" />
+              <p className="text-sm text-[#111111] font-normal">No assets currently registered to this property.</p>
+              <p className="text-xs text-[#9A9A95] mt-1">Maintainable equipment is catalogued during contract mobilisation.</p>
             </div>
           ) : (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
               <table className="w-full text-left text-[13px]">
-                <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                   <tr>
                     <th className="px-5 py-3">Asset Ref</th>
                     <th className="px-5 py-3">Equipment Name</th>
@@ -541,18 +541,18 @@ export function Site360ClientView({
                     <th className="px-5 py-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                   {assets.map((a) => (
-                    <tr key={a.id} className="hover:bg-brand-void/30 transition-colors">
+                    <tr key={a.id} className="hover:bg-[#FAFAF8] transition-colors">
                       <td className="px-5 py-3.5 font-mono text-brand-electric-bright text-xs">
                         {a.asset_reference}
                       </td>
                       <td className="px-5 py-3.5 text-white font-normal">{a.name}</td>
-                      <td className="px-5 py-3.5 text-xs text-brand-mist/70">{a.category}</td>
-                      <td className="px-5 py-3.5 text-xs text-brand-mist/50">
+                      <td className="px-5 py-3.5 text-xs text-[#6D6D68]">{a.category}</td>
+                      <td className="px-5 py-3.5 text-xs text-[#9A9A95]">
                         {[a.manufacturer, a.model_number].filter(Boolean).join(' ') || '—'}
                       </td>
-                      <td className="px-5 py-3.5 text-xs text-brand-mist/70">
+                      <td className="px-5 py-3.5 text-xs text-[#6D6D68]">
                         {a.condition || 'Good'}
                       </td>
                       <td className="px-5 py-3.5">
@@ -572,21 +572,21 @@ export function Site360ClientView({
       {/* 6. DOCUMENTS TAB */}
       {activeTab === 'documents' && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/20 p-4 text-xs text-brand-mist/70">
-            <span className="text-white font-normal block mb-1">Technical Drawings &amp; Property Documentation</span>
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4 text-xs text-[#6D6D68]">
+            <span className="text-[#111111] font-normal block mb-1">Technical Drawings &amp; Property Documentation</span>
             Drawings, plans, manuals, and technical documents stored here have been supplied to EntireFM and are organised against this site record.
           </div>
 
           {documents.length === 0 ? (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
-              <FileText className="w-7 h-7 text-brand-mist/30 mx-auto mb-2" />
-              <p className="text-sm text-brand-mist font-normal">No documents have been added to this site yet.</p>
-              <p className="text-xs text-brand-mist/40 mt-1">Technical documents and plans can be supplied to your account team for archival.</p>
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
+              <FileText className="w-7 h-7 text-[#9A9A95] mx-auto mb-2" />
+              <p className="text-sm text-[#111111] font-normal">No documents have been added to this site yet.</p>
+              <p className="text-xs text-[#9A9A95] mt-1">Technical documents and plans can be supplied to your account team for archival.</p>
             </div>
           ) : (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
               <table className="w-full text-left text-[13px]">
-                <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                   <tr>
                     <th className="px-5 py-3">Document Title</th>
                     <th className="px-5 py-3">Type</th>
@@ -594,12 +594,12 @@ export function Site360ClientView({
                     <th className="px-5 py-3 text-right">Download</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                   {documents.map((doc) => (
-                    <tr key={doc.id} className="hover:bg-brand-void/30 transition-colors">
+                    <tr key={doc.id} className="hover:bg-[#FAFAF8] transition-colors">
                       <td className="px-5 py-3.5 text-white font-normal">{doc.title}</td>
-                      <td className="px-5 py-3.5 text-xs text-brand-mist/70">{doc.document_type || 'Record'}</td>
-                      <td className="px-5 py-3.5 text-xs text-brand-mist/50">{doc.expiry_date || '—'}</td>
+                      <td className="px-5 py-3.5 text-xs text-[#6D6D68]">{doc.document_type || 'Record'}</td>
+                      <td className="px-5 py-3.5 text-xs text-[#9A9A95]">{doc.expiry_date || '—'}</td>
                       <td className="px-5 py-3.5 text-right">
                         <Link
                           href={`/api/documents/download?id=${doc.id}`}
@@ -623,15 +623,15 @@ export function Site360ClientView({
       {activeTab === 'quotes' && (
         <div>
           {quotes.length === 0 ? (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-8 text-center">
-              <Coins className="w-7 h-7 text-brand-mist/30 mx-auto mb-2" />
-              <p className="text-sm text-brand-mist font-normal">No quotations are currently associated with this site.</p>
-              <p className="text-xs text-brand-mist/40 mt-1">Extra works recommendations and quotes appear here for your review.</p>
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-8 text-center">
+              <Coins className="w-7 h-7 text-[#9A9A95] mx-auto mb-2" />
+              <p className="text-sm text-[#111111] font-normal">No quotations are currently associated with this site.</p>
+              <p className="text-xs text-[#9A9A95] mt-1">Extra works recommendations and quotes appear here for your review.</p>
             </div>
           ) : (
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
               <table className="w-full text-left text-[13px]">
-                <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+                <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                   <tr>
                     <th className="px-5 py-3">Quote Ref</th>
                     <th className="px-5 py-3">Title / Scope</th>
@@ -640,9 +640,9 @@ export function Site360ClientView({
                     <th className="px-5 py-3 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+                <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                   {quotes.map((q) => (
-                    <tr key={q.id} className="hover:bg-brand-void/30 transition-colors">
+                    <tr key={q.id} className="hover:bg-[#FAFAF8] transition-colors">
                       <td className="px-5 py-3.5 font-mono text-brand-electric-bright text-xs">
                         {q.quote_number}
                       </td>

@@ -11,7 +11,7 @@ const QUALITY_COLOURS: Record<string, string> = {
   UNVERIFIED: 'bg-orange-900/40 text-orange-300',
   NEEDS_REVIEW: 'bg-red-900/40 text-red-300',
   CONFLICT: 'bg-purple-900/40 text-purple-300',
-  ARCHIVED: 'bg-brand-edge-dark text-brand-mist/40',
+  ARCHIVED: 'bg-[#F5F5F3] text-[#9A9A95]',
 };
 
 export default async function AssetDataQualityPage() {
@@ -39,29 +39,29 @@ export default async function AssetDataQualityPage() {
 
       {/* Metrics Bar */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4 text-center">
-          <div className="text-2xl font-extralight text-white">{assets.length}</div>
-          <div className="mt-1 text-[11px] uppercase tracking-wider text-brand-mist/50">Total Assets</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4 text-center">
+          <div className="text-2xl font-extralight text-[#111111]">{assets.length}</div>
+          <div className="mt-1 text-[11px] uppercase tracking-wider text-[#9A9A95]">Total Assets</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4 text-center">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4 text-center">
           <div className="text-2xl font-extralight text-emerald-400">{verifiedCount}</div>
-          <div className="mt-1 text-[11px] uppercase tracking-wider text-brand-mist/50">Verified</div>
+          <div className="mt-1 text-[11px] uppercase tracking-wider text-[#9A9A95]">Verified</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4 text-center">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4 text-center">
           <div className="text-2xl font-extralight text-amber-400">{partialUnverifiedCount}</div>
-          <div className="mt-1 text-[11px] uppercase tracking-wider text-brand-mist/50">Partial / Unverified</div>
+          <div className="mt-1 text-[11px] uppercase tracking-wider text-[#9A9A95]">Partial / Unverified</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4 text-center">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4 text-center">
           <div className="text-2xl font-extralight text-red-400">{needsReviewCount}</div>
-          <div className="mt-1 text-[11px] uppercase tracking-wider text-brand-mist/50">Needs Review</div>
+          <div className="mt-1 text-[11px] uppercase tracking-wider text-[#9A9A95]">Needs Review</div>
         </div>
       </div>
 
       {assets.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Asset Ref</th>
                 <th className="px-5 py-3">Name / Category</th>
                 <th className="px-5 py-3">Quality Status</th>
@@ -69,7 +69,7 @@ export default async function AssetDataQualityPage() {
                 <th className="px-5 py-3">Missing Key Fields</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {assets.map((a: any) => {
                 const status = a.data_quality_status || 'UNVERIFIED';
                 const score = typeof a.completeness_score === 'number' ? Math.round(a.completeness_score * 100) : null;
@@ -80,30 +80,30 @@ export default async function AssetDataQualityPage() {
                 if (!a.install_date) missing.push('Install Date');
 
                 return (
-                  <tr key={a.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                  <tr key={a.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                     <td className="px-5 py-4 font-normal text-[11px] text-white">{a.asset_reference}</td>
                     <td className="px-5 py-4">
-                      <div className="font-light text-white">{a.name}</div>
-                      <div className="text-[11.5px] text-brand-mist/50">{a.category}</div>
+                      <div className="font-light text-[#111111]">{a.name}</div>
+                      <div className="text-[11.5px] text-[#9A9A95]">{a.category}</div>
                     </td>
                     <td className="px-5 py-4">
-                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${QUALITY_COLOURS[status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                      <span className={`rounded px-2 py-0.5 font-normal text-[10px]${QUALITY_COLOURS[status] ?? 'bg-[#F5F5F3] text-[#6D6D68]'}`}>
                         {status}
                       </span>
                     </td>
                     <td className="px-5 py-4">
                       {score !== null ? (
                         <div className="flex items-center gap-2">
-                          <div className="h-1.5 w-20 overflow-hidden rounded-full bg-brand-edge-dark">
+                          <div className="h-1.5 w-20 overflow-hidden rounded-full bg-[#F5F5F3]">
                             <div
                               className={`h-full ${score >= 80 ? 'bg-emerald-400' : score >= 50 ? 'bg-amber-400' : 'bg-red-400'}`}
                               style={{ width: `${score}%` }}
                             />
                           </div>
-                          <span className="font-normal text-[11px] text-brand-mist/70">{score}%</span>
+                          <span className="font-normal text-[11px] text-[#6D6D68]">{score}%</span>
                         </div>
                       ) : (
-                        <span className="text-[11px] text-brand-mist/40">Not scored</span>
+                        <span className="text-[11px] text-[#9A9A95]">Not scored</span>
                       )}
                     </td>
                     <td className="px-5 py-4">

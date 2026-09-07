@@ -21,7 +21,7 @@ const INVOICE_STATUS_BADGE: Record<string, string> = {
 };
 
 const PAYMENT_STATUS_BADGE: Record<string, string> = {
-  NOT_DUE: 'text-brand-mist/60',
+  NOT_DUE: 'text-[#6D6D68]',
   DUE: 'text-amber-400 font-light',
   OVERDUE: 'text-red-400 font-light',
   PART_PAID: 'text-blue-400 font-light',
@@ -46,7 +46,7 @@ export default async function ClientInvoicesPage() {
         />
         <Link
           href="/admin/integrations/xero"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-carbon border border-brand-edge-dark text-xs text-brand-mist hover:text-white transition"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-[#E8E8E5] text-xs text-[#111111] hover:text-white transition"
         >
           <span>Xero Integration</span>
           <ArrowRight className="h-3.5 w-3.5" />
@@ -54,8 +54,8 @@ export default async function ClientInvoicesPage() {
       </div>
 
       {/* SUMMARY */}
-      <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60 bg-brand-void/40 p-3.5 rounded-lg border border-brand-edge-dark/50">
-        <div>Total Issued Invoices: <span className="text-white font-light">{invoices.length}</span></div>
+      <div className="flex items-center justify-between text-xs font-normal text-[#6D6D68] bg-[#FAFAF8] p-3.5 rounded-lg border border-[#E8E8E5]">
+        <div>Total Issued Invoices: <span className="text-[#111111] font-light">{invoices.length}</span></div>
         <div>Total Invoiced: <span className="text-brand-electric font-light">£{totalBilled.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
 
@@ -66,9 +66,9 @@ export default async function ClientInvoicesPage() {
           icon="FileText"
         />
       ) : (
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-normal text-brand-mist">
-            <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden shadow-2xl">
+          <table className="w-full text-left text-xs font-normal text-[#111111]">
+            <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
               <tr>
                 <th className="p-3.5">Invoice Number</th>
                 <th className="p-3.5">Client Account</th>
@@ -83,9 +83,9 @@ export default async function ClientInvoicesPage() {
                 <th className="p-3.5 text-right">Evidence</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {invoices.map(inv => (
-                <tr key={inv.id} className="hover:bg-brand-edge-dark/20 transition-colors">
+                <tr key={inv.id} className="hover:bg-[#F5F5F3] transition-colors">
                   <td className="p-3.5 font-light text-white">
                     <Link
                       href={`/admin/finance/client-invoices/${inv.id}`}
@@ -98,14 +98,14 @@ export default async function ClientInvoicesPage() {
                   <td className="p-3.5">{inv.issue_date || '—'}</td>
                   <td className="p-3.5">{inv.due_date || '—'}</td>
                   <td className="p-3.5 font-light text-white">£{(Number(inv.subtotal_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5 text-brand-mist/70">£{(Number(inv.tax_amount_gbp) || 0).toFixed(2)}</td>
+                  <td className="p-3.5 text-[#6D6D68]">£{(Number(inv.tax_amount_gbp) || 0).toFixed(2)}</td>
                   <td className="p-3.5 font-light text-brand-electric">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
                   <td className="p-3.5">
                     <span className={`px-2 py-0.5 rounded text-[10px] ${INVOICE_STATUS_BADGE[inv.status] || 'bg-zinc-800 text-zinc-400'}`}>
                       {inv.status}
                     </span>
                   </td>
-                  <td className={`p-3.5 text-[11px] ${PAYMENT_STATUS_BADGE[inv.payment_status] || 'text-brand-mist'}`}>
+                  <td className={`p-3.5 text-[11px] ${PAYMENT_STATUS_BADGE[inv.payment_status] || 'text-[#111111]'}`}>
                     {inv.payment_status?.replace(/_/g, ' ') || 'NOT DUE'}
                   </td>
                   <td className="p-3.5">

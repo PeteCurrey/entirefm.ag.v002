@@ -31,10 +31,10 @@ export default async function ContractorJobPacksPage() {
         <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           OPERATIONAL READINESS &bull; CP-06
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Job Packs &amp; Work-Ready Control Centre
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-2xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-2xl">
           Unified pre-attendance packs combining work order details, verified operative competencies, approved RAMS, site instructions, and digital briefings.
         </p>
       </div>

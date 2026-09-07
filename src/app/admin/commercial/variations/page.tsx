@@ -21,7 +21,7 @@ export default async function VariationOrdersPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/quotes"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-[#6D6D68] border border-[#E8E8E5] hover:text-white"
             >
               ← Back to Quotes
             </Link>
@@ -31,16 +31,16 @@ export default async function VariationOrdersPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">
             Recorded Variation Orders ({variations?.length || 0})
           </h3>
         </div>
 
         {variations && variations.length > 0 ? (
-          <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+          <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
             <table className="w-full min-w-[60rem] border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                   <th className="px-5 py-3">Variation Ref</th>
                   <th className="px-5 py-3">Scope Description</th>
                   <th className="px-5 py-3">Expected Cost</th>
@@ -50,16 +50,16 @@ export default async function VariationOrdersPage() {
                   <th className="px-5 py-3 text-right">Created</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {variations.map((v) => (
-                  <tr key={v.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                  <tr key={v.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                     <td className="px-5 py-4 text-[11px] text-white font-light">
                       {v.variation_number}
                     </td>
-                    <td className="px-5 py-4 max-w-xs truncate text-[12.5px] text-brand-mist/90">
+                    <td className="px-5 py-4 max-w-xs truncate text-[12.5px] text-[#6D6D68]">
                       {v.scope_description}
                     </td>
-                    <td className="px-5 py-4 font-normal text-[12px] text-brand-mist/60">
+                    <td className="px-5 py-4 font-normal text-[12px] text-[#6D6D68]">
                       £{Number(v.expected_cost_gbp || 0).toFixed(2)}
                     </td>
                     <td className="px-5 py-4 text-[12px] text-white font-normal">
@@ -73,7 +73,7 @@ export default async function VariationOrdersPage() {
                         {v.status}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-right font-normal text-[11px] text-brand-mist/40">
+                    <td className="px-5 py-4 text-right font-normal text-[11px] text-[#9A9A95]">
                       {new Date(v.created_at).toLocaleDateString('en-GB')}
                     </td>
                   </tr>

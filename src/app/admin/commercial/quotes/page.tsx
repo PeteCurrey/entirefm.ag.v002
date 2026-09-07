@@ -40,7 +40,7 @@ export default async function QuotesPage({
             </Link>
             <Link
               href="/admin/commercial/wip"
-              className="rounded bg-brand-carbon px-3.5 py-1.5 text-[12.5px] font-normal text-white border border-brand-edge-dark hover:bg-brand-edge-dark"
+              className="rounded bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-white border border-[#E8E8E5] hover:bg-[#F5F5F3]"
             >
               📊 Commercial WIP
             </Link>
@@ -49,7 +49,7 @@ export default async function QuotesPage({
       />
 
       {/* Tabs Filter Bar */}
-      <div className="flex items-center gap-2 border-b border-brand-edge-dark pb-2 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-[#E8E8E5] pb-2 overflow-x-auto">
         {tabs.map((tab) => {
           const isActive = status === tab.value || (!status && !tab.value);
           const href = tab.value ? `/admin/commercial/quotes?status=${tab.value}` : '/admin/commercial/quotes';
@@ -60,7 +60,7 @@ export default async function QuotesPage({
               className={`rounded px-3 py-1 text-[12px] font-normal transition-colors ${
                 isActive
                   ? 'bg-brand-electric text-white'
-                  : 'text-brand-mist/60 hover:text-white hover:bg-brand-carbon/60'
+                  : 'text-[#6D6D68] hover:text-white hover:bg-white'
               }`}
             >
               {tab.label}
@@ -70,10 +70,10 @@ export default async function QuotesPage({
       </div>
 
       {quotes.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[70rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Quote Ref</th>
                 <th className="px-5 py-3">Ver</th>
                 <th className="px-5 py-3">Description / Scope</th>
@@ -84,20 +84,20 @@ export default async function QuotesPage({
                 <th className="px-5 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {quotes.map((q) => {
                 const marginPct = q.expected_margin_pct ?? 0;
                 const isHealthyMargin = marginPct >= 20;
 
                 return (
-                  <tr key={q.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                  <tr key={q.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                     <td className="px-5 py-4 text-[11px] text-white font-light">
                       {q.quote_number}
                     </td>
-                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
+                    <td className="px-5 py-4 font-normal text-[11px] text-[#9A9A95]">
                       v{q.version || 1}
                     </td>
-                    <td className="px-5 py-4 max-w-xs truncate text-[12px] text-brand-mist/90">
+                    <td className="px-5 py-4 max-w-xs truncate text-[12px] text-[#6D6D68]">
                       {q.scope_description || 'Standard remedial quote'}
                     </td>
                     <td className="px-5 py-4 text-[12px] text-white font-normal">
@@ -109,7 +109,7 @@ export default async function QuotesPage({
                           £{Number(q.expected_margin_gbp).toFixed(2)} ({marginPct}%)
                         </span>
                       ) : (
-                        <span className="text-brand-mist/40">—</span>
+                        <span className="text-[#9A9A95]">—</span>
                       )}
                     </td>
                     <td className="px-5 py-4 font-normal text-[11px]">
@@ -122,7 +122,7 @@ export default async function QuotesPage({
                           PO Required
                         </span>
                       ) : (
-                        <span className="text-brand-mist/30">N/A</span>
+                        <span className="text-[#9A9A95]">N/A</span>
                       )}
                     </td>
                     <td className="px-5 py-4">
@@ -145,7 +145,7 @@ export default async function QuotesPage({
                     <td className="px-5 py-4 text-right">
                       <Link
                         href={`/admin/commercial/quotes/${q.id}`}
-                        className="rounded bg-brand-edge-dark/80 px-2.5 py-1 font-normal text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric"
+                        className="rounded bg-[#F5F5F3] px-2.5 py-1 font-normal text-[11px] text-[#6D6D68] hover:text-white hover:bg-brand-electric"
                       >
                         View & Manage →
                       </Link>

@@ -27,10 +27,10 @@ export default async function ContractorToolsPage() {
         <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           CONTRACTOR BUSINESS TOOLKIT &bull; CP-08
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Business Tools &amp; Calculators
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-2xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-2xl">
           Practical tools to help you price work accurately, protect margin, plan your workforce, and build professional quotes.
           All calculations are private to your organisation.
         </p>

@@ -31,8 +31,8 @@ export default async function AssetScanPage() {
         <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
           CAFM MOBILE SCANNER &bull; ASSET ATTENDANCE
         </span>
-        <h1 className="text-2xl font-light text-white tracking-tight">Scan Asset QR Tag</h1>
-        <p className="text-xs text-brand-mist/70">
+        <h1 className="text-2xl font-light text-[#111111] tracking-tight">Scan Asset QR Tag</h1>
+        <p className="text-xs text-[#6D6D68]">
           Scan the physical QR tag on the equipment to view live specifications, compliance history, and verify on-site attendance.
         </p>
       </div>

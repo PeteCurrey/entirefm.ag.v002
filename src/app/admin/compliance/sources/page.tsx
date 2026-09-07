@@ -18,7 +18,7 @@ export default async function ComplianceSourcesPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
+            className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-white"
           >
             ← Command Centre
           </Link>
@@ -26,10 +26,10 @@ export default async function ComplianceSourcesPage() {
       />
 
       {sources.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Source Code & Title</th>
                 <th className="px-5 py-3">Source Type</th>
                 <th className="px-5 py-3">Publishing Body</th>
@@ -38,17 +38,17 @@ export default async function ComplianceSourcesPage() {
                 <th className="px-5 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {sources.map((s) => (
-                <tr key={s.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={s.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{s.name}</div>
-                    <div className="font-normal text-[11px] text-brand-mist/50">{s.code}</div>
+                    <div className="font-light text-[#111111]">{s.name}</div>
+                    <div className="font-normal text-[11px] text-[#9A9A95]">{s.code}</div>
                   </td>
                   <td className="px-5 py-4 font-normal text-[11px] text-brand-electric">
                     {s.source_type}
                   </td>
-                  <td className="px-5 py-4 text-brand-mist/70">
+                  <td className="px-5 py-4 text-[#6D6D68]">
                     {s.publishing_body}
                   </td>
                   <td className="px-5 py-4 font-normal text-[11px]">

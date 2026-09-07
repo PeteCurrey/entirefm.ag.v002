@@ -56,8 +56,8 @@ export default async function ClientPpmPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-light text-white tracking-tight">Planned Maintenance</h1>
-        <p className="mt-1 text-[13px] text-brand-mist/60">
+        <h1 className="text-2xl font-light text-[#111111] tracking-tight">Planned Maintenance</h1>
+        <p className="mt-1 text-[13px] text-[#6D6D68]">
           Upcoming scheduled maintenance visits and recently completed service records for {session.orgName}.
         </p>
       </div>
@@ -66,24 +66,24 @@ export default async function ClientPpmPage() {
       <div>
         <div className="flex items-center gap-2 mb-3">
           <CalendarClock className="w-4 h-4 text-brand-electric-bright" />
-          <h2 className="text-sm font-normal text-white">Upcoming Visits</h2>
-          <span className="rounded border border-brand-edge-dark px-2 py-0.5 text-[10px] text-brand-mist/50">
+          <h2 className="text-sm font-normal text-[#111111]">Upcoming Visits</h2>
+          <span className="rounded border border-[#E8E8E5] px-2 py-0.5 text-[10px] text-[#9A9A95]">
             Next 90 days
           </span>
         </div>
 
         {upcoming.length === 0 ? (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 px-6 py-10 text-center">
-            <Clock className="w-7 h-7 text-brand-mist/30 mx-auto mb-3" />
-            <p className="text-sm text-brand-mist/60">No planned maintenance visits are currently scheduled.</p>
-            <p className="text-xs text-brand-mist/40 mt-1">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm px-6 py-10 text-center">
+            <Clock className="w-7 h-7 text-[#9A9A95] mx-auto mb-3" />
+            <p className="text-sm text-[#6D6D68]">No planned maintenance visits are currently scheduled.</p>
+            <p className="text-xs text-[#9A9A95] mt-1">
               Your EntireFM account manager can confirm the maintenance programme for your properties.
             </p>
           </div>
         ) : (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
             <table className="w-full text-left text-[13px]">
-              <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+              <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                 <tr>
                   <th className="px-6 py-3">Asset / Service</th>
                   <th className="px-6 py-3">Maintenance Plan</th>
@@ -92,17 +92,17 @@ export default async function ClientPpmPage() {
                   <th className="px-6 py-3">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+              <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                 {upcoming.map((occ) => (
-                  <tr key={occ.id} className="hover:bg-brand-void/30 transition-colors">
+                  <tr key={occ.id} className="hover:bg-[#FAFAF8] transition-colors">
                     <td className="px-6 py-3.5">
-                      <div className="font-normal text-white">{occ.asset?.name || 'General Service'}</div>
+                      <div className="font-normal text-[#111111]">{occ.asset?.name || 'General Service'}</div>
                       {occ.asset?.asset_reference && (
-                        <div className="text-[11px] text-brand-mist/40 mt-0.5">{occ.asset.asset_reference}</div>
+                        <div className="text-[11px] text-[#9A9A95] mt-0.5">{occ.asset.asset_reference}</div>
                       )}
                     </td>
-                    <td className="px-6 py-3.5 text-brand-mist/70">{occ.plan?.name || 'Planned Maintenance'}</td>
-                    <td className="px-6 py-3.5 text-brand-mist/70">{occ.asset?.site?.name || '—'}</td>
+                    <td className="px-6 py-3.5 text-[#6D6D68]">{occ.plan?.name || 'Planned Maintenance'}</td>
+                    <td className="px-6 py-3.5 text-[#6D6D68]">{occ.asset?.site?.name || '—'}</td>
                     <td className="px-6 py-3.5 font-normal text-white">
                       {occ.planned_date
                         ? new Date(occ.planned_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -122,14 +122,14 @@ export default async function ClientPpmPage() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <h2 className="text-sm font-normal text-white">Recently Completed</h2>
-            <span className="rounded border border-brand-edge-dark px-2 py-0.5 text-[10px] text-brand-mist/50">
+            <h2 className="text-sm font-normal text-[#111111]">Recently Completed</h2>
+            <span className="rounded border border-[#E8E8E5] px-2 py-0.5 text-[10px] text-[#9A9A95]">
               Last 90 days
             </span>
           </div>
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
             <table className="w-full text-left text-[13px]">
-              <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+              <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
                 <tr>
                   <th className="px-6 py-3">Asset / Service</th>
                   <th className="px-6 py-3">Maintenance Plan</th>
@@ -138,17 +138,17 @@ export default async function ClientPpmPage() {
                   <th className="px-6 py-3">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+              <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
                 {recent.map((occ) => (
-                  <tr key={occ.id} className="hover:bg-brand-void/30 transition-colors">
+                  <tr key={occ.id} className="hover:bg-[#FAFAF8] transition-colors">
                     <td className="px-6 py-3.5">
-                      <div className="font-normal text-white">{occ.asset?.name || 'General Service'}</div>
+                      <div className="font-normal text-[#111111]">{occ.asset?.name || 'General Service'}</div>
                       {occ.asset?.asset_reference && (
-                        <div className="text-[11px] text-brand-mist/40 mt-0.5">{occ.asset.asset_reference}</div>
+                        <div className="text-[11px] text-[#9A9A95] mt-0.5">{occ.asset.asset_reference}</div>
                       )}
                     </td>
-                    <td className="px-6 py-3.5 text-brand-mist/70">{occ.plan?.name || 'Planned Maintenance'}</td>
-                    <td className="px-6 py-3.5 text-brand-mist/70">{occ.asset?.site?.name || '—'}</td>
+                    <td className="px-6 py-3.5 text-[#6D6D68]">{occ.plan?.name || 'Planned Maintenance'}</td>
+                    <td className="px-6 py-3.5 text-[#6D6D68]">{occ.asset?.site?.name || '—'}</td>
                     <td className="px-6 py-3.5 font-normal text-[12px]">
                       {occ.planned_date
                         ? new Date(occ.planned_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })

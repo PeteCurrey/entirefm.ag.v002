@@ -39,17 +39,17 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <ShieldAlert className="h-4 w-4 text-red-400" />
-          <h2 className="text-sm font-normal uppercase tracking-wider text-white">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-[#111111]">
             Bank Detail Change Alerts ({bankList.length})
           </h2>
         </div>
         {bankList.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
+          <div className="p-4 bg-white border border-[#E8E8E5] rounded-xl text-xs font-normal text-[#6D6D68]">
             No active bank detail change alerts.
           </div>
         ) : (
-          <div className="bg-brand-carbon border border-red-900/40 rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-normal text-brand-mist">
+          <div className="bg-white border border-red-900/40 rounded-xl overflow-hidden">
+            <table className="w-full text-left text-xs font-normal text-[#111111]">
               <thead className="bg-red-950/40 uppercase text-[10.5px] font-normal text-red-300 border-b border-red-900/40">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>
@@ -60,7 +60,7 @@ export default async function FinanceExceptionsPage() {
                   <th className="p-3.5 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {bankList.map(inv => (
                   <tr key={inv.id} className="hover:bg-red-950/20">
                     <td className="p-3.5 font-light text-white">{inv.invoice_ref}</td>
@@ -89,18 +89,18 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-amber-400" />
-          <h2 className="text-sm font-normal uppercase tracking-wider text-white">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-[#111111]">
             Possible Duplicate Invoices ({dupList.length})
           </h2>
         </div>
         {dupList.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
+          <div className="p-4 bg-white border border-[#E8E8E5] rounded-xl text-xs font-normal text-[#6D6D68]">
             No duplicate invoices detected.
           </div>
         ) : (
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-normal text-brand-mist">
-              <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+            <table className="w-full text-left text-xs font-normal text-[#111111]">
+              <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>
                   <th className="p-3.5">Supplier</th>
@@ -109,9 +109,9 @@ export default async function FinanceExceptionsPage() {
                   <th className="p-3.5 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {dupList.map(inv => (
-                  <tr key={inv.id} className="hover:bg-brand-edge-dark/20">
+                  <tr key={inv.id} className="hover:bg-[#F5F5F3]">
                     <td className="p-3.5 font-light text-white">{inv.invoice_ref}</td>
                     <td className="p-3.5">{inv.supplier_org_id?.slice(0, 8)}</td>
                     <td className="p-3.5 font-light text-white">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>

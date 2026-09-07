@@ -68,7 +68,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
       );
     }
     return (
-      <span className="text-brand-mist/30 text-[10px] font-normal">
+      <span className="text-[#9A9A95] text-[10px] font-normal">
         —
       </span>
     );
@@ -79,18 +79,18 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
       {/* Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1 max-w-sm">
-          <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Filter engineers by name or role..."
-            className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-normal uppercase text-brand-mist/40">Trade:</span>
+          <span className="text-[10px] font-normal uppercase text-[#9A9A95]">Trade:</span>
           {['ALL', 'ELECTRICAL', 'GAS', 'HVAC'].map((trade) => (
             <button
               key={trade}
@@ -98,7 +98,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
               className={`px-2.5 py-1 rounded text-xs font-normal transition-colors ${
                 selectedTrade === trade
                   ? 'bg-brand-electric text-white font-medium'
-                  : 'bg-brand-carbon border border-brand-edge-dark text-brand-mist/70 hover:text-white'
+                  : 'bg-white border border-[#E8E8E5] text-[#6D6D68] hover:text-white'
               }`}
             >
               {trade}
@@ -108,12 +108,12 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
       </div>
 
       {/* Desktop Grid View */}
-      <div className="hidden lg:block rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
+      <div className="hidden lg:block rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase font-normal text-[10px]">
-                <th className="py-3 px-4 sticky left-0 bg-brand-void z-10">Operative</th>
+              <tr className="bg-[#FAFAF8] border-b border-[#E8E8E5] text-[#6D6D68] uppercase font-normal text-[10px]">
+                <th className="py-3 px-4 sticky left-0 bg-[#FAFAF8] z-10">Operative</th>
                 {competencies.map((comp) => (
                   <th key={comp.code} className="py-3 px-3 min-w-[130px] text-center">
                     <span className="block truncate max-w-[130px]">{comp.title || (comp as any).name}</span>
@@ -121,21 +121,21 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/30">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {filteredMatrix.map((item) => (
                 <tr
                   key={item.operativeId}
                   onClick={() => onSelectOperative?.(item.operativeId)}
-                  className="hover:bg-brand-edge-dark/20 transition-colors cursor-pointer"
+                  className="hover:bg-[#F5F5F3] transition-colors cursor-pointer"
                 >
-                  <td className="py-3 px-4 font-normal text-white sticky left-0 bg-brand-carbon z-10 border-r border-brand-edge-dark/40">
+                  <td className="py-3 px-4 font-normal text-white sticky left-0 bg-white z-10 border-r border-[#E8E8E5]">
                     <div className="flex items-center gap-2.5">
                       <div className="w-7 h-7 rounded-full bg-brand-electric/10 text-brand-electric flex items-center justify-center font-bold text-xs">
                         {item.operativeName.charAt(0)}
                       </div>
                       <div>
-                        <span className="font-medium text-white block">{item.operativeName}</span>
-                        <span className="text-[10px] font-normal text-brand-mist/50 block">{item.jobTitle}</span>
+                        <span className="font-medium text-[#111111] block">{item.operativeName}</span>
+                        <span className="text-[10px] font-normal text-[#9A9A95] block">{item.jobTitle}</span>
                       </div>
                     </div>
                   </td>
@@ -161,7 +161,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
           <div
             key={item.operativeId}
             onClick={() => onSelectOperative?.(item.operativeId)}
-            className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon space-y-3 cursor-pointer"
+            className="p-4 rounded-xl border border-[#E8E8E5] bg-white shadow-sm space-y-3 cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
@@ -169,19 +169,19 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                   {item.operativeName.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-white">{item.operativeName}</h4>
-                  <p className="text-xs text-brand-mist/50 font-normal">{item.jobTitle}</p>
+                  <h4 className="text-sm font-medium text-[#111111]">{item.operativeName}</h4>
+                  <p className="text-xs text-[#9A9A95] font-normal">{item.jobTitle}</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-brand-edge-dark/40">
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E8E8E5]">
               {competencies.slice(0, 6).map((comp) => {
                 const compData = item.competencies[comp.code] || { status: 'NOT_REQUIRED' };
                 if (compData.status === 'NOT_REQUIRED') return null;
                 return (
-                  <div key={comp.code} className="p-2 rounded bg-brand-void border border-brand-edge-dark/40">
-                    <span className="text-[9.5px] font-normal text-brand-mist/50 block truncate">{comp.title || (comp as any).name}</span>
+                  <div key={comp.code} className="p-2 rounded bg-[#FAFAF8] border border-[#E8E8E5]">
+                    <span className="text-[9.5px] font-normal text-[#9A9A95] block truncate">{comp.title || (comp as any).name}</span>
                     <div className="mt-1">{getStatusBadge(compData.status, compData.daysRemaining)}</div>
                   </div>
                 );

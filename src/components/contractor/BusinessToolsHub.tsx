@@ -63,15 +63,15 @@ export function BusinessToolsHub() {
             className={`rounded-xl border p-4 text-left flex items-start gap-3 transition-all ${
               activeSection === item.id
                 ? 'border-brand-electric bg-brand-electric/5 shadow-lg shadow-brand-electric/10'
-                : 'border-brand-edge-dark bg-brand-carbon hover:border-brand-mist/30'
+                : 'border-[#E8E8E5] bg-white hover:border-brand-mist/30'
             }`}
           >
-            <div className={`shrink-0 mt-0.5 ${activeSection === item.id ? 'text-brand-electric' : 'text-brand-mist/40'}`}>
+            <div className={`shrink-0 mt-0.5 ${activeSection === item.id ? 'text-brand-electric' : 'text-[#9A9A95]'}`}>
               {item.icon}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <span className={`text-sm font-medium ${activeSection === item.id ? 'text-white' : 'text-brand-mist/80'}`}>
+                <span className={`text-sm font-medium ${activeSection === item.id ? 'text-[#111111]' : 'text-[#6D6D68]'}`}>
                   {item.label}
                 </span>
                 {item.badge && (
@@ -80,7 +80,7 @@ export function BusinessToolsHub() {
                   </span>
                 )}
               </div>
-              <p className="text-[10.5px] text-brand-mist/50 mt-0.5 font-light leading-snug">{item.sublabel}</p>
+              <p className="text-[10.5px] text-[#9A9A95] mt-0.5 font-light leading-snug">{item.sublabel}</p>
             </div>
             <ChevronRight className={`w-4 h-4 shrink-0 mt-0.5 transition-colors ${activeSection === item.id ? 'text-brand-electric' : 'text-brand-edge-dark'}`} />
           </button>

@@ -69,14 +69,14 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
       <div className="flex items-center justify-between">
         <Link
           href={`/contractor/work`}
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal"
+          className="text-xs text-[#6D6D68] hover:text-white flex items-center gap-1.5 font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Work Orders
         </Link>
       </div>
 
       {/* Header Banner */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
+      <div className="rounded-2xl border border-[#E8E8E5] bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
@@ -91,7 +91,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
             >
               {isReady ? 'READY FOR ATTENDANCE' : 'ACTION REQUIRED'}
             </span>
-            <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
+            <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5]">
               WO: {pack.workOrderNumber}
             </span>
             {pack.readiness.gatingPolicy === 'EMERGENCY_BYPASS' && (
@@ -100,8 +100,8 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               </span>
             )}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{pack.workOrderNumber} &bull; {pack.trade}</h1>
-          <p className="text-xs text-brand-mist/70 font-normal">
+          <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">{pack.workOrderNumber} &bull; {pack.trade}</h1>
+          <p className="text-xs text-[#6D6D68] font-normal">
             {pack.siteName} &bull; {pack.clientName} &bull; Planned: {pack.plannedAttendanceDate} ({pack.plannedAttendanceTime})
           </p>
         </div>
@@ -132,7 +132,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
       {/* Stop Work Safety Alert if Active */}
       {pack.stoppedWorkEvent && (
         <div className="p-4 rounded-xl border border-rose-700 bg-rose-950/40 text-rose-300 space-y-2 text-xs font-normal">
-          <div className="flex items-center gap-2 font-bold text-white">
+          <div className="flex items-center gap-2 font-bold text-[#111111]">
             <AlertOctagon className="w-5 h-5 text-rose-400" />
             <span>SAFETY STOP WORK ENGAGED: {pack.stoppedWorkEvent.reasonCategory}</span>
           </div>
@@ -180,26 +180,26 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
         {/* Left Column: Scope, Operative & RAMS */}
         <div className="lg:col-span-2 space-y-6">
           {/* Section 1: Scope & Location */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
               <MapPin className="w-4 h-4 text-brand-electric" />
               1. Work Scope &amp; Site Information
             </h3>
             <div className="space-y-2 text-xs font-normal">
               <div>
-                <span className="text-brand-mist/50 block">Scope Description</span>
-                <p className="text-white font-sans text-xs mt-0.5 leading-relaxed">{pack.scopeDescription}</p>
+                <span className="text-[#9A9A95] block">Scope Description</span>
+                <p className="text-[#111111] font-sans text-xs mt-0.5 leading-relaxed">{pack.scopeDescription}</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-brand-edge-dark/40">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#E8E8E5]">
                 <div>
-                  <span className="text-brand-mist/50 block">Site Location</span>
-                  <span className="text-white block mt-0.5">{pack.siteName}</span>
-                  <span className="text-brand-mist/60 text-[11px] block">{pack.siteAddress}</span>
+                  <span className="text-[#9A9A95] block">Site Location</span>
+                  <span className="text-[#111111] block mt-0.5">{pack.siteName}</span>
+                  <span className="text-[#6D6D68] text-[11px] block">{pack.siteAddress}</span>
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Access Hours &amp; Contact</span>
-                  <span className="text-white block mt-0.5">{pack.siteInstructions?.accessHours}</span>
-                  <span className="text-brand-mist/60 text-[11px] block">
+                  <span className="text-[#9A9A95] block">Access Hours &amp; Contact</span>
+                  <span className="text-[#111111] block mt-0.5">{pack.siteInstructions?.accessHours}</span>
+                  <span className="text-[#6D6D68] text-[11px] block">
                     {pack.siteInstructions?.contactName} ({pack.siteInstructions?.contactPhone})
                   </span>
                 </div>
@@ -208,8 +208,8 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
           </div>
 
           {/* Section 2: Assigned Operative & CP-04 Competency Snapshot */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
               <User className="w-4 h-4 text-brand-electric" />
               2. Assigned Operative &amp; Verified Competency (CP-04)
             </h3>
@@ -217,8 +217,8 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               <div className="space-y-3 text-xs font-normal">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-white font-bold font-sans text-sm block">{pack.assignedOperative.fullName}</span>
-                    <span className="text-brand-mist/50 text-[11px] block">
+                    <span className="text-[#111111] font-bold font-sans text-sm block">{pack.assignedOperative.fullName}</span>
+                    <span className="text-[#9A9A95] text-[11px] block">
                       {pack.assignedOperative.jobTitle} &bull; {pack.assignedOperative.trade}
                     </span>
                   </div>
@@ -233,11 +233,11 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
                   </span>
                 </div>
 
-                <div className="pt-2 border-t border-brand-edge-dark/40 space-y-1">
-                  <span className="text-brand-mist/50 block text-[10.5px] uppercase">Verified Qualifications &amp; Accreditations:</span>
+                <div className="pt-2 border-t border-[#E8E8E5] space-y-1">
+                  <span className="text-[#9A9A95] block text-[10.5px] uppercase">Verified Qualifications &amp; Accreditations:</span>
                   <div className="flex flex-wrap gap-1.5">
                     {pack.assignedOperative.relevantQualifications.map((q, idx) => (
-                      <span key={idx} className="px-2 py-0.5 rounded bg-brand-void text-white border border-brand-edge-dark text-[11px]">
+                      <span key={idx} className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[11px]">
                         {q}
                       </span>
                     ))}
@@ -245,23 +245,23 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
                 </div>
               </div>
             ) : (
-              <div className="py-4 text-center text-brand-mist/50 text-xs font-normal">
+              <div className="py-4 text-center text-[#9A9A95] text-xs font-normal">
                 No operative assigned to this work order.
               </div>
             )}
           </div>
 
           {/* Section 3: RAMS Status (CP-05) */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               3. Risk Assessment &amp; Method Statement (CP-05)
             </h3>
             {pack.ramsRecord ? (
               <div className="flex items-center justify-between text-xs font-normal">
                 <div>
-                  <span className="text-white font-medium block">{pack.ramsRecord.title}</span>
-                  <span className="text-brand-mist/50 text-[11px] block">
+                  <span className="text-[#111111] font-medium block">{pack.ramsRecord.title}</span>
+                  <span className="text-[#9A9A95] text-[11px] block">
                     Ref: {pack.ramsRecord.ramsId} (v{pack.ramsRecord.version})
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
               </div>
             ) : (
               <div className="flex items-center justify-between text-xs font-normal">
-                <span className="text-brand-mist/50">No RAMS linked yet.</span>
+                <span className="text-[#9A9A95]">No RAMS linked yet.</span>
                 <Link
                   href={`/contractor/rams/create?workOrderId=${encodeURIComponent(pack.workOrderId)}`}
                   className="px-3 py-1 rounded bg-brand-electric text-white text-xs font-semibold"
@@ -297,24 +297,24 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
           </div>
 
           {/* Section 4: Mandatory Field Evidence Checklist */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
               <Camera className="w-4 h-4 text-cyan-400" />
               4. Mandatory Field Evidence Checklist
             </h3>
-            <div className="divide-y divide-brand-edge-dark/30 text-xs font-normal">
+            <div className="divide-y divide-[#E8E8E5] text-xs font-normal">
               {pack.evidenceChecklist.map((ev) => (
                 <div key={ev.id} className="py-2.5 flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-1.5 py-0.2 rounded bg-brand-void text-brand-electric border border-brand-edge-dark text-[9.5px]">
+                      <span className="px-1.5 py-0.2 rounded bg-[#FAFAF8] text-brand-electric border border-[#E8E8E5] text-[9.5px]">
                         {ev.phase}
                       </span>
-                      <span className="text-white font-medium">{ev.title}</span>
+                      <span className="text-[#111111] font-medium">{ev.title}</span>
                     </div>
-                    <p className="text-[11px] text-brand-mist/70 font-sans mt-0.5">{ev.description}</p>
+                    <p className="text-[11px] text-[#6D6D68] font-sans mt-0.5">{ev.description}</p>
                   </div>
-                  <span className="text-brand-mist/50 shrink-0 text-[10.5px]">
+                  <span className="text-[#9A9A95] shrink-0 text-[10.5px]">
                     {ev.uploadedCount > 0 ? `${ev.uploadedCount} uploaded` : 'Pending on site'}
                   </span>
                 </div>
@@ -326,26 +326,26 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
         {/* Right Column: Safety, Emergency & Briefing Register */}
         <div className="space-y-6">
           {/* Section 5: PPE & Access Plant */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-normal">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2 font-sans">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3 text-xs font-normal">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2 font-sans">
               <Wrench className="w-4 h-4 text-brand-electric" />
               5. PPE &amp; Equipment
             </h3>
             <div className="space-y-2">
-              <span className="text-brand-mist/50 block text-[10.5px] uppercase">Mandatory PPE:</span>
+              <span className="text-[#9A9A95] block text-[10.5px] uppercase">Mandatory PPE:</span>
               <div className="flex flex-wrap gap-1">
                 {pack.ppeRequired.map((p, idx) => (
-                  <span key={idx} className="px-2 py-0.5 rounded bg-brand-void text-white border border-brand-edge-dark text-[10.5px]">
+                  <span key={idx} className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[10.5px]">
                     {p}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="space-y-2 pt-2 border-t border-brand-edge-dark/40">
-              <span className="text-brand-mist/50 block text-[10.5px] uppercase">Plant &amp; Access:</span>
+            <div className="space-y-2 pt-2 border-t border-[#E8E8E5]">
+              <span className="text-[#9A9A95] block text-[10.5px] uppercase">Plant &amp; Access:</span>
               <div className="flex flex-wrap gap-1">
                 {pack.plantRequired.map((pl, idx) => (
-                  <span key={idx} className="px-2 py-0.5 rounded bg-brand-void text-white border border-brand-edge-dark text-[10.5px]">
+                  <span key={idx} className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[10.5px]">
                     {pl}
                   </span>
                 ))}
@@ -354,31 +354,31 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
           </div>
 
           {/* Section 6: Emergency & Hospital */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3 text-xs font-normal">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2 font-sans">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3 text-xs font-normal">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2 font-sans">
               <Phone className="w-4 h-4 text-emerald-400" />
               6. Emergency Arrangements
             </h3>
             <div className="space-y-2">
               <div>
-                <span className="text-brand-mist/50 block">Emergency Operations Line</span>
-                <span className="text-white font-bold block mt-0.5">{pack.emergencyArrangements.emergencyContact}</span>
+                <span className="text-[#9A9A95] block">Emergency Operations Line</span>
+                <span className="text-[#111111] font-bold block mt-0.5">{pack.emergencyArrangements.emergencyContact}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Nearest Hospital (A&amp;E)</span>
-                <span className="text-white block mt-0.5">{pack.emergencyArrangements.nearestHospital}</span>
+                <span className="text-[#9A9A95] block">Nearest Hospital (A&amp;E)</span>
+                <span className="text-[#111111] block mt-0.5">{pack.emergencyArrangements.nearestHospital}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Evacuation Assembly Point</span>
-                <span className="text-brand-mist/80 font-sans block mt-0.5">{pack.emergencyArrangements.evacuationRoute}</span>
+                <span className="text-[#9A9A95] block">Evacuation Assembly Point</span>
+                <span className="text-[#6D6D68] font-sans block mt-0.5">{pack.emergencyArrangements.evacuationRoute}</span>
               </div>
             </div>
           </div>
 
           {/* Section 7: Digital Briefing Sign-Off */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
-              <h3 className="text-sm font-medium text-white flex items-center gap-2">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
+              <h3 className="text-sm font-medium text-[#111111] flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 7. Pre-Attendance Briefing
               </h3>
@@ -387,7 +387,7 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
             <div className="space-y-3 text-xs font-normal">
               {!isBriefed ? (
                 <div className="space-y-3">
-                  <p className="text-brand-mist/80 font-sans leading-relaxed">
+                  <p className="text-[#6D6D68] font-sans leading-relaxed">
                     Operative must review scope, site hazards, RAMS controls, and evidence checklist before attending site.
                   </p>
                   <button
@@ -406,19 +406,19 @@ export function JobPackDetailClient({ jobPack: initialPack, currentPersonId }: P
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     <span>Briefing Confirmed</span>
                   </div>
-                  <span className="text-[11px] text-brand-mist block">
+                  <span className="text-[11px] text-[#111111] block">
                     Acknowledged for Job Pack v{pack.version}.
                   </span>
                 </div>
               )}
 
               {pack.briefings.length > 0 && (
-                <div className="pt-2 border-t border-brand-edge-dark/40 divide-y divide-brand-edge-dark/30">
+                <div className="pt-2 border-t border-[#E8E8E5] divide-y divide-[#E8E8E5]">
                   {pack.briefings.map((b, idx) => (
                     <div key={idx} className="py-2 flex items-center justify-between text-[11px]">
                       <div>
-                        <span className="text-white font-medium block">{b.operativeName}</span>
-                        <span className="text-brand-mist/50 block">{new Date(b.briefedAt).toLocaleString('en-GB')}</span>
+                        <span className="text-[#111111] font-medium block">{b.operativeName}</span>
+                        <span className="text-[#9A9A95] block">{new Date(b.briefedAt).toLocaleString('en-GB')}</span>
                       </div>
                       <span className="px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9.5px]">
                         SIGNED

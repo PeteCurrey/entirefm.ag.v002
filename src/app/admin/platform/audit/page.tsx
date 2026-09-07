@@ -17,10 +17,10 @@ export default async function AuditLogPage() {
       />
 
       {events.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Timestamp</th>
                 <th className="px-5 py-3">Event Type</th>
                 <th className="px-5 py-3">Actor / Source</th>
@@ -28,23 +28,23 @@ export default async function AuditLogPage() {
                 <th className="px-5 py-3">Correlation ID</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {events.map((e) => (
-                <tr key={e.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
+                <tr key={e.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
+                  <td className="px-5 py-4 font-normal text-[11px] text-[#9A9A95]">
                     {new Date(e.created_at).toLocaleString('en-GB')}
                   </td>
                   <td className="px-5 py-4 font-light text-white">
                     {e.event_type}
                   </td>
                   <td className="px-5 py-4">
-                    <span className="font-normal text-[11px] text-white">{e.actor_type}</span>
-                    <div className="text-[11px] text-brand-mist/50">{e.source}</div>
+                    <span className="font-normal text-[11px] text-[#111111]">{e.actor_type}</span>
+                    <div className="text-[11px] text-[#9A9A95]">{e.source}</div>
                   </td>
                   <td className="px-5 py-4 font-normal text-[11px]">
                     {e.object_type} · {e.object_id}
                   </td>
-                  <td className="px-5 py-4 font-normal text-[10px] text-brand-mist/40">
+                  <td className="px-5 py-4 font-normal text-[10px] text-[#9A9A95]">
                     {e.correlation_id}
                   </td>
                 </tr>

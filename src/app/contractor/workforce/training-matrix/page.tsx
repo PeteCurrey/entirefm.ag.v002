@@ -33,14 +33,14 @@ export default async function TrainingMatrixPage() {
         <div className="space-y-1">
           <Link
             href="/contractor/workforce"
-            className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
+            className="text-xs text-[#6D6D68] hover:text-white flex items-center gap-1.5 font-normal mb-2"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Workforce Roster
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
             Workforce Training &amp; Competency Matrix
           </h1>
-          <p className="text-xs text-brand-mist/70 font-light max-w-xl">
+          <p className="text-xs text-[#6D6D68] font-light max-w-xl">
             Live compliance grid cross-referencing field operatives with mandatory trade standards, ECS cards, Gas Safe, and H&amp;S refreshers.
           </p>
         </div>

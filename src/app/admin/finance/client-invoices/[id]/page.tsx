@@ -86,7 +86,7 @@ export default async function ClientInvoiceDetailPage({
   return (
     <div className="space-y-6">
       {/* NAVIGATION */}
-      <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60">
+      <div className="flex items-center justify-between text-xs font-normal text-[#6D6D68]">
         <Link
           href="/admin/finance/client-invoices"
           className="hover:text-white flex items-center gap-1 transition"
@@ -102,10 +102,10 @@ export default async function ClientInvoiceDetailPage({
       </div>
 
       {/* HEADER WITH TOTALS */}
-      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-brand-edge-dark pb-6">
+      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[#E8E8E5] pb-6">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-light text-white tracking-tight">
+            <h1 className="text-2xl font-light text-[#111111] tracking-tight">
               {invoice.invoice_number}
             </h1>
             <span
@@ -123,7 +123,7 @@ export default async function ClientInvoiceDetailPage({
               XERO: {syncStatus.replace(/_/g, ' ')}
             </span>
           </div>
-          <p className="text-xs font-normal text-brand-mist/70 mt-1.5 flex items-center gap-2">
+          <p className="text-xs font-normal text-[#6D6D68] mt-1.5 flex items-center gap-2">
             <span>Issue Date: <strong className="text-white font-medium">{invoice.issue_date || '—'}</strong></span>
             <span>·</span>
             <span>Due Date: <strong className="text-white font-medium">{invoice.due_date || '—'}</strong></span>
@@ -133,21 +133,21 @@ export default async function ClientInvoiceDetailPage({
         </div>
 
         {/* FINANCIAL SUMMARY */}
-        <div className="flex items-center gap-6 bg-brand-carbon/60 border border-brand-edge-dark p-4 rounded-xl font-normal text-right">
+        <div className="flex items-center gap-6 bg-white border border-[#E8E8E5] p-4 rounded-xl font-normal text-right">
           <div>
-            <div className="text-[10.5px] uppercase text-brand-mist/60">Net Subtotal</div>
-            <div className="text-sm font-normal text-white">
+            <div className="text-[10.5px] uppercase text-[#6D6D68]">Net Subtotal</div>
+            <div className="text-sm font-normal text-[#111111]">
               £{(Number(invoice.subtotal_gbp) || 0).toFixed(2)}
             </div>
           </div>
           <div>
-            <div className="text-[10.5px] uppercase text-brand-mist/60">VAT</div>
-            <div className="text-sm font-normal text-white">
+            <div className="text-[10.5px] uppercase text-[#6D6D68]">VAT</div>
+            <div className="text-sm font-normal text-[#111111]">
               £{(Number(invoice.tax_amount_gbp) || 0).toFixed(2)}
             </div>
           </div>
-          <div className="border-l border-brand-edge-dark pl-6">
-            <div className="text-[10.5px] uppercase text-brand-mist/60">Total Gross</div>
+          <div className="border-l border-[#E8E8E5] pl-6">
+            <div className="text-[10.5px] uppercase text-[#6D6D68]">Total Gross</div>
             <div className="text-xl font-light text-brand-electric">
               £{(Number(invoice.total_amount_gbp) || 0).toFixed(2)}
             </div>
@@ -160,21 +160,21 @@ export default async function ClientInvoiceDetailPage({
         {/* LEFT COLUMN: INVOICE LINES & AUDIT HISTORY (2 COLS) */}
         <div className="lg:col-span-2 space-y-6">
           {/* LINE ITEMS TABLE */}
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <div className="p-4 border-b border-brand-edge-dark flex items-center justify-between">
-              <h2 className="text-xs uppercase tracking-wider text-white font-medium">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+            <div className="p-4 border-b border-[#E8E8E5] flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider text-[#111111] font-medium">
                 Line Items ({lines.length})
               </h2>
-              <span className="text-[11px] text-brand-mist/50">Exclusive of VAT</span>
+              <span className="text-[11px] text-[#9A9A95]">Exclusive of VAT</span>
             </div>
 
             {lines.length === 0 ? (
-              <div className="p-6 text-center text-xs text-brand-mist/60">
+              <div className="p-6 text-center text-xs text-[#6D6D68]">
                 No line items attached to this invoice.
               </div>
             ) : (
-              <table className="w-full text-left text-xs font-normal text-brand-mist">
-                <thead className="bg-brand-void uppercase text-[10px] text-brand-mist/70 border-b border-brand-edge-dark">
+              <table className="w-full text-left text-xs font-normal text-[#111111]">
+                <thead className="bg-[#FAFAF8] uppercase text-[10px] text-[#6D6D68] border-b border-[#E8E8E5]">
                   <tr>
                     <th className="p-3">#</th>
                     <th className="p-3">Description</th>
@@ -184,18 +184,18 @@ export default async function ClientInvoiceDetailPage({
                     <th className="p-3 text-right">Total Net (£)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/60">
+                <tbody className="divide-y divide-[#E8E8E5]">
                   {lines.map((l: any, idx: number) => {
                     const qty = Number(l.quantity) || 1;
                     const unit = Number(l.unit_price_gbp) || 0;
                     const lineTotal = Number(l.total_amount_gbp) || qty * unit;
                     return (
-                      <tr key={l.id || idx} className="hover:bg-brand-edge-dark/20">
-                        <td className="p-3 text-brand-mist/60">{l.line_number || idx + 1}</td>
+                      <tr key={l.id || idx} className="hover:bg-[#F5F5F3]">
+                        <td className="p-3 text-[#6D6D68]">{l.line_number || idx + 1}</td>
                         <td className="p-3 text-white font-light">{l.description || 'Service Line'}</td>
                         <td className="p-3 text-right">{qty}</td>
                         <td className="p-3 text-right">£{unit.toFixed(2)}</td>
-                        <td className="p-3 text-right text-brand-mist/70">
+                        <td className="p-3 text-right text-[#6D6D68]">
                           {Number(l.tax_rate_pct) || 20}%
                         </td>
                         <td className="p-3 text-right font-light text-white">
@@ -210,26 +210,26 @@ export default async function ClientInvoiceDetailPage({
           </div>
 
           {/* AUDIT LOGS */}
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-3">
-            <h2 className="text-xs uppercase tracking-wider text-white font-medium">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-3">
+            <h2 className="text-xs uppercase tracking-wider text-[#111111] font-medium">
               Invoice Audit Lineage & Accounting Log
             </h2>
 
             {audits.length === 0 ? (
-              <div className="text-xs text-brand-mist/50">No audit events recorded.</div>
+              <div className="text-xs text-[#9A9A95]">No audit events recorded.</div>
             ) : (
               <div className="space-y-2.5 max-h-64 overflow-y-auto pr-2">
                 {audits.map((a: any) => (
                   <div
                     key={a.id}
-                    className="p-3 rounded-lg bg-brand-void/50 border border-brand-edge-dark/50 text-xs flex items-start justify-between gap-3"
+                    className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-xs flex items-start justify-between gap-3"
                   >
                     <div>
-                      <div className="font-light text-white flex items-center gap-2">
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-edge-dark font-mono">
+                      <div className="font-light text-[#111111] flex items-center gap-2">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#F5F5F3] font-mono">
                           {a.event_type}
                         </span>
-                        <span className="text-brand-mist/60 text-[11px]">
+                        <span className="text-[#6D6D68] text-[11px]">
                           by {a.actor_type}
                         </span>
                       </div>
@@ -244,7 +244,7 @@ export default async function ClientInvoiceDetailPage({
                         </div>
                       )}
                     </div>
-                    <span className="text-[11px] text-brand-mist/40 shrink-0">
+                    <span className="text-[11px] text-[#9A9A95] shrink-0">
                       {new Date(a.created_at).toLocaleString('en-GB')}
                     </span>
                   </div>
@@ -257,15 +257,15 @@ export default async function ClientInvoiceDetailPage({
         {/* RIGHT COLUMN: XERO ACCOUNTING CARD & CLIENT INFO (1 COL) */}
         <div className="space-y-6">
           {/* XERO SYNCHRONISATION CARD */}
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-4">
-            <div className="flex items-center gap-2 text-white">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-4">
+            <div className="flex items-center gap-2 text-[#111111]">
               <Building2 className="h-5 w-5 text-sky-400" />
               <h2 className="text-sm font-light">Xero Accounting Status</h2>
             </div>
 
-            <div className="p-3.5 rounded-lg bg-brand-void border border-brand-edge-dark text-xs space-y-2.5">
+            <div className="p-3.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-xs space-y-2.5">
               <div className="flex justify-between items-center">
-                <span className="text-brand-mist/60">Sync Status</span>
+                <span className="text-[#6D6D68]">Sync Status</span>
                 <span
                   className={`px-2 py-0.5 rounded text-[10.5px] border ${
                     XERO_SYNC_BADGE[syncStatus] || 'bg-zinc-900 text-zinc-400 border-zinc-800'
@@ -276,22 +276,22 @@ export default async function ClientInvoiceDetailPage({
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-brand-mist/60">Xero Invoice Ref</span>
-                <span className="font-mono text-white text-[11px]">
+                <span className="text-[#6D6D68]">Xero Invoice Ref</span>
+                <span className="font-mono text-[#111111] text-[11px]">
                   {invoice.xero_invoice_number || invoice.accounting_external_id || '—'}
                 </span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-brand-mist/60">Xero ID</span>
-                <span className="font-mono text-brand-mist/80 text-[10.5px] truncate max-w-[140px]">
+                <span className="text-[#6D6D68]">Xero ID</span>
+                <span className="font-mono text-[#6D6D68] text-[10.5px] truncate max-w-[140px]">
                   {invoice.xero_invoice_id || '—'}
                 </span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-brand-mist/60">Last Synced</span>
-                <span className="text-brand-mist/80 text-[11px]">
+                <span className="text-[#6D6D68]">Last Synced</span>
+                <span className="text-[#6D6D68] text-[11px]">
                   {invoice.xero_synced_at
                     ? new Date(invoice.xero_synced_at).toLocaleString('en-GB')
                     : 'Never'}
@@ -312,7 +312,7 @@ export default async function ClientInvoiceDetailPage({
             )}
 
             {/* ACTION BUTTON */}
-            <div className="pt-2 border-t border-brand-edge-dark/60">
+            <div className="pt-2 border-t border-[#E8E8E5]">
               <ClientInvoiceXeroSyncAction
                 invoiceId={invoice.id}
                 isIssued={isIssued}
@@ -323,30 +323,30 @@ export default async function ClientInvoiceDetailPage({
           </div>
 
           {/* CLIENT ACCOUNT CARD */}
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-3">
-            <h2 className="text-xs uppercase tracking-wider text-white font-medium">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-3">
+            <h2 className="text-xs uppercase tracking-wider text-[#111111] font-medium">
               Client Account Details
             </h2>
 
             {clientAccount ? (
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between items-center">
-                  <span className="text-brand-mist/60">Company / Account</span>
-                  <span className="text-white font-medium">{clientAccount.account_name || clientAccount.name}</span>
+                  <span className="text-[#6D6D68]">Company / Account</span>
+                  <span className="text-[#111111] font-medium">{clientAccount.account_name || clientAccount.name}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-brand-mist/60">Account Number</span>
-                  <span className="font-mono text-brand-mist/80">{clientAccount.account_number || '—'}</span>
+                  <span className="text-[#6D6D68]">Account Number</span>
+                  <span className="font-mono text-[#6D6D68]">{clientAccount.account_number || '—'}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-brand-mist/60">Xero Contact ID</span>
-                  <span className="font-mono text-brand-mist/80 text-[10.5px] truncate max-w-[140px]">
+                  <span className="text-[#6D6D68]">Xero Contact ID</span>
+                  <span className="font-mono text-[#6D6D68] text-[10.5px] truncate max-w-[140px]">
                     {clientAccount.xero_contact_id || 'Not Mapped'}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-brand-mist/60">Contact Synced</span>
-                  <span className="text-brand-mist/80 text-[11px]">
+                  <span className="text-[#6D6D68]">Contact Synced</span>
+                  <span className="text-[#6D6D68] text-[11px]">
                     {clientAccount.xero_synced_at
                       ? new Date(clientAccount.xero_synced_at).toLocaleDateString('en-GB')
                       : 'Never'}
@@ -354,25 +354,25 @@ export default async function ClientInvoiceDetailPage({
                 </div>
               </div>
             ) : (
-              <div className="text-xs text-brand-mist/50">
+              <div className="text-xs text-[#9A9A95]">
                 Client Account ID: {invoice.client_account_id || 'None'}
               </div>
             )}
           </div>
 
           {/* EVIDENCE PACK DOWNLOAD */}
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-3">
-            <h2 className="text-xs uppercase tracking-wider text-white font-medium">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-3">
+            <h2 className="text-xs uppercase tracking-wider text-[#111111] font-medium">
               Defensible Evidence Pack
             </h2>
-            <p className="text-xs text-brand-mist/60">
+            <p className="text-xs text-[#6D6D68]">
               Audit-ready proof of delivery, work orders, engineer logs, and sign-offs for this invoice.
             </p>
             <a
               href={`/api/admin/finance/client-invoices/${invoice.id}/evidence-pack`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-void border border-brand-edge-dark text-brand-electric text-xs hover:text-white transition"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-brand-electric text-xs hover:text-white transition"
             >
               <FileText className="h-3.5 w-3.5" />
               Download Evidence Pack (PDF)

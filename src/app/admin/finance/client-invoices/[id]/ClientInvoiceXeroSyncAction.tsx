@@ -75,7 +75,7 @@ export function ClientInvoiceXeroSyncAction({
             !isIssued
               ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
               : isSynced
-              ? 'bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white hover:border-brand-mist/40'
+              ? 'bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] hover:text-white hover:border-brand-mist/40'
               : 'bg-brand-electric text-black hover:bg-white'
           }`}
         >

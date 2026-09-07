@@ -18,7 +18,7 @@ export default async function ComplianceObligationsPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
+            className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-white"
           >
             ← Command Centre
           </Link>
@@ -26,10 +26,10 @@ export default async function ComplianceObligationsPage() {
       />
 
       {obligations.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Site / Scope</th>
                 <th className="px-5 py-3">Statutory Rule / Version</th>
                 <th className="px-5 py-3">Responsible Party</th>
@@ -38,18 +38,18 @@ export default async function ComplianceObligationsPage() {
                 <th className="px-5 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {obligations.map((ob) => (
-                <tr key={ob.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={ob.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{ob.site?.name || 'Site'}</div>
-                    <div className="text-[11.5px] text-brand-mist/50">
+                    <div className="font-light text-[#111111]">{ob.site?.name || 'Site'}</div>
+                    <div className="text-[11.5px] text-[#9A9A95]">
                       Asset: {ob.asset?.name || 'System / Building wide duty'}
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-normal text-white">{ob.rule_version?.rule?.title || 'Statutory Standard'}</div>
-                    <div className="font-normal text-[11px] text-brand-mist/50">
+                    <div className="font-normal text-[#111111]">{ob.rule_version?.rule?.title || 'Statutory Standard'}</div>
+                    <div className="font-normal text-[11px] text-[#9A9A95]">
                       {ob.rule_version?.rule?.code || 'RULE-001'} (v{ob.rule_version?.version_number || '1'})
                     </div>
                   </td>
@@ -57,7 +57,7 @@ export default async function ComplianceObligationsPage() {
                     <span className="font-normal text-[11.5px] text-brand-electric">
                       {ob.responsible_party || 'ENTIREFM'}
                     </span>
-                    <div className="text-[10.5px] text-brand-mist/40">
+                    <div className="text-[10.5px] text-[#9A9A95]">
                       {ob.entirefm_contracted ? 'EntireFM Contracted' : 'Client Retained'}
                     </div>
                   </td>

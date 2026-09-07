@@ -60,16 +60,16 @@ export default async function AdminUsersPage({
           <div className="text-[10px] uppercase font-medium tracking-[0.25em] text-brand-electric mb-1">
             CANONICAL IDENTITY PLATFORM
           </div>
-          <h1 className="text-3xl font-extralight text-white tracking-tight">
+          <h1 className="text-3xl font-extralight text-[#111111] tracking-tight">
             User Identity & Access Directory
           </h1>
-          <p className="mt-1.5 text-sm font-light text-brand-mist/70 max-w-2xl">
+          <p className="mt-1.5 text-sm font-light text-[#6D6D68] max-w-2xl">
             Authoritative directory for all individuals across EntireFM. Canonical identity backed by Supabase Auth with strict dual-axis Lobby and Operational role separation.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <span className="text-[10px] font-normal uppercase text-brand-mist/50 tracking-wider block">Canonical Auth Source</span>
+            <span className="text-[10px] font-normal uppercase text-[#9A9A95] tracking-wider block">Canonical Auth Source</span>
             <span className="text-xs font-normal text-emerald-400">Supabase Auth (1:1 Human Identity)</span>
           </div>
         </div>
@@ -77,23 +77,23 @@ export default async function AdminUsersPage({
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <div className="rounded-lg border border-white/10 bg-brand-carbon/60 p-4">
-          <span className="text-[10px] uppercase font-medium tracking-wider text-brand-mist/50 block mb-1">Total Users</span>
-          <span className="text-2xl font-light text-white">{stats.total}</span>
+        <div className="rounded-lg border border-white/10 bg-white p-4">
+          <span className="text-[10px] uppercase font-medium tracking-wider text-[#9A9A95] block mb-1">Total Users</span>
+          <span className="text-2xl font-light text-[#111111]">{stats.total}</span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-brand-carbon/60 p-4">
+        <div className="rounded-lg border border-white/10 bg-white p-4">
           <span className="text-[10px] uppercase font-medium tracking-wider text-emerald-400/80 block mb-1">Active Lobby Members</span>
           <span className="text-2xl font-light text-emerald-300">{stats.lobbyActive}</span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-brand-carbon/60 p-4">
+        <div className="rounded-lg border border-white/10 bg-white p-4">
           <span className="text-[10px] uppercase font-medium tracking-wider text-blue-400/80 block mb-1">Contractors</span>
           <span className="text-2xl font-light text-blue-300">{stats.contractors}</span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-brand-carbon/60 p-4">
+        <div className="rounded-lg border border-white/10 bg-white p-4">
           <span className="text-[10px] uppercase font-medium tracking-wider text-indigo-400/80 block mb-1">Clients</span>
           <span className="text-2xl font-light text-indigo-300">{stats.clients}</span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-brand-carbon/60 p-4">
+        <div className="rounded-lg border border-white/10 bg-white p-4">
           <span className="text-[10px] uppercase font-medium tracking-wider text-purple-400/80 block mb-1">Engineers</span>
           <span className="text-2xl font-light text-purple-300">{stats.engineers}</span>
         </div>

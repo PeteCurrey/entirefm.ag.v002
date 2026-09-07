@@ -32,7 +32,7 @@ export default async function CommercialWIPPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/exceptions"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
             >
               ⚠️ View Commercial Exceptions
             </Link>
@@ -42,28 +42,28 @@ export default async function CommercialWIPPage() {
 
       {/* KPI Cards Strip */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Approved WIP Revenue</div>
-          <div className="mt-1 text-[22px] font-normal text-white">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95]">Approved WIP Revenue</div>
+          <div className="mt-1 text-[22px] font-normal text-[#111111]">
             £{summary.approvedRevenueGbp.toFixed(2)}
           </div>
-          <div className="mt-1 font-normal text-[11px] text-brand-mist/60">
+          <div className="mt-1 font-normal text-[11px] text-[#6D6D68]">
             Across {quotes?.length || 0} active approved quotes
           </div>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Committed Direct Cost</div>
-          <div className="mt-1 text-[22px] font-normal text-brand-mist/90">
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95]">Committed Direct Cost</div>
+          <div className="mt-1 text-[22px] font-normal text-[#6D6D68]">
             £{summary.committedCostGbp.toFixed(2)}
           </div>
-          <div className="mt-1 font-normal text-[11px] text-brand-mist/40">
+          <div className="mt-1 font-normal text-[11px] text-[#9A9A95]">
             Actual Invoiced: £{summary.actualCostGbp.toFixed(2)}
           </div>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Expected WIP Margin</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95]">Expected WIP Margin</div>
           <div className="mt-1 text-[22px] font-normal text-emerald-400">
             £{summary.expectedMarginGbp.toFixed(2)} ({summary.expectedMarginPct}%)
           </div>
@@ -72,8 +72,8 @@ export default async function CommercialWIPPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/50">Unbilled Completed Work</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#9A9A95]">Unbilled Completed Work</div>
           <div className="mt-1 text-[22px] font-normal text-amber-400">
             {unbilled.length} Jobs
           </div>
@@ -86,15 +86,15 @@ export default async function CommercialWIPPage() {
       {/* Unbilled Completed Jobs Desk */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">
             Completed Work Orders Pending Invoicing ({unbilled.length})
           </h3>
         </div>
 
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[60rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">WO Number</th>
                 <th className="px-5 py-3">Title</th>
                 <th className="px-5 py-3">Completed On</th>
@@ -104,20 +104,20 @@ export default async function CommercialWIPPage() {
                 <th className="px-5 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {unbilled.length > 0 ? (
                 unbilled.map((w) => (
-                  <tr key={w.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                  <tr key={w.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                     <td className="px-5 py-4 text-[11px] text-white font-light">
                       {w.work_order_number}
                     </td>
-                    <td className="px-5 py-4 text-[12.5px] text-brand-mist/90 max-w-xs truncate">
+                    <td className="px-5 py-4 text-[12.5px] text-[#6D6D68] max-w-xs truncate">
                       {w.title}
                     </td>
-                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
+                    <td className="px-5 py-4 font-normal text-[11px] text-[#9A9A95]">
                       {w.actual_completion_at ? new Date(w.actual_completion_at).toLocaleDateString('en-GB') : '—'}
                     </td>
-                    <td className="px-5 py-4 font-normal text-[12px] text-brand-mist/70">
+                    <td className="px-5 py-4 font-normal text-[12px] text-[#6D6D68]">
                       £{Number(w.total_cost_gbp || 0).toFixed(2)}
                     </td>
                     <td className="px-5 py-4 text-[12px] text-emerald-400 font-normal">
@@ -129,7 +129,7 @@ export default async function CommercialWIPPage() {
                       </span>
                     </td>
                     <td className="px-5 py-4 text-right">
-                      <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-normal text-[11px] text-white hover:bg-brand-electric">
+                      <button className="rounded bg-[#F5F5F3] px-2.5 py-1 font-normal text-[11px] text-white hover:bg-brand-electric">
                         Stage to Invoice →
                       </button>
                     </td>
@@ -137,7 +137,7 @@ export default async function CommercialWIPPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="px-5 py-6 text-center text-brand-mist/40">
+                  <td colSpan={7} className="px-5 py-6 text-center text-[#9A9A95]">
                     All completed work orders have been billed or staged.
                   </td>
                 </tr>

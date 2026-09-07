@@ -21,7 +21,7 @@ export default async function CommercialExceptionsPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/quotes"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-[#6D6D68] border border-[#E8E8E5] hover:text-white"
             >
               Quotes Desk →
             </Link>
@@ -31,7 +31,7 @@ export default async function CommercialExceptionsPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">
             Exceptions Queue ({exceptions?.length || 0})
           </h3>
         </div>
@@ -41,7 +41,7 @@ export default async function CommercialExceptionsPage() {
             {exceptions.map((e) => (
               <div
                 key={e.id}
-                className="flex items-start justify-between rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4"
+                className="flex items-start justify-between rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -56,18 +56,18 @@ export default async function CommercialExceptionsPage() {
                     >
                       {e.severity}
                     </span>
-                    <span className="font-normal text-[11px] text-brand-mist/60">
+                    <span className="font-normal text-[11px] text-[#6D6D68]">
                       {e.object_type} · Ref: {e.object_id.slice(0, 8)}
                     </span>
                   </div>
-                  <p className="text-[13px] text-white font-normal">{e.detail}</p>
+                  <p className="text-[13px] text-[#111111] font-normal">{e.detail}</p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="font-normal text-[11px] text-brand-mist/40">
+                  <span className="font-normal text-[11px] text-[#9A9A95]">
                     {new Date(e.created_at).toLocaleDateString('en-GB')}
                   </span>
-                  <button className="rounded bg-brand-edge-dark px-2.5 py-1 font-normal text-[11px] text-brand-mist/80 hover:text-white hover:bg-brand-electric">
+                  <button className="rounded bg-[#F5F5F3] px-2.5 py-1 font-normal text-[11px] text-[#6D6D68] hover:text-white hover:bg-brand-electric">
                     Resolve
                   </button>
                 </div>

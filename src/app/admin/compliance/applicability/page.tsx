@@ -17,16 +17,16 @@ export default async function ComplianceApplicabilityPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
+            className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-white"
           >
             ← Command Centre
           </Link>
         }
       />
 
-      <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
-        <h3 className="text-sm font-normal text-white">Applicability Logic & Provenance</h3>
-        <p className="text-[12.5px] text-brand-mist/70 leading-relaxed">
+      <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-4">
+        <h3 className="text-sm font-normal text-[#111111]">Applicability Logic & Provenance</h3>
+        <p className="text-[12.5px] text-[#6D6D68] leading-relaxed">
           The Applicability Engine evaluates building usage, jurisdiction, installed systems, and statutory duty holders. If facts are missing, the assessment outputs <span className="font-normal text-amber-300">REVIEW_REQUIRED</span> rather than assuming compliance.
         </p>
       </div>

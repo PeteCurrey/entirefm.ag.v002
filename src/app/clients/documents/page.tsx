@@ -48,12 +48,12 @@ function docIcon(type: string) {
     return <FileCheck className="w-4 h-4 text-emerald-400 shrink-0" />;
   }
   if (t === 'OM_MANUAL') return <BookOpen className="w-4 h-4 text-brand-electric shrink-0" />;
-  if (t === 'TECHNICAL_DRAWING') return <Wrench className="w-4 h-4 text-brand-mist/60 shrink-0" />;
-  if (t === 'PHOTOGRAPH') return <Camera className="w-4 h-4 text-brand-mist/60 shrink-0" />;
+  if (t === 'TECHNICAL_DRAWING') return <Wrench className="w-4 h-4 text-[#6D6D68] shrink-0" />;
+  if (t === 'PHOTOGRAPH') return <Camera className="w-4 h-4 text-[#6D6D68] shrink-0" />;
   if (t === 'INSPECTION_REPORT' || t === 'SERVICE_RECORD') {
     return <ClipboardList className="w-4 h-4 text-amber-400 shrink-0" />;
   }
-  return <FileText className="w-4 h-4 text-brand-mist/50 shrink-0" />;
+  return <FileText className="w-4 h-4 text-[#9A9A95] shrink-0" />;
 }
 
 export default async function ClientDocumentsPage() {
@@ -66,27 +66,27 @@ export default async function ClientDocumentsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-light text-white tracking-tight">Documents & Records</h1>
-        <p className="mt-1 text-[13px] text-brand-mist/60">
+        <h1 className="text-2xl font-light text-[#111111] tracking-tight">Documents & Records</h1>
+        <p className="mt-1 text-[13px] text-[#6D6D68]">
           Certificates, O&amp;M manuals, inspection reports, technical drawings, and supporting documentation for {session.orgName}.
         </p>
-        <p className="mt-1 text-[11.5px] text-brand-mist/40">
+        <p className="mt-1 text-[11.5px] text-[#9A9A95]">
           Technical drawings and plans stored here have been supplied to EntireFM and are stored against your property records.
         </p>
       </div>
 
       {docs.length === 0 ? (
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 px-6 py-14 text-center">
-          <FileText className="w-8 h-8 text-brand-mist/30 mx-auto mb-3" />
-          <p className="text-sm text-brand-mist/60 font-normal">No documents have been added to your account yet.</p>
-          <p className="text-xs text-brand-mist/40 mt-1">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm px-6 py-14 text-center">
+          <FileText className="w-8 h-8 text-[#9A9A95] mx-auto mb-3" />
+          <p className="text-sm text-[#6D6D68] font-normal">No documents have been added to your account yet.</p>
+          <p className="text-xs text-[#9A9A95] mt-1">
             Documents are added by EntireFM as services are delivered. Contact your account manager for more information.
           </p>
         </div>
       ) : (
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
           <table className="w-full text-left text-[13px]">
-            <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-medium text-[11px] uppercase">
+            <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] font-medium text-[11px] uppercase">
               <tr>
                 <th className="px-6 py-3">Document</th>
                 <th className="px-6 py-3">Type</th>
@@ -95,21 +95,21 @@ export default async function ClientDocumentsPage() {
                 <th className="px-6 py-3 text-right">Download</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+            <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
               {docs.map((doc) => (
-                <tr key={doc.id} className="hover:bg-brand-void/30 transition-colors">
+                <tr key={doc.id} className="hover:bg-[#FAFAF8] transition-colors">
                   <td className="px-6 py-3.5">
                     <div className="flex items-center gap-2.5">
                       {docIcon(doc.document_type)}
                       <div>
-                        <div className="font-normal text-white">{doc.title}</div>
+                        <div className="font-normal text-[#111111]">{doc.title}</div>
                         {doc.file_name && (
-                          <div className="text-[11px] text-brand-mist/40 mt-0.5">{doc.file_name}</div>
+                          <div className="text-[11px] text-[#9A9A95] mt-0.5">{doc.file_name}</div>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-3.5 text-brand-mist/70">
+                  <td className="px-6 py-3.5 text-[#6D6D68]">
                     {docTypeLabel(doc.document_type)}
                   </td>
                   <td className="px-6 py-3.5 text-[12px]">
@@ -117,15 +117,15 @@ export default async function ClientDocumentsPage() {
                       <span className={
                         new Date(doc.expiry_date) < new Date()
                           ? 'text-rose-400'
-                          : 'text-brand-mist/70'
+                          : 'text-[#6D6D68]'
                       }>
                         {new Date(doc.expiry_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     ) : (
-                      <span className="text-brand-mist/30">—</span>
+                      <span className="text-[#9A9A95]">—</span>
                     )}
                   </td>
-                  <td className="px-6 py-3.5 text-[12px] text-brand-mist/50">
+                  <td className="px-6 py-3.5 text-[12px] text-[#9A9A95]">
                     {new Date(doc.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </td>
                   <td className="px-6 py-3.5 text-right">

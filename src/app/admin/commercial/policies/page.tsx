@@ -19,7 +19,7 @@ export default async function CommercialPoliciesPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/exceptions"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
             >
               Exceptions Desk →
             </Link>
@@ -29,7 +29,7 @@ export default async function CommercialPoliciesPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">Active Policy Rules</h3>
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">Active Policy Rules</h3>
         </div>
 
         {policies && policies.length > 0 ? (
@@ -37,36 +37,36 @@ export default async function CommercialPoliciesPage() {
             {policies.map((p) => (
               <div
                 key={p.id}
-                className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4"
+                className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-4"
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="rounded bg-brand-edge-dark px-2 py-0.5 font-normal text-[10.5px] text-brand-electric-bright">
+                    <span className="rounded bg-[#F5F5F3] px-2 py-0.5 font-normal text-[10.5px] text-brand-electric-bright">
                       {p.scope_level}
                     </span>
-                    <h4 className="mt-2 text-[14px] font-light text-white">{p.name}</h4>
+                    <h4 className="mt-2 text-[14px] font-light text-[#111111]">{p.name}</h4>
                   </div>
                   <span className="rounded bg-emerald-500/15 px-2 py-0.5 font-normal text-[10px] text-emerald-400">
                     {p.is_active ? 'ACTIVE' : 'INACTIVE'}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 rounded border border-brand-edge-dark/60 bg-brand-void/30 p-3 text-[11.5px] font-normal">
+                <div className="grid grid-cols-2 gap-3 rounded border border-[#E8E8E5] bg-[#FAFAF8] p-3 text-[11.5px] font-normal">
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Min Margin Floor</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Min Margin Floor</span>
                     <span className="text-emerald-400 font-light">{p.min_margin_pct}% (Target {p.target_margin_pct}%)</span>
                   </div>
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Quote Approval Threshold</span>
-                    <span className="text-white font-normal">&gt; £{Number(p.quote_approval_threshold_gbp).toFixed(0)}</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Quote Approval Threshold</span>
+                    <span className="text-[#111111] font-normal">&gt; £{Number(p.quote_approval_threshold_gbp).toFixed(0)}</span>
                   </div>
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Material Markup</span>
-                    <span className="text-brand-mist/90 font-normal">+{p.material_markup_pct}% ({p.material_markup_type})</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Material Markup</span>
+                    <span className="text-[#6D6D68] font-normal">+{p.material_markup_pct}% ({p.material_markup_type})</span>
                   </div>
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Subcontract Markup</span>
-                    <span className="text-brand-mist/90 font-normal">+{p.subcontract_markup_pct}%</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Subcontract Markup</span>
+                    <span className="text-[#6D6D68] font-normal">+{p.subcontract_markup_pct}%</span>
                   </div>
                 </div>
               </div>

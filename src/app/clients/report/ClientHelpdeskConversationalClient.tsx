@@ -278,29 +278,29 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
             <span className="text-[11px] uppercase tracking-widest text-emerald-400 font-semibold">
               ISSUE SUCCESSFULLY LOGGED
             </span>
-            <h2 className="text-2xl font-light text-white mt-1">{sr.title}</h2>
-            <p className="text-sm text-brand-mist/70 mt-1 font-normal">
+            <h2 className="text-2xl font-light text-[#111111] mt-1">{sr.title}</h2>
+            <p className="text-sm text-[#6D6D68] mt-1 font-normal">
               Canonical Reference: <span className="text-brand-electric-bright font-bold">{sr.reference}</span>
             </p>
           </div>
 
           {/* Key Ticket Attributes */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left pt-4 border-t border-brand-edge-dark/60">
-            <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Priority</span>
-              <p className="text-sm font-semibold text-white mt-0.5">{sr.priority}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left pt-4 border-t border-[#E8E8E5]">
+            <div className="bg-white p-3 rounded-lg border border-[#E8E8E5]">
+              <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Priority</span>
+              <p className="text-sm font-semibold text-[#111111] mt-0.5">{sr.priority}</p>
             </div>
-            <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Contractual SLA</span>
+            <div className="bg-white p-3 rounded-lg border border-[#E8E8E5]">
+              <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Contractual SLA</span>
               <p className="text-sm font-semibold text-emerald-400 mt-0.5">{sr.sla_hours} Hours Target</p>
             </div>
-            <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Work Order</span>
+            <div className="bg-white p-3 rounded-lg border border-[#E8E8E5]">
+              <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Work Order</span>
               <p className="text-sm font-normal text-brand-electric-bright mt-0.5">{wo?.work_order_number || 'Generated'}</p>
             </div>
-            <div className="bg-brand-carbon/60 p-3 rounded-lg border border-brand-edge-dark">
-              <span className="text-[10px] font-normal text-brand-mist/50 uppercase">Current Status</span>
-              <p className="text-sm font-semibold text-white mt-0.5">{wo?.status || 'LOGGED'}</p>
+            <div className="bg-white p-3 rounded-lg border border-[#E8E8E5]">
+              <span className="text-[10px] font-normal text-[#9A9A95] uppercase">Current Status</span>
+              <p className="text-sm font-semibold text-[#111111] mt-0.5">{wo?.status || 'LOGGED'}</p>
             </div>
           </div>
 
@@ -325,7 +325,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
             </Link>
             <button
               onClick={handleReset}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-brand-edge-dark bg-brand-void text-brand-mist text-sm font-medium hover:text-white hover:bg-brand-carbon transition-colors inline-flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] text-[#111111] text-sm font-medium hover:text-white hover:bg-white transition-colors inline-flex items-center justify-center gap-2"
             >
               <RotateCcw className="w-4 h-4" /> Report Another Issue
             </button>
@@ -338,23 +338,23 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
   return (
     <div className="space-y-6">
       {/* Header & Mode Switcher */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-brand-edge-dark/60 pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-4">
         <div>
           <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
             ENTIREFM HELPDESK &bull; CLIENT ISSUE INTAKE
           </span>
-          <h1 className="text-2xl font-light text-white mt-1">Report a Maintenance Issue</h1>
-          <p className="text-xs text-brand-mist/60 font-light mt-0.5">
-            Log reactive faults directly with our central dispatch desk. Client: <span className="text-white font-medium">{clientName}</span>
+          <h1 className="text-2xl font-light text-[#111111] mt-1">Report a Maintenance Issue</h1>
+          <p className="text-xs text-[#6D6D68] font-light mt-0.5">
+            Log reactive faults directly with our central dispatch desk. Client: <span className="text-[#111111] font-medium">{clientName}</span>
           </p>
         </div>
 
         {/* Toggle Mode */}
-        <div className="inline-flex rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-1">
+        <div className="inline-flex rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-1">
           <button
             onClick={() => setMode('CHAT')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 ${
-              mode === 'CHAT' ? 'bg-brand-electric text-white' : 'text-brand-mist/60 hover:text-white'
+              mode === 'CHAT' ? 'bg-brand-electric text-white' : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" /> Conversational Helpdesk
@@ -362,7 +362,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           <button
             onClick={() => setMode('FORM')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 ${
-              mode === 'FORM' ? 'bg-brand-electric text-white' : 'text-brand-mist/60 hover:text-white'
+              mode === 'FORM' ? 'bg-brand-electric text-white' : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             <FileText className="w-3.5 h-3.5" /> Standard Form
@@ -389,7 +389,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
       {mode === 'CHAT' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chat Window (2 Cols) */}
-          <div className="lg:col-span-2 rounded-xl border border-brand-edge-dark bg-brand-carbon/40 flex flex-col h-[560px] overflow-hidden">
+          <div className="lg:col-span-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm flex flex-col h-[560px] overflow-hidden">
             {/* Chat Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((m) => (
@@ -398,12 +398,12 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
                     className={`max-w-[85%] rounded-xl px-4 py-3 text-[13.5px] leading-relaxed ${
                       m.role === 'user'
                         ? 'bg-brand-electric text-white rounded-br-none'
-                        : 'bg-brand-void/80 border border-brand-edge-dark text-brand-mist rounded-bl-none'
+                        : 'bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] rounded-bl-none'
                     }`}
                   >
                     {m.text}
                   </div>
-                  <span className="text-[10px] font-normal text-brand-mist/40 mt-1 px-1">{m.timestamp}</span>
+                  <span className="text-[10px] font-normal text-[#9A9A95] mt-1 px-1">{m.timestamp}</span>
 
                   {/* Suggestion Chips */}
                   {m.chips && m.chips.length > 0 && (
@@ -422,7 +422,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
                 </div>
               ))}
               {loading && (
-                <div className="flex items-center gap-2 text-xs text-brand-mist/50 p-2">
+                <div className="flex items-center gap-2 text-xs text-[#9A9A95] p-2">
                   <span className="w-2 h-2 rounded-full bg-brand-electric animate-ping" />
                   EntireFM Helpdesk is processing...
                 </div>
@@ -431,7 +431,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
             </div>
 
             {/* Input Bar */}
-            <div className="border-t border-brand-edge-dark bg-brand-carbon/80 p-3">
+            <div className="border-t border-[#E8E8E5] bg-white p-3">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -444,7 +444,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder="Describe your issue (e.g. water leak in second floor kitchen)..."
-                  className="flex-1 rounded-lg border border-brand-edge-dark bg-brand-void px-3.5 py-2.5 text-[13px] text-white placeholder:text-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                  className="flex-1 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3.5 py-2.5 text-[13px] text-white placeholder:text-[#9A9A95] focus:outline-none focus:border-brand-electric"
                   disabled={loading}
                 />
                 <button
@@ -459,19 +459,19 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           </div>
 
           {/* Structured Draft Review Card (1 Col) */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 flex flex-col justify-between">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="border-b border-brand-edge-dark/60 pb-3">
-                <span className="text-[10px] uppercase tracking-widest text-brand-mist/50 font-bold">
+              <div className="border-b border-[#E8E8E5] pb-3">
+                <span className="text-[10px] uppercase tracking-widest text-[#9A9A95] font-bold">
                   STRUCTURED SERVICE REQUEST
                 </span>
-                <h3 className="text-base font-normal text-white mt-0.5">Issue Summary</h3>
+                <h3 className="text-base font-normal text-[#111111] mt-0.5">Issue Summary</h3>
               </div>
 
               {/* Site */}
               <div>
-                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Site</span>
-                <p className="text-sm font-medium text-white">
+                <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Site</span>
+                <p className="text-sm font-medium text-[#111111]">
                   {state.site_name || <span className="text-amber-400/80 italic text-xs">Pending location selection</span>}
                 </p>
               </div>
@@ -479,19 +479,19 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
               {/* Location */}
               {state.floor_or_location && (
                 <div>
-                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Location on Site</span>
-                  <p className="text-sm text-brand-mist">{state.floor_or_location}</p>
+                  <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Location on Site</span>
+                  <p className="text-sm text-[#111111]">{state.floor_or_location}</p>
                 </div>
               )}
 
               {/* Trade & Priority */}
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Trade</span>
-                  <p className="text-xs font-normal text-white mt-0.5">{state.trade || 'PLUMBING'}</p>
+                  <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Trade</span>
+                  <p className="text-xs font-normal text-[#111111] mt-0.5">{state.trade || 'PLUMBING'}</p>
                 </div>
                 <div>
-                  <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Priority</span>
+                  <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Priority</span>
                   <p className={`text-xs font-bold mt-0.5 ${
                     state.suggested_priority === 'P1_CRITICAL' ? 'text-red-400' : 'text-brand-electric-bright'
                   }`}>
@@ -502,7 +502,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
               {/* Canonical SLA */}
               <div>
-                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Target Response SLA</span>
+                <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Target Response SLA</span>
                 <p className="text-xs font-normal text-emerald-400 mt-0.5">
                   {state.canonical_sla_hours ? `${state.canonical_sla_hours} Hours Response` : '24 Hours Response'}
                 </p>
@@ -510,15 +510,15 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
               {/* Issue Description */}
               <div>
-                <span className="text-[10.5px] font-normal text-brand-mist/50 uppercase">Extracted Fault</span>
-                <p className="text-xs text-brand-mist/90 bg-brand-void/60 p-2.5 rounded border border-brand-edge-dark/60 mt-1 line-clamp-3">
-                  {state.issue_summary || state.issue_description || <span className="italic text-brand-mist/40">Awaiting issue details...</span>}
+                <span className="text-[10.5px] font-normal text-[#9A9A95] uppercase">Extracted Fault</span>
+                <p className="text-xs text-[#6D6D68] bg-[#FAFAF8] p-2.5 rounded border border-[#E8E8E5] mt-1 line-clamp-3">
+                  {state.issue_summary || state.issue_description || <span className="italic text-[#9A9A95]">Awaiting issue details...</span>}
                 </p>
               </div>
             </div>
 
             {/* Submit Action */}
-            <div className="pt-4 border-t border-brand-edge-dark/60 mt-4">
+            <div className="pt-4 border-t border-[#E8E8E5] mt-4">
               <button
                 onClick={handleSubmitIssue}
                 disabled={submitting || !state.site_id || (!state.issue_summary && !state.issue_description)}
@@ -527,7 +527,7 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
                 {submitting ? 'Submitting to CAFM...' : 'Report Issue'} <ArrowRight className="w-4 h-4" />
               </button>
               {!state.is_ready_to_submit && (
-                <p className="text-[11px] text-brand-mist/40 text-center mt-2">
+                <p className="text-[11px] text-[#9A9A95] text-center mt-2">
                   Please identify the site and issue before submitting.
                 </p>
               )}
@@ -536,10 +536,10 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
         </div>
       ) : (
         /* ─── MODE 2: STANDARD FORM FALLBACK ───────────────────────────────── */
-        <div className="max-w-2xl mx-auto rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-5">
+        <div className="max-w-2xl mx-auto rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-5">
           <div>
-            <h3 className="text-lg font-light text-white">Standard Issue Report Form</h3>
-            <p className="text-xs text-brand-mist/60 mt-0.5">
+            <h3 className="text-lg font-light text-[#111111]">Standard Issue Report Form</h3>
+            <p className="text-xs text-[#6D6D68] mt-0.5">
               Submit your request directly to the EntireFM Helpdesk.
             </p>
           </div>
@@ -553,12 +553,12 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
           >
             {/* Site Select */}
             <div>
-              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Select Site *</label>
+              <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Select Site *</label>
               <select
                 value={formSiteId}
                 onChange={(e) => setFormSiteId(e.target.value)}
                 required
-                className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
+                className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
               >
                 <option value="">-- Choose Authorised Site --</option>
                 {initialSites.map((s) => (
@@ -571,50 +571,50 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Location within Site */}
             <div>
-              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Location on Site</label>
+              <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Location on Site</label>
               <input
                 type="text"
                 value={formLocation}
                 onChange={(e) => setFormLocation(e.target.value)}
                 placeholder="e.g. 2nd Floor, Server Room, Reception"
-                className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white placeholder:text-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white placeholder:text-[#9A9A95] focus:outline-none focus:border-brand-electric"
               />
             </div>
 
             {/* Issue Title */}
             <div>
-              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Issue Title / Headline *</label>
+              <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Issue Title / Headline *</label>
               <input
                 type="text"
                 value={formTitle}
                 onChange={(e) => setFormTitle(e.target.value)}
                 placeholder="e.g. Water leak in washroom ceiling"
                 required
-                className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white placeholder:text-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white placeholder:text-[#9A9A95] focus:outline-none focus:border-brand-electric"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Detailed Description *</label>
+              <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Detailed Description *</label>
               <textarea
                 value={formDescription}
                 onChange={(e) => setFormDescription(e.target.value)}
                 placeholder="Provide details about the fault, when it started, and any symptoms..."
                 rows={3}
                 required
-                className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white placeholder:text-brand-mist/40 focus:outline-none focus:border-brand-electric resize-none"
+                className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white placeholder:text-[#9A9A95] focus:outline-none focus:border-brand-electric resize-none"
               />
             </div>
 
             {/* Trade & Priority Grid */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Trade Category</label>
+                <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Trade Category</label>
                 <select
                   value={formTrade}
                   onChange={(e) => setFormTrade(e.target.value)}
-                  className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
+                  className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
                 >
                   <option value="PLUMBING">Plumbing & Drainage</option>
                   <option value="HVAC">HVAC & Mechanical</option>
@@ -628,11 +628,11 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
               </div>
 
               <div>
-                <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Urgency / Priority</label>
+                <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Urgency / Priority</label>
                 <select
                   value={formPriority}
                   onChange={(e) => setFormPriority(e.target.value)}
-                  className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
+                  className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-electric"
                 >
                   <option value="P1_CRITICAL">P1 - Emergency (4hr SLA)</option>
                   <option value="P2_HIGH">P2 - Urgent (8hr SLA)</option>
@@ -644,13 +644,13 @@ export default function ClientHelpdeskConversationalClient({ clientName, initial
 
             {/* Access notes */}
             <div>
-              <label className="block text-xs font-normal text-brand-mist/70 uppercase mb-1">Access Instructions / Hours</label>
+              <label className="block text-xs font-normal text-[#6D6D68] uppercase mb-1">Access Instructions / Hours</label>
               <input
                 type="text"
                 value={formAccessNotes}
                 onChange={(e) => setFormAccessNotes(e.target.value)}
                 placeholder="e.g. Keys at reception, access 08:00 - 18:00"
-                className="w-full rounded-lg border border-brand-edge-dark bg-brand-void px-3 py-2 text-sm text-white placeholder:text-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                className="w-full rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] px-3 py-2 text-sm text-white placeholder:text-[#9A9A95] focus:outline-none focus:border-brand-electric"
               />
             </div>
 

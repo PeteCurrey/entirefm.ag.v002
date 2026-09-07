@@ -221,3 +221,189 @@
 .cafm-dot-danger { background-color: var(--cafm-red-dot); }
 .cafm-dot-neutral { background-color: var(--cafm-neutral); }
 
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UNIVERSAL LIGHT-THEME DARK CLASS NEUTRALISATION
+   Maps legacy dark brand classes to the clean light palette.
+   Applied inside .cafm-app to all admin, client-portal and contractor contexts.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Dark card / panel backgrounds → pristine white surfaces */
+.cafm-app [class*="bg-brand-carbon"],
+.cafm-app [class*="bg-brand-void"],
+.cafm-app [class*="bg-brand-graphite"],
+.cafm-app [class*="bg-brand-edge-dark"] {
+  background-color: #ffffff !important;
+}
+
+/* 2. Dark border hairlines → precision light hairlines (#E8E8E5) */
+.cafm-app [class*="border-brand-edge-dark"] {
+  border-color: #E8E8E5 !important;
+}
+.cafm-app [class*="divide-brand-edge-dark"] > * + * {
+  border-color: #E8E8E5 !important;
+}
+
+/* 3. Off-white / mist text → charcoal contrast hierarchy */
+.cafm-app [class*="text-brand-mist"] {
+  color: #6D6D68 !important;
+}
+.cafm-app [class*="text-brand-silver"] {
+  color: #9A9A95 !important;
+}
+
+/* 4. text-white INSIDE formerly-dark containers → charcoal
+   Exceptions: buttons and badges with coloured backgrounds are excluded via
+   parent class matching (those sit under bg-brand-electric / bg-[#EA580C], etc.) */
+.cafm-app [class*="bg-brand-carbon"] .text-white,
+.cafm-app [class*="bg-brand-void"] .text-white,
+.cafm-app [class*="bg-brand-graphite"] .text-white {
+  color: #111111 !important;
+}
+
+/* 5. Hover states on dark-to-light mapped containers → subtle grey tint */
+.cafm-app [class*="hover:bg-brand-void"]:hover,
+.cafm-app [class*="hover:bg-brand-edge-dark"]:hover,
+.cafm-app [class*="hover:bg-brand-carbon"]:hover {
+  background-color: #F5F5F3 !important;
+}
+
+/* 6. Dark semantic status pill colours → light equivalents */
+.cafm-app [class*="bg-emerald-900"],
+.cafm-app [class*="bg-green-900"] {
+  background-color: #F0FDF4 !important;
+}
+.cafm-app .text-emerald-300 { color: #15803D !important; }
+.cafm-app [class*="border-emerald-800"] { border-color: #BBF7D0 !important; }
+
+.cafm-app [class*="bg-amber-900"],
+.cafm-app [class*="bg-yellow-900"] {
+  background-color: #FFFBEB !important;
+}
+.cafm-app .text-amber-300 { color: #B45309 !important; }
+.cafm-app [class*="border-amber-800"] { border-color: #FDE68A !important; }
+
+.cafm-app [class*="bg-red-900"] {
+  background-color: #FEF2F2 !important;
+}
+.cafm-app .text-red-300 { color: #B91C1C !important; }
+.cafm-app [class*="border-red-800"] { border-color: #FECACA !important; }
+
+.cafm-app [class*="bg-zinc-900"],
+.cafm-app [class*="bg-slate-900"] {
+  background-color: #F8FAFC !important;
+}
+.cafm-app .text-zinc-400 { color: #6D6D68 !important; }
+.cafm-app [class*="border-zinc-800"] { border-color: #E2E8F0 !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3D INTERACTIVE CARD ELEVATION SYSTEM
+   Premium tactile lift animations for dashboard panels and metric tiles.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Base elevated card — static panels with depth */
+.cafm-card-3d {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-lg);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.04),
+    0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.cafm-card-3d:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px -4px rgba(0, 0, 0, 0.08),
+    0 4px 8px -2px rgba(0, 0, 0, 0.04);
+  border-color: var(--cafm-border-strong);
+}
+
+.cafm-card-3d:active {
+  transform: translateY(-0.5px);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  transition-duration: 80ms;
+}
+
+/* Interactive / clickable card — for navigation cards, action panels */
+.cafm-interactive-card {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-md);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.cafm-interactive-card:hover {
+  transform: translateY(-1.5px);
+  box-shadow:
+    0 6px 16px -3px rgba(0, 0, 0, 0.08),
+    0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  border-color: var(--cafm-border-strong);
+}
+
+.cafm-interactive-card:active {
+  transform: scale(0.99) translateY(0);
+  transition-duration: 60ms;
+}
+
+/* KPI / metric tile — number-forward dashboard cards */
+.cafm-metric-tile {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-lg);
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cafm-metric-tile:hover {
+  transform: translateY(-2px) scale(1.006);
+  box-shadow:
+    0 8px 20px -4px rgba(0, 0, 0, 0.07),
+    0 3px 6px -2px rgba(0, 0, 0, 0.04);
+  border-color: var(--cafm-border-strong);
+}
+
+/* Table container — precision-bordered data table card */
+.cafm-table-container {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+}
+
+.cafm-table-header {
+  background-color: var(--cafm-surface-subtle);
+  border-bottom: 1px solid var(--cafm-border);
+}
+
+.cafm-table-row-hover:hover {
+  background-color: var(--cafm-surface-subtle);
+  transition: background-color 100ms ease;
+}
+
+/* Nav / section panel — for sidebar panels and grouped sections */
+.cafm-section-panel {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-md);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+/* Orange accent interactive state */
+.cafm-accent-hover {
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cafm-accent-hover:hover {
+  border-color: var(--cafm-orange) !important;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.06) !important;
+}

@@ -43,7 +43,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
 
   if (loading) {
     return (
-      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 text-xs font-normal text-brand-mist/50">
+      <div className="p-4 rounded-xl border border-[#E8E8E5] bg-white shadow-sm text-xs font-normal text-[#9A9A95]">
         Loading Job Pack readiness and pre-attendance safety checks...
       </div>
     );
@@ -51,8 +51,8 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
 
   if (!pack) {
     return (
-      <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 flex items-center justify-between text-xs font-normal">
-        <span className="text-brand-mist/70">Job Pack has not been assembled yet.</span>
+      <div className="p-4 rounded-xl border border-[#E8E8E5] bg-white shadow-sm flex items-center justify-between text-xs font-normal">
+        <span className="text-[#6D6D68]">Job Pack has not been assembled yet.</span>
         <button
           onClick={async () => {
             setLoading(true);
@@ -75,9 +75,9 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
   const blockers = pack.readiness.blockingReasons;
 
   return (
-    <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-5 space-y-4 shadow-lg">
+    <div className="rounded-xl border border-[#E8E8E5] bg-white p-5 space-y-4 shadow-lg">
       {/* Header Strip */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-edge-dark/60 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8E8E5] pb-3">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
             <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
@@ -93,7 +93,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
               {isReady ? 'READY FOR ATTENDANCE' : 'ACTION REQUIRED'}
             </span>
           </div>
-          <span className="text-xs text-brand-mist/60 font-light block">
+          <span className="text-xs text-[#6D6D68] font-light block">
             Pre-attendance safety governance, verified operative competency, RAMS, and site instructions.
           </span>
         </div>
@@ -103,7 +103,7 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
             href={`/api/contractor/job-packs/${encodeURIComponent(pack.id)}/pdf`}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded border border-brand-edge-dark bg-brand-void hover:bg-brand-edge-dark text-brand-mist hover:text-white transition-colors"
+            className="p-1.5 rounded border border-[#E8E8E5] bg-[#FAFAF8] hover:bg-[#F5F5F3] text-[#111111] hover:text-white transition-colors"
             title="Download Job Pack PDF"
           >
             <Download className="w-3.5 h-3.5" />
@@ -148,18 +148,18 @@ export function JobPackPanel({ workOrderId, initialJobPack }: Props) {
               key={key}
               className={`p-2.5 rounded-lg border flex flex-col justify-between space-y-1 ${
                 isSatisfied
-                  ? 'bg-brand-void border-brand-edge-dark/60'
+                  ? 'bg-[#FAFAF8] border-[#E8E8E5]'
                   : 'bg-rose-950/10 border-rose-800/30'
               }`}
             >
-              <span className="text-[10px] text-brand-mist/50 uppercase block truncate">{s.section}</span>
+              <span className="text-[10px] text-[#9A9A95] uppercase block truncate">{s.section}</span>
               <div className="flex items-center gap-1.5">
                 {isSatisfied ? (
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 ) : (
                   <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                 )}
-                <span className={`text-[10.5px] font-semibold truncate ${isSatisfied ? 'text-white' : 'text-rose-300'}`}>
+                <span className={`text-[10.5px] font-semibold truncate ${isSatisfied ? 'text-[#111111]' : 'text-rose-300'}`}>
                   {s.status}
                 </span>
               </div>

@@ -101,77 +101,77 @@ export function QuoteBuilderClient() {
   return (
     <div className="space-y-6">
       {/* Quote Metadata */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-        <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
-          <h3 className="text-sm font-medium text-white">Quote Details</h3>
-          <span className="text-[10px] font-medium text-brand-mist/40 uppercase tracking-widest">Private to your organisation</span>
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
+          <h3 className="text-sm font-medium text-[#111111]">Quote Details</h3>
+          <span className="text-[10px] font-medium text-[#9A9A95] uppercase tracking-widest">Private to your organisation</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Quote Reference</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Quote Reference</label>
             <input type="text" value={quoteRef} onChange={(e) => setQuoteRef(e.target.value)}
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Client / Company</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Client / Company</label>
             <input type="text" value={clientName} onChange={(e) => setClientName(e.target.value)} placeholder="e.g. Savills Property Management"
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Site</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Site</label>
             <input type="text" value={siteName} onChange={(e) => setSiteName(e.target.value)} placeholder="e.g. One Canada Square, E14"
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Valid For (days)</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Valid For (days)</label>
             <input type="number" value={validDays} min={1} onChange={(e) => setValidDays(Number(e.target.value))}
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">VAT Rate</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">VAT Rate</label>
             <div className="relative">
               <input type="number" value={vatRatePct} min={0} onChange={(e) => setVatRatePct(Number(e.target.value))}
-                className="w-full p-2 pr-7 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal focus:border-brand-electric focus:outline-none" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-mist/40 text-xs">%</span>
+                className="w-full p-2 pr-7 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal focus:border-brand-electric focus:outline-none" />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9A9A95] text-xs">%</span>
             </div>
           </div>
           <div className="space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Target Margin</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Target Margin</label>
             <div className="relative">
               <input type="number" value={targetMarginPct} min={0} max={90} onChange={(e) => setTargetMarginPct(Number(e.target.value))}
-                className="w-full p-2 pr-7 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal focus:border-brand-electric focus:outline-none" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-mist/40 text-xs">%</span>
+                className="w-full p-2 pr-7 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal focus:border-brand-electric focus:outline-none" />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9A9A95] text-xs">%</span>
             </div>
           </div>
           <div className="col-span-2 sm:col-span-3 space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Scope Summary</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Scope Summary</label>
             <textarea rows={2} value={scopeSummary} onChange={(e) => setScopeSummary(e.target.value)}
               placeholder="Brief description of the work..."
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="col-span-1 space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Assumptions</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Assumptions</label>
             <textarea rows={2} value={assumptions} onChange={(e) => setAssumptions(e.target.value)}
               placeholder="e.g. Clear, unobstructed access..."
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
           </div>
           <div className="col-span-1 space-y-0.5">
-            <label className="text-[11px] font-normal text-brand-mist/60 uppercase tracking-wide block">Exclusions</label>
+            <label className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide block">Exclusions</label>
             <textarea rows={2} value={exclusions} onChange={(e) => setExclusions(e.target.value)}
               placeholder="e.g. Making good, redecoration..."
-              className="w-full p-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
+              className="w-full p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none" />
           </div>
         </div>
       </div>
 
       {/* Line Items */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge-dark">
-          <h3 className="text-sm font-medium text-white">Line Items</h3>
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E8E5]">
+          <h3 className="text-sm font-medium text-[#111111]">Line Items</h3>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowInternalCosts(!showInternalCosts)}
-              className="text-[10.5px] font-normal text-brand-mist/50 hover:text-white flex items-center gap-1 transition-colors"
+              className="text-[10.5px] font-normal text-[#9A9A95] hover:text-white flex items-center gap-1 transition-colors"
             >
               {showInternalCosts ? '▼' : '▶'} Internal Costs
             </button>
@@ -179,7 +179,7 @@ export function QuoteBuilderClient() {
         </div>
 
         {/* Header row */}
-        <div className={`hidden sm:grid px-5 py-2 bg-brand-void/50 text-[10px] font-normal text-brand-mist/40 uppercase tracking-wide border-b border-brand-edge-dark gap-2${showInternalCosts ? 'grid-cols-[1fr_auto_80px_70px_80px_80px_80px_32px]' : 'grid-cols-[1fr_auto_80px_70px_80px_80px_32px]'}`}>
+        <div className={`hidden sm:grid px-5 py-2 bg-[#FAFAF8] text-[10px] font-normal text-[#9A9A95] uppercase tracking-wide border-b border-[#E8E8E5] gap-2${showInternalCosts ? 'grid-cols-[1fr_auto_80px_70px_80px_80px_80px_32px]' : 'grid-cols-[1fr_auto_80px_70px_80px_80px_32px]'}`}>
           <span>Description</span>
           <span>Type</span>
           <span>Qty</span>
@@ -190,7 +190,7 @@ export function QuoteBuilderClient() {
           <span />
         </div>
 
-        <div className="divide-y divide-brand-edge-dark/20">
+        <div className="divide-y divide-[#E8E8E5]">
           {lineItems.map((line) => {
             const lineTotal = line.quantity * line.sellPriceUnit;
             const lineCost = line.quantity * line.internalCostUnit;
@@ -202,12 +202,12 @@ export function QuoteBuilderClient() {
                   value={line.description}
                   onChange={(e) => updateLine(line.id, 'description', e.target.value)}
                   placeholder="Description..."
-                  className="w-full p-1.5 rounded bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                  className="w-full p-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                 />
                 <select
                   value={line.type}
                   onChange={(e) => updateLine(line.id, 'type', e.target.value)}
-                  className="p-1.5 rounded bg-brand-void border border-brand-edge-dark text-white text-[10.5px] focus:border-brand-electric focus:outline-none"
+                  className="p-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white text-[10.5px] focus:border-brand-electric focus:outline-none"
                 >
                   {LINE_TYPE_OPTIONS.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
@@ -217,38 +217,38 @@ export function QuoteBuilderClient() {
                   min={0}
                   step={0.5}
                   onChange={(e) => updateLine(line.id, 'quantity', Number(e.target.value))}
-                  className="w-full p-1.5 rounded bg-brand-void border border-brand-edge-dark text-white text-center focus:border-brand-electric focus:outline-none"
+                  className="w-full p-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white text-center focus:border-brand-electric focus:outline-none"
                 />
                 <input
                   type="text"
                   value={line.unit}
                   onChange={(e) => updateLine(line.id, 'unit', e.target.value)}
-                  className="w-full p-1.5 rounded bg-brand-void border border-brand-edge-dark text-white text-center focus:border-brand-electric focus:outline-none"
+                  className="w-full p-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white text-center focus:border-brand-electric focus:outline-none"
                 />
                 {showInternalCosts && (
                   <div className="relative">
-                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-brand-mist/40 text-[10px]">£</span>
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[#9A9A95] text-[10px]">£</span>
                     <input
                       type="number"
                       value={line.internalCostUnit}
                       min={0}
                       onChange={(e) => updateLine(line.id, 'internalCostUnit', Number(e.target.value))}
-                      className="w-full pl-5 pr-1 py-1.5 rounded bg-brand-void border border-brand-edge-dark text-white focus:border-brand-electric focus:outline-none"
+                      className="w-full pl-5 pr-1 py-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white focus:border-brand-electric focus:outline-none"
                     />
                   </div>
                 )}
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-brand-mist/40 text-[10px]">£</span>
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[#9A9A95] text-[10px]">£</span>
                   <input
                     type="number"
                     value={line.sellPriceUnit}
                     min={0}
                     onChange={(e) => updateLine(line.id, 'sellPriceUnit', Number(e.target.value))}
-                    className="w-full pl-5 pr-1 py-1.5 rounded bg-brand-void border border-brand-edge-dark text-white focus:border-brand-electric focus:outline-none"
+                    className="w-full pl-5 pr-1 py-1.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white focus:border-brand-electric focus:outline-none"
                   />
                 </div>
                 <div className="text-right">
-                  <span className="text-white font-semibold">£{fmt(lineTotal)}</span>
+                  <span className="text-[#111111] font-semibold">£{fmt(lineTotal)}</span>
                   {showInternalCosts && (
                     <span className={`block text-[9.5px] ${lineMargin < 0 ? 'text-rose-400' : lineMargin < targetMarginPct ? 'text-amber-400' : 'text-emerald-400'}`}>
                       {fmt(lineMargin, 1)}% mgn
@@ -256,10 +256,10 @@ export function QuoteBuilderClient() {
                   )}
                 </div>
                 <div className="flex gap-1">
-                  <button onClick={() => duplicateLine(line.id)} className="p-1 rounded hover:bg-brand-edge-dark text-brand-mist/30 hover:text-brand-mist transition-colors" title="Duplicate">
+                  <button onClick={() => duplicateLine(line.id)} className="p-1 rounded hover:bg-[#F5F5F3] text-[#9A9A95] hover:text-[#111111] transition-colors" title="Duplicate">
                     <Copy className="w-3 h-3" />
                   </button>
-                  <button onClick={() => removeLine(line.id)} className="p-1 rounded hover:bg-rose-950/30 text-brand-mist/30 hover:text-rose-400 transition-colors" title="Remove">
+                  <button onClick={() => removeLine(line.id)} className="p-1 rounded hover:bg-rose-950/30 text-[#9A9A95] hover:text-rose-400 transition-colors" title="Remove">
                     <Trash2 className="w-3 h-3" />
                   </button>
                 </div>
@@ -269,12 +269,12 @@ export function QuoteBuilderClient() {
         </div>
 
         {/* Add line row */}
-        <div className="px-5 py-3 border-t border-brand-edge-dark/60 flex flex-wrap gap-2">
+        <div className="px-5 py-3 border-t border-[#E8E8E5] flex flex-wrap gap-2">
           {LINE_TYPE_OPTIONS.map((t) => (
             <button
               key={t.value}
               onClick={() => addLine(t.value)}
-              className="px-2.5 py-1 rounded border border-brand-edge-dark text-brand-mist/60 hover:text-white hover:border-brand-mist/40 text-[10.5px] font-normal flex items-center gap-1 transition-colors"
+              className="px-2.5 py-1 rounded border border-[#E8E8E5] text-[#6D6D68] hover:text-white hover:border-brand-mist/40 text-[10.5px] font-normal flex items-center gap-1 transition-colors"
             >
               <Plus className="w-3 h-3" /> {t.label}
             </button>
@@ -292,15 +292,15 @@ export function QuoteBuilderClient() {
               <span className="text-[9px] text-amber-400/60 normal-case">Private — not shown on client quote</span>
             </div>
             <div className="space-y-1.5 text-xs font-normal">
-              <div className="flex justify-between text-brand-mist/70">
+              <div className="flex justify-between text-[#6D6D68]">
                 <span>Total Internal Cost:</span>
-                <span className="text-white">£{fmt(totalInternalCost)}</span>
+                <span className="text-[#111111]">£{fmt(totalInternalCost)}</span>
               </div>
-              <div className="flex justify-between text-brand-mist/70">
+              <div className="flex justify-between text-[#6D6D68]">
                 <span>Gross Profit:</span>
                 <span className={grossProfit < 0 ? 'text-rose-400' : 'text-emerald-400'}>£{fmt(grossProfit)}</span>
               </div>
-              <div className="flex justify-between text-brand-mist/70 border-t border-brand-edge-dark/40 pt-1.5">
+              <div className="flex justify-between text-[#6D6D68] border-t border-[#E8E8E5] pt-1.5">
                 <span>Gross Margin:</span>
                 <span className={`font-bold ${isLoss ? 'text-rose-400' : isBelowTarget ? 'text-amber-400' : 'text-emerald-400'}`}>
                   {fmt(grossMarginPct, 1)}%
@@ -323,26 +323,26 @@ export function QuoteBuilderClient() {
         )}
 
         {/* Client-facing totals */}
-        <div className={`rounded-xl border border-brand-edge-dark bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-4 ${showInternalCosts ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+        <div className={`rounded-xl border border-[#E8E8E5] bg-gradient-to-b from-brand-carbon to-brand-void p-6 space-y-4 ${showInternalCosts ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold block">
             QUOTE SUMMARY — {quoteRef}
           </span>
-          {clientName && <p className="text-xs text-brand-mist/60 font-normal">{clientName} &bull; {siteName}</p>}
+          {clientName && <p className="text-xs text-[#6D6D68] font-normal">{clientName} &bull; {siteName}</p>}
           <div className="space-y-1.5 text-sm font-normal">
-            <div className="flex justify-between text-brand-mist/70">
+            <div className="flex justify-between text-[#6D6D68]">
               <span>Net Total (Excl. VAT):</span>
-              <span className="text-white font-semibold">£{fmt(totalSellNet)}</span>
+              <span className="text-[#111111] font-semibold">£{fmt(totalSellNet)}</span>
             </div>
-            <div className="flex justify-between text-brand-mist/70">
+            <div className="flex justify-between text-[#6D6D68]">
               <span>VAT ({vatRatePct}%):</span>
-              <span className="text-white">£{fmt(vatAmount)}</span>
+              <span className="text-[#111111]">£{fmt(vatAmount)}</span>
             </div>
-            <div className="flex justify-between text-white font-bold text-base border-t border-brand-edge-dark pt-2 mt-2">
+            <div className="flex justify-between text-[#111111] font-bold text-base border-t border-[#E8E8E5] pt-2 mt-2">
               <span>Total Invoice (Inc. VAT):</span>
               <span className="text-brand-electric-bright">£{fmt(totalGross)}</span>
             </div>
           </div>
-          <p className="text-[10.5px] text-brand-mist/40 font-normal">
+          <p className="text-[10.5px] text-[#9A9A95] font-normal">
             Valid for {validDays} days from date of issue.
           </p>
         </div>

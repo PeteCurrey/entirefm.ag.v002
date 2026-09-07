@@ -91,17 +91,17 @@ Sarah,Jones,sarah.j@apex.co.uk,+447700900124,Commercial Gas Engineer,Commercial 
 James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical & Testing`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E8E5] bg-[#FAFAF8]">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               BULK WORKFORCE IMPORT
             </span>
-            <h2 className="text-base font-light text-white">Import Engineers &amp; Operatives via CSV</h2>
+            <h2 className="text-base font-light text-[#111111]">Import Engineers &amp; Operatives via CSV</h2>
           </div>
-          <button onClick={onClose} className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark">
+          <button onClick={onClose} className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -118,11 +118,11 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
           {result ? (
             <div className="space-y-4">
               <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-300 space-y-2">
-                <div className="flex items-center gap-2 font-semibold text-sm text-white">
+                <div className="flex items-center gap-2 font-semibold text-sm text-[#111111]">
                   <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                   <span>Bulk Import Completed</span>
                 </div>
-                <p className="text-xs text-brand-mist font-sans">
+                <p className="text-xs text-[#111111] font-sans">
                   Successfully imported {result.importedCount} operatives. Skipped {result.duplicateCount} duplicate records.
                 </p>
               </div>
@@ -141,7 +141,7 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
           ) : (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <label className="text-brand-mist/70 block font-sans text-xs">
+                <label className="text-[#6D6D68] block font-sans text-xs">
                   Paste CSV Records or Load Template
                 </label>
                 <button
@@ -158,14 +158,14 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
                 placeholder="FirstName,LastName,Email,Phone,JobTitle,PrimaryTrade"
-                className="w-full p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
+                className="w-full p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
               />
 
               <div className="flex justify-end">
                 <button
                   type="button"
                   onClick={handleParseCsv}
-                  className="px-4 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white hover:border-brand-electric text-xs transition-colors"
+                  className="px-4 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white hover:border-brand-electric text-xs transition-colors"
                 >
                   Preview Parsed Data ({parsedRows.length > 0 ? `${parsedRows.length} Rows` : 'Parse CSV'})
                 </button>
@@ -173,17 +173,17 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
 
               {parsedRows.length > 0 && (
                 <div className="space-y-2">
-                  <span className="text-brand-mist/60 text-[11px] block font-sans">
+                  <span className="text-[#6D6D68] text-[11px] block font-sans">
                     Parsed {parsedRows.length} Operative Records Ready for Import:
                   </span>
-                  <div className="max-h-48 overflow-y-auto divide-y divide-brand-edge-dark/30 border border-brand-edge-dark rounded-lg bg-brand-void/50">
+                  <div className="max-h-48 overflow-y-auto divide-y divide-[#E8E8E5] border border-[#E8E8E5] rounded-lg bg-[#FAFAF8]">
                     {parsedRows.map((r, idx) => (
                       <div key={idx} className="p-2.5 flex items-center justify-between text-[11px]">
                         <div>
-                          <span className="text-white font-medium">{r.firstName} {r.lastName}</span>
-                          <span className="text-brand-mist/50 block">{r.email} &bull; {r.jobTitle}</span>
+                          <span className="text-[#111111] font-medium">{r.firstName} {r.lastName}</span>
+                          <span className="text-[#9A9A95] block">{r.email} &bull; {r.jobTitle}</span>
                         </div>
-                        <span className="px-2 py-0.5 rounded bg-brand-carbon text-brand-mist border border-brand-edge-dark text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-white text-[#111111] border border-[#E8E8E5] text-[10px]">
                           {r.primaryTrade}
                         </span>
                       </div>
@@ -196,10 +196,10 @@ James,Taylor,james.t@apex.co.uk,+447700900125,Qualified Electrician,Electrical &
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-brand-edge-dark bg-brand-void/50 flex justify-end gap-2">
+        <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+            className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
           >
             {result ? 'Close' : 'Cancel'}
           </button>

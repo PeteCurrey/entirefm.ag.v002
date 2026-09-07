@@ -25,7 +25,7 @@ export default async function TalkToQuoteDeskPage() {
             </span>
             <Link
               href="/admin/commercial/quotes"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-[#6D6D68] border border-[#E8E8E5] hover:text-white"
             >
               All Quotes →
             </Link>
@@ -34,16 +34,16 @@ export default async function TalkToQuoteDeskPage() {
       />
 
       {/* Overview Banner */}
-      <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-5">
+      <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
         <div className="flex items-start gap-4">
           <div className="rounded-md bg-brand-electric/15 p-2.5 text-brand-electric-bright">
             🎤
           </div>
           <div>
-            <h3 className="text-[13px] font-normal text-white">
+            <h3 className="text-[13px] font-normal text-[#111111]">
               AI Field Scope Structuring & Rate Matching
             </h3>
-            <p className="mt-1 text-[12.5px] text-brand-mist/80 leading-relaxed">
+            <p className="mt-1 text-[12.5px] text-[#6D6D68] leading-relaxed">
               Field scopes captured via mobile voice notes are transcribed and structured here. The commercial engine automatically checks rate card hierarchies, cross-references material catalogues, and flags missing or stale prices without hallucinating costs.
             </p>
           </div>
@@ -53,7 +53,7 @@ export default async function TalkToQuoteDeskPage() {
       {/* Scopes Intake Queue */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">
             Incoming Field Quote Scopes ({scopes?.length || 0})
           </h3>
         </div>
@@ -63,39 +63,39 @@ export default async function TalkToQuoteDeskPage() {
             {scopes.map((s) => (
               <div
                 key={s.id}
-                className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4 hover:border-brand-electric/40 transition-colors"
+                className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-4 hover:border-brand-electric/40 transition-colors"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="rounded bg-brand-electric/15 px-2 py-0.5 font-normal text-[10.5px] text-brand-electric-bright">
                       Scope Ref: {s.id.slice(0, 8)}
                     </span>
-                    <h4 className="mt-2 text-[13px] font-light text-white">
+                    <h4 className="mt-2 text-[13px] font-light text-[#111111]">
                       {s.scope_description || 'Field remedial recommendation'}
                     </h4>
                   </div>
-                  <span className="font-normal text-[11px] text-brand-mist/40">
+                  <span className="font-normal text-[11px] text-[#9A9A95]">
                     {new Date(s.created_at).toLocaleDateString('en-GB')}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 rounded border border-brand-edge-dark/60 bg-brand-void/30 p-3 text-[11.5px] font-normal">
+                <div className="grid grid-cols-3 gap-2 rounded border border-[#E8E8E5] bg-[#FAFAF8] p-3 text-[11.5px] font-normal">
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Labour Est</span>
-                    <span className="text-white font-normal">{s.labour_estimated_hours || 2}h ({s.labour_engineers_count || 1} eng)</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Labour Est</span>
+                    <span className="text-[#111111] font-normal">{s.labour_estimated_hours || 2}h ({s.labour_engineers_count || 1} eng)</span>
                   </div>
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">Materials</span>
-                    <span className="text-white font-normal">{s.materials_items_json?.length || 0} item(s)</span>
+                    <span className="text-[#9A9A95] block text-[10px]">Materials</span>
+                    <span className="text-[#111111] font-normal">{s.materials_items_json?.length || 0} item(s)</span>
                   </div>
                   <div>
-                    <span className="text-brand-mist/40 block text-[10px]">AI Confidence</span>
+                    <span className="text-[#9A9A95] block text-[10px]">AI Confidence</span>
                     <span className="text-emerald-400 font-normal">{(Number(s.ai_confidence_score || 0.85) * 100).toFixed(0)}%</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-brand-edge-dark/50">
-                  <span className="font-normal text-[10.5px] text-brand-mist/50">
+                <div className="flex items-center justify-between pt-2 border-t border-[#E8E8E5]">
+                  <span className="font-normal text-[10.5px] text-[#9A9A95]">
                     Status: {s.status || 'DRAFT'}
                   </span>
                   <Link

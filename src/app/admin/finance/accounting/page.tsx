@@ -28,15 +28,15 @@ export default async function AccountingSyncPage() {
       />
 
       {/* CONNECTOR STATUS CARD */}
-      <div className="bg-brand-carbon border border-brand-edge-dark p-6 rounded-xl space-y-4">
+      <div className="bg-white border border-[#E8E8E5] p-6 rounded-xl space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Building2 className="h-6 w-6 text-brand-electric" />
             <div>
-              <h2 className="text-base font-light text-white">
+              <h2 className="text-base font-light text-[#111111]">
                 {adapter.provider}
               </h2>
-              <p className="text-xs text-brand-mist/60 font-normal">
+              <p className="text-xs text-[#6D6D68] font-normal">
                 Statutory Accounting Integration Provider
               </p>
             </div>
@@ -46,7 +46,7 @@ export default async function AccountingSyncPage() {
           </span>
         </div>
 
-        <div className="text-xs font-normal text-brand-mist/70 border-t border-brand-edge-dark/60 pt-4 space-y-2">
+        <div className="text-xs font-normal text-[#6D6D68] border-t border-[#E8E8E5] pt-4 space-y-2">
           <p>
             EntireFM is the authoritative source for operational work, commercial provenance, supplier commitments, and billing readiness.
             The external accounting platform remains authoritative for general ledger, balance sheet, and statutory accounts.
@@ -54,7 +54,7 @@ export default async function AccountingSyncPage() {
           <div className="pt-2 flex items-center gap-3">
             <Link
               href="/admin/integrations/xero"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-void border border-brand-edge-dark text-xs text-brand-mist hover:text-white transition"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-xs text-[#111111] hover:text-white transition"
             >
               <span>Manage Xero Integration & OAuth</span>
               <span className="text-brand-electric">→</span>
@@ -62,7 +62,7 @@ export default async function AccountingSyncPage() {
           </div>
           {!adapter.isConfigured && (
             <p className="text-amber-400/90 pt-1">
-              Note: To activate live syncing, configure <code className="bg-brand-void px-1.5 py-0.5 rounded text-white">ACCOUNTING_PROVIDER</code> and API credentials in the server environment.
+              Note: To activate live syncing, configure <code className="bg-[#FAFAF8] px-1.5 py-0.5 rounded text-white">ACCOUNTING_PROVIDER</code> and API credentials in the server environment.
             </p>
           )}
         </div>
@@ -70,17 +70,17 @@ export default async function AccountingSyncPage() {
 
       {/* FAILURES */}
       <div className="space-y-3">
-        <h3 className="text-xs font-normal uppercase tracking-wider text-white">
+        <h3 className="text-xs font-normal uppercase tracking-wider text-[#111111]">
           Recent Sync Failures ({failures.length})
         </h3>
         {failures.length === 0 ? (
-          <div className="p-4 bg-brand-carbon/30 border border-brand-edge-dark rounded-xl text-xs font-normal text-brand-mist/60">
+          <div className="p-4 bg-white border border-[#E8E8E5] rounded-xl text-xs font-normal text-[#6D6D68]">
             No active accounting sync failures.
           </div>
         ) : (
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-            <table className="w-full text-left text-xs font-normal text-brand-mist">
-              <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+            <table className="w-full text-left text-xs font-normal text-[#111111]">
+              <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
                 <tr>
                   <th className="p-3.5">Entity Type</th>
                   <th className="p-3.5">Entity ID</th>
@@ -89,9 +89,9 @@ export default async function AccountingSyncPage() {
                   <th className="p-3.5">Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {failures.map((f: any) => (
-                  <tr key={f.id} className="hover:bg-brand-edge-dark/20">
+                  <tr key={f.id} className="hover:bg-[#F5F5F3]">
                     <td className="p-3.5 font-light text-white">{f.entity_type}</td>
                     <td className="p-3.5">{f.entity_id?.slice(0, 8)}</td>
                     <td className="p-3.5 text-zinc-500 font-normal text-[11px]">{f.idempotency_key}</td>

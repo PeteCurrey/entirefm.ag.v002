@@ -35,40 +35,40 @@ export default async function EnquiriesPage() {
       )}
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Total Enquiries</div>
-          <div className="mt-1 text-2xl font-light text-white">{leads.length}</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10px] uppercase text-[#9A9A95]">Total Enquiries</div>
+          <div className="mt-1 text-2xl font-light text-[#111111]">{leads.length}</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Today</div>
-          <div className="mt-1 text-2xl font-light text-white">{todayCount}</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10px] uppercase text-[#9A9A95]">Today</div>
+          <div className="mt-1 text-2xl font-light text-[#111111]">{todayCount}</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Unactioned</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10px] uppercase text-[#9A9A95]">Unactioned</div>
           <div className="mt-1 text-2xl font-light text-brand-electric-bright">{newCount}</div>
         </div>
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <div className="font-medium text-[10px] uppercase text-brand-mist/50">Converting Pages</div>
-          <div className="mt-1 text-2xl font-light text-white">{byPage.size}</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10px] uppercase text-[#9A9A95]">Converting Pages</div>
+          <div className="mt-1 text-2xl font-light text-[#111111]">{byPage.size}</div>
         </div>
       </div>
 
       {topPages.length > 0 && (
-        <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5">
-          <div className="font-medium text-[11px] uppercase tracking-wider text-brand-mist/60 mb-3">
+        <section className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5">
+          <div className="font-medium text-[11px] uppercase tracking-wider text-[#6D6D68] mb-3">
             Top Performing Landing Pages
           </div>
           <ul className="space-y-2">
             {topPages.map(([page, count]) => (
               <li key={page} className="flex items-center gap-4 text-[12.5px]">
-                <span className="w-8 shrink-0 text-white font-normal">{count}</span>
-                <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-edge-dark">
+                <span className="w-8 shrink-0 text-[#111111] font-normal">{count}</span>
+                <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#F5F5F3]">
                   <span
                     className="block h-full bg-brand-electric"
                     style={{ width: `${(count / topPages[0][1]) * 100}%` }}
                   />
                 </span>
-                <span className="w-1/2 shrink-0 truncate font-normal text-[11px] text-brand-mist/60">
+                <span className="w-1/2 shrink-0 truncate font-normal text-[11px] text-[#6D6D68]">
                   {page}
                 </span>
               </li>
@@ -78,10 +78,10 @@ export default async function EnquiriesPage() {
       )}
 
       {leads.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[62rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Received</th>
                 <th className="px-5 py-3">Contact</th>
                 <th className="px-5 py-3">Requirement</th>
@@ -89,10 +89,10 @@ export default async function EnquiriesPage() {
                 <th className="px-5 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {leads.map((lead) => (
-                <tr key={lead.id} className="text-brand-mist/80">
-                  <td className="whitespace-nowrap px-5 py-4 font-normal text-[11px] text-brand-mist/50">
+                <tr key={lead.id} className="text-[#6D6D68]">
+                  <td className="whitespace-nowrap px-5 py-4 font-normal text-[11px] text-[#9A9A95]">
                     {new Date(lead.received_at).toLocaleDateString('en-GB', {
                       day: '2-digit',
                       month: 'short',
@@ -101,19 +101,19 @@ export default async function EnquiriesPage() {
                     })}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{lead.name}</div>
-                    {lead.company && <div className="text-[11.5px] text-brand-mist/60">{lead.company}</div>}
+                    <div className="font-light text-[#111111]">{lead.name}</div>
+                    {lead.company && <div className="text-[11.5px] text-[#6D6D68]">{lead.company}</div>}
                     <a href={`mailto:${lead.email}`} className="text-brand-electric-bright hover:underline">
                       {lead.email}
                     </a>
                   </td>
                   <td className="px-5 py-4 max-w-sm">
-                    <div className="font-normal text-white">{lead.service || 'General Service'}</div>
-                    <div className="mt-1 text-[11.5px] text-brand-mist/60 line-clamp-2">{lead.message}</div>
+                    <div className="font-normal text-[#111111]">{lead.service || 'General Service'}</div>
+                    <div className="mt-1 text-[11.5px] text-[#6D6D68] line-clamp-2">{lead.message}</div>
                   </td>
-                  <td className="px-5 py-4 max-w-xs truncate font-normal text-[11px] text-brand-mist/50">
+                  <td className="px-5 py-4 max-w-xs truncate font-normal text-[11px] text-[#9A9A95]">
                     <div>{lead.conversion_page || lead.landing_page || 'Direct'}</div>
-                    {lead.utm_source && <div className="text-brand-mist/40">{lead.utm_source}</div>}
+                    {lead.utm_source && <div className="text-[#9A9A95]">{lead.utm_source}</div>}
                   </td>
                   <td className="px-5 py-4">
                     <span className="rounded bg-brand-electric/20 px-2 py-0.5 font-normal text-[10px] text-brand-electric-bright">

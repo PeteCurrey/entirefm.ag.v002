@@ -144,54 +144,54 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
     <div className="space-y-6">
       {/* Metric Scorecard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACTIVE JOB PACKS</span>
-          <p className="text-2xl font-light text-white mt-1">{totalCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">EntireFM + Private packs</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">ACTIVE JOB PACKS</span>
+          <p className="text-2xl font-light text-[#111111] mt-1">{totalCount}</p>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">EntireFM + Private packs</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">READY FOR ATTENDANCE</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">READY FOR ATTENDANCE</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{readyCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">All safety gates cleared</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">All safety gates cleared</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACTION REQUIRED</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">ACTION REQUIRED</span>
           <p className={`text-2xl font-light mt-1 ${actionRequiredCount > 0 ? 'text-amber-400' : 'text-white'}`}>
             {actionRequiredCount}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">RAMS / Operative / Permits</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">RAMS / Operative / Permits</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">READINESS RATE</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">READINESS RATE</span>
           <p className="text-2xl font-light text-cyan-400 mt-1">
             {totalCount > 0 ? `${Math.round((readyCount / totalCount) * 100)}%` : '100%'}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Safety compliance score</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Safety compliance score</span>
         </div>
       </div>
 
       {/* Action & Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-3">
         <div className="relative max-w-sm flex-1">
-          <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search job packs by ID, site, operative..."
-            className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 text-xs font-normal flex-wrap">
-          <span className="text-brand-mist/50">Readiness:</span>
+          <span className="text-[#9A9A95]">Readiness:</span>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs focus:outline-none focus:border-brand-electric"
+            className="px-2.5 py-1.5 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs focus:outline-none focus:border-brand-electric"
           >
             <option value="ALL">All States</option>
             <option value="READY">Ready for Attendance</option>
@@ -208,11 +208,11 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
       </div>
 
       {/* Table */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-normal border-collapse">
             <thead>
-              <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
+              <tr className="bg-[#FAFAF8] border-b border-[#E8E8E5] text-[#6D6D68] uppercase text-[10px]">
                 <th className="py-3 px-4">Job Pack Ref</th>
                 <th className="py-3 px-4">Work Order / Customer</th>
                 <th className="py-3 px-4">Assigned Operative</th>
@@ -221,16 +221,16 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/30">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-brand-mist/50 font-sans text-xs">
+                  <td colSpan={6} className="py-12 text-center text-[#9A9A95] font-sans text-xs">
                     No active Job Packs found. Click &quot;Build Job Pack&quot; to assemble a pre-attendance pack.
                   </td>
                 </tr>
               ) : (
                 filtered.map((jp) => (
-                  <tr key={jp.id} className="hover:bg-brand-edge-dark/20 transition-colors">
+                  <tr key={jp.id} className="hover:bg-[#F5F5F3] transition-colors">
                     <td className="py-3 px-4 font-bold text-white">
                       <Link
                         href={`/contractor/job-packs/${encodeURIComponent(jp.id)}`}
@@ -238,21 +238,21 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                       >
                         {jp.id}
                       </Link>
-                      <span className="text-[10px] text-brand-mist/40 block font-normal">v{jp.version}</span>
+                      <span className="text-[10px] text-[#9A9A95] block font-normal">v{jp.version}</span>
                     </td>
                     <td className="py-3 px-4 text-white">
                       <span className="font-medium block">{jp.workOrderNumber}</span>
-                      <span className="text-[10px] text-brand-mist/50 block">{jp.clientName} · {jp.trade}</span>
+                      <span className="text-[10px] text-[#9A9A95] block">{jp.clientName} · {jp.trade}</span>
                     </td>
-                    <td className="py-3 px-4 text-brand-mist">
-                      <span className="text-white block">{jp.assignedOperative?.fullName || 'Unassigned'}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block">
+                    <td className="py-3 px-4 text-[#111111]">
+                      <span className="text-[#111111] block">{jp.assignedOperative?.fullName || 'Unassigned'}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block">
                         {jp.assignedOperative?.jobTitle || 'Field Team'}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-brand-mist">
-                      <span className="text-white block">{jp.siteName}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block">
+                    <td className="py-3 px-4 text-[#111111]">
+                      <span className="text-[#111111] block">{jp.siteName}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block">
                         {jp.plannedAttendanceDate} ({jp.plannedAttendanceTime})
                       </span>
                     </td>
@@ -273,7 +273,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                           href={`/api/contractor/job-packs/${encodeURIComponent(jp.id)}/pdf`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 rounded hover:bg-brand-edge-dark text-brand-mist hover:text-white transition-colors"
+                          className="p-1.5 rounded hover:bg-[#F5F5F3] text-[#111111] hover:text-white transition-colors"
                           title="Print / View PDF"
                         >
                           <Download className="w-3.5 h-3.5" />
@@ -296,33 +296,33 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
 
       {/* Dual-Mode Job Pack Builder Modal */}
       {showBuildModal && (
-        <div className="fixed inset-0 bg-brand-void/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <form onSubmit={handleCreateIndependentPack} className="max-w-lg w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 space-y-4 shadow-2xl">
+        <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <form onSubmit={handleCreateIndependentPack} className="max-w-lg w-full bg-white border border-[#E8E8E5] rounded-2xl p-6 space-y-4 shadow-2xl">
             <div className="flex items-start justify-between">
               <div>
                 <span className="text-[10px] uppercase font-bold text-brand-electric-bright tracking-wider">
                   JOB PACK BUILDER
                 </span>
-                <h3 className="text-lg font-light text-white">Assemble Work-Ready Pack</h3>
+                <h3 className="text-lg font-light text-[#111111]">Assemble Work-Ready Pack</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setShowBuildModal(false)}
-                className="text-brand-mist/50 hover:text-white text-lg"
+                className="text-[#9A9A95] hover:text-white text-lg"
               >
                 &times;
               </button>
             </div>
 
             {/* Mode Toggle */}
-            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-brand-void border border-brand-edge-dark text-xs">
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] text-xs">
               <button
                 type="button"
                 onClick={() => setBuildMode('INDEPENDENT')}
                 className={`py-2 rounded-lg font-medium transition-all ${
                   buildMode === 'INDEPENDENT'
                     ? 'bg-brand-electric text-white shadow-sm'
-                    : 'text-brand-mist/60 hover:text-white'
+                    : 'text-[#6D6D68] hover:text-white'
                 }`}
               >
                 Contractor Own Customer
@@ -333,7 +333,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                 className={`py-2 rounded-lg font-medium transition-all ${
                   buildMode === 'ENTIREFM'
                     ? 'bg-brand-electric text-white shadow-sm'
-                    : 'text-brand-mist/60 hover:text-white'
+                    : 'text-[#6D6D68] hover:text-white'
                 }`}
               >
                 EntireFM Network Job
@@ -342,7 +342,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-brand-mist/60 block mb-1">
+                <label className="text-[#6D6D68] block mb-1">
                   {buildMode === 'INDEPENDENT' ? 'Customer Name' : 'EntireFM Client Account'} *
                 </label>
                 <input
@@ -351,29 +351,29 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                   value={custName}
                   onChange={(e) => setCustName(e.target.value)}
                   placeholder="e.g. Apex Industrial Estates"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Site &amp; Location Address *</label>
+                <label className="text-[#6D6D68] block mb-1">Site &amp; Location Address *</label>
                 <input
                   type="text"
                   required
                   value={siteLoc}
                   onChange={(e) => setSiteLoc(e.target.value)}
                   placeholder="e.g. Unit 12, Riverway Business Park"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Trade Suite</label>
+                  <label className="text-[#6D6D68] block mb-1">Trade Suite</label>
                   <select
                     value={trade}
                     onChange={(e) => setTrade(e.target.value)}
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   >
                     <option value="ELECTRICAL">Electrical &amp; Controls</option>
                     <option value="HVAC">HVAC &amp; Refrigeration</option>
@@ -383,34 +383,34 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                   </select>
                 </div>
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Lead Operative</label>
+                  <label className="text-[#6D6D68] block mb-1">Lead Operative</label>
                   <input
                     type="text"
                     value={leadOperative}
                     onChange={(e) => setLeadOperative(e.target.value)}
                     placeholder="e.g. Dave Miller"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Scope of Work &amp; Instructions</label>
+                <label className="text-[#6D6D68] block mb-1">Scope of Work &amp; Instructions</label>
                 <textarea
                   rows={2}
                   value={jobScope}
                   onChange={(e) => setJobScope(e.target.value)}
                   placeholder="Describe scope, safety protocols, required permits..."
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white placeholder-brand-mist/30"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white placeholder-brand-mist/30"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-brand-edge-dark/50">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#E8E8E5]">
               <button
                 type="button"
                 onClick={() => setShowBuildModal(false)}
-                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+                className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
               >
                 Cancel
               </button>

@@ -39,17 +39,17 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E8E5] bg-[#FAFAF8]">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               RAMS &amp; JOB PACK BUILDER
             </span>
-            <h2 className="text-base font-light text-white">Create Task-Specific RAMS Document</h2>
+            <h2 className="text-base font-light text-[#111111]">Create Task-Specific RAMS Document</h2>
           </div>
-          <button onClick={onClose} className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark">
+          <button onClick={onClose} className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -59,27 +59,27 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
           {step === 1 && (
             <div className="space-y-4">
               <div>
-                <label className="text-brand-mist/70 block mb-1">Task Title / Work Scope *</label>
+                <label className="text-[#6D6D68] block mb-1">Task Title / Work Scope *</label>
                 <input
                   type="text"
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1">Site / Facility Name</label>
+                <label className="text-[#6D6D68] block mb-1">Site / Facility Name</label>
                 <input
                   type="text"
                   value={siteLocation}
                   onChange={(e) => setSiteLocation(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-brand-mist/70 block">Identified Task Hazards</label>
+                <label className="text-[#6D6D68] block">Identified Task Hazards</label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { id: 'WORKING_AT_HEIGHT', label: 'Working at Height / Ladders' },
@@ -98,7 +98,7 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
                         className={`p-2.5 rounded-lg border text-left flex items-center justify-between transition-colors ${
                           isSelected
                             ? 'bg-brand-electric/10 border-brand-electric text-white'
-                            : 'bg-brand-void border-brand-edge-dark text-brand-mist/70 hover:bg-brand-edge-dark/30'
+                            : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68] hover:bg-[#F5F5F3]'
                         }`}
                       >
                         <span>{haz.label}</span>
@@ -113,7 +113,7 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
 
           {step === 2 && (
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-white">Mandatory PPE &amp; Control Measures</h3>
+              <h3 className="text-sm font-medium text-[#111111]">Mandatory PPE &amp; Control Measures</h3>
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { id: 'SAFETY_BOOTS', label: 'Steel Toe Cap Safety Boots' },
@@ -132,7 +132,7 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
                       className={`p-2.5 rounded-lg border text-left flex items-center justify-between transition-colors ${
                         isSelected
                           ? 'bg-brand-electric/10 border-brand-electric text-white'
-                          : 'bg-brand-void border-brand-edge-dark text-brand-mist/70 hover:bg-brand-edge-dark/30'
+                          : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68] hover:bg-[#F5F5F3]'
                       }`}
                     >
                       <span>{ppe.label}</span>
@@ -146,11 +146,11 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-brand-edge-dark bg-brand-void/50 flex items-center justify-between">
+        <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between">
           {step > 1 ? (
             <button
               onClick={() => setStep(step - 1)}
-              className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+              className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
             >
               Back
             </button>
@@ -161,7 +161,7 @@ export function RamsWizardModal({ isOpen, onClose }: Props) {
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+              className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
             >
               Cancel
             </button>

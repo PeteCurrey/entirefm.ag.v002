@@ -154,27 +154,27 @@ export function DocumentEditorClient({
   };
 
   return (
-    <div className="fixed inset-0 bg-brand-void/85 backdrop-blur-md z-50 overflow-y-auto p-4 sm:p-6 flex items-start justify-center">
-      <div className="max-w-3xl w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-md z-50 overflow-y-auto p-4 sm:p-6 flex items-start justify-center">
+      <div className="max-w-3xl w-full bg-white border border-[#E8E8E5] rounded-2xl shadow-2xl overflow-hidden my-8">
         {/* Editor Header */}
-        <div className="p-6 border-b border-brand-edge-dark flex items-start justify-between bg-brand-void/60">
+        <div className="p-6 border-b border-[#E8E8E5] flex items-start justify-between bg-[#FAFAF8]">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase font-bold text-brand-electric-bright tracking-wider">
                 {template.categoryLabel}
               </span>
               {existingDocument?.version && (
-                <span className="text-[10px] px-2 py-0.5 rounded bg-brand-void border border-brand-edge-dark text-brand-mist/60 font-mono">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-[#6D6D68] font-mono">
                   v{existingDocument.version}
                 </span>
               )}
             </div>
-            <h2 className="text-xl font-light text-white">{template.title}</h2>
-            <p className="text-xs text-brand-mist/60">{template.description}</p>
+            <h2 className="text-xl font-light text-[#111111]">{template.title}</h2>
+            <p className="text-xs text-[#6D6D68]">{template.description}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-brand-mist/50 hover:text-white hover:bg-brand-void"
+            className="p-1.5 rounded-lg text-[#9A9A95] hover:text-white hover:bg-[#FAFAF8]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -190,26 +190,26 @@ export function DocumentEditorClient({
           )}
 
           {/* Core Metadata */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-void/50 p-4 space-y-3">
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider">Document Header &amp; Customer</h3>
+          <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider">Document Header &amp; Customer</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
-                <label className="text-brand-mist/60 block mb-1">Document Title *</label>
+                <label className="text-[#6D6D68] block mb-1">Document Title *</label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Branding Scope</label>
+                <label className="text-[#6D6D68] block mb-1">Branding Scope</label>
                 <select
                   value={isEntireFmJob ? 'ENTIREFM' : 'WHITE_LABEL'}
                   onChange={(e) => setIsEntireFmJob(e.target.value === 'ENTIREFM')}
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 >
                   <option value="WHITE_LABEL">Contractor White-Label (Own Business)</option>
                   <option value="ENTIREFM">EntireFM Partner Network Job</option>
@@ -217,7 +217,7 @@ export function DocumentEditorClient({
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Customer / Client Name</label>
+                <label className="text-[#6D6D68] block mb-1">Customer / Client Name</label>
                 {clientOptions.length > 0 ? (
                   <div className="space-y-1">
                     <input
@@ -226,7 +226,7 @@ export function DocumentEditorClient({
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="Select or type customer name..."
-                      className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                      className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                     />
                     <datalist id="contractor-clients-list">
                       {clientOptions.map((opt) => (
@@ -240,30 +240,30 @@ export function DocumentEditorClient({
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                     placeholder="e.g. Apex Corporate Ltd"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 )}
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Site Location / Address</label>
+                <label className="text-[#6D6D68] block mb-1">Site Location / Address</label>
                 <input
                   type="text"
                   value={siteName}
                   onChange={(e) => setSiteName(e.target.value)}
                   placeholder="e.g. Unit 4, Gateway Logistics Park"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
 
               <div>
-                <label className="text-brand-mist/60 block mb-1">Lead Operative / Engineer</label>
+                <label className="text-[#6D6D68] block mb-1">Lead Operative / Engineer</label>
                 <input
                   type="text"
                   value={operativeName}
                   onChange={(e) => setOperativeName(e.target.value)}
                   placeholder="e.g. Dave Miller (Lead Tech)"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
             </div>
@@ -271,11 +271,11 @@ export function DocumentEditorClient({
 
           {/* Dynamic Template Sections & Fields */}
           {template.sections.map((section) => (
-            <div key={section.id} className="rounded-xl border border-brand-edge-dark bg-brand-void/30 p-4 space-y-3">
-              <h3 className="text-xs font-semibold text-white uppercase tracking-wider border-b border-brand-edge-dark/50 pb-2">
+            <div key={section.id} className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+              <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider border-b border-[#E8E8E5] pb-2">
                 {section.title}
               </h3>
-              {section.description && <p className="text-[11px] text-brand-mist/60">{section.description}</p>}
+              {section.description && <p className="text-[11px] text-[#6D6D68]">{section.description}</p>}
 
               <div className="space-y-3 text-xs">
                 {section.fields.map((field) => {
@@ -284,7 +284,7 @@ export function DocumentEditorClient({
                   if (field.type === 'textarea') {
                     return (
                       <div key={field.id}>
-                        <label className="text-brand-mist/70 block mb-1 font-medium">
+                        <label className="text-[#6D6D68] block mb-1 font-medium">
                           {field.label} {field.required && <span className="text-rose-400">*</span>}
                         </label>
                         <textarea
@@ -292,7 +292,7 @@ export function DocumentEditorClient({
                           value={val}
                           onChange={(e) => handleFieldChange(field.id, e.target.value)}
                           placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}...`}
-                          className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white placeholder-brand-mist/30"
+                          className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white placeholder-brand-mist/30"
                         />
                       </div>
                     );
@@ -301,13 +301,13 @@ export function DocumentEditorClient({
                   if (field.type === 'select') {
                     return (
                       <div key={field.id}>
-                        <label className="text-brand-mist/70 block mb-1 font-medium">
+                        <label className="text-[#6D6D68] block mb-1 font-medium">
                           {field.label} {field.required && <span className="text-rose-400">*</span>}
                         </label>
                         <select
                           value={val}
                           onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                          className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                          className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                         >
                           <option value="">Select option...</option>
                           {(field.options || []).map((opt) => (
@@ -322,21 +322,21 @@ export function DocumentEditorClient({
 
                   if (field.type === 'checkbox') {
                     return (
-                      <label key={field.id} className="flex items-center gap-2 cursor-pointer p-2 rounded-lg bg-brand-void/40 border border-brand-edge-dark">
+                      <label key={field.id} className="flex items-center gap-2 cursor-pointer p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5]">
                         <input
                           type="checkbox"
                           checked={!!val}
                           onChange={(e) => handleFieldChange(field.id, e.target.checked)}
-                          className="rounded border-brand-edge-dark bg-brand-void text-brand-electric focus:ring-0"
+                          className="rounded border-[#E8E8E5] bg-[#FAFAF8] text-brand-electric focus:ring-0"
                         />
-                        <span className="text-white text-xs">{field.label}</span>
+                        <span className="text-[#111111] text-xs">{field.label}</span>
                       </label>
                     );
                   }
 
                   return (
                     <div key={field.id}>
-                      <label className="text-brand-mist/70 block mb-1 font-medium">
+                      <label className="text-[#6D6D68] block mb-1 font-medium">
                         {field.label} {field.required && <span className="text-rose-400">*</span>}
                       </label>
                       <input
@@ -344,7 +344,7 @@ export function DocumentEditorClient({
                         value={val}
                         onChange={(e) => handleFieldChange(field.id, e.target.value)}
                         placeholder={field.placeholder}
-                        className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white placeholder-brand-mist/30"
+                        className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white placeholder-brand-mist/30"
                       />
                     </div>
                   );
@@ -354,25 +354,25 @@ export function DocumentEditorClient({
           ))}
 
           {/* ─── DIGITAL SIGNATURES ─────────────────────────────────────── */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-void/40 p-4 space-y-3">
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-brand-electric" /> Authorisation &amp; Signatures ({signatures.length})
             </h3>
 
             {signatures.length > 0 && (
               <div className="space-y-2">
                 {signatures.map((sig, idx) => (
-                  <div key={idx} className="p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark flex items-center justify-between text-xs">
+                  <div key={idx} className="p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] flex items-center justify-between text-xs">
                     <div>
-                      <span className="text-white font-medium block">{sig.name}</span>
-                      <span className="text-[10px] text-brand-mist/50">
+                      <span className="text-[#111111] font-medium block">{sig.name}</span>
+                      <span className="text-[10px] text-[#9A9A95]">
                         {sig.role} &bull; {new Date(sig.signed_at).toLocaleString()}
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => handleRemoveSignature(idx)}
-                      className="text-brand-mist/40 hover:text-rose-400"
+                      className="text-[#9A9A95] hover:text-rose-400"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -387,12 +387,12 @@ export function DocumentEditorClient({
                 value={signerName}
                 onChange={(e) => setSignerName(e.target.value)}
                 placeholder="Signer Full Name"
-                className="w-full rounded-lg bg-brand-void border border-brand-edge-dark px-3 py-1.5 text-white"
+                className="w-full rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-1.5 text-white"
               />
               <select
                 value={signerRole}
                 onChange={(e) => setSignerRole(e.target.value as any)}
-                className="w-full rounded-lg bg-brand-void border border-brand-edge-dark px-3 py-1.5 text-white"
+                className="w-full rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-1.5 text-white"
               >
                 <option value="OPERATIVE">Operative / Engineer</option>
                 <option value="CUSTOMER">Customer Sign-Off</option>
@@ -409,21 +409,21 @@ export function DocumentEditorClient({
           </div>
 
           {/* ─── PHOTO & EVIDENCE ATTACHMENTS ───────────────────────────── */}
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-void/40 p-4 space-y-3">
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+          <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
               <Camera className="w-3.5 h-3.5 text-brand-electric" /> Worksite Evidence &amp; Photo Attachments ({photos.length})
             </h3>
 
             {photos.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {photos.map((p, idx) => (
-                  <div key={idx} className="p-2 rounded-lg bg-brand-void border border-brand-edge-dark space-y-1 text-xs relative">
-                    <p className="font-medium text-white truncate">{p.caption}</p>
-                    <p className="text-[9.5px] text-brand-mist/50 truncate font-mono">{p.url}</p>
+                  <div key={idx} className="p-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] space-y-1 text-xs relative">
+                    <p className="font-medium text-[#111111] truncate">{p.caption}</p>
+                    <p className="text-[9.5px] text-[#9A9A95] truncate font-mono">{p.url}</p>
                     <button
                       type="button"
                       onClick={() => handleRemovePhoto(idx)}
-                      className="absolute top-1.5 right-1.5 text-brand-mist/40 hover:text-rose-400"
+                      className="absolute top-1.5 right-1.5 text-[#9A9A95] hover:text-rose-400"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
@@ -438,14 +438,14 @@ export function DocumentEditorClient({
                 value={photoCaption}
                 onChange={(e) => setPhotoCaption(e.target.value)}
                 placeholder="Caption (e.g. Distribution Board Complete)"
-                className="w-full rounded-lg bg-brand-void border border-brand-edge-dark px-3 py-1.5 text-white"
+                className="w-full rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-1.5 text-white"
               />
               <input
                 type="text"
                 value={photoUrl}
                 onChange={(e) => setPhotoUrl(e.target.value)}
                 placeholder="Photo URL or Storage Link"
-                className="w-full rounded-lg bg-brand-void border border-brand-edge-dark px-3 py-1.5 text-white font-mono text-[11px]"
+                className="w-full rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-1.5 text-white font-mono text-[11px]"
               />
               <button
                 type="button"
@@ -459,10 +459,10 @@ export function DocumentEditorClient({
         </div>
 
         {/* Editor Footer Actions */}
-        <div className="p-4 border-t border-brand-edge-dark bg-brand-void/60 flex items-center justify-between">
+        <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+            className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
           >
             Cancel
           </button>
@@ -471,7 +471,7 @@ export function DocumentEditorClient({
             <button
               onClick={() => handleSave('DRAFT')}
               disabled={isSaving}
-              className="px-4 py-2 rounded-xl border border-brand-edge-dark bg-brand-carbon text-xs text-brand-mist hover:text-white transition-all disabled:opacity-50"
+              className="px-4 py-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm text-xs text-[#111111] hover:text-white transition-all disabled:opacity-50"
             >
               Save Draft
             </button>

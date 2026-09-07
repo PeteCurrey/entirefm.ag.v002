@@ -52,17 +52,17 @@ export default async function CreateRamsPage({
       <div className="space-y-1">
         <Link
           href="/contractor/rams"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
+          className="text-xs text-[#6D6D68] hover:text-white flex items-center gap-1.5 font-normal mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to RAMS Dashboard
         </Link>
         <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           {workOrder ? `ENTIREFM JOB PACK • ${workOrder.work_order_number}` : 'INDEPENDENT RAMS BUILDER'}
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Create Job-Specific RAMS Pack
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-2xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-2xl">
           Follow the 10-step FM safety wizard. Select verified operatives, assess 5x5 risks, specify physical controls, and define sequential method steps.
         </p>
       </div>

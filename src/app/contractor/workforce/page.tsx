@@ -33,10 +33,10 @@ export default async function ContractorWorkforcePage() {
         <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
           SUPPLY CHAIN WORKFORCE INFRASTRUCTURE
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Workforce &amp; Training Matrix
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-xl">
           Manage registered field engineers, verified trade qualifications, statutory refreshers, and work eligibility.
         </p>
       </div>

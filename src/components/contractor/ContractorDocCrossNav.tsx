@@ -53,9 +53,9 @@ export function ContractorDocCrossNav({ currentSection, className = '' }: Contra
 
   return (
     <div
-      className={`rounded-xl border border-brand-edge-dark bg-brand-carbon/50 px-3.5 py-2 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs ${className}`}
+      className={`rounded-xl border border-[#E8E8E5] bg-white shadow-sm px-3.5 py-2 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs ${className}`}
     >
-      <span className="text-[10px] font-semibold text-brand-mist/50 uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+      <span className="text-[10px] font-semibold text-[#9A9A95] uppercase tracking-wider flex items-center gap-1.5 shrink-0">
         Related:
       </span>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
@@ -65,7 +65,7 @@ export function ContractorDocCrossNav({ currentSection, className = '' }: Contra
             <Link
               key={item.id}
               href={item.href}
-              className="text-brand-mist/70 hover:text-white transition-colors flex items-center gap-1.5 group text-[11px]"
+              className="text-[#6D6D68] hover:text-white transition-colors flex items-center gap-1.5 group text-[11px]"
             >
               <span>{item.contextText}</span>
               <span className="inline-flex items-center gap-0.5 text-brand-electric-bright font-medium group-hover:underline underline-offset-2">

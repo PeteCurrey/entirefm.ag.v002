@@ -162,20 +162,20 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <span className="text-[10.5px] font-medium uppercase tracking-widest text-brand-mist/50">
+          <span className="text-[10.5px] font-medium uppercase tracking-widest text-[#9A9A95]">
             Work Order
           </span>
-          <h1 className="text-xl font-extralight text-white mt-0.5">
+          <h1 className="text-xl font-extralight text-[#111111] mt-0.5">
             {snapshot.work_order_number} — {snapshot.title}
           </h1>
           <div className="flex flex-wrap items-center gap-2 mt-2">
             <span className={`font-normal text-[11px]${priorityColour}`}>{snapshot.priority}</span>
             <span className="text-zinc-600 text-[11px]">•</span>
-            <span className="text-brand-mist/60 text-[11px] font-normal">{snapshot.trade}</span>
+            <span className="text-[#6D6D68] text-[11px] font-normal">{snapshot.trade}</span>
             {snapshot.site_name && (
               <>
                 <span className="text-zinc-600 text-[11px]">•</span>
-                <span className="text-brand-mist/60 text-[11px]">{snapshot.site_name}</span>
+                <span className="text-[#6D6D68] text-[11px]">{snapshot.site_name}</span>
               </>
             )}
           </div>
@@ -190,27 +190,27 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         
         {/* Current Stage */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Current Stage</div>
-          <div className="text-base font-light text-white">{snapshot.current_stage}</div>
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Current Stage</div>
+          <div className="text-base font-light text-[#111111]">{snapshot.current_stage}</div>
           <div className="text-[11px] text-brand-electric mt-1 font-normal">
             Client sees: {snapshot.client_status.replace(/_/g, ' ')}
           </div>
         </div>
 
         {/* Next Required Action */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Next Required Action</div>
-          <div className="text-sm font-light text-white leading-relaxed">{snapshot.next_required_action}</div>
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Next Required Action</div>
+          <div className="text-sm font-light text-[#111111] leading-relaxed">{snapshot.next_required_action}</div>
           <div className="flex items-center gap-1.5 mt-2">
             <OwnerBadge owner={snapshot.action_owner} />
           </div>
         </div>
 
         {/* Action Due */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Action Due</div>
-          <div className="text-sm font-light text-white">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Action Due</div>
+          <div className="text-sm font-light text-[#111111]">
             {new Date(snapshot.action_due_at).toLocaleString('en-GB', {
               day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
             })}
@@ -224,13 +224,13 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
         </div>
 
         {/* Assignment */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Assigned Provider</div>
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Assigned Provider</div>
           {snapshot.assigned_provider_name ? (
             <>
-              <div className="text-sm font-light text-white">{snapshot.assigned_provider_name}</div>
+              <div className="text-sm font-light text-[#111111]">{snapshot.assigned_provider_name}</div>
               {snapshot.assigned_engineer_name && (
-                <div className="text-[11px] text-brand-mist/60 mt-0.5">Engineer: {snapshot.assigned_engineer_name}</div>
+                <div className="text-[11px] text-[#6D6D68] mt-0.5">Engineer: {snapshot.assigned_engineer_name}</div>
               )}
             </>
           ) : (
@@ -239,8 +239,8 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
         </div>
 
         {/* Evidence State */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Evidence State</div>
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Evidence State</div>
           <div className="flex items-center gap-2">
             {snapshot.evidence_state === 'VERIFIED' ? (
               <CheckCircle2 className="h-4 w-4 text-emerald-400" />
@@ -249,7 +249,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
             ) : (
               <Camera className="h-4 w-4 text-zinc-500" />
             )}
-            <span className="text-sm font-light text-white">{snapshot.evidence_state}</span>
+            <span className="text-sm font-light text-[#111111]">{snapshot.evidence_state}</span>
           </div>
           {snapshot.completion_gate.blocking_reasons.length > 0 && (
             <div className="mt-2 space-y-1">
@@ -261,11 +261,11 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
         </div>
 
         {/* Commercial State */}
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-          <div className="text-[10px] uppercase font-medium text-brand-mist/50 mb-2">Commercial State</div>
+        <div className="bg-white border border-[#E8E8E5] rounded-xl p-4">
+          <div className="text-[10px] uppercase font-medium text-[#9A9A95] mb-2">Commercial State</div>
           {snapshot.billing_readiness.client_price_net_gbp ? (
             <>
-              <div className="text-sm font-light text-white">
+              <div className="text-sm font-light text-[#111111]">
                 Net £{snapshot.billing_readiness.client_price_net_gbp?.toFixed(2)} / Gross £{snapshot.billing_readiness.client_price_gross_gbp?.toFixed(2)}
               </div>
               {snapshot.billing_readiness.expected_margin_pct !== undefined && (
@@ -284,23 +284,23 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
       </div>
 
       {/* ── JOB TIMELINE ── */}
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
-        <div className="px-5 py-3 border-b border-brand-edge-dark flex items-center gap-2">
-          <CalendarClock className="h-4 w-4 text-brand-mist/50" />
-          <span className="text-sm font-light text-white">Job Timeline</span>
+      <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden">
+        <div className="px-5 py-3 border-b border-[#E8E8E5] flex items-center gap-2">
+          <CalendarClock className="h-4 w-4 text-[#9A9A95]" />
+          <span className="text-sm font-light text-[#111111]">Job Timeline</span>
         </div>
-        <div className="divide-y divide-brand-edge-dark/40">
+        <div className="divide-y divide-[#E8E8E5]">
           {snapshot.timeline.length === 0 ? (
             <div className="px-5 py-4 text-sm text-zinc-500 italic">No timeline events recorded yet.</div>
           ) : (
             snapshot.timeline.map((event, idx) => (
-              <div key={idx} className="flex items-start gap-4 px-5 py-3.5 hover:bg-brand-void/30 transition-colors">
-                <div className="text-[10.5px] font-normal text-brand-mist/50 min-w-[90px] mt-0.5 tabular-nums">
+              <div key={idx} className="flex items-start gap-4 px-5 py-3.5 hover:bg-[#FAFAF8] transition-colors">
+                <div className="text-[10.5px] font-normal text-[#9A9A95] min-w-[90px] mt-0.5 tabular-nums">
                   {new Date(event.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-light text-white">{event.title}</div>
-                  {event.detail && <div className="text-[11px] text-brand-mist/60 mt-0.5">{event.detail}</div>}
+                  <div className="text-sm font-light text-[#111111]">{event.title}</div>
+                  {event.detail && <div className="text-[11px] text-[#6D6D68] mt-0.5">{event.detail}</div>}
                   {event.actor_name && <div className="text-[11px] text-brand-electric mt-0.5">{event.actor_name}</div>}
                 </div>
                 <span className={`text-[10px] font-normal px-2 py-0.5 rounded ${
@@ -320,10 +320,10 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
       </div>
 
       {/* ── COMPLETION GATE DETAIL ── */}
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <FileText className="h-4 w-4 text-brand-mist/50" />
-          <span className="text-sm font-light text-white">Completion Gate</span>
+          <FileText className="h-4 w-4 text-[#9A9A95]" />
+          <span className="text-sm font-light text-[#111111]">Completion Gate</span>
           {snapshot.completion_gate.is_verified ? (
             <span className="ml-auto text-[11px] font-normal text-emerald-400 flex items-center gap-1">
               <CheckCircle2 className="h-3 w-3" /> VERIFIED
@@ -348,7 +348,7 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
               ) : (
                 <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
               )}
-              <span className="text-[11px] text-brand-mist/70">{gate.label}</span>
+              <span className="text-[11px] text-[#6D6D68]">{gate.label}</span>
             </div>
           ))}
         </div>

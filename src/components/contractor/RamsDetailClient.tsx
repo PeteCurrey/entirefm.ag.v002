@@ -84,14 +84,14 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       <div className="flex items-center justify-between">
         <Link
           href="/contractor/rams"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal"
+          className="text-xs text-[#6D6D68] hover:text-white flex items-center gap-1.5 font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to RAMS Dashboard
         </Link>
       </div>
 
       {/* Header Banner */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
+      <div className="rounded-2xl border border-[#E8E8E5] bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
@@ -103,19 +103,19 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : rams.status === 'CHANGES_REQUESTED'
                   ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 font-bold'
-                  : 'bg-brand-void text-brand-mist border-brand-edge-dark'
+                  : 'bg-[#FAFAF8] text-[#111111] border-[#E8E8E5]'
               }`}
             >
               {rams.status.replace(/_/g, ' ')}
             </span>
             {rams.workOrderNumber && (
-              <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark">
+              <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5]">
                 WO: {rams.workOrderNumber}
               </span>
             )}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{rams.title}</h1>
-          <p className="text-xs text-brand-mist/70 font-normal">
+          <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">{rams.title}</h1>
+          <p className="text-xs text-[#6D6D68] font-normal">
             {rams.siteName} &bull; {rams.clientName} &bull; {rams.workCategory}
           </p>
         </div>
@@ -126,7 +126,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
             type="button"
             onClick={handleDuplicate}
             disabled={isDuplicating}
-            className="px-3.5 py-2 rounded-lg border border-brand-edge-dark bg-brand-carbon hover:bg-brand-edge-dark text-white text-xs font-normal flex items-center gap-1.5 transition-colors disabled:opacity-50"
+            className="px-3.5 py-2 rounded-lg border border-[#E8E8E5] bg-white shadow-sm hover:bg-[#F5F5F3] text-white text-xs font-normal flex items-center gap-1.5 transition-colors disabled:opacity-50"
           >
             <Copy className="w-3.5 h-3.5" />
             {isDuplicating ? 'Copying...' : 'Duplicate RAMS'}
@@ -147,7 +147,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       {/* Review Feedback Alert if Changes Requested */}
       {rams.status === 'CHANGES_REQUESTED' && rams.entirefmReview && (
         <div className="p-4 rounded-xl border border-amber-500/40 bg-amber-950/20 text-amber-300 space-y-2 text-xs font-normal">
-          <div className="flex items-center gap-2 font-bold text-white">
+          <div className="flex items-center gap-2 font-bold text-[#111111]">
             <AlertTriangle className="w-4 h-4 text-amber-400" />
             <span>EntireFM Safety Review — Changes Requested</span>
           </div>
@@ -161,7 +161,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
       )}
 
       {/* Navigation Tabs */}
-      <div className="flex items-center gap-1 border-b border-brand-edge-dark overflow-x-auto pb-2 text-xs font-normal">
+      <div className="flex items-center gap-1 border-b border-[#E8E8E5] overflow-x-auto pb-2 text-xs font-normal">
         {[
           { key: 'SCOPE', label: '1. Scope & Site' },
           { key: 'PEOPLE', label: '2. People & Competency' },
@@ -177,7 +177,7 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
             className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === t.key
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             {t.label}
@@ -190,32 +190,32 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
         {/* TAB 1: Scope */}
         {activeTab === 'SCOPE' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3">
-              <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+              <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
                 Job Context &amp; Location
               </h3>
               <div className="space-y-2 text-xs font-normal">
                 <div>
-                  <span className="text-brand-mist/50 block">Site Location</span>
-                  <span className="text-white block mt-0.5">{rams.siteName}</span>
-                  {rams.siteAddress && <span className="text-brand-mist/60 text-[11px] block">{rams.siteAddress}</span>}
+                  <span className="text-[#9A9A95] block">Site Location</span>
+                  <span className="text-[#111111] block mt-0.5">{rams.siteName}</span>
+                  {rams.siteAddress && <span className="text-[#6D6D68] text-[11px] block">{rams.siteAddress}</span>}
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Client Account</span>
-                  <span className="text-white block mt-0.5">{rams.clientName}</span>
+                  <span className="text-[#9A9A95] block">Client Account</span>
+                  <span className="text-[#111111] block mt-0.5">{rams.clientName}</span>
                 </div>
                 <div>
-                  <span className="text-brand-mist/50 block">Planned Attendance</span>
-                  <span className="text-white block mt-0.5">{rams.plannedStartDate} &bull; {rams.workingHours}</span>
+                  <span className="text-[#9A9A95] block">Planned Attendance</span>
+                  <span className="text-[#111111] block mt-0.5">{rams.plannedStartDate} &bull; {rams.workingHours}</span>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-3">
-              <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+            <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-3">
+              <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
                 Work Scope Description
               </h3>
-              <p className="text-xs text-brand-mist/80 font-light leading-relaxed">
+              <p className="text-xs text-[#6D6D68] font-light leading-relaxed">
                 {rams.workScopeDescription}
               </p>
             </div>
@@ -224,16 +224,16 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
 
         {/* TAB 2: People */}
         {activeTab === 'PEOPLE' && (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Assigned Operatives &amp; Verified Competencies (CP-04)
             </h3>
-            <div className="divide-y divide-brand-edge-dark/30">
+            <div className="divide-y divide-[#E8E8E5]">
               {rams.assignedOperatives.map((op) => (
                 <div key={op.operativeId} className="py-3 flex items-center justify-between text-xs font-normal">
                   <div>
-                    <span className="text-white font-medium block">{op.fullName}</span>
-                    <span className="text-[11px] text-brand-mist/50 block">{op.role} &bull; {op.trade}</span>
+                    <span className="text-[#111111] font-medium block">{op.fullName}</span>
+                    <span className="text-[11px] text-[#9A9A95] block">{op.role} &bull; {op.trade}</span>
                   </div>
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] border ${
@@ -252,17 +252,17 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
 
         {/* TAB 3: Hazards & 5x5 Matrix */}
         {activeTab === 'HAZARDS' && (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               5x5 Hazard Identification &amp; Risk Mitigation Matrix
             </h3>
             <div className="space-y-3">
               {rams.hazards.map((h) => (
-                <div key={h.id} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-2 text-xs font-normal">
+                <div key={h.id} className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-2 text-xs font-normal">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <span className="text-white font-bold font-sans text-sm block">{h.hazard}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block mt-0.5">
+                      <span className="text-[#111111] font-bold font-sans text-sm block">{h.hazard}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block mt-0.5">
                         Persons at Risk: {h.personsAtRisk.join(', ')}
                       </span>
                     </div>
@@ -276,8 +276,8 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-brand-mist/80 font-sans space-y-1 pt-2 border-t border-brand-edge-dark/50">
-                    <span className="font-bold text-white block">Key Physical Controls:</span>
+                  <div className="text-[11px] text-[#6D6D68] font-sans space-y-1 pt-2 border-t border-[#E8E8E5]">
+                    <span className="font-bold text-[#111111] block">Key Physical Controls:</span>
                     <ul className="list-disc list-inside space-y-0.5">
                       {h.controls.map((c, cIdx) => (
                         <li key={cIdx}>{c}</li>
@@ -292,23 +292,23 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
 
         {/* TAB 4: Method Steps */}
         {activeTab === 'METHOD' && (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-            <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3">
               Step-by-Step Method Statement Procedure
             </h3>
             <div className="space-y-3">
               {methodStepsFromRams(rams).map((s) => (
-                <div key={s.sequence} className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-1.5 text-xs">
+                <div key={s.sequence} className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-1.5 text-xs">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 font-normal">
                       <span className="w-5 h-5 rounded bg-brand-electric/20 text-brand-electric flex items-center justify-center font-bold text-xs">
                         {s.sequence}
                       </span>
-                      <span className="text-white font-bold">{s.title}</span>
+                      <span className="text-[#111111] font-bold">{s.title}</span>
                     </div>
-                    <span className="text-[10px] font-normal text-brand-mist/50 uppercase">{s.responsibleRole}</span>
+                    <span className="text-[10px] font-normal text-[#9A9A95] uppercase">{s.responsibleRole}</span>
                   </div>
-                  <p className="text-brand-mist/80 font-light leading-relaxed pl-7">{s.description}</p>
+                  <p className="text-[#6D6D68] font-light leading-relaxed pl-7">{s.description}</p>
                 </div>
               ))}
             </div>
@@ -317,11 +317,11 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
 
         {/* TAB 7: Briefing Sign-Off */}
         {activeTab === 'BRIEFING' && (
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark/60 pb-4">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-4">
               <div>
-                <h3 className="text-sm font-medium text-white">Digital Operative Briefing Register</h3>
-                <p className="text-xs text-brand-mist/60 font-light mt-0.5">
+                <h3 className="text-sm font-medium text-[#111111]">Digital Operative Briefing Register</h3>
+                <p className="text-xs text-[#6D6D68] font-light mt-0.5">
                   Operatives assigned to this job must confirm they have read, understood, and will comply with all identified controls.
                 </p>
               </div>
@@ -339,17 +339,17 @@ export function RamsDetailClient({ rams: initialRams, currentPersonId, isContrac
               )}
             </div>
 
-            <div className="divide-y divide-brand-edge-dark/30 text-xs font-normal">
+            <div className="divide-y divide-[#E8E8E5] text-xs font-normal">
               {rams.operativeBriefings.length === 0 ? (
-                <div className="py-6 text-center text-brand-mist/50">
+                <div className="py-6 text-center text-[#9A9A95]">
                   No operative briefings recorded yet for version {rams.version}.
                 </div>
               ) : (
                 rams.operativeBriefings.map((b, idx) => (
                   <div key={idx} className="py-3 flex items-center justify-between">
                     <div>
-                      <span className="text-white font-medium block">{b.operativeName}</span>
-                      <span className="text-[10.5px] text-brand-mist/50 block">
+                      <span className="text-[#111111] font-medium block">{b.operativeName}</span>
+                      <span className="text-[10.5px] text-[#9A9A95] block">
                         Briefed on v{b.version} &bull; {new Date(b.briefedAt).toLocaleString('en-GB')}
                       </span>
                     </div>

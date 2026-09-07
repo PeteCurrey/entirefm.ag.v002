@@ -18,7 +18,7 @@ export default async function AssetsPage() {
           <div className="flex items-center gap-3">
             <a
               href="/admin/estate/assets/intelligence"
-              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+              className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-[#6D6D68] hover:bg-white hover:text-white"
             >
               Asset Intelligence & Lifecycle
             </a>
@@ -30,10 +30,10 @@ export default async function AssetsPage() {
       />
 
       {assets.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Asset Ref</th>
                 <th className="px-5 py-3">Name / Category</th>
                 <th className="px-5 py-3">Site Location</th>
@@ -41,27 +41,27 @@ export default async function AssetsPage() {
                 <th className="px-5 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {assets.map((a) => (
-                <tr key={a.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={a.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {a.asset_reference}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{a.name}</div>
-                    <div className="text-[11.5px] text-brand-mist/50">
+                    <div className="font-light text-[#111111]">{a.name}</div>
+                    <div className="text-[11.5px] text-[#9A9A95]">
                       {a.category} · {a.manufacturer || 'OEM'} {a.model_number || ''}
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-normal text-white">{a.site?.name || '—'}</div>
-                    <div className="font-normal text-[11px] text-brand-mist/50">
+                    <div className="font-normal text-[#111111]">{a.site?.name || '—'}</div>
+                    <div className="font-normal text-[11px] text-[#9A9A95]">
                       {a.site?.site_code}
                     </div>
                   </td>
                   <td className="px-5 py-4">
                     <div className="font-normal text-[11px]">{a.condition}</div>
-                    <span className="rounded bg-brand-edge-dark px-1.5 py-0.2 font-normal text-[9px] text-brand-mist/70">
+                    <span className="rounded bg-[#F5F5F3] px-1.5 py-0.2 font-normal text-[9px] text-[#6D6D68]">
                       {a.criticality}
                     </span>
                   </td>

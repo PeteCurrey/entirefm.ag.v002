@@ -52,12 +52,12 @@ export default async function PlatformAccessPage() {
     <div className="space-y-8">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Permission Bundles & Access Architecture</h1>
-          <p className="mt-1 text-[13px] text-brand-mist/60">
+          <h1 className="text-2xl font-light text-[#111111] tracking-tight">Permission Bundles & Access Architecture</h1>
+          <p className="mt-1 text-[13px] text-[#6D6D68]">
             All defined roles, their application portals, and the permission sets they carry.
           </p>
         </div>
-        <Link href="/admin/platform/users" className="rounded border border-brand-edge-dark bg-brand-carbon px-4 py-2 text-[12.5px] text-brand-mist hover:bg-brand-void hover:text-white transition-colors">
+        <Link href="/admin/platform/users" className="rounded border border-[#E8E8E5] bg-white px-4 py-2 text-[12.5px] text-[#111111] hover:bg-[#FAFAF8] hover:text-white transition-colors">
           ← User Directory
         </Link>
       </div>
@@ -66,28 +66,28 @@ export default async function PlatformAccessPage() {
         <div key={group.label} className={`rounded-lg border ${group.badge} p-6`}>
           <div className="flex items-center gap-3 mb-5">
             <h2 className={`text-[15px] font-normal ${group.colour}`}>{group.label}</h2>
-            <span className="font-normal text-[11px] text-brand-mist/50">→ {group.portal}</span>
+            <span className="font-normal text-[11px] text-[#9A9A95]">→ {group.portal}</span>
           </div>
 
           <div className="space-y-4">
             {group.roles.map((role) => {
               const perms = getRolePermissions(role);
               return (
-                <div key={role} className="rounded border border-brand-edge-dark/60 bg-brand-void/60 p-4">
+                <div key={role} className="rounded border border-[#E8E8E5] bg-[#FAFAF8] p-4">
                   <div className="flex items-center gap-3 mb-3">
                     <span className={`text-[13px] font-normal${group.colour}`}>{role}</span>
-                    <span className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-2 py-0.5 font-normal text-[10px] text-brand-mist/50">
+                    <span className="rounded border border-[#E8E8E5] bg-white px-2 py-0.5 font-normal text-[10px] text-[#9A9A95]">
                       {perms.length} permissions
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {perms.map((p) => (
-                      <span key={p} className="rounded bg-brand-carbon/80 border border-brand-edge-dark/40 px-1.5 py-0.5 font-normal text-[10px] text-brand-mist/50">
+                      <span key={p} className="rounded bg-white border border-[#E8E8E5] px-1.5 py-0.5 font-normal text-[10px] text-[#9A9A95]">
                         {p}
                       </span>
                     ))}
                     {perms.length === 0 && (
-                      <span className="text-[12px] text-brand-mist/30">No permissions defined</span>
+                      <span className="text-[12px] text-[#9A9A95]">No permissions defined</span>
                     )}
                   </div>
                 </div>

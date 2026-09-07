@@ -32,10 +32,10 @@ export default async function ContractorFormsPage() {
         <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
           DIGITAL FORMS &bull; CP-07
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Field Forms &amp; Execution Records
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-2xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-2xl">
           Submit digital service reports, request commercial scope variations, log asset defects, and record mandatory plant pre-use inspections.
         </p>
       </div>

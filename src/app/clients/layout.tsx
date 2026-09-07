@@ -13,6 +13,7 @@ import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { Badge, Button } from '@/components/ui';
 import { Building2, Plus, ArrowUpRight, LogOut } from 'lucide-react';
+import '../admin/cafm.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Client Portal — EntireFM' },
@@ -53,7 +54,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
   ];
 
   return (
-    <div className="min-h-screen bg-cafm-surface-canvas text-cafm-text-primary font-cafm selection:bg-cafm-orange/20 selection:text-cafm-text-primary">
+    <div className="min-h-screen bg-cafm-surface-canvas text-cafm-text-primary font-cafm selection:bg-cafm-orange/20 selection:text-cafm-text-primary cafm-app">
       {/* Top Banner for Audited View-As Mode */}
       {isViewAs && (
         <div className="bg-cafm-warning-surface border-b border-cafm-warning-border px-6 py-2 text-center text-[12px] font-normal text-cafm-warning-text">

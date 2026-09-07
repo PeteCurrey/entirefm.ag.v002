@@ -41,10 +41,10 @@ export default async function ContractorDocumentsPage() {
         <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
           DIGITAL SUPPLY CHAIN INFRASTRUCTURE
         </span>
-        <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">
           Contractor Document Vault
         </h1>
-        <p className="text-xs text-brand-mist/70 font-light max-w-xl">
+        <p className="text-xs text-[#6D6D68] font-light max-w-xl">
           Continuous record of statutory insurance policies, trade accreditations, RAMS samples, and company governance.
         </p>
       </div>

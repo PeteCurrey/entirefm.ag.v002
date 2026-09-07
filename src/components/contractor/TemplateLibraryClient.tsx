@@ -203,8 +203,8 @@ export function TemplateLibraryClient({
               CONTRACTOR BUSINESS TOOLKIT &bull; DOCUMENT ENGINE
             </span>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Business Documents &amp; Templates</h1>
-          <p className="text-xs text-brand-mist/70">
+          <h1 className="text-2xl font-light text-[#111111] tracking-tight">Business Documents &amp; Templates</h1>
+          <p className="text-xs text-[#6D6D68]">
             Author, draft, sign, and export white-labelled trade documentation, RAMS, service reports, and compliance certificates.
           </p>
         </div>
@@ -215,7 +215,7 @@ export function TemplateLibraryClient({
 
       {/* ─── QUICK LAUNCH BAR ────────────────────────────────────────────── */}
       <div className="space-y-3">
-        <h3 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+        <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-brand-electric" /> Quick Create Document
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
@@ -223,13 +223,13 @@ export function TemplateLibraryClient({
             <button
               key={item.id}
               onClick={() => handleQuickLaunch(item.id)}
-              className="p-3 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 hover:bg-brand-carbon hover:border-brand-electric text-left transition-all group flex flex-col justify-between"
+              className="p-3 rounded-xl border border-[#E8E8E5] bg-white shadow-sm hover:bg-white hover:border-brand-electric text-left transition-all group flex flex-col justify-between"
             >
               <div>
-                <span className="text-xs font-medium text-white group-hover:text-brand-electric-bright transition-colors block">
+                <span className="text-xs font-medium text-[#111111] group-hover:text-brand-electric-bright transition-colors block">
                   {item.label}
                 </span>
-                <span className="text-[10px] text-brand-mist/50 line-clamp-1 block mt-0.5">{item.desc}</span>
+                <span className="text-[10px] text-[#9A9A95] line-clamp-1 block mt-0.5">{item.desc}</span>
               </div>
               <div className="pt-2 flex items-center justify-end text-brand-electric text-[10.5px] font-medium">
                 <Plus className="w-3 h-3" />
@@ -240,10 +240,10 @@ export function TemplateLibraryClient({
       </div>
 
       {/* ─── RECENT & SAVED DOCUMENTS LEDGER ─────────────────────────────── */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
+      <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider">
               My Business Documents ({documents.length})
             </h3>
           </div>
@@ -254,7 +254,7 @@ export function TemplateLibraryClient({
               className={`px-2.5 py-1 rounded-lg text-[11px] transition-colors ${
                 docFilter === 'ALL'
                   ? 'bg-brand-electric text-white font-medium'
-                  : 'text-brand-mist/60 hover:text-white bg-brand-void/50 border border-brand-edge-dark'
+                  : 'text-[#6D6D68] hover:text-white bg-[#FAFAF8] border border-[#E8E8E5]'
               }`}
             >
               All ({documents.length})
@@ -264,7 +264,7 @@ export function TemplateLibraryClient({
               className={`px-2.5 py-1 rounded-lg text-[11px] transition-colors ${
                 docFilter === 'DRAFT'
                   ? 'bg-amber-500 text-brand-void font-medium'
-                  : 'text-brand-mist/60 hover:text-white bg-brand-void/50 border border-brand-edge-dark'
+                  : 'text-[#6D6D68] hover:text-white bg-[#FAFAF8] border border-[#E8E8E5]'
               }`}
             >
               Drafts ({documents.filter((d) => d.status === 'DRAFT').length})
@@ -274,7 +274,7 @@ export function TemplateLibraryClient({
               className={`px-2.5 py-1 rounded-lg text-[11px] transition-colors ${
                 docFilter === 'COMPLETED'
                   ? 'bg-emerald-500 text-brand-void font-medium'
-                  : 'text-brand-mist/60 hover:text-white bg-brand-void/50 border border-brand-edge-dark'
+                  : 'text-[#6D6D68] hover:text-white bg-[#FAFAF8] border border-[#E8E8E5]'
               }`}
             >
               Completed ({documents.filter((d) => d.status === 'COMPLETED' || d.status === 'SIGNED').length})
@@ -283,7 +283,7 @@ export function TemplateLibraryClient({
         </div>
 
         {filteredDocs.length === 0 ? (
-          <div className="p-8 text-center text-brand-mist/40 space-y-2 border border-brand-edge-dark/50 rounded-xl bg-brand-void/20">
+          <div className="p-8 text-center text-[#9A9A95] space-y-2 border border-[#E8E8E5] rounded-xl bg-[#FAFAF8]">
             <p className="text-xs">
               {docFilter === 'DRAFT'
                 ? 'No saved drafts. Start a new template below.'
@@ -297,7 +297,7 @@ export function TemplateLibraryClient({
             {filteredDocs.slice(0, 9).map((doc) => (
               <div
                 key={doc.id}
-                className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void/80 hover:border-brand-electric transition-all space-y-2.5 group flex flex-col justify-between"
+                className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] hover:border-brand-electric transition-all space-y-2.5 group flex flex-col justify-between"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
@@ -306,7 +306,7 @@ export function TemplateLibraryClient({
                     </span>
                     <div className="flex items-center gap-1.5">
                       {doc.version && (
-                        <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-brand-carbon text-brand-mist/60 font-mono">
+                        <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-white text-[#6D6D68] font-mono">
                           v{doc.version}
                         </span>
                       )}
@@ -321,24 +321,24 @@ export function TemplateLibraryClient({
                       </span>
                     </div>
                   </div>
-                  <h4 className="text-xs font-medium text-white truncate">{doc.title}</h4>
-                  <p className="text-[10.5px] text-brand-mist/60 truncate">
+                  <h4 className="text-xs font-medium text-[#111111] truncate">{doc.title}</h4>
+                  <p className="text-[10.5px] text-[#6D6D68] truncate">
                     {doc.client_name || 'Direct Customer'} {doc.site_name ? `· ${doc.site_name}` : ''}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-brand-edge-dark/40 flex items-center justify-between text-xs">
+                <div className="pt-2 border-t border-[#E8E8E5] flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleEditDocument(doc)}
-                      className="text-brand-mist/60 hover:text-white inline-flex items-center gap-1 text-[11px]"
+                      className="text-[#6D6D68] hover:text-white inline-flex items-center gap-1 text-[11px]"
                       title="Edit Document"
                     >
                       <Edit className="w-3 h-3" /> Edit
                     </button>
                     <button
                       onClick={() => handleDuplicateDocument(doc)}
-                      className="text-brand-mist/60 hover:text-white inline-flex items-center gap-1 text-[11px]"
+                      className="text-[#6D6D68] hover:text-white inline-flex items-center gap-1 text-[11px]"
                       title="Duplicate Document"
                     >
                       <Copy className="w-3 h-3" /> Copy
@@ -364,23 +364,23 @@ export function TemplateLibraryClient({
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider">
               Template Library Catalogue
             </h3>
-            <p className="text-[11px] text-brand-mist/60 font-light">
+            <p className="text-[11px] text-[#6D6D68] font-light">
               Filter by safety suites, commercial agreements, statutory certificates, or specialist trades.
             </p>
           </div>
 
           {/* Search */}
           <div className="relative max-w-xs w-full">
-            <Search className="w-3.5 h-3.5 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search 50+ templates..."
-              className="w-full rounded-xl bg-brand-carbon/60 border border-brand-edge-dark pl-8 pr-3 py-1.5 text-xs text-white placeholder-brand-mist/30 focus:border-brand-electric focus:outline-none"
+              className="w-full rounded-xl bg-white border border-[#E8E8E5] pl-8 pr-3 py-1.5 text-xs text-white placeholder-brand-mist/30 focus:border-brand-electric focus:outline-none"
             />
           </div>
         </div>
@@ -397,7 +397,7 @@ export function TemplateLibraryClient({
                 className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all whitespace-nowrap ${
                   isActive
                     ? 'bg-brand-electric text-white font-medium shadow-md shadow-brand-electric/20'
-                    : 'bg-brand-carbon/60 border border-brand-edge-dark text-brand-mist/70 hover:bg-brand-void hover:text-white'
+                    : 'bg-white border border-[#E8E8E5] text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-white'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -415,10 +415,10 @@ export function TemplateLibraryClient({
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div className="space-y-0.5">
-                <span className="font-semibold text-white block">
+                <span className="font-semibold text-[#111111] block">
                   Creating a Live RAMS for an EntireFM Work Order or Active Site?
                 </span>
-                <p className="text-[11.5px] text-brand-mist/70 font-light">
+                <p className="text-[11.5px] text-[#6D6D68] font-light">
                   Use the 10-step RAMS Builder to generate job-specific packs with operative competency validation and EntireFM compliance sign-off.
                 </p>
               </div>
@@ -441,32 +441,32 @@ export function TemplateLibraryClient({
             return (
               <div
                 key={tpl.id}
-                className={`rounded-2xl border bg-brand-carbon/40 p-5 space-y-3 flex flex-col justify-between hover:bg-brand-carbon/70 transition-all group ${
+                className={`rounded-2xl border bg-white p-5 space-y-3 flex flex-col justify-between hover:bg-white transition-all group ${
                   isSafety
-                    ? 'border-brand-edge-dark hover:border-brand-electric/80'
-                    : 'border-brand-edge-dark hover:border-brand-electric/60'
+                    ? 'border-[#E8E8E5] hover:border-brand-electric/80'
+                    : 'border-[#E8E8E5] hover:border-brand-electric/60'
                 }`}
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span
                       className={`text-[10px] uppercase font-bold tracking-wider ${
-                        isSafety ? 'text-brand-electric-bright flex items-center gap-1' : 'text-brand-mist/70'
+                        isSafety ? 'text-brand-electric-bright flex items-center gap-1' : 'text-[#6D6D68]'
                       }`}
                     >
                       {isSafety && <Shield className="w-3 h-3 text-brand-electric inline shrink-0" />}
                       <span>{tpl.categoryLabel}</span>
                     </span>
-                    <span className="text-[10px] text-brand-mist/40 font-mono">v{tpl.version}</span>
+                    <span className="text-[10px] text-[#9A9A95] font-mono">v{tpl.version}</span>
                   </div>
-                  <h3 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
+                  <h3 className="text-sm font-medium text-[#111111] group-hover:text-brand-electric-bright transition-colors">
                     {tpl.title}
                   </h3>
-                  <p className="text-xs text-brand-mist/70 leading-relaxed">{tpl.description}</p>
+                  <p className="text-xs text-[#6D6D68] leading-relaxed">{tpl.description}</p>
                 </div>
 
-                <div className="pt-3 border-t border-brand-edge-dark/40 flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-brand-mist/40 shrink-0">
+                <div className="pt-3 border-t border-[#E8E8E5] flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-[#9A9A95] shrink-0">
                     {tpl.sections.reduce((acc, s) => acc + s.fields.length, 0)} Fields
                   </span>
 
@@ -474,7 +474,7 @@ export function TemplateLibraryClient({
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => handleCreateDocument(tpl)}
-                        className="px-2.5 py-1.5 rounded-xl border border-brand-edge-dark bg-brand-void text-brand-mist/70 hover:text-white hover:border-brand-electric/50 text-xs font-normal transition-all flex items-center gap-1"
+                        className="px-2.5 py-1.5 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] hover:text-white hover:border-brand-electric/50 text-xs font-normal transition-all flex items-center gap-1"
                         title="Edit as standalone company document"
                       >
                         <FileText className="w-3 h-3" />

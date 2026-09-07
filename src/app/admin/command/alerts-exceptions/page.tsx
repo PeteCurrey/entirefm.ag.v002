@@ -18,20 +18,20 @@ export default async function AlertsExceptionsPage() {
 
       {exceptions.length > 0 ? (
         <div className="space-y-4">
-          <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-            <h3 className="text-sm font-normal text-white mb-3">Statutory & Operational Compliance Exceptions ({exceptions.length})</h3>
+          <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+            <h3 className="text-sm font-normal text-[#111111] mb-3">Statutory & Operational Compliance Exceptions ({exceptions.length})</h3>
             <div className="space-y-2">
               {exceptions.map(exc => (
-                <div key={exc.id} className="flex items-center justify-between rounded border border-brand-edge-dark/50 bg-brand-void/30 p-3 text-[12.5px]">
+                <div key={exc.id} className="flex items-center justify-between rounded border border-[#E8E8E5] bg-[#FAFAF8] p-3 text-[12.5px]">
                   <div>
-                    <div className="font-normal text-white">{exc.site?.name || 'Estate Site'} — {exc.exception_type}</div>
-                    <div className="text-[11.5px] text-brand-mist/60">{exc.reason}</div>
+                    <div className="font-normal text-[#111111]">{exc.site?.name || 'Estate Site'} — {exc.exception_type}</div>
+                    <div className="text-[11.5px] text-[#6D6D68]">{exc.reason}</div>
                   </div>
                   <div className="text-right">
                     <span className={`rounded px-2 py-0.5 font-normal text-[10px]${exc.severity === 'CRITICAL' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>
                       {exc.severity}
                     </span>
-                    <div className="text-[10px] text-brand-mist/50 mt-1 font-normal">{exc.state}</div>
+                    <div className="text-[10px] text-[#9A9A95] mt-1 font-normal">{exc.state}</div>
                   </div>
                 </div>
               ))}

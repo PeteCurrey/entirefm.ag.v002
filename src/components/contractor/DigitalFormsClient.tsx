@@ -111,44 +111,44 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
     <div className="space-y-6">
       {/* Metrics Header */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">FORM TEMPLATES</span>
-          <p className="text-2xl font-light text-white mt-1">{CANONICAL_FORM_TEMPLATES.length}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Statutory FM templates</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">FORM TEMPLATES</span>
+          <p className="text-2xl font-light text-[#111111] mt-1">{CANONICAL_FORM_TEMPLATES.length}</p>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Statutory FM templates</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">SUBMITTED RECORDS</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">SUBMITTED RECORDS</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{forms.length}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Completed field records</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Completed field records</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">DEFECTS &amp; REMEDIALS</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">DEFECTS &amp; REMEDIALS</span>
           <p className="text-2xl font-light text-amber-400 mt-1">
             {forms.filter((f) => f.category === 'DEFECT_REPORT').length}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Reported on site</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Reported on site</span>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
-          <span className="text-[10px] font-normal text-brand-mist/50 uppercase">SAFETY INCIDENTS</span>
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <span className="text-[10px] font-normal text-[#9A9A95] uppercase">SAFETY INCIDENTS</span>
           <p className="text-2xl font-light text-rose-400 mt-1">
             {forms.filter((f) => f.category === 'INCIDENT_ACCIDENT').length}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Near misses / incidents</span>
+          <span className="text-[10.5px] text-[#9A9A95] mt-0.5 block">Near misses / incidents</span>
         </div>
       </div>
 
       {/* Nav Tabs */}
-      <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+      <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
         <div className="flex items-center gap-1.5 text-xs font-normal">
           <button
             onClick={() => setActiveTab('TEMPLATES')}
             className={`px-3.5 py-1.5 rounded-lg transition-colors ${
               activeTab === 'TEMPLATES'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             Digital Form Library ({CANONICAL_FORM_TEMPLATES.length})
@@ -158,7 +158,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
             className={`px-3.5 py-1.5 rounded-lg transition-colors ${
               activeTab === 'SUBMISSIONS'
                 ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
+                : 'text-[#111111] hover:text-white hover:bg-white'
             }`}
           >
             Submitted Field Records ({forms.length})
@@ -176,7 +176,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                 <span className="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block">
                   ENTIREFM CAFM &bull; REVISION 4.0
                 </span>
-                <h3 className="text-base font-bold text-white tracking-tight mt-0.5">
+                <h3 className="text-base font-bold text-[#111111] tracking-tight mt-0.5">
                   Controlled Operational Field Reports (A4 PDF System)
                 </h3>
               </div>
@@ -193,7 +193,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                     <span className="text-xs font-bold text-sky-400">ENT-RJR-01</span>
                     <span className="text-[9px] font-normal uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
                   </div>
-                  <h4 className="font-bold text-sm text-white mt-1">Reactive Job Report</h4>
+                  <h4 className="font-bold text-sm text-[#111111] mt-1">Reactive Job Report</h4>
                   <p className="text-xs text-slate-400 mt-1">
                     Arrival/departure, fault diagnosis, labour hours, parts used, defects, and customer sign-off.
                   </p>
@@ -228,7 +228,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                     <span className="text-xs font-bold text-sky-400">ENT-PPM-01</span>
                     <span className="text-[9px] font-normal uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
                   </div>
-                  <h4 className="font-bold text-sm text-white mt-1">Weekly Fire Alarm Test</h4>
+                  <h4 className="font-bold text-sm text-[#111111] mt-1">Weekly Fire Alarm Test</h4>
                   <p className="text-xs text-slate-400 mt-1">
                     BS 5839-1 rotational call point inspection, control panel state, sounders, and defect logging.
                   </p>
@@ -263,7 +263,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                     <span className="text-xs font-bold text-sky-400">ENT-FLS-EL</span>
                     <span className="text-[9px] font-normal uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
                   </div>
-                  <h4 className="font-bold text-sm text-white mt-1">Emergency Lighting Survey</h4>
+                  <h4 className="font-bold text-sm text-[#111111] mt-1">Emergency Lighting Survey</h4>
                   <p className="text-xs text-slate-400 mt-1">
                     BS 5266 asset-building schedule, rapid luminaire walk mode, syncs directly to CAFM asset register.
                   </p>
@@ -297,23 +297,23 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
           {CANONICAL_FORM_TEMPLATES.map((tmpl) => (
             <div
               key={tmpl.id}
-              className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-5 space-y-3 flex flex-col justify-between hover:border-brand-electric/50 transition-colors"
+              className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-3 flex flex-col justify-between hover:border-brand-electric/50 transition-colors"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase tracking-wider text-brand-electric-bright font-bold">
                     {tmpl.code} &bull; v{tmpl.version}
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark text-[10px] font-normal">
+                  <span className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[10px] font-normal">
                     {tmpl.category.replace(/_/g, ' ')}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold text-white">{tmpl.title}</h3>
-                <p className="text-xs text-brand-mist/70 font-light leading-relaxed">{tmpl.description}</p>
+                <h3 className="text-sm font-semibold text-[#111111]">{tmpl.title}</h3>
+                <p className="text-xs text-[#6D6D68] font-light leading-relaxed">{tmpl.description}</p>
               </div>
 
-              <div className="pt-3 border-t border-brand-edge-dark/40 flex items-center justify-between">
-                <span className="text-[10.5px] font-normal text-brand-mist/50">
+              <div className="pt-3 border-t border-[#E8E8E5] flex items-center justify-between">
+                <span className="text-[10.5px] font-normal text-[#9A9A95]">
                   {tmpl.fields.length} fields {tmpl.requiresSignature && '&bull; Sign-off'}
                 </span>
                 <button
@@ -334,22 +334,22 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="relative max-w-sm flex-1">
-              <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search submitted records by ID, title, operative..."
-                className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
               />
             </div>
           </div>
 
-          <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
+          <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs font-normal border-collapse">
                 <thead>
-                  <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
+                  <tr className="bg-[#FAFAF8] border-b border-[#E8E8E5] text-[#6D6D68] uppercase text-[10px]">
                     <th className="py-3 px-4">Record Ref</th>
                     <th className="py-3 px-4">Form Template</th>
                     <th className="py-3 px-4">Operative &amp; Work Order</th>
@@ -357,16 +357,16 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                     <th className="py-3 px-4 text-right">Submitted Date</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-edge-dark/30">
+                <tbody className="divide-y divide-[#E8E8E5]">
                   {filteredSubmissions.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="py-12 text-center text-brand-mist/50 font-sans text-xs">
+                      <td colSpan={5} className="py-12 text-center text-[#9A9A95] font-sans text-xs">
                         No submitted digital form records found.
                       </td>
                     </tr>
                   ) : (
                     filteredSubmissions.map((f) => (
-                      <tr key={f.id} className="hover:bg-brand-edge-dark/20 transition-colors">
+                      <tr key={f.id} className="hover:bg-[#F5F5F3] transition-colors">
                         <td className="py-3 px-4 font-bold text-white">
                           {f.id}
                           {f.riddorReviewRequired && (
@@ -377,18 +377,18 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                         </td>
                         <td className="py-3 px-4 text-white">
                           <span className="font-medium block">{f.templateTitle}</span>
-                          <span className="text-[10px] text-brand-mist/50 block">{f.category}</span>
+                          <span className="text-[10px] text-[#9A9A95] block">{f.category}</span>
                         </td>
-                        <td className="py-3 px-4 text-brand-mist">
-                          <span className="text-white block">{f.operativeName}</span>
-                          <span className="text-[10.5px] text-brand-mist/50 block">{f.workOrderNumber || 'General Form'}</span>
+                        <td className="py-3 px-4 text-[#111111]">
+                          <span className="text-[#111111] block">{f.operativeName}</span>
+                          <span className="text-[10.5px] text-[#9A9A95] block">{f.workOrderNumber || 'General Form'}</span>
                         </td>
                         <td className="py-3 px-4">
                           <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">
                             {f.status}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-right text-brand-mist/60">
+                        <td className="py-3 px-4 text-right text-[#6D6D68]">
                           {new Date(f.createdAt).toLocaleDateString('en-GB')}
                         </td>
                       </tr>
@@ -403,19 +403,19 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
 
       {/* Dynamic Form Fill Modal */}
       {selectedTemplateForFill && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white border border-[#E8E8E5] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E8E5] bg-[#FAFAF8]">
               <div>
                 <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
                   {selectedTemplateForFill.code} &bull; v{selectedTemplateForFill.version}
                 </span>
-                <h2 className="text-base font-light text-white">{selectedTemplateForFill.title}</h2>
+                <h2 className="text-base font-light text-[#111111]">{selectedTemplateForFill.title}</h2>
               </div>
               <button
                 onClick={() => setSelectedTemplateForFill(null)}
-                className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark"
+                className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -431,19 +431,19 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
               )}
 
               <div>
-                <label className="text-brand-mist/70 block mb-1 font-sans">Work Order Reference</label>
+                <label className="text-[#6D6D68] block mb-1 font-sans">Work Order Reference</label>
                 <input
                   type="text"
                   value={workOrderNumber}
                   onChange={(e) => setWorkOrderNumber(e.target.value)}
                   placeholder="e.g. WO-2026-9812"
-                  className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
+                  className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
                 />
               </div>
 
               {selectedTemplateForFill.fields.map((field) => (
                 <div key={field.id} className="space-y-1">
-                  <label className="text-brand-mist/70 block font-sans">
+                  <label className="text-[#6D6D68] block font-sans">
                     {field.label} {field.required && '*'}
                   </label>
 
@@ -453,14 +453,14 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                       required={field.required}
                       value={formData[field.name] || ''}
                       onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                      className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                      className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                     />
                   ) : field.type === 'select' ? (
                     <select
                       required={field.required}
                       value={formData[field.name] || ''}
                       onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                      className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:border-brand-electric focus:outline-none"
+                      className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal focus:border-brand-electric focus:outline-none"
                     >
                       <option value="">-- Select option --</option>
                       {field.options?.map((opt) => (
@@ -476,7 +476,7 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                         id={field.id}
                         checked={!!formData[field.name]}
                         onChange={(e) => handleFieldChange(field.name, e.target.checked)}
-                        className="rounded border-brand-edge-dark bg-brand-void text-brand-electric focus:ring-0"
+                        className="rounded border-[#E8E8E5] bg-[#FAFAF8] text-brand-electric focus:ring-0"
                       />
                       <label htmlFor={field.id} className="text-white font-sans text-xs cursor-pointer">
                         Confirmed / Yes
@@ -488,48 +488,48 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
                       required={field.required}
                       value={formData[field.name] || ''}
                       onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                      className="w-full p-2.5 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                      className="w-full p-2.5 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                     />
                   )}
                 </div>
               ))}
 
               {selectedTemplateForFill.requiresSignature && (
-                <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void space-y-3 pt-3">
-                  <span className="text-[11px] font-bold text-white uppercase block">
+                <div className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] space-y-3 pt-3">
+                  <span className="text-[11px] font-bold text-[#111111] uppercase block">
                     Site Representative Sign-Off
                   </span>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-brand-mist/70 block mb-1">Representative Name *</label>
+                      <label className="text-[#6D6D68] block mb-1">Representative Name *</label>
                       <input
                         type="text"
                         required
                         value={signerName}
                         onChange={(e) => setSignerName(e.target.value)}
                         placeholder="e.g. Robert Vance"
-                        className="w-full p-2 rounded bg-brand-carbon border border-brand-edge-dark text-white text-xs"
+                        className="w-full p-2 rounded bg-white border border-[#E8E8E5] text-white text-xs"
                       />
                     </div>
                     <div>
-                      <label className="text-brand-mist/70 block mb-1">Representative Role</label>
+                      <label className="text-[#6D6D68] block mb-1">Representative Role</label>
                       <input
                         type="text"
                         value={signerRole}
                         onChange={(e) => setSignerRole(e.target.value)}
                         placeholder="Building Manager"
-                        className="w-full p-2 rounded bg-brand-carbon border border-brand-edge-dark text-white text-xs"
+                        className="w-full p-2 rounded bg-white border border-[#E8E8E5] text-white text-xs"
                       />
                     </div>
                   </div>
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-4 border-t border-brand-edge-dark">
+              <div className="flex items-center justify-end gap-2 pt-4 border-t border-[#E8E8E5]">
                 <button
                   type="button"
                   onClick={() => setSelectedTemplateForFill(null)}
-                  className="px-4 py-2 rounded-lg border border-brand-edge-dark text-brand-mist hover:text-white"
+                  className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-[#111111] hover:text-white"
                 >
                   Cancel
                 </button>

@@ -145,7 +145,7 @@ export function AdminUsersDirectoryTable({
   return (
     <div className="space-y-6">
       {/* Control Bar: Search + Filter Pills */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-brand-carbon/40 p-4 rounded-xl border border-white/10">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-white/10">
         {/* Search */}
         <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 max-w-md w-full">
           <input
@@ -153,7 +153,7 @@ export function AdminUsersDirectoryTable({
             placeholder="Search by name, email, organisation..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-brand-void/80 border border-white/15 rounded-lg px-3.5 py-2 text-xs text-white placeholder-brand-mist/40 w-full focus:outline-none focus:border-brand-electric"
+            className="bg-[#FAFAF8] border border-white/15 rounded-lg px-3.5 py-2 text-xs text-white placeholder-brand-mist/40 w-full focus:outline-none focus:border-brand-electric"
           />
           <button
             type="submit"
@@ -167,7 +167,7 @@ export function AdminUsersDirectoryTable({
         <div className="flex flex-wrap items-center gap-4">
           {/* Lobby Filter */}
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-normal uppercase text-brand-mist/50 tracking-wider">Lobby:</span>
+            <span className="text-[11px] font-normal uppercase text-[#9A9A95] tracking-wider">Lobby:</span>
             {[
               { label: 'All', value: '' },
               { label: 'Members', value: 'member' },
@@ -180,7 +180,7 @@ export function AdminUsersDirectoryTable({
                 className={`px-2.5 py-1 text-xs rounded-md transition ${
                   initialLobbyFilter === t.value
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                    : 'bg-brand-void/60 text-brand-mist/70 hover:text-white border border-transparent'
+                    : 'bg-[#FAFAF8] text-[#6D6D68] hover:text-white border border-transparent'
                 }`}
               >
                 {t.label}
@@ -190,7 +190,7 @@ export function AdminUsersDirectoryTable({
 
           {/* Operational Role Filter */}
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-normal uppercase text-brand-mist/50 tracking-wider">Operational:</span>
+            <span className="text-[11px] font-normal uppercase text-[#9A9A95] tracking-wider">Operational:</span>
             {[
               { label: 'All', value: '' },
               { label: 'Contractors', value: 'CONTRACTOR' },
@@ -204,7 +204,7 @@ export function AdminUsersDirectoryTable({
                 className={`px-2.5 py-1 text-xs rounded-md transition ${
                   initialOpFilter.toUpperCase() === t.value
                     ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
-                    : 'bg-brand-void/60 text-brand-mist/70 hover:text-white border border-transparent'
+                    : 'bg-[#FAFAF8] text-[#6D6D68] hover:text-white border border-transparent'
                 }`}
               >
                 {t.label}
@@ -215,10 +215,10 @@ export function AdminUsersDirectoryTable({
       </div>
 
       {/* Directory Table */}
-      <div className="rounded-xl border border-white/10 bg-brand-carbon/40 overflow-hidden">
+      <div className="rounded-xl border border-white/10 bg-white overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-white/10 bg-brand-void/80 text-brand-mist/60 font-medium text-[10px] uppercase tracking-wider">
+            <thead className="border-b border-white/10 bg-[#FAFAF8] text-[#6D6D68] font-medium text-[10px] uppercase tracking-wider">
               <tr>
                 <th className="px-5 py-3.5">Name & Email</th>
                 <th className="px-4 py-3.5 text-center">Email Verified</th>
@@ -232,7 +232,7 @@ export function AdminUsersDirectoryTable({
             <tbody className="divide-y divide-white/5 font-light">
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-brand-mist/50">
+                  <td colSpan={7} className="px-6 py-12 text-center text-[#9A9A95]">
                     No individual identities match the selected filters.
                   </td>
                 </tr>
@@ -246,14 +246,14 @@ export function AdminUsersDirectoryTable({
                     {/* Name & Email */}
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-brand-void border border-white/10 flex items-center justify-center text-xs font-normal text-white uppercase shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-[#FAFAF8] border border-white/10 flex items-center justify-center text-xs font-normal text-[#111111] uppercase shrink-0">
                           {user.display_name?.slice(0, 2) || user.email.slice(0, 2)}
                         </div>
                         <div>
-                          <div className="font-normal text-white text-sm group-hover:text-brand-electric transition">
+                          <div className="font-normal text-[#111111] text-sm group-hover:text-brand-electric transition">
                             {user.display_name}
                           </div>
-                          <div className="font-normal text-[11px] text-brand-mist/60">
+                          <div className="font-normal text-[11px] text-[#6D6D68]">
                             {user.email}
                           </div>
                         </div>
@@ -291,14 +291,14 @@ export function AdminUsersDirectoryTable({
                               href={`/lobby/community/members/${user.lobby_username}`}
                               target="_blank"
                               onClick={(e) => e.stopPropagation()}
-                              className="block text-[11px] text-brand-mist/50 hover:text-brand-electric transition underline decoration-white/20"
+                              className="block text-[11px] text-[#9A9A95] hover:text-brand-electric transition underline decoration-white/20"
                             >
                               @{user.lobby_username} ↗
                             </Link>
                           )}
                         </div>
                       ) : (
-                        <span className="text-[11px] font-normal text-brand-mist/40">
+                        <span className="text-[11px] font-normal text-[#9A9A95]">
                           Non-Member
                         </span>
                       )}
@@ -319,7 +319,7 @@ export function AdminUsersDirectoryTable({
                           Field Engineer
                         </span>
                       ) : (
-                        <span className="text-[11px] font-normal text-brand-mist/40">
+                        <span className="text-[11px] font-normal text-[#9A9A95]">
                           None (Lobby Only)
                         </span>
                       )}
@@ -327,11 +327,11 @@ export function AdminUsersDirectoryTable({
 
                     {/* Organisation */}
                     <td className="px-5 py-3.5">
-                      <div className="text-white/80">
-                        {user.organisation_name || <span className="text-brand-mist/40">—</span>}
+                      <div className="text-[#111111]/80">
+                        {user.organisation_name || <span className="text-[#9A9A95]">—</span>}
                       </div>
                       {user.organisation_id && (
-                        <div className="text-[10px] font-normal text-brand-mist/40">
+                        <div className="text-[10px] font-normal text-[#9A9A95]">
                           {user.organisation_id}
                         </div>
                       )}
@@ -339,10 +339,10 @@ export function AdminUsersDirectoryTable({
 
                     {/* Timestamps */}
                     <td className="px-5 py-3.5">
-                      <div className="text-brand-mist/80 text-[11px]">
+                      <div className="text-[#6D6D68] text-[11px]">
                         Joined {new Date(user.auth_created_at).toLocaleDateString('en-GB')}
                       </div>
-                      <div className="text-[10px] font-normal text-brand-mist/40">
+                      <div className="text-[10px] font-normal text-[#9A9A95]">
                         {user.last_sign_in_at
                           ? `Active ${new Date(user.last_sign_in_at).toLocaleDateString('en-GB')}`
                           : 'Never signed in'}
@@ -372,20 +372,20 @@ export function AdminUsersDirectoryTable({
       {/* User Detail & Role Transition Modal */}
       {selectedUser && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-brand-carbon border border-white/15 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white border border-white/15 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="p-6 border-b border-white/10 flex items-start justify-between bg-brand-void/40">
+            <div className="p-6 border-b border-white/10 flex items-start justify-between bg-[#FAFAF8]">
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-light text-white">{selectedUser.display_name}</h2>
+                  <h2 className="text-xl font-light text-[#111111]">{selectedUser.display_name}</h2>
                   {selectedUser.email_verified && (
                     <span className="text-[10px] font-normal text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
                       Verified
                     </span>
                   )}
                 </div>
-                <p className="text-xs font-normal text-brand-mist/60 mt-0.5">{selectedUser.email}</p>
-                <p className="text-[10px] font-normal text-brand-mist/40 mt-1">
+                <p className="text-xs font-normal text-[#6D6D68] mt-0.5">{selectedUser.email}</p>
+                <p className="text-[10px] font-normal text-[#9A9A95] mt-1">
                   Canonical Auth UUID: <code className="text-brand-electric">{selectedUser.auth_user_id}</code>
                 </p>
               </div>
@@ -398,13 +398,13 @@ export function AdminUsersDirectoryTable({
             </div>
 
             {/* Modal Tabs */}
-            <div className="flex items-center border-b border-white/10 px-6 bg-brand-void/20">
+            <div className="flex items-center border-b border-white/10 px-6 bg-[#FAFAF8]">
               <button
                 onClick={() => setActiveModalTab('details')}
                 className={`py-3 px-4 text-xs font-medium border-b-2 transition ${
                   activeModalTab === 'details'
                     ? 'border-brand-electric text-white'
-                    : 'border-transparent text-brand-mist/60 hover:text-white'
+                    : 'border-transparent text-[#6D6D68] hover:text-white'
                 }`}
               >
                 Identity Overview
@@ -414,7 +414,7 @@ export function AdminUsersDirectoryTable({
                 className={`py-3 px-4 text-xs font-medium border-b-2 transition ${
                   activeModalTab === 'transition'
                     ? 'border-brand-electric text-white'
-                    : 'border-transparent text-brand-mist/60 hover:text-white'
+                    : 'border-transparent text-[#6D6D68] hover:text-white'
                 }`}
               >
                 Role & Permissions Transition
@@ -424,7 +424,7 @@ export function AdminUsersDirectoryTable({
                 className={`py-3 px-4 text-xs font-medium border-b-2 transition ${
                   activeModalTab === 'audit'
                     ? 'border-brand-electric text-white'
-                    : 'border-transparent text-brand-mist/60 hover:text-white'
+                    : 'border-transparent text-[#6D6D68] hover:text-white'
                 }`}
               >
                 Audit Trail ({auditTrail.length})
@@ -449,38 +449,38 @@ export function AdminUsersDirectoryTable({
               {activeModalTab === 'details' && (
                 <div className="space-y-4 text-xs">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-brand-void/60 p-3.5 rounded-lg border border-white/5 space-y-1">
-                      <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Lobby Axis</span>
-                      <div className="text-sm font-normal text-white">
+                    <div className="bg-[#FAFAF8] p-3.5 rounded-lg border border-white/5 space-y-1">
+                      <span className="text-[10px] font-normal uppercase text-[#9A9A95] block">Lobby Axis</span>
+                      <div className="text-sm font-normal text-[#111111]">
                         {selectedUser.is_lobby_member ? 'Active Lobby Member' : 'Non-Member'}
                       </div>
-                      <div className="text-brand-mist/70 text-[11px]">
+                      <div className="text-[#6D6D68] text-[11px]">
                         Status: {selectedUser.lobby_member_status}
                       </div>
                       {selectedUser.lobby_username && (
-                        <div className="text-brand-mist/50 text-[11px]">
+                        <div className="text-[#9A9A95] text-[11px]">
                           Username: @{selectedUser.lobby_username}
                         </div>
                       )}
                     </div>
 
-                    <div className="bg-brand-void/60 p-3.5 rounded-lg border border-white/5 space-y-1">
-                      <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Operational Axis</span>
-                      <div className="text-sm font-normal text-white">
+                    <div className="bg-[#FAFAF8] p-3.5 rounded-lg border border-white/5 space-y-1">
+                      <span className="text-[10px] font-normal uppercase text-[#9A9A95] block">Operational Axis</span>
+                      <div className="text-sm font-normal text-[#111111]">
                         {selectedUser.operational_identity_type}
                       </div>
-                      <div className="text-brand-mist/70 text-[11px]">
+                      <div className="text-[#6D6D68] text-[11px]">
                         Organisation: {selectedUser.organisation_name || 'None'}
                       </div>
-                      <div className="text-brand-mist/50 text-[11px]">
+                      <div className="text-[#9A9A95] text-[11px]">
                         Role Code: {selectedUser.operational_role_code}
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-brand-void/40 p-4 rounded-lg border border-white/5 space-y-2">
-                    <span className="text-[10px] font-normal uppercase text-brand-mist/50 block">Exclusivity Guarantee</span>
-                    <p className="text-brand-mist/80 font-light leading-relaxed">
+                  <div className="bg-[#FAFAF8] p-4 rounded-lg border border-white/5 space-y-2">
+                    <span className="text-[10px] font-normal uppercase text-[#9A9A95] block">Exclusivity Guarantee</span>
+                    <p className="text-[#6D6D68] font-light leading-relaxed">
                       This user is backed by a single canonical Supabase Auth user ID. Database constraints strictly prohibit simultaneous Client, Engineer, or Contractor operational identities while preserving optional Lobby membership.
                     </p>
                   </div>
@@ -491,20 +491,20 @@ export function AdminUsersDirectoryTable({
               {activeModalTab === 'transition' && (
                 <div className="space-y-6 text-xs">
                   {/* Operational Role Transition */}
-                  <div className="space-y-3 bg-brand-void/60 p-4 rounded-xl border border-white/10">
-                    <h3 className="text-sm font-normal text-white">Operational Identity Transition</h3>
-                    <p className="text-brand-mist/70 font-light">
+                  <div className="space-y-3 bg-[#FAFAF8] p-4 rounded-xl border border-white/10">
+                    <h3 className="text-sm font-normal text-[#111111]">Operational Identity Transition</h3>
+                    <p className="text-[#6D6D68] font-light">
                       Enforces exclusivity at database constraint level. Selecting a new operational identity replaces any prior operational role while preserving Lobby profile data.
                     </p>
 
                     <div className="space-y-2 pt-2">
-                      <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
+                      <label className="text-[11px] font-normal uppercase text-[#6D6D68] block">
                         Target Operational Identity:
                       </label>
                       <select
                         value={newOpType}
                         onChange={(e) => setNewOpType(e.target.value)}
-                        className="w-full bg-brand-void border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
+                        className="w-full bg-[#FAFAF8] border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
                       >
                         <option value="NONE">NONE (No Operational Access — Lobby Only)</option>
                         <option value="CONTRACTOR">CONTRACTOR (Supplier / Service Partner)</option>
@@ -515,7 +515,7 @@ export function AdminUsersDirectoryTable({
 
                     {newOpType !== 'NONE' && (
                       <div className="space-y-2 pt-2">
-                        <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
+                        <label className="text-[11px] font-normal uppercase text-[#6D6D68] block">
                           Organisation Name:
                         </label>
                         <input
@@ -523,7 +523,7 @@ export function AdminUsersDirectoryTable({
                           value={newOrgName}
                           onChange={(e) => setNewOrgName(e.target.value)}
                           placeholder="e.g. FireJet Services Ltd"
-                          className="w-full bg-brand-void border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
+                          className="w-full bg-[#FAFAF8] border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
                         />
                       </div>
                     )}
@@ -541,16 +541,16 @@ export function AdminUsersDirectoryTable({
 
                   {/* Lobby Membership Status */}
                   {selectedUser.is_lobby_member && (
-                    <div className="space-y-3 bg-brand-void/60 p-4 rounded-xl border border-white/10">
-                      <h3 className="text-sm font-normal text-white">Lobby Membership Status</h3>
+                    <div className="space-y-3 bg-[#FAFAF8] p-4 rounded-xl border border-white/10">
+                      <h3 className="text-sm font-normal text-[#111111]">Lobby Membership Status</h3>
                       <div className="space-y-2">
-                        <label className="text-[11px] font-normal uppercase text-brand-mist/60 block">
+                        <label className="text-[11px] font-normal uppercase text-[#6D6D68] block">
                           Status:
                         </label>
                         <select
                           value={newLobbyStatus}
                           onChange={(e) => setNewLobbyStatus(e.target.value)}
-                          className="w-full bg-brand-void border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
+                          className="w-full bg-[#FAFAF8] border border-white/20 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-electric"
                         >
                           <option value="active">Active</option>
                           <option value="pending_verification">Pending Verification</option>
@@ -576,25 +576,25 @@ export function AdminUsersDirectoryTable({
               {activeModalTab === 'audit' && (
                 <div className="space-y-3">
                   {auditTrail.length === 0 ? (
-                    <p className="text-xs text-brand-mist/50">No recorded audit events for this identity.</p>
+                    <p className="text-xs text-[#9A9A95]">No recorded audit events for this identity.</p>
                   ) : (
                     <div className="space-y-2">
                       {auditTrail.map((ev, idx) => (
                         <div
                           key={ev.id || idx}
-                          className="p-3 bg-brand-void/60 rounded-lg border border-white/5 font-normal text-[11px] space-y-1"
+                          className="p-3 bg-[#FAFAF8] rounded-lg border border-white/5 font-normal text-[11px] space-y-1"
                         >
                           <div className="flex items-center justify-between text-brand-electric">
                             <span>{ev.action}</span>
-                            <span className="text-brand-mist/40 text-[10px]">
+                            <span className="text-[#9A9A95] text-[10px]">
                               {new Date(ev.created_at).toLocaleString('en-GB')}
                             </span>
                           </div>
-                          <div className="text-brand-mist/60 text-[10px]">
+                          <div className="text-[#6D6D68] text-[10px]">
                             Actor: {ev.actor_id}
                           </div>
                           {ev.details && (
-                            <div className="text-brand-mist/80 text-[10px] break-all bg-brand-carbon/60 p-1.5 rounded">
+                            <div className="text-[#6D6D68] text-[10px] break-all bg-white p-1.5 rounded">
                               {JSON.stringify(ev.details)}
                             </div>
                           )}

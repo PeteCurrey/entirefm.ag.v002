@@ -82,10 +82,10 @@ export function WorkOrderDetailActions({ workOrderId, workOrderNumber, currentSt
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 pb-4 border-b border-brand-edge-dark">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 pb-4 border-b border-[#E8E8E5]">
         <Link
           href="/admin/operations/work-orders"
-          className="inline-flex items-center gap-1.5 text-xs text-brand-mist/60 hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-[#6D6D68] hover:text-white transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Back to Work Orders
@@ -93,8 +93,8 @@ export function WorkOrderDetailActions({ workOrderId, workOrderNumber, currentSt
 
         <div className="flex flex-wrap items-center gap-2.5">
           {/* Status Changer */}
-          <div className="flex items-center gap-1.5 bg-brand-carbon border border-brand-edge-dark px-2.5 py-1 rounded-lg">
-            <span className="text-[11px] text-brand-mist/50 uppercase tracking-wider font-medium">
+          <div className="flex items-center gap-1.5 bg-white border border-[#E8E8E5] px-2.5 py-1 rounded-lg">
+            <span className="text-[11px] text-[#9A9A95] uppercase tracking-wider font-medium">
               Status:
             </span>
             <select
@@ -143,13 +143,13 @@ export function WorkOrderDetailActions({ workOrderId, workOrderNumber, currentSt
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-medium text-white">Delete Work Order</h3>
+                <h3 className="text-sm font-medium text-[#111111]">Delete Work Order</h3>
                 <p className="text-xs text-zinc-400">{workOrderNumber}</p>
               </div>
             </div>
 
             <p className="text-xs text-zinc-300 leading-relaxed">
-              Are you sure you want to delete work order <span className="text-white font-medium">{workOrderNumber}</span>?
+              Are you sure you want to delete work order <span className="text-[#111111] font-medium">{workOrderNumber}</span>?
               This will permanently remove the record and unlink any related activities. This action cannot be undone.
             </p>
 

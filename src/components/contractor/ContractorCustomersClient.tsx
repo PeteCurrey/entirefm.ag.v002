@@ -246,8 +246,8 @@ export function ContractorCustomersClient({
               CONTRACTOR BUSINESS TOOLKIT &bull; PRIVATE CLIENTS &amp; JOBS
             </span>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Customer Directory &amp; Job Management</h1>
-          <p className="text-xs text-brand-mist/70">
+          <h1 className="text-2xl font-light text-[#111111] tracking-tight">Customer Directory &amp; Job Management</h1>
+          <p className="text-xs text-[#6D6D68]">
             Full private CRM for your independent customer directory, sites, trade jobs, and white-labelled documentation.
           </p>
         </div>
@@ -255,7 +255,7 @@ export function ContractorCustomersClient({
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setShowNewClientModal(true)}
-            className="px-3.5 py-2 rounded-xl border border-brand-edge-dark bg-brand-carbon/60 text-brand-mist text-xs hover:bg-brand-void hover:text-white transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl border border-[#E8E8E5] bg-white shadow-sm text-[#111111] text-xs hover:bg-[#FAFAF8] hover:text-white transition-all flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5" /> Add Customer
           </button>
@@ -272,14 +272,14 @@ export function ContractorCustomersClient({
       </div>
 
       {/* ─── SEARCH & VIEW TABS ─────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-edge-dark pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8E8E5] pb-3">
         <div className="flex gap-2 text-xs">
           <button
             onClick={() => setActiveTab('jobs')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'jobs'
-                ? 'border border-brand-electric text-white font-medium bg-brand-carbon/80 shadow-sm'
-                : 'text-brand-mist/60 hover:text-white bg-brand-carbon/30 border border-brand-edge-dark'
+                ? 'border border-brand-electric text-white font-medium bg-white shadow-sm'
+                : 'text-[#6D6D68] hover:text-white bg-white border border-[#E8E8E5]'
             }`}
           >
             <Briefcase className="w-3.5 h-3.5 text-brand-electric" /> Private Jobs ({jobs.length})
@@ -289,8 +289,8 @@ export function ContractorCustomersClient({
             onClick={() => setActiveTab('clients')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'clients'
-                ? 'border border-brand-electric text-white font-medium bg-brand-carbon/80 shadow-sm'
-                : 'text-brand-mist/60 hover:text-white bg-brand-carbon/30 border border-brand-edge-dark'
+                ? 'border border-brand-electric text-white font-medium bg-white shadow-sm'
+                : 'text-[#6D6D68] hover:text-white bg-white border border-[#E8E8E5]'
             }`}
           >
             <Users className="w-3.5 h-3.5 text-brand-electric" /> Customer Directory ({clients.length})
@@ -298,22 +298,22 @@ export function ContractorCustomersClient({
         </div>
 
         <div className="relative max-w-xs w-full">
-          <Search className="w-3.5 h-3.5 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-[#9A9A95] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={`Search ${activeTab === 'jobs' ? 'jobs' : 'customers'}...`}
-            className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-brand-carbon/80 border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-white border border-[#E8E8E5] text-white text-xs placeholder:text-[#9A9A95] focus:border-brand-electric focus:outline-none"
           />
         </div>
       </div>
 
       {/* ─── JOBS LIST VIEW ─────────────────────────────────────────────── */}
       {activeTab === 'jobs' && (
-        <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden shadow-xl">
+        <div className="rounded-2xl border border-[#E8E8E5] bg-white overflow-hidden shadow-xl">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-brand-edge-dark bg-brand-void/80 text-brand-mist/60 text-[11px] uppercase">
+            <thead className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[#6D6D68] text-[11px] uppercase">
               <tr>
                 <th className="px-5 py-3.5">Job Ref</th>
                 <th className="px-5 py-3.5">Title &amp; Trade</th>
@@ -324,10 +324,10 @@ export function ContractorCustomersClient({
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/30 text-brand-mist">
+            <tbody className="divide-y divide-[#E8E8E5] text-[#111111]">
               {filteredJobs.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-brand-mist/40 space-y-3">
+                  <td colSpan={7} className="px-6 py-12 text-center text-[#9A9A95] space-y-3">
                     <p>No independent jobs created yet. Track private client work with your own brand and rates.</p>
                     <button
                       onClick={() => setShowNewJobModal(true)}
@@ -339,14 +339,14 @@ export function ContractorCustomersClient({
                 </tr>
               ) : (
                 filteredJobs.map((job) => (
-                  <tr key={job.id} className="hover:bg-brand-void/30 transition-colors">
+                  <tr key={job.id} className="hover:bg-[#FAFAF8] transition-colors">
                     <td className="px-5 py-3.5 font-mono text-brand-electric-bright font-medium">{job.job_reference}</td>
                     <td className="px-5 py-3.5">
-                      <span className="text-white font-normal block">{job.title}</span>
-                      <span className="text-[10px] text-brand-mist/50">{job.trade}</span>
+                      <span className="text-[#111111] font-normal block">{job.title}</span>
+                      <span className="text-[10px] text-[#9A9A95]">{job.trade}</span>
                     </td>
                     <td className="px-5 py-3.5 text-white font-medium">{job.client_name || 'Direct Client'}</td>
-                    <td className="px-5 py-3.5 text-brand-mist/70">{job.site_address || '—'}</td>
+                    <td className="px-5 py-3.5 text-[#6D6D68]">{job.site_address || '—'}</td>
                     <td className="px-5 py-3.5 font-mono text-emerald-400">£{Number(job.total_price_gbp).toFixed(2)}</td>
                     <td className="px-5 py-3.5">
                       <span
@@ -381,7 +381,7 @@ export function ContractorCustomersClient({
       {activeTab === 'clients' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredClients.length === 0 ? (
-            <div className="col-span-3 p-12 text-center text-brand-mist/40 border border-brand-edge-dark rounded-2xl bg-brand-carbon/30 space-y-3">
+            <div className="col-span-3 p-12 text-center text-[#9A9A95] border border-[#E8E8E5] rounded-2xl bg-white space-y-3">
               <p>No private customers added yet. Add your clients to build job packs and generate branded documents.</p>
               <button
                 onClick={() => setShowNewClientModal(true)}
@@ -395,18 +395,18 @@ export function ContractorCustomersClient({
               <div
                 key={c.id}
                 onClick={() => openCustomerDetail(c)}
-                className="p-5 rounded-2xl border border-brand-edge-dark bg-brand-carbon/40 space-y-3 hover:border-brand-electric/60 hover:bg-brand-carbon/70 transition-all cursor-pointer group flex flex-col justify-between"
+                className="p-5 rounded-2xl border border-[#E8E8E5] bg-white shadow-sm space-y-3 hover:border-brand-electric/60 hover:bg-white transition-all cursor-pointer group flex flex-col justify-between"
               >
                 <div className="space-y-2">
                   <div className="flex items-start justify-between">
-                    <h3 className="text-sm font-medium text-white group-hover:text-brand-electric-bright transition-colors">
+                    <h3 className="text-sm font-medium text-[#111111] group-hover:text-brand-electric-bright transition-colors">
                       {c.client_name}
                     </h3>
                     <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">
                       Active
                     </span>
                   </div>
-                  <div className="space-y-1.5 text-xs text-brand-mist/70">
+                  <div className="space-y-1.5 text-xs text-[#6D6D68]">
                     {c.contact_name && (
                       <p className="flex items-center gap-1.5">
                         <Users className="w-3.5 h-3.5 text-brand-electric/70" /> {c.contact_name}
@@ -430,9 +430,9 @@ export function ContractorCustomersClient({
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-brand-edge-dark/50 flex items-center justify-between text-xs text-brand-mist/60 group-hover:text-white">
+                <div className="pt-3 border-t border-[#E8E8E5] flex items-center justify-between text-xs text-[#6D6D68] group-hover:text-[#111111]">
                   <span>View Customer Hub &rarr;</span>
-                  <ChevronRight className="w-4 h-4 text-brand-mist/40 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-4 h-4 text-[#9A9A95] group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </div>
             ))
@@ -442,16 +442,16 @@ export function ContractorCustomersClient({
 
       {/* ─── CUSTOMER DETAIL DRILL-DOWN MODAL (Customer -> Sites -> Jobs -> Docs -> History) ─── */}
       {selectedClient && (
-        <div className="fixed inset-0 bg-brand-void/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="max-w-3xl w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl shadow-2xl overflow-hidden my-8 space-y-0">
+        <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="max-w-3xl w-full bg-white border border-[#E8E8E5] rounded-2xl shadow-2xl overflow-hidden my-8 space-y-0">
             {/* Modal Header */}
-            <div className="p-6 border-b border-brand-edge-dark bg-brand-void/70 flex items-start justify-between">
+            <div className="p-6 border-b border-[#E8E8E5] bg-[#FAFAF8] flex items-start justify-between">
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold text-brand-electric-bright tracking-wider">
                   CUSTOMER HUB &bull; PRIVATE CRM
                 </span>
-                <h2 className="text-xl font-light text-white">{selectedClient.client_name}</h2>
-                <p className="text-xs text-brand-mist/60">
+                <h2 className="text-xl font-light text-[#111111]">{selectedClient.client_name}</h2>
+                <p className="text-xs text-[#6D6D68]">
                   {selectedClient.contact_name ? `${selectedClient.contact_name} · ` : ''}
                   {selectedClient.email ? `${selectedClient.email} · ` : ''}
                   {selectedClient.phone || ''}
@@ -459,7 +459,7 @@ export function ContractorCustomersClient({
               </div>
               <button
                 onClick={() => setSelectedClient(null)}
-                className="p-1.5 rounded-lg text-brand-mist/50 hover:text-white hover:bg-brand-void"
+                className="p-1.5 rounded-lg text-[#9A9A95] hover:text-white hover:bg-[#FAFAF8]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -480,50 +480,50 @@ export function ContractorCustomersClient({
                 </button>
                 <Link
                   href={`/contractor/templates?client_name=${encodeURIComponent(selectedClient.client_name)}&site_name=${encodeURIComponent(selectedClient.address_line1 || selectedClient.city || '')}&template_id=hs-rams`}
-                  className="px-3.5 py-1.5 rounded-xl border border-brand-edge-dark bg-brand-void text-white text-xs hover:bg-brand-void/80 transition-all flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] text-white text-xs hover:bg-[#FAFAF8] transition-all flex items-center gap-1.5"
                 >
                   <FileText className="w-3.5 h-3.5 text-brand-electric" /> New Branded Document
                 </Link>
               </div>
 
               {/* Sites / Address */}
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-void/50 p-4 space-y-2">
-                <h4 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-2">
+                <h4 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-brand-electric" /> Site &amp; Billing Location
                 </h4>
-                <p className="text-xs text-brand-mist/80">
+                <p className="text-xs text-[#6D6D68]">
                   {selectedClient.address_line1 || 'No specific street address registered.'}
                   {selectedClient.city ? `, ${selectedClient.city}` : ''}
                   {selectedClient.postcode ? ` (${selectedClient.postcode})` : ''}
                 </p>
                 {selectedClient.notes && (
-                  <p className="text-[11px] text-brand-mist/60 pt-1 border-t border-brand-edge-dark/30">
+                  <p className="text-[11px] text-[#6D6D68] pt-1 border-t border-[#E8E8E5]">
                     <strong>Notes:</strong> {selectedClient.notes}
                   </p>
                 )}
               </div>
 
               {/* Linked Independent Jobs */}
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-void/50 p-4 space-y-3">
-                <h4 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h4 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
                   <Briefcase className="w-3.5 h-3.5 text-brand-electric" /> Linked Private Jobs ({clientDetailJobs.length})
                 </h4>
 
                 {clientDetailJobs.length === 0 ? (
-                  <p className="text-xs text-brand-mist/40 py-2">No jobs created for this customer yet.</p>
+                  <p className="text-xs text-[#9A9A95] py-2">No jobs created for this customer yet.</p>
                 ) : (
                   <div className="space-y-2">
                     {clientDetailJobs.map((j) => (
                       <div
                         key={j.id}
-                        className="p-3 rounded-lg border border-brand-edge-dark bg-brand-void flex items-center justify-between text-xs"
+                        className="p-3 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between text-xs"
                       >
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-mono text-brand-electric-bright font-medium">{j.job_reference}</span>
-                            <span className="text-white font-medium">{j.title}</span>
+                            <span className="text-[#111111] font-medium">{j.title}</span>
                           </div>
-                          <span className="text-[10px] text-brand-mist/50 block">
+                          <span className="text-[10px] text-[#9A9A95] block">
                             {j.trade} · £{Number(j.total_price_gbp).toFixed(2)}
                             {j.scheduled_date ? ` · Scheduled: ${j.scheduled_date}` : ''}
                           </span>
@@ -544,24 +544,24 @@ export function ContractorCustomersClient({
               </div>
 
               {/* Linked Branded Documents */}
-              <div className="rounded-xl border border-brand-edge-dark bg-brand-void/50 p-4 space-y-3">
-                <h4 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <div className="rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h4 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-brand-electric" /> Generated Business Documents ({clientDetailDocs.length})
                 </h4>
 
                 {clientDetailDocs.length === 0 ? (
-                  <p className="text-xs text-brand-mist/40 py-2">No documents generated for this customer yet.</p>
+                  <p className="text-xs text-[#9A9A95] py-2">No documents generated for this customer yet.</p>
                 ) : (
                   <div className="space-y-2">
                     {clientDetailDocs.map((d) => (
                       <div
                         key={d.id}
-                        className="p-3 rounded-lg border border-brand-edge-dark bg-brand-void flex items-center justify-between text-xs"
+                        className="p-3 rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between text-xs"
                       >
                         <div>
                           <span className="font-mono text-brand-electric-bright font-medium">{d.document_number}</span>
-                          <span className="text-white font-medium block">{d.title}</span>
-                          <span className="text-[10px] text-brand-mist/50">v{d.version} · {d.category}</span>
+                          <span className="text-[#111111] font-medium block">{d.title}</span>
+                          <span className="text-[10px] text-[#9A9A95]">v{d.version} · {d.category}</span>
                         </div>
                         <a
                           href={`/api/contractor/documents/${d.id}/print`}
@@ -579,10 +579,10 @@ export function ContractorCustomersClient({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 border-t border-brand-edge-dark bg-brand-void/70 flex justify-end">
+            <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex justify-end">
               <button
                 onClick={() => setSelectedClient(null)}
-                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+                className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
               >
                 Close Customer Hub
               </button>
@@ -593,91 +593,91 @@ export function ContractorCustomersClient({
 
       {/* ─── NEW CUSTOMER MODAL ─────────────────────────────────────────── */}
       {showNewClientModal && (
-        <div className="fixed inset-0 bg-brand-void/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <form onSubmit={handleCreateClient} className="max-w-md w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 space-y-4 shadow-2xl">
-            <h3 className="text-base font-light text-white">Add Independent Customer</h3>
+        <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <form onSubmit={handleCreateClient} className="max-w-md w-full bg-white border border-[#E8E8E5] rounded-2xl p-6 space-y-4 shadow-2xl">
+            <h3 className="text-base font-light text-[#111111]">Add Independent Customer</h3>
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-brand-mist/60 block mb-1">Company / Customer Name *</label>
+                <label className="text-[#6D6D68] block mb-1">Company / Customer Name *</label>
                 <input
                   type="text"
                   required
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   placeholder="e.g. Manchester Logistics Hub Ltd"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
               <div>
-                <label className="text-brand-mist/60 block mb-1">Primary Contact Name</label>
+                <label className="text-[#6D6D68] block mb-1">Primary Contact Name</label>
                 <input
                   type="text"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                   placeholder="e.g. Sarah Jenkins"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Phone</label>
+                  <label className="text-[#6D6D68] block mb-1">Phone</label>
                   <input
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="0161..."
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Email</label>
+                  <label className="text-[#6D6D68] block mb-1">Email</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="sarah@hub.co.uk"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-brand-mist/60 block mb-1">Site / Street Address</label>
+                <label className="text-[#6D6D68] block mb-1">Site / Street Address</label>
                 <input
                   type="text"
                   value={addressLine}
                   onChange={(e) => setAddressLine(e.target.value)}
                   placeholder="e.g. Unit 4, Gateway Logistics Park"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">City</label>
+                  <label className="text-[#6D6D68] block mb-1">City</label>
                   <input
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="e.g. Manchester"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Postcode</label>
+                  <label className="text-[#6D6D68] block mb-1">Postcode</label>
                   <input
                     type="text"
                     value={postcode}
                     onChange={(e) => setPostcode(e.target.value)}
                     placeholder="M17 1AB"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-brand-edge-dark/50">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#E8E8E5]">
               <button
                 type="button"
                 onClick={() => setShowNewClientModal(false)}
-                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+                className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
               >
                 Cancel
               </button>
@@ -695,27 +695,27 @@ export function ContractorCustomersClient({
 
       {/* ─── NEW INDEPENDENT JOB MODAL ──────────────────────────────────── */}
       {showNewJobModal && (
-        <div className="fixed inset-0 bg-brand-void/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <form onSubmit={handleCreateJob} className="max-w-md w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 space-y-4 shadow-2xl">
-            <h3 className="text-base font-light text-white">Create Independent Job</h3>
+        <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <form onSubmit={handleCreateJob} className="max-w-md w-full bg-white border border-[#E8E8E5] rounded-2xl p-6 space-y-4 shadow-2xl">
+            <h3 className="text-base font-light text-[#111111]">Create Independent Job</h3>
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-brand-mist/60 block mb-1">Job Title *</label>
+                <label className="text-[#6D6D68] block mb-1">Job Title *</label>
                 <input
                   type="text"
                   required
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
                   placeholder="e.g. Distribution Board Upgrade & DB Testing"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
               <div>
-                <label className="text-brand-mist/60 block mb-1">Customer</label>
+                <label className="text-[#6D6D68] block mb-1">Customer</label>
                 <select
                   value={selectedClientId || (selectedClient ? selectedClient.id : '')}
                   onChange={(e) => setSelectedClientId(e.target.value)}
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 >
                   <option value="">Select Customer (Optional)...</option>
                   {clients.map((c) => (
@@ -727,11 +727,11 @@ export function ContractorCustomersClient({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Trade</label>
+                  <label className="text-[#6D6D68] block mb-1">Trade</label>
                   <select
                     value={trade}
                     onChange={(e) => setTrade(e.target.value)}
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   >
                     <option value="ELECTRICAL">Electrical</option>
                     <option value="HVAC">HVAC / Gas</option>
@@ -741,41 +741,41 @@ export function ContractorCustomersClient({
                   </select>
                 </div>
                 <div>
-                  <label className="text-brand-mist/60 block mb-1">Price (£ Net)</label>
+                  <label className="text-[#6D6D68] block mb-1">Price (£ Net)</label>
                   <input
                     type="number"
                     value={totalPrice}
                     onChange={(e) => setTotalPrice(e.target.value)}
                     placeholder="450.00"
-                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-brand-mist/60 block mb-1">Site Address</label>
+                <label className="text-[#6D6D68] block mb-1">Site Address</label>
                 <input
                   type="text"
                   value={siteAddress}
                   onChange={(e) => setSiteAddress(e.target.value)}
                   placeholder="e.g. Unit 4, Trafford Park, M17 1AB"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
               <div>
-                <label className="text-brand-mist/60 block mb-1">Scheduled Date</label>
+                <label className="text-[#6D6D68] block mb-1">Scheduled Date</label>
                 <input
                   type="date"
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-brand-edge-dark/50">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#E8E8E5]">
               <button
                 type="button"
                 onClick={() => setShowNewJobModal(false)}
-                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+                className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
               >
                 Cancel
               </button>
@@ -793,28 +793,28 @@ export function ContractorCustomersClient({
 
       {/* ─── QUICK SIGN-OFF MODAL ────────────────────────────────────────── */}
       {signOffJobId && (
-        <div className="fixed inset-0 bg-brand-void/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="max-w-sm w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 space-y-4 shadow-2xl">
-            <h3 className="text-base font-light text-white">Customer Job Sign-Off</h3>
-            <p className="text-xs text-brand-mist/70">
+        <div className="fixed inset-0 bg-[#FAFAF8] backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="max-w-sm w-full bg-white border border-[#E8E8E5] rounded-2xl p-6 space-y-4 shadow-2xl">
+            <h3 className="text-base font-light text-[#111111]">Customer Job Sign-Off</h3>
+            <p className="text-xs text-[#6D6D68]">
               Register completion and customer satisfaction for this independent job.
             </p>
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-brand-mist/60 block mb-1">Customer Signatory Name</label>
+                <label className="text-[#6D6D68] block mb-1">Customer Signatory Name</label>
                 <input
                   type="text"
                   value={customerSignerName}
                   onChange={(e) => setCustomerSignerName(e.target.value)}
                   placeholder="e.g. John Doe (Site Manager)"
-                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-[#FAFAF8] border border-[#E8E8E5] px-3 py-2 text-white"
                 />
               </div>
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setSignOffJobId(null)}
-                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+                className="px-4 py-2 rounded-xl border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
               >
                 Cancel
               </button>

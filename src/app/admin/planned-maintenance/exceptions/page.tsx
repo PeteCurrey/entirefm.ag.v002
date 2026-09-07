@@ -29,31 +29,31 @@ export default async function PPMExceptionsPage() {
 
       {/* Missed Occurrences Section */}
       <div>
-        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
+        <h2 className="mb-4 font-medium text-[11px] uppercase tracking-widest text-[#9A9A95]">
           Missed Maintenance Occurrences
         </h2>
         {missedOccurrences.length > 0 ? (
-          <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+          <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
             <table className="w-full border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                   <th className="px-5 py-3">Occurrence Code</th>
                   <th className="px-5 py-3">Planned Date</th>
                   <th className="px-5 py-3">Window End</th>
                   <th className="px-5 py-3">Missed Reason</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {missedOccurrences.map((o) => (
-                  <tr key={o.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                  <tr key={o.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                     <td className="px-5 py-4 font-normal text-[11px] text-white">{o.occurrence_code}</td>
-                    <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
+                    <td className="px-5 py-4 font-normal text-[11px] text-[#6D6D68]">
                       {new Date(o.planned_date).toLocaleDateString('en-GB')}
                     </td>
                     <td className="px-5 py-4 font-normal text-[11px] text-red-400">
                       {new Date(o.window_end_date).toLocaleDateString('en-GB')}
                     </td>
-                    <td className="px-5 py-4 text-brand-mist/70">
+                    <td className="px-5 py-4 text-[#6D6D68]">
                       {o.missed_reason || 'Window passed without completion'}
                     </td>
                   </tr>
@@ -71,7 +71,7 @@ export default async function PPMExceptionsPage() {
       {/* Pending Asset Candidates Section */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-medium text-[11px] uppercase tracking-widest text-brand-mist/40">
+          <h2 className="font-medium text-[11px] uppercase tracking-widest text-[#9A9A95]">
             Pending Asset Candidates
           </h2>
           {pendingCandidates.length > 0 && (
@@ -85,8 +85,8 @@ export default async function PPMExceptionsPage() {
         </div>
 
         {pendingCandidates.length > 0 ? (
-          <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 text-[12.5px] text-brand-mist/70">
-            There are <span className="font-light text-white">{pendingCandidates.length}</span> unverified asset candidate(s) awaiting review. These must be verified before maintenance requirements can be assigned.
+          <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-5 text-[12.5px] text-[#6D6D68]">
+            There are <span className="font-light text-[#111111]">{pendingCandidates.length}</span> unverified asset candidate(s) awaiting review. These must be verified before maintenance requirements can be assigned.
           </div>
         ) : (
           <EmptyState

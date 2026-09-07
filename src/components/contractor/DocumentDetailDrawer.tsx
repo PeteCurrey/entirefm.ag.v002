@@ -30,20 +30,20 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
   const isExpiring = document.daysRemaining !== null && document.daysRemaining !== undefined && document.daysRemaining >= 0 && document.daysRemaining <= 30;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-brand-void/70 backdrop-blur-xs flex justify-end animate-in fade-in duration-150">
-      <div className="w-full max-w-xl bg-brand-carbon border-l border-brand-edge-dark h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-[#FAFAF8] backdrop-blur-xs flex justify-end animate-in fade-in duration-150">
+      <div className="w-full max-w-xl bg-white border-l border-[#E8E8E5] h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-200">
         {/* Drawer Header */}
-        <div className="flex items-start justify-between p-6 border-b border-brand-edge-dark bg-brand-void/50">
+        <div className="flex items-start justify-between p-6 border-b border-[#E8E8E5] bg-[#FAFAF8]">
           <div className="space-y-1">
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               {document.category} &bull; VAULT ASSET
             </span>
-            <h2 className="text-xl font-light text-white leading-snug">{document.documentTitle}</h2>
-            <p className="text-xs font-normal text-brand-mist/50">{document.fileName}</p>
+            <h2 className="text-xl font-light text-[#111111] leading-snug">{document.documentTitle}</h2>
+            <p className="text-xs font-normal text-[#9A9A95]">{document.fileName}</p>
           </div>
           <button
             onClick={onClose}
-            className="text-brand-mist/60 hover:text-white p-1.5 rounded-lg hover:bg-brand-edge-dark transition-colors"
+            className="text-[#6D6D68] hover:text-white p-1.5 rounded-lg hover:bg-[#F5F5F3] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -52,9 +52,9 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
         {/* Drawer Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Status Banner */}
-          <div className="p-4 rounded-xl border border-brand-edge-dark bg-brand-void/60 flex items-center justify-between gap-4">
+          <div className="p-4 rounded-xl border border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between gap-4">
             <div>
-              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-mist/50 block">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-[#9A9A95] block">
                 Verification State
               </span>
               <div className="flex items-center gap-2 mt-1">
@@ -65,13 +65,13 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
                       : document.verificationState === 'REJECTED'
                       ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
                       : document.verificationState === 'SUPERSEDED'
-                      ? 'bg-brand-edge-dark text-brand-mist border-brand-edge-dark'
+                      ? 'bg-[#F5F5F3] text-[#111111] border-[#E8E8E5]'
                       : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
                   }`}
                 >
                   {document.verificationState}
                 </span>
-                <span className="text-xs text-brand-mist/60">
+                <span className="text-xs text-[#6D6D68]">
                   Version {document.version} {document.isCurrent ? '(Active)' : '(Archived)'}
                 </span>
               </div>
@@ -80,7 +80,7 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
             {/* Expiry Pill */}
             {document.expiryDate && (
               <div className="text-right">
-                <span className="text-[10px] font-medium uppercase tracking-wider text-brand-mist/50 block">Expiry</span>
+                <span className="text-[10px] font-medium uppercase tracking-wider text-[#9A9A95] block">Expiry</span>
                 <span
                   className={`text-xs font-medium block mt-1 ${
                     isExpired
@@ -108,68 +108,68 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
 
           {/* Structured Document Attributes */}
           <div className="space-y-3">
-            <h3 className="text-xs font-normal uppercase tracking-wider text-brand-mist/70 border-b border-brand-edge-dark pb-2">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-[#6D6D68] border-b border-[#E8E8E5] pb-2">
               Document Specifications
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <span className="text-brand-mist/50 block">Insurer / Authority</span>
-                <span className="text-white font-normal mt-0.5 block">{document.insurerOrIssuer || '—'}</span>
+                <span className="text-[#9A9A95] block">Insurer / Authority</span>
+                <span className="text-[#111111] font-normal mt-0.5 block">{document.insurerOrIssuer || '—'}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Policy / Reg Number</span>
-                <span className="text-white font-normal mt-0.5 block">{document.policyNumber || '—'}</span>
+                <span className="text-[#9A9A95] block">Policy / Reg Number</span>
+                <span className="text-[#111111] font-normal mt-0.5 block">{document.policyNumber || '—'}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Cover Limit</span>
+                <span className="text-[#9A9A95] block">Cover Limit</span>
                 <span className="text-brand-electric-bright font-normal mt-0.5 block">
                   {document.coverLimitGbp ? `£${document.coverLimitGbp.toLocaleString()}` : '—'}
                 </span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Issue Date</span>
-                <span className="text-white font-normal mt-0.5 block">{document.issueDate || '—'}</span>
+                <span className="text-[#9A9A95] block">Issue Date</span>
+                <span className="text-[#111111] font-normal mt-0.5 block">{document.issueDate || '—'}</span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">File Size</span>
-                <span className="text-brand-mist font-normal mt-0.5 block">
+                <span className="text-[#9A9A95] block">File Size</span>
+                <span className="text-[#111111] font-normal mt-0.5 block">
                   {(document.fileSizeBytes / 1024).toFixed(1)} KB
                 </span>
               </div>
               <div>
-                <span className="text-brand-mist/50 block">Uploaded By</span>
-                <span className="text-white mt-0.5 block">{document.uploadedByName || 'Administrator'}</span>
+                <span className="text-[#9A9A95] block">Uploaded By</span>
+                <span className="text-[#111111] mt-0.5 block">{document.uploadedByName || 'Administrator'}</span>
               </div>
             </div>
           </div>
 
           {/* Version History & Replacement Details */}
           <div className="space-y-3">
-            <h3 className="text-xs font-normal uppercase tracking-wider text-brand-mist/70 border-b border-brand-edge-dark pb-2 flex items-center justify-between">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-[#6D6D68] border-b border-[#E8E8E5] pb-2 flex items-center justify-between">
               <span>Lifecycle &amp; Audit Trail</span>
-              <History className="w-3.5 h-3.5 text-brand-mist/50" />
+              <History className="w-3.5 h-3.5 text-[#9A9A95]" />
             </h3>
             <div className="space-y-2 text-xs">
-              <div className="flex items-center justify-between py-1.5 border-b border-brand-edge-dark/40">
-                <span className="text-brand-mist/60">Uploaded to Vault</span>
-                <span className="text-brand-mist font-normal">
+              <div className="flex items-center justify-between py-1.5 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">Uploaded to Vault</span>
+                <span className="text-[#111111] font-normal">
                   {new Date(document.uploadedAt).toLocaleDateString('en-GB')}
                 </span>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-brand-edge-dark/40">
-                <span className="text-brand-mist/60">Lifecycle State</span>
-                <span className="text-brand-mist font-normal">{document.lifecycleState}</span>
+              <div className="flex items-center justify-between py-1.5 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">Lifecycle State</span>
+                <span className="text-[#111111] font-normal">{document.lifecycleState}</span>
               </div>
               <div className="flex items-center justify-between py-1.5">
-                <span className="text-brand-mist/60">Linked Requirement</span>
-                <span className="text-white font-normal text-[11px]">{document.linkedRequirementCode || 'GENERAL_VAULT'}</span>
+                <span className="text-[#6D6D68]">Linked Requirement</span>
+                <span className="text-[#111111] font-normal text-[11px]">{document.linkedRequirementCode || 'GENERAL_VAULT'}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Drawer Footer Actions */}
-        <div className="p-6 border-t border-brand-edge-dark bg-brand-void/50 flex items-center gap-3">
+        <div className="p-6 border-t border-[#E8E8E5] bg-[#FAFAF8] flex items-center gap-3">
           <button
             onClick={() => onReplaceRequest(document)}
             className="flex-1 px-4 py-2.5 rounded-lg bg-brand-electric text-white text-xs font-medium hover:bg-brand-electric/85 transition-colors flex items-center justify-center gap-2 shadow-md shadow-brand-electric/20"
@@ -181,7 +181,7 @@ export function DocumentDetailDrawer({ document, onClose, onReplaceRequest }: Pr
             href={document.fileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-lg border border-brand-edge-dark text-white text-xs font-normal hover:bg-brand-edge-dark transition-colors flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-lg border border-[#E8E8E5] text-white text-xs font-normal hover:bg-[#F5F5F3] transition-colors flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5" />
             Download

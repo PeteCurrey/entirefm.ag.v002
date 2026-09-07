@@ -94,32 +94,32 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E8E5] bg-[#FAFAF8]">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               WORKFORCE ONBOARDING
             </span>
-            <h2 className="text-base font-light text-white">Add Field Operative / Engineer</h2>
+            <h2 className="text-base font-light text-[#111111]">Add Field Operative / Engineer</h2>
           </div>
-          <button onClick={onClose} className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark">
+          <button onClick={onClose} className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Step Indicator */}
-        <div className="flex items-center justify-between px-6 py-2.5 bg-brand-void/30 border-b border-brand-edge-dark/50 text-[11px] font-normal">
-          <span className={step === 1 ? 'text-brand-electric font-semibold' : 'text-brand-mist/40'}>
+        <div className="flex items-center justify-between px-6 py-2.5 bg-[#FAFAF8] border-b border-[#E8E8E5] text-[11px] font-normal">
+          <span className={step === 1 ? 'text-brand-electric font-semibold' : 'text-[#9A9A95]'}>
             1. Identity &amp; Role
           </span>
-          <span className="text-brand-mist/30">&rarr;</span>
-          <span className={step === 2 ? 'text-brand-electric font-semibold' : 'text-brand-mist/40'}>
+          <span className="text-[#9A9A95]">&rarr;</span>
+          <span className={step === 2 ? 'text-brand-electric font-semibold' : 'text-[#9A9A95]'}>
             2. Trades &amp; Scopes
           </span>
-          <span className="text-brand-mist/30">&rarr;</span>
-          <span className={step === 3 ? 'text-brand-electric font-semibold' : 'text-brand-mist/40'}>
+          <span className="text-[#9A9A95]">&rarr;</span>
+          <span className={step === 3 ? 'text-brand-electric font-semibold' : 'text-[#9A9A95]'}>
             3. Competencies
           </span>
         </div>
@@ -138,70 +138,70 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">First Name *</label>
+                  <label className="text-[#6D6D68] block mb-1">First Name *</label>
                   <input
                     type="text"
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="e.g. David"
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">Last Name *</label>
+                  <label className="text-[#6D6D68] block mb-1">Last Name *</label>
                   <input
                     type="text"
                     required
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="e.g. Miller"
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">Work Email Address *</label>
+                  <label className="text-[#6D6D68] block mb-1">Work Email Address *</label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="david.m@apex-engineering.co.uk"
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">Work Mobile Telephone</label>
+                  <label className="text-[#6D6D68] block mb-1">Work Mobile Telephone</label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+44 7700 900123"
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">Job Title</label>
+                  <label className="text-[#6D6D68] block mb-1">Job Title</label>
                   <input
                     type="text"
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                     placeholder="Senior HVAC Engineer"
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans text-xs focus:border-brand-electric focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-brand-mist/70 block mb-1">Employment Relationship</label>
+                  <label className="text-[#6D6D68] block mb-1">Employment Relationship</label>
                   <select
                     value={employmentStatus}
                     onChange={(e) => setEmploymentStatus(e.target.value as EmploymentStatus)}
-                    className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white text-xs font-normal focus:border-brand-electric focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white text-xs font-normal focus:border-brand-electric focus:outline-none"
                   >
                     <option value="EMPLOYED">Direct PAYE Employee</option>
                     <option value="DIRECTOR">Company Director / Partner</option>
@@ -218,9 +218,9 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                   id="isSupervisor"
                   checked={isSupervisor}
                   onChange={(e) => setIsSupervisor(e.target.checked)}
-                  className="rounded border-brand-edge-dark bg-brand-void text-brand-electric focus:ring-0"
+                  className="rounded border-[#E8E8E5] bg-[#FAFAF8] text-brand-electric focus:ring-0"
                 />
-                <label htmlFor="isSupervisor" className="text-brand-mist text-xs font-sans">
+                <label htmlFor="isSupervisor" className="text-[#111111] text-xs font-sans">
                   Designate as Field Lead / Qualified Supervisor
                 </label>
               </div>
@@ -231,7 +231,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <label className="text-brand-mist/70 block mb-2 font-sans">Approved Engineering Trades</label>
+                <label className="text-[#6D6D68] block mb-2 font-sans">Approved Engineering Trades</label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     'Mechanical & Electrical',
@@ -254,7 +254,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                         className={`p-2.5 rounded-lg border text-left flex items-center justify-between transition-colors font-sans text-xs ${
                           isSelected
                             ? 'bg-brand-electric/10 border-brand-electric text-white'
-                            : 'bg-brand-void border-brand-edge-dark text-brand-mist/70 hover:bg-brand-edge-dark/30'
+                            : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68] hover:bg-[#F5F5F3]'
                         }`}
                       >
                         <span>{trade}</span>
@@ -266,13 +266,13 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
               </div>
 
               <div>
-                <label className="text-brand-mist/70 block mb-1 font-sans">Home / Dispatch Postcode Area</label>
+                <label className="text-[#6D6D68] block mb-1 font-sans">Home / Dispatch Postcode Area</label>
                 <input
                   type="text"
                   value={homePostcode}
                   onChange={(e) => setHomePostcode(e.target.value)}
                   placeholder="e.g. M1 4BT"
-                  className="w-full px-3 py-2 rounded-lg bg-brand-void border border-brand-edge-dark text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-white font-normal text-xs focus:border-brand-electric focus:outline-none"
                 />
               </div>
             </div>
@@ -281,7 +281,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
           {/* STEP 3: Competencies & Accreditations */}
           {step === 3 && (
             <div className="space-y-4">
-              <label className="text-brand-mist/70 block mb-2 font-sans">
+              <label className="text-[#6D6D68] block mb-2 font-sans">
                 Select Active Verified Competencies
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto">
@@ -295,12 +295,12 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
                       className={`p-2.5 rounded-lg border text-left flex items-start justify-between transition-colors font-sans text-xs ${
                         isSelected
                           ? 'bg-brand-electric/10 border-brand-electric text-white'
-                          : 'bg-brand-void border-brand-edge-dark text-brand-mist/70 hover:bg-brand-edge-dark/30'
+                          : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68] hover:bg-[#F5F5F3]'
                       }`}
                     >
                       <div>
-                        <span className="font-medium text-white block">{comp.title}</span>
-                        <span className="text-[10px] text-brand-mist/50 font-normal block mt-0.5">{comp.trade}</span>
+                        <span className="font-medium text-[#111111] block">{comp.title}</span>
+                        <span className="text-[10px] text-[#9A9A95] font-normal block mt-0.5">{comp.trade}</span>
                       </div>
                       {isSelected && <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />}
                     </button>
@@ -312,11 +312,11 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-brand-edge-dark bg-brand-void/50 flex items-center justify-between">
+        <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between">
           {step > 1 ? (
             <button
               onClick={() => setStep(step - 1)}
-              className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+              className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
             >
               Back
             </button>
@@ -327,7 +327,7 @@ export function AddOperativeModal({ isOpen, onClose, onSuccess, contractorOrgId 
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+              className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
             >
               Cancel
             </button>

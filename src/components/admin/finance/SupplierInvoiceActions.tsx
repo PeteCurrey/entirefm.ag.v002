@@ -129,7 +129,7 @@ export function SupplierInvoiceActions({
       )}
 
       {isHighValue && (
-        <div className="text-[11px] text-brand-mist/70 font-mono">
+        <div className="text-[11px] text-[#6D6D68] font-mono">
           High-Value Invoice (&gt;£5,000): Segregation of duties enforced — PO creator cannot approve.
         </div>
       )}
@@ -178,12 +178,12 @@ export function SupplierInvoiceActions({
 
       {showDisputeModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl max-w-md w-full p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-              <h3 className="text-sm font-semibold text-white">Dispute Supplier Invoice</h3>
+          <div className="bg-white border border-[#E8E8E5] rounded-xl max-w-md w-full p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
+              <h3 className="text-sm font-semibold text-[#111111]">Dispute Supplier Invoice</h3>
               <button
                 onClick={() => setShowDisputeModal(false)}
-                className="text-brand-mist/60 hover:text-white text-xs"
+                className="text-[#6D6D68] hover:text-white text-xs"
               >
                 Cancel
               </button>
@@ -191,26 +191,26 @@ export function SupplierInvoiceActions({
 
             <form onSubmit={handleDispute} className="space-y-4">
               <div>
-                <label className="block text-xs text-brand-mist mb-1">Dispute Reason *</label>
+                <label className="block text-xs text-[#111111] mb-1">Dispute Reason *</label>
                 <textarea
                   value={disputeReason}
                   onChange={(e) => setDisputeReason(e.target.value)}
                   rows={3}
                   placeholder="e.g. Quantity variance: billed for 5 hours but site manager confirmed 3 hours attendance."
-                  className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-xs text-white placeholder-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                  className="w-full bg-[#FAFAF8] border border-[#E8E8E5] rounded-lg p-2.5 text-xs text-white placeholder-brand-mist/40 focus:outline-none focus:border-brand-electric"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-brand-mist mb-1">Disputed Amount (£ GBP, optional)</label>
+                <label className="block text-xs text-[#111111] mb-1">Disputed Amount (£ GBP, optional)</label>
                 <input
                   type="number"
                   step="0.01"
                   value={disputeAmount}
                   onChange={(e) => setDisputeAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-xs text-white placeholder-brand-mist/40 focus:outline-none focus:border-brand-electric"
+                  className="w-full bg-[#FAFAF8] border border-[#E8E8E5] rounded-lg p-2.5 text-xs text-white placeholder-brand-mist/40 focus:outline-none focus:border-brand-electric"
                 />
               </div>
 
@@ -218,7 +218,7 @@ export function SupplierInvoiceActions({
                 <button
                   type="button"
                   onClick={() => setShowDisputeModal(false)}
-                  className="px-3 py-1.5 text-xs text-brand-mist hover:text-white"
+                  className="px-3 py-1.5 text-xs text-[#111111] hover:text-white"
                 >
                   Cancel
                 </button>

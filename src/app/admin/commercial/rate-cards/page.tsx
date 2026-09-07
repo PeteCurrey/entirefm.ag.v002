@@ -20,7 +20,7 @@ export default async function RateCardsPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/policies"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-white px-3 py-1.5 text-[12px] font-normal text-[#6D6D68] border border-[#E8E8E5] hover:text-white"
             >
               Commercial Policies →
             </Link>
@@ -30,42 +30,42 @@ export default async function RateCardsPage() {
 
       {/* Rate Hierarchy Overview */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
-          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 1: Contract-Specific</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">Tier 1: Contract-Specific</div>
           <div className="mt-1 text-[14px] font-normal text-brand-electric-bright">Overrides all rates</div>
-          <p className="mt-1 text-[11px] text-brand-mist/50">Bound to specific client contracts</p>
+          <p className="mt-1 text-[11px] text-[#9A9A95]">Bound to specific client contracts</p>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
-          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 2: Client Standard</div>
-          <div className="mt-1 text-[14px] font-normal text-white">Client-wide agreement</div>
-          <p className="mt-1 text-[11px] text-brand-mist/50">Applies across all client estates</p>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">Tier 2: Client Standard</div>
+          <div className="mt-1 text-[14px] font-normal text-[#111111]">Client-wide agreement</div>
+          <p className="mt-1 text-[11px] text-[#9A9A95]">Applies across all client estates</p>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
-          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 3: Provider Agreed</div>
-          <div className="mt-1 text-[14px] font-normal text-white">Subcontractor rates</div>
-          <p className="mt-1 text-[11px] text-brand-mist/50">Pre-negotiated supplier prices</p>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">Tier 3: Provider Agreed</div>
+          <div className="mt-1 text-[14px] font-normal text-[#111111]">Subcontractor rates</div>
+          <p className="mt-1 text-[11px] text-[#9A9A95]">Pre-negotiated supplier prices</p>
         </div>
 
-        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
-          <div className="font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 4: Framework Default</div>
+        <div className="rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4">
+          <div className="font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">Tier 4: Framework Default</div>
           <div className="mt-1 text-[14px] font-normal text-emerald-400">Baseline fall-back</div>
-          <p className="mt-1 text-[11px] text-brand-mist/50">Default standard EntireFM schedule</p>
+          <p className="mt-1 text-[11px] text-[#9A9A95]">Default standard EntireFM schedule</p>
         </div>
       </div>
 
       {/* Rate Cards Table */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-[12px] uppercase tracking-wider text-brand-mist/60">Configured Rate Schedules</h3>
+          <h3 className="font-medium text-[12px] uppercase tracking-wider text-[#6D6D68]">Configured Rate Schedules</h3>
         </div>
 
         {rateCards && rateCards.length > 0 ? (
-          <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+          <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
             <table className="w-full min-w-[60rem] border-collapse text-left text-[12.5px]">
               <thead>
-                <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+                <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                   <th className="px-5 py-3">Schedule Name</th>
                   <th className="px-5 py-3">Scope Level</th>
                   <th className="px-5 py-3">Version</th>
@@ -75,11 +75,11 @@ export default async function RateCardsPage() {
                   <th className="px-5 py-3 text-right">Items Count</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-edge-dark/60">
+              <tbody className="divide-y divide-[#E8E8E5]">
                 {rateCards.map((rc) => {
                   const cardItems = (items || []).filter((i) => i.rate_card_id === rc.id);
                   return (
-                    <tr key={rc.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                    <tr key={rc.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                       <td className="px-5 py-4 text-[12px] text-white font-normal">
                         {rc.name}
                       </td>
@@ -94,10 +94,10 @@ export default async function RateCardsPage() {
                           <span className="text-emerald-400">Framework</span>
                         )}
                       </td>
-                      <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
+                      <td className="px-5 py-4 font-normal text-[11px] text-[#6D6D68]">
                         v{rc.version || 1}
                       </td>
-                      <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
+                      <td className="px-5 py-4 font-normal text-[11px] text-[#6D6D68]">
                         {rc.effective_from ? new Date(rc.effective_from).toLocaleDateString('en-GB') : '—'}
                       </td>
                       <td className="px-5 py-4 font-normal text-[11px] text-white">
@@ -108,7 +108,7 @@ export default async function RateCardsPage() {
                           {rc.status}
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-right font-normal text-[12px] text-brand-mist/80">
+                      <td className="px-5 py-4 text-right font-normal text-[12px] text-[#6D6D68]">
                         {cardItems.length} lines
                       </td>
                     </tr>

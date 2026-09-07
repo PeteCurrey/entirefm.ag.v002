@@ -12,6 +12,7 @@ import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { dbQuery } from '@/server/db/client';
 import { ContractorHeader } from '@/components/contractor/ContractorHeader';
+import '../admin/cafm.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Contractor Portal — EntireFM' },
@@ -117,7 +118,7 @@ export default async function ContractorLayout({ children }: { children: React.R
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#111111] font-sans selection:bg-[#EA580C] selection:text-white flex flex-col">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#111111] font-sans selection:bg-[#EA580C] selection:text-white flex flex-col cafm-app">
       <ContractorHeader
         user={user}
         contractorOrg={contractorOrg}

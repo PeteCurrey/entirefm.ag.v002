@@ -11,7 +11,7 @@ const OCC_STATUS_COLOURS: Record<string, string> = {
   SATISFIED: 'bg-emerald-900/40 text-emerald-300',
   MISSED: 'bg-red-900/40 text-red-300',
   NO_ACCESS: 'bg-orange-900/40 text-orange-300',
-  CANCELLED: 'bg-brand-edge-dark text-brand-mist/40',
+  CANCELLED: 'bg-[#F5F5F3] text-[#9A9A95]',
 };
 
 export default async function PPMSchedulePage() {
@@ -26,10 +26,10 @@ export default async function PPMSchedulePage() {
       />
 
       {occurrences.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Occurrence Code</th>
                 <th className="px-5 py-3">Planned Date</th>
                 <th className="px-5 py-3">Execution Window</th>
@@ -38,29 +38,29 @@ export default async function PPMSchedulePage() {
                 <th className="px-5 py-3">Satisfied At</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {occurrences.map((o) => (
-                <tr key={o.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={o.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4 font-normal text-[11px] text-white">{o.occurrence_code}</td>
                   <td className="px-5 py-4 font-normal text-[11px] text-white">
                     {new Date(o.planned_date).toLocaleDateString('en-GB')}
                   </td>
-                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/60">
+                  <td className="px-5 py-4 font-normal text-[11px] text-[#6D6D68]">
                     {new Date(o.window_start_date).toLocaleDateString('en-GB')} → {new Date(o.window_end_date).toLocaleDateString('en-GB')}
                   </td>
                   <td className="px-5 py-4">
-                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${OCC_STATUS_COLOURS[o.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
+                    <span className={`rounded px-2 py-0.5 font-normal text-[10px]${OCC_STATUS_COLOURS[o.status] ?? 'bg-[#F5F5F3] text-[#6D6D68]'}`}>
                       {o.status}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/70">
+                  <td className="px-5 py-4 font-normal text-[11px] text-[#6D6D68]">
                     {o.work_order_id ? (
                       <span className="text-purple-400">WO Linked ({o.work_order_id})</span>
                     ) : (
-                      <span className="text-brand-mist/40">—</span>
+                      <span className="text-[#9A9A95]">—</span>
                     )}
                   </td>
-                  <td className="px-5 py-4 font-normal text-[11px] text-brand-mist/50">
+                  <td className="px-5 py-4 font-normal text-[11px] text-[#9A9A95]">
                     {o.satisfied_at ? new Date(o.satisfied_at).toLocaleDateString('en-GB') : '—'}
                   </td>
                 </tr>

@@ -51,8 +51,8 @@ export default async function ClientSitesPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Sites &amp; Properties</h1>
-          <p className="mt-1 text-[13px] text-brand-mist/60">
+          <h1 className="text-2xl font-light text-[#111111] tracking-tight">Sites &amp; Properties</h1>
+          <p className="mt-1 text-[13px] text-[#6D6D68]">
             Authorised properties managed by EntireFM for {session.orgName}. Select a property to view its Site360 operational record.
           </p>
         </div>
@@ -66,10 +66,10 @@ export default async function ClientSitesPage() {
       </div>
 
       {sites.length === 0 ? (
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 px-6 py-16 text-center">
-          <Building2 className="w-10 h-10 text-brand-mist/30 mx-auto mb-3" />
-          <h2 className="text-base font-normal text-white">No properties assigned</h2>
-          <p className="text-sm text-brand-mist/60 mt-1 max-w-md mx-auto">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm px-6 py-16 text-center">
+          <Building2 className="w-10 h-10 text-[#9A9A95] mx-auto mb-3" />
+          <h2 className="text-base font-normal text-[#111111]">No properties assigned</h2>
+          <p className="text-sm text-[#6D6D68] mt-1 max-w-md mx-auto">
             No properties have been assigned to your account yet. When EntireFM begins managing your sites, they will appear here.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default async function ClientSitesPage() {
               <Link
                 key={site.id}
                 href={`/clients/sites/${site.id}`}
-                className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-5 hover:border-brand-electric/40 transition-all group flex flex-col justify-between"
+                className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 hover:border-brand-electric/40 transition-all group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2">
@@ -92,16 +92,16 @@ export default async function ClientSitesPage() {
                       {site.status || 'ACTIVE'}
                     </span>
                   </div>
-                  <h3 className="text-base font-light text-white mt-1 group-hover:text-brand-electric-bright transition-colors">
+                  <h3 className="text-base font-light text-[#111111] mt-1 group-hover:text-brand-electric-bright transition-colors">
                     {site.name}
                   </h3>
-                  <p className="text-xs text-brand-mist/60 mt-1 flex items-center gap-1.5">
-                    <MapPin className="w-3 h-3 text-brand-mist/40 shrink-0" />
+                  <p className="text-xs text-[#6D6D68] mt-1 flex items-center gap-1.5">
+                    <MapPin className="w-3 h-3 text-[#9A9A95] shrink-0" />
                     {[site.address_line1, site.city, site.postcode].filter(Boolean).join(', ')}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-brand-edge-dark/40 flex items-center justify-between">
+                <div className="mt-5 pt-4 border-t border-[#E8E8E5] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {openJobs > 0 ? (
                       <span className="rounded border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-400">
@@ -113,7 +113,7 @@ export default async function ClientSitesPage() {
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-brand-mist/60 group-hover:text-white inline-flex items-center gap-1 font-light transition-colors">
+                  <span className="text-xs text-[#6D6D68] group-hover:text-[#111111] inline-flex items-center gap-1 font-light transition-colors">
                     Site360 View <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>

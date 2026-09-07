@@ -19,8 +19,8 @@ export default async function AdminCompletionReviewPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extralight text-white tracking-tight">Service Completion Review Desk</h1>
-        <p className="text-brand-mist text-sm mt-1">
+        <h1 className="text-2xl font-extralight text-[#111111] tracking-tight">Service Completion Review Desk</h1>
+        <p className="text-[#111111] text-sm mt-1">
           Review field service reports, verify evidence, check signatory declarations, and authorise operational closure.
         </p>
       </div>
@@ -36,21 +36,21 @@ export default async function AdminCompletionReviewPage() {
           {pendingReports.map(r => (
             <div
               key={r.id}
-              className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-4"
+              className="bg-white border border-[#E8E8E5] rounded-xl p-5 space-y-4"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-edge-dark pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8E8E5] pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-base font-light text-white">{r.report_number}</span>
+                  <span className="text-base font-light text-[#111111]">{r.report_number}</span>
                   <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded font-light">
                     AWAITING REVIEW
                   </span>
                   {r.work_order?.reference && (
-                    <span className="text-xs text-brand-mist font-normal">
+                    <span className="text-xs text-[#111111] font-normal">
                       WO: {r.work_order.reference}
                     </span>
                   )}
                 </div>
-                <div className="text-xs text-brand-mist flex items-center gap-1 font-normal">
+                <div className="text-xs text-[#111111] flex items-center gap-1 font-normal">
                   <Clock className="w-3.5 h-3.5" />
                   {r.submitted_at ? new Date(r.submitted_at).toLocaleString('en-GB') : 'Recently'}
                 </div>
@@ -58,18 +58,18 @@ export default async function AdminCompletionReviewPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-xs text-brand-mist block">Location</span>
-                  <span className="text-white font-normal flex items-center gap-1 mt-0.5">
-                    <Building className="w-3.5 h-3.5 text-brand-mist" />
+                  <span className="text-xs text-[#111111] block">Location</span>
+                  <span className="text-[#111111] font-normal flex items-center gap-1 mt-0.5">
+                    <Building className="w-3.5 h-3.5 text-[#111111]" />
                     {r.site?.name || 'Site'} {r.site?.town ? `(${r.site.town})` : ''}
                   </span>
                 </div>
 
                 {r.signatory_name && (
                   <div>
-                    <span className="text-xs text-brand-mist block">Site Signatory</span>
-                    <span className="text-white font-normal flex items-center gap-1 mt-0.5">
-                      <User className="w-3.5 h-3.5 text-brand-mist" />
+                    <span className="text-xs text-[#111111] block">Site Signatory</span>
+                    <span className="text-[#111111] font-normal flex items-center gap-1 mt-0.5">
+                      <User className="w-3.5 h-3.5 text-[#111111]" />
                       {r.signatory_name} {r.signatory_organisation ? `(${r.signatory_organisation})` : ''}
                     </span>
                   </div>
@@ -77,11 +77,11 @@ export default async function AdminCompletionReviewPage() {
               </div>
 
               {r.ai_draft_narrative && (
-                <div className="bg-brand-void rounded-lg p-3 border border-brand-edge-dark">
-                  <span className="text-xs text-brand-mist uppercase tracking-wider font-light block mb-1">
+                <div className="bg-[#FAFAF8] rounded-lg p-3 border border-[#E8E8E5]">
+                  <span className="text-xs text-[#111111] uppercase tracking-wider font-light block mb-1">
                     Field Summary
                   </span>
-                  <p className="text-xs text-white/90 leading-relaxed font-normal">
+                  <p className="text-xs text-[#111111]/90 leading-relaxed font-normal">
                     {r.ai_draft_narrative}
                   </p>
                 </div>
@@ -91,7 +91,7 @@ export default async function AdminCompletionReviewPage() {
                 <button className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white font-normal text-xs rounded-lg transition-colors">
                   Accept & Authorise Closure
                 </button>
-                <button className="px-4 py-2 bg-brand-void border border-red-800 text-red-400 hover:bg-red-950/40 font-normal text-xs rounded-lg transition-colors">
+                <button className="px-4 py-2 bg-[#FAFAF8] border border-red-800 text-red-400 hover:bg-red-950/40 font-normal text-xs rounded-lg transition-colors">
                   Reject with Feedback
                 </button>
               </div>

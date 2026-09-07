@@ -42,14 +42,14 @@ export function DomainSummaryGrid({ metrics, session }: Props) {
         const href = DOMAIN_LINKS[domain] || '/admin';
         return (
           <a key={domain} href={href}
-            className="block rounded-lg border border-brand-edge-dark/50 bg-brand-carbon/30 hover:bg-brand-carbon/50 hover:border-brand-edge-dark transition-colors p-4 group">
-            <div className="text-[9px] font-medium text-brand-mist/35 uppercase tracking-widest mb-2">
+            className="block rounded-lg border border-[#E8E8E5] bg-white shadow-sm hover:bg-white hover:border-[#E8E8E5] transition-colors p-4 group">
+            <div className="text-[9px] font-medium text-[#111111]/35 uppercase tracking-widest mb-2">
               {DOMAIN_LABELS[domain] || domain}
             </div>
-            <div className="text-[13px] font-light text-white group-hover:text-brand-orange transition-colors">
+            <div className="text-[13px] font-light text-[#111111] group-hover:text-brand-orange transition-colors">
               {accessible.length} metric{accessible.length === 1 ? '' : 's'}
             </div>
-            <div className="text-[10px] text-brand-mist/40 mt-1">
+            <div className="text-[10px] text-[#9A9A95] mt-1">
               {accessible.length < domainMetrics.length
                 ? `${domainMetrics.length - accessible.length} restricted`
                 : 'Full access'}

@@ -19,7 +19,7 @@ export default async function ReplacementReviewsPage() {
         action={
           <a
             href="/admin/estate/assets/intelligence"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+            className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-[#6D6D68] hover:bg-white hover:text-white"
           >
             ← Intelligence Dashboard
           </a>
@@ -32,10 +32,10 @@ export default async function ReplacementReviewsPage() {
           description="No active assets currently meet the multi-signal threshold for replacement review (age exceeding design life, repeat failures, poor/critical condition, high reactive cost)."
         />
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Asset</th>
                 <th className="px-5 py-3">Site Location</th>
                 <th className="px-5 py-3">Condition / Criticality</th>
@@ -45,29 +45,29 @@ export default async function ReplacementReviewsPage() {
                 <th className="px-5 py-3">Review Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {candidates.map((c) => (
-                <tr key={c.asset_id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={c.asset_id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4">
-                    <div className="font-normal text-[11px] text-white">{c.asset_reference}</div>
-                    <div className="text-[11.5px] text-brand-mist/60">{c.asset_name}</div>
+                    <div className="font-normal text-[11px] text-[#111111]">{c.asset_reference}</div>
+                    <div className="text-[11.5px] text-[#6D6D68]">{c.asset_name}</div>
                   </td>
-                  <td className="px-5 py-4 text-[12px] text-brand-mist/70">{c.site_name}</td>
+                  <td className="px-5 py-4 text-[12px] text-[#6D6D68]">{c.site_name}</td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1.5">
                       <span className={`rounded px-1.5 py-0.5 text-[10px] font-normal ${
                         c.condition === 'CRITICAL' || c.condition === 'POOR'
                           ? 'bg-rose-500/20 text-rose-300'
-                          : 'bg-brand-edge-dark text-brand-mist/70'
+                          : 'bg-[#F5F5F3] text-[#6D6D68]'
                       }`}>
                         {c.condition}
                       </span>
-                      <span className="rounded bg-brand-void px-1.5 py-0.5 font-normal text-[10px] text-brand-mist/50">
+                      <span className="rounded bg-[#FAFAF8] px-1.5 py-0.5 font-normal text-[10px] text-[#9A9A95]">
                         {c.criticality}
                       </span>
                     </div>
                   </td>
-                  <td className="px-5 py-4 font-normal text-[11.5px] text-brand-mist/70">
+                  <td className="px-5 py-4 font-normal text-[11.5px] text-[#6D6D68]">
                     {c.age_years !== 'NO_DATA' ? `${c.age_years} yrs` : 'NO_DATA'} / {c.expected_life_years !== 'NO_DATA' ? `${c.expected_life_years} yrs` : 'NO_DATA'}
                   </td>
                   <td className="px-5 py-4">
@@ -79,7 +79,7 @@ export default async function ReplacementReviewsPage() {
                       ))}
                     </div>
                   </td>
-                  <td className="px-5 py-4 font-normal text-[11.5px] text-brand-mist/70">
+                  <td className="px-5 py-4 font-normal text-[11.5px] text-[#6D6D68]">
                     {c.replacement_estimate_gbp ? `£${c.replacement_estimate_gbp.toFixed(0)}` : 'NOT_CONFIGURED'}
                     {c.estimate_freshness === 'STALE' && (
                       <span className="ml-1 rounded bg-rose-500/20 px-1 py-0.5 text-[9px] text-rose-300">STALE</span>
@@ -89,7 +89,7 @@ export default async function ReplacementReviewsPage() {
                     <span className={`rounded px-2 py-0.5 text-[10.5px] font-normal ${
                       c.has_open_review
                         ? 'bg-brand-electric/20 text-brand-electric'
-                        : 'bg-brand-edge-dark text-brand-mist/60'
+                        : 'bg-[#F5F5F3] text-[#6D6D68]'
                     }`}>
                       {c.has_open_review ? 'REVIEW_OPEN' : 'ELIGIBLE'}
                     </span>

@@ -42,20 +42,20 @@ export function ContractorPerformanceClient({ metrics }: Props) {
               CONTRACTOR OPERATING ANALYTICS
             </span>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-tight">Business &amp; Network Performance</h1>
-          <p className="text-xs text-brand-mist/70">
+          <h1 className="text-2xl font-light text-[#111111] tracking-tight">Business &amp; Network Performance</h1>
+          <p className="text-xs text-[#6D6D68]">
             Real-time operating benchmarks for {metrics.contractorName}.
           </p>
         </div>
 
         {/* Tab Toggle */}
-        <div className="flex rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-1 text-xs">
+        <div className="flex rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-1 text-xs">
           <button
             onClick={() => setActiveTab('my_business')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium transition-all ${
               activeTab === 'my_business'
                 ? 'bg-brand-electric text-white shadow-md shadow-brand-electric/20'
-                : 'text-brand-mist/60 hover:text-white'
+                : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             <Briefcase className="w-3.5 h-3.5" /> My Business Performance
@@ -65,7 +65,7 @@ export function ContractorPerformanceClient({ metrics }: Props) {
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium transition-all ${
               activeTab === 'network'
                 ? 'bg-brand-electric text-white shadow-md shadow-brand-electric/20'
-                : 'text-brand-mist/60 hover:text-white'
+                : 'text-[#6D6D68] hover:text-white'
             }`}
           >
             <Award className="w-3.5 h-3.5" /> EntireFM Network KPIs
@@ -78,50 +78,50 @@ export function ContractorPerformanceClient({ metrics }: Props) {
         <div className="space-y-6">
           {/* Scorecard */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Independent Jobs</span>
-              <p className="text-2xl font-light text-white">{metrics.myBusiness.totalIndependentJobs}</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Independent Jobs</span>
+              <p className="text-2xl font-light text-[#111111]">{metrics.myBusiness.totalIndependentJobs}</p>
+              <span className="text-[10.5px] text-[#9A9A95] block">
                 {metrics.myBusiness.completedIndependentJobs} Completed &bull; {metrics.myBusiness.activeIndependentJobs} Active
               </span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Private Revenue</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Private Revenue</span>
               <p className="text-2xl font-light text-emerald-400">£{Math.round(metrics.myBusiness.totalRevenueGbp)}</p>
               <span className="text-[10.5px] text-emerald-400/60 block">Direct customer billing</span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Sign-Off Rate</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Sign-Off Rate</span>
               <p className="text-2xl font-light text-brand-electric-bright">{metrics.myBusiness.customerSignOffRatePct}%</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">Customer satisfaction</span>
+              <span className="text-[10.5px] text-[#9A9A95] block">Customer satisfaction</span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Operative Utilisation</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Operative Utilisation</span>
               <p className="text-2xl font-light text-cyan-400">{metrics.myBusiness.engineerUtilisationPct}%</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">Quote Conv: {metrics.myBusiness.quoteConversionRatePct}%</span>
+              <span className="text-[10.5px] text-[#9A9A95] block">Quote Conv: {metrics.myBusiness.quoteConversionRatePct}%</span>
             </div>
           </div>
 
           {/* Trade Revenue Distribution */}
-          <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-4">
-            <h3 className="text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+          <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+            <h3 className="text-xs font-semibold text-[#111111] uppercase tracking-wider flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-brand-electric" /> Revenue Breakdown by Trade Service
             </h3>
 
             {metrics.myBusiness.tradeDistribution.length === 0 ? (
-              <p className="text-xs text-brand-mist/40 py-4">No private trade revenue recorded yet.</p>
+              <p className="text-xs text-[#9A9A95] py-4">No private trade revenue recorded yet.</p>
             ) : (
               <div className="space-y-3">
                 {metrics.myBusiness.tradeDistribution.map((t) => (
                   <div key={t.trade} className="space-y-1 text-xs">
-                    <div className="flex items-center justify-between text-brand-mist/80">
-                      <span className="font-medium text-white">{t.trade}</span>
+                    <div className="flex items-center justify-between text-[#6D6D68]">
+                      <span className="font-medium text-[#111111]">{t.trade}</span>
                       <span className="font-mono text-emerald-400">£{t.revenueGbp.toFixed(2)} ({t.count} jobs)</span>
                     </div>
-                    <div className="h-2 w-full bg-brand-void rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-[#FAFAF8] rounded-full overflow-hidden">
                       <div
                         style={{
                           width: `${metrics.myBusiness.totalRevenueGbp > 0 ? (t.revenueGbp / metrics.myBusiness.totalRevenueGbp) * 100 : 0}%`,
@@ -141,30 +141,30 @@ export function ContractorPerformanceClient({ metrics }: Props) {
       {activeTab === 'network' && (
         <div className="space-y-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Partner Tier</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Partner Tier</span>
               <p className="text-2xl font-light text-brand-electric-bright">Tier 1 Premium</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">Network rank</span>
+              <span className="text-[10.5px] text-[#9A9A95] block">Network rank</span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">SLA Adherence</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">SLA Adherence</span>
               <p className="text-2xl font-light text-emerald-400">{metrics.network.slaAdherenceRatePct}%</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">First-Time Fix: {metrics.network.firstTimeFixRatePct}%</span>
+              <span className="text-[10.5px] text-[#9A9A95] block">First-Time Fix: {metrics.network.firstTimeFixRatePct}%</span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Acceptance Rate</span>
-              <p className="text-2xl font-light text-white">{metrics.network.acceptanceRatePct}%</p>
-              <span className="text-[10.5px] text-brand-mist/40 block">{metrics.network.totalAssignmentsAccepted} Accepted</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Acceptance Rate</span>
+              <p className="text-2xl font-light text-[#111111]">{metrics.network.acceptanceRatePct}%</p>
+              <span className="text-[10.5px] text-[#9A9A95] block">{metrics.network.totalAssignmentsAccepted} Accepted</span>
             </div>
 
-            <div className="rounded-2xl border border-brand-edge-dark bg-brand-carbon/60 p-4 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-mist/50">Network Rating</span>
+            <div className="rounded-2xl border border-[#E8E8E5] bg-white shadow-sm p-4 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#9A9A95]">Network Rating</span>
               <p className="text-2xl font-light text-amber-400 flex items-center gap-1">
                 <Star className="w-5 h-5 fill-amber-400 text-amber-400" /> {metrics.network.performanceRating}
               </p>
-              <span className="text-[10.5px] text-brand-mist/40 block">Out of 5.0</span>
+              <span className="text-[10.5px] text-[#9A9A95] block">Out of 5.0</span>
             </div>
           </div>
         </div>

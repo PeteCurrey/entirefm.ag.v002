@@ -7,12 +7,12 @@ import { EmptyState } from '@/components/admin/EmptyState';
 export const dynamic = 'force-dynamic';
 
 const STATUS_STYLES: Record<string, string> = {
-  DRAFT: 'bg-brand-mist/10 text-brand-mist/50 border border-brand-edge-dark',
+  DRAFT: 'bg-brand-mist/10 text-[#9A9A95] border border-[#E8E8E5]',
   VALIDATING: 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
   SHADOW: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
   ASSIST: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
   APPROVED: 'bg-green-500/10 text-green-400 border border-green-500/20',
-  RETIRED: 'bg-brand-mist/10 text-brand-mist/40 border border-brand-edge-dark',
+  RETIRED: 'bg-brand-mist/10 text-[#9A9A95] border border-[#E8E8E5]',
   REJECTED: 'bg-red-500/10 text-red-400 border border-red-500/20',
 };
 
@@ -61,7 +61,7 @@ export default async function ModelsPage() {
           <div className="flex items-center gap-3">
             <a
               href="/admin/estate/assets/reliability"
-              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+              className="rounded border border-[#E8E8E5] bg-white px-3.5 py-1.5 text-[12.5px] font-normal text-[#6D6D68] hover:bg-white hover:text-white"
             >
               Reliability
             </a>
@@ -97,16 +97,16 @@ export default async function ModelsPage() {
       {/* Status summary */}
       {models.length > 0 && (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-            <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Total Models</p>
-            <p className="mt-1 text-2xl font-semibold text-white">{models.length}</p>
+          <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+            <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Total Models</p>
+            <p className="mt-1 text-2xl font-semibold text-[#111111]">{models.length}</p>
           </div>
           <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
-            <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Shadow</p>
+            <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Shadow</p>
             <p className="mt-1 text-2xl font-semibold text-yellow-400">{shadowModels.length}</p>
           </div>
           <div className="rounded-lg border border-orange-500/20 bg-orange-500/5 p-4">
-            <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Assist</p>
+            <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Assist</p>
             <p className="mt-1 text-2xl font-semibold text-orange-400">{assistModels.length}</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default async function ModelsPage() {
       {/* Model list */}
       {models.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-brand-mist/70">Registered Models</h3>
+          <h3 className="text-sm font-medium text-[#6D6D68]">Registered Models</h3>
           {models.map((model) => {
             const versions = modelVersions[model.id] ?? [];
             const latestVersion = versions[0];
@@ -130,19 +130,19 @@ export default async function ModelsPage() {
             return (
               <div
                 key={model.id}
-                className="rounded-lg border border-brand-edge-dark bg-brand-surface px-4 py-4 space-y-3"
+                className="rounded-lg border border-[#E8E8E5] bg-brand-surface px-4 py-4 space-y-3"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-white">{model.name}</p>
+                    <p className="text-sm font-semibold text-[#111111]">{model.name}</p>
                     {model.description && (
-                      <p className="text-xs text-brand-mist/60">{model.description}</p>
+                      <p className="text-xs text-[#6D6D68]">{model.description}</p>
                     )}
-                    <div className="flex flex-wrap gap-2 text-[10px] text-brand-mist/40">
-                      {model.asset_class && <span>Asset class: <span className="text-brand-mist/60">{model.asset_class}</span></span>}
-                      <span>Target: <span className="text-brand-mist/60">{model.target}</span></span>
-                      {model.algorithm && <span>Algorithm: <span className="text-brand-mist/60">{model.algorithm}</span></span>}
-                      {model.owner && <span>Owner: <span className="text-brand-mist/60">{model.owner}</span></span>}
+                    <div className="flex flex-wrap gap-2 text-[10px] text-[#9A9A95]">
+                      {model.asset_class && <span>Asset class: <span className="text-[#6D6D68]">{model.asset_class}</span></span>}
+                      <span>Target: <span className="text-[#6D6D68]">{model.target}</span></span>
+                      {model.algorithm && <span>Algorithm: <span className="text-[#6D6D68]">{model.algorithm}</span></span>}
+                      {model.owner && <span>Owner: <span className="text-[#6D6D68]">{model.owner}</span></span>}
                     </div>
                   </div>
                   <div>
@@ -154,11 +154,11 @@ export default async function ModelsPage() {
 
                 {/* Version history */}
                 {versions.length > 0 && (
-                  <div className="border-t border-brand-edge-dark pt-3">
-                    <p className="text-[10px] uppercase tracking-wider text-brand-mist/40 mb-2">Version History</p>
+                  <div className="border-t border-[#E8E8E5] pt-3">
+                    <p className="text-[10px] uppercase tracking-wider text-[#9A9A95] mb-2">Version History</p>
                     <div className="space-y-1">
                       {versions.slice(0, 5).map((v) => (
-                        <div key={v.id} className="flex items-center gap-3 text-xs text-brand-mist/60">
+                        <div key={v.id} className="flex items-center gap-3 text-xs text-[#6D6D68]">
                           <span className="font-normal text-[10px]">v{v.version}</span>
                           <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase ${STATUS_STYLES[v.status] ?? ''}`}>
                             {v.status}
@@ -172,10 +172,10 @@ export default async function ModelsPage() {
                             </>
                           )}
                           {v.shadow_started_at && (
-                            <span className="text-brand-mist/30">Shadow since {new Date(v.shadow_started_at).toLocaleDateString('en-GB')}</span>
+                            <span className="text-[#9A9A95]">Shadow since {new Date(v.shadow_started_at).toLocaleDateString('en-GB')}</span>
                           )}
                           {v.assist_started_at && (
-                            <span className="text-brand-mist/30">Assist since {new Date(v.assist_started_at).toLocaleDateString('en-GB')}</span>
+                            <span className="text-[#9A9A95]">Assist since {new Date(v.assist_started_at).toLocaleDateString('en-GB')}</span>
                           )}
                         </div>
                       ))}

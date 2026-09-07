@@ -121,28 +121,28 @@ export function AssignOperativeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-void/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAF8] backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white border border-[#E8E8E5] rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge-dark bg-brand-void/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E8E5] bg-[#FAFAF8]">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               COMPETENCY-VALIDATED DISPATCH
             </span>
-            <h2 className="text-base font-light text-white">
+            <h2 className="text-base font-light text-[#111111]">
               Assign Qualified Engineer &bull; {workOrderReq.workOrderNumber || 'Work Order'}
             </h2>
           </div>
-          <button onClick={onClose} className="text-brand-mist/60 hover:text-white p-1 rounded-lg hover:bg-brand-edge-dark">
+          <button onClick={onClose} className="text-[#6D6D68] hover:text-white p-1 rounded-lg hover:bg-[#F5F5F3]">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Requirements Strip */}
-        <div className="px-6 py-3 bg-brand-void/40 border-b border-brand-edge-dark/50 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="px-6 py-3 bg-[#FAFAF8] border-b border-[#E8E8E5] flex flex-wrap items-center justify-between gap-2 text-xs">
           <div>
-            <span className="text-white font-normal block">{workOrderReq.title}</span>
-            <span className="text-brand-mist/50 text-[11px] font-normal">
+            <span className="text-[#111111] font-normal block">{workOrderReq.title}</span>
+            <span className="text-[#9A9A95] text-[11px] font-normal">
               Required Trade: <strong className="text-brand-electric">{workOrderReq.trade}</strong>
             </span>
           </div>
@@ -163,7 +163,7 @@ export function AssignOperativeModal({
           )}
 
           {loading ? (
-            <div className="py-12 text-center text-brand-mist/50">
+            <div className="py-12 text-center text-[#9A9A95]">
               Evaluating operative competencies and compliance gates...
             </div>
           ) : (
@@ -175,7 +175,7 @@ export function AssignOperativeModal({
                 </span>
 
                 {eligibleList.length === 0 ? (
-                  <div className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark text-brand-mist/50 font-sans text-xs">
+                  <div className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] text-[#9A9A95] font-sans text-xs">
                     No fully eligible operatives found for this work scope.
                   </div>
                 ) : (
@@ -189,23 +189,23 @@ export function AssignOperativeModal({
                           className={`p-3.5 rounded-lg border cursor-pointer transition-colors flex items-center justify-between gap-3 ${
                             isSelected
                               ? 'bg-brand-electric/10 border-brand-electric text-white'
-                              : 'bg-brand-void border-brand-edge-dark text-brand-mist hover:border-brand-edge-dark/80'
+                              : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#111111] hover:border-[#E8E8E5]'
                           }`}
                         >
                           <div className="space-y-0.5">
                             <div className="flex items-center gap-2">
-                              <span className="font-semibold text-white font-sans text-sm">{op.fullName}</span>
+                              <span className="font-semibold text-[#111111] font-sans text-sm">{op.fullName}</span>
                               <span className="px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9.5px]">
                                 {evaluation.status}
                               </span>
                             </div>
-                            <span className="text-brand-mist/50 text-[11px] block">
+                            <span className="text-[#9A9A95] text-[11px] block">
                               {op.jobTitle} &bull; {op.trades.join(', ')}
                             </span>
                           </div>
 
                           <CheckCircle2
-                            className={`w-5 h-5 ${isSelected ? 'text-brand-electric' : 'text-brand-mist/30'}`}
+                            className={`w-5 h-5 ${isSelected ? 'text-brand-electric' : 'text-[#9A9A95]'}`}
                           />
                         </div>
                       );
@@ -216,7 +216,7 @@ export function AssignOperativeModal({
 
               {/* 2. Action Required / Ineligible Operatives */}
               {ineligibleList.length > 0 && (
-                <div className="space-y-2 pt-3 border-t border-brand-edge-dark/50">
+                <div className="space-y-2 pt-3 border-t border-[#E8E8E5]">
                   <span className="text-rose-400 uppercase text-[10.5px] font-bold tracking-wider block">
                     Action Required / Ineligible ({ineligibleList.length})
                   </span>
@@ -231,12 +231,12 @@ export function AssignOperativeModal({
                           className={`p-3.5 rounded-lg border cursor-pointer transition-colors space-y-2 ${
                             isSelected
                               ? 'bg-rose-950/20 border-rose-500/40 text-white'
-                              : 'bg-brand-void/40 border-brand-edge-dark/60 text-brand-mist/70'
+                              : 'bg-[#FAFAF8] border-[#E8E8E5] text-[#6D6D68]'
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span className="font-semibold text-white font-sans text-sm">{op.fullName}</span>
+                              <span className="font-semibold text-[#111111] font-sans text-sm">{op.fullName}</span>
                               <span className="px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[9.5px]">
                                 {evaluation.blockLevel}
                               </span>
@@ -276,7 +276,7 @@ export function AssignOperativeModal({
                     value={overrideReason}
                     onChange={(e) => setOverrideReason(e.target.value)}
                     placeholder="e.g. Operative attending under direct level 3 supervisor supervision with verified site induction..."
-                    className="w-full p-2.5 rounded bg-brand-void border border-amber-500/40 text-white font-sans text-xs focus:outline-none focus:border-amber-400"
+                    className="w-full p-2.5 rounded bg-[#FAFAF8] border border-amber-500/40 text-white font-sans text-xs focus:outline-none focus:border-amber-400"
                   />
                 </div>
               )}
@@ -285,10 +285,10 @@ export function AssignOperativeModal({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-brand-edge-dark bg-brand-void/50 flex items-center justify-between">
+        <div className="p-4 border-t border-[#E8E8E5] bg-[#FAFAF8] flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+            className="px-4 py-2 rounded-lg border border-[#E8E8E5] text-xs text-[#111111] hover:text-white"
           >
             Cancel
           </button>

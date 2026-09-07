@@ -51,36 +51,36 @@ export default async function TelemetryPage() {
         <div className="space-y-6">
           {/* Coverage Summary */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Total Sources</p>
-              <p className="mt-1 text-2xl font-semibold text-white">{coverage.total_sources}</p>
+            <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Total Sources</p>
+              <p className="mt-1 text-2xl font-semibold text-[#111111]">{coverage.total_sources}</p>
             </div>
             <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Live</p>
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Live</p>
               <p className="mt-1 text-2xl font-semibold text-green-400">{coverage.live_sources}</p>
             </div>
             <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Interface Only</p>
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Interface Only</p>
               <p className="mt-1 text-2xl font-semibold text-yellow-400">{coverage.interface_only_sources}</p>
             </div>
             <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Degraded / Failed</p>
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Degraded / Failed</p>
               <p className="mt-1 text-2xl font-semibold text-red-400">{coverage.degraded_or_failed_sources}</p>
             </div>
-            <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Assets with Telemetry</p>
-              <p className="mt-1 text-2xl font-semibold text-white">{coverage.assets_with_any_telemetry}</p>
+            <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Assets with Telemetry</p>
+              <p className="mt-1 text-2xl font-semibold text-[#111111]">{coverage.assets_with_any_telemetry}</p>
             </div>
-            <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Observations (24h)</p>
-              <p className="mt-1 text-2xl font-semibold text-white">{coverage.total_observations_24h.toLocaleString()}</p>
+            <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Observations (24h)</p>
+              <p className="mt-1 text-2xl font-semibold text-[#111111]">{coverage.total_observations_24h.toLocaleString()}</p>
             </div>
-            <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Not Configured</p>
-              <p className="mt-1 text-2xl font-semibold text-brand-mist/70">{coverage.not_configured_sources}</p>
+            <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Not Configured</p>
+              <p className="mt-1 text-2xl font-semibold text-[#6D6D68]">{coverage.not_configured_sources}</p>
             </div>
-            <div className="rounded-lg border border-brand-edge-dark bg-brand-surface p-4">
-              <p className="text-[11px] uppercase tracking-wider text-brand-mist/50">Data Status</p>
+            <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface p-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#9A9A95]">Data Status</p>
               <p className={`mt-1 text-sm font-semibold uppercase tracking-wider ${
                 coverage.data_status === 'ACTIVE' ? 'text-green-400' :
                 coverage.data_status === 'PARTIAL' ? 'text-yellow-400' : 'text-red-400'
@@ -94,9 +94,9 @@ export default async function TelemetryPage() {
             </div>
           )}
 
-          <div className="rounded-lg border border-brand-edge-dark bg-brand-surface px-4 py-4">
-            <h3 className="text-sm font-medium text-white mb-2">Governance Note</h3>
-            <p className="text-xs text-brand-mist/60 leading-relaxed">
+          <div className="rounded-lg border border-[#E8E8E5] bg-brand-surface px-4 py-4">
+            <h3 className="text-sm font-medium text-[#111111] mb-2">Governance Note</h3>
+            <p className="text-xs text-[#6D6D68] leading-relaxed">
               Telemetry data is used exclusively for deterministic anomaly detection and reliability signal generation.
               No synthetic or fake observations are ever injected at runtime.
               All anomalies include structured evidence — no mystery scores.

@@ -22,10 +22,10 @@ export default async function ContractorsPage() {
       />
 
       {providers.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40">
+        <div className="overflow-x-auto rounded-lg border border-[#E8E8E5] bg-white shadow-sm">
           <table className="w-full min-w-[64rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark font-medium text-[10.5px] uppercase tracking-wider text-brand-mist/40">
+              <tr className="border-b border-[#E8E8E5] font-medium text-[10.5px] uppercase tracking-wider text-[#9A9A95]">
                 <th className="px-5 py-3">Contractor</th>
                 <th className="px-5 py-3">Primary Trade</th>
                 <th className="px-5 py-3">Vetting / Tier</th>
@@ -33,12 +33,12 @@ export default async function ContractorsPage() {
                 <th className="px-5 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {providers.map((p) => (
-                <tr key={p.id} className="text-brand-mist/80 hover:bg-brand-void/40">
+                <tr key={p.id} className="text-[#6D6D68] hover:bg-[#FAFAF8]">
                   <td className="px-5 py-4">
-                    <div className="font-light text-white">{p.organisation?.name}</div>
-                    <div className="font-normal text-[11px] text-brand-mist/50">
+                    <div className="font-light text-[#111111]">{p.organisation?.name}</div>
+                    <div className="font-normal text-[11px] text-[#9A9A95]">
                       {p.organisation?.code}
                     </div>
                   </td>
@@ -46,8 +46,8 @@ export default async function ContractorsPage() {
                     {p.primary_trade || 'Multi-discipline'}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-normal text-[11px] text-white">{p.tier}</div>
-                    <div className="text-[11px] text-brand-mist/50">Vetting: {p.vetting_status}</div>
+                    <div className="font-normal text-[11px] text-[#111111]">{p.tier}</div>
+                    <div className="text-[11px] text-[#9A9A95]">Vetting: {p.vetting_status}</div>
                   </td>
                   <td className="px-5 py-4 text-[11px] text-emerald-400 font-normal">
                     {p.performance_score}% FTF

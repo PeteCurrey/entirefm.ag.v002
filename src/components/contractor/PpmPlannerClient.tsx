@@ -69,13 +69,13 @@ export function PpmPlannerClient() {
   return (
     <div className="space-y-6">
       {/* Asset Task List */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge-dark">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E8E5]">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
               PPM ASSET & ACTIVITY REGISTER
             </span>
-            <p className="text-xs text-brand-mist/60 mt-0.5">Add assets and assign frequencies to generate your 12-month plan.</p>
+            <p className="text-xs text-[#6D6D68] mt-0.5">Add assets and assign frequencies to generate your 12-month plan.</p>
           </div>
           <button
             onClick={addTask}
@@ -86,7 +86,7 @@ export function PpmPlannerClient() {
           </button>
         </div>
 
-        <div className="divide-y divide-brand-edge-dark/30">
+        <div className="divide-y divide-[#E8E8E5]">
           {tasks.map((task) => (
             <div key={task.id} className="px-5 py-3 grid grid-cols-12 gap-3 items-center text-xs font-normal">
               <div className="col-span-4">
@@ -95,14 +95,14 @@ export function PpmPlannerClient() {
                   value={task.assetName}
                   onChange={(e) => updateTask(task.id, 'assetName', e.target.value)}
                   placeholder="Asset / Activity name..."
-                  className="w-full p-2 rounded bg-brand-void border border-brand-edge-dark text-white font-sans focus:border-brand-electric focus:outline-none"
+                  className="w-full p-2 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white font-sans focus:border-brand-electric focus:outline-none"
                 />
               </div>
               <div className="col-span-3">
                 <select
                   value={task.discipline}
                   onChange={(e) => updateTask(task.id, 'discipline', e.target.value)}
-                  className="w-full p-2 rounded bg-brand-void border border-brand-edge-dark text-white focus:border-brand-electric focus:outline-none"
+                  className="w-full p-2 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white focus:border-brand-electric focus:outline-none"
                 >
                   {DISCIPLINE_OPTIONS.map((d) => (
                     <option key={d} value={d}>{d}</option>
@@ -113,7 +113,7 @@ export function PpmPlannerClient() {
                 <select
                   value={task.frequency}
                   onChange={(e) => updateTask(task.id, 'frequency', e.target.value as PpmFrequency)}
-                  className="w-full p-2 rounded bg-brand-void border border-brand-edge-dark text-white focus:border-brand-electric focus:outline-none"
+                  className="w-full p-2 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white focus:border-brand-electric focus:outline-none"
                 >
                   {FREQUENCY_OPTIONS.map((f) => (
                     <option key={f.value} value={f.value}>{f.label}</option>
@@ -128,15 +128,15 @@ export function PpmPlannerClient() {
                     min={0.5}
                     step={0.5}
                     onChange={(e) => updateTask(task.id, 'estimatedHoursPerVisit', Number(e.target.value))}
-                    className="w-full p-2 rounded bg-brand-void border border-brand-edge-dark text-white text-center focus:border-brand-electric focus:outline-none"
+                    className="w-full p-2 rounded bg-[#FAFAF8] border border-[#E8E8E5] text-white text-center focus:border-brand-electric focus:outline-none"
                   />
                 </div>
-                <span className="text-[9px] text-brand-mist/40 block text-center mt-0.5">hrs/visit</span>
+                <span className="text-[9px] text-[#9A9A95] block text-center mt-0.5">hrs/visit</span>
               </div>
               <div className="col-span-1 flex justify-end">
                 <button
                   onClick={() => removeTask(task.id)}
-                  className="p-1.5 rounded hover:bg-rose-950/30 text-brand-mist/40 hover:text-rose-400 transition-colors"
+                  className="p-1.5 rounded hover:bg-rose-950/30 text-[#9A9A95] hover:text-rose-400 transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -147,13 +147,13 @@ export function PpmPlannerClient() {
       </div>
 
       {/* Plan Output */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge-dark">
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E8E5]">
           <div className="flex items-center gap-3">
             <CalendarDays className="w-5 h-5 text-brand-electric" />
             <div>
-              <span className="text-sm font-medium text-white block">12-Month PPM Schedule</span>
-              <span className="text-[10.5px] font-normal text-brand-mist/50 block">
+              <span className="text-sm font-medium text-[#111111] block">12-Month PPM Schedule</span>
+              <span className="text-[10.5px] font-normal text-[#9A9A95] block">
                 {plan.annualTotalVisits} planned visits &bull; {plan.annualTotalHours} engineer hours / year
               </span>
             </div>
@@ -162,7 +162,7 @@ export function PpmPlannerClient() {
             <button
               onClick={() => setViewMode('CALENDAR')}
               className={`px-3 py-1.5 rounded-lg text-xs font-normal transition-colors ${
-                viewMode === 'CALENDAR' ? 'bg-brand-electric text-white' : 'border border-brand-edge-dark text-brand-mist/60 hover:text-white'
+                viewMode === 'CALENDAR' ? 'bg-brand-electric text-white' : 'border border-[#E8E8E5] text-[#6D6D68] hover:text-white'
               }`}
             >
               Calendar
@@ -170,7 +170,7 @@ export function PpmPlannerClient() {
             <button
               onClick={() => setViewMode('LIST')}
               className={`px-3 py-1.5 rounded-lg text-xs font-normal transition-colors ${
-                viewMode === 'LIST' ? 'bg-brand-electric text-white' : 'border border-brand-edge-dark text-brand-mist/60 hover:text-white'
+                viewMode === 'LIST' ? 'bg-brand-electric text-white' : 'border border-[#E8E8E5] text-[#6D6D68] hover:text-white'
               }`}
             >
               By Month
@@ -187,22 +187,22 @@ export function PpmPlannerClient() {
                   key={month.monthNumber}
                   className={`rounded-lg border p-2.5 space-y-1 ${
                     month.scheduledTasks.length > 0
-                      ? 'border-brand-electric/30 bg-brand-void'
-                      : 'border-brand-edge-dark/40 bg-brand-void/40'
+                      ? 'border-brand-electric/30 bg-[#FAFAF8]'
+                      : 'border-[#E8E8E5] bg-[#FAFAF8]'
                   }`}
                 >
-                  <div className="text-[10.5px] font-bold text-white">{month.monthLabel}</div>
+                  <div className="text-[10.5px] font-bold text-[#111111]">{month.monthLabel}</div>
                   {month.scheduledTasks.length === 0 ? (
-                    <div className="text-[9px] text-brand-mist/30 font-normal">—</div>
+                    <div className="text-[9px] text-[#9A9A95] font-normal">—</div>
                   ) : (
                     <>
                       <div className="text-[11px] text-brand-electric-bright font-bold">
                         {month.scheduledTasks.length} visit{month.scheduledTasks.length > 1 ? 's' : ''}
                       </div>
-                      <div className="text-[9.5px] text-brand-mist/50 font-normal">{month.totalHours}h</div>
+                      <div className="text-[9.5px] text-[#9A9A95] font-normal">{month.totalHours}h</div>
                       <div className="space-y-0.5">
                         {month.scheduledTasks.slice(0, 3).map((t, i) => (
-                          <div key={i} className="text-[8.5px] text-brand-mist/60 truncate">{t.assetName}</div>
+                          <div key={i} className="text-[8.5px] text-[#6D6D68] truncate">{t.assetName}</div>
                         ))}
                         {month.scheduledTasks.length > 3 && (
                           <div className="text-[8.5px] text-brand-electric/60">+{month.scheduledTasks.length - 3} more</div>
@@ -218,32 +218,32 @@ export function PpmPlannerClient() {
 
         {/* List View */}
         {viewMode === 'LIST' && (
-          <div className="divide-y divide-brand-edge-dark/30">
+          <div className="divide-y divide-[#E8E8E5]">
             {plan.months.map((month) => (
               <div key={month.monthNumber}>
                 <button
                   onClick={() => setExpandedMonth(expandedMonth === month.monthNumber ? null : month.monthNumber)}
-                  className="w-full px-5 py-3 flex items-center justify-between text-xs font-normal hover:bg-brand-edge-dark/10 transition-colors"
+                  className="w-full px-5 py-3 flex items-center justify-between text-xs font-normal hover:bg-[#F5F5F3] transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-white font-bold w-6">{month.monthLabel}</span>
-                    <span className="text-brand-mist/50">
+                    <span className="text-[#111111] font-bold w-6">{month.monthLabel}</span>
+                    <span className="text-[#9A9A95]">
                       {month.scheduledTasks.length} visit{month.scheduledTasks.length !== 1 ? 's' : ''} &bull; {month.totalHours}h
                     </span>
                   </div>
                   {expandedMonth === month.monthNumber ? (
-                    <ChevronUp className="w-3.5 h-3.5 text-brand-mist/40" />
+                    <ChevronUp className="w-3.5 h-3.5 text-[#9A9A95]" />
                   ) : (
-                    <ChevronDown className="w-3.5 h-3.5 text-brand-mist/40" />
+                    <ChevronDown className="w-3.5 h-3.5 text-[#9A9A95]" />
                   )}
                 </button>
                 {expandedMonth === month.monthNumber && month.scheduledTasks.length > 0 && (
-                  <div className="bg-brand-void/30 px-5 py-2 divide-y divide-brand-edge-dark/20">
+                  <div className="bg-[#FAFAF8] px-5 py-2 divide-y divide-[#E8E8E5]">
                     {month.scheduledTasks.map((t, i) => (
                       <div key={i} className="py-2 flex items-center justify-between text-[11px] font-normal">
                         <div>
-                          <span className="text-white font-medium block">{t.assetName}</span>
-                          <span className="text-brand-mist/50 block">{t.discipline} &bull; {t.frequency.replace(/_/g, ' ')}</span>
+                          <span className="text-[#111111] font-medium block">{t.assetName}</span>
+                          <span className="text-[#9A9A95] block">{t.discipline} &bull; {t.frequency.replace(/_/g, ' ')}</span>
                         </div>
                         <span className="text-brand-electric-bright shrink-0">{t.estimatedHours}h</span>
                       </div>
@@ -257,14 +257,14 @@ export function PpmPlannerClient() {
       </div>
 
       {/* Annual Summary by Trade */}
-      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-5 space-y-3">
-        <h3 className="text-xs font-medium text-brand-mist/60 uppercase tracking-widest">Annual Trade Demand Summary</h3>
+      <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-5 space-y-3">
+        <h3 className="text-xs font-medium text-[#6D6D68] uppercase tracking-widest">Annual Trade Demand Summary</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {Object.entries(disciplineSummary).map(([disc, data]) => (
-            <div key={disc} className="p-3 rounded-lg bg-brand-void border border-brand-edge-dark space-y-1">
-              <span className="text-[10.5px] font-normal text-brand-mist/60 block">{disc}</span>
-              <span className="text-white font-bold text-sm block">{data.hours}h</span>
-              <span className="text-brand-mist/40 text-[10px] block">{data.visits} visits</span>
+            <div key={disc} className="p-3 rounded-lg bg-[#FAFAF8] border border-[#E8E8E5] space-y-1">
+              <span className="text-[10.5px] font-normal text-[#6D6D68] block">{disc}</span>
+              <span className="text-[#111111] font-bold text-sm block">{data.hours}h</span>
+              <span className="text-[#9A9A95] text-[10px] block">{data.visits} visits</span>
             </div>
           ))}
         </div>

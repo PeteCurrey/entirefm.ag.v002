@@ -15,10 +15,10 @@ import {
 export const dynamic = 'force-dynamic';
 
 const STATUS_COLOUR: Record<string, string> = {
-  LIVE:           'bg-emerald-900/40 text-emerald-300 border-emerald-800/40',
-  TEST_ADAPTER:   'bg-amber-900/40 text-amber-300 border-amber-800/40',
-  NOT_CONFIGURED: 'bg-zinc-900/40 text-zinc-400 border-zinc-800/40',
-  ERROR:          'bg-red-900/40 text-red-300 border-red-800/40',
+  LIVE:           'bg-emerald-50 text-emerald-700 border-emerald-200',
+  TEST_ADAPTER:   'bg-amber-50 text-amber-700 border-amber-200',
+  NOT_CONFIGURED: 'bg-zinc-50 text-zinc-600 border-zinc-200',
+  ERROR:          'bg-red-50 text-red-700 border-red-200',
 };
 
 function KpiCard({ label, value, sub, href, urgent }: {
@@ -28,15 +28,15 @@ function KpiCard({ label, value, sub, href, urgent }: {
   const cls = `flex flex-col gap-1 rounded-lg border p-5 transition-colors ${
     urgent && Number(value) > 0
       ? 'border-red-800/60 bg-red-900/10 hover:bg-red-900/20'
-      : 'border-brand-edge-dark bg-brand-carbon/40 hover:bg-brand-edge-dark/30'
+      : 'border-[#E8E8E5] bg-white hover:bg-[#F5F5F3]'
   }`;
   const inner = (
     <div className={cls}>
-      <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/50 font-medium">{label}</p>
+      <p className="text-[11.5px] uppercase tracking-widest text-[#9A9A95] font-medium">{label}</p>
       <p className={`text-2xl font-extralight${urgent && Number(value) > 0 ? 'text-red-300' : 'text-white'}`}>
         {value}
       </p>
-      {sub && <p className="text-[11px] text-brand-mist/40 font-normal">{sub}</p>}
+      {sub && <p className="text-[11px] text-[#9A9A95] font-normal">{sub}</p>}
     </div>
   );
   return href ? <Link href={href}>{inner}</Link> : inner;
@@ -78,7 +78,7 @@ export default async function FinanceCommandCentrePage() {
                 <p className="text-sm font-normal text-red-300">
                   {kpis!.bankDetailAlerts} Bank Detail Change Alert{kpis!.bankDetailAlerts > 1 ? 's' : ''} — Unreviewed
                 </p>
-                <p className="text-[11.5px] text-brand-mist/60 mt-0.5">
+                <p className="text-[11.5px] text-[#6D6D68] mt-0.5">
                   Invoice(s) contain bank details that differ from approved supplier records.
                   Supplier master data has NOT been changed. Manual verification required.
                 </p>
@@ -154,7 +154,7 @@ export default async function FinanceCommandCentrePage() {
 
       {/* NAVIGATION GRID */}
       <div>
-        <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-medium mb-3">Finance Workspaces</p>
+        <p className="text-[11.5px] uppercase tracking-widest text-[#9A9A95] font-medium mb-3">Finance Workspaces</p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {[
             { href: '/admin/finance/supplier-invoices', icon: Receipt, label: 'Supplier Invoices', desc: 'Receive · Extract · Match · Approve' },
@@ -167,12 +167,12 @@ export default async function FinanceCommandCentrePage() {
             <Link
               key={href}
               href={href}
-              className="flex items-start gap-3 rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4 hover:bg-brand-edge-dark/30 transition-colors"
+              className="flex items-start gap-3 rounded-lg border border-[#E8E8E5] bg-white shadow-sm p-4 hover:bg-[#F5F5F3] transition-colors"
             >
               <Icon className="h-4 w-4 text-brand-electric mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-normal text-white">{label}</p>
-                <p className="text-[11.5px] text-brand-mist/50 mt-0.5">{desc}</p>
+                <p className="text-sm font-normal text-[#111111]">{label}</p>
+                <p className="text-[11.5px] text-[#9A9A95] mt-0.5">{desc}</p>
               </div>
             </Link>
           ))}
@@ -180,17 +180,17 @@ export default async function FinanceCommandCentrePage() {
       </div>
 
       {/* ACCOUNTING STATUS */}
-      <div className="rounded-lg border border-brand-edge-dark/60 bg-brand-void/30 p-4 flex items-center justify-between">
+      <div className="rounded-lg border border-[#E8E8E5] bg-[#FAFAF8] p-4 flex items-center justify-between">
         <div>
-          <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/40 font-medium">Accounting Integration</p>
-          <p className="text-sm text-white mt-0.5">{adapter.provider === 'NOT_CONFIGURED' ? 'No accounting system configured' : adapter.provider}</p>
+          <p className="text-[11.5px] uppercase tracking-widest text-[#9A9A95] font-medium">Accounting Integration</p>
+          <p className="text-sm text-[#111111] mt-0.5">{adapter.provider === 'NOT_CONFIGURED' ? 'No accounting system configured' : adapter.provider}</p>
         </div>
         <span className={`rounded px-2.5 py-1 font-normal text-[10.5px] border${STATUS_COLOUR[adapterStatus]}`}>
           {adapterStatus.replace('_', ' ')}
         </span>
       </div>
 
-      <p className="text-[11px] text-brand-mist/30 font-normal">
+      <p className="text-[11px] text-[#9A9A95] font-normal">
         Finance Command Centre — Phase 0H. All financial values sourced from operational records.
         AI assists extraction and anomaly detection only. No autonomous payment execution.
       </p>

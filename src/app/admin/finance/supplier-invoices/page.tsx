@@ -14,20 +14,20 @@ import { AlertTriangle, CheckCircle, Clock, ShieldAlert, ArrowRight } from 'luci
 export const dynamic = 'force-dynamic';
 
 const MATCH_STATUS_COLOURS: Record<string, string> = {
-  EXACT_MATCH: 'bg-emerald-900/40 text-emerald-300 border-emerald-800/40',
+  EXACT_MATCH: 'bg-emerald-50 text-emerald-700 border-emerald-200',
   MATCH_WITHIN_TOLERANCE: 'bg-emerald-900/30 text-emerald-400 border-emerald-800/30',
   MATCHED: 'bg-emerald-900/30 text-emerald-400 border-emerald-800/30',
   PARTIAL_MATCH: 'bg-blue-900/40 text-blue-300 border-blue-800/40',
-  OVER_PO: 'bg-amber-900/40 text-amber-300 border-amber-800/40',
+  OVER_PO: 'bg-amber-50 text-amber-700 border-amber-200',
   UNDER_PO: 'bg-blue-900/30 text-blue-300 border-blue-800/30',
-  RATE_VARIANCE: 'bg-amber-900/40 text-amber-300 border-amber-800/40',
-  QUANTITY_VARIANCE: 'bg-amber-900/40 text-amber-300 border-amber-800/40',
+  RATE_VARIANCE: 'bg-amber-50 text-amber-700 border-amber-200',
+  QUANTITY_VARIANCE: 'bg-amber-50 text-amber-700 border-amber-200',
   TAX_VARIANCE: 'bg-amber-900/30 text-amber-400 border-amber-800/30',
   NO_PO: 'bg-purple-900/40 text-purple-300 border-purple-800/40',
-  WRONG_SUPPLIER: 'bg-red-900/40 text-red-300 border-red-800/40',
-  DUPLICATE: 'bg-red-900/40 text-red-300 border-red-800/40',
-  REVIEW_REQUIRED: 'bg-amber-900/40 text-amber-300 border-amber-800/40',
-  UNMATCHED: 'bg-zinc-900/40 text-zinc-400 border-zinc-800/40',
+  WRONG_SUPPLIER: 'bg-red-50 text-red-700 border-red-200',
+  DUPLICATE: 'bg-red-50 text-red-700 border-red-200',
+  REVIEW_REQUIRED: 'bg-amber-50 text-amber-700 border-amber-200',
+  UNMATCHED: 'bg-zinc-50 text-zinc-600 border-zinc-200',
 };
 
 const PROCESSING_STATUS_BADGE: Record<string, string> = {
@@ -71,7 +71,7 @@ export default async function SupplierInvoicesPage({
       />
 
       {/* FILTER TABS */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-brand-edge-dark pb-3 text-xs font-normal">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#E8E8E5] pb-3 text-xs font-normal">
         {[
           { label: 'ALL', href: '/admin/finance/supplier-invoices' },
           { label: 'REVIEW REQUIRED', href: '/admin/finance/supplier-invoices?status=REVIEW_REQUIRED' },
@@ -84,7 +84,7 @@ export default async function SupplierInvoicesPage({
           <Link
             key={tab.label}
             href={tab.href}
-            className="rounded px-3 py-1.5 bg-brand-carbon/60 hover:bg-brand-edge-dark text-brand-mist hover:text-white border border-brand-edge-dark/60 transition-colors"
+            className="rounded px-3 py-1.5 bg-white hover:bg-[#F5F5F3] text-[#111111] hover:text-white border border-[#E8E8E5] transition-colors"
           >
             {tab.label}
           </Link>
@@ -92,8 +92,8 @@ export default async function SupplierInvoicesPage({
       </div>
 
       {/* SUMMARY STRIP */}
-      <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60 bg-brand-void/40 p-3 rounded-lg border border-brand-edge-dark/50">
-        <div>Showing <span className="text-white font-light">{invoices.length}</span> invoices</div>
+      <div className="flex items-center justify-between text-xs font-normal text-[#6D6D68] bg-[#FAFAF8] p-3 rounded-lg border border-[#E8E8E5]">
+        <div>Showing <span className="text-[#111111] font-light">{invoices.length}</span> invoices</div>
         <div>Total Value: <span className="text-brand-electric font-light">£{totalValue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
 
@@ -104,9 +104,9 @@ export default async function SupplierInvoicesPage({
           icon="Receipt"
         />
       ) : (
-        <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-normal text-brand-mist">
-            <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
+        <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden shadow-2xl">
+          <table className="w-full text-left text-xs font-normal text-[#111111]">
+            <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
               <tr>
                 <th className="p-3.5">Invoice Ref</th>
                 <th className="p-3.5">Supplier</th>
@@ -119,9 +119,9 @@ export default async function SupplierInvoicesPage({
                 <th className="p-3.5 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {invoices.map(inv => (
-                <tr key={inv.id} className="hover:bg-brand-edge-dark/20 transition-colors">
+                <tr key={inv.id} className="hover:bg-[#F5F5F3] transition-colors">
                   <td className="p-3.5 font-light text-white">
                     <Link href={`/admin/finance/supplier-invoices/${inv.id}`} className="hover:text-brand-electric underline underline-offset-2">
                       {inv.invoice_ref}
@@ -130,9 +130,9 @@ export default async function SupplierInvoicesPage({
                   <td className="p-3.5 text-white/90">
                     {inv.supplier_org_id ? inv.supplier_org_id.slice(0, 8) : 'Unknown'}
                   </td>
-                  <td className="p-3.5 text-brand-mist/70">
+                  <td className="p-3.5 text-[#6D6D68]">
                     {inv.matched_po_id || inv.purchase_order_id ? (
-                      <span className="text-white">PO: {(inv.matched_po_id || inv.purchase_order_id)?.slice(0, 8)}</span>
+                      <span className="text-[#111111]">PO: {(inv.matched_po_id || inv.purchase_order_id)?.slice(0, 8)}</span>
                     ) : inv.work_order_id ? (
                       <span>WO: {inv.work_order_id.slice(0, 8)}</span>
                     ) : (

@@ -70,28 +70,28 @@ export default async function ContractorWorkOrderDetailPage({
       <div>
         <Link
           href="/contractor/work"
-          className="text-xs text-brand-mist/60 hover:text-white flex items-center gap-1.5 font-normal mb-2"
+          className="text-xs text-[#6D6D68] hover:text-white flex items-center gap-1.5 font-normal mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Work Orders
         </Link>
       </div>
 
       {/* Header */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
+      <div className="rounded-2xl border border-[#E8E8E5] bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[10.5px] uppercase tracking-widest text-brand-electric-bright font-bold">
               {workOrder.work_order_number || 'WORK ORDER'}
             </span>
-            <span className="px-2 py-0.5 rounded bg-brand-void text-white border border-brand-edge-dark text-[10px] font-normal">
+            <span className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[10px] font-normal">
               {workOrder.status || 'ACCEPTED'}
             </span>
-            <span className="px-2 py-0.5 rounded bg-brand-void text-brand-mist border border-brand-edge-dark text-[10px] font-normal">
+            <span className="px-2 py-0.5 rounded bg-[#FAFAF8] text-[#111111] border border-[#E8E8E5] text-[10px] font-normal">
               {workOrder.priority || 'P3_ROUTINE'}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">{workOrder.title}</h1>
-          <p className="text-xs text-brand-mist/70 font-normal">
+          <h1 className="text-2xl sm:text-3xl font-light text-[#111111] tracking-tight">{workOrder.title}</h1>
+          <p className="text-xs text-[#6D6D68] font-normal">
             {workOrder.site?.name} &bull; {workOrder.client_account?.name} &bull; {workOrder.trade}
           </p>
         </div>
@@ -105,34 +105,34 @@ export default async function ContractorWorkOrderDetailPage({
 
       {/* Work Order Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-          <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+          <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
             <Building2 className="w-4 h-4 text-brand-electric" />
             Location &amp; Access Details
           </h3>
           <div className="space-y-2 text-xs font-normal">
             <div>
-              <span className="text-brand-mist/50 block">Site Name</span>
-              <span className="text-white block mt-0.5">{workOrder.site?.name || 'Site Location'}</span>
-              <span className="text-brand-mist/60 text-[11px] block">{workOrder.site?.address_line1}, {workOrder.site?.city}</span>
+              <span className="text-[#9A9A95] block">Site Name</span>
+              <span className="text-[#111111] block mt-0.5">{workOrder.site?.name || 'Site Location'}</span>
+              <span className="text-[#6D6D68] text-[11px] block">{workOrder.site?.address_line1}, {workOrder.site?.city}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Site Opening / Access Window</span>
-              <span className="text-white block mt-0.5">{workOrder.site?.access_hours || '08:00 - 18:00'}</span>
+              <span className="text-[#9A9A95] block">Site Opening / Access Window</span>
+              <span className="text-[#111111] block mt-0.5">{workOrder.site?.access_hours || '08:00 - 18:00'}</span>
             </div>
             <div>
-              <span className="text-brand-mist/50 block">Site Security &amp; Contact</span>
-              <span className="text-white block mt-0.5">{workOrder.site?.contact_name || 'Building Reception'} ({workOrder.site?.contact_phone || 'On Site'})</span>
+              <span className="text-[#9A9A95] block">Site Security &amp; Contact</span>
+              <span className="text-[#111111] block mt-0.5">{workOrder.site?.contact_name || 'Building Reception'} ({workOrder.site?.contact_phone || 'On Site'})</span>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
-          <h3 className="text-sm font-medium text-white border-b border-brand-edge-dark/60 pb-3 flex items-center gap-2">
+        <div className="rounded-xl border border-[#E8E8E5] bg-white shadow-sm p-6 space-y-4">
+          <h3 className="text-sm font-medium text-[#111111] border-b border-[#E8E8E5] pb-3 flex items-center gap-2">
             <Wrench className="w-4 h-4 text-brand-electric" />
             Scope of Works
           </h3>
-          <p className="text-xs text-brand-mist/80 font-light leading-relaxed">
+          <p className="text-xs text-[#6D6D68] font-light leading-relaxed">
             {workOrder.description || 'Deliver scheduled maintenance per asset specifications.'}
           </p>
         </div>
