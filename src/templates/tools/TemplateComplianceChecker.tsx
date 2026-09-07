@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -405,6 +405,26 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
   const [organisationName, setOrganisationName] = useState('Managing Agent / Duty Holder');
   const [answers, setAnswers] = useState<Record<string, number>>({});
 
+  useEffect(() => {
+    if (currentStep === 1 && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentStep]);
+
+  const handleGenerateReport = () => {
+    setCurrentStep(1);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleEditQuestionnaire = () => {
+    setCurrentStep(0);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
@@ -563,7 +583,12 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
           <WizardProgress
             steps={WIZARD_STEPS}
             currentStep={currentStep}
-            onSelectStep={(idx) => setCurrentStep(idx)}
+            onSelectStep={(idx) => {
+              setCurrentStep(idx);
+              if (typeof window !== 'undefined') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
           />
 
           {/* ========================================================================= */}
@@ -698,7 +723,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 <button
                   type="button"
                   disabled={answeredCount === 0}
-                  onClick={() => setCurrentStep(1)}
+                  onClick={handleGenerateReport}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-gradient-to-r from-brand-electric to-brand-violet text-white font-normal text-xs shadow-md hover:opacity-95 transition-all disabled:opacity-50"
                 >
                   <span>Generate Compliance Report</span>
@@ -729,7 +754,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
 
                   <button
                     type="button"
-                    onClick={() => setCurrentStep(0)}
+                    onClick={handleEditQuestionnaire}
                     className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-normal transition-all"
                   >
                     ← Edit Questionnaire
