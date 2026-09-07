@@ -300,11 +300,11 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                         alt=""
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-center opacity-[0.05] group-hover:opacity-[0.14] transition-opacity duration-500"
+                        className="object-cover object-center opacity-[0.05] group-hover:opacity-40 transition-opacity duration-500"
                         aria-hidden="true"
                       />
                       {/* Gradient overlay to keep text readable */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 to-white/75 group-hover:via-white/85 group-hover:to-white/60 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 to-white/75 group-hover:via-white/70 group-hover:to-white/40 transition-all duration-500" />
                     </div>
 
                     {/* Card content (above image) */}
