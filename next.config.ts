@@ -17,6 +17,11 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Required so Next.js/Webpack transpiles these ESM-only packages correctly.
+  // Without this the Gaussian Splat viewer silently fails to render.
+  // Mirrors the working configuration in EntireFM Drone (sister project).
+  transpilePackages: ['@mkkellogg/gaussian-splats-3d', 'three'],
+
   experimental: {
     cpus: 2,
     webpackMemoryOptimizations: true,

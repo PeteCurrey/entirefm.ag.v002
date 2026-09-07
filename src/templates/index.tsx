@@ -38,7 +38,9 @@ import { TemplateAssetScanner } from './tools/TemplateAssetScanner';
 import { TemplateComplianceCalendar } from './tools/TemplateComplianceCalendar';
 import { TemplatePpmEstimator } from './tools/TemplatePpmEstimator';
 import { TemplateRoiCalculator } from './tools/TemplateRoiCalculator';
-import { TemplateTenderBrief } from './tools/TemplateTenderBrief';
+import { TemplateContractorAudit } from './tools/TemplateContractorAudit';
+import { TemplateSlaBenchmark } from './tools/TemplateSlaBenchmark';
+import { TemplateCapexPlanner } from './tools/TemplateCapexPlanner';
 import { TemplateResourcesHub } from './resources/TemplateResourcesHub';
 import { TemplateFmIntelligence } from './resources/TemplateFmIntelligence';
 import { TemplateAcademy } from './resources/TemplateAcademy';
@@ -244,11 +246,17 @@ function selectTemplate(
   if (path === '/tools/ppm-estimator') {
     return <TemplatePpmEstimator route={route} content={content} />;
   }
+  if (path === '/tools/contractor-audit') {
+    return <TemplateContractorAudit route={route} content={content} />;
+  }
+  if (path === '/tools/sla-benchmark') {
+    return <TemplateSlaBenchmark route={route} content={content} />;
+  }
   if (path === '/tools/fm-roi-calculator') {
     return <TemplateRoiCalculator route={route} content={content} />;
   }
-  if (path === '/tools/tender-brief') {
-    return <TemplateTenderBrief route={route} content={content} />;
+  if (path === '/tools/capex-planner') {
+    return <TemplateCapexPlanner route={route} content={content} />;
   }
 
   // 6e. Knowledge & Intelligence Hubs

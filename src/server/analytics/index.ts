@@ -546,7 +546,6 @@ export async function getWebsiteAnalytics(
   // 13. Interactive Tool Performance
   const toolPerformance: ToolPerformanceItem[] = [
     { toolId: 'ppm-builder', toolName: 'PPM Schedule Builder', path: '/tools/ppm-schedule-builder', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
-    { toolId: 'tender-brief', toolName: 'Tender / RFP Brief Generator', path: '/tools/tender-brief', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
     { toolId: 'ppm-estimator', toolName: 'PPM Budget Cost Estimator', path: '/tools/ppm-estimator', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
     { toolId: 'compliance-checker', toolName: 'FM Statutory Compliance Checker', path: '/tools/compliance-checker', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },
     { toolId: 'health-check', toolName: 'Building Health Check Diagnostic', path: '/tools/fm-health-check', views: 0, starts: 0, completions: 0, completionRate: null, enquiries: 0, conversionRate: null },

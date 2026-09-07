@@ -50,7 +50,7 @@ const FUNNELS: JourneyFunnel[] = [
     entryType: 'GUIDE',
     name: 'FM Procurement & Tendering',
     entryPath: '/resources/guides/fm-tender-guide',
-    nextStep: '/tools/tender-brief',
+    nextStep: '/tools/fm-roi-calculator',
     commercialParent: '/contact-us',
     status: 'OPTIMISED',
   },

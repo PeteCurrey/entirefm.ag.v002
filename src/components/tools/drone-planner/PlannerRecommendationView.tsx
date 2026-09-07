@@ -9,23 +9,210 @@ import {
   DroneRecommendationResult 
 } from '@/config/dronePlanner';
 import { 
-  CheckCircle2, 
   ArrowRight, 
   Printer, 
   RotateCcw, 
-  ShieldCheck, 
-  AlertTriangle, 
-  Building2, 
-  Layers, 
-  FileText, 
-  Wrench, 
+  ShieldCheck,
   Send, 
-  PhoneCall, 
   Lock,
-  Boxes
+  Camera,
+  Thermometer,
+  Map,
+  FileText,
+  Wrench,
+  Zap,
+  AlertTriangle,
+  TrendingUp,
+  Box,
+  Layers,
+  CheckCircle2,
 } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
+import { SaveToWorkspaceButton } from '@/components/tools/SaveToWorkspaceButton';
 
+// ---------------------------------------------------------------------------
+// DELIVERABLE ICON CLASSIFIER
+// Maps a deliverable string to an icon + category label based on keywords
+// ---------------------------------------------------------------------------
+type DeliverableCategory = 'imagery' | 'thermal' | 'geospatial' | 'reporting' | 'remedial';
+
+interface ClassifiedDeliverable {
+  text: string;
+  category: DeliverableCategory;
+  categoryLabel: string;
+  icon: React.ElementType;
+  accentClass: string;
+  bgClass: string;
+}
+
+function classifyDeliverable(text: string): ClassifiedDeliverable {
+  const lower = text.toLowerCase();
+
+  // Thermal / spectral
+  if (
+    lower.includes('thermal') ||
+    lower.includes('flir') ||
+    lower.includes('infrared') ||
+    lower.includes('delta-t') ||
+    lower.includes('radiometric') ||
+    lower.includes('hotspot')
+  ) {
+    return { text, category: 'thermal', categoryLabel: 'Thermal / Spectral', icon: Thermometer, accentClass: 'text-amber-400', bgClass: 'bg-amber-500/10 border-amber-500/25' };
+  }
+
+  // Geospatial / 3D / mapping
+  if (
+    lower.includes('orthomosaic') ||
+    lower.includes('3d') ||
+    lower.includes('point cloud') ||
+    lower.includes('volumetric') ||
+    lower.includes('dimensional') ||
+    lower.includes('topograph') ||
+    lower.includes('las') ||
+    lower.includes('rcp') ||
+    lower.includes('mesh') ||
+    lower.includes('gsd') ||
+    lower.includes('georef') ||
+    lower.includes('cad') ||
+    lower.includes('milestone')
+  ) {
+    return { text, category: 'geospatial', categoryLabel: 'Geospatial / 3D Data', icon: Map, accentClass: 'text-cyan-400', bgClass: 'bg-cyan-500/10 border-cyan-500/25' };
+  }
+
+  // Reporting / compliance / documentation
+  if (
+    lower.includes('report') ||
+    lower.includes('schedule') ||
+    lower.includes('register') ||
+    lower.includes('executive') ||
+    lower.includes('condition') ||
+    lower.includes('evidence') ||
+    lower.includes('insurance') ||
+    lower.includes('cafm') ||
+    lower.includes('logbook') ||
+    lower.includes('matrix') ||
+    lower.includes('rag') ||
+    lower.includes('rag graded') ||
+    lower.includes('capex') ||
+    lower.includes('forecast') ||
+    lower.includes('maintenance') ||
+    lower.includes('scope') ||
+    lower.includes('proposal')
+  ) {
+    return { text, category: 'reporting', categoryLabel: 'Report / Documentation', icon: FileText, accentClass: 'text-emerald-400', bgClass: 'bg-emerald-500/10 border-emerald-500/25' };
+  }
+
+  // Remedial / dispatch (less common in deliverables)
+  if (lower.includes('remedial') || lower.includes('repair') || lower.includes('make-safe') || lower.includes('dispatch')) {
+    return { text, category: 'remedial', categoryLabel: 'Remedial Scope', icon: Wrench, accentClass: 'text-rose-400', bgClass: 'bg-rose-500/10 border-rose-500/25' };
+  }
+
+  // Default: visual imagery
+  return { text, category: 'imagery', categoryLabel: 'Visual Imagery', icon: Camera, accentClass: 'text-brand-pink', bgClass: 'bg-brand-pink/10 border-brand-pink/25' };
+}
+
+// ---------------------------------------------------------------------------
+// SCOPE CATEGORY VISUAL CONFIG
+// ---------------------------------------------------------------------------
+const SCOPE_CATEGORIES = [
+  { id: 'Focused inspection', label: 'Focused', shortLabel: 'Focused' },
+  { id: 'Standard commercial inspection', label: 'Standard', shortLabel: 'Standard' },
+  { id: 'Multi-asset survey', label: 'Multi-Asset', shortLabel: 'Multi-Asset' },
+  { id: 'Estate-scale programme', label: 'Estate / Campus', shortLabel: 'Estate' },
+  { id: 'Recurring programme', label: 'Recurring', shortLabel: 'Recurring' },
+] as const;
+
+// ---------------------------------------------------------------------------
+// LEAD PRIORITY VISUAL CONFIG
+// ---------------------------------------------------------------------------
+function PriorityBadge({ priority }: { priority: 'HIGH' | 'MEDIUM' | 'STANDARD' }) {
+  const configs = {
+    HIGH: {
+      label: 'HIGH PRIORITY',
+      sublabel: 'Emergency / Urgent commercial requirement',
+      icon: AlertTriangle,
+      classes: 'bg-rose-500/15 border-rose-500/40 text-rose-300',
+      iconClass: 'text-rose-400',
+      dotClass: 'bg-rose-400',
+    },
+    MEDIUM: {
+      label: 'MEDIUM PRIORITY',
+      sublabel: 'Standard commercial inspection timeline',
+      icon: TrendingUp,
+      classes: 'bg-sky-500/15 border-sky-500/40 text-sky-300',
+      iconClass: 'text-sky-400',
+      dotClass: 'bg-sky-400',
+    },
+    STANDARD: {
+      label: 'STANDARD PRIORITY',
+      sublabel: 'Planned / PPM maintenance programme',
+      icon: CheckCircle2,
+      classes: 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300',
+      iconClass: 'text-emerald-400',
+      dotClass: 'bg-emerald-400',
+    },
+  };
+  const c = configs[priority];
+  const Icon = c.icon;
+  return (
+    <div className={`inline-flex items-center gap-2.5 px-3.5 py-2 rounded-sm border ${c.classes}`}>
+      <span className={`h-2 w-2 rounded-full animate-pulse shrink-0 ${c.dotClass}`} />
+      <Icon className={`w-3.5 h-3.5 shrink-0 ${c.iconClass}`} />
+      <div>
+        <div className="text-[10px] font-normal uppercase tracking-widest leading-none">{c.label}</div>
+        <div className="text-[10px] font-light opacity-70 mt-0.5 leading-none hidden sm:block">{c.sublabel}</div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SCOPE CATEGORY STEP BAR
+// ---------------------------------------------------------------------------
+function ScopeCategoryBar({ activeCategory }: { activeCategory: string }) {
+  const activeIdx = SCOPE_CATEGORIES.findIndex((s) => s.id === activeCategory);
+  return (
+    <div className="space-y-2">
+      <span className="text-[10px] font-normal text-slate-400 uppercase tracking-wider block">
+        Inspection Scope Classification
+      </span>
+      <div className="flex items-center gap-1">
+        {SCOPE_CATEGORIES.map((cat, idx) => {
+          const isActive = idx === activeIdx;
+          const isPast = idx < activeIdx;
+          return (
+            <React.Fragment key={cat.id}>
+              <div
+                className={`flex-1 min-w-0 px-2 py-1.5 rounded-sm border text-center transition-colors ${
+                  isActive
+                    ? 'bg-brand-pink/20 border-brand-pink text-brand-pink'
+                    : isPast
+                    ? 'bg-white/5 border-white/15 text-slate-400'
+                    : 'bg-transparent border-brand-edge-dark text-slate-600'
+                }`}
+              >
+                <span
+                  className={`text-[9px] sm:text-[10px] font-normal uppercase tracking-wide leading-none block truncate ${
+                    isActive ? 'text-brand-pink' : isPast ? 'text-slate-400' : 'text-slate-600'
+                  }`}
+                >
+                  {cat.shortLabel}
+                </span>
+              </div>
+              {idx < SCOPE_CATEGORIES.length - 1 && (
+                <div className={`w-2 h-px flex-shrink-0 ${idx < activeIdx ? 'bg-brand-pink/40' : 'bg-brand-edge-dark'}`} />
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// MAIN COMPONENT
+// ---------------------------------------------------------------------------
 interface PlannerRecommendationViewProps {
   site: PlannerSiteInput;
   inspection: PlannerInspectionInput;
@@ -33,10 +220,11 @@ interface PlannerRecommendationViewProps {
   recommendation: DroneRecommendationResult;
   referenceNumber: string;
   onContactChange: (updated: Partial<PlannerContactInput>) => void;
+  onInspectionChange: (updated: Partial<PlannerInspectionInput>) => void;
   onSubmit: () => Promise<void>;
   isSubmitting: boolean;
   submitError: string | null;
-  onPrint: () => void;
+  onDownloadPdf: () => void;
   onStartAgain: () => void;
 }
 
@@ -47,10 +235,11 @@ export function PlannerRecommendationView({
   recommendation,
   referenceNumber,
   onContactChange,
+  onInspectionChange,
   onSubmit,
   isSubmitting,
   submitError,
-  onPrint,
+  onDownloadPdf,
   onStartAgain,
 }: PlannerRecommendationViewProps) {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -58,7 +247,6 @@ export function PlannerRecommendationView({
   const validateAndSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs: Record<string, string> = {};
-
     if (!contact.firstName?.trim()) errs.firstName = 'First name is required';
     if (!contact.lastName?.trim()) errs.lastName = 'Last name is required';
     if (!contact.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
@@ -66,19 +254,18 @@ export function PlannerRecommendationView({
     }
     if (!contact.phone?.trim()) errs.phone = 'Contact telephone is required';
     if (!contact.company?.trim()) errs.company = 'Company / Organisation is required';
-
-    if (Object.keys(errs).length > 0) {
-      setFormErrors(errs);
-      return;
-    }
-
+    if (Object.keys(errs).length > 0) { setFormErrors(errs); return; }
     setFormErrors({});
     await onSubmit();
   };
 
+  // Classify deliverables for visual grouping
+  const classifiedDeliverables = recommendation.suggestedOutputs.map(classifyDeliverable);
+
   return (
-    <div className="space-y-12">
-      {/* Header & Reference Code */}
+    <div className="space-y-10">
+
+      {/* ── Header & Reference ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-6">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-pink/15 border border-brand-pink/30">
@@ -91,7 +278,6 @@ export function PlannerRecommendationView({
             Your Recommended <span className="text-hero-pink">Drone Inspection Plan</span>
           </h1>
         </div>
-
         <div className="flex items-center gap-3 shrink-0">
           <div className="text-left sm:text-right font-normal">
             <span className="text-[10px] text-slate-400 block uppercase">Reference ID</span>
@@ -99,22 +285,76 @@ export function PlannerRecommendationView({
               {referenceNumber}
             </span>
           </div>
+          <SaveToWorkspaceButton
+            toolName="Drone Inspection Planner"
+            defaultTitle={`${site.siteName || site.siteType} — Drone Inspection Brief`}
+            inputsJson={{
+              site,
+              inspection,
+            }}
+            outputsJson={{
+              recommendation,
+              referenceNumber,
+            }}
+            summaryKpis={{
+              primaryService: recommendation.primaryService.title,
+              inspectionPack: recommendation.inspectionPack?.title || 'Custom Scope',
+              scopeCategory: recommendation.scopeCategory,
+              leadPriority: recommendation.leadPriority,
+              deliverablesCount: recommendation.suggestedOutputs.length,
+              remedialCount: recommendation.remedialServices.length,
+            }}
+            pdfReference={referenceNumber}
+            buttonText="Save to Workspace"
+            className="hidden sm:inline-flex"
+          />
 
           <button
             type="button"
-            onClick={onPrint}
-            className="p-2.5 rounded-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-1.5 text-xs font-normal"
-            title="Print or Save PDF Brief"
+            onClick={onDownloadPdf}
+            className="p-2.5 sm:px-3.5 rounded-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-2 text-xs font-normal shadow-xs"
+            title="Download Formal Drone Survey Brief (PDF)"
           >
-            <Printer className="w-4 h-4" />
-            <span className="hidden sm:inline">Print Brief</span>
+            <Printer className="w-4 h-4 text-brand-pink" />
+            <span>Download PDF Pack</span>
           </button>
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 1. THE RECOMMENDATION CARD */}
-      {/* ========================================================================= */}
+      {/* ══════════════════════════════════════════════════════════════════════ */}
+      {/* MATCH SUMMARY VISUAL BAR                                              */}
+      {/* ══════════════════════════════════════════════════════════════════════ */}
+      <div className="p-5 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4">
+        <span className="text-[10px] font-normal uppercase tracking-widest text-slate-400 block">
+          Survey Scope Assessment
+        </span>
+        <div className="flex flex-col lg:flex-row lg:items-end gap-5">
+          {/* Scope category bar */}
+          <div className="flex-1">
+            <ScopeCategoryBar activeCategory={recommendation.scopeCategory} />
+          </div>
+          {/* Divider */}
+          <div className="hidden lg:block w-px h-10 bg-brand-edge-dark self-end" />
+          {/* Priority badge */}
+          <div className="flex-shrink-0 space-y-2">
+            <span className="text-[10px] font-normal text-slate-400 uppercase tracking-wider block">
+              Operational Priority
+            </span>
+            <PriorityBadge priority={recommendation.leadPriority} />
+          </div>
+        </div>
+        {/* Rationale strip */}
+        <div className="pt-3 border-t border-brand-edge-dark">
+          <p className="text-xs text-slate-300 leading-relaxed font-light">
+            <span className="text-white font-normal">Assessment rationale: </span>
+            {recommendation.summaryRationale}
+          </p>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════════════ */}
+      {/* RECOMMENDATION CARD                                                   */}
+      {/* ══════════════════════════════════════════════════════════════════════ */}
       <div className="p-6 sm:p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-pink/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -124,11 +364,7 @@ export function PlannerRecommendationView({
             <span className="text-xs font-normal text-brand-pink uppercase tracking-wider">
               PRIMARY RECOMMENDED SERVICE &bull; {recommendation.primaryService.badge}
             </span>
-            <span className="text-[10px] font-normal text-slate-400 bg-brand-graphite px-2.5 py-0.5 rounded border border-brand-edge-dark">
-              SCOPE: {recommendation.scopeCategory.toUpperCase()}
-            </span>
           </div>
-
           <div>
             <h2 className="text-2xl sm:text-3xl font-extralight text-white">
               {recommendation.primaryService.title}
@@ -139,7 +375,7 @@ export function PlannerRecommendationView({
           </div>
         </div>
 
-        {/* Recommended Package (if applicable) */}
+        {/* Recommended Package */}
         {recommendation.inspectionPack && (
           <div className="p-5 rounded-sm bg-brand-graphite border border-brand-pink/40 space-y-2">
             <div className="flex items-center justify-between">
@@ -150,42 +386,99 @@ export function PlannerRecommendationView({
                 {recommendation.inspectionPack.badge}
               </span>
             </div>
-            <h3 className="text-lg font-light text-white">
-              {recommendation.inspectionPack.title}
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              {recommendation.inspectionPack.description}
-            </p>
+            <h3 className="text-lg font-light text-white">{recommendation.inspectionPack.title}</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">{recommendation.inspectionPack.description}</p>
           </div>
         )}
 
-        {/* Deliverables Checklist & Remediation Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 border-t border-brand-edge-dark">
-          {/* Suggested Deliverables */}
-          <div className="lg:col-span-6 space-y-3">
-            <span className="text-xs font-light uppercase tracking-wider text-slate-300 block">
-              Suggested Survey Deliverables:
-            </span>
-            <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
-              {recommendation.suggestedOutputs.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-brand-pink mt-0.5 shrink-0" />
-                  <span>{item}</span>
-                </li>
+        {/* Cross-Sell / Associated Services */}
+        {recommendation.additionalServices && recommendation.additionalServices.length > 0 && (
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-light uppercase tracking-wider text-slate-300 block">
+                Associated &amp; Cross-Discipline Surveys to Consider:
+              </span>
+              <span className="text-[10px] text-slate-400 font-normal">
+                Complementary Aerial Scopes
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {recommendation.additionalServices.map((srv, idx) => (
+                <Link
+                  key={idx}
+                  href={srv.href}
+                  className="p-4 bg-brand-graphite/70 rounded-sm border border-brand-edge-dark hover:border-brand-pink/50 hover:bg-white/[0.04] transition-all flex flex-col justify-between group space-y-2"
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-normal text-white group-hover:text-brand-pink transition-colors">
+                        {srv.title}
+                      </h4>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all shrink-0" />
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed font-light">{srv.reason}</p>
+                  </div>
+                  <span className="text-[10px] text-brand-pink font-light uppercase tracking-wider inline-flex items-center gap-1">
+                    Explore Scope <ArrowRight className="w-2.5 h-2.5" />
+                  </span>
+                </Link>
               ))}
-            </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ── Deliverables & Remedials ── */}
+        <div className="space-y-8 pt-4 border-t border-brand-edge-dark">
+
+          {/* VISUAL DELIVERABLES GRID */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-light uppercase tracking-wider text-slate-300">
+                Suggested Survey Deliverables
+              </span>
+              <span className="text-[10px] text-slate-500 font-normal hidden sm:block">
+                {classifiedDeliverables.length} deliverable{classifiedDeliverables.length !== 1 ? 's' : ''} identified
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {classifiedDeliverables.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`flex items-start gap-3 p-3 rounded-sm border ${item.bgClass} transition-colors`}
+                  >
+                    <div className={`w-7 h-7 rounded-sm flex items-center justify-center shrink-0 bg-white/5`}>
+                      <Icon className={`w-3.5 h-3.5 ${item.accentClass}`} />
+                    </div>
+                    <div className="min-w-0 space-y-0.5">
+                      <p className="text-xs text-slate-100 leading-snug font-normal">{item.text}</p>
+                      <span className={`text-[9.5px] font-normal uppercase tracking-wider ${item.accentClass} opacity-70`}>
+                        {item.categoryLabel}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* EntireFM Remedial Capabilities */}
-          <div className="lg:col-span-6 space-y-3">
+          <div className="space-y-3">
             <span className="text-xs font-light uppercase tracking-wider text-slate-300 block">
-              EntireFM Remedial Works Alignment:
+              EntireFM Remedial Works Alignment
             </span>
-            <div className="space-y-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {recommendation.remedialServices.map((rem, idx) => (
-                <div key={idx} className="p-3 bg-brand-graphite rounded-sm border border-brand-edge-dark text-xs space-y-0.5">
-                  <strong className="text-white block font-light">{rem.name}</strong>
-                  <p className="text-slate-400 text-[11.5px] leading-relaxed">{rem.desc}</p>
+                <div key={idx} className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark text-xs space-y-1 flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-sm bg-white/5 border border-brand-edge-dark flex items-center justify-center shrink-0">
+                    <Wrench className="w-3.5 h-3.5 text-slate-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <strong className="text-white block font-normal text-[11.5px] leading-snug">{rem.name}</strong>
+                    <p className="text-slate-400 text-[11px] leading-relaxed mt-0.5">{rem.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -203,7 +496,7 @@ export function PlannerRecommendationView({
           <ul className="space-y-1.5 text-xs text-slate-300">
             {recommendation.operationalCaveats.map((cav, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-slate-500 mt-1.5 shrink-0" />
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/60 mt-1.5 shrink-0" />
                 <span>{cav}</span>
               </li>
             ))}
@@ -214,9 +507,9 @@ export function PlannerRecommendationView({
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 2. STRUCTURED LEAD CAPTURE FORM */}
-      {/* ========================================================================= */}
+      {/* ══════════════════════════════════════════════════════════════════════ */}
+      {/* LEAD CAPTURE FORM                                                     */}
+      {/* ══════════════════════════════════════════════════════════════════════ */}
       <div className="p-6 sm:p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-6">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2">
@@ -255,7 +548,6 @@ export function PlannerRecommendationView({
               />
               {formErrors.firstName && <span className="text-[11px] text-red-400">{formErrors.firstName}</span>}
             </div>
-
             <div className="space-y-1">
               <label htmlFor="plannerLastName" className="block text-xs font-light text-slate-300">
                 Last Name <span className="text-brand-pink">*</span>
@@ -287,7 +579,6 @@ export function PlannerRecommendationView({
               />
               {formErrors.email && <span className="text-[11px] text-red-400">{formErrors.email}</span>}
             </div>
-
             <div className="space-y-1">
               <label htmlFor="plannerPhone" className="block text-xs font-light text-slate-300">
                 Contact Telephone <span className="text-brand-pink">*</span>
@@ -319,7 +610,6 @@ export function PlannerRecommendationView({
               />
               {formErrors.company && <span className="text-[11px] text-red-400">{formErrors.company}</span>}
             </div>
-
             <div className="space-y-1">
               <label htmlFor="plannerJobTitle" className="block text-xs font-light text-slate-300">
                 Job Title / Role (Optional)
@@ -343,7 +633,7 @@ export function PlannerRecommendationView({
               id="plannerNotes"
               rows={3}
               value={inspection.notes || ''}
-              onChange={(e) => onContactChange({ ...contact })}
+              onChange={(e) => onInspectionChange({ notes: e.target.value })}
               placeholder="Provide any additional site details, security gates, specific dates, or previous survey context..."
               className="w-full bg-brand-graphite border border-brand-edge-dark rounded-sm p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-pink"
             />

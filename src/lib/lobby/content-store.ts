@@ -481,9 +481,9 @@ export const LOBBY_ARTICLES: LobbyArticle[] = [
     ],
     relatedResources: [
       {
-        title: 'FM Tender Brief & RFP Generator',
-        description: 'Generate a structured facilities specification and SLA framework.',
-        url: '/tools/tender-brief',
+        title: 'FM ROI & TCO Calculator',
+        description: 'Compare reactive multi-supplier spend against a consolidated planned maintenance model.',
+        url: '/tools/fm-roi-calculator',
         type: 'tool',
       },
       {
@@ -688,9 +688,9 @@ export const LOBBY_ARTICLES: LobbyArticle[] = [
         type: 'template',
       },
       {
-        title: 'Tender Brief Generator Tool',
-        description: 'Generate a structured FM RFP specification ready for market.',
-        url: '/tools/tender-brief',
+        title: 'FM ROI & TCO Calculator',
+        description: 'Compare reactive multi-supplier spend against a consolidated planned maintenance model.',
+        url: '/tools/fm-roi-calculator',
         type: 'tool',
       },
     ],

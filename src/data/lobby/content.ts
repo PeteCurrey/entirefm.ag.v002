@@ -177,15 +177,15 @@ export const LOBBY_DATA: LobbyContent = {
       tag: 'Risk Diagnostic',
     },
     {
-      id: 'tool-tender-brief',
-      title: 'FM Tender Brief & RFP Generator',
-      category: 'Procurement & Strategy',
+      id: 'tool-roi-calculator',
+      title: 'FM ROI & TCO Calculator',
+      category: 'Commercial & Strategy',
       description:
-        'Create a clear, structured Facilities Management tender brief covering service scopes, SLA response matrices, and CAFM reporting requirements.',
-      url: '/tools/tender-brief',
-      ctaText: 'Build Tender Brief',
-      statsBadge: 'Neutral Specification',
-      tag: 'Procurement Tool',
+        'Compare fragmented multiple-supplier reactive spend against a consolidated planned maintenance model to evaluate total cost of ownership.',
+      url: '/tools/fm-roi-calculator',
+      ctaText: 'Calculate TCO & Savings',
+      statsBadge: 'Commercial Model',
+      tag: 'ROI Calculator',
     },
   ],
 

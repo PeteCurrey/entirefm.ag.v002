@@ -7,12 +7,12 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 521,
-    "protected": 500,
-    "indexable": 507,
-    "historicWix": 230,
+    "total": 523,
+    "protected": 501,
+    "indexable": 509,
+    "historicWix": 229,
     "currentLive": 7,
-    "growth": 284
+    "growth": 287
   },
   "urls": [
     {
@@ -5346,6 +5346,32 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/tools/contractor-audit",
+      "url": "https://www.entirefm.com/tools/contractor-audit",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/tools/sla-benchmark",
+      "url": "https://www.entirefm.com/tools/sla-benchmark",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
       "path": "/tools/fm-roi-calculator",
       "url": "https://www.entirefm.com/tools/fm-roi-calculator",
       "routeType": "company",
@@ -5356,6 +5382,19 @@
       "originEstate": "WIX",
       "sitemapGroup": "insights",
       "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/tools/capex-planner",
+      "url": "https://www.entirefm.com/tools/capex-planner",
+      "routeType": "company",
+      "protected": false,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
       "contentStatus": "COMPLETE"
     },
     {
@@ -5387,19 +5426,6 @@
     {
       "path": "/tools/ppm-schedule-builder",
       "url": "https://www.entirefm.com/tools/ppm-schedule-builder",
-      "routeType": "company",
-      "protected": true,
-      "indexable": true,
-      "indexExpected": true,
-      "canonicalExpected": "self",
-      "originEstate": "WIX",
-      "sitemapGroup": "insights",
-      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "contentStatus": "COMPLETE"
-    },
-    {
-      "path": "/tools/tender-brief",
-      "url": "https://www.entirefm.com/tools/tender-brief",
       "routeType": "company",
       "protected": true,
       "indexable": true,

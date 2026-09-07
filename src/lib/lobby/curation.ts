@@ -43,7 +43,7 @@ export const STATIC_LOBBY_HOMEPAGE_CURATION: LobbyHomepageCuration = {
   featuredToolkitUrls: [
     '/tools/ppm-schedule-builder',
     '/tools/compliance-checker',
-    '/tools/tender-brief',
+    '/tools/fm-roi-calculator',
   ],
 
   // 9. Active weekly knowledge question ID

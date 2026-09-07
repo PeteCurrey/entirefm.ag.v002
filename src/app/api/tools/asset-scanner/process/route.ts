@@ -12,6 +12,9 @@ import { extractAssetFromUpload } from '@/server/asset-scanner/extractor';
 import { verifySupabaseAuthToken } from '@/server/asset-scanner/auth-bridge';
 import { createEstateAsset } from '@/server/firestore/client';
 import { AssetScannerFileType } from '@/types/asset-scanner';
+import { getMemberSessionFromRequest } from '@/server/member/member-session';
+import { getMemberById } from '@/server/member/member-store';
+import { saveToolOutput } from '@/server/workspace/workspace-store';
 
 const ProcessRequestSchema = z.object({
   uploadId: z.string().min(1, 'uploadId is required'),
@@ -73,6 +76,48 @@ export async function POST(request: Request) {
       persistError = error;
       if (error) {
         console.error('[ASSET_SCANNER_PROCESS] Firestore persist failed:', error);
+      } else {
+        // Insert lightweight pointer record into Supabase Workspace
+        try {
+          const session = getMemberSessionFromRequest(request);
+          let memberId = session?.memberId;
+          if (!memberId) {
+            const member = await getMemberById(verifiedUid);
+            memberId = member?.id;
+          }
+          if (memberId) {
+            const assetTitle =
+              [extraction.asset.manufacturer, extraction.asset.model || extraction.asset.assetType]
+                .filter(Boolean)
+                .join(' ') || extraction.matchedDefinition?.name || 'Scanned Equipment';
+
+            await saveToolOutput(memberId, {
+              tool_name: 'asset-scanner',
+              title: `Scanned: ${assetTitle}`,
+              summary_kpis: {
+                assetType: extraction.asset.assetType || 'Plant Equipment',
+                manufacturer: extraction.asset.manufacturer || 'Unspecified',
+                model: extraction.asset.model || 'Unspecified',
+                serialNumber: extraction.asset.serialNumber || 'Unspecified',
+                categoryName: extraction.matchedDefinition?.categoryName || 'General M&E',
+                sfg20AssetId: extraction.asset.sfg20AssetId || extraction.matchedDefinition?.id || 'General',
+                firestoreAssetId: persistedAssetId,
+                confidence: extraction.asset.extractionConfidence,
+                scannedAt: new Date().toISOString(),
+              },
+              inputs_json: { filename, fileType },
+              outputs_json: {
+                firestoreAssetId: persistedAssetId,
+                matchedCategoryId: extraction.matchedDefinition?.categoryId,
+                matchedCategoryName: extraction.matchedDefinition?.categoryName,
+                sfg20AssetId: extraction.asset.sfg20AssetId,
+              },
+              pdf_reference: null,
+            });
+          }
+        } catch (wsErr: any) {
+          console.error('[ASSET_SCANNER_WORKSPACE_HOOK_ERROR]:', wsErr);
+        }
       }
     }
 

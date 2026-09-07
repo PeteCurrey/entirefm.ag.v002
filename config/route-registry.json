@@ -8,8 +8,8 @@
   "counts": {
     "total": 521,
     "LEGACY_VERIFIED": 201,
-    "LEGACY_PROTECTED_BY_DIRECTIVE": 31,
-    "NEW_GROWTH": 284,
+    "LEGACY_PROTECTED_BY_DIRECTIVE": 30,
+    "NEW_GROWTH": 285,
     "protected": 514,
     "historic": 230,
     "totalRoutes": 521,
@@ -7998,6 +7998,42 @@
       ]
     },
     {
+      "path": "/tools/contractor-audit",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/sla-benchmark",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/tools/fm-roi-calculator",
       "routeType": "company",
       "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
@@ -8013,6 +8049,24 @@
       "designStatus": "COMPLETE",
       "historicSources": [
         "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/capex-planner",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": false,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
         "current-live-antigravity"
       ]
     },
@@ -8055,25 +8109,6 @@
     },
     {
       "path": "/tools/ppm-schedule-builder",
-      "routeType": "company",
-      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "historic": true,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "wix-generation-2",
-        "current-live-antigravity"
-      ]
-    },
-    {
-      "path": "/tools/tender-brief",
       "routeType": "company",
       "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
       "historic": true,

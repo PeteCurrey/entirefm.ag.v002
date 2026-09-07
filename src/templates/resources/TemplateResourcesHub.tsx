@@ -34,7 +34,6 @@ const ALL_SEARCHABLE_RESOURCES: SearchableResource[] = [
   { title: 'Compliance Calendar Builder', href: '/tools/compliance-calendar', category: 'Compliance & Safety', type: 'Tool', description: '12-month statutory testing roadmap with ICS calendar export for Outlook and Google Calendar.' },
   { title: 'PPM Cost Estimator', href: '/tools/ppm-estimator', category: 'Maintenance Planning', type: 'Tool', description: 'Indicative planned maintenance budget calculator by floor area, sector, and plant age.' },
   { title: 'FM ROI & TCO Calculator', href: '/tools/fm-roi-calculator', category: 'Commercial & Strategy', type: 'Tool', description: 'Compare multiple-supplier reactive spend against a consolidated planned maintenance model.' },
-  { title: 'FM Tender Brief Generator', href: '/tools/tender-brief', category: 'Commercial & Strategy', type: 'Tool', description: 'Structured Facilities Management RFP procurement brief and specification generator.' },
 
   // Compliance
   { title: 'Compliance Centre Hub', href: '/compliance', category: 'Compliance & Safety', type: 'Compliance', description: 'Comprehensive guide separating legal requirements, British Standards, and industry practice.' },
@@ -429,15 +428,15 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
               <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/[0.02] transition-colors px-2 sm:px-4">
                 <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">04</div>
                 <div className="lg:col-span-4 space-y-1">
-                  <h3 className="text-xl font-light text-white">Tender Brief Generator</h3>
-                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">RFP Specification Creator</span>
+                  <h3 className="text-xl font-light text-white">FM ROI & TCO Calculator</h3>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">Commercial Savings Model</span>
                 </div>
                 <div className="lg:col-span-5 text-sm text-slate-300 font-light leading-relaxed">
-                  Draft a comprehensive, structured Facilities Management tender brief and RFP specification to issue to prospective contractors.
+                  Compare multi-supplier reactive spend against a consolidated planned maintenance model to analyze total cost of ownership.
                 </div>
                 <div className="lg:col-span-2 text-right">
-                  <Link href="/tools/tender-brief" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
-                    <span>Create RFP</span>
+                  <Link href="/tools/fm-roi-calculator" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
+                    <span>Calculate ROI</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>

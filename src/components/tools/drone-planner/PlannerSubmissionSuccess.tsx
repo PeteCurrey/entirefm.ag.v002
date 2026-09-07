@@ -17,7 +17,7 @@ interface PlannerSubmissionSuccessProps {
   referenceNumber: string;
   clientName: string;
   email: string;
-  onPrint: () => void;
+  onDownloadPdf: () => void;
   onStartNew: () => void;
 }
 
@@ -25,7 +25,7 @@ export function PlannerSubmissionSuccess({
   referenceNumber,
   clientName,
   email,
-  onPrint,
+  onDownloadPdf,
   onStartNew,
 }: PlannerSubmissionSuccessProps) {
   return (
@@ -76,11 +76,11 @@ export function PlannerSubmissionSuccess({
       <div className="pt-4 flex flex-wrap items-center justify-center gap-4 border-t border-brand-edge-dark">
         <button
           type="button"
-          onClick={onPrint}
+          onClick={onDownloadPdf}
           className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-normal text-white hover:bg-white/10 transition-colors"
         >
-          <Printer className="w-3.5 h-3.5" />
-          <span>Print / Save PDF Brief</span>
+          <Printer className="w-3.5 h-3.5 text-brand-pink" />
+          <span>Download PDF Pack</span>
         </button>
 
         <Link

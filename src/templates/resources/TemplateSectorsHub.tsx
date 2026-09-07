@@ -386,11 +386,11 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                   <span>FM Tender Guide</span>
                 </Link>
                 <Link
-                  href="/tools/tender-brief"
+                  href="/tools"
                   className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-950 bg-white hover:bg-slate-100 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
                 >
                   <FileCheck2 className="w-4 h-4 text-brand-pink" />
-                  <span>Tender Brief Generator</span>
+                  <span>Explore FM Tools</span>
                 </Link>
               </div>
             </div>

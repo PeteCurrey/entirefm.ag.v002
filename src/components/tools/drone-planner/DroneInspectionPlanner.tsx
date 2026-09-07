@@ -26,6 +26,8 @@ import { StepFrequency } from './StepFrequency';
 import { PlannerRecommendationView } from './PlannerRecommendationView';
 import { PlannerPrintableBrief } from './PlannerPrintableBrief';
 import { PlannerSubmissionSuccess } from './PlannerSubmissionSuccess';
+import { ToolPdfGateModal } from '@/components/tools/ToolPdfGateModal';
+import { downloadDroneInspectionPack } from '@/lib/pdf/drone-inspection-pack-builder';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 
 const STORAGE_KEY = 'entirefm_drone_planner_state_v1';
@@ -80,6 +82,7 @@ export function DroneInspectionPlanner() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [pdfGateOpen, setPdfGateOpen] = useState<boolean>(false);
 
   // Initialize reference number and check localStorage
   useEffect(() => {
@@ -164,15 +167,34 @@ export function DroneInspectionPlanner() {
     }
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   // Generate deterministic recommendation based on state
   const recommendation: DroneRecommendationResult = generateDroneRecommendation(
     state.site,
     state.inspection
   );
+
+  // Trigger formal PDF generation
+  const handleExecutePdfDownload = () => {
+    downloadDroneInspectionPack(
+      {
+        referenceNumber,
+        site: state.site,
+        inspection: state.inspection,
+        contact: state.contact,
+        recommendation,
+      },
+      `EntireFM-Drone-Brief-${referenceNumber}.pdf`
+    );
+  };
+
+  // If already submitted via the gate form, download immediately, otherwise show gate modal
+  const handleRequestPdf = () => {
+    if (isSubmitted || state.contact.email) {
+      handleExecutePdfDownload();
+    } else {
+      setPdfGateOpen(true);
+    }
+  };
 
   // Form submission handler
   const handleSubmitBrief = async () => {
@@ -422,10 +444,20 @@ export function DroneInspectionPlanner() {
                   contact: { ...prev.contact, ...updated },
                 }))
               }
+              onInspectionChange={(updated) =>
+                setState((prev) => {
+                  const next = {
+                    ...prev,
+                    inspection: { ...prev.inspection, ...updated },
+                  };
+                  saveStateLocally(next);
+                  return next;
+                })
+              }
               onSubmit={handleSubmitBrief}
               isSubmitting={isSubmitting}
               submitError={submitError}
-              onPrint={handlePrint}
+              onDownloadPdf={handleRequestPdf}
               onStartAgain={handleStartAgain}
             />
           )}
@@ -435,7 +467,7 @@ export function DroneInspectionPlanner() {
               referenceNumber={referenceNumber}
               clientName={`${state.contact.firstName} ${state.contact.lastName}`}
               email={state.contact.email}
-              onPrint={handlePrint}
+              onDownloadPdf={handleExecutePdfDownload}
               onStartNew={handleStartAgain}
             />
           )}
@@ -476,6 +508,27 @@ export function DroneInspectionPlanner() {
           </div>
         )}
       </div>
+
+      {/* Reusable Turnstile-Protected Lead Gate Modal */}
+      <ToolPdfGateModal
+        isOpen={pdfGateOpen}
+        onClose={() => setPdfGateOpen(false)}
+        onSuccess={handleExecutePdfDownload}
+        toolTitle={`Commercial Drone Inspection Brief (${recommendation.primaryService.title})`}
+        leadSource="Drone Inspection Planner"
+        conversionPage="/tools/drone-inspection-planner"
+        leadPriority={recommendation.leadPriority}
+        contextPayload={{
+          referenceNumber,
+          site: state.site,
+          inspection: state.inspection,
+          primaryService: recommendation.primaryService.title,
+          inspectionPack: recommendation.inspectionPack?.title || 'None',
+          scopeCategory: recommendation.scopeCategory,
+          leadPriority: recommendation.leadPriority,
+        }}
+        showCallbackPreference={true}
+      />
     </div>
   );
 }

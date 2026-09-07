@@ -731,10 +731,10 @@ export function TemplateLobbyDo() {
 
               <div className="pt-2 border-t border-neutral-100">
                 <Link
-                  href="/tools/tender-brief"
+                  href="/tools"
                   className="text-xs font-medium text-brand-electric hover:underline inline-flex items-center gap-1"
                 >
-                  <span>Build Mobilisation Brief &rarr;</span>
+                  <span>Explore FM Planning Tools &rarr;</span>
                 </Link>
               </div>
             </div>
@@ -816,19 +816,19 @@ export function TemplateLobbyDo() {
             <div className="p-4 bg-white rounded-[4px] border border-neutral-200 space-y-1">
               <span className="text-neutral-400 font-mono text-[10px]">STEP 01 · TASK</span>
               <h4 className="text-sm font-medium text-neutral-900">Task Arrives</h4>
-              <p className="text-[11px] text-neutral-500 font-light">&quot;I need to tender an M&amp;E maintenance contract.&quot;</p>
+              <p className="text-[11px] text-neutral-500 font-light">&quot;I need to plan an M&amp;E maintenance schedule.&quot;</p>
             </div>
 
             <div className="p-4 bg-white rounded-[4px] border border-neutral-200 space-y-1">
               <span className="text-neutral-400 font-mono text-[10px]">STEP 02 · DO</span>
               <h4 className="text-sm font-medium text-neutral-900">Launch Tool</h4>
-              <p className="text-[11px] text-neutral-500 font-light">Tender Brief Generator &amp; PPM Builder model scopes.</p>
+              <p className="text-[11px] text-neutral-500 font-light">PPM Schedule Builder &amp; Cost Estimator model scopes.</p>
             </div>
 
             <div className="p-4 bg-white rounded-[4px] border border-neutral-200 space-y-1">
               <span className="text-neutral-400 font-mono text-[10px]">STEP 03 · OUTPUT</span>
-              <h4 className="text-sm font-medium text-neutral-900">Structured Brief</h4>
-              <p className="text-[11px] text-neutral-500 font-light">Produces neutral technical specification document.</p>
+              <h4 className="text-sm font-medium text-neutral-900">Structured Matrix</h4>
+              <p className="text-[11px] text-neutral-500 font-light">Produces asset-led planned maintenance matrix.</p>
             </div>
 
             <div className="p-4 bg-white rounded-[4px] border border-neutral-200 space-y-1">

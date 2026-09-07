@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 407,
+  "totalRedirects": 408,
   "redirects": [
     {
       "source": "/about",
@@ -2375,10 +2375,10 @@
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
-      "source": "/tools/sla-benchmark",
-      "destination": "/tools/tender-brief",
+      "source": "/tools/tender-brief",
+      "destination": "/tools",
       "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Tender brief tool consolidated into interactive tools hub"
     },
     {
       "source": "/tools/tm44-checker",
@@ -2496,6 +2496,14 @@
     }
   ],
   "changeLog": [
+    {
+      "date": "2026-09-07",
+      "change": "Removed /tools/sla-benchmark redirect to restore canonical interactive tool.",
+      "detail": "Restored /tools/sla-benchmark as an interactive tool page returning 200.",
+      "sources": [
+        "/tools/sla-benchmark"
+      ]
+    },
     {
       "date": "2026-08-22",
       "change": "Removed 1 redirect(s) whose source is now a restored legacy Wix page.",

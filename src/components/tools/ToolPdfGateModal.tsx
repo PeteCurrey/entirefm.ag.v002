@@ -14,6 +14,7 @@ export interface ToolPdfGateModalProps {
   conversionPage: string;
   contextPayload: Record<string, any>;
   showCallbackPreference?: boolean;
+  leadPriority?: 'HIGH' | 'MEDIUM' | 'STANDARD' | string;
 }
 
 interface FormData {
@@ -42,6 +43,7 @@ export function ToolPdfGateModal({
   conversionPage,
   contextPayload,
   showCallbackPreference = true,
+  leadPriority = 'HIGH',
 }: ToolPdfGateModalProps) {
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData | 'turnstile', string>>>({});
@@ -102,7 +104,7 @@ export function ToolPdfGateModal({
       landing_page: conversionPage,
       form_id: 'tool-pdf-gate-modal',
       lead_source: leadSource,
-      lead_priority: 'HIGH',
+      lead_priority: leadPriority,
       turnstile_token: turnstileToken,
       asset_scanner_context: {
         tool: leadSource,

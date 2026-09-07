@@ -273,11 +273,11 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       { name: 'Guides', url: '/resources/guides' },
       { name: 'FM Tender Guide', url: '/resources/guides/fm-tender-guide' }
     ],
-    relatedRoutes: ['/tools/tender-brief', '/services', '/ppm', '/tools/fm-roi-calculator'],
-    conversionGoal: 'Position EntireFM as a transparent, high-capability bidder and drive adoption of the Tender Brief Generator tool.',
+    relatedRoutes: ['/tools', '/services', '/ppm', '/tools/fm-roi-calculator'],
+    conversionGoal: 'Position EntireFM as a transparent, high-capability bidder and drive adoption of interactive FM tools.',
     verificationRequirements: [
       'Grounded in Crown Commercial Service & IWFM procurement best practices',
-      'Direct link to Tender Brief Generator tool'
+      'Direct link to interactive FM tools'
     ],
     contentStatus: 'COMPLETE'
   },
@@ -414,7 +414,6 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       '/tools/compliance-calendar',
       '/tools/ppm-estimator',
       '/tools/fm-roi-calculator',
-      '/tools/tender-brief',
       '/compliance'
     ],
     conversionGoal: 'Engage commercial FM buyers with interactive tools and establish engineering authority.',
@@ -714,13 +713,115 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       '/tools',
       '/ppm',
       '/tools/fm-roi-calculator',
-      '/tools/tender-brief',
       '/mechanical-electrical'
     ],
     conversionGoal: 'Assist prospective clients in establishing realistic maintenance budget expectations.',
     verificationRequirements: [
       'Explicitly labelled as "Indicative Planning Range"',
       'No claims of guaranteed percentage savings without evidence'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+
+  '/tools/contractor-audit': {
+    path: '/tools/contractor-audit',
+    title: 'Contractor Consolidation Audit | Renewal Timeline & Overlap Analysis | Entire FM',
+    metaDescription: 'Audit fragmented facilities contractors, map notice-period deadlines across 24 months, identify rollover risks, and plan estate supplier consolidation.',
+    h1: 'Contractor Consolidation Audit & Timeline',
+    eyebrow: 'Commercial Procurement Intelligence',
+    heroIntro: 'Audit fragmented facilities contractors, track contractual notice trigger deadlines, and identify strategic consolidation windows.',
+    heroDescription: 'Map supplier contract end dates and notice periods across your commercial property portfolio to uncover supplier overlap, rollover risks, and negotiation leverage points.',
+    heroImage: '/branding/EntireFM Branding 001.png',
+    historicIntent: 'Audit commercial FM suppliers, contract renewals and consolidation timeline',
+    primaryIntent: 'Contractor consolidation audit',
+    secondaryIntents: ['facilities contractor renewal timeline', 'supplier fragmentation audit', 'FM contract notice periods'],
+    pageType: 'company',
+    historicTopics: ['Contractor audit', 'Notice period deadlines', 'Consolidation timing'],
+    requiredSections: ['hero', 'contractor-inputs', 'fragmentation-summary', 'renewal-timeline', 'cta'],
+    sections: [
+      {
+        heading: 'Why Contractor Consolidation Timing Matters',
+        body: 'Fragmented supply chains leave organisations vulnerable to automatic contract rollovers and uncoordinated rate increases. Mapping contract end dates against mandatory notice deadlines identifies strategic windows to renegotiate terms or unify services under a single planned delivery framework.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is a notice-period trigger date?',
+        answer: 'The notice-period trigger date is the final calendar date by which written termination or retender notice must be served to prevent automatic contract extension or rolling renewals.'
+      },
+      {
+        question: 'How does clustering create procurement leverage?',
+        answer: 'When multiple specialist contracts expire within a close calendar window (e.g. 1–2 quarters), facilities managers have a unique opportunity to bundle disciplines, negotiate scale pricing, and avoid disjointed multi-supplier transitions.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'FM Tools', url: '/tools' },
+      { name: 'Contractor Audit', url: '/tools/contractor-audit' }
+    ],
+    relatedRoutes: [
+      '/tools',
+      '/tools/fm-roi-calculator',
+      '/tools/ppm-estimator',
+      '/ppm'
+    ],
+    conversionGoal: 'Demonstrate the commercial and operational advantages of structured FM supplier consolidation.',
+    verificationRequirements: [
+      'Accurate notice trigger calculations (end date minus notice days)',
+      'Identification of expired notice windows and imminent renewal dates',
+      'Clear trade breakdown and annual spend aggregation'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+
+  '/tools/sla-benchmark': {
+    path: '/tools/sla-benchmark',
+    title: 'Commercial FM SLA & Response Benchmark Tool | Entire FM',
+    metaDescription: 'Benchmark your current contractor response and fix times against typical UK commercial FM SLA bands across HVAC, electrical, fire, and plumbing.',
+    h1: 'Commercial FM SLA & Response Benchmark Tool',
+    eyebrow: 'Service Standards Benchmark',
+    heroIntro: 'Compare your estate’s reactive attendance and resolution times against typical UK commercial FM contract standards.',
+    heroDescription: 'Analyse service level performance across 7 critical hard FM disciplines, identify operational exposure areas, and evaluate real statutory obligations versus typical commercial Helpdesk SLAs.',
+    heroImage: '/branding/EntireFM Branding 001.png',
+    historicIntent: 'Historic search intent for FM SLA benchmark and contractor response times',
+    primaryIntent: 'FM SLA benchmark tool',
+    secondaryIntents: ['facilities management response times', 'commercial FM SLA bands', 'contractor attendance benchmark'],
+    pageType: 'company',
+    historicTopics: ['FM SLA bands', 'Response time benchmark', 'Contractor KPIs'],
+    requiredSections: ['hero', 'sla-inputs', 'benchmark-scorecard', 'regulatory-context', 'export-toolbar'],
+    sections: [
+      {
+        heading: 'Commercial SLA Benchmarks vs Statutory Mandates',
+        body: 'In commercial facilities management, response times like 2 or 4 hours represent contractual Helpdesk agreements rather than direct statutory mandates, with the exception of specific regulatory triggers such as BS 5839-1 fire watch provisions and BS EN 81-28 lift entrapment protocols.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are 2-hour and 4-hour response times legal requirements?',
+        answer: 'With limited exceptions (such as BS 5839-1 recommendations triggering mandatory compensatory fire watches after 4 hours of alarm fault), most 2 to 4 hour bands are industry Helpdesk practice established to preserve business continuity and safety rather than specific statutory time limits.'
+      },
+      {
+        question: 'What is the difference between Attendance and First-Time Fix?',
+        answer: 'Attendance SLA measures when an engineer physically arrives on site to isolate danger and make safe. First-time fix measures permanent restoration of plant without requiring follow-up specialist parts or return visits.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'FM Tools', url: '/tools' },
+      { name: 'SLA Benchmark', url: '/tools/sla-benchmark' }
+    ],
+    relatedRoutes: [
+      '/tools',
+      '/tools/contractor-audit',
+      '/tools/fm-roi-calculator',
+      '/hard-services'
+    ],
+    conversionGoal: 'Provide clear, transparent benchmarking of commercial FM service level performance.',
+    verificationRequirements: [
+      'Strict separation of industry contract bands from statutory context',
+      'Instant ungated PDF generation and CSV export'
     ],
     contentStatus: 'COMPLETE'
   },
@@ -765,7 +866,6 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     relatedRoutes: [
       '/tools',
       '/tools/ppm-estimator',
-      '/tools/tender-brief',
       '/hard-services',
       '/ppm'
     ],
@@ -777,54 +877,55 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     contentStatus: 'COMPLETE'
   },
 
-  '/tools/tender-brief': {
-    path: '/tools/tender-brief',
-    title: 'FM Tender Brief Generator | Facilities RFP Specification Tool | Entire FM',
-    metaDescription: 'Generate a comprehensive, structured FM tender brief and RFP specification tailored to your estate size, service lines, compliance needs and SLA expectations.',
-    h1: 'FM Tender Brief & RFP Specification Generator',
-    eyebrow: 'Procurement Specification Tool',
-    heroIntro: 'Create a professional, structured Facilities Management tender brief covering scope of services, compliance requirements, CAFM reporting, and SLA standards.',
-    heroDescription: 'Designed for procurement teams, property directors, and managing agents to articulate estate requirements cleanly and obtain competitive, like-for-like market proposals.',
-    heroImage: '/branding/EntireFM Branding 002.png',
-    historicIntent: 'Historic search intent for FM tender brief generator and facilities management RFP template',
-    primaryIntent: 'FM tender brief generator',
-    secondaryIntents: ['facilities management RFP builder', 'FM procurement specification tool', 'FM tender template generator'],
+  '/tools/capex-planner': {
+    path: '/tools/capex-planner',
+    title: 'Asset Lifecycle & CAPEX Planner | 10-Year Replacement Forecast | Entire FM',
+    metaDescription: 'Model commercial plant expected service life, flag at-risk equipment operating past useful life, and forecast rolling 10-year capital expenditure replacement spend.',
+    h1: 'Commercial Asset Lifecycle & 10-Year CAPEX Replacement Planner',
+    eyebrow: 'Forward Capital Planning Tool',
+    heroIntro: 'Forecast rolling commercial plant replacement spend, identify critical at-risk equipment, and model 10-year forward capital cash flows.',
+    heroDescription: 'Evaluate remaining useful life across major mechanical, electrical, lifting, and building fabric assets based on age, condition, and UK commercial maintenance benchmarks.',
+    heroImage: '/branding/EntireFM Branding 001.png',
+    historicIntent: 'Historic search intent for plant lifecycle planner, asset replacement calculator, and commercial FM capital forecast',
+    primaryIntent: 'asset lifecycle planner',
+    secondaryIntents: ['commercial capex forecast', 'plant replacement planner', '10 year maintenance capex model'],
     pageType: 'company',
-    historicTopics: ['Tender brief generator', 'FM RFP specification', 'Procurement framework'],
-    requiredSections: ['hero', 'step-form', 'specification-preview', 'download-options', 'cta'],
+    historicTopics: ['Asset lifecycle', 'CAPEX planning', 'Commercial plant replacement'],
+    requiredSections: ['hero', 'asset-inventory-inputs', 'forecast-bar-chart', 'at-risk-register', 'advisory-commentary', 'cta'],
     sections: [
       {
-        heading: 'Clean Tender Specifications Yield Better Contract Outcomes',
-        body: 'Ambiguous tender documents lead to supplier variations, mismatched expectations, and protracted mobilisation. This generator builds a structured RFP covering hard FM, soft services, statutory compliance, CAFM integration, and key performance indicators.'
+        heading: 'Strategic Forward Capital Planning in Facilities Management',
+        body: 'Allowing critical commercial plant to run to catastrophic failure incurs severe emergency hire premiums, tenant disruption, and unbudgeted capital volatility. EntireFM’s 10-year rolling capital replacement model replaces emergency procurement with disciplined forward budgeting.'
       }
     ],
     faqs: [
       {
-        question: 'Does this tender brief force me to choose EntireFM?',
-        answer: 'No. The generated brief is an open, provider-neutral RFP document that you can issue to any prospective facilities management contractor or market framework.'
+        question: 'How are equipment service lives calculated?',
+        answer: 'The planner applies EntireFM indicative lifecycle benchmarks informed by industry-standard UK commercial maintenance guidance, adjusted dynamically by declared plant condition (Good, Fair, or Poor).'
       },
       {
-        question: 'What format is the generated tender specification?',
-        answer: 'You can copy the markdown text directly, print to formatted PDF, or download a structured document ready for insertion into your procurement pack.'
+        question: 'Can I export the 10-year forecast into Excel or CSV?',
+        answer: 'Yes. The full asset inventory, remaining useful life calculations, and 10-year annual cash flow schedule can be downloaded as a spreadsheet immediately.'
       }
     ],
     breadcrumbs: [
       { name: 'Home', url: '/' },
       { name: 'Resources', url: '/resources' },
       { name: 'FM Tools', url: '/tools' },
-      { name: 'Tender Brief Generator', url: '/tools/tender-brief' }
+      { name: 'CAPEX Planner', url: '/tools/capex-planner' }
     ],
     relatedRoutes: [
       '/tools',
       '/tools/ppm-schedule-builder',
-      '/tools/ppm-estimator',
-      '/about-entire-facilities-management',
-      '/contact-us'
+      '/tools/fm-roi-calculator',
+      '/hard-services',
+      '/ppm'
     ],
-    conversionGoal: 'Empower procurement professionals while positioning EntireFM as an authority on FM contract structuring.',
+    conversionGoal: 'Drive high-intent capital replacement and M&E plant condition appraisal enquiries.',
     verificationRequirements: [
-      'Document generator must produce clean, neutral RFP specifications',
-      'Downloadable and copyable without requiring sales contact'
+      'Zero fabricated source citations in client-facing UI or PDF',
+      'Dynamic calendar current year reference',
+      'Regional cost multiplier alignment'
     ],
     contentStatus: 'COMPLETE'
   },

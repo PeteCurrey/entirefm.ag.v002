@@ -34,34 +34,6 @@ const TOOL_DETAIL_REGISTRY: Record<string, Omit<ToolDetailData, keyof typeof FM_
     relatedKnowUrl: '/lobby/know',
     relatedFindUrl: '/lobby/find',
   },
-  'tender-brief-generator': {
-    whatItDoes: [
-      'Structures a neutral, professional facilities management tender brief from high-level estate requirements.',
-      'Defines clear service level agreements (SLAs), emergency response windows, and contractor KPIs.',
-      'Establishes CAFM reporting transparency, statutory audit rights, and invoicing protocols.',
-      'Formats technical specifications ready for market engagement.',
-    ],
-    whenToUseIt: [
-      'Market-testing hard FM, cleaning, security, or total facilities management contracts.',
-      'Replacing an under-performing incumbent contractor with measurable performance covenants.',
-      'Drafting procurement specifications for Crown Commercial Service or public-sector tenders.',
-    ],
-    inputsRequired: [
-      'Estate portfolio scope (number of sites, locations, floor area).',
-      'Required service lots (M&E, Water, Fire, Fabric Maintenance, Soft Services).',
-      'Key performance priority (Cost Predictability vs Statutory Assurance vs High-Touch Occupant Experience).',
-    ],
-    outputDetails: [
-      'Complete Invitation to Tender (ITT) technical specification brief.',
-      'Service Level Agreement (SLA) response time matrix.',
-      'Contractor evaluation scoring criteria guide.',
-    ],
-    methodologyNotes:
-      'Generates technical and operational drafting briefs. Legal terms of business and commercial contract clauses should be reviewed by qualified legal counsel.',
-    relatedCheckUrl: '/lobby/check',
-    relatedKnowUrl: '/lobby/know',
-    relatedFindUrl: '/lobby/find',
-  },
   'asset-scanner': {
     whatItDoes: [
       'Runs optical character recognition (OCR) on plantroom nameplate photographs.',

@@ -137,13 +137,13 @@ export function TemplateSector({ route, content }: TemplateProps) {
           caseStudies={displayCaseStudies}
         />
 
-        {/* 10. TENDER / PROCUREMENT BRIEF TOOL ADVISORY */}
+        {/* 10. FM PLANNING & TOOLS ADVISORY */}
         <SectorTenderCTA
-          eyebrow="PROCUREMENT & TENDER PLANNING"
-          headline="Structuring an FM Invitation to Tender (ITT) for Your Estate?"
-          subline="Use our free interactive Tender Brief Generator to specify plant assets, maintenance frequencies, access windows, and contracted SLA KPIs."
-          buttonText="Open Tender Brief Generator"
-          href="/tools/tender-brief"
+          eyebrow="FACILITIES MANAGEMENT PLANNING"
+          headline="Planning Commercial Maintenance for Your Estate?"
+          subline="Use our interactive FM tools to calculate maintenance budgets, verify statutory compliance obligations, and evaluate planned maintenance ROI."
+          buttonText="Explore Commercial FM Tools"
+          href="/tools"
         />
 
         {/* 11. SECTOR FAQS (Clean Understated Accordion) */}

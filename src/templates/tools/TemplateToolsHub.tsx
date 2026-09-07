@@ -8,7 +8,6 @@ import {
   Wrench,
   Calculator,
   CalendarCheck,
-  FileText,
   Activity,
   ArrowRight,
   Sparkles,
@@ -20,6 +19,7 @@ import {
   ChevronRight,
   Layers,
   FileSpreadsheet,
+  Gauge,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -119,15 +119,37 @@ const TOOLS_DATA: ToolItem[] = [
     relatedService: { label: 'Total FM Contracts', href: '/hard-services' },
   },
   {
-    title: 'FM Tender Brief Generator',
-    slug: '/tools/tender-brief',
+    title: 'Contractor Consolidation Audit',
+    slug: '/tools/contractor-audit',
     category: 'Commercial & Strategy',
     tag: 'Procurement Tool',
-    timeEstimate: '5 mins',
-    description: 'Generate a comprehensive, structured Facilities Management tender brief and RFP specification ready for procurement.',
-    deliverables: ['Structured RFP document', 'Service lines & KPI framework', 'PDF & Markdown export'],
-    icon: FileText,
-    relatedService: { label: 'About EntireFM', href: '/about-entire-facilities-management' },
+    timeEstimate: '2 mins',
+    description: 'Map existing contractor end dates, track contractual notice deadlines, and identify strategic consolidation windows.',
+    deliverables: ['Notice rollover risk alerts', 'Supplier fragmentation summary', 'Consolidation timeline'],
+    icon: CalendarCheck,
+    relatedService: { label: 'Planned Maintenance', href: '/ppm' },
+  },
+  {
+    title: 'Asset Lifecycle & CAPEX Planner',
+    slug: '/tools/capex-planner',
+    category: 'Commercial & Strategy',
+    tag: 'Capital Forecasting',
+    timeEstimate: '3 mins',
+    description: 'Model commercial plant expected service lives, identify at-risk equipment, and forecast rolling 10-year capital replacement expenditure.',
+    deliverables: ['10-year capital cash flow chart', 'Urgent at-risk plant schedule', 'Downloadable multi-page appraisal pack'],
+    icon: Calculator,
+    relatedService: { label: 'Mechanical & Electrical', href: '/mechanical-electrical' },
+  },
+  {
+    title: 'SLA & Response Benchmark Tool',
+    slug: '/tools/sla-benchmark',
+    category: 'Commercial & Strategy',
+    tag: 'Service Standards',
+    timeEstimate: '1 min',
+    description: 'Compare your estate’s reactive attendance and resolution times against typical UK commercial FM contract bands across 7 critical disciplines.',
+    deliverables: ['Discipline SLA variance scorecard', 'UK commercial Helpdesk bands', 'Ungated PDF & CSV export'],
+    icon: Gauge,
+    relatedService: { label: 'Hard Facilities Management', href: '/hard-services' },
   },
 ];
 
@@ -337,7 +359,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <span className="mt-1 h-2 w-2 rounded-full bg-brand-electric shrink-0" />
-                    <span><strong>Provider-Neutral Outputs:</strong> Exported PPM matrices and Tender Briefs are open documents for your own internal procurement use.</span>
+                    <span><strong>Provider-Neutral Outputs:</strong> Exported PPM matrices and planning schedules are open documents for your own internal procurement use.</span>
                   </div>
                 </div>
               </div>

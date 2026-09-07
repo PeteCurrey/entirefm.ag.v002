@@ -378,7 +378,6 @@ export async function getToolsPerformance(): Promise<DimensionPerformance[]> {
     { key: '/tools/statutory-compliance-calendar', label: 'Compliance Calendar' },
     { key: '/tools/ppm-cost-estimator', label: 'PPM Estimator' },
     { key: '/tools/fm-procurement-roi-calculator', label: 'ROI Calculator' },
-    { key: '/tools/fm-tender-brief-generator', label: 'Tender Brief Generator' },
   ];
 
   return tools.map((t) => ({

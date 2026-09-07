@@ -163,8 +163,8 @@ export const CAREER_PATHWAYS: CareerPathway[] = [
     qualificationsNote: 'CIPS (Chartered Institute of Procurement & Supply), IACCM/WorldCC Contract Management, RICS Commercial FM.',
     relatedLearnTopic: 'Procurement & Contracts',
     relatedLearnSlug: 'sla-kpi-design-for-fm-contracts',
-    relatedDoToolName: 'FM Tender Brief Generator',
-    relatedDoToolUrl: '/tools/tender-brief',
+    relatedDoToolName: 'FM ROI / TCO Calculator',
+    relatedDoToolUrl: '/tools/fm-roi-calculator',
   },
   {
     id: 'mobilisation-projects',
@@ -266,8 +266,8 @@ export const PROFESSIONAL_ROLES: ProfessionalRoleGuide[] = [
     recommendedLearnPath: 'People & Leadership',
     recommendedLearnUrl: '/lobby/learn?pathway=people-leadership',
     recommendedDoTool: {
-      name: 'FM Tender Brief Generator',
-      url: '/tools/tender-brief',
+      name: 'FM ROI / TCO Calculator',
+      url: '/tools/fm-roi-calculator',
     },
   },
   {
@@ -304,8 +304,8 @@ export const PROFESSIONAL_ROLES: ProfessionalRoleGuide[] = [
     recommendedLearnPath: 'Procurement & Contracts',
     recommendedLearnUrl: '/lobby/learn/fm-procurement-playbook',
     recommendedDoTool: {
-      name: 'FM Tender Brief Generator',
-      url: '/tools/tender-brief',
+      name: 'FM ROI / TCO Calculator',
+      url: '/tools/fm-roi-calculator',
     },
   },
   {
@@ -622,7 +622,7 @@ export const CAREER_NAVIGATOR_QUESTIONS: CareerNavigatorQuestion[] = [
         recommendedRoleSlug: 'facilities-director',
         recommendedPathwaySlug: 'fm-operations',
         recommendedLearnSlug: 'fm-procurement-playbook',
-        recommendedToolUrl: '/tools/tender-brief',
+        recommendedToolUrl: '/tools/fm-roi-calculator',
         guidance: 'Develop your strategic commercial acumen: enterprise procurement models, workplace transformation, ESG portfolio decarbonisation, and corporate risk defense. Boardroom leaders view the estate through capital return, talent attraction, and business continuity.',
       },
     ],

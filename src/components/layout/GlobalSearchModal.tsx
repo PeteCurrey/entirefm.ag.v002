@@ -48,7 +48,6 @@ const KEYWORD_ALIASES: Record<string, string[]> = {
   '/tools/compliance-checker': ['compliance checker', 'statutory checker', 'compliance audit', 'legal obligations'],
   '/tools/fm-health-check': ['fm health check', 'audit tool', 'estate scorecard', 'facilities review'],
   '/tools/fm-roi-calculator': ['roi calculator', 'cost saving calculator', 'fm cost calculator'],
-  '/tools/tender-brief': ['tender brief generator', 'rfp builder', 'fm tender template', 'procurement specification'],
   '/tools/compliance-calendar': ['compliance calendar', 'statutory dates', 'inspection calendar'],
   '/tools/ppm-estimator': ['ppm cost estimator', 'maintenance cost tool', 'quote estimate'],
   '/suppliers/partner-network': ['partner network', 'approved contractor', 'subcontractor network', 'supplier network', 'join supplier list'],
@@ -120,13 +119,6 @@ function getPublicSearchCorpus(): SearchResultItem[] {
       breadcrumb: 'Interactive Tools → Financial Model',
       description: 'Model potential expenditure reduction and asset lifecycle extension from proactive FM.',
       aliases: ['roi model', 'savings calculator'],
-    },
-    {
-      title: 'Tender Brief Generator',
-      href: '/tools/tender-brief',
-      breadcrumb: 'Interactive Tools → Procurement',
-      description: 'Build structured RFPs, scopes of work, and specification documents for FM tenders.',
-      aliases: ['rfp tool', 'tender builder', 'specification generator'],
     },
     {
       title: 'Drone Inspection Planner',

@@ -121,7 +121,6 @@ async function runTests() {
     '/tools/compliance-calendar',
     '/tools/ppm-estimator',
     '/tools/fm-roi-calculator',
-    '/tools/tender-brief',
   ];
 
   for (const routePath of expectedToolRoutes) {

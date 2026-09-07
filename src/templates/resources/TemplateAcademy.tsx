@@ -94,7 +94,7 @@ const ACADEMY_MODULES: CourseModule[] = [
       'Contract mobilisation and asset handover management',
     ],
     recommendedRole: 'Procurement Managers, Commercial Property Directors',
-    relatedTool: { label: 'Tender Brief Generator', href: '/tools/tender-brief' },
+    relatedTool: { label: 'FM ROI / TCO Calculator', href: '/tools/fm-roi-calculator' },
   },
 ];
 

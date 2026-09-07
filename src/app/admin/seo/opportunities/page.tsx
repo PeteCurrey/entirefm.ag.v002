@@ -117,7 +117,7 @@ export default function SearchOpportunitiesAdminDashboard() {
       position: 5.8,
       ctr: '3.83%',
       relevance: 'HIGH',
-      action: 'Linked directly to interactive Tender Brief Generator tool.',
+      action: 'Linked directly to interactive FM tools suite.',
       status: 'REMEDIATED',
     },
   ];

@@ -77,7 +77,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
       {
         id: 'tools-and-calculators',
         heading: '3. FM Tools, Calculators & Indicative Estimates',
-        body: 'Our interactive tools (including the FM Building Health Check, PPM Schedule Builder, PPM Estimator, ROI Calculator, and Tender Brief Generator) are engineered to provide indicative guidance based on generalised FM benchmarks and user-supplied inputs.',
+        body: 'Our interactive tools (including the FM Building Health Check, PPM Schedule Builder, PPM Estimator, and ROI Calculator) are engineered to provide indicative guidance based on generalised FM benchmarks and user-supplied inputs.',
         callout: {
           type: 'important',
           title: 'Commercial Reliance Notice',

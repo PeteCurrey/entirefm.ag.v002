@@ -643,7 +643,7 @@ export const BLOG_POSTS: BlogPost[] = [
       '/resources/ai-in-facilities-management/ai-agents',
       '/resources/ai-in-facilities-management/ai-governance',
       '/compliance',
-      '/tools/tender-brief',
+      '/tools',
     ],
   },
 
@@ -805,7 +805,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     related: [
       '/resources/ai-in-facilities-management/ai-governance',
-      '/tools/tender-brief',
+      '/tools',
       '/resources/ai-in-facilities-management',
       '/compliance',
     ],
@@ -885,7 +885,7 @@ export const BLOG_POSTS: BlogPost[] = [
     related: [
       '/post/fm-contract-mobilisation-checklist',
       '/about-entire-facilities-management',
-      '/tools/tender-brief',
+      '/tools',
       '/compliance',
     ],
   },
@@ -1075,7 +1075,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
     related: [
-      '/tools/tender-brief',
+      '/tools',
       '/compliance',
       '/client-login',
       '/about-entire-facilities-management',

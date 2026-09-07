@@ -1993,16 +1993,6 @@
       "statusRequired": 200,
       "canonical": "self",
       "indexable": true
-    },
-    {
-      "path": "/tools/tender-brief",
-      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "statusRequired": 200,
-      "canonical": "self",
-      "indexable": true
-    },
     {
       "path": "/transport-facilities-management",
       "provenance": "LEGACY_VERIFIED",

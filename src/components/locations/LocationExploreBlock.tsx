@@ -68,7 +68,7 @@ export function LocationExploreBlock({
       links: [
         { label: 'National Compliance Centre', href: '/compliance', detail: 'EICR, Gas CP12 & Water Hygiene' },
         { label: 'Interactive PPM Schedule Builder', href: '/tools/ppm-schedule-builder', detail: 'Generate Asset Matrix' },
-        { label: 'Tender Brief Generator', href: '/tools/tender-brief', detail: 'Structure FM Specifications' },
+        { label: 'FM ROI & TCO Calculator', href: '/tools/fm-roi-calculator', detail: 'Compare Reactive vs Planned FM' },
       ],
     },
   ];

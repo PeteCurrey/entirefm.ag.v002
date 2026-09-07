@@ -49,7 +49,7 @@ const SECTORS_MATRIX: SectorStatus[] = [
     contentDepth: 'DEEP',
     proofStatus: 'VERIFIED',
     relatedServices: ['Commercial HVAC', 'Fixed Wire EICR', 'Office Cleaning'],
-    procurementTool: '/tools/tender-brief',
+    procurementTool: '/tools',
   },
   {
     id: 'sec-log',
@@ -69,7 +69,7 @@ const SECTORS_MATRIX: SectorStatus[] = [
     contentDepth: 'DEEP',
     proofStatus: 'VERIFIED',
     relatedServices: ['PPM Schedules', 'Air Conditioning', 'Electrical Repairs'],
-    procurementTool: '/tools/tender-brief',
+    procurementTool: '/tools',
   },
   {
     id: 'sec-edu',

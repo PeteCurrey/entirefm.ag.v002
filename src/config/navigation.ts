@@ -145,7 +145,7 @@ export const PRIMARY_NAV: NavSection[] = [
           { label: 'PPM Schedule Builder', href: '/tools/ppm-schedule-builder', detail: 'Asset-led planned maintenance matrix' },
           { label: 'PPM Cost Estimator', href: '/tools/ppm-estimator', detail: 'Indicative budget ranges by building scope' },
           { label: 'FM ROI / TCO Calculator', href: '/tools/fm-roi-calculator', detail: 'Compare reactive vs planned maintenance' },
-          { label: 'Tender Brief Generator', href: '/tools/tender-brief', detail: 'Structured FM RFP specification builder' },
+          { label: 'Asset Lifecycle / CAPEX Planner', href: '/tools/capex-planner', detail: '10-year rolling plant replacement forecast' },
           { label: 'Compliance Calendar', href: '/tools/compliance-calendar', detail: 'Statutory inspection schedule & ICS export' },
           { label: 'View All Tools', href: '/tools', detail: 'Interactive FM engineering and planning suite' },
         ],

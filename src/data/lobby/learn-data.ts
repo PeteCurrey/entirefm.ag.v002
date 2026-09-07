@@ -251,8 +251,8 @@ export const LEARN_RESOURCES: LearningResource[] = [
     lastReviewedDate: 'August 2026',
     topic: 'FM Procurement',
     isFeatured: true,
-    relatedToolUrl: '/tools/tender-brief',
-    relatedToolName: 'FM Tender Brief Generator',
+    relatedToolUrl: '/tools/fm-roi-calculator',
+    relatedToolName: 'FM ROI / TCO Calculator',
     status: 'PUBLISHED',
   },
   {
@@ -321,8 +321,8 @@ export const LEARN_RESOURCES: LearningResource[] = [
     publishedDate: 'July 2026',
     lastReviewedDate: 'August 2026',
     topic: 'Contract Management',
-    relatedToolUrl: '/tools/tender-brief',
-    relatedToolName: 'FM Tender Brief Generator',
+    relatedToolUrl: '/tools/fm-roi-calculator',
+    relatedToolName: 'FM ROI / TCO Calculator',
     status: 'PUBLISHED',
   },
   {
@@ -416,7 +416,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition: 'A contractual commitment between a service provider and client specifying defined performance targets — such as attendance times, rectification periods, system availability, and quality standards. SLAs typically distinguish between Emergency, Urgent, Routine, and Planned response categories.',
     topic: 'Contract Management',
     relatedTerms: ['KPI', 'Contract Management'],
-    relatedToolUrl: '/tools/tender-brief',
+    relatedToolUrl: '/tools/fm-roi-calculator',
     hasLegalSignificance: false,
   },
   {
@@ -795,8 +795,8 @@ export const TASK_DISCOVERY_ITEMS: TaskDiscoveryItem[] = [
     label: 'Prepare a tender',
     description: 'Specification writing, evaluation, contract award',
     primaryDestination: {
-      label: 'FM Tender Brief Generator',
-      url: '/tools/tender-brief',
+      label: 'FM ROI / TCO Calculator',
+      url: '/tools/fm-roi-calculator',
       section: 'DO',
     },
     secondaryDestination: {
