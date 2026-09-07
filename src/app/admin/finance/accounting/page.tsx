@@ -51,6 +51,15 @@ export default async function AccountingSyncPage() {
             EntireFM is the authoritative source for operational work, commercial provenance, supplier commitments, and billing readiness.
             The external accounting platform remains authoritative for general ledger, balance sheet, and statutory accounts.
           </p>
+          <div className="pt-2 flex items-center gap-3">
+            <Link
+              href="/admin/integrations/xero"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-void border border-brand-edge-dark text-xs text-brand-mist hover:text-white transition"
+            >
+              <span>Manage Xero Integration & OAuth</span>
+              <span className="text-brand-electric">→</span>
+            </Link>
+          </div>
           {!adapter.isConfigured && (
             <p className="text-amber-400/90 pt-1">
               Note: To activate live syncing, configure <code className="bg-brand-void px-1.5 py-0.5 rounded text-white">ACCOUNTING_PROVIDER</code> and API credentials in the server environment.

@@ -132,6 +132,7 @@ const CAFM_GROUPS: NavGroup[] = [
       { name: 'Client Invoices', href: '/admin/finance/client-invoices' },
       { name: 'Credit Notes', href: '/admin/finance/credit-notes' },
       { name: 'Accounting Sync', href: '/admin/finance/accounting' },
+      { name: 'Xero Integration', href: '/admin/integrations/xero' },
     ],
   },
   {

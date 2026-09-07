@@ -38,11 +38,20 @@ export default async function ClientInvoicesPage() {
 
   return (
     <div className="space-y-6">
-      <AdminPageHeader
-        category="Finance"
-        title="Client Invoices"
-        description="Authoritative client invoices, billing periods, payment status from accounting, and evidence packs."
-      />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <AdminPageHeader
+          category="Finance"
+          title="Client Invoices"
+          description="Authoritative client invoices, billing periods, payment status from accounting, and evidence packs."
+        />
+        <Link
+          href="/admin/integrations/xero"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-carbon border border-brand-edge-dark text-xs text-brand-mist hover:text-white transition"
+        >
+          <span>Xero Integration</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
 
       {/* SUMMARY */}
       <div className="flex items-center justify-between text-xs font-normal text-brand-mist/60 bg-brand-void/40 p-3.5 rounded-lg border border-brand-edge-dark/50">
@@ -70,6 +79,7 @@ export default async function ClientInvoicesPage() {
                 <th className="p-3.5">Total Gross (£)</th>
                 <th className="p-3.5">Status</th>
                 <th className="p-3.5">Payment</th>
+                <th className="p-3.5">Xero Sync</th>
                 <th className="p-3.5 text-right">Evidence</th>
               </tr>
             </thead>
@@ -77,7 +87,12 @@ export default async function ClientInvoicesPage() {
               {invoices.map(inv => (
                 <tr key={inv.id} className="hover:bg-brand-edge-dark/20 transition-colors">
                   <td className="p-3.5 font-light text-white">
-                    {inv.invoice_number}
+                    <Link
+                      href={`/admin/finance/client-invoices/${inv.id}`}
+                      className="hover:text-brand-electric underline underline-offset-2 transition"
+                    >
+                      {inv.invoice_number}
+                    </Link>
                   </td>
                   <td className="p-3.5 text-white/80">{inv.client_account_id ? inv.client_account_id.slice(0, 8) : '—'}</td>
                   <td className="p-3.5">{inv.issue_date || '—'}</td>
@@ -92,6 +107,21 @@ export default async function ClientInvoicesPage() {
                   </td>
                   <td className={`p-3.5 text-[11px] ${PAYMENT_STATUS_BADGE[inv.payment_status] || 'text-brand-mist'}`}>
                     {inv.payment_status?.replace(/_/g, ' ') || 'NOT DUE'}
+                  </td>
+                  <td className="p-3.5">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] border ${
+                        inv.accounting_sync_status === 'SYNCED'
+                          ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
+                          : inv.accounting_sync_status === 'SYNC_FAILED'
+                          ? 'bg-red-950/60 text-red-300 border-red-800/40'
+                          : inv.accounting_sync_status === 'SYNCING'
+                          ? 'bg-blue-950/60 text-blue-300 border-blue-800/40'
+                          : 'bg-zinc-900 text-zinc-400 border-zinc-800'
+                      }`}
+                    >
+                      {inv.accounting_sync_status || 'NOT SYNCED'}
+                    </span>
                   </td>
                   <td className="p-3.5 text-right">
                     <a

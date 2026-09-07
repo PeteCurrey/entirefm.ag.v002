@@ -1631,6 +1631,49 @@ export function getAccountingAdapter(): AccountingAdapter {
     };
   }
 
+  // REAL XERO ADAPTER
+  if (provider === 'XERO' || (!process.env.ACCOUNTING_PROVIDER && process.env.XERO_CLIENT_ID)) {
+    return {
+      provider: 'XERO',
+      isConfigured: true,
+      async syncSupplierInvoice(_: string) {
+        return { status: 'NOT_CONFIGURED' as AccountingSyncStatus, error: 'Xero supplier bill sync scheduled for subsequent phase' };
+      },
+      async syncClientInvoice(invoiceId: string) {
+        try {
+          const { syncInvoiceToXero } = await import('@/lib/integrations/xero');
+          const res = await syncInvoiceToXero({ invoiceId });
+          return {
+            externalId: res.xeroInvoiceId,
+            status: res.syncStatus as AccountingSyncStatus,
+            error: res.error,
+          };
+        } catch (err: any) {
+          return { status: 'SYNC_FAILED' as AccountingSyncStatus, error: err?.message || 'Xero invoice sync failed' };
+        }
+      },
+      async syncCreditNote(_: string) {
+        return { status: 'NOT_CONFIGURED' as AccountingSyncStatus, error: 'Xero credit note sync scheduled for subsequent phase' };
+      },
+      async pullPaymentStatus(entityType: string, entityId: string) {
+        if (entityType === 'CLIENT_INVOICE') {
+          try {
+            const { reconcileInvoicePayment } = await import('@/lib/integrations/xero');
+            const res = await reconcileInvoicePayment({ invoiceId: entityId });
+            return {
+              paymentStatus: (res.newPaymentStatus || 'NOT_DUE') as PaymentStatus,
+              paymentReference: res.paymentReference,
+              paidAt: res.paidAt,
+            };
+          } catch {
+            return { paymentStatus: 'NOT_DUE' as PaymentStatus };
+          }
+        }
+        return { paymentStatus: 'NOT_DUE' as PaymentStatus };
+      },
+    };
+  }
+
   // Real provider adapters would be implemented here
   // For now, return NOT_CONFIGURED (honest about capability)
   return {
