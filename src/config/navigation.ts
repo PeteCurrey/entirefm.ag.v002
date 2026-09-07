@@ -218,7 +218,6 @@ export const PRIMARY_NAV: NavSection[] = [
  * Flat links alongside the mega-menu sections.
  */
 export const SECONDARY_NAV: NavLink[] = [
-  { label: 'The Lobby', href: '/lobby', detail: 'FM intelligence and daily briefing room' },
   { label: 'Client Portal', href: '/client-portal' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
