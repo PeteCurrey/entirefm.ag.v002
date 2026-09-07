@@ -38,6 +38,8 @@ export async function POST(
       return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
     }
 
+    const quote = quotes[0];
+
     await dbQuery(`quotes?id=eq.${encodeURIComponent(id)}`, {
       method: 'PATCH',
       body: {
@@ -49,6 +51,25 @@ export async function POST(
         updated_at: new Date().toISOString(),
       },
     });
+
+    // If deploying to client and work order exists, emit communication event
+    if (deployToClient && quote.work_order_id) {
+      try {
+        const { emitClientCommunicationEvent } = await import('@/server/communications');
+        await emitClientCommunicationEvent({
+          work_order_id: quote.work_order_id,
+          work_order_number: quote.work_order_id,
+          eventType: 'QUOTE_APPROVAL_REQUIRED',
+          data: {
+            quote_amount_net_gbp: Number(quote.subtotal_gbp) || 0,
+            completion_summary: quote.scope_description || 'Field remedial quote prepared on site',
+            engineer_name: session.name,
+          },
+        });
+      } catch (commsErr) {
+        console.warn('[COMMS_EVENT_WARNING] Non-blocking comms event dispatch:', commsErr);
+      }
+    }
 
     await recordAuditEvent({
       event_type: deployToClient ? 'QUOTE_ISSUED' : 'QUOTE_SUBMITTED_FOR_REVIEW',

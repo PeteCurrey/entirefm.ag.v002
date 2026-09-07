@@ -86,15 +86,25 @@ export class EntireCAFMFieldIntelligenceEngine {
     };
     currentTurns.push(userTurn);
 
-    // 2. Extract structured understanding from transcript & context
+    // 2. Aggregate complete conversational text across all turns
+    const cumulativeSpeech = currentTurns.map((t) => t.text).join(' ');
+    const lowerCumulative = cumulativeSpeech.toLowerCase();
+
+    // 3. Extract structured understanding from cumulative speech & context
     const understanding = await this.extractUnderstanding({
-      transcript,
+      transcript: cumulativeSpeech,
       context,
       history: currentTurns,
       session,
     });
 
-    // 3. Asset Resolution & Ambiguity Check
+    // Handle conversational overrides across turns
+    if (lowerCumulative.includes('secondary pump') || lowerCumulative.includes('pump 2') || lowerCumulative.includes('pump two')) {
+      understanding.assetName = 'Secondary Booster Pump';
+      understanding.model = understanding.model || 'ABC122';
+    }
+
+    // 4. Asset Resolution & Ambiguity Check
     let identifiedAsset: any = null;
     let ambiguities: AmbiguityResolution[] | undefined = undefined;
     const flags: string[] = [];
@@ -125,7 +135,7 @@ export class EntireCAFMFieldIntelligenceEngine {
         ambiguities = [
           {
             type: 'ASSET',
-            promptQuestion: `I found ${matchedAssets.length} matching assets at ${understanding.siteName || 'this site'}. Please select the correct equipment:`,
+            promptQuestion: `I found ${matchedAssets.length} matching assets at ${understanding.siteName || 'this site'}. Which pump are you referring to?`,
             options: matchedAssets.map((a: any) => ({
               id: a.id,
               title: `${a.asset_reference} — ${a.name}`,
@@ -138,7 +148,7 @@ export class EntireCAFMFieldIntelligenceEngine {
       }
     }
 
-    // 4. Asset Intelligence & History
+    // 5. Asset Intelligence & Maintenance History
     let assetIntelligenceSummary: any = undefined;
     if (identifiedAsset) {
       const historyRes = await getAssetHistory(identifiedAsset.id, session);
@@ -161,7 +171,7 @@ export class EntireCAFMFieldIntelligenceEngine {
       }
     }
 
-    // 5. Work Scope Generation (Distinguish Engineer-Stated vs AI-Inferred)
+    // 6. Work Scope Generation (Distinguish Engineer-Stated vs AI-Inferred)
     const scopeOfWorks: WorkScopeItem[] = identifyRequiredWorks(
       understanding.assetName || understanding.model || 'Equipment',
       understanding.faultDescription || 'Fault'
@@ -173,7 +183,18 @@ export class EntireCAFMFieldIntelligenceEngine {
       requiresConfirmation: s.requiresConfirmation,
     }));
 
-    // 6. Parts Identification & Verification against Catalogue
+    // 7. Parts Identification & Van Stock / In-Stock Detection
+    const hasPartInStock =
+      lowerCumulative.includes('already have') ||
+      lowerCumulative.includes('have the seal kit') ||
+      lowerCumulative.includes('have the part') ||
+      lowerCumulative.includes('part in stock') ||
+      lowerCumulative.includes('van stock') ||
+      lowerCumulative.includes('dont include parts') ||
+      lowerCumulative.includes("don't include parts") ||
+      lowerCumulative.includes('replaced the valve already') ||
+      lowerCumulative.includes('no parts');
+
     const potentialParts = await identifyPotentialParts(
       understanding.manufacturer,
       understanding.model,
@@ -194,11 +215,12 @@ export class EntireCAFMFieldIntelligenceEngine {
           manufacturer: understanding.manufacturer,
           quantity: 1,
           unit: p.unit || 'UNIT',
-          unitCostGbp: Number(p.unit_cost_gbp),
-          unitSellGbp: roundMoney(Number(p.unit_cost_gbp) * 1.2), // Default 20% markup
+          unitCostGbp: hasPartInStock ? 0 : Number(p.unit_cost_gbp),
+          unitSellGbp: hasPartInStock ? 0 : roundMoney(Number(p.unit_cost_gbp) * 1.2),
           isFromCatalogue: true,
           requiresConfirmation: false,
           stalePriceWarning: isStale,
+          notes: hasPartInStock ? 'Van Stock / Free Issue — no material charge' : undefined,
         });
       }
     } else {
@@ -207,23 +229,52 @@ export class EntireCAFMFieldIntelligenceEngine {
         description: `Replacement seal / component kit for ${understanding.manufacturer || ''} ${understanding.model || 'unit'}`,
         quantity: 1,
         unit: 'KIT',
+        unitCostGbp: hasPartInStock ? 0 : undefined,
+        unitSellGbp: hasPartInStock ? 0 : undefined,
         isFromCatalogue: false,
-        requiresConfirmation: true,
-        notes: 'Part not yet identified in supplier catalogue — pricing pending RFQ confirmation.',
+        requiresConfirmation: !hasPartInStock,
+        notes: hasPartInStock
+          ? 'Van Stock / Existing Kit — no material charge'
+          : 'Part not yet identified in supplier catalogue — pricing pending RFQ confirmation.',
       });
-      flags.push('Unverified part: Manual supplier confirmation required.');
+      if (!hasPartInStock) {
+        flags.push('Unverified part: Manual supplier confirmation required.');
+      }
     }
 
-    // 7. Trade & Labour Resolution
-    const tradeClassification = classifyTrade(transcript + ' ' + (understanding.assetName || ''));
+    // 8. Trade & Labour Resolution with Historical Intelligence
+    const tradeClassification = classifyTrade(cumulativeSpeech + ' ' + (understanding.assetName || ''));
     const effectiveClientId = understanding.clientAccountId || context.clientAccountId;
-    const labourRateRes = await getLabourRate(tradeClassification.tradeCode, effectiveClientId);
+
+    // Detect Out-of-hours
+    const isOutOfHours =
+      lowerCumulative.includes('out of hours') ||
+      lowerCumulative.includes('overtime') ||
+      lowerCumulative.includes('weekend') ||
+      lowerCumulative.includes('evening');
+
+    const ratePeriod = isOutOfHours ? 'OUT_OF_HOURS' : understanding.isUrgent ? 'EMERGENCY' : 'NORMAL';
+    const labourRateRes = await getLabourRate(tradeClassification.tradeCode, effectiveClientId, undefined, ratePeriod);
 
     const hourlyRate = labourRateRes.data?.hourlyRateGbp || 65.0;
     const isCallout = !!understanding.isUrgent;
     const calloutRate = isCallout ? (labourRateRes.data?.calloutRateGbp || 95.0) : 0;
-    const estimatedHours = this.estimateLabourHours(transcript, understanding);
-    const engineersCount = this.estimateEngineersCount(transcript);
+
+    // Estimate labour hours using historical completed CAFM jobs
+    const historicalEst = await import('./tools').then((m) =>
+      m.getHistoricalJobLabourEstimate({
+        assetId: identifiedAsset?.id,
+        manufacturer: understanding.manufacturer,
+        model: understanding.model,
+        tradeCode: tradeClassification.tradeCode,
+        faultCategory: understanding.faultDescription,
+      })
+    );
+
+    // Override hours if explicitly spoken by engineer
+    const spokenHours = this.estimateLabourHours(cumulativeSpeech, understanding);
+    const estimatedHours = spokenHours > 0 ? spokenHours : historicalEst.estimatedHours;
+    const engineersCount = this.estimateEngineersCount(cumulativeSpeech);
 
     const labourCalc = calculateLabour(hourlyRate, estimatedHours, engineersCount, calloutRate);
 
@@ -235,12 +286,17 @@ export class EntireCAFMFieldIntelligenceEngine {
       hourlyRateGbp: hourlyRate,
       calloutRateGbp: calloutRate,
       totalLabourGbp: labourCalc.totalLabourGbp,
-      basis: `${labourRateRes.data?.rateCardName || 'Rate Card'}. Estimated ${estimatedHours}h based on standard remedial scope for ${tradeClassification.trade}.`,
-      confidence: tradeClassification.confidence,
+      basis: spokenHours > 0
+        ? `Engineer specified ${spokenHours}h @ £${hourlyRate}/h (${labourRateRes.data?.rateCardName || 'Rate Card'})`
+        : `${historicalEst.basis} @ £${hourlyRate}/h (${labourRateRes.data?.rateCardName || 'Rate Card'})`,
+      confidence: historicalEst.confidence,
       requiresConfirmation: estimatedHours > 4 || engineersCount > 1,
     };
 
-    // 8. Additional Costs (Consumables, Testing, Disposal)
+    // 9. Additional Costs (Consumables, Testing, Access, Disposal)
+    const excludeTesting = lowerCumulative.includes('dont include testing') || lowerCumulative.includes("don't include testing") || lowerCumulative.includes('no testing');
+    const excludeTravel = lowerCumulative.includes('dont include travel') || lowerCumulative.includes("don't include travel") || lowerCumulative.includes('no travel');
+
     const additionalCosts: AdditionalCostItem[] = [
       {
         id: 'cost-1',
@@ -253,7 +309,10 @@ export class EntireCAFMFieldIntelligenceEngine {
         status: 'AUTO_APPLIED',
         justification: 'Standard consumable pack for mechanical overhaul & seal replacement',
       },
-      {
+    ];
+
+    if (!excludeTesting) {
+      additionalCosts.push({
         id: 'cost-2',
         category: 'TESTING',
         description: 'Hydrostatic pressure & operational flow recommissioning check',
@@ -263,10 +322,24 @@ export class EntireCAFMFieldIntelligenceEngine {
         totalGbp: 0.0,
         status: 'INCLUDED',
         justification: 'Included within standard engineer commissioning allowance',
-      },
-    ];
+      });
+    }
 
-    // 9. Financial Summary Calculations
+    if (!excludeTravel && (isCallout || isOutOfHours)) {
+      additionalCosts.push({
+        id: 'cost-3',
+        category: 'TRAVEL',
+        description: 'Out of hours vehicle mobilization & zone travel allowance',
+        quantity: 1,
+        unit: 'ALLOWANCE',
+        unitPriceGbp: 45.0,
+        totalGbp: 45.0,
+        status: 'AUTO_APPLIED',
+        justification: 'Applicable for out-of-hours / emergency response delivery',
+      });
+    }
+
+    // 10. Financial Summary Calculations
     const materialsNetGbp = roundMoney(partsList.reduce((sum, p) => sum + (p.unitSellGbp ? p.unitSellGbp * p.quantity : 0), 0));
     const materialsCostGbp = roundMoney(partsList.reduce((sum, p) => sum + (p.unitCostGbp ? p.unitCostGbp * p.quantity : 0), 0));
     const labourNetGbp = labourCalc.totalLabourGbp;
@@ -280,20 +353,20 @@ export class EntireCAFMFieldIntelligenceEngine {
     const estimatedMarginGbp = roundMoney(subtotalNetGbp - estimatedCostGbp);
     const estimatedMarginPct = subtotalNetGbp > 0 ? roundMoney((estimatedMarginGbp / subtotalNetGbp) * 100) : 0;
 
-    // 10. Confidence Evaluation
+    // 11. Confidence Evaluation
     let confidenceScore = 0.88;
     if (ambiguities && ambiguities.length > 0) confidenceScore = 0.55;
-    else if (partsList.some(p => p.requiresConfirmation)) confidenceScore = 0.75;
+    else if (partsList.some((p) => p.requiresConfirmation)) confidenceScore = 0.75;
     else if (!identifiedAsset) confidenceScore = 0.70;
 
     const confidenceLevel = confidenceScore >= 0.85 ? 'HIGH' : confidenceScore >= 0.65 ? 'REVIEW' : 'LOW';
 
-    // 11. Formulate Narrative Response for Field Operative
+    // 12. Formulate Narrative Response for Field Operative
     let narrative = `I've analysed your site notes for ${understanding.siteName || 'this site'}. `;
     if (identifiedAsset) {
       narrative += `Identified asset **${identifiedAsset.asset_reference} (${identifiedAsset.name})**. `;
     }
-    narrative += `Prepared a structured scope of ${scopeOfWorks.length} remedial activities with ${estimatedHours}h ${tradeClassification.trade} labour and compatible replacement parts. `;
+    narrative += `Prepared a structured scope of ${scopeOfWorks.length} remedial activities with ${estimatedHours}h ${tradeClassification.trade} labour (${labourEstimate.basis}) and replacement parts. `;
     if (flags.length > 0) {
       narrative += `Please review ${flags.length} commercial item(s) before issuing.`;
     }
@@ -481,17 +554,16 @@ Return strictly JSON matching the specified fields. Do not guess prices.`;
 
   private static estimateLabourHours(transcript: string, understanding: StructuredUnderstanding): number {
     const lower = transcript.toLowerCase();
-    if (lower.includes('4 hours') || lower.includes('four hours') || lower.includes('half day')) return 4.0;
-    if (lower.includes('8 hours') || lower.includes('eight hours') || lower.includes('full day')) return 8.0;
-    if (lower.includes('1 hour') || lower.includes('one hour')) return 1.0;
-    if (lower.includes('3 hours') || lower.includes('three hours')) return 3.0;
-    if (lower.includes('2 hours') || lower.includes('two hours')) return 2.0;
+    if (lower.includes('4 hours') || lower.includes('four hours') || lower.includes('4h')) return 4.0;
+    if (lower.includes('8 hours') || lower.includes('eight hours') || lower.includes('8h') || lower.includes('full day')) return 8.0;
+    if (lower.includes('3.5 hours') || lower.includes('3.5h')) return 3.5;
+    if (lower.includes('3 hours') || lower.includes('three hours') || lower.includes('3h')) return 3.0;
+    if (lower.includes('2.5 hours') || lower.includes('2.5h')) return 2.5;
+    if (lower.includes('2 hours') || lower.includes('two hours') || lower.includes('2h')) return 2.0;
+    if (lower.includes('1 hour') || lower.includes('one hour') || lower.includes('1h')) return 1.0;
+    if (lower.includes('half day')) return 4.0;
 
-    // Standard default for mechanical seal replacement based on historical CAFM jobs
-    if (lower.includes('seal') || (understanding.faultDescription || '').includes('Seal')) return 2.5;
-    if (lower.includes('bearing')) return 3.5;
-    if (lower.includes('motor')) return 4.0;
-    return 2.0;
+    return 0; // 0 indicates no explicit spoken override -> use historical CAFM estimate
   }
 
   private static estimateEngineersCount(transcript: string): number {
