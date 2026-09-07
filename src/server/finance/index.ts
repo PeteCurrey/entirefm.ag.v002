@@ -1265,6 +1265,119 @@ export async function prepareClientInvoice(params: {
 }
 
 /**
+ * Create a direct client invoice (standalone, or sourced from Work Order, Quote, Contract)
+ * without requiring pre-existing client_billing_records.
+ */
+export async function createDirectClientInvoice(params: {
+  clientAccountId: string;
+  contractId?: string;
+  workOrderId?: string;
+  quoteId?: string;
+  clientPoRef?: string;
+  notes?: string;
+  daysTerms?: number;
+  issueDate?: string;
+  lines: Array<{
+    description: string;
+    quantity: number;
+    unitPriceGbp: number;
+    taxRatePct?: number;
+    workOrderId?: string;
+    quoteId?: string;
+  }>;
+}, session: UserSession): Promise<string> {
+  if (!params.clientAccountId) throw new Error('clientAccountId is required');
+  if (!params.lines || params.lines.length === 0) throw new Error('At least one invoice line is required');
+
+  const invoiceNumber = await nextClientInvoiceNumber();
+  const issueDate = params.issueDate || new Date().toISOString().slice(0, 10);
+  const terms = params.daysTerms ?? 30;
+  const dueDate = new Date(Date.now() + terms * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+  let netCents = 0;
+  let taxCents = 0;
+  for (const line of params.lines) {
+    const lineNet = Math.round((Number(line.quantity || 1) * Number(line.unitPriceGbp || 0)) * 100);
+    const taxRate = Number(line.taxRatePct ?? 20);
+    const lineTax = Math.round(lineNet * (taxRate / 100));
+    netCents += lineNet;
+    taxCents += lineTax;
+  }
+  const subtotalGbp = roundMoney(netCents / 100);
+  const taxGbp = roundMoney(taxCents / 100);
+  const totalGbp = roundMoney(subtotalGbp + taxGbp);
+
+  const { data: invoices, error } = await dbQuery<ClientInvoice[]>('client_invoices', {
+    method: 'POST',
+    body: {
+      invoice_number: invoiceNumber,
+      client_account_id: params.clientAccountId,
+      contract_id: params.contractId,
+      status: 'DRAFT',
+      issue_date: issueDate,
+      due_date: dueDate,
+      currency: 'GBP',
+      subtotal_gbp: subtotalGbp,
+      tax_amount_gbp: taxGbp,
+      total_amount_gbp: totalGbp,
+      client_po_ref: params.clientPoRef,
+      notes: params.notes,
+      payment_status: 'NOT_DUE',
+      accounting_sync_status: 'NOT_SYNCED',
+    },
+    headers: { Prefer: 'return=representation' },
+  });
+  if (error || !invoices || invoices.length === 0) {
+    throw new Error(error?.message || 'Failed to create client invoice');
+  }
+  const invoice = invoices[0];
+
+  let lineNum = 1;
+  for (const line of params.lines) {
+    const qty = Number(line.quantity || 1);
+    const unitPrice = Number(line.unitPriceGbp || 0);
+    const lineNet = roundMoney(qty * unitPrice);
+    const taxRate = Number(line.taxRatePct ?? 20);
+    const lineTax = roundMoney(lineNet * (taxRate / 100));
+    const lineGross = roundMoney(lineNet + lineTax);
+
+    await dbQuery('client_invoice_lines', {
+      method: 'POST',
+      body: {
+        client_invoice_id: invoice.id,
+        work_order_id: line.workOrderId || params.workOrderId,
+        quote_id: line.quoteId || params.quoteId,
+        line_number: lineNum++,
+        description: line.description || 'Professional Facilities Management Services',
+        quantity: qty,
+        unit_price_gbp: unitPrice,
+        tax_rate_pct: taxRate,
+        tax_amount_gbp: lineTax,
+        gross_gbp: lineGross,
+        total_gbp: lineGross,
+        is_billable: true,
+      },
+    });
+  }
+
+  await recordAuditEvent({
+    event_type: 'CLIENT_INVOICE_CREATED',
+    actor_id: session.personId,
+    actor_type: 'HUMAN',
+    object_type: 'client_invoices',
+    object_id: invoice.id,
+    after_state: {
+      invoice_number: invoiceNumber,
+      total_gbp: totalGbp,
+      is_direct: true,
+    },
+    is_ai: false,
+  });
+
+  return invoice.id;
+}
+
+/**
  * Issue a client invoice (DRAFT → ISSUED).
  * Evidence pack path recorded.
  */

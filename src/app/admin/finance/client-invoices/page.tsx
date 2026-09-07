@@ -5,140 +5,25 @@
 import { getCurrentSession, hasPermission } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { listClientInvoices } from '@/server/finance';
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
-import EmptyState from '@/components/admin/EmptyState';
-import Link from 'next/link';
-import { FileText, ArrowRight, CheckCircle, Clock } from 'lucide-react';
+import { listClientAccounts } from '@/server/estate';
+import { ClientInvoicesPageClient } from './ClientInvoicesPageClient';
 
 export const dynamic = 'force-dynamic';
-
-const INVOICE_STATUS_BADGE: Record<string, string> = {
-  DRAFT: 'bg-zinc-800 text-zinc-300',
-  ISSUED: 'bg-blue-950/60 text-blue-300 border border-blue-800/40',
-  PAID: 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/40',
-  OVERDUE: 'bg-red-950/60 text-red-300 border border-red-800/40',
-  CANCELLED: 'bg-zinc-900 text-zinc-500',
-};
-
-const PAYMENT_STATUS_BADGE: Record<string, string> = {
-  NOT_DUE: 'text-[#6D6D68]',
-  DUE: 'text-amber-400 font-light',
-  OVERDUE: 'text-red-400 font-light',
-  PART_PAID: 'text-blue-400 font-light',
-  PAID: 'text-emerald-400 font-light',
-};
 
 export default async function ClientInvoicesPage() {
   const session = await getCurrentSession();
   if (!session) redirect('/login');
   if (!hasPermission(session, 'finance:billing')) redirect('/admin');
 
-  const invoices = await listClientInvoices({ limit: 100 }).catch(() => []);
-  const totalBilled = invoices.reduce((sum, inv) => sum + (Number(inv.total_amount_gbp) || 0), 0);
+  const [invoices, clientAccounts] = await Promise.all([
+    listClientInvoices({ limit: 100 }).catch(() => []),
+    listClientAccounts().catch(() => []),
+  ]);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <AdminPageHeader
-          category="Finance"
-          title="Client Invoices"
-          description="Authoritative client invoices, billing periods, payment status from accounting, and evidence packs."
-        />
-        <Link
-          href="/admin/integrations/xero"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-[#E8E8E5] text-xs text-[#111111] hover:text-white transition"
-        >
-          <span>Xero Integration</span>
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
-
-      {/* SUMMARY */}
-      <div className="flex items-center justify-between text-xs font-normal text-[#6D6D68] bg-[#FAFAF8] p-3.5 rounded-lg border border-[#E8E8E5]">
-        <div>Total Issued Invoices: <span className="text-[#111111] font-light">{invoices.length}</span></div>
-        <div>Total Invoiced: <span className="text-brand-electric font-light">£{totalBilled.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
-      </div>
-
-      {invoices.length === 0 ? (
-        <EmptyState
-          title="No Client Invoices Found"
-          description="Prepare client invoices by batching items from the Billing Readiness queue."
-          icon="FileText"
-        />
-      ) : (
-        <div className="bg-white border border-[#E8E8E5] rounded-xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left text-xs font-normal text-[#111111]">
-            <thead className="bg-[#FAFAF8] uppercase text-[10.5px] font-normal text-[#6D6D68] border-b border-[#E8E8E5]">
-              <tr>
-                <th className="p-3.5">Invoice Number</th>
-                <th className="p-3.5">Client Account</th>
-                <th className="p-3.5">Issue Date</th>
-                <th className="p-3.5">Due Date</th>
-                <th className="p-3.5">Net (£)</th>
-                <th className="p-3.5">VAT (£)</th>
-                <th className="p-3.5">Total Gross (£)</th>
-                <th className="p-3.5">Status</th>
-                <th className="p-3.5">Payment</th>
-                <th className="p-3.5">Xero Sync</th>
-                <th className="p-3.5 text-right">Evidence</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#E8E8E5]">
-              {invoices.map(inv => (
-                <tr key={inv.id} className="hover:bg-[#F5F5F3] transition-colors">
-                  <td className="p-3.5 font-light text-white">
-                    <Link
-                      href={`/admin/finance/client-invoices/${inv.id}`}
-                      className="hover:text-brand-electric underline underline-offset-2 transition"
-                    >
-                      {inv.invoice_number}
-                    </Link>
-                  </td>
-                  <td className="p-3.5 text-white/80">{inv.client_account_id ? inv.client_account_id.slice(0, 8) : '—'}</td>
-                  <td className="p-3.5">{inv.issue_date || '—'}</td>
-                  <td className="p-3.5">{inv.due_date || '—'}</td>
-                  <td className="p-3.5 font-light text-white">£{(Number(inv.subtotal_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5 text-[#6D6D68]">£{(Number(inv.tax_amount_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5 font-light text-brand-electric">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5">
-                    <span className={`px-2 py-0.5 rounded text-[10px] ${INVOICE_STATUS_BADGE[inv.status] || 'bg-zinc-800 text-zinc-400'}`}>
-                      {inv.status}
-                    </span>
-                  </td>
-                  <td className={`p-3.5 text-[11px] ${PAYMENT_STATUS_BADGE[inv.payment_status] || 'text-[#111111]'}`}>
-                    {inv.payment_status?.replace(/_/g, ' ') || 'NOT DUE'}
-                  </td>
-                  <td className="p-3.5">
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] border ${
-                        inv.accounting_sync_status === 'SYNCED'
-                          ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
-                          : inv.accounting_sync_status === 'SYNC_FAILED'
-                          ? 'bg-red-950/60 text-red-300 border-red-800/40'
-                          : inv.accounting_sync_status === 'SYNCING'
-                          ? 'bg-blue-950/60 text-blue-300 border-blue-800/40'
-                          : 'bg-zinc-900 text-zinc-400 border-zinc-800'
-                      }`}
-                    >
-                      {inv.accounting_sync_status || 'NOT SYNCED'}
-                    </span>
-                  </td>
-                  <td className="p-3.5 text-right">
-                    <a
-                      href={`/api/admin/finance/client-invoices/${inv.id}/evidence-pack`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-electric hover:text-white underline underline-offset-2"
-                    >
-                      Pack
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
+    <ClientInvoicesPageClient
+      initialInvoices={invoices}
+      clientAccounts={clientAccounts}
+    />
   );
 }

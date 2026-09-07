@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Trash2, AlertTriangle, ArrowLeft, Loader2, CheckCircle2 } from 'lucide-react';
+import { Trash2, AlertTriangle, ArrowLeft, Loader2, CheckCircle2, FileText, Receipt, Plus } from 'lucide-react';
 
 interface Props {
   workOrderId: string;
@@ -85,15 +85,37 @@ export function WorkOrderDetailActions({ workOrderId, workOrderNumber, currentSt
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2 pb-4 border-b border-[#E8E8E5]">
         <Link
           href="/admin/operations/work-orders"
-          className="inline-flex items-center gap-1.5 text-xs text-[#6D6D68] hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-[#6D6D68] hover:text-[#111111] transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Back to Work Orders
         </Link>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Contextual Workflow: Create Quote */}
+          <Link
+            href={`/admin/commercial/quotes?create=true&workOrderId=${encodeURIComponent(workOrderId)}&ref=${encodeURIComponent(workOrderNumber)}`}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium text-[#111111] bg-white hover:bg-[#F5F5F3] border border-[#E8E8E5] shadow-2xs transition-all hover:-translate-y-0.5"
+            title="Create a proposal or variation quote for this work order"
+          >
+            <FileText className="h-3.5 w-3.5 text-[#EA580C]" />
+            <span>Create Quote</span>
+          </Link>
+
+          {/* Contextual Workflow: Create Invoice */}
+          <Link
+            href={`/admin/finance/client-invoices?create=true&workOrderId=${encodeURIComponent(workOrderId)}&ref=${encodeURIComponent(workOrderNumber)}`}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium text-white bg-[#EA580C] hover:bg-[#C2410C] shadow-2xs transition-all hover:-translate-y-0.5"
+            title="Generate client billing invoice for this work order"
+          >
+            <Receipt className="h-3.5 w-3.5" />
+            <span>Create Invoice</span>
+          </Link>
+
+          <div className="h-4 w-px bg-[#E8E8E5] mx-1" />
+
           {/* Status Changer */}
-          <div className="flex items-center gap-1.5 bg-white border border-[#E8E8E5] px-2.5 py-1 rounded-lg">
+          <div className="flex items-center gap-1.5 bg-white border border-[#E8E8E5] px-2.5 py-1 rounded-lg shadow-2xs">
             <span className="text-[11px] text-[#9A9A95] uppercase tracking-wider font-medium">
               Status:
             </span>
@@ -101,22 +123,22 @@ export function WorkOrderDetailActions({ workOrderId, workOrderNumber, currentSt
               value={status}
               disabled={isUpdatingStatus}
               onChange={(e) => handleStatusChange(e.target.value)}
-              className="bg-transparent text-xs text-white border-0 outline-none cursor-pointer focus:ring-0"
+              className="bg-transparent text-xs text-[#111111] font-medium border-0 outline-none cursor-pointer focus:ring-0"
             >
               {STATUS_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
+                <option key={opt.value} value={opt.value} className="bg-white text-[#111111]">
                   {opt.label}
                 </option>
               ))}
             </select>
-            {isUpdatingStatus && <Loader2 className="h-3 w-3 animate-spin text-brand-electric" />}
-            {statusSuccess && <CheckCircle2 className="h-3 w-3 text-emerald-400" />}
+            {isUpdatingStatus && <Loader2 className="h-3 w-3 animate-spin text-[#EA580C]" />}
+            {statusSuccess && <CheckCircle2 className="h-3 w-3 text-emerald-600" />}
           </div>
 
           {/* Delete Button */}
           <button
             onClick={() => setIsDeleteModalOpen(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-normal text-rose-400 hover:text-white bg-rose-950/30 hover:bg-rose-900/60 border border-rose-900/40 transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-normal text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors"
             title="Delete this work order"
           >
             <Trash2 className="h-3.5 w-3.5" />

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
+import { AdminBreadcrumbs } from '@/components/admin/AdminBreadcrumbs';
 import { CommandPalette } from '@/components/admin/CommandPalette';
 import { getSupplierApplicationQueueCounts } from '@/server/suppliers/applications-repo';
 import { getNotificationCounts } from '@/server/notifications';
@@ -56,17 +57,22 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#111111] selection:bg-[#EA580C]/20 selection:text-[#111111] cafm-app font-sans">
       {/* Precision Navigation Rail */}
-      <AdminSidebar
-        session={session}
-        pendingApplicationsCount={pendingApplicationsCount}
-        newLeadsCount={newLeadsCount}
-        newMembersCount={newMembersCount}
-      />
+      <Suspense fallback={null}>
+        <AdminSidebar
+          session={session}
+          pendingApplicationsCount={pendingApplicationsCount}
+          newLeadsCount={newLeadsCount}
+          newMembersCount={newMembersCount}
+        />
+      </Suspense>
 
       {/* Main Content Area */}
       <div className="pl-64 flex flex-col min-h-screen">
         <AdminHeader session={session} />
         <main className="flex-1 p-6 lg:p-8 max-w-[1760px] w-full mx-auto">
+          <Suspense fallback={null}>
+            <AdminBreadcrumbs />
+          </Suspense>
           {children}
         </main>
       </div>

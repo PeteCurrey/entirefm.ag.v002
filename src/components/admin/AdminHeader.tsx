@@ -7,6 +7,7 @@ import { Search, Plus, ExternalLink } from 'lucide-react';
 import { AnalyticsTopNavButton } from './AnalyticsTopNavButton';
 import { LeadInboxButton } from './LeadInboxButton';
 import { NotificationCentreDropdown } from './NotificationCentreDropdown';
+import { GlobalCreateDropdown } from './GlobalCreateDropdown';
 
 export function AdminHeader({ session }: { session: UserSession }) {
   const triggerCommandPalette = () => {
@@ -52,14 +53,8 @@ export function AdminHeader({ session }: { session: UserSession }) {
 
         <div className="h-4 w-px bg-[#E8E8E5]" />
 
-        {/* Quick Create Link */}
-        <Link
-          href="/admin/operations/work-orders"
-          className="hidden sm:inline-flex items-center gap-1.5 rounded-[6px] bg-[#EA580C] px-3 py-1.5 text-[12px] font-normal text-white hover:bg-[#C2410C] transition-all"
-        >
-          <Plus className="h-3.5 w-3.5" />
-          <span>New Work Order</span>
-        </Link>
+        {/* Global Authoritative Creation Menu */}
+        <GlobalCreateDropdown session={session} />
 
         {/* Public Site Link */}
         <Link

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { UserSession } from '@/server/identity';
 import { CafmBrandMark } from '@/components/brand/CafmBrandMark';
 import {
@@ -40,6 +40,7 @@ interface NavItem {
   name: string;
   href: string;
   badge?: string;
+  indent?: boolean;
 }
 
 interface NavGroup {
@@ -49,19 +50,32 @@ interface NavGroup {
   items: NavItem[];
 }
 
-// ── CAFM / OPERATIONS NAVIGATION ───────────────────────────
+// ── CAFM / OPERATIONS NAVIGATION (10 Canonical Domains) ───────────────────────────
 const CAFM_GROUPS: NavGroup[] = [
   {
-    title: 'OPERATIONS & DESK',
-    icon: Wrench,
+    title: 'COMMAND CENTRE',
+    icon: Activity,
     items: [
       { name: 'Control Centre', href: '/admin' },
       { name: 'Operational Queues', href: '/admin/operations/queues', badge: 'Live' },
-      { name: 'Service Requests', href: '/admin/operations/service-requests' },
-      { name: 'AI Helpdesk Desk', href: '/admin/operations/helpdesk', badge: 'AI' },
-      { name: 'Work Orders', href: '/admin/operations/work-orders' },
-      { name: 'Dispatch Grid', href: '/admin/operations/dispatch' },
       { name: "Today's Exceptions", href: '/admin/operations/today' },
+      { name: 'AI Helpdesk Desk', href: '/admin/operations/helpdesk', badge: 'AI' },
+      { name: 'CEO Command', href: '/admin/command' },
+    ],
+  },
+  {
+    title: 'WORK & HELP DESK',
+    icon: Wrench,
+    items: [
+      { name: 'Service Requests', href: '/admin/operations/service-requests' },
+      { name: 'Work Orders', href: '/admin/operations/work-orders' },
+      { name: '↳ Open Work Orders', href: '/admin/operations/work-orders?status=OPEN', indent: true },
+      { name: '↳ In Progress', href: '/admin/operations/work-orders?status=IN_PROGRESS', indent: true },
+      { name: '↳ Completed', href: '/admin/operations/work-orders?status=COMPLETED', indent: true },
+      { name: 'Dispatch Grid', href: '/admin/operations/dispatch' },
+      { name: 'SLA Control', href: '/admin/operations/sla-control' },
+      { name: 'Completion Review', href: '/admin/operations/completion-review' },
+      { name: 'Operations Map', href: '/admin/operations/map' },
     ],
   },
   {
@@ -69,11 +83,11 @@ const CAFM_GROUPS: NavGroup[] = [
     icon: Building2,
     items: [
       { name: 'Clients Hub', href: '/admin/estate/clients' },
-      { name: 'EntireFM Team', href: '/admin/estate/team' },
-      { name: 'Contracts & SLAs', href: '/admin/estate/contracts' },
       { name: 'Managed Sites (Site 360)', href: '/admin/estate/sites' },
-      { name: 'Asset Registry', href: '/admin/estate/assets' },
       { name: 'Buildings & Spaces', href: '/admin/estate/spaces' },
+      { name: 'Asset Registry', href: '/admin/estate/assets' },
+      { name: 'Contracts & SLAs', href: '/admin/estate/contracts' },
+      { name: 'EntireFM Team', href: '/admin/estate/team' },
       { name: 'Data Import Centre', href: '/admin/estate/imports' },
     ],
   },
@@ -83,21 +97,24 @@ const CAFM_GROUPS: NavGroup[] = [
     items: [
       { name: 'Maintenance Plans', href: '/admin/planned-maintenance/plans' },
       { name: 'PPM Schedule & Due', href: '/admin/planned-maintenance/schedule' },
-      { name: 'PPM Autopilot', href: '/admin/planned-maintenance/ppm-autopilot' },
+      { name: 'PPM Autopilot', href: '/admin/planned-maintenance/ppm-autopilot', badge: 'AI' },
       { name: 'Statutory Requirements', href: '/admin/planned-maintenance/requirements' },
       { name: 'PPM Exceptions', href: '/admin/planned-maintenance/exceptions' },
     ],
   },
   {
-    title: 'COMMERCIAL & QUOTES',
+    title: 'COMMERCIAL',
     icon: DollarSign,
     items: [
       { name: 'Commercial Hub', href: '/admin/commercial' },
       { name: 'Quotes & Proposals', href: '/admin/commercial/quotes' },
+      { name: '↳ Create Quote', href: '/admin/commercial/quotes?create=true', indent: true },
       { name: 'Talk-to-Quote', href: '/admin/commercial/talk-to-quote', badge: 'AI' },
+      { name: 'Commercial Pipeline', href: '/admin/commercial/pipeline' },
       { name: 'WIP & Billing Readiness', href: '/admin/commercial/wip' },
       { name: 'Rate Cards', href: '/admin/commercial/rate-cards' },
       { name: 'Commercial Policies', href: '/admin/commercial/policies' },
+      { name: 'Commercial Variations', href: '/admin/commercial/variations' },
     ],
   },
   {
@@ -117,9 +134,11 @@ const CAFM_GROUPS: NavGroup[] = [
     items: [
       { name: 'Compliance Command', href: '/admin/compliance' },
       { name: 'Obligations & Rules', href: '/admin/compliance/obligations' },
-      { name: 'Evidence Vault', href: '/admin/compliance/evidence' },
       { name: 'Certificates & Expiries', href: '/admin/compliance/certificates' },
+      { name: 'Evidence Vault', href: '/admin/compliance/evidence' },
       { name: 'Compliance Audits', href: '/admin/compliance/audits' },
+      { name: 'Compliance Reports', href: '/admin/compliance/reports' },
+      { name: 'Rule Applicability', href: '/admin/compliance/applicability' },
     ],
   },
   {
@@ -127,23 +146,33 @@ const CAFM_GROUPS: NavGroup[] = [
     icon: Receipt,
     items: [
       { name: 'Finance Command', href: '/admin/finance' },
-      { name: 'Supplier Invoices', href: '/admin/finance/supplier-invoices' },
-      { name: 'Billing Ready Work', href: '/admin/finance/billing-ready' },
       { name: 'Client Invoices', href: '/admin/finance/client-invoices' },
+      { name: '↳ Create Invoice', href: '/admin/finance/client-invoices?create=true', indent: true },
+      { name: 'Billing Ready Work', href: '/admin/finance/billing-ready' },
+      { name: 'Supplier Invoices', href: '/admin/finance/supplier-invoices' },
       { name: 'Credit Notes', href: '/admin/finance/credit-notes' },
       { name: 'Accounting Sync', href: '/admin/finance/accounting' },
       { name: 'Xero Integration', href: '/admin/integrations/xero' },
     ],
   },
   {
-    title: 'INTELLIGENCE & SYSTEM',
-    icon: Bot,
+    title: 'INTELLIGENCE & REPORTING',
+    icon: BarChart3,
     items: [
-      { name: 'CEO Command', href: '/admin/command' },
-      { name: 'Asset Intelligence & Telemetry', href: '/admin/estate/assets/telemetry' },
       { name: 'Operations Reports', href: '/admin/reporting/operations' },
+      { name: 'Asset Telemetry & Intelligence', href: '/admin/estate/assets/telemetry' },
+      { name: 'Energy & Sustainability', href: '/admin/energy' },
+    ],
+  },
+  {
+    title: 'SYSTEM & ADMINISTRATION',
+    icon: Settings,
+    items: [
       { name: 'Platform Settings', href: '/admin/platform/settings' },
       { name: 'Users & Permissions', href: '/admin/platform/users' },
+      { name: 'Integrations', href: '/admin/platform/integrations' },
+      { name: 'Xero Accounting', href: '/admin/integrations/xero' },
+      { name: 'Platform Health', href: '/admin/platform/health' },
       { name: 'Audit Log', href: '/admin/platform/audit' },
     ],
   },
@@ -237,6 +266,10 @@ export function AdminSidebar({
   newMembersCount?: number;
 }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const queryString = searchParams?.toString();
+  const currentFullUrl = queryString ? `${pathname}?${queryString}` : pathname;
+
   const isWebsiteRoute =
     pathname.startsWith('/admin/growth') ||
     pathname.startsWith('/admin/blog') ||
@@ -343,11 +376,18 @@ export function AdminSidebar({
                   {!isCollapsed && (
                     <div className="space-y-0.5 pt-0.5">
                       {group.items.map((item) => {
-                        const isActive =
-                          item.href === '/admin'
-                            ? pathname === '/admin'
-                            : pathname === item.href ||
-                              (item.href !== '/admin' && pathname.startsWith(item.href));
+                        const isActive = (() => {
+                          if (item.href === '/admin') {
+                            return pathname === '/admin';
+                          }
+                          if (item.href.includes('?')) {
+                            return currentFullUrl === item.href;
+                          }
+                          if (pathname === item.href) {
+                            return !queryString || !queryString.includes('status=');
+                          }
+                          return pathname.startsWith(item.href + '/');
+                        })();
 
                         const isApplicationsLink = item.href === '/admin/suppliers/applications';
                         const isLeadsLink = item.href === '/admin/growth/leads';
@@ -366,13 +406,26 @@ export function AdminSidebar({
                           <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center justify-between rounded-[6px] px-2.5 py-1.5 text-[12.5px] transition-all duration-120 relative ${
+                            className={`flex items-center justify-between rounded-[6px] transition-all duration-120 relative ${
+                              item.indent
+                                ? 'ml-3 pl-2.5 pr-2 py-1.5 text-[12px]'
+                                : 'px-2.5 py-1.5 text-[12.5px]'
+                            } ${
                               isActive
-                                ? 'bg-[#FAFAF8] text-[#111111] font-normal border-l-[3px] border-[#EA580C] pl-2'
+                                ? item.indent
+                                  ? 'bg-[#FAFAF8] text-[#111111] font-medium border-l-[2px] border-[#EA580C]'
+                                  : 'bg-[#FAFAF8] text-[#111111] font-normal border-l-[3px] border-[#EA580C] pl-2'
                                 : 'text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-[#111111] font-light'
                             }`}
                           >
-                            <span className="truncate">{item.name}</span>
+                            <span className="truncate flex items-center gap-1.5">
+                              {item.indent && (
+                                <span className="text-[#9A9A95] font-mono text-[10px] select-none">
+                                  ↳
+                                </span>
+                              )}
+                              <span>{item.name.replace(/^↳\s*/, '')}</span>
+                            </span>
                             <span className="flex items-center gap-1">
                               {liveCount !== null && (
                                 <span className="rounded-[4px] px-1.5 py-0.5 text-[9px] font-bold bg-rose-100 text-rose-700">

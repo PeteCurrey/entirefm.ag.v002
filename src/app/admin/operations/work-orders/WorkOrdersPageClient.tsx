@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { Button } from '@/components/admin/ui/Button';
@@ -33,12 +34,31 @@ const STATUS_CLASSES: Record<string, string> = {
 };
 
 export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
+  const searchParams = useSearchParams();
+  const urlStatus = searchParams.get('status')?.toUpperCase();
+  const shouldCreate = searchParams.get('create') === 'true';
+
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>(initialWorkOrders);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(shouldCreate);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState(
+    urlStatus && ['OPEN', 'ISSUED', 'IN_PROGRESS', 'COMPLETED', 'CLOSED', 'CANCELLED'].includes(urlStatus)
+      ? urlStatus
+      : 'ALL'
+  );
+
+  useEffect(() => {
+    if (urlStatus && ['OPEN', 'ISSUED', 'IN_PROGRESS', 'COMPLETED', 'CLOSED', 'CANCELLED'].includes(urlStatus)) {
+      setStatusFilter(urlStatus);
+    } else if (!urlStatus) {
+      setStatusFilter('ALL');
+    }
+    if (shouldCreate) {
+      setIsModalOpen(true);
+    }
+  }, [urlStatus, shouldCreate]);
 
   // Deletion and status update state
   const [woToDelete, setWoToDelete] = useState<WorkOrder | null>(null);

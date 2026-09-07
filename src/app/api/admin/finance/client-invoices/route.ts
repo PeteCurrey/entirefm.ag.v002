@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession, hasPermission } from '@/server/identity';
-import { listClientInvoices, prepareClientInvoice } from '@/server/finance';
+import { listClientInvoices, prepareClientInvoice, createDirectClientInvoice } from '@/server/finance';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,20 +27,52 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const body = await req.json();
-  if (!body.billingRecordIds || !Array.isArray(body.billingRecordIds) || body.billingRecordIds.length === 0)
-    return NextResponse.json({ error: 'billingRecordIds array is required' }, { status: 400 });
   if (!body.clientAccountId)
     return NextResponse.json({ error: 'clientAccountId is required' }, { status: 400 });
 
-  const invoiceId = await prepareClientInvoice({
-    billingRecordIds: body.billingRecordIds,
-    clientAccountId: body.clientAccountId,
-    contractId: body.contractId,
-    billingPeriodStart: body.billingPeriodStart,
-    billingPeriodEnd: body.billingPeriodEnd,
-    clientPoRef: body.clientPoRef,
-    daysTerms: body.daysTerms,
-  }, session);
+  try {
+    // 1. Batching from billing records
+    if (Array.isArray(body.billingRecordIds) && body.billingRecordIds.length > 0) {
+      const invoiceId = await prepareClientInvoice({
+        billingRecordIds: body.billingRecordIds,
+        clientAccountId: body.clientAccountId,
+        contractId: body.contractId,
+        billingPeriodStart: body.billingPeriodStart,
+        billingPeriodEnd: body.billingPeriodEnd,
+        clientPoRef: body.clientPoRef,
+        daysTerms: body.daysTerms,
+      }, session);
+      return NextResponse.json({ invoiceId }, { status: 201 });
+    }
 
-  return NextResponse.json({ invoiceId }, { status: 201 });
+    // 2. Direct / Standalone invoice creation (from Work Order, Quote, Contract, or Standalone)
+    const lines = Array.isArray(body.lines) && body.lines.length > 0
+      ? body.lines
+      : [
+          {
+            description: body.description || 'Facilities Management Operational Services',
+            quantity: Number(body.quantity) || 1,
+            unitPriceGbp: Number(body.amountGbp) || 0,
+            taxRatePct: Number(body.taxRatePct ?? 20),
+            workOrderId: body.workOrderId,
+            quoteId: body.quoteId,
+          },
+        ];
+
+    const invoiceId = await createDirectClientInvoice({
+      clientAccountId: body.clientAccountId,
+      contractId: body.contractId,
+      workOrderId: body.workOrderId,
+      quoteId: body.quoteId,
+      clientPoRef: body.clientPoRef,
+      notes: body.notes,
+      daysTerms: body.daysTerms ? Number(body.daysTerms) : 30,
+      issueDate: body.issueDate,
+      lines,
+    }, session);
+
+    return NextResponse.json({ invoiceId }, { status: 201 });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Failed to create invoice' }, { status: 500 });
+  }
 }
