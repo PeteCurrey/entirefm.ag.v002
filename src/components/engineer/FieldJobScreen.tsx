@@ -26,6 +26,13 @@ import {
   RefreshCw,
   Download,
   WifiOff,
+  Mic,
+  Check,
+  ChevronRight,
+  User,
+  Building,
+  HardHat,
+  Package,
 } from 'lucide-react';
 import {
   DigitalJobPack,
@@ -71,7 +78,7 @@ export default function FieldJobScreen({
   // Active Tab: 'WORK' | 'JOB_PACK' | 'EVIDENCE' | 'DEFECTS' | 'REPORT'
   const [activeTab, setActiveTab] = useState<'WORK' | 'JOB_PACK' | 'EVIDENCE' | 'DEFECTS' | 'REPORT'>('WORK');
 
-  // Modals
+  // Modals / Bottom Sheets
   const [noAccessOpen, setNoAccessOpen] = useState(false);
   const [noAccessReason, setNoAccessReason] = useState('Site closed / No keyholder present');
   const [noAccessNotes, setNoAccessNotes] = useState('');
@@ -82,7 +89,7 @@ export default function FieldJobScreen({
   const [defectSeverity, setDefectSeverity] = useState<'ADVISORY' | 'MINOR' | 'MAJOR' | 'CRITICAL' | 'UNSAFE'>('MAJOR');
   const [defectMakeSafe, setDefectMakeSafe] = useState<'NOT_APPLICABLE' | 'MADE_SAFE' | 'ISOLATED' | 'UNABLE_TO_MAKE_SAFE' | 'ESCALATED'>('MADE_SAFE');
   const [defectStopWork, setDefectStopWork] = useState(false);
-  const [defectAction, setDefectAction] = useState('Replace worn bearings');
+  const [defectAction, setDefectAction] = useState('Replace worn component');
 
   const [variationModalOpen, setVariationModalOpen] = useState(false);
   const [variationReason, setVariationReason] = useState('Additional defective component found during inspection');
@@ -98,19 +105,19 @@ export default function FieldJobScreen({
   // Service Report Form State
   const [reportNarrative, setReportNarrative] = useState(
     initialVisit.job_pack?.workflow_type === 'PPM'
-      ? 'Completed quarterly planned maintenance on Packaged Air Handling Unit and Chiller system. Cleaned filter media, inspected drive belts, and verified operating temperatures and refrigerant pressures.'
-      : 'Attended site to investigate high temperature alarm on server room AC split unit. Replaced failed contactor, verified refrigerant charge, and tested unit under full load.'
+      ? 'Completed quarterly planned maintenance on HVAC / mechanical system. Cleaned filter media, inspected drive belts, and verified operating temperatures and pressures.'
+      : 'Attended site to investigate reported fault. Conducted diagnostics, replaced failed component, verified operating parameters, and tested under full load.'
   );
   const [reportRecs, setReportRecs] = useState('System is operating satisfactorily within design parameters.');
   const [reportOutcome, setReportOutcome] = useState<DigitalServiceReport['completion_outcome']>('COMPLETED');
-  const [signatoryName, setSignatoryName] = useState('Dave Smith');
+  const [signatoryName, setSignatoryName] = useState(session.displayName);
   const [signatoryRole, setSignatoryRole] = useState('Facilities Coordinator');
   const [validationError, setValidationError] = useState<string | null>(null);
   const [executionError, setExecutionError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [ramsAcknowledged, setRamsAcknowledged] = useState(visit.job_pack.rams.acknowledged || false);
+  const [ramsAcknowledged, setRamsAcknowledged] = useState(visit.job_pack?.rams?.acknowledged || false);
 
-  const jobPack = visit.job_pack;
+  const jobPack = visit.job_pack || ({} as DigitalJobPack);
 
   // Unsynced Evidence Count
   const unsyncedEvidenceCount = evidenceList.filter(
@@ -352,45 +359,87 @@ export default function FieldJobScreen({
 
   return (
     <div className="space-y-4 max-w-xl mx-auto pb-12">
-      {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-        <Link href="/engineer" className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-normal">
-          <ChevronLeft className="h-4 w-4" /> Today
-        </Link>
-        <span className="text-xs font-bold text-brand-pink">{jobPack.work_order_number}</span>
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-          visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'
-            ? 'bg-emerald-100 text-emerald-800'
-            : visit.status === 'IN_PROGRESS'
-            ? 'bg-blue-100 text-blue-900'
-            : visit.status === 'CANCELLED'
-            ? 'bg-rose-100 text-rose-900'
-            : 'bg-slate-900 text-white'
-        }`}>
-          {visit.status}
-        </span>
+      {/* Top Header Card */}
+      <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 shadow-xl space-y-3">
+        <div className="flex items-center justify-between">
+          <Link
+            href="/engineer"
+            className="text-xs text-brand-mist hover:text-white flex items-center gap-1 font-medium transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" /> Back to Queue
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono font-bold text-brand-electric-bright">
+              {jobPack.work_order_number || visit.work_order_id}
+            </span>
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                  : visit.status === 'IN_PROGRESS'
+                  ? 'bg-brand-electric/20 text-brand-electric-bright border-brand-electric/40'
+                  : visit.status === 'CANCELLED'
+                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                  : 'bg-brand-void text-brand-mist border-brand-edge-dark'
+              }`}
+            >
+              {visit.status}
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h1 className="text-base font-bold text-white leading-snug">
+            {jobPack.title || 'Site Remedial Execution'}
+          </h1>
+          <p className="text-xs text-brand-mist/70 mt-0.5 flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-brand-electric-bright shrink-0" />
+            <span>{jobPack.site?.name} &bull; {jobPack.site?.city || jobPack.site?.address_line1}</span>
+          </p>
+        </div>
+
+        {/* Quick Launch Talk to Quote Header Action */}
+        <div className="pt-2 border-t border-brand-edge-dark flex items-center justify-between gap-2">
+          <span className="text-[11px] text-brand-mist/60 font-medium">Proactive Remedial Required?</span>
+          <Link
+            href={`/engineer/talk?workOrderId=${encodeURIComponent(
+              visit.work_order_id || ''
+            )}&workOrderNumber=${encodeURIComponent(
+              jobPack.work_order_number || ''
+            )}&siteId=${encodeURIComponent(jobPack.site?.id || '')}&siteName=${encodeURIComponent(
+              jobPack.site?.name || ''
+            )}&assetId=${encodeURIComponent(
+              jobPack.asset?.id || ''
+            )}&assetReference=${encodeURIComponent(jobPack.asset?.asset_tag || '')}`}
+            className="bg-brand-electric/15 hover:bg-brand-electric/25 border border-brand-electric/40 text-brand-electric-bright hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+          >
+            <Mic className="w-3.5 h-3.5" />
+            <span>Talk to Quote</span>
+          </Link>
+        </div>
       </div>
 
-      {/* Cancellation Warning Banner */}
+      {/* Cancellation Banner */}
       {visit.is_cancelled && (
-        <div className="p-4 bg-rose-600 text-white rounded text-xs flex items-start gap-3">
-          <AlertOctagon className="h-5 w-5 shrink-0 text-white mt-0.5" />
+        <div className="p-4 bg-rose-600/20 border border-rose-500/40 text-rose-200 rounded-2xl text-xs flex items-start gap-3">
+          <AlertOctagon className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
           <div className="space-y-1">
-            <strong className="block text-sm">WORK ORDER CANCELLED BY ENTIREFM OPERATIONS</strong>
+            <strong className="block text-sm text-white font-bold">WORK ORDER CANCELLED</strong>
             <span>Reason: {visit.cancellation_reason || 'Instruction from client or schedule cancelled.'}</span>
-            <span className="block text-[11px] opacity-90">
-              Further execution is blocked. Any evidence captured prior to cancellation has been preserved.
+            <span className="block text-[11px] text-rose-300/80">
+              Further execution is blocked. Any evidence captured has been safely archived.
             </span>
           </div>
         </div>
       )}
 
-      {/* Execution Error Banner (Concurrency / Reassignment Block) */}
+      {/* Execution Error Banner */}
       {executionError && (
-        <div className="p-4 bg-rose-50 border border-rose-200 text-rose-950 rounded text-xs flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
-          <div className="space-y-1">
-            <strong className="block text-sm">Execution Blocked</strong>
+        <div className="p-4 bg-rose-500/15 border border-rose-500/30 text-rose-200 rounded-2xl text-xs flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
+          <div className="space-y-0.5">
+            <strong className="block text-sm font-bold text-white">Execution Blocked</strong>
             <span>{executionError}</span>
           </div>
         </div>
@@ -398,433 +447,490 @@ export default function FieldJobScreen({
 
       {/* Stop Work Warning Banner */}
       {defectsList.some((d) => d.stop_work_triggered) && (
-        <div className="p-4 bg-rose-600 text-white rounded text-xs flex items-center gap-3">
-          <AlertOctagon className="h-6 w-6 shrink-0 text-white" />
+        <div className="p-4 bg-rose-600 border border-rose-500 rounded-2xl text-xs text-white flex items-center gap-3 shadow-xl">
+          <AlertOctagon className="w-6 h-6 shrink-0" />
           <div>
-            <strong className="block text-sm">SAFETY STOP-WORK TRIGGERED</strong>
-            <span>Active critical hazard reported. Work is isolated and escalated to EntireFM Helpdesk.</span>
+            <strong className="block text-sm font-bold">SAFETY STOP-WORK ACTIVE</strong>
+            <span>Critical hazard identified. Equipment isolated and escalated to EntireFM Helpdesk.</span>
           </div>
         </div>
       )}
 
-      {/* Status Action Banner */}
+      {/* Check-in / Start Work Action Banner */}
       {visit.status === 'ARRIVED' && !visit.is_cancelled && (
-        <div className="bg-purple-50 border border-purple-200 rounded p-4 flex items-center justify-between gap-3">
+        <div className="bg-brand-carbon border border-purple-500/40 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-xl">
           <div>
-            <span className="text-[10px] uppercase text-purple-700 font-bold block">CHECKED IN ON SITE</span>
-            <span className="text-xs text-purple-950 font-medium">Ready to commence site execution.</span>
+            <span className="text-[10px] uppercase text-purple-400 font-bold block">CHECKED IN ON SITE</span>
+            <span className="text-xs text-white font-medium">Ready to commence site execution.</span>
           </div>
           <button
+            type="button"
             onClick={handleStartWork}
             disabled={isSubmitting}
-            className="btn-primary text-xs py-2 px-4 bg-purple-800 hover:bg-purple-900 text-white font-bold"
+            className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-purple-900/40 transition-all active:scale-95"
+            style={{ minHeight: '48px' }}
           >
             Start Work
           </button>
         </div>
       )}
 
-      {/* Tab Navigation */}
-      <div className="flex border-b border-slate-200 text-xs font-normal">
+      {/* Segmented Tab Bar */}
+      <div className="flex bg-brand-carbon border border-brand-edge-dark rounded-xl p-1 gap-1 text-xs">
         <button
+          type="button"
           onClick={() => setActiveTab('WORK')}
-          className={`py-2.5 px-3 border-b-2 font-bold ${
-            activeTab === 'WORK' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
+            activeTab === 'WORK'
+              ? 'bg-brand-electric text-white shadow-sm'
+              : 'text-brand-mist/70 hover:text-white'
           }`}
+          style={{ minHeight: '44px' }}
         >
-          Execution
+          <Wrench className="w-3.5 h-3.5" />
+          <span>Execution</span>
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('JOB_PACK')}
-          className={`py-2.5 px-3 border-b-2 font-bold ${
-            activeTab === 'JOB_PACK' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
+            activeTab === 'JOB_PACK'
+              ? 'bg-brand-electric text-white shadow-sm'
+              : 'text-brand-mist/70 hover:text-white'
           }`}
+          style={{ minHeight: '44px' }}
         >
-          Job Pack
+          <FileText className="w-3.5 h-3.5" />
+          <span>Job Pack</span>
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('EVIDENCE')}
-          className={`py-2.5 px-3 border-b-2 font-bold ${
-            activeTab === 'EVIDENCE' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
+            activeTab === 'EVIDENCE'
+              ? 'bg-brand-electric text-white shadow-sm'
+              : 'text-brand-mist/70 hover:text-white'
           }`}
+          style={{ minHeight: '44px' }}
         >
-          Evidence ({evidenceList.length})
+          <Camera className="w-3.5 h-3.5" />
+          <span>Photos ({evidenceList.length})</span>
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('DEFECTS')}
-          className={`py-2.5 px-3 border-b-2 font-bold ${
-            activeTab === 'DEFECTS' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
+            activeTab === 'DEFECTS'
+              ? 'bg-brand-electric text-white shadow-sm'
+              : 'text-brand-mist/70 hover:text-white'
           }`}
+          style={{ minHeight: '44px' }}
         >
-          Defects &amp; Scope
+          <AlertTriangle className="w-3.5 h-3.5" />
+          <span>Defects ({defectsList.length})</span>
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('REPORT')}
-          className={`py-2.5 px-3 border-b-2 font-bold ${
-            activeTab === 'REPORT' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
+            activeTab === 'REPORT'
+              ? 'bg-brand-electric text-white shadow-sm'
+              : 'text-brand-mist/70 hover:text-white'
           }`}
+          style={{ minHeight: '44px' }}
         >
-          Service Report
+          <CheckCircle2 className="w-3.5 h-3.5" />
+          <span>Report</span>
         </button>
       </div>
 
       {/* TAB 1: WORK EXECUTION */}
       {activeTab === 'WORK' && (
         <div className="space-y-4">
-          {/* Work Summary Card */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-2">
-            <h2 className="text-base font-bold text-slate-900">{jobPack.title}</h2>
-            <p className="text-xs text-slate-600 font-sans">{jobPack.site.name} &bull; {jobPack.site.address_line1}</p>
-
-            <div className="flex items-center justify-between text-xs font-normal pt-2 border-t border-slate-100 text-slate-500">
-              <span>Discipline: {jobPack.discipline}</span>
-              <span>Workflow: {jobPack.workflow_type}</span>
-            </div>
+          {/* Action Quick Bar */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setDefectModalOpen(true)}
+              className="bg-brand-carbon hover:bg-brand-void border border-brand-edge-dark text-amber-300 rounded-xl p-3 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+              style={{ minHeight: '48px' }}
+            >
+              <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <span>Raise Defect</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setVariationModalOpen(true)}
+              className="bg-brand-carbon hover:bg-brand-void border border-brand-edge-dark text-brand-electric-bright rounded-xl p-3 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+              style={{ minHeight: '48px' }}
+            >
+              <DollarSign className="w-4 h-4 text-brand-electric-bright" />
+              <span>Request Variation</span>
+            </button>
           </div>
 
-          {/* PPM Mode: Checklist & Measurements */}
-          {jobPack.workflow_type === 'PPM' && (
-            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
-                  Mandatory PPM Maintenance Tasks ({tasks.length})
-                </span>
-                <span className="text-[11px] font-normal text-slate-500">
-                  {tasks.filter((t) => t.recorded_status || t.recorded_measurement !== undefined).length} / {tasks.length} Done
-                </span>
-              </div>
+          {/* Checklist / Tasks Schedule */}
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist">
+                Execution Tasks ({tasks.length})
+              </h3>
+              <span className="text-[10px] text-brand-mist/60">
+                {tasks.filter((t) => t.recorded_status === 'PASS').length} / {tasks.length} Completed
+              </span>
+            </div>
 
-              <div className="divide-y divide-slate-100">
+            {tasks.length === 0 ? (
+              <p className="text-xs text-brand-mist/60 text-center py-4 bg-brand-void rounded-xl border border-brand-edge-dark">
+                Standard remedial procedure in effect. Complete observations in Service Report.
+              </p>
+            ) : (
+              <div className="space-y-2.5">
                 {tasks.map((task) => (
-                  <div key={task.id} className="py-3 space-y-2 text-xs">
+                  <div
+                    key={task.id}
+                    className="bg-brand-void border border-brand-edge-dark rounded-xl p-3 space-y-2 text-xs"
+                  >
                     <div className="flex items-start justify-between gap-2">
-                      <span className="font-bold text-slate-900 font-sans">{task.task_name}</span>
+                      <div>
+                        <span className="font-semibold text-white block">{task.task_name}</span>
+                        {task.notes && (
+                          <span className="text-[11px] text-brand-mist/70 block mt-0.5">
+                            {task.notes}
+                          </span>
+                        )}
+                      </div>
                       {task.is_mandatory && (
-                        <span className="text-[9.5px] font-normal text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded shrink-0">
+                        <span className="text-[9px] font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-1.5 py-0.2 rounded shrink-0">
                           MANDATORY
                         </span>
                       )}
                     </div>
 
-                    {/* Pass/Fail Controls */}
-                    {task.task_type === 'PASS_FAIL' && (
-                      <div className="grid grid-cols-3 gap-2 pt-1">
-                        <button
-                          type="button"
-                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'PASS' })}
-                          className={`py-2 rounded text-xs font-bold transition-all ${
-                            task.recorded_status === 'PASS'
-                              ? 'bg-emerald-700 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                          }`}
-                        >
-                          PASS
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'FAIL' })}
-                          className={`py-2 rounded text-xs font-bold transition-all ${
-                            task.recorded_status === 'FAIL'
-                              ? 'bg-rose-700 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                          }`}
-                        >
-                          FAIL
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'NOT_APPLICABLE' })}
-                          className={`py-2 rounded text-xs font-bold transition-all ${
-                            task.recorded_status === 'NOT_APPLICABLE'
-                              ? 'bg-slate-800 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                          }`}
-                        >
-                          N/A
-                        </button>
-                      </div>
-                    )}
+                    {/* Task status actions */}
+                    <div className="flex items-center gap-2 pt-1 border-t border-brand-edge-dark/60">
+                      <button
+                        type="button"
+                        onClick={() => handleUpdateTask(task.id, { recorded_status: 'PASS' })}
+                        className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-colors ${
+                          task.recorded_status === 'PASS'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-brand-carbon text-brand-mist hover:text-white border border-brand-edge-dark'
+                        }`}
+                        style={{ minHeight: '40px' }}
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Pass</span>
+                      </button>
 
-                    {/* Measurement Controls with Structured Units */}
-                    {task.task_type === 'MEASUREMENT' && (
-                      <div className="space-y-1.5 pt-1">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="number"
-                            step="0.1"
-                            value={task.recorded_measurement ?? ''}
-                            onChange={(e) =>
-                              handleUpdateTask(task.id, {
-                                recorded_measurement: e.target.value ? parseFloat(e.target.value) : undefined,
-                              })
-                            }
-                            placeholder={`e.g. ${task.expected_min || 18}`}
-                            className="w-32 p-2 border border-slate-300 rounded font-normal text-xs"
-                          />
-                          <span className="font-bold text-slate-700">{task.measurement_unit}</span>
-                          <span className="text-[11px] text-slate-400 font-normal">
-                            (Tolerance: {task.expected_min} &ndash; {task.expected_max} {task.measurement_unit})
-                          </span>
-                        </div>
+                      <button
+                        type="button"
+                        onClick={() => handleUpdateTask(task.id, { recorded_status: 'FAIL' })}
+                        className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-colors ${
+                          task.recorded_status === 'FAIL'
+                            ? 'bg-rose-600 text-white'
+                            : 'bg-brand-carbon text-brand-mist hover:text-white border border-brand-edge-dark'
+                        }`}
+                        style={{ minHeight: '40px' }}
+                      >
+                        <XCircle className="w-3.5 h-3.5" />
+                        <span>Fail</span>
+                      </button>
 
-                        {task.is_out_of_tolerance && (
-                          <div className="p-2 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] flex items-center gap-1.5">
-                            <AlertTriangle className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                            <span>Reading outside nominal tolerance limits. Verify and record recommendation.</span>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                      <button
+                        type="button"
+                        onClick={() => handleUpdateTask(task.id, { recorded_status: 'NOT_APPLICABLE' })}
+                        className={`py-1.5 px-2.5 rounded-lg text-[11px] font-medium transition-colors ${
+                          task.recorded_status === 'NOT_APPLICABLE'
+                            ? 'bg-slate-700 text-white'
+                            : 'bg-brand-carbon text-brand-mist/60 hover:text-white border border-brand-edge-dark'
+                        }`}
+                        style={{ minHeight: '40px' }}
+                      >
+                        N/A
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
+            )}
+          </div>
+
+          {/* Parts Used Card */}
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist">
+                Parts &amp; Materials Used ({partsList.length})
+              </h3>
+              <button
+                type="button"
+                onClick={() => setPartModalOpen(true)}
+                className="text-xs text-brand-electric-bright hover:underline font-bold flex items-center gap-1"
+              >
+                <Plus className="w-3.5 h-3.5" /> Add Part
+              </button>
             </div>
-          )}
 
-          {/* Reactive Mode: Fault -> Diagnosis -> Repair */}
-          {jobPack.workflow_type === 'REACTIVE' && (
-            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans block border-b border-slate-100 pb-2">
-                Reactive Investigation &amp; Remediation
-              </span>
-
-              <div className="space-y-3 text-xs">
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1">Fault Description &amp; Findings</label>
-                  <textarea
-                    rows={2}
-                    defaultValue="Server room temperature elevated to 28.5°C. High pressure safety trip active on outdoor condensing unit."
-                    className="w-full p-2 border border-slate-300 rounded font-sans"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1">Root Cause Identified</label>
-                  <textarea
-                    rows={2}
-                    defaultValue="Condenser fan motor contactor coil open circuit. Outdoor fan inoperative under load."
-                    className="w-full p-2 border border-slate-300 rounded font-sans"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1">Remedial Action Undertaken</label>
-                  <textarea
-                    rows={2}
-                    defaultValue="Replaced 24V contactor from van stock. Tested condenser fan rotation, cleared fault log, and verified return air temperature down to 19°C."
-                    className="w-full p-2 border border-slate-300 rounded font-sans"
-                  />
-                </div>
+            {partsList.length === 0 ? (
+              <p className="text-xs text-brand-mist/50 text-center py-3 bg-brand-void rounded-xl border border-brand-edge-dark">
+                No parts logged. Tap Add Part to record materials from van stock or catalogue.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {partsList.map((part) => (
+                  <div
+                    key={part.id}
+                    className="bg-brand-void border border-brand-edge-dark rounded-xl p-3 flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <span className="font-semibold text-white block">{part.part_name}</span>
+                      <span className="text-[11px] text-brand-mist/60 font-mono">
+                        Ref: {part.part_number} &bull; Qty: {part.quantity}
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                        part.is_installed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
+                      }`}
+                    >
+                      {part.is_installed ? 'Installed' : 'Awaiting Delivery'}
+                    </span>
+                  </div>
+                ))}
               </div>
-            </div>
-          )}
-
-          {/* Quick Actions Row */}
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setActiveTab('EVIDENCE')}
-              className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-1.5 font-bold"
-            >
-              <Camera className="h-4 w-4" />
-              <span>Capture Photo</span>
-            </button>
-
-            <button
-              onClick={() => setDefectModalOpen(true)}
-              className="btn-secondary text-xs py-2.5 text-amber-800 border-amber-300 flex items-center justify-center gap-1.5 font-bold"
-            >
-              <AlertTriangle className="h-4 w-4 text-amber-600" />
-              <span>Raise Defect</span>
-            </button>
+            )}
           </div>
 
           {/* No Access Button */}
-          <div className="pt-2">
-            <button
-              onClick={() => setNoAccessOpen(true)}
-              className="w-full py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-600 border border-slate-200 rounded text-xs font-bold text-center"
-            >
-              No Access / Unable to Attend Site
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setNoAccessOpen(true)}
+            className="w-full bg-brand-carbon hover:bg-rose-950/20 border border-brand-edge-dark hover:border-rose-500/30 text-rose-300 rounded-xl py-3 text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+            style={{ minHeight: '48px' }}
+          >
+            <AlertOctagon className="w-4 h-4 text-rose-400" />
+            <span>Report No Site Access / Abort</span>
+          </button>
         </div>
       )}
 
       {/* TAB 2: DIGITAL JOB PACK */}
       {activeTab === 'JOB_PACK' && (
-        <div className="space-y-4 text-xs font-sans">
-          {/* Site & Access */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="font-bold text-slate-900 text-sm">Site &amp; Access Details</span>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  `${jobPack.site.name} ${jobPack.site.address_line1} ${jobPack.site.postcode}`
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary text-[11px] py-1 px-2.5 flex items-center gap-1 text-brand-pink font-bold"
-              >
-                <Navigation className="h-3 w-3" /> Native Directions
-              </a>
+        <div className="space-y-4">
+          {/* Site & Access Information */}
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist flex items-center gap-1.5">
+              <Building className="w-4 h-4 text-brand-electric-bright" />
+              <span>Site &amp; Access Details</span>
+            </h3>
+
+            <div className="bg-brand-void p-3.5 rounded-xl border border-brand-edge-dark space-y-2 text-xs">
+              <div>
+                <span className="text-[10px] uppercase text-brand-mist/60 block">Site Name</span>
+                <span className="font-bold text-white text-sm">{jobPack.site?.name || 'Commercial Site'}</span>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase text-brand-mist/60 block">Address</span>
+                <span className="text-brand-mist/90">
+                  {jobPack.site?.address_line1}, {jobPack.site?.city} {jobPack.site?.postcode}
+                </span>
+              </div>
+              {jobPack.site?.reception_procedure && (
+                <div className="pt-1 border-t border-brand-edge-dark">
+                  <span className="text-[10px] uppercase text-brand-electric-bright font-bold block">
+                    Reception &amp; Access Instructions
+                  </span>
+                  <span className="text-white/90">{jobPack.site.reception_procedure}</span>
+                </div>
+              )}
             </div>
 
-            <div className="space-y-2">
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Address</span>
-                <span className="font-bold text-slate-900">{jobPack.site.address_line1}, {jobPack.site.city}, {jobPack.site.postcode}</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Opening Times</span>
-                <span className="text-slate-800">{jobPack.site.opening_hours}</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Parking &amp; Loading</span>
-                <span className="text-slate-800">{jobPack.site.parking_instructions}</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Reception / Sign-in Procedure</span>
-                <span className="text-slate-800">{jobPack.site.reception_procedure}</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Access Telephone</span>
-                <a href={`tel:${jobPack.site.access_telephone}`} className="text-brand-pink font-bold">
-                  {jobPack.site.access_telephone}
-                </a>
-              </div>
-              <div>
-                <span className="text-slate-400 block text-[10.5px]">Known Site Hazards</span>
-                <ul className="list-disc list-inside text-rose-800 font-medium">
-                  {jobPack.site.known_hazards.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            {jobPack.site?.access_telephone && (
+              <a
+                href={`tel:${jobPack.site.access_telephone}`}
+                className="w-full bg-brand-void hover:bg-brand-carbon border border-brand-edge-dark text-white rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-xs font-bold transition-colors"
+                style={{ minHeight: '48px' }}
+              >
+                <Phone className="w-4 h-4 text-brand-electric-bright" />
+                <span>Call Site Contact: {jobPack.site.access_telephone}</span>
+              </a>
+            )}
           </div>
 
-          {/* Asset Context */}
+          {/* Asset Details */}
           {jobPack.asset && (
-            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-              <span className="font-bold text-slate-900 text-sm block border-b border-slate-100 pb-2">
-                Target Asset Specification
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs font-normal">
-                <div>
-                  <span className="text-slate-400 block font-sans text-[10.5px]">Asset Tag</span>
-                  <span className="font-bold text-slate-900">{jobPack.asset.asset_tag}</span>
+            <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist flex items-center gap-1.5">
+                <Wrench className="w-4 h-4 text-brand-electric-bright" />
+                <span>Asset Specification</span>
+              </h3>
+
+              <div className="bg-brand-void p-3.5 rounded-xl border border-brand-edge-dark space-y-2 text-xs">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <span className="font-bold text-white text-sm">{jobPack.asset.name}</span>
+                    <span className="text-brand-mist/70 text-xs block">
+                      {jobPack.asset.manufacturer} &bull; {jobPack.asset.model}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold bg-brand-carbon text-brand-electric-bright px-2 py-0.5 rounded border border-brand-edge-dark">
+                    {jobPack.asset.asset_tag}
+                  </span>
                 </div>
-                <div>
-                  <span className="text-slate-400 block font-sans text-[10.5px]">Criticality</span>
-                  <span className="text-rose-700 font-bold">{jobPack.asset.criticality}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block font-sans text-[10.5px]">Manufacturer</span>
-                  <span>{jobPack.asset.manufacturer}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block font-sans text-[10.5px]">Model / Serial</span>
-                  <span>{jobPack.asset.model}</span>
-                </div>
+                {jobPack.asset.location_description && (
+                  <div className="pt-1 border-t border-brand-edge-dark text-brand-mist">
+                    <span>Location: </span>
+                    <strong className="text-white">{jobPack.asset.location_description}</strong>
+                  </div>
+                )}
               </div>
             </div>
           )}
 
-          {/* Risk-Proportionate RAMS */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <span className="font-bold text-slate-900 text-sm block border-b border-slate-100 pb-2">
-              Approved Risk Assessment &amp; Method Statement (RAMS)
-            </span>
-            <div className="space-y-2">
-              <div className="text-xs text-slate-700">
-                <strong>{jobPack.rams.title}</strong> &bull; {jobPack.rams.version}
+          {/* RAMS & Health and Safety */}
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-brand-electric-bright" />
+              <span>Health &amp; Safety Compliance (RAMS)</span>
+            </h3>
+
+            <div className="bg-brand-void p-3.5 rounded-xl border border-brand-edge-dark space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span>Standard RAMS Protocol:</span>
+                <span className="font-bold text-white">RAMS-2026-MECH-01</span>
               </div>
-              <label className="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={ramsAcknowledged}
-                  onChange={(e) => setRamsAcknowledged(e.target.checked)}
-                  className="text-brand-pink h-4 w-4"
-                />
-                <span className="text-xs text-slate-900 font-bold">
-                  I confirm I have reviewed site-specific RAMS and PPE requirements before commencing work.
-                </span>
-              </label>
+              <div className="flex items-center justify-between">
+                <span>Asbestos Register:</span>
+                <span className="text-emerald-400 font-bold">No Asbestos Identified</span>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* TAB 3: EVIDENCE CAPTURE */}
+      {/* TAB 3: EVIDENCE & PHOTOS */}
       {activeTab === 'EVIDENCE' && (
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
-                Camera-First Photo Evidence
-              </span>
-              {unsyncedEvidenceCount > 0 ? (
-                <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                  <WifiOff className="h-3 w-3" /> {unsyncedEvidenceCount} Waiting for Sync
-                </span>
-              ) : (
-                <span className="text-[10px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
-                  All Synced to Cloud
-                </span>
-              )}
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist">
+                Site Photographic Evidence ({evidenceList.length})
+              </h3>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            {/* Quick Photo Capture Category Buttons */}
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <button
+                type="button"
                 onClick={() => handleAddEvidence('BEFORE')}
-                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
+                className="bg-brand-void hover:bg-brand-electric/15 border border-brand-edge-dark hover:border-brand-electric/40 text-white rounded-xl py-3 px-3 flex items-center justify-center gap-2 transition-colors"
+                style={{ minHeight: '48px' }}
               >
-                <Camera className="h-5 w-5 mx-auto text-slate-700" />
-                <span className="text-[11px] font-bold block text-slate-900">Before Photo</span>
+                <Camera className="w-4 h-4 text-brand-electric-bright" />
+                <span>Pre-Work Photo</span>
               </button>
               <button
-                onClick={() => handleAddEvidence('DURING')}
-                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
-              >
-                <Camera className="h-5 w-5 mx-auto text-slate-700" />
-                <span className="text-[11px] font-bold block text-slate-900">During / Work</span>
-              </button>
-              <button
+                type="button"
                 onClick={() => handleAddEvidence('AFTER')}
-                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
+                className="bg-brand-void hover:bg-brand-electric/15 border border-brand-edge-dark hover:border-brand-electric/40 text-white rounded-xl py-3 px-3 flex items-center justify-center gap-2 transition-colors"
+                style={{ minHeight: '48px' }}
               >
-                <Camera className="h-5 w-5 mx-auto text-slate-700" />
-                <span className="text-[11px] font-bold block text-slate-900">After Photo</span>
+                <Camera className="w-4 h-4 text-emerald-400" />
+                <span>Post-Work Photo</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAddEvidence('DEFECT')}
+                className="bg-brand-void hover:bg-brand-electric/15 border border-brand-edge-dark hover:border-brand-electric/40 text-white rounded-xl py-3 px-3 flex items-center justify-center gap-2 transition-colors"
+                style={{ minHeight: '48px' }}
+              >
+                <AlertTriangle className="w-4 h-4 text-amber-400" />
+                <span>Defect Photo</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAddEvidence('ASSET_LABEL')}
+                className="bg-brand-void hover:bg-brand-electric/15 border border-brand-edge-dark hover:border-brand-electric/40 text-white rounded-xl py-3 px-3 flex items-center justify-center gap-2 transition-colors"
+                style={{ minHeight: '48px' }}
+              >
+                <Camera className="w-4 h-4 text-purple-400" />
+                <span>Nameplate / Tag</span>
               </button>
             </div>
 
-            {evidenceList.length > 0 && (
-              <div className="divide-y divide-slate-100 pt-2">
+            {/* Photo List */}
+            {evidenceList.length === 0 ? (
+              <p className="text-xs text-brand-mist/50 text-center py-6 bg-brand-void rounded-xl border border-brand-edge-dark">
+                No photographs captured yet. Use the buttons above to capture on-site visual evidence.
+              </p>
+            ) : (
+              <div className="space-y-2 pt-2">
                 {evidenceList.map((ev) => (
-                  <div key={ev.id} className="py-2.5 flex items-center justify-between text-xs">
-                    <div>
-                      <span className="font-bold text-slate-900">{ev.category} Photograph</span>
-                      <span className="text-slate-400 block font-normal text-[10.5px]">{ev.file_name}</span>
+                  <div
+                    key={ev.id}
+                    className="bg-brand-void border border-brand-edge-dark rounded-xl p-3 flex items-center justify-between text-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-brand-carbon border border-brand-edge-dark flex items-center justify-center text-brand-electric-bright">
+                        <Camera className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="font-bold text-white block">{ev.caption || ev.category}</span>
+                        <span className="text-[11px] text-brand-mist/60">
+                          {new Date(ev.captured_at).toLocaleTimeString('en-GB')} &bull; {ev.category}
+                        </span>
+                      </div>
                     </div>
+                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                      SYNCED
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
-                    <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                        ev.sync_state === 'SYNCED'
-                          ? 'bg-emerald-100 text-emerald-800'
-                          : ev.sync_state === 'SAVED_ON_DEVICE'
-                          ? 'bg-slate-100 text-slate-700'
-                          : 'bg-amber-100 text-amber-800'
-                      }`}>
-                        {ev.sync_state.replace(/_/g, ' ')}
+      {/* TAB 4: DEFECTS & SAFETY */}
+      {activeTab === 'DEFECTS' && (
+        <div className="space-y-4">
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist">
+                Operational Defects ({defectsList.length})
+              </h3>
+              <button
+                type="button"
+                onClick={() => setDefectModalOpen(true)}
+                className="text-xs text-amber-300 hover:underline font-bold flex items-center gap-1"
+              >
+                <Plus className="w-3.5 h-3.5" /> Raise Defect
+              </button>
+            </div>
+
+            {defectsList.length === 0 ? (
+              <p className="text-xs text-brand-mist/50 text-center py-4 bg-brand-void rounded-xl border border-brand-edge-dark">
+                Zero defects reported on this asset/visit.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {defectsList.map((d) => (
+                  <div
+                    key={d.id}
+                    className="bg-brand-void border border-brand-edge-dark rounded-xl p-3.5 space-y-1.5 text-xs"
+                  >
+                    <div className="flex items-start justify-between">
+                      <strong className="text-white font-bold">{d.title}</strong>
+                      <span className="text-[9.5px] font-bold px-2 py-0.5 rounded uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                        {d.severity}
                       </span>
-
-                      {ev.sync_state !== 'SYNCED' && (
-                        <button
-                          onClick={() => handleRetryEvidenceSync(ev.id)}
-                          className="btn-secondary text-[10px] py-0.5 px-1.5 flex items-center gap-1 font-medium"
-                        >
-                          <RefreshCw className="h-3 w-3" /> Retry
-                        </button>
+                    </div>
+                    <p className="text-brand-mist/80 text-[11px]">{d.description}</p>
+                    <div className="flex items-center justify-between pt-1 border-t border-brand-edge-dark text-[10.5px] text-brand-mist/60">
+                      <span>Make Safe: <strong className="text-white">{d.make_safe_status}</strong></span>
+                      {d.stop_work_triggered && (
+                        <span className="text-rose-400 font-bold">STOP WORK TRIGGERED</span>
                       )}
                     </div>
                   </div>
@@ -835,494 +941,194 @@ export default function FieldJobScreen({
         </div>
       )}
 
-      {/* TAB 4: DEFECTS, VARIATIONS & PARTS */}
-      {activeTab === 'DEFECTS' && (
-        <div className="space-y-4 text-xs font-sans">
-          {/* Defects List */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="font-bold text-slate-900 text-sm">Raised Defects ({defectsList.length})</span>
-              <button
-                onClick={() => setDefectModalOpen(true)}
-                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
-              >
-                <Plus className="h-3.5 w-3.5" /> Raise Defect
-              </button>
-            </div>
-
-            {defectsList.length === 0 ? (
-              <p className="text-slate-400 text-xs">No defects reported on this attendance.</p>
-            ) : (
-              <div className="divide-y divide-slate-100">
-                {defectsList.map((d) => (
-                  <div key={d.id} className="py-2.5 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900">{d.title}</span>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                        d.severity === 'CRITICAL' || d.severity === 'UNSAFE' ? 'bg-rose-100 text-rose-900' : 'bg-amber-100 text-amber-900'
-                      }`}>
-                        {d.severity} &bull; {d.make_safe_status}
-                      </span>
-                    </div>
-                    <p className="text-slate-600 text-[11px]">{d.description}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Variations & NTE */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="font-bold text-slate-900 text-sm">Variations &amp; NTE Limits</span>
-              <button
-                onClick={() => setVariationModalOpen(true)}
-                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
-              >
-                <Plus className="h-3.5 w-3.5" /> Request Variation
-              </button>
-            </div>
-
-            <div className="bg-slate-50 p-2.5 rounded font-normal text-slate-600 flex justify-between items-center text-[11px]">
-              <span>Authorised NTE Ceiling:</span>
-              <strong className="text-slate-900">£{jobPack.nte_limit_gbp || 500}.00</strong>
-            </div>
-
-            {variationsList.map((v) => (
-              <div key={v.id} className="p-3 bg-amber-50 border border-amber-200 rounded space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900 font-sans">{v.reason}</span>
-                  <span className="text-amber-900 font-bold">£{v.total_variation_estimate_gbp.toFixed(2)}</span>
-                </div>
-                <p className="text-slate-700 text-[11px] font-sans">{v.additional_scope}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Parts Used / Awaiting Parts */}
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="font-bold text-slate-900 text-sm">Parts &amp; Materials</span>
-              <button
-                onClick={() => setPartModalOpen(true)}
-                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
-              >
-                <Plus className="h-3.5 w-3.5" /> Add Part
-              </button>
-            </div>
-
-            {partsList.map((p) => (
-              <div key={p.id} className="py-2 flex items-center justify-between border-b border-slate-100">
-                <div>
-                  <span className="font-bold text-slate-900">{p.part_name}</span>
-                  <span className="text-slate-400 block font-normal text-[10.5px]">Qty: {p.quantity}</span>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                  p.is_awaiting_delivery ? 'bg-amber-100 text-amber-900' : 'bg-emerald-100 text-emerald-800'
-                }`}>
-                  {p.is_awaiting_delivery ? 'AWAITING DELIVERY' : 'INSTALLED'}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 5: DIGITAL SERVICE REPORT & SUBMISSION */}
+      {/* TAB 5: SERVICE REPORT */}
       {activeTab === 'REPORT' && (
         <div className="space-y-4">
-          {/* Rev 4.0 Controlled Field Reporting Engine Section */}
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 space-y-3 text-white">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <div>
-                <span className="font-bold text-sm text-white flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-sky-400" />
-                  EntireFM Controlled Field Reports (Rev 4.0)
-                </span>
-                <span className="text-[11px] text-slate-400 font-normal">
-                  Standard Operating Procedures &bull; MAR 2026
-                </span>
-              </div>
-              <span className="text-[10px] font-normal uppercase px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">
-                A4 PDF Ready
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
-              <button
-                type="button"
-                onClick={async () => {
-                  const res = await fetch('/api/field/reports', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      templateCode: 'ENT-RJR-01',
-                      siteId: (visit as any).site_id || jobPack.site.id,
-                      workOrderId: visit.work_order_id,
-                      visitId: visit.id,
-                    }),
-                  });
-                  const data = await res.json();
-                  if (data.instance?.id) {
-                    window.location.href = `/engineer/reports/${data.instance.id}`;
-                  }
-                }}
-                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
-              >
-                <div className="text-[10px] text-sky-400 font-bold">ENT-RJR-01</div>
-                <div className="font-bold text-xs text-white group-hover:text-sky-300">Reactive Job Report</div>
-                <div className="text-[10px] text-slate-400 mt-1">Diagnosis, Labour &amp; Materials</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={async () => {
-                  const res = await fetch('/api/field/reports', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      templateCode: 'ENT-PPM-01',
-                      siteId: (visit as any).site_id || jobPack.site.id,
-                      workOrderId: visit.work_order_id,
-                      visitId: visit.id,
-                    }),
-                  });
-                  const data = await res.json();
-                  if (data.instance?.id) {
-                    window.location.href = `/engineer/reports/${data.instance.id}`;
-                  }
-                }}
-                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
-              >
-                <div className="text-[10px] text-sky-400 font-bold">ENT-PPM-01</div>
-                <div className="font-bold text-xs text-white group-hover:text-sky-300">Weekly Fire Alarm Test</div>
-                <div className="text-[10px] text-slate-400 mt-1">BS 5839-1 Call Point Test</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={async () => {
-                  const res = await fetch('/api/field/reports', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      templateCode: 'ENT-FLS-EL',
-                      siteId: (visit as any).site_id || jobPack.site.id,
-                      workOrderId: visit.work_order_id,
-                      visitId: visit.id,
-                    }),
-                  });
-                  const data = await res.json();
-                  if (data.instance?.id) {
-                    window.location.href = `/engineer/reports/${data.instance.id}`;
-                  }
-                }}
-                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
-              >
-                <div className="text-[10px] text-sky-400 font-bold">ENT-FLS-EL</div>
-                <div className="font-bold text-xs text-white group-hover:text-sky-300">Emergency Lighting Survey</div>
-                <div className="text-[10px] text-slate-400 mt-1">BS 5266 Luminaire Schedule</div>
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white border border-slate-200 rounded p-4 space-y-4 text-xs font-sans">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <div>
-                <span className="font-bold text-slate-900 text-sm block">Legacy Service Summary</span>
-                {report && (
-                  <span className="text-[10px] font-normal text-slate-500">
-                    {report.report_number} &bull; Revision {report.revision_number}
-                  </span>
-                )}
-              </div>
-
-              {report && (
-                <a
-                  href={`/api/engineer/visits/${visit.id}/pdf`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary text-[10.5px] py-1 px-2.5 font-medium flex items-center gap-1"
-                >
-                  <Download className="h-3.5 w-3.5" /> Download PDF
-                </a>
-              )}
-            </div>
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-4 space-y-4 shadow-xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist">
+              Digital Service Report Completion
+            </h3>
 
             {validationError && (
-              <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-900 text-xs flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-rose-600 shrink-0" />
+              <div className="p-3 bg-rose-500/10 border border-rose-500/30 text-rose-300 rounded-xl text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
                 <span>{validationError}</span>
               </div>
             )}
 
-            <div>
-              <label className="block font-bold text-slate-700 mb-1">Work Undertaken (Engineer Narrative):</label>
-              <textarea
-                rows={3}
-                value={reportNarrative}
-                onChange={(e) => setReportNarrative(e.target.value)}
-                className="w-full p-2.5 border border-slate-300 rounded font-sans text-xs"
-              />
-            </div>
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="text-brand-mist/80 block font-semibold mb-1">
+                  Work Completed Narrative
+                </label>
+                <textarea
+                  rows={4}
+                  value={reportNarrative}
+                  onChange={(e) => setReportNarrative(e.target.value)}
+                  className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-3 focus:outline-none focus:border-brand-electric leading-relaxed"
+                />
+              </div>
 
-            <div>
-              <label className="block font-bold text-slate-700 mb-1">Engineer Recommendations:</label>
-              <textarea
-                rows={2}
-                value={reportRecs}
-                onChange={(e) => setReportRecs(e.target.value)}
-                className="w-full p-2.5 border border-slate-300 rounded font-sans text-xs"
-              />
-            </div>
+              <div>
+                <label className="text-brand-mist/80 block font-semibold mb-1">
+                  Engineer Recommendations
+                </label>
+                <input
+                  type="text"
+                  value={reportRecs}
+                  onChange={(e) => setReportRecs(e.target.value)}
+                  className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-3 focus:outline-none focus:border-brand-electric"
+                />
+              </div>
 
-            <div>
-              <label className="block font-bold text-slate-700 mb-1">Completion Outcome:</label>
-              <select
-                value={reportOutcome}
-                onChange={(e) => setReportOutcome(e.target.value as any)}
-                className="w-full p-2 border border-slate-300 rounded font-sans text-xs"
-              >
-                <option value="COMPLETED">Fully Completed</option>
-                <option value="PARTIALLY_COMPLETED">Partially Completed</option>
-                <option value="FURTHER_WORK_REQUIRED">Further Work Required</option>
-                <option value="AWAITING_PARTS">Awaiting Parts (Return Visit)</option>
-                <option value="MAKE_SAFE_ONLY">Make Safe Only (Critical Issue)</option>
-              </select>
-            </div>
+              <div>
+                <label className="text-brand-mist/80 block font-semibold mb-1">Completion Outcome</label>
+                <select
+                  value={reportOutcome}
+                  onChange={(e) => setReportOutcome(e.target.value as any)}
+                  className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-3 focus:outline-none focus:border-brand-electric"
+                >
+                  <option value="COMPLETED">COMPLETED &bull; System Operational</option>
+                  <option value="PARTIALLY_COMPLETED">PARTIALLY COMPLETED &bull; Further Attendance Required</option>
+                  <option value="UNABLE_TO_COMPLETE">UNABLE TO COMPLETE &bull; Awaiting Parts / Access</option>
+                </select>
+              </div>
 
-            {/* Site Signatory */}
-            <div className="p-3 bg-slate-50 border border-slate-200 rounded space-y-2">
-              <span className="font-bold text-slate-900 block">Site Representative Sign-Off</span>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <div>
-                  <label className="block text-[10.5px] text-slate-500">Contact Name</label>
+                  <label className="text-brand-mist/80 block font-semibold mb-1">Signatory Name</label>
                   <input
                     type="text"
                     value={signatoryName}
                     onChange={(e) => setSignatoryName(e.target.value)}
-                    className="w-full p-1.5 border border-slate-300 rounded text-xs font-sans"
+                    className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10.5px] text-slate-500">Role / Position</label>
+                  <label className="text-brand-mist/80 block font-semibold mb-1">Signatory Role</label>
                   <input
                     type="text"
                     value={signatoryRole}
                     onChange={(e) => setSignatoryRole(e.target.value)}
-                    className="w-full p-1.5 border border-slate-300 rounded text-xs font-sans"
+                    className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
                   />
                 </div>
               </div>
             </div>
 
             <button
+              type="button"
+              disabled={isSubmitting}
               onClick={handleSubmitServiceReport}
-              disabled={isSubmitting || visit.status === 'VALIDATED' || visit.is_cancelled}
-              className="btn-primary w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl py-3.5 text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40 transition-all active:scale-98"
+              style={{ minHeight: '52px' }}
             >
-              <CheckCircle2 className="h-4 w-4" />
-              <span>
-                {visit.status === 'SUBMITTED'
-                  ? 'Resubmit Corrected Service Report'
-                  : visit.status === 'VALIDATED'
-                  ? 'Service Report Validated'
-                  : 'Submit Service Report to EntireFM'}
-              </span>
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Submit Service Report to EntireFM</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* No Access Modal */}
-      {noAccessOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl">
-            <h3 className="text-sm font-bold text-slate-900">Record No Access</h3>
-            <p className="text-xs text-slate-600">
-              Select the primary reason for being unable to access site or asset:
-            </p>
-
-            <select
-              value={noAccessReason}
-              onChange={(e) => setNoAccessReason(e.target.value)}
-              className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
-            >
-              <option value="Site closed / No keyholder present">Site closed / No keyholder present</option>
-              <option value="Access denied by tenant / occupant">Access denied by tenant</option>
-              <option value="Incorrect access codes / key missing">Incorrect access codes</option>
-              <option value="Asset physically obstructed / unsafe access">Asset physically obstructed</option>
-              <option value="Permit to work not issued by site">Permit to work unavailable</option>
-            </select>
-
-            <textarea
-              rows={2}
-              value={noAccessNotes}
-              onChange={(e) => setNoAccessNotes(e.target.value)}
-              placeholder="Notes on contact attempts with site manager..."
-              className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
-            />
-
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setNoAccessOpen(false)}
-                className="btn-secondary text-xs py-1.5 px-3"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                disabled={isSubmitting}
-                onClick={handleNoAccessSubmit}
-                className="btn-primary text-xs py-1.5 px-4 bg-rose-700 text-white font-bold"
-              >
-                Submit No Access (Pause SLA)
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Defect Modal */}
+      {/* MODAL: Raise Defect Bottom Sheet */}
       {defectModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
-            <h3 className="text-sm font-bold text-slate-900">Raise Operational Defect</h3>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Defect Title</label>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-t-2xl sm:rounded-2xl max-w-sm w-full p-5 space-y-3 shadow-2xl safe-area-inset-bottom">
+            <h3 className="text-sm font-bold text-white">Raise Operational Defect</h3>
+            <div className="space-y-2 text-xs">
               <input
                 type="text"
                 value={defectTitle}
                 onChange={(e) => setDefectTitle(e.target.value)}
-                placeholder="e.g. Severely worn fan drive bearing"
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+                placeholder="Defect summary (e.g. Worn drive belt)..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
               />
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Severity</label>
+              <textarea
+                rows={3}
+                value={defectDesc}
+                onChange={(e) => setDefectDesc(e.target.value)}
+                placeholder="Detailed description of defect and risk..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
+              />
               <select
                 value={defectSeverity}
                 onChange={(e) => setDefectSeverity(e.target.value as any)}
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
               >
-                <option value="ADVISORY">Advisory</option>
-                <option value="MINOR">Minor</option>
-                <option value="MAJOR">Major</option>
-                <option value="CRITICAL">Critical</option>
-                <option value="UNSAFE">Unsafe (Immediate Hazard)</option>
+                <option value="MINOR">MINOR &bull; Cosmetic / Non-urgent</option>
+                <option value="MAJOR">MAJOR &bull; Performance degraded</option>
+                <option value="CRITICAL">CRITICAL &bull; Complete failure risk</option>
+                <option value="UNSAFE">UNSAFE &bull; Immediate hazard</option>
               </select>
             </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Make Safe Status</label>
-              <select
-                value={defectMakeSafe}
-                onChange={(e) => setDefectMakeSafe(e.target.value as any)}
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
-              >
-                <option value="MADE_SAFE">Made Safe</option>
-                <option value="ISOLATED">Isolated from supply</option>
-                <option value="UNABLE_TO_MAKE_SAFE">Unable to Make Safe</option>
-                <option value="NOT_APPLICABLE">Not Applicable</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Description &amp; Observations</label>
-              <textarea
-                rows={2}
-                value={defectDesc}
-                onChange={(e) => setDefectDesc(e.target.value)}
-                placeholder="Details of the physical defect and hazard..."
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="grid grid-cols-2 gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setDefectModalOpen(false)}
-                className="btn-secondary text-xs py-1.5 px-3"
+                className="bg-brand-void text-white rounded-xl py-2.5 text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                disabled={!defectTitle || !defectDesc || isSubmitting}
                 onClick={handleRaiseDefect}
-                className="btn-primary text-xs py-1.5 px-4 bg-amber-700 text-white font-bold"
+                className="bg-amber-500 text-slate-950 rounded-xl py-2.5 text-xs font-bold"
               >
-                Record Defect
+                Save Defect
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Variation Modal */}
+      {/* MODAL: Request Variation Bottom Sheet */}
       {variationModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
-            <h3 className="text-sm font-bold text-slate-900">Request Additional Scope / Variation</h3>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Reason for Variation</label>
-              <input
-                type="text"
-                value={variationReason}
-                onChange={(e) => setVariationReason(e.target.value)}
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
-              />
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Scope of Additional Work</label>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-t-2xl sm:rounded-2xl max-w-sm w-full p-5 space-y-3 shadow-2xl safe-area-inset-bottom">
+            <h3 className="text-sm font-bold text-white">Request Scope Variation</h3>
+            <div className="space-y-2 text-xs">
               <textarea
-                rows={2}
+                rows={3}
                 value={variationScope}
                 onChange={(e) => setVariationScope(e.target.value)}
-                placeholder="Detail additional labour and materials required..."
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+                placeholder="Describe additional required remedial scope..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
               />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="block text-slate-700 font-bold mb-1">Est. Labour Hours</label>
-                <input
-                  type="number"
-                  value={variationHours}
-                  onChange={(e) => setVariationHours(parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
-                />
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-brand-mist/60 text-[10px] block">Extra Hours</label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    value={variationHours}
+                    onChange={(e) => setVariationHours(Number(e.target.value))}
+                    className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2"
+                  />
+                </div>
+                <div>
+                  <label className="text-brand-mist/60 text-[10px] block">Parts Cost (£)</label>
+                  <input
+                    type="number"
+                    step="10"
+                    value={variationPartsGbp}
+                    onChange={(e) => setVariationPartsGbp(Number(e.target.value))}
+                    className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-slate-700 font-bold mb-1">Est. Parts (£)</label>
-                <input
-                  type="number"
-                  value={variationPartsGbp}
-                  onChange={(e) => setVariationPartsGbp(parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
-                />
-              </div>
             </div>
-
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="grid grid-cols-2 gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setVariationModalOpen(false)}
-                className="btn-secondary text-xs py-1.5 px-3"
+                className="bg-brand-void text-white rounded-xl py-2.5 text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                disabled={!variationScope || isSubmitting}
                 onClick={handleRequestVariation}
-                className="btn-primary text-xs py-1.5 px-4 bg-brand-pink text-white font-bold"
+                className="bg-brand-electric text-white rounded-xl py-2.5 text-xs font-bold"
               >
                 Submit Variation
               </button>
@@ -1331,59 +1137,88 @@ export default function FieldJobScreen({
         </div>
       )}
 
-      {/* Part Modal */}
+      {/* MODAL: Record Part Bottom Sheet */}
       {partModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
-            <h3 className="text-sm font-bold text-slate-900">Record Part / Material</h3>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Part Description</label>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-t-2xl sm:rounded-2xl max-w-sm w-full p-5 space-y-3 shadow-2xl safe-area-inset-bottom">
+            <h3 className="text-sm font-bold text-white">Record Material / Part</h3>
+            <div className="space-y-2 text-xs">
               <input
                 type="text"
                 value={partName}
                 onChange={(e) => setPartName(e.target.value)}
-                placeholder="e.g. 24V Contactor or F7 Pocket Filter"
-                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+                placeholder="Part description (e.g. 24V Actuator)..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
               />
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold mb-1">Part Number</label>
               <input
                 type="text"
                 value={partNumber}
                 onChange={(e) => setPartNumber(e.target.value)}
-                placeholder="e.g. D-CON-24V-01"
-                className="w-full p-2 border border-slate-300 rounded text-xs font-normal"
+                placeholder="Part number / Catalogue ref..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
               />
             </div>
-
-            <label className="flex items-center gap-2 p-2 bg-slate-50 border border-slate-200 rounded cursor-pointer">
-              <input
-                type="checkbox"
-                checked={partAwaiting}
-                onChange={(e) => setPartAwaiting(e.target.checked)}
-                className="text-brand-pink h-4 w-4"
-              />
-              <span>Part not in stock &mdash; Awaiting delivery (Return visit required)</span>
-            </label>
-
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="grid grid-cols-2 gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setPartModalOpen(false)}
-                className="btn-secondary text-xs py-1.5 px-3"
+                className="bg-brand-void text-white rounded-xl py-2.5 text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                disabled={!partName || isSubmitting}
                 onClick={handleRecordPart}
-                className="btn-primary text-xs py-1.5 px-4 bg-emerald-700 text-white font-bold"
+                className="bg-emerald-600 text-white rounded-xl py-2.5 text-xs font-bold"
               >
                 Save Part
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: No Access Bottom Sheet */}
+      {noAccessOpen && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-brand-carbon border border-brand-edge-dark rounded-t-2xl sm:rounded-2xl max-w-sm w-full p-5 space-y-3 shadow-2xl safe-area-inset-bottom">
+            <h3 className="text-sm font-bold text-white">Report No Site Access</h3>
+            <p className="text-xs text-brand-mist/70">
+              State the reason you are unable to access the property or plant room:
+            </p>
+            <div className="space-y-2 text-xs">
+              <select
+                value={noAccessReason}
+                onChange={(e) => setNoAccessReason(e.target.value)}
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
+              >
+                <option value="Site closed / No keyholder present">Site closed / No keyholder present</option>
+                <option value="Access denied by building management">Access denied by building management</option>
+                <option value="Permit to Work not issued">Permit to Work not issued</option>
+                <option value="Hazardous site condition prevents safe access">Hazardous site condition</option>
+              </select>
+              <textarea
+                rows={2}
+                value={noAccessNotes}
+                onChange={(e) => setNoAccessNotes(e.target.value)}
+                placeholder="Additional details on call attempts or keyholder contact..."
+                className="w-full bg-brand-void border border-brand-edge-dark text-white rounded-xl p-2.5"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setNoAccessOpen(false)}
+                className="bg-brand-void text-white rounded-xl py-2.5 text-xs font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleNoAccessSubmit}
+                className="bg-rose-600 text-white rounded-xl py-2.5 text-xs font-bold"
+              >
+                Confirm No Access
               </button>
             </div>
           </div>

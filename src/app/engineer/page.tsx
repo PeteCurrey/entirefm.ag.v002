@@ -1,8 +1,8 @@
 /**
- * FIELD ENGINEER MOBILE APP — /engineer (Phase 0M Addendum)
- * ==========================================================
- * Mobile-first operational dashboard for field operatives.
- * Displays today's queue, SLA countdowns, journey tracking, and active visit status.
+ * FIELD ENGINEER MOBILE APP — /engineer
+ * =====================================
+ * Mobile-first operational overview for field engineers.
+ * Displays greeting, today metrics, next job spotlight, and execution queue.
  */
 
 import React from 'react';
@@ -13,7 +13,7 @@ import { EngineerTodayClient } from '@/components/engineer/EngineerTodayClient';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Today • Field Engineer Mobile App — EntireFM',
+  title: 'Today • Field Queue',
   description: 'Mobile field operative execution queue for assigned site visits, digital job packs, and attendance.',
 };
 
@@ -28,28 +28,40 @@ export default async function EngineerDashboardPage() {
 
   const visits = await listTodayVisitsForEngineer(operativeId, providerOrgId);
 
+  const currentHour = new Date().getHours();
+  const timeGreeting =
+    currentHour < 12 ? 'Good morning' : currentHour < 18 ? 'Good afternoon' : 'Good evening';
+  const firstName = session.name.split(' ')[0] || 'Engineer';
+
   const todayFormatted = new Date().toLocaleDateString('en-GB', {
-    weekday: 'long',
+    weekday: 'short',
     day: 'numeric',
-    month: 'long',
+    month: 'short',
     year: 'numeric',
   });
 
   return (
-    <div className="space-y-4 px-2 sm:px-0">
-      <div className="border-b border-brand-edge-dark pb-3">
-        <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
-          FIELD OPERATIVE TODAY QUEUE
-        </span>
-        <h1 className="text-xl font-bold text-white mt-0.5">
-          What do I need to do today?
-        </h1>
-        <p className="text-xs text-brand-mist/60 font-normal mt-0.5">
-          {todayFormatted} &bull; {session.name}
-        </p>
+    <div className="space-y-5">
+      {/* Top Field Briefing Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <span className="text-[10px] uppercase tracking-widest text-brand-electric-bright font-bold">
+            FIELD OPERATIONS &bull; {todayFormatted}
+          </span>
+          <h1 className="text-2xl font-bold tracking-tight text-white mt-0.5">
+            {timeGreeting}, {firstName}
+          </h1>
+          <p className="text-xs text-brand-mist/70 mt-0.5">
+            You have <strong className="text-white">{visits.length}</strong> site {visits.length === 1 ? 'visit' : 'visits'} assigned for today.
+          </p>
+        </div>
       </div>
 
-      <EngineerTodayClient initialVisits={visits} operativeId={operativeId} />
+      <EngineerTodayClient
+        initialVisits={visits}
+        operativeId={operativeId}
+        engineerName={session.name}
+      />
     </div>
   );
 }

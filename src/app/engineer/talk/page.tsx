@@ -11,7 +11,7 @@ import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronLeft, Clock, FileText, Sparkles } from 'lucide-react';
+import { ChevronLeft, Clock, FileText, Sparkles, Building, Wrench, X } from 'lucide-react';
 import { TalkToQuoteClient } from '@/components/engineer/TalkToQuoteClient';
 
 export const metadata: Metadata = {
@@ -39,6 +39,9 @@ export default async function EngineerTalkPage({
   if (!session) redirect('/login?redirect=/engineer/talk');
 
   const resolvedParams = (await searchParams) || {};
+  const hasContext = Boolean(
+    resolvedParams.siteName || resolvedParams.assetReference || resolvedParams.workOrderNumber
+  );
 
   // Fetch recent talk to quote sessions for this engineer
   const { data: sessions } = await dbQuery<any[]>(
@@ -50,8 +53,8 @@ export default async function EngineerTalkPage({
   const recentSessions = sessions || [];
 
   return (
-    <div className="space-y-6">
-      {/* Top Breadcrumb */}
+    <div className="space-y-5">
+      {/* Top Navigation */}
       <div className="flex items-center justify-between">
         <Link
           href="/engineer"
@@ -60,9 +63,46 @@ export default async function EngineerTalkPage({
           <ChevronLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
         <span className="text-[11px] text-brand-electric-bright font-semibold flex items-center gap-1">
-          <Sparkles className="w-3.5 h-3.5" /> EntireCAFM v2.0
+          <Sparkles className="w-3.5 h-3.5" /> EntireCAFM Field AI
         </span>
       </div>
+
+      {/* Active Work Order / Site Context Banner */}
+      {hasContext && (
+        <div className="bg-brand-carbon border border-brand-electric/30 rounded-2xl p-3.5 flex items-center justify-between gap-2 shadow-lg">
+          <div className="space-y-0.5 text-xs">
+            <span className="text-[10px] uppercase font-bold text-brand-electric-bright block">
+              LINKED FIELD CONTEXT
+            </span>
+            <div className="flex flex-wrap items-center gap-2 text-white font-medium">
+              {resolvedParams.siteName && (
+                <span className="flex items-center gap-1">
+                  <Building className="w-3.5 h-3.5 text-brand-electric-bright" />
+                  {resolvedParams.siteName}
+                </span>
+              )}
+              {resolvedParams.assetReference && (
+                <span className="flex items-center gap-1 text-brand-mist/90 font-mono text-[11px]">
+                  <Wrench className="w-3.5 h-3.5 text-brand-electric-bright" />
+                  {resolvedParams.assetReference}
+                </span>
+              )}
+              {resolvedParams.workOrderNumber && (
+                <span className="text-brand-mist/60 text-[11px] font-mono">
+                  ({resolvedParams.workOrderNumber})
+                </span>
+              )}
+            </div>
+          </div>
+          <Link
+            href="/engineer/talk"
+            className="text-brand-mist/40 hover:text-white p-1 rounded-lg transition-colors"
+            title="Clear linked context"
+          >
+            <X className="w-4 h-4" />
+          </Link>
+        </div>
+      )}
 
       {/* Main Interactive Talk to Quote Client */}
       <TalkToQuoteClient
