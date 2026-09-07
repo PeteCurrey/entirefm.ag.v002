@@ -291,7 +291,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                 return (
                   <div
                     key={tool.slug}
-                    className="group relative flex flex-col justify-between rounded-sm border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-electric overflow-hidden"
+                    className="group relative flex flex-col justify-between rounded-sm border border-slate-200/80 bg-white p-6 shadow-card transition-all duration-300 ease-brand hover:-translate-y-1 hover:shadow-elevated hover:border-brand-electric/80 overflow-hidden"
                   >
                     {/* Background image — faintly visible at rest, reveals on hover */}
                     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-sm">
