@@ -45,6 +45,7 @@ import {
 } from '@/lib/tools/asset-taxonomy';
 import { generateCsv, downloadCsvFile } from '@/lib/exports/csv-exporter';
 import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
+import { generatePPMPack } from '@/lib/pdf/ppm-pack-builder';
 import type { TemplateProps } from '../types';
 
 export interface ConfiguredAssetItem {
@@ -417,6 +418,22 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
     downloadPdfReport(pdfDoc);
   };
 
+  // Complete PPM Pack Export Handler
+  const handleDownloadPpmPack = () => {
+    generatePPMPack({
+      buildingName,
+      buildingType,
+      floorArea,
+      numberOfFloors,
+      occupancyProfile,
+      siteCriticality,
+      selectedCategoryIds,
+      selectedAssetList,
+      programmeTasks,
+      stats,
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
@@ -426,7 +443,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
           title="PPM Schedule Builder"
           purpose="Build an indicative planned maintenance programme around the plant and systems actually installed at your property."
           timeEstimate="5 min"
-          outputs={['PDF Programme', 'CSV Matrix']}
+          outputs={['Complete PPM Pack (PDF)', 'PDF Programme', 'CSV Matrix']}
         >
           {/* Engineering Process Stepper */}
           <WizardProgress
@@ -1271,6 +1288,9 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 {/* Export Toolbar */}
                 <ExportToolbar
                   toolName="PPM Schedule Builder"
+                  onDownloadPdfPack={handleDownloadPpmPack}
+                  pdfPackLabel="Complete PPM Pack (PDF)"
+                  pdfPackSublabel="Includes service visit log sheets for every asset category — ready to file or hand to your engineer."
                   onDownloadPdf={handleDownloadPdf}
                   onDownloadCsv={handleDownloadCsv}
                   pdfLabel="Download PPM Programme (PDF)"

@@ -12,12 +12,15 @@ import {
 
 export interface ExportToolbarProps {
   toolName: string;
+  onDownloadPdfPack?: () => void;
   onDownloadPdf?: () => void;
   onDownloadCsv?: () => void;
   onDownloadIcs?: () => void;
   onDownloadMarkdown?: () => void;
   onCopyContent?: () => void;
   isCopied?: boolean;
+  pdfPackLabel?: string;
+  pdfPackSublabel?: string;
   pdfLabel?: string;
   csvLabel?: string;
   icsLabel?: string;
@@ -28,12 +31,15 @@ export interface ExportToolbarProps {
 
 export function ExportToolbar({
   toolName,
+  onDownloadPdfPack,
   onDownloadPdf,
   onDownloadCsv,
   onDownloadIcs,
   onDownloadMarkdown,
   onCopyContent,
   isCopied = false,
+  pdfPackLabel = 'Complete PPM Pack (PDF)',
+  pdfPackSublabel,
   pdfLabel = 'Download PDF Report',
   csvLabel = 'Export CSV Spreadsheet',
   icsLabel = 'Export Calendar (.ics)',
@@ -51,6 +57,25 @@ export function ExportToolbar({
       </div>
 
       <div className="flex flex-wrap items-center gap-2.5">
+        {onDownloadPdfPack && (
+          <button
+            type="button"
+            onClick={onDownloadPdfPack}
+            className="inline-flex flex-col items-start px-4 py-2 bg-brand-graphite hover:bg-slate-800 text-white font-normal rounded-sm shadow-sm transition-all duration-200 hover:shadow text-left group"
+            title="Generate complete multi-section PPM Pack with service visit log sheets"
+          >
+            <div className="inline-flex items-center gap-2">
+              <Download className="w-3.5 h-3.5 text-brand-electric-bright group-hover:translate-y-0.5 transition-transform" />
+              <span className="text-xs font-normal">{pdfPackLabel}</span>
+            </div>
+            {pdfPackSublabel && (
+              <span className="text-[10.5px] text-slate-300 font-light mt-0.5 leading-snug max-w-xs sm:max-w-sm">
+                {pdfPackSublabel}
+              </span>
+            )}
+          </button>
+        )}
+
         {onDownloadPdf && (
           <button
             type="button"
