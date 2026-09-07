@@ -43,7 +43,7 @@ export function GlobalCreateDropdown({ session }: Props) {
   }, []);
 
   const perms = (session.permissions as string[]) || [];
-  const isSuper = session.role === 'SUPER_ADMIN' || session.role === 'CEO' || session.role === 'ADMIN';
+  const isSuper = session.role === 'SUPER_ADMIN' || session.role === 'CEO' || session.role === 'ADMINISTRATOR';
 
   const items = [
     {

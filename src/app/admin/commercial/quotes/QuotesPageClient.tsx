@@ -233,7 +233,7 @@ export function QuotesPageClient({ initialQuotes, clientAccounts, sites, current
                       </span>
                     </td>
                     <td className="px-5 py-4 text-xs text-[#9A9A95]">
-                      {q.client_po_reference || '—'}
+                      {q.client_po_ref || '—'}
                     </td>
                     <td className="px-5 py-4">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-medium border ${STATUS_BADGE[q.status] || 'bg-zinc-100 text-zinc-600 border-zinc-200'}`}>

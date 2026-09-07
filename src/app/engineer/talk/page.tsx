@@ -1,77 +1,126 @@
+/**
+ * FIELD ENGINEER — TALK TO QUOTE (PRODUCTION V1)
+ * ===============================================
+ * Authenticated, mobile-first Voice + AI Field Intelligence interface.
+ * Converts natural spoken notes into enriched commercial quotations.
+ */
+
+import React from 'react';
+import type { Metadata } from 'next';
 import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Mic, ChevronLeft, Clock } from 'lucide-react';
+import { ChevronLeft, Clock, FileText, Sparkles } from 'lucide-react';
+import { TalkToQuoteClient } from '@/components/engineer/TalkToQuoteClient';
+
+export const metadata: Metadata = {
+  title: 'Talk to Quote • EntireCAFM Field Intelligence',
+  description: 'Voice-driven quotation and remedial job intelligence for field engineers.',
+};
 
 export const dynamic = 'force-dynamic';
 
-export default async function EngineerTalkPage() {
+export default async function EngineerTalkPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{
+    siteId?: string;
+    siteName?: string;
+    clientAccountId?: string;
+    clientName?: string;
+    assetId?: string;
+    assetReference?: string;
+    workOrderId?: string;
+    workOrderNumber?: string;
+  }>;
+}) {
   const session = await getCurrentSession();
-  if (!session) redirect('/login');
+  if (!session) redirect('/login?redirect=/engineer/talk');
 
-  const { data: captures } = await dbQuery<any[]>(
-    `field_voice_captures?engineer_person_id=eq.${session.personId}&order=captured_at.desc&limit=10&select=*`
+  const resolvedParams = (await searchParams) || {};
+
+  // Fetch recent talk to quote sessions for this engineer
+  const { data: sessions } = await dbQuery<any[]>(
+    `talk_to_quote_sessions?engineer_person_id=eq.${encodeURIComponent(
+      session.personId
+    )}&order=created_at.desc&limit=5&select=*,quote:quotes(id,quote_number,total_amount_gbp,status,internal_status)`
   );
 
-  const voiceCaptures = captures || [];
+  const recentSessions = sessions || [];
 
   return (
-    <div className="px-4 py-6 pb-24 space-y-6">
-      <div className="flex items-center gap-2">
-        <Link href="/engineer" className="text-brand-mist hover:text-white transition-colors" aria-label="Back">
-          <ChevronLeft className="w-5 h-5" />
+    <div className="space-y-6">
+      {/* Top Breadcrumb */}
+      <div className="flex items-center justify-between">
+        <Link
+          href="/engineer"
+          className="inline-flex items-center gap-1.5 text-xs text-brand-mist hover:text-white transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
-        <h1 className="text-white text-xl font-light">Talk to EntireFM</h1>
+        <span className="text-[11px] text-brand-electric-bright font-semibold flex items-center gap-1">
+          <Sparkles className="w-3.5 h-3.5" /> EntireCAFM v2.0
+        </span>
       </div>
 
-      <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 text-center space-y-4">
-        <div className="w-20 h-20 rounded-full bg-brand-electric/10 text-brand-electric flex items-center justify-center mx-auto shadow-lg shadow-brand-electric/5">
-          <Mic className="w-10 h-10" />
-        </div>
+      {/* Main Interactive Talk to Quote Client */}
+      <TalkToQuoteClient
+        engineerName={session.name}
+        initialContext={{
+          siteId: resolvedParams.siteId,
+          siteName: resolvedParams.siteName,
+          clientAccountId: resolvedParams.clientAccountId,
+          clientName: resolvedParams.clientName,
+          assetId: resolvedParams.assetId,
+          assetReference: resolvedParams.assetReference,
+          workOrderId: resolvedParams.workOrderId,
+          workOrderNumber: resolvedParams.workOrderNumber,
+        }}
+      />
 
-        <div>
-          <h2 className="text-white text-lg font-light">Voice-Driven Field Notes</h2>
-          <p className="text-brand-mist text-sm mt-1 max-w-xs mx-auto leading-relaxed">
-            Speak naturally to describe findings, readings, defects, or job notes.
-          </p>
-        </div>
-
-        <div className="bg-brand-void rounded-xl p-4 text-left border border-brand-edge-dark">
-          <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Example phrases</p>
-          <ul className="text-xs text-white/80 space-y-1.5 list-disc list-inside">
-            <li>&ldquo;Supply fan bearing has excessive vibration, needs replacement.&rdquo;</li>
-            <li>&ldquo;Flow rate 2.4 litres per minute, temperature 62 degrees.&rdquo;</li>
-            <li>&ldquo;Filter replacement complete on AHU-02. Unit tested ok.&rdquo;</li>
-          </ul>
-        </div>
-      </div>
-
-      <div>
-        <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-3">Recent Voice Captures</p>
-        {voiceCaptures.length === 0 ? (
-          <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 text-center text-brand-mist text-sm">
-            No recent voice captures recorded.
-          </div>
-        ) : (
+      {/* Recent Sessions List */}
+      {recentSessions.length > 0 && (
+        <div className="space-y-3 pt-4 border-t border-brand-edge-dark/60">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-brand-mist/70">
+            Recent Field Quotations ({recentSessions.length})
+          </h3>
           <div className="space-y-2">
-            {voiceCaptures.map(c => (
-              <div key={c.id} className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4">
-                <div className="flex items-center justify-between text-xs text-brand-mist mb-1">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    {new Date(c.captured_at).toLocaleString('en-GB')}
-                  </span>
-                  <span className="bg-brand-void px-2 py-0.5 rounded text-white font-normal">
-                    {c.ai_proposed_action_type || 'NOTE'}
-                  </span>
+            {recentSessions.map((s) => (
+              <div
+                key={s.id}
+                className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-3.5 flex items-center justify-between text-xs"
+              >
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-white">
+                      {s.quote?.quote_number || `Session ${s.id.slice(0, 8)}`}
+                    </span>
+                    <span className="bg-brand-void text-[10px] px-1.5 py-0.2 rounded border border-brand-edge-dark text-brand-mist">
+                      {s.status}
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-brand-mist/60 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {new Date(s.created_at).toLocaleString('en-GB')}
+                  </div>
                 </div>
-                <p className="text-white text-sm mt-1">{c.transcription || 'Audio recorded (processing)'}</p>
+
+                {s.quote_id ? (
+                  <Link
+                    href={`/engineer/talk/quote/${s.quote_id}`}
+                    className="bg-brand-void hover:bg-brand-electric/20 border border-brand-edge-dark hover:border-brand-electric/40 text-brand-electric-bright px-3 py-1.5 rounded-lg font-medium transition-colors"
+                  >
+                    View Quote &rarr;
+                  </Link>
+                ) : (
+                  <span className="text-[11px] text-brand-mist/50">Drafting</span>
+                )}
               </div>
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

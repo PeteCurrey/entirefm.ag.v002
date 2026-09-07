@@ -35,6 +35,7 @@
     "backfill:sites-geo": "tsx --env-file=.env.local scripts/backfill-site-geocodes.ts",
     "backfill:depots-geo": "tsx --env-file=.env.local scripts/backfill-provider-location-geocodes.ts",
     "test:field-intelligence": "tsx --env-file=.env.local scripts/test-field-intelligence.ts",
+    "test:talk-to-quote": "tsx scripts/test-talk-to-quote-e2e.ts",
     "test:ppm-autopilot": "tsx --env-file=.env.local scripts/test-ppm-autopilot.ts",
     "test:monthly-estate-report": "tsx --env-file=.env.local scripts/test-monthly-estate-report.ts",
     "test:commercial-intelligence": "tsx scripts/test-commercial-intelligence.ts",

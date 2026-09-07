@@ -36,7 +36,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
   const navLinks = [
     { name: 'Today', href: '/engineer' },
     { name: 'Jobs', href: '/engineer/jobs' },
-    { name: 'Talk-to-Job', href: '/engineer/talk', badge: 'AI' },
+    { name: 'Talk to Quote', href: '/engineer/talk', badge: 'AI' },
     { name: 'Profile', href: '/engineer/profile' },
   ];
 

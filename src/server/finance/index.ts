@@ -1328,7 +1328,7 @@ export async function createDirectClientInvoice(params: {
     headers: { Prefer: 'return=representation' },
   });
   if (error || !invoices || invoices.length === 0) {
-    throw new Error(error?.message || 'Failed to create client invoice');
+    throw new Error(error || 'Failed to create client invoice');
   }
   const invoice = invoices[0];
 
