@@ -61,45 +61,34 @@ export default async function PublicLogAJobPage({ searchParams }: PageProps) {
     prefillDescription = `Scanned plant equipment request via Asset Scanner:\n${assetParts.join('\n')}\n\nPlease arrange inspection and servicing under our client service agreement.`;
   }
 
-  let initialSites: any[] = [];
+  let initialSelectedSite: { id: string; name: string; postcode?: string } | null = null;
   let initialAssets: any[] = [];
 
   if (isClient && session) {
     const isEntireFm = session.orgType === 'ENTIREFM';
     const siteScopes = session.scopes.filter((s) => s.type === 'SITE').map((s) => s.id);
 
-    let siteQuery = '';
-    if (isEntireFm) {
-      // EntireFM operations: can see all active managed estate sites
-      siteQuery = `sites?status=neq.ARCHIVED&select=id,name,site_code,city,postcode,address_line1&order=name.asc&limit=300`;
-    } else {
-      // Client user: strictly scope to authorised client sites
-      const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
-      siteQuery = `sites?organisation_id=eq.${encodeURIComponent(session.orgId)}${siteFilter}&select=id,name,site_code,city,postcode,address_line1&order=name.asc`;
-    }
+    // If siteId specified via query parameter (e.g. Asset Scanner) or user is strictly scoped to exactly 1 site
+    const targetPreselectSiteId = resolvedParams.siteId || (!isEntireFm && siteScopes.length === 1 ? siteScopes[0] : null);
 
-    const { data: sites } = await dbQuery<any[]>(siteQuery);
-
-    initialSites = (sites || []).map((s) => ({
-      id: s.id,
-      name: s.name,
-      site_code: s.site_code || '',
-      city: s.city || '',
-      postcode: s.postcode || '',
-      address_line1: s.address_line1 || '',
-    }));
-
-    const siteIds = initialSites.map((s) => s.id);
-    if (siteIds.length > 0 && !isEntireFm) {
-      const { data: assets } = await dbQuery<any[]>(
-        `assets?site_id=in.(${siteIds.map(encodeURIComponent).join(',')})&status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,site_id,manufacturer,model,serial_number&limit=200`
+    if (targetPreselectSiteId) {
+      const { data: sites } = await dbQuery<any[]>(
+        `sites?id=eq.${encodeURIComponent(targetPreselectSiteId)}&status=eq.ACTIVE&select=id,name,postcode`
       );
-      initialAssets = assets || [];
+      if (sites && sites.length > 0) {
+        initialSelectedSite = {
+          id: sites[0].id,
+          name: sites[0].name,
+          postcode: sites[0].postcode || undefined,
+        };
+
+        // If a single site is selected, fetch scoped assets for that specific site only
+        const { data: assets } = await dbQuery<any[]>(
+          `assets?site_id=eq.${encodeURIComponent(sites[0].id)}&status=neq.DECOMMISSIONED&select=id,name,asset_reference,category,sub_category,location,site_id,manufacturer,model,serial_number&limit=100`
+        );
+        initialAssets = assets || [];
+      }
     }
-  } else {
-    // Tenant / Public context: NEVER query or expose internal asset registers or client property databases
-    initialSites = [];
-    initialAssets = [];
   }
 
   return (
@@ -110,7 +99,7 @@ export default async function PublicLogAJobPage({ searchParams }: PageProps) {
           clientName={session?.orgName || 'Commercial Property'}
           userName={session?.name || ''}
           userEmail={session?.email || ''}
-          initialSites={initialSites}
+          initialSelectedSite={initialSelectedSite}
           initialAssets={initialAssets}
           isPublic={!isClient}
           prefillProperty={resolvedParams.property || ''}

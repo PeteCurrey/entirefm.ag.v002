@@ -23,7 +23,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentSession, hasScope } from '@/server/identity';
+import { getCurrentSession, hasScope, canCreateJobForProperty } from '@/server/identity';
 import { dbQuery, getDbConfig } from '@/server/db/client';
 import { createServiceRequest, createWorkOrder } from '@/server/work';
 import { orchestrateReactiveDispatch } from '@/server/ai/dispatch/orchestrator';
@@ -256,6 +256,7 @@ export async function POST(req: NextRequest) {
             work_type: 'REACTIVE',
             priority: finalPriority as any,
             contract_id: estateCtx.contractId,
+            client_contact_email: publicEmail || undefined,
           });
 
           let dispatchResult = null;
@@ -358,7 +359,20 @@ export async function POST(req: NextRequest) {
     // ─────────────────────────────────────────────────────────────────────────────
     // B. AUTHENTICATED SITE-SCOPED SUBMISSION PIPELINE (site_id provided)
     // ─────────────────────────────────────────────────────────────────────────────
-    // 1. Authorisation & Site Validation
+    // 1. Canonical Authorisation & Site Validation
+    const accessDecision = await canCreateJobForProperty(session, site_id);
+    if (!accessDecision.allowed) {
+      const status = accessDecision.denials.includes('UNAUTHENTICATED')
+        ? 401
+        : accessDecision.denials.includes('PROPERTY_NOT_FOUND')
+        ? 404
+        : 403;
+      return NextResponse.json(
+        { error: accessDecision.reason || 'Forbidden: You are not authorised to log jobs for this site' },
+        { status }
+      );
+    }
+
     const { data: siteRecords } = await dbQuery<any[]>(
       `sites?id=eq.${encodeURIComponent(site_id)}&select=id,name,organisation_id,city,postcode`
     );
@@ -366,21 +380,6 @@ export async function POST(req: NextRequest) {
 
     if (!targetSite) {
       return NextResponse.json({ error: 'Selected site not found in database' }, { status: 404 });
-    }
-
-    if (session && session.orgType === 'CLIENT' && !isViewAs) {
-      if (targetSite.organisation_id !== session.orgId) {
-        return NextResponse.json(
-          { error: 'Forbidden: You are not authorised to log jobs for this site' },
-          { status: 403 }
-        );
-      }
-      if (!hasScope(session, 'SITE', site_id)) {
-        return NextResponse.json(
-          { error: 'Forbidden: Your user account is restricted from this site' },
-          { status: 403 }
-        );
-      }
     }
 
     // 2. Resolve Client Account & Target Organization
@@ -489,6 +488,7 @@ export async function POST(req: NextRequest) {
       description: sr.description,
       work_type: 'REACTIVE',
       priority: finalPriority as any,
+      client_contact_email: session.email || contact_email || undefined,
     });
 
     // 9. Evidence Storage & Attachment Persistence

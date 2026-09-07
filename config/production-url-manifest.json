@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "EntireFM Production URL Manifest — generated from route-registry.json. Do not edit manually.",
   "version": "3.0.0",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "authority": "/config/route-registry.json",
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",

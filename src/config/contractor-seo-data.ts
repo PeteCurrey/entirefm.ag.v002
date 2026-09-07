@@ -1043,7 +1043,7 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
 
   '/contractors/drainage': {
     path: '/contractors/drainage',
-    metaTitle: 'Commercial Drainage Contractors | FM Contractor Network | EntireFM',
+    metaTitle: 'Commercial Drainage Contractors | EntireFM',
     metaDescription:
       'Join the EntireFM Drainage Contractor Network. Access commercial FM work orders across CCTV surveys, high-pressure water jetting, grease traps, and pump stations.',
     h1: 'Commercial Drainage Contractors for Facilities Management',
@@ -1110,14 +1110,14 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
     },
     faqs: [
       {
-        question: 'What accreditations and equipment are required for drainage contractors?',
+        question: 'What accreditations and equipment are expected for commercial drainage contractors?',
         answer:
-          'Contractors must carry Water Jetting Association (WJA) certifications for operatives, Confined Space Entry qualifications (City & Guilds 6150 or equivalent) where chamber entry is required, and an active Environment Agency Waste Carrier Licence. Industry scheme registration such as NADC (National Association of Drainage Contractors) and valid SSIP accreditation are strongly preferred.',
+          'Commercial drainage contractors commonly require Water Jetting Association (WJA) certificates for operatives, Confined Space Entry qualifications (City & Guilds 6150 or equivalent) where chamber entry is undertaken, and an active Environment Agency Waste Carrier Licence. Commercial managing agents typically look for SSIP accreditation (CHAS, SafeContractor, or Constructionline) and industry scheme recognition such as NADC.',
       },
       {
         question: 'What drainage work orders does EntireFM dispatch?',
         answer:
-          'Work orders include planned annual stormwater gullies clearing, interceptor emptying and coalescence filter maintenance, automated grease trap waste removal, WinCan CCTV structural surveys, resin patch lining / localized no-dig repairs, and 24/7 reactive sewer unblocking.',
+          'Work orders include planned annual stormwater gullies clearing, interceptor emptying and coalescence filter maintenance, automated grease trap waste removal, WinCan CCTV structural surveys, resin patch lining / localized no-dig repairs, and reactive sewer unblocking across commercial estates.',
       },
       {
         question: 'Why are formal CCTV drainage survey reports required by commercial clients?',
@@ -1130,6 +1130,16 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           'All interceptor sludge, grease trap waste (FOG), and heavy silt removed from commercial sites must be transported under a valid Waste Transfer Note or Hazardous Waste Consignment Note, with disposal at licensed, regulated treatment facilities.',
       },
       {
+        question: 'What insurance cover is required for commercial drainage contractors?',
+        answer:
+          'EntireFM network admission requirements include £5,000,000 Public Liability and £10,000,000 Employers Liability cover, alongside appropriate environmental damage indemnity. Individual client frameworks or high-hazard industrial estates may specify £10,000,000 Public Liability depending on asset scale and risk profile.',
+      },
+      {
+        question: 'How does reactive emergency drainage attendance operate?',
+        answer:
+          'Urgent reactive attendance is aligned with the priority and attendance target specified on the individual work order. When commercial sites experience main sewer surcharges, flood risks, or trade effluent backups, dispatch prioritizes verified drainage contractors within immediate geographical radius who possess available jetting and tanker plant.',
+      },
+      {
         question: 'What does membership cost and what does it include?',
         answer:
           'Annual membership is £95 + VAT, payable upon application submission. It provides access to our approved contractor network, compliance credential tracking (reminding you before WJA, insurance, or waste licences expire), and consideration for relevant commercial drainage opportunities.',
@@ -1137,22 +1147,22 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'Does membership guarantee commercial drainage contracts?',
         answer:
-          'No. Membership provides access to EntireFM’s supplier panel but does not guarantee contract awards or work volumes. Work is awarded based on contractor capability, tanker/jetting plant availability, response speed, and geographic proximity.',
+          'No. Membership provides access to EntireFM’s supplier panel but does not guarantee contract awards or work volumes. Work is awarded on merit based on contractor capability, tanker/jetting plant availability, response speed, and geographic proximity.',
       },
     ],
     relatedLinks: [
+      {
+        title: 'Commercial Plumbing Contractors',
+        description: 'Explore commercial water hygiene, booster sets, and mechanical plumbing.',
+        href: '/contractors/plumbing',
+        badge: 'Adjacent Trade',
+        category: 'Commercial',
+      },
       {
         title: 'Join the EntireFM Contractor Network',
         description: 'Complete the contractor qualification intake (£95 annual membership).',
         href: '/contractors/join',
         badge: 'Apply Now',
-        category: 'Commercial',
-      },
-      {
-        title: 'Find Facilities Management Work',
-        description: 'An overview of FM procurement routes, managing agents, and approved panels.',
-        href: '/contractors/find-work',
-        badge: 'Procurement',
         category: 'Commercial',
       },
       {
@@ -1468,7 +1478,7 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
 
   '/contractors/cleaning': {
     path: '/contractors/cleaning',
-    metaTitle: 'Commercial Cleaning Contractors | FM Contractor Network | EntireFM',
+    metaTitle: 'Commercial Cleaning Contractors | EntireFM',
     metaDescription:
       'Join the EntireFM Cleaning Contractor Network. Access commercial facilities management opportunities across corporate office cleaning, floor care, and high-level hygiene.',
     h1: 'Commercial Cleaning Contractors for Facilities Management',
@@ -1535,14 +1545,14 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
     },
     faqs: [
       {
-        question: 'What accreditations and standards are required for commercial cleaning contractors?',
+        question: 'What accreditations and standards are expected for commercial cleaning contractors?',
         answer:
-          'Contractors must demonstrate robust COSHH management (with complete Safety Data Sheets), valid SSIP accreditation (CHAS, SafeContractor, or Constructionline), and BICSc (British Institute of Cleaning Science) alignment. All attending operatives must hold verified Right to Work documentation, with DBS checks where working in schools or secure environments.',
+          'Commercial cleaning contractors are typically expected to demonstrate robust COSHH management (with complete Safety Data Sheets), valid SSIP accreditation (such as CHAS, SafeContractor, or Constructionline), and operational alignment with BICSc (British Institute of Cleaning Science) colour-coding. All attending operatives must hold verified Right to Work status, with DBS checks where working in schools, healthcare, or secure financial environments.',
       },
       {
         question: 'What types of cleaning contracts does EntireFM dispatch?',
         answer:
-          'Requirements include scheduled daily evening/morning corporate office cleaning, periodic hard floor stripping and diamond-pad polishing, quarterly high-level external window cleaning (water-fed pole & MEWP), industrial warehouse floor degreasing, and 24/7 reactive biohazard/infection control sanitisation.',
+          'Requirements include scheduled daily evening/morning corporate office cleaning, periodic hard floor stripping and diamond-pad polishing, quarterly high-level external window cleaning (water-fed pole & MEWP), industrial warehouse floor degreasing, and reactive biohazard/infection control sanitisation.',
       },
       {
         question: 'Why is COSHH compliance critical for commercial FM clients?',
@@ -1555,6 +1565,16 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           'EntireFM utilizes structured digital audit checklists and periodic KPI reviews based on British standard cleanliness levels. Contractors receive digital audit reports and must maintain consistent attendance logging through electronic check-in systems.',
       },
       {
+        question: 'What insurance cover is required for commercial cleaning contractors?',
+        answer:
+          'EntireFM network admission requirements include £5,000,000 Public Liability and £10,000,000 Employers Liability cover. Individual commercial client frameworks—particularly for high-footfall retail destinations or multi-tenanted Grade-A offices—may specify £10,000,000 Public Liability alongside specific treatment risk or loss-of-keys endorsements.',
+      },
+      {
+        question: 'How are scheduled contract cleaning shifts and mobile supervision structured?',
+        answer:
+          'Commercial contract cleaning is primarily delivered outside normal tenant trading hours (early mornings or evenings), supported by daytime janitorial presence where specified. Managing agents require dedicated mobile supervisors, electronic attendance confirmation, and documented periodic inspection audits.',
+      },
+      {
         question: 'What is the commercial fee and application process?',
         answer:
           'The EntireFM Contractor Network membership is £95 + VAT per year, payable upon application submission. It provides access to our approved supplier framework, compliance management vault, and consideration for commercial cleaning contracts in your operating area.',
@@ -1562,22 +1582,22 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'Does membership guarantee commercial cleaning contract awards?',
         answer:
-          'No. EntireFM operates a transparent, merit-based supplier network: membership does not buy or guarantee contracts. Work is awarded based on contractor operational capability, staff supervision ratios, quality audits, and geographical coverage.',
+          'No. EntireFM operates a transparent, merit-based supplier network: membership does not buy or guarantee contracts. Work is awarded on merit based on contractor operational capability, staff supervision ratios, quality audits, and geographical coverage.',
       },
     ],
     relatedLinks: [
+      {
+        title: 'Commercial Grounds Maintenance',
+        description: 'Explore external estate grounds care, landscaping, and winter maintenance.',
+        href: '/contractors/grounds-maintenance',
+        badge: 'Adjacent Trade',
+        category: 'Commercial',
+      },
       {
         title: 'Join the EntireFM Contractor Network',
         description: 'Complete the contractor qualification intake (£95 annual membership).',
         href: '/contractors/join',
         badge: 'Apply Now',
-        category: 'Commercial',
-      },
-      {
-        title: 'Find Facilities Management Work',
-        description: 'Learn how commercial FM tenders, managing agents, and supplier frameworks operate.',
-        href: '/contractors/find-work',
-        badge: 'Procurement',
         category: 'Commercial',
       },
       {
@@ -1599,7 +1619,7 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
 
   '/contractors/grounds-maintenance': {
     path: '/contractors/grounds-maintenance',
-    metaTitle: 'Commercial Grounds Maintenance Contractors | FM Network | EntireFM',
+    metaTitle: 'Commercial Grounds Maintenance Contractors | EntireFM',
     metaDescription:
       'Join the EntireFM Grounds Maintenance Contractor Network. Access commercial contracts across estate landscaping, weed control, tree surveys, and winter gritting.',
     h1: 'Commercial Grounds Maintenance Contractors for Facilities Management',
@@ -1666,9 +1686,9 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
     },
     faqs: [
       {
-        question: 'What qualifications and machinery certifications are required for grounds maintenance contractors?',
+        question: 'What qualifications and machinery certifications are expected for grounds maintenance contractors?',
         answer:
-          'Contractors must hold NPTC City & Guilds PA1 & PA6 pesticide certificates for chemical weed control, NPTC chainsaw qualifications (CS30/31/38/39) for arboricultural operations, and LANTRA awards for commercial brushcutters and winter gritting. Valid SSIP health & safety accreditation and Upper Tier Waste Carrier Licences are mandatory.',
+          'Commercial grounds maintenance contractors commonly hold NPTC City & Guilds PA1 & PA6 pesticide certificates for chemical weed control, NPTC chainsaw qualifications (CS30/31) for arboricultural operations, and LANTRA awards for commercial brushcutters and winter gritting. Commercial managing agents typically require SSIP health & safety accreditation and an Environment Agency Upper Tier Waste Carrier Licence.',
       },
       {
         question: 'What types of grounds maintenance contracts does EntireFM dispatch?',
@@ -1678,12 +1698,22 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'How do winter gritting contracts operate under EntireFM?',
         answer:
-          'Gritting contractors operate under automated Met Office OpenRoad forecast triggers (typically dispatched when Road Surface Temperature falls below 0°C with predicted frost/ice). Contractors must record time of spread, application rates (g/m²), and upload automated GPS tracker logs.',
+          'Gritting contractors operate under automated Met Office OpenRoad forecast triggers (typically dispatched when Road Surface Temperature falls below 0°C with predicted frost/ice). Contractors record time of spread, application rates (g/m²), and upload automated GPS tracker logs upon completion.',
       },
       {
         question: 'How is green waste disposal verified on commercial estates?',
         answer:
           'All grass cuttings, hedge clippings, and arborist timber removed from client estates must be processed under a valid Environment Agency Waste Carrier Licence and transported to licensed commercial green waste composting or biomass recycling facilities.',
+      },
+      {
+        question: 'What insurance cover is required for commercial grounds maintenance contractors?',
+        answer:
+          'EntireFM network admission requirements include £5,000,000 Public Liability and £10,000,000 Employers Liability cover. Because commercial grounds care involves ride-on machinery, roadside work, and chemical handling, policies must include appropriate public indemnity and tree work / arborist cover where applicable.',
+      },
+      {
+        question: 'How does reactive attendance operate for fallen trees and storm damage?',
+        answer:
+          'Urgent reactive attendance for storm debris, fallen tree limbs blocking access routes, or emergency gritting is governed by the specific priority target on the work order. Dispatch prioritizes verified local contractors with the required plant, arborist qualifications, and immediate capacity.',
       },
       {
         question: 'What is the membership cost and commercial model?',
@@ -1693,10 +1723,17 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'Does membership guarantee commercial grounds contracts?',
         answer:
-          'No. EntireFM operates a merit-based allocation system: membership does not guarantee contract awards. Opportunities are awarded based on verified plant capacity (mowers, gritters), pesticide certifications, safety record, and proximity to client estates.',
+          'No. EntireFM operates a merit-based allocation system: membership does not guarantee contract awards. Opportunities are awarded on merit based on verified plant capacity (mowers, gritters), pesticide certifications, safety record, and proximity to client estates.',
       },
     ],
     relatedLinks: [
+      {
+        title: 'Commercial Cleaning Contractors',
+        description: 'Explore commercial contract cleaning, washrooms, and facilities hygiene.',
+        href: '/contractors/cleaning',
+        badge: 'Adjacent Trade',
+        category: 'Commercial',
+      },
       {
         title: 'Join the EntireFM Contractor Network',
         description: 'Complete the contractor qualification intake (£95 annual membership).',
@@ -1718,22 +1755,15 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
         badge: 'Knowledge',
         category: 'PPM',
       },
-      {
-        title: 'What Is a Risk Assessment? Principles & Matrix',
-        description: 'Understand 5x5 hazard evaluation and control hierarchies for machinery and chemicals.',
-        href: '/contractor-resources/risk-assessments/what-is-a-risk-assessment',
-        badge: 'Safety',
-        category: 'Compliance',
-      },
     ],
   },
 
   '/contractors/fabric-maintenance': {
     path: '/contractors/fabric-maintenance',
-    metaTitle: 'Commercial Building Fabric Contractors | FM Network | EntireFM',
+    metaTitle: 'Commercial Fabric Maintenance Contractors | EntireFM',
     metaDescription:
       'Join the EntireFM Fabric Maintenance Contractor Network. Connect with commercial facilities management contracts for joinery, suspended ceilings, glazing, and repairs.',
-    h1: 'Commercial Building Fabric Maintenance Contractors for Facilities Management',
+    h1: 'Commercial Fabric Maintenance Contractors for Facilities Management',
     subtitle: 'Connecting commercial carpentry, suspended ceiling, partitioning, industrial door, and fabric repair contractors with UK facilities management requirements.',
     eyebrow: 'CONTRACTOR NETWORK // BUILDING FABRIC DISCIPLINE',
     intro:
@@ -1799,7 +1829,7 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
       {
         question: 'What trade qualifications do commercial fabric maintenance contractors require?',
         answer:
-          'Contractors and operatives should hold NVQ Level 2/3 in Carpentry & Joinery, Plastering, or Interior Systems, valid CSCS Skilled Worker cards, and SSIP accreditation. For industrial door and roller shutter maintenance, DHF (Door & Hardware Federation) certification is strongly preferred. Fire door inspectors must hold recognized certifications (e.g. FDIS / BM TRADA Q-Mark).',
+          'Commercial fabric contractors commonly hold NVQ Level 2/3 in Carpentry & Joinery, Plastering, or Interior Systems, valid CSCS Skilled Worker cards, and SSIP accreditation. For industrial doors and shutters, DHF (Door & Hardware Federation) certification is commonly expected. Where undertaking fire door inspections or remediation, recognized scheme certification (such as FDIS or BM TRADA Q-Mark) is typically required by commercial duty holders.',
       },
       {
         question: 'What types of building fabric work orders does EntireFM dispatch?',
@@ -1817,6 +1847,16 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
           'Noisy works (drilling, timber cutting, floor grinding) in occupied corporate offices are scheduled during out-of-hours windows (evenings and weekends). Contractors must submit dust control RAMS, use HEPA-filtered extraction tools, and ensure spotless morning handovers.',
       },
       {
+        question: 'What insurance cover is required for commercial fabric maintenance contractors?',
+        answer:
+          'EntireFM network admission requirements include £5,000,000 Public Liability and £10,000,000 Employers Liability cover. Commercial property management frameworks may specify £10,000,000 Public Liability for major multi-tenanted buildings, along with appropriate working-at-height endorsements where applicable.',
+      },
+      {
+        question: 'How does reactive fabric maintenance work order allocation operate?',
+        answer:
+          'Reactive work orders (such as broken door closers, damaged floor tiles, or emergency boarding) are issued with priority targets defined by the managing agent. Work is allocated on merit based on geographic proximity, trade competence, verified insurance, and historical job completion performance.',
+      },
+      {
         question: 'What is the commercial pricing model and membership fee?',
         answer:
           'Annual membership is £95 + VAT, payable upon application submission. Membership provides access to EntireFM’s approved supplier framework, compliance management vault, and consideration for commercial building fabric work orders in your operating territory.',
@@ -1829,18 +1869,18 @@ export const CONTRACTOR_COMMERCIAL_PAGES: Record<string, ContractorPageConfig> =
     ],
     relatedLinks: [
       {
-        title: 'Join the EntireFM Contractor Network',
-        description: 'Complete the contractor qualification intake (£95 annual membership).',
-        href: '/contractors/join',
-        badge: 'Apply Now',
+        title: 'Commercial Electrical Contractors',
+        description: 'Explore commercial NICEIC electrical compliance, distribution, and testing.',
+        href: '/contractors/electrical',
+        badge: 'Adjacent Trade',
         category: 'Commercial',
       },
       {
-        title: 'Approved Contractor Network Overview',
-        description: 'Review our due diligence framework, compliance expectations, and supplier vetting criteria.',
-        href: '/contractors/approved-contractor-network',
-        badge: 'Standards',
-        category: 'Compliance',
+        title: 'Commercial Roofing Contractors',
+        description: 'Commercial membrane roofs, gutters, cladding, and edge protection.',
+        href: '/contractors/roofing',
+        badge: 'Adjacent Trade',
+        category: 'Commercial',
       },
       {
         title: 'What Are RAMS? Meaning & Requirements',

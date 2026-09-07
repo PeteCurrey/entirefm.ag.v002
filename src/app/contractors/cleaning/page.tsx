@@ -19,15 +19,13 @@ import {
   CheckCircle2,
   Clock,
   ClipboardCheck,
-  Activity,
   Award,
-  Flame,
-  Wrench,
   Layers,
-  Search,
   Eye,
-  Umbrella,
   FlaskConical,
+  Wrench,
+  Droplets,
+  AlertTriangle,
 } from 'lucide-react';
 
 const config = CONTRACTOR_COMMERCIAL_PAGES['/contractors/cleaning'];
@@ -42,79 +40,107 @@ const CLEANING_STEPS = [
     step: 1,
     title: 'Apply Online',
     description:
-      'Submit your cleaning company profile, operative workforce scale, supervisor ratios, and regional service territories.',
+      'Submit your commercial cleaning business details, workforce scale, supervisor ratios, and regional operating territories.',
     badge: 'Step 1',
   },
   {
     step: 2,
     title: 'Provide Business & Compliance Details',
     description:
-      'Upload your COSHH safety packs, Safety Data Sheets (SDS), BICSc certificates, Right to Work audit records, and Public Liability insurance.',
+      'Upload your COSHH safety packs, Safety Data Sheets (SDS), BICSc certificates, Right to Work audit logs, and Public Liability insurance.',
     badge: 'Step 2',
   },
   {
     step: 3,
     title: 'Submit Application',
     description:
-      'Declare your specialist machinery capabilities (scrubber dryers, diamond polishers, reach-and-wash systems) and out-of-hours coverage.',
+      'Specify your machinery capabilities (ride-on scrubber dryers, diamond burnishers, pure-water reach-and-wash systems) and out-of-hours coverage.',
     badge: 'Step 3',
   },
   {
     step: 4,
     title: 'Pay Annual Membership Fee',
     description:
-      'Pay the straightforward £95 + VAT annual membership fee during application submission. Clear, transparent, and professional.',
+      'Submit the straightforward £95 + VAT annual membership fee during application submission. Clear, transparent, and professional.',
     badge: 'Step 4',
   },
   {
     step: 5,
     title: 'Technical Desk Review',
     description:
-      'EntireFM audits your colour-coded cross-contamination controls, supervisor inspection formats, and operative health & safety vetting.',
+      'EntireFM conducts due diligence on your colour-coded cross-contamination controls, mobile audit formats, and operative health & safety vetting.',
     badge: 'Step 5',
   },
   {
     step: 6,
     title: 'Consideration for Work Orders',
     description:
-      'Approved cleaning contractors join our active supplier panel for consideration across scheduled daily office contracts and periodic floor/deep cleaning.',
+      'Approved contractors enter our active supplier network for merit-based consideration across scheduled contract cleaning and periodic deep cleaning.',
     badge: 'Step 6',
   },
 ];
 
 export default function CleaningContractorPage() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': 'https://www.entirefm.com/contractors/cleaning#service',
+        name: 'Commercial Cleaning Contractor Network',
+        serviceType: 'Facilities Management Commercial Cleaning Contractor Onboarding & Contract Allocation',
+        description: config.metaDescription,
+        provider: {
+          '@type': 'Organization',
+          name: 'EntireFM',
+          url: 'https://www.entirefm.com',
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'United Kingdom',
+        },
+        offers: {
+          '@type': 'Offer',
+          price: '95',
+          priceCurrency: 'GBP',
+          description: 'Annual Contractor Network Membership (£95+VAT/year)',
+          url: 'https://www.entirefm.com/contractors/join',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://www.entirefm.com/contractors/cleaning#breadcrumb',
+        itemListElement: config.breadcrumbs.map((crumb, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: crumb.name,
+          item: `https://www.entirefm.com${crumb.url}`,
+        })),
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://www.entirefm.com/contractors/cleaning#faq',
+        mainEntity: config.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       <Header />
 
       <main id="main" className="flex-grow">
-        {/* Service Schema */}
+        {/* Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Service',
-              name: 'Commercial Cleaning Contractor Network',
-              serviceType: 'Facilities Management Commercial Cleaning Contractor Onboarding & Contract Allocation',
-              provider: {
-                '@type': 'Organization',
-                name: 'EntireFM',
-                url: 'https://www.entirefm.com',
-              },
-              areaServed: {
-                '@type': 'Country',
-                name: 'United Kingdom',
-              },
-              offers: {
-                '@type': 'Offer',
-                price: '95',
-                priceCurrency: 'GBP',
-                description: 'Annual Contractor Network Membership (£95+VAT/year)',
-                url: 'https://www.entirefm.com/contractors/join',
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
         {/* 1. CINEMATIC HERO */}
@@ -131,7 +157,7 @@ export default function CleaningContractorPage() {
           facts={[
             { figure: '£95 / yr', label: 'Annual Membership', detail: 'Payable on submission' },
             { figure: 'BICSc & COSHH', label: 'Hygiene Standard', detail: 'Vetted & audit-ready' },
-            { figure: 'Merit-Based', label: 'Work Matching', detail: 'Daily contracts & periodic' },
+            { figure: 'Merit-Based', label: 'Work Allocation', detail: 'Daily contracts & periodic' },
           ]}
         />
 
@@ -155,10 +181,10 @@ export default function CleaningContractorPage() {
             <div className="max-w-3xl space-y-3">
               <span className="eyebrow eyebrow-light">WORK ORDER PROFILES</span>
               <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight leading-tight">
-                What Commercial FM Cleaning Work Can Involve
+                What Commercial FM Cleaning Work Involves
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Commercial cleaning demands strict chemical safety, high-grade machinery, and audited cross-contamination prevention across high-density workplaces:
+                Commercial contract cleaning demands strict chemical safety, industrial machinery, and audited cross-contamination prevention across high-density workplaces:
               </p>
             </div>
 
@@ -169,7 +195,7 @@ export default function CleaningContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">Daily Corporate Office Contract Cleaning</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Scheduled early morning or evening contract cleaning across corporate offices: open-plan desk sanitisation, communal tea-point hygiene, high-volume washroom replenishment, and waste segregation.
+                  Delivering scheduled early morning or evening contract cleaning across Grade-A office buildings: open-plan desk sanitisation, IT equipment keyboard detailing, communal kitchen hygiene, high-volume washroom replenishment, and waste segregation in line with client environmental targets.
                 </p>
               </div>
 
@@ -179,7 +205,7 @@ export default function CleaningContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">Hard Floor Diamond Restoration &amp; Scrubbing</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Periodic machine stripping, deep rotary scrubbing, diamond-pad mechanical polishing, and polymer seal application across high-traffic vinyl, terrazzo, marble, and polished concrete floors.
+                  Executing periodic mechanical stripping, deep rotary scrubbing, diamond-pad crystallization polishing, and slip-resistant polymer seal application across high-traffic terrazzo, natural marble, vinyl composite tile (VCT), and polished architectural concrete floors.
                 </p>
               </div>
 
@@ -189,7 +215,7 @@ export default function CleaningContractorPage() {
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">Commercial Carpet Deep Extraction</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Hot water extraction (steam cleaning), encapsulation dry cleaning, and specialized spot treatment across corporate carpet tiles, boardroom wool carpets, and high-wear entrance barrier matting.
+                  Utilizing truck-mounted and portable high-cfm hot water extraction (HWE), low-moisture polymer encapsulation cleaning, and targeted spot treatment across commercial modular carpet tiles, executive wool boardrooms, and heavy-wear entrance barrier matting.
                 </p>
               </div>
 
@@ -197,29 +223,29 @@ export default function CleaningContractorPage() {
                 <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Eye className="w-5 h-5 text-amber-500" />
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">High-Level &amp; Reach-and-Wash Window Cleaning</h3>
+                <h3 className="text-base font-semibold text-slate-900">High-Level &amp; Reach-and-Wash Glazing</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Pure water deionised reach-and-wash pole cleaning up to 60ft, alongside MEWP-assisted external curtain wall glazing and atrium high-level internal framework cleaning.
+                  Periodic external and internal glass cleaning utilizing deionised pure-water carbon fibre telescopic poles (up to 60ft) and mobile elevating work platforms (MEWPs / IPAF certification) for architectural curtain walling, atrium canopies, and high-level balustrades.
                 </p>
               </div>
 
               <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3 hover:border-[#EA580C]/40 transition-all">
                 <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <FlaskConical className="w-5 h-5 text-purple-500" />
+                  <Wrench className="w-5 h-5 text-purple-500" />
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Clinical &amp; Healthcare Deep Sanitisation</h3>
+                <h3 className="text-base font-semibold text-slate-900">Industrial Warehouse Degreasing &amp; Decontamination</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Terminal room sanitisation, ATP bioluminescence surface swab validation, disinfectant fogging, and strict clinical waste segregation for medical suites and cleanroom environments.
+                  Heavy-duty industrial cleaning across logistics distribution depots and manufacturing bays: deploying ride-on scrubber-dryers, alkaline chemical degreasers, mechanical tyre-mark removal, and overhead structural truss vacuuming to preserve pristine warehouse standards.
                 </p>
               </div>
 
               <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3 hover:border-[#EA580C]/40 transition-all">
                 <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <Wrench className="w-5 h-5 text-rose-500" />
+                  <FlaskConical className="w-5 h-5 text-rose-500" />
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Industrial Warehouse &amp; Plantroom Degreasing</h3>
+                <h3 className="text-base font-semibold text-slate-900">Hygiene Washroom Services &amp; Infection Control</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Heavy-duty industrial scrubber-dryer washing of distribution warehouse floor slabs, battery charging bays, tyre mark chemical stripping, and mechanical plantroom floor degreasing.
+                  Statutory sanitary waste disposal, automatic air-care maintenance, and clinical infection control sanitisation. Reactive deployment for biological contamination or post-incident deep sanitisation using electrostatic antimicrobial fogging and ATP bioluminescence surface swab auditing.
                 </p>
               </div>
             </div>
@@ -235,48 +261,68 @@ export default function CleaningContractorPage() {
                 Where Commercial Cleaning Contractors Operate
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Commercial cleaning demands specialized equipment, staff vetting, and quality auditing across diverse estate sectors:
+                Commercial contract cleaning demands tailored scheduling, security clearances, and equipment suited to diverse property types:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Building2 className="w-4 h-4 text-[#EA580C]" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Headquarters &amp; Corporate Offices</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Grade-A Corporate Headquarters</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Executive boardroom standards, daily hot-desk sanitisation, shower block hygiene, and touchpoint wipe-downs.
+                  Multi-storey commercial office towers requiring early morning and twilight cleaning rotas, daytime janitorial cover, secure electronic keycard management, and immaculate executive reception presentation.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Layers className="w-4 h-4 text-blue-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Logistics &amp; Distribution Hubs</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Retail Shopping Centres &amp; Commercial Parks</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  24/7 driver welfare facilities, warehouse floor scrubbing, locker room sanitation, and canteen turnarounds.
+                  High-footfall common mall walkways, public washrooms, food court seating areas, and entrance concourses requiring continuous daytime janitorial maintenance and automated floor care outside trading hours.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <Wrench className="w-4 h-4 text-emerald-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Retail Parks &amp; Shopping Centres</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Logistics Hubs &amp; Industrial Depots</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Continuous day-janitor coverage, mall concourse floor burnishing, customer washroom checks, and food court clearing.
+                  Round-the-clock 24/7 operating distribution centres: driver welfare amenities, transport offices, warehouse packing stations, and automated high-output ride-on scrubbing of floor slab expanses.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
-                  <Award className="w-4 h-4 text-purple-500" />
+                  <ShieldCheck className="w-4 h-4 text-purple-500" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">Educational &amp; Healthcare Facilities</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Educational Campuses &amp; Schools</h3>
                 <p className="text-slate-600 font-light leading-relaxed">
-                  Enhanced DBS vetted cleaning teams, infection control colour coding, non-toxic eco chemical dosing, and holiday deep cleans.
+                  Strict safeguarding environments requiring enhanced DBS-cleared cleaning teams, term-time daily schedules, and extensive summer holiday periodic deep cleaning and floor stripping programmes.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
+                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
+                  <FlaskConical className="w-4 h-4 text-rose-500" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900">Clinical Suites &amp; Healthcare Facilities</h3>
+                <p className="text-slate-600 font-light leading-relaxed">
+                  Stringent National Standards of Healthcare Cleanliness compliance, terminal deep cleaning, clinical non-touch dispensers, and auditable high-level infection prevention logging.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
+                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900">Multi-Tenanted Commercial Business Parks</h3>
+                <p className="text-slate-600 font-light leading-relaxed">
+                  Shared entrance foyers, communal stairwells, passenger lift lobbies, and central core washrooms, coordinating cleanly with our <Link href="/contractors/grounds-maintenance" className="text-[#EA580C] underline font-medium">commercial grounds maintenance contractors</Link> for total estate upkeep.
                 </p>
               </div>
             </div>
@@ -289,10 +335,10 @@ export default function CleaningContractorPage() {
             <div className="max-w-3xl space-y-3">
               <span className="eyebrow eyebrow-light">WORK STREAM DYNAMICS</span>
               <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight leading-tight">
-                Scheduled Contract Cleaning vs Periodic Deep Clean Scopes
+                Scheduled Contract Cleaning vs Reactive Deep Cleans
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Facilities management cleaning combines recurring daily service schedules with specialist periodic asset restoration projects.
+                Commercial facilities management cleaning balances routine scheduled daily service contracts with responsive reactive deep cleaning call-outs.
               </p>
             </div>
 
@@ -303,25 +349,25 @@ export default function CleaningContractorPage() {
                     <ClipboardCheck className="w-5 h-5 text-emerald-400" />
                   </span>
                   <div>
-                    <h3 className="text-lg font-semibold text-slate-900">Scheduled Daily Contract Cleaning</h3>
-                    <p className="text-slate-500 text-[11px] font-mono">Daily / Weekly • Predictable Recurring Revenue • SLA Scorecards</p>
+                    <h3 className="text-lg font-semibold text-slate-900">Scheduled Contract Cleaning (PPM)</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">Daily / Weekly Rosters • BICSc Standards • Mobile Auditing</p>
                   </div>
                 </div>
                 <p className="text-slate-700 leading-relaxed">
-                  Structured recurring routines managing workplace hygiene according to <Link href="/contractor-resources/facilities-management/what-is-ppm" className="text-[#EA580C] underline font-medium">contracted SLA specifications</Link> and BICSc standards.
+                  Programmed systematically in accordance with <Link href="/contractor-resources/facilities-management/what-is-ppm" className="text-[#EA580C] underline font-medium">SFG20 specifications</Link> and agreed site cleaning schedules to ensure continuous hygiene, asset protection, and statutory compliance.
                 </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Daily vacuuming, hard floor damp mopping, and waste container clearing.</span>
+                    <span>Daily early morning or evening office contract cleaning with electronic check-in attendance verification.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Washroom descaling, sanitary bin servicing, and soap/paper towel replenishment.</span>
+                    <span>Weekly washroom deep sanitisation, descaling of sanitary fittings, and automated soap and paper stock replenishment.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Digital supervisor quality scoring and time-and-attendance logging.</span>
+                    <span>Quarterly planned machine floor scrubbing, high-reach window cleaning, and hot water carpet extraction cycles.</span>
                   </li>
                 </ul>
               </div>
@@ -329,28 +375,28 @@ export default function CleaningContractorPage() {
               <div className="p-8 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="p-2 bg-slate-900 text-white rounded-sm">
-                    <Sparkles className="w-5 h-5 text-[#EA580C]" />
+                    <AlertTriangle className="w-5 h-5 text-[#EA580C]" />
                   </span>
                   <div>
-                    <h3 className="text-lg font-semibold text-slate-900">Periodic Deep Cleans &amp; Reactive Scopes</h3>
-                    <p className="text-slate-500 text-[11px] font-mono">Quarterly / Ad-Hoc • High-Margin Project Scopes • Asset Recovery</p>
+                    <h3 className="text-lg font-semibold text-slate-900">Reactive Emergency Sanitisation</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">Biohazard Events • Post-Flood Recovery • Outbreak Control</p>
                   </div>
                 </div>
                 <p className="text-slate-700 leading-relaxed">
-                  Specialist project scopes targeting deep contamination, lease handover dilapidations, or post-incident contamination events.
+                  Triggered by sewage backups, bodily fluid incidents, water leaks into carpeted spaces, post-builder tenancy handovers, or viral outbreak infection control requirements.
                 </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
-                    <span>Machine floor strip and seal or high-speed diamond pad burnishing.</span>
+                    <span>Urgent reactive attendance aligned with individual work order priority targets to isolate contaminated areas and restore operational use.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
-                    <span>High-level reach-and-wash external glazing and architectural louvre cleaning.</span>
+                    <span>Deployment of specialist biocidal chemical solutions, industrial wet-vacuum extractors, and electrostatic disinfectant sprayers.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
-                    <span>Emergency viral containment fogging or post-flood deep hygiene extraction.</span>
+                    <span>Post-clean ATP surface swab testing and verified digital sign-off documentation certifying site hygiene and safety.</span>
                   </li>
                 </ul>
               </div>
@@ -383,69 +429,73 @@ export default function CleaningContractorPage() {
                 What Commercial FM Clients Expect from Cleaning Contractors
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Facilities managers, corporate operations directors, and commercial property managers evaluate cleaning companies on audit rigor, staff reliability, and safety discipline:
+                Facilities managers, workplace directors, and managing agents evaluate cleaning contractors on supervisory discipline, chemical safety rigour, and consistent quality:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-light">
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  01
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs font-light">
+              <div className="space-y-6">
+                <div className="border-l-2 border-[#EA580C] pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-[#EA580C] uppercase tracking-wider">
+                    SPECIFICATION 01 // CHEMICAL SAFETY
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">COSHH &amp; Chemical Management</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Full compliance with COSHH Regulations 2002. Janitorial facilities typically require secure chemical storage, locked dosing systems where installed, complete Safety Data Sheets (SDS), standardized hazard labelling, and documented operative PPE training records.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">COSHH &amp; Chemical Safety</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Complete Safety Data Sheets (SDS) in locked janitorial cupboards, automatic dilution dispensers, clear product labelling, and operative training on PPE and spill containment.
-                </p>
+
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 02 // INFECTION CONTROL
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">BICSc 4-Colour Hygiene Coding</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Adherence to colour-coded hygiene systems (such as the BICSc 4-colour standard): Red for sanitary washrooms/toilets, Green for kitchens/catering, Blue for general office areas, and Yellow for washroom basins/surfaces to eliminate cross-contamination risks.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 03 // WORKFORCE VETTING
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Security Vetting &amp; Right to Work</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Verified Home Office Right to Work checks on all attending personnel. Depending on the client framework, contractors may be required to provide BS 7858 security screening or enhanced DBS certificates where servicing financial institutions, schools, or healthcare estates.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  02
+              <div className="space-y-6">
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 04 // AUDITABLE SUPERVISION
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Dedicated Area Supervision &amp; Quality Audits</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Providing designated mobile area managers who conduct monthly documented photographic audits, maintain electronic sign-in verification, and resolve cleaning punch-list items within agreed timeframes.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">BICSc Colour-Coded Hygiene</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Strict enforcement of BICSc colour coding across cloths, mops, and buckets (Red for washrooms, Green for kitchens, Blue for general areas, Yellow for clinical zones) to prevent cross-contamination.
-                </p>
-              </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  03
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 05 // MACHINERY SAFETY
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">PAT-Tested Equipment &amp; Cable Safety</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Commercial cleaning machinery should carry in-date electrical inspection or PAT test labels, safety cable guards, and trip-hazard ramps when operating in corridors and common circulation zones.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Staff Vetting &amp; Right to Work</h3>
-                <p className="text-slate-600 font-light leading-relaxed">
-                  100% verified UK Right to Work documentation, formal employee contracts, DBS checks where required, and strict electronic site sign-in verification.
-                </p>
-              </div>
 
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  04
+                <div className="border-l-2 border-slate-300 pl-5 space-y-1.5">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
+                    SPECIFICATION 06 // FINANCIAL PROCESS
+                  </span>
+                  <h3 className="text-base font-semibold text-slate-900">Purchase Order &amp; Billing Discipline</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Clear invoicing mapped to individual Purchase Orders with separate itemization of periodic works, consumables replenishment, and contracted routine hours for rapid commercial account sign-off.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">Supervision &amp; Digital Auditing</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Designated mobile area supervisors conducting weekly photographic cleanliness audits, reviewing washroom log sheets, and holding monthly client review meetings.
-                </p>
-              </div>
-
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  05
-                </div>
-                <h3 className="text-base font-semibold text-slate-900">PAT Tested Industrial Machinery</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  All electrical equipment (commercial vacuums, floor scrubbers, steam cleaners) must carry active PAT test stickers, undamaged cable sheaths, and residual current protection.
-                </p>
-              </div>
-
-              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-3">
-                <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center font-bold">
-                  06
-                </div>
-                <h3 className="text-base font-semibold text-slate-900">Purchase Order Discipline</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Accurate monthly billing against pre-authorised Purchase Orders with clear itemisation of consumable stock supplies, enabling rapid invoice sign-off and timely payment.
-                </p>
               </div>
             </div>
           </div>
@@ -460,7 +510,7 @@ export default function CleaningContractorPage() {
                 Cleaning Compliance &amp; Competence Framework
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Requirements reflect chemical safety law, staff vetting integrity, and professional hygiene standards:
+                Commercial facilities managers and hygiene compliance auditors evaluate cleaning contractors across insurance limits, industry schemes, and safety credentials:
               </p>
             </div>
 
@@ -468,20 +518,23 @@ export default function CleaningContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-[#EA580C] font-semibold text-sm">
                   <ShieldCheck className="w-5 h-5" />
-                  <span>Statutory Insurance</span>
+                  <span>Insurance Cover Expectations</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  EntireFM&apos;s network admission requirements include £5m Public Liability and £10m Employers&apos; Liability cover. Individual client frameworks or estates may specify additional or different insurance requirements depending on the nature and scale of the work:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Public Liability:</strong> Minimum £5,000,000 (£10,000,000 for public sector estates).</span>
+                    <span><strong>Public Liability:</strong> £5,000,000 network admission baseline; £10,000,000 frequently specified by clients for Grade-A corporate towers or high-footfall public venues.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Employers Liability:</strong> £10,000,000 statutory minimum.</span>
+                    <span><strong>Employers Liability:</strong> £10,000,000 statutory minimum for all contractors employing cleaning personnel.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-[#EA580C] font-bold">&bull;</span>
-                    <span><strong>Treatment Risk:</strong> Damage to property worked upon endorsement.</span>
+                    <span><strong>Treatment Risk / Key Cover:</strong> Policy extensions covering accidental chemical damage to client surfaces and loss of master keys where applicable.</span>
                   </li>
                 </ul>
               </div>
@@ -489,20 +542,23 @@ export default function CleaningContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">
                   <Award className="w-5 h-5" />
-                  <span>Industry Standards</span>
+                  <span>Industry Schemes &amp; Standards</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  Industry scheme registrations commonly recognized across commercial facilities cleaning tenders:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>BICSc Standards:</strong> British Institute of Cleaning Science alignment or corporate membership.</span>
+                    <span><strong>BICSc Alignment:</strong> British Institute of Cleaning Science standards and colour-coding adherence commonly preferred.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>COSHH Packs:</strong> Complete SDS binder and operative chemical safety training records.</span>
+                    <span><strong>CSSA / ISSA:</strong> Membership of recognized commercial cleaning associations commonly preferred.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-blue-600 font-bold">&bull;</span>
-                    <span><strong>SSIP Accreditation:</strong> CHAS, SafeContractor, or Constructionline health &amp; safety.</span>
+                    <span><strong>ISO Standards:</strong> ISO 9001 (Quality) and ISO 14001 (Environmental) often expected for large corporate frameworks.</span>
                   </li>
                 </ul>
               </div>
@@ -510,20 +566,23 @@ export default function CleaningContractorPage() {
               <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3">
                 <div className="flex items-center gap-2 text-emerald-600 font-semibold text-sm">
                   <FileCheck className="w-5 h-5" />
-                  <span>Workforce Integrity</span>
+                  <span>Health, Safety &amp; Vetting Standards</span>
                 </div>
+                <p className="text-slate-500 text-[11px]">
+                  Safety schemes and audit standards typically reviewed during onboarding or specified by clients:
+                </p>
                 <ul className="space-y-2 text-slate-600">
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>Right to Work:</strong> Complete Home Office compliant employment checks on all staff.</span>
+                    <span><strong>SSIP Accreditation:</strong> Valid CHAS, SafeContractor, or Constructionline health &amp; safety approval commonly expected.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>DBS Clearances:</strong> Basic or Enhanced DBS checks for education and healthcare sites.</span>
+                    <span><strong>COSHH Training:</strong> Documented operative training on chemical dilution and personal protective equipment.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-emerald-600 font-bold">&bull;</span>
-                    <span><strong>PAT Records:</strong> Annual PAT testing register for all commercial cleaning plant.</span>
+                    <span><strong>DBS Checks:</strong> Enhanced Disclosure and Barring Service clearance for education and healthcare contracts where required.</span>
                   </li>
                 </ul>
               </div>
@@ -531,8 +590,88 @@ export default function CleaningContractorPage() {
           </div>
         </section>
 
-        {/* 9. HOW THE CONTRACTOR NETWORK WORKS */}
+        {/* 9. WHY COMMERCIAL CLEANING CONTRACTORS NEED STRONG RAMS & DOCUMENTATION */}
         <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
+          <div className="container-custom space-y-12">
+            <div className="max-w-3xl space-y-3">
+              <span className="eyebrow eyebrow-light">SAFETY &amp; HYGIENE RIGOUR</span>
+              <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight leading-tight">
+                Why Commercial Cleaning Contractors Need Robust RAMS
+              </h2>
+              <p className="text-sm font-light text-slate-600 leading-relaxed">
+                Slips, chemical exposure, working at height on glazing, and out-of-hours lone working represent genuine liabilities on commercial premises. Commercial facilities managers demand site-specific RAMS before contracts commence.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs font-light">
+              <div className="p-8 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="p-2 bg-slate-900 text-white rounded-sm">
+                    <FileCheck className="w-5 h-5 text-[#EA580C]" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900">Task-Specific Method Statements &amp; Safe Systems</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">Floor Scrubbing • Water-Fed Pole Glazing • Lone Working</p>
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed">
+                  Every commercial cleaning specification requires clear method statements detailing machine operation, wet-floor warning signage deployment, and chemical mixing sequences. Review our comprehensive guide on <Link href="/contractor-resources/rams/what-are-rams" className="text-[#EA580C] underline font-medium">what commercial RAMS are</Link>.
+                </p>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Detailed sequence of work for mechanical floor stripping, warning cone perimeter placement, and slip-mitigation dry-buffing.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Safe systems of work for high-reach telescopic window cleaning, wind-speed monitoring, and overhead line avoidance.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5" />
+                    <span>Learn more in our guide on <Link href="/contractor-resources/rams/how-to-write-rams" className="text-[#EA580C] underline font-medium">how to write compliant commercial RAMS</Link>.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-8 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="p-2 bg-slate-900 text-white rounded-sm">
+                    <ShieldCheck className="w-5 h-5 text-blue-500" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900">COSHH Risk Assessments &amp; Lone Working Controls</h3>
+                    <p className="text-slate-500 text-[11px] font-mono">5x5 Risk Evaluation • Chemical Exposure • Check-In Protocols</p>
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed">
+                  Under the Management of Health and Safety at Work Regulations 1999, facilities directors are accountable for workforce safety during twilight hours. Cleaning contractors are expected to maintain defensible risk matrices and lone worker welfare systems.
+                </p>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>5x5 risk evaluation covering chemical vapours, eye contact, repetitive strain, and slip/trip hazards during wet cleaning.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>Full compliance with <Link href="/contractor-resources/risk-assessments/what-is-a-risk-assessment" className="text-[#EA580C] underline font-medium">commercial risk assessment standards</Link>, documenting eyewash station access and emergency spillage procedures.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                    <span>Documented lone working safety procedures, mobile phone check-in intervals, and automated escalation protocols for twilight shifts.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Professional Responsibility Note */}
+            <div className="rounded-sm border border-slate-200 bg-[#FAFAF8] p-5 text-xs text-slate-500 font-light leading-relaxed max-w-4xl mx-auto text-center">
+              <strong className="text-slate-800 font-semibold">Professional Competency Notice:</strong> Site-specific RAMS, COSHH assessments, and lone-worker procedures must always be prepared, reviewed, and signed off by the contractor&apos;s own qualified competent persons to reflect the specific site layout, chemical inventory, and operational risks.
+            </div>
+          </div>
+        </section>
+
+        {/* 10. HOW THE CONTRACTOR NETWORK WORKS */}
+        <section className="py-20 sm:py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom space-y-12">
             <ContractorStepByStep
               eyebrow="ONBOARDING ROADMAP"
@@ -543,19 +682,19 @@ export default function CleaningContractorPage() {
             />
 
             {/* Disclaimer Box */}
-            <div className="rounded-sm border border-slate-200 bg-[#FAFAF8] p-6 text-xs text-slate-600 font-light leading-relaxed max-w-4xl mx-auto text-center space-y-2">
+            <div className="rounded-sm border border-slate-200 bg-white p-6 text-xs text-slate-600 font-light leading-relaxed max-w-4xl mx-auto text-center space-y-2">
               <p className="font-semibold text-slate-900 uppercase tracking-wider text-[11px]">
                 Transparent Operating Proposition
               </p>
               <p>
-                Membership provides access to EntireFM's approved supplier framework, compliance management tools, and consideration for relevant commercial work orders. Membership does not guarantee contract awards or minimum work volumes.
+                Membership provides access to EntireFM&apos;s approved supplier framework, compliance management tools, and consideration for relevant commercial work orders. Membership does not guarantee contract awards or minimum work volumes.
               </p>
             </div>
           </div>
         </section>
 
-        {/* 10. WHY COMMERCIAL CONTRACTORS JOIN */}
-        <section className="py-20 sm:py-24 bg-[#FAF9FB] border-b border-slate-200">
+        {/* 11. WHY COMMERCIAL CONTRACTORS JOIN */}
+        <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
           <div className="container-custom space-y-12">
             <div className="max-w-3xl space-y-3">
               <span className="eyebrow eyebrow-light">BUSINESS VALUE</span>
@@ -563,84 +702,84 @@ export default function CleaningContractorPage() {
                 Why Cleaning Contractors Join EntireFM
               </h2>
               <p className="text-sm font-light text-slate-600 leading-relaxed">
-                Joining the EntireFM Contractor Network connects your commercial cleaning business with corporate property contracts across the UK:
+                Joining the EntireFM Contractor Network positions your commercial cleaning company as an approved supplier for commercial facilities management requirements:
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs font-light">
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-2.5">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Building2 className="w-4 h-4 text-[#EA580C]" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">Commercial Frameworks</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Put your business directly in front of corporate office contracts, logistics hub cleans, and multi-site retail portfolios.
+                  Put your business directly in front of commercial facilities management requirements across corporate offices, retail parks, and logistics hubs.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-2.5">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">Compliance Vault</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Store and manage COSHH packs, BICSc certificates, and insurance in one centralized system with automated expiry alerts.
+                  Store and manage COSHH packs, BICSc certificates, and insurance in one secure system with automated renewal alerts.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-2.5">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <Clock className="w-4 h-4 text-blue-500" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">Merit-Based Matching</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Contracts are matched based on verified supervisory capabilities, workforce scale, specialist machinery, and location.
+                  Relevant work orders can be matched against factors including trade competency, geographic proximity, work requirements, response requirements and available performance information.
                 </p>
               </div>
 
-              <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-2.5">
+              <div className="p-6 bg-[#FAFAF8] border border-slate-200 rounded-sm space-y-2.5">
                 <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                   <FileCheck className="w-4 h-4 text-purple-500" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">Streamlined Admin</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Clear Purchase Orders, structured digital audit checklists, and straightforward electronic invoicing aligned with commercial accounting teams.
+                  Clear Purchase Orders, structured site specifications, and straightforward electronic invoicing processes aligned with commercial finance teams.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 11. CONTRACTOR RESOURCES */}
-        <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
+        {/* 12. CONTRACTOR RESOURCES */}
+        <section className="py-20 sm:py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom">
             <ContractorRelatedGrid
               eyebrow="CONTRACTOR KNOWLEDGE BASE"
               title="Essential Resources for Cleaning Contractors"
-              subtitle="Deepen your knowledge of commercial facilities management procurement, COSHH safety, and statutory PPM standards."
+              subtitle="Deepen your knowledge of commercial facilities management procurement, COSHH safety compliance, and commercial contract standards."
               links={config.relatedLinks}
             />
           </div>
         </section>
 
-        {/* 12. FAQ ACCORDION */}
-        <section className="py-20 sm:py-24 bg-[#FAF9FB] border-b border-slate-200">
+        {/* 13. FAQ ACCORDION */}
+        <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
           <div className="container-custom">
             <ContractorFaqAccordion
               eyebrow="FREQUENTLY ASKED QUESTIONS"
               title="Commercial Cleaning Contractor FAQs"
-              subtitle="Answers to common questions about COSHH regulations, BICSc standards, work allocation, and network membership."
+              subtitle="Answers to common questions about BICSc standards, COSHH safety, staff vetting, and network membership."
               faqs={config.faqs}
             />
           </div>
         </section>
 
-        {/* 13. CONVERSION BANNER */}
+        {/* 14. CONVERSION BANNER */}
         <div className="container-custom">
           <ContractorConversionBanner
             eyebrow="APPLY TO JOIN"
             title="Put Your Cleaning Business Forward for Commercial FM Work"
-            description="Join the EntireFM Contractor Network. Complete the online intake, submit your COSHH and compliance details, and access commercial facilities management opportunities across the UK. £95+VAT annual membership payable upon application submission."
+            description="Join the EntireFM Contractor Network. Complete the online intake, submit your compliance details, and access commercial facilities management opportunities across the UK. £95+VAT annual membership payable upon application submission."
             primaryCtaLabel="Join Contractor Network (£95/yr)"
             primaryCtaHref="/contractors/join"
             secondaryCtaLabel="Find Out How FM Work Works"

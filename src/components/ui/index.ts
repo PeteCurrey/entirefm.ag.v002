@@ -4,3 +4,4 @@ export { Button, type ButtonProps } from './Button';
 export { StatTile, type StatTileProps } from './StatTile';
 export { NavRail, type NavRailProps, type NavRailItemConfig } from './NavRail';
 export { BrandIcon } from './BrandIcon';
+export { PropertySearchCombobox, type PropertyOption } from './PropertySearchCombobox';

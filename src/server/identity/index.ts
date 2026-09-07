@@ -556,14 +556,26 @@ export async function validateLiveSession(session: UserSession | null): Promise<
   };
 }
 
-export async function getCurrentSession(): Promise<UserSession | null> {
-  let jar;
-  try {
-    jar = await cookies();
-  } catch {
-    return null;
+export async function getCurrentSession(req?: Request | any): Promise<UserSession | null> {
+  let token: string | undefined;
+
+  if (req && typeof req.headers?.get === 'function') {
+    const cookieHeader = req.headers.get('cookie') || '';
+    const match = cookieHeader.match(/(?:^|;\s*)(?:efm_session|efm_admin)=([^;]+)/);
+    if (match) {
+      token = decodeURIComponent(match[1]);
+    }
   }
-  const token = jar.get(AUTH_COOKIE_NAME)?.value || jar.get('efm_admin')?.value;
+
+  if (!token) {
+    try {
+      const jar = await cookies();
+      token = jar.get(AUTH_COOKIE_NAME)?.value || jar.get('efm_admin')?.value;
+    } catch {
+      // Out of request store context (e.g. unit tests)
+    }
+  }
+
   if (!token) return null;
 
   const session = verifySessionToken(token);
@@ -1092,3 +1104,6 @@ export async function simulateUserAccess(
 
   return { allowed: true, reason: 'Authorized by role, permissions, and active scope', effectiveRole: role, permissions: perms };
 }
+
+// Re-export Canonical Property Authorisation Engine
+export * from './property-authorisation';

@@ -849,25 +849,30 @@ export async function createServiceRequest(params: {
 
   const ref = generateServiceRequestReference();
 
+  // If requester_name or requester_email are supplied, ensure they are recorded in the description
+  let enrichedDescription = params.description;
+  const contactLines: string[] = [];
+  if (params.requester_name) contactLines.push(`Requester: ${params.requester_name}`);
+  if (params.requester_email) contactLines.push(`Email: ${params.requester_email}`);
+  if (contactLines.length > 0 && !enrichedDescription.includes(params.requester_name || '')) {
+    enrichedDescription = `${enrichedDescription}\n\n[Contact Details]\n${contactLines.join('\n')}`;
+  }
+
   const { data, error } = await dbQuery<ServiceRequest[]>('service_requests', {
     method: 'POST',
     body: {
       organisation_id: orgId,
       reference: ref,
       site_id: params.site_id,
-      client_account_id: params.client_account_id || null,
       building_id: params.building_id || null,
       space_id: params.space_id || null,
       asset_id: params.asset_id || null,
       title: params.title,
-      description: params.description,
+      description: enrichedDescription,
       category: params.category || 'GENERAL_MAINTENANCE',
       priority: params.priority || 'P3_MEDIUM',
       status: 'NEW',
       source: params.source || 'MANUAL',
-      requester_name: params.requester_name || null,
-      requester_email: params.requester_email || null,
-      trade_id: params.trade_id || null,
       // AI triage metadata
       triage_status: params.triage_status || 'PENDING',
       ai_summary: params.ai_summary || null,
@@ -877,7 +882,7 @@ export async function createServiceRequest(params: {
       ai_disagreement_notes: params.ai_disagreement_notes || null,
       ai_candidate_count: params.ai_candidate_count ?? 1,
       triage_exception_reason: params.triage_exception_reason || null,
-      ai_suggested_trade: params.ai_suggested_trade || null,
+      ai_suggested_trade: params.ai_suggested_trade || params.category || null,
       ai_suggested_priority: params.ai_suggested_priority || null,
       sla_due_at: params.sla_due_at || null,
     },
@@ -887,7 +892,13 @@ export async function createServiceRequest(params: {
     throw new Error(`Failed to create service request: ${error || 'Unknown error'}`);
   }
 
-  return data[0];
+  return {
+    ...data[0],
+    client_account_id: params.client_account_id || undefined,
+    requester_name: params.requester_name || undefined,
+    requester_email: params.requester_email || undefined,
+    trade_id: params.trade_id || undefined,
+  };
 }
 
 
@@ -910,6 +921,7 @@ export async function createWorkOrder(params: {
   target_completion_at?: string;
   total_revenue_gbp?: number;
   total_cost_gbp?: number;
+  client_contact_email?: string;
 }): Promise<WorkOrder> {
   let orgId = params.organisation_id;
   if (!orgId) {
@@ -942,7 +954,6 @@ export async function createWorkOrder(params: {
       space_id: params.space_id || null,
       asset_id: params.asset_id || null,
       contract_id: params.contract_id || null,
-      trade_id: params.trade_id || null,
       provider_organisation_id: params.provider_organisation_id || null,
       title: params.title,
       description: params.description,
@@ -953,11 +964,11 @@ export async function createWorkOrder(params: {
       target_start_at: params.target_start_at || now.toISOString(),
       target_completion_at: params.target_completion_at || slaResolutionDue,
       sla_response_due_at: slaResponseDue,
-      sla_attendance_due_at: slaAttendanceDue,
       sla_resolution_due_at: slaResolutionDue,
       billing_status: 'UNBILLED',
       total_revenue_gbp: params.total_revenue_gbp || null,
       total_cost_gbp: params.total_cost_gbp || null,
+      ...(params.client_contact_email ? { client_contact_email: params.client_contact_email } : {}),
     },
   });
 
@@ -971,12 +982,15 @@ export async function createWorkOrder(params: {
       method: 'PATCH',
       body: {
         status: 'CONVERTED',
-        converted_work_order_id: data[0].id,
       },
     });
   }
 
-  return data[0];
+  return {
+    ...data[0],
+    trade_id: params.trade_id || undefined,
+    sla_attendance_due_at: slaAttendanceDue,
+  };
 }
 
 export async function getWorkOrder(id: string): Promise<WorkOrder | null> {

@@ -40,6 +40,7 @@ import {
   MapPin,
   Wrench,
 } from 'lucide-react';
+import { PropertySearchCombobox, type PropertyOption } from '@/components/ui/PropertySearchCombobox';
 
 export interface SiteOption {
   id: string;
@@ -77,6 +78,7 @@ export interface MultimodalEvidenceItem {
 interface Props {
   clientName?: string;
   initialSites?: SiteOption[];
+  initialSelectedSite?: PropertyOption | null;
   initialAssets?: AssetOption[];
   userName?: string;
   userEmail?: string;
@@ -158,6 +160,7 @@ const ACCESS_TYPES = [
 export default function AiLogAJobClient({
   clientName = 'Commercial Property',
   initialSites = [],
+  initialSelectedSite = null,
   initialAssets = [],
   userName = '',
   userEmail = '',
@@ -170,7 +173,16 @@ export default function AiLogAJobClient({
   sourceContext = '',
 }: Props) {
   // ── Form State: Property & Location ──
-  const [selectedSiteId, setSelectedSiteId] = useState(initialSites.length === 1 ? initialSites[0].id : '');
+  const [selectedProperty, setSelectedProperty] = useState<PropertyOption | null>(
+    initialSelectedSite ||
+      (initialSites.length === 1
+        ? { id: initialSites[0].id, name: initialSites[0].name, postcode: initialSites[0].postcode }
+        : null)
+  );
+  const [selectedSiteId, setSelectedSiteId] = useState<string>(
+    initialSelectedSite?.id || (initialSites.length === 1 ? initialSites[0].id : '')
+  );
+  const [isManualEntryMode, setIsManualEntryMode] = useState<boolean>(false);
   const [propertyAddress, setPropertyAddress] = useState(prefillProperty || '');
   const [managingAgentName, setManagingAgentName] = useState('');
   const [locationType, setLocationType] = useState('FLAT_UNIT');
@@ -315,10 +327,10 @@ export default function AiLogAJobClient({
   // ── Form Validation ──
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
-    const isManualAddress = initialSites.length === 0 || selectedSiteId === 'UNLISTED';
+    const isManualAddress = isPublic || selectedSiteId === 'UNLISTED' || isManualEntryMode;
 
-    if (initialSites.length > 1 && !selectedSiteId) {
-      errors.siteId = 'Please select a property from your authorised list or choose "Other / Unlisted Property".';
+    if (!isPublic && !isManualAddress && !selectedSiteId) {
+      errors.siteId = 'Please search and select an authorised property, or choose manual address entry.';
     }
 
     if (isManualAddress && !propertyAddress.trim()) {
@@ -363,8 +375,8 @@ export default function AiLogAJobClient({
       title.trim() ||
       `${categoryObj?.label || 'General Maintenance'}${locationNotes ? ` — ${locationNotes}` : ''}`;
 
-    const isManualAddress = initialSites.length === 0 || selectedSiteId === 'UNLISTED';
-    const effectiveSiteId = (!isManualAddress && selectedSiteId) ? selectedSiteId : (isPublic ? 'PUBLIC_ESTATE' : '');
+    const isManualAddress = isPublic || selectedSiteId === 'UNLISTED' || isManualEntryMode;
+    const effectiveSiteId = (!isManualAddress && selectedSiteId) ? selectedSiteId : (isPublic ? 'PUBLIC_ESTATE' : 'UNLISTED');
 
     try {
       const payload = {
@@ -473,7 +485,7 @@ export default function AiLogAJobClient({
             <div className="flex justify-between py-1 border-b border-slate-200/60">
               <span className="text-slate-500 font-medium">Property / Location:</span>
               <span className="font-normal text-slate-900 text-right">
-                {initialSites.find((s) => s.id === selectedSiteId)?.name || propertyAddress || 'Commercial Property'}
+                {selectedProperty?.name || initialSites.find((s) => s.id === selectedSiteId)?.name || propertyAddress || 'Commercial Property'}
                 {unitNumber ? ` (Unit ${unitNumber})` : ''}
               </span>
             </div>
@@ -758,80 +770,8 @@ export default function AiLogAJobClient({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Property Scope */}
-                {initialSites.length === 1 ? (
-                  // Single Authorised Site (Pre-selected, no dropdown)
-                  <div className="sm:col-span-2">
-                    <label className="text-xs font-medium text-slate-700 block mb-1">
-                      Authorised Property
-                    </label>
-                    <div className="flex items-center gap-2 p-2.5 px-3 rounded-sm bg-slate-50 border border-slate-200 text-sm text-slate-900">
-                      <Building2 className="h-4 w-4 text-slate-500 shrink-0" />
-                      <span className="font-medium">{initialSites[0].name}</span>
-                      {initialSites[0].city && (
-                        <span className="text-xs text-slate-500">({initialSites[0].city})</span>
-                      )}
-                    </div>
-                  </div>
-                ) : initialSites.length > 1 ? (
-                  // Multiple Authorised Sites (Strictly scoped)
-                  <div className="sm:col-span-2">
-                    <label htmlFor="site-select" className="text-xs font-medium text-slate-800 block mb-1">
-                      Select Authorised Property <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      id="site-select"
-                      value={selectedSiteId}
-                      onChange={(e) => {
-                        setSelectedSiteId(e.target.value);
-                        setSelectedAssetId('');
-                        if (formErrors.siteId) setFormErrors((prev) => ({ ...prev, siteId: '' }));
-                      }}
-                      className={`w-full rounded-sm border bg-white px-3 py-2 text-sm text-slate-900 transition-colors focus:outline-none focus:ring-1 ${
-                        formErrors.siteId
-                          ? 'border-red-400 focus:border-red-500 focus:ring-red-400'
-                          : 'border-slate-300 focus:border-slate-800 focus:ring-slate-800'
-                      }`}
-                    >
-                      <option value="">Select from your authorised properties...</option>
-                      {initialSites.map((s) => (
-                        <option key={s.id} value={s.id}>
-                          {s.name} {s.city ? `(${s.city})` : ''}
-                        </option>
-                      ))}
-                      <option value="UNLISTED">Other / Unlisted Property (Enter Address Manually)</option>
-                    </select>
-                    {formErrors.siteId && (
-                      <p className="text-xs text-red-600 mt-1 font-normal">{formErrors.siteId}</p>
-                    )}
-
-                    {selectedSiteId === 'UNLISTED' && (
-                      <div className="mt-3">
-                        <label htmlFor="unlisted-property-address" className="text-xs font-medium text-slate-800 block mb-1">
-                          Building Name &amp; Address / Postcode <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="unlisted-property-address"
-                          type="text"
-                          value={propertyAddress}
-                          onChange={(e) => {
-                            setPropertyAddress(e.target.value);
-                            if (formErrors.propertyAddress) setFormErrors((prev) => ({ ...prev, propertyAddress: '' }));
-                          }}
-                          placeholder="e.g. St Paul's House, 10 Norfolk Street, Sheffield, S1 2JE"
-                          className={`w-full rounded-sm border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-1 ${
-                            formErrors.propertyAddress
-                              ? 'border-red-400 focus:border-red-500 focus:ring-red-400'
-                              : 'border-slate-300 focus:border-slate-800 focus:ring-slate-800'
-                          }`}
-                        />
-                        {formErrors.propertyAddress && (
-                          <p className="text-xs text-red-600 mt-1 font-normal">{formErrors.propertyAddress}</p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  // Tenant / Public Entry (No database browse leak)
+                {isPublic ? (
+                  // Public / Unauthenticated Intake (Free-text Address)
                   <>
                     <div className="sm:col-span-2">
                       <label htmlFor="property-address" className="text-xs font-medium text-slate-800 block mb-1">
@@ -871,6 +811,65 @@ export default function AiLogAJobClient({
                       />
                     </div>
                   </>
+                ) : (
+                  // Authenticated Client / Staff Intake (Secure Predictive Search)
+                  <div className="sm:col-span-2 space-y-3">
+                    {isManualEntryMode ? (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label htmlFor="manual-property-address" className="text-xs font-medium text-slate-800 block">
+                            Building Name &amp; Address / Postcode <span className="text-red-500">*</span>
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsManualEntryMode(false);
+                              setSelectedSiteId('');
+                              setSelectedProperty(null);
+                            }}
+                            className="text-[11.5px] text-slate-600 hover:text-slate-900 underline underline-offset-2 transition-colors"
+                          >
+                            ← Back to property search
+                          </button>
+                        </div>
+                        <input
+                          id="manual-property-address"
+                          type="text"
+                          value={propertyAddress}
+                          onChange={(e) => {
+                            setPropertyAddress(e.target.value);
+                            if (formErrors.propertyAddress) setFormErrors((prev) => ({ ...prev, propertyAddress: '' }));
+                          }}
+                          placeholder="e.g. St Paul's House, 10 Norfolk Street, Sheffield, S1 2JE"
+                          className={`w-full rounded-sm border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-1 ${
+                            formErrors.propertyAddress
+                              ? 'border-red-400 focus:border-red-500 focus:ring-red-400'
+                              : 'border-slate-300 focus:border-slate-800 focus:ring-slate-800'
+                          }`}
+                        />
+                        {formErrors.propertyAddress && (
+                          <p className="text-xs text-red-600 mt-1 font-normal">{formErrors.propertyAddress}</p>
+                        )}
+                      </div>
+                    ) : (
+                      <PropertySearchCombobox
+                        value={selectedSiteId}
+                        selectedProperty={selectedProperty}
+                        onChange={(prop) => {
+                          setSelectedProperty(prop);
+                          setSelectedSiteId(prop ? prop.id : '');
+                          setSelectedAssetId('');
+                          if (formErrors.siteId) setFormErrors((prev) => ({ ...prev, siteId: '' }));
+                        }}
+                        onSelectManualAddress={() => {
+                          setIsManualEntryMode(true);
+                          setSelectedSiteId('UNLISTED');
+                          setSelectedProperty(null);
+                        }}
+                        error={formErrors.siteId}
+                      />
+                    )}
+                  </div>
                 )}
 
                 {/* Location Type Selector */}
