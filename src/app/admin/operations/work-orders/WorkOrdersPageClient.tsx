@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { Button } from '@/components/admin/ui/Button';
-import { Plus, X } from 'lucide-react';
+import { Plus, X, Trash2, ChevronDown, Loader2, AlertTriangle } from 'lucide-react';
 
 import type { WorkOrder } from '@/server/work';
 import type { Site } from '@/server/estate';
@@ -39,6 +39,12 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
+
+  // Deletion and status update state
+  const [woToDelete, setWoToDelete] = useState<WorkOrder | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
 
   // Form state
   const [form, setForm] = useState({
@@ -91,6 +97,54 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
     }
   };
 
+  const handleStatusChange = async (woId: string, newStatus: string) => {
+    setUpdatingStatusId(woId);
+    const prevOrders = [...workOrders];
+    setWorkOrders((prev) =>
+      prev.map((w) => (w.id === woId ? { ...w, status: newStatus as any } : w))
+    );
+
+    try {
+      const res = await fetch(`/api/admin/work-orders/${encodeURIComponent(woId)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update status');
+      }
+    } catch (err: any) {
+      setWorkOrders(prevOrders);
+      alert(`Could not update status: ${err.message || 'Unknown error'}`);
+    } finally {
+      setUpdatingStatusId(null);
+    }
+  };
+
+  const handleDeleteWorkOrder = async () => {
+    if (!woToDelete) return;
+    setIsDeleting(true);
+    setDeleteError(null);
+
+    try {
+      const res = await fetch(`/api/admin/work-orders/${encodeURIComponent(woToDelete.id)}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to delete work order');
+      }
+
+      setWorkOrders((prev) => prev.filter((w) => w.id !== woToDelete.id));
+      setWoToDelete(null);
+    } catch (err: any) {
+      setDeleteError(err.message || 'Failed to delete work order');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   const filtered = workOrders.filter((wo) => {
     const q = searchQuery.toLowerCase();
     const matchesSearch =
@@ -131,7 +185,7 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
         />
         <div className="flex items-center gap-1 bg-[#FAFAF8] p-1 rounded-[6px] border border-[#E4E4E1] text-[11.5px]">
           <span className="text-[#9B9B97] px-1 text-[11px] uppercase font-medium">Status:</span>
-          {['ALL', 'OPEN', 'ISSUED', 'IN_PROGRESS', 'COMPLETED', 'CLOSED'].map((s) => (
+          {['ALL', 'OPEN', 'ISSUED', 'IN_PROGRESS', 'COMPLETED', 'CLOSED', 'CANCELLED'].map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
@@ -201,21 +255,52 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
                       : '—'}
                   </td>
                   <td className="px-4 py-3.5">
-                    <span
-                      className={`rounded border px-2 py-0.5 text-[10px] font-medium ${
-                        STATUS_CLASSES[wo.status] ?? 'bg-[#FAFAF8] text-[#686866] border-[#E4E4E1]'
-                      }`}
-                    >
-                      {wo.status}
-                    </span>
+                    <div className="relative inline-flex items-center">
+                      <select
+                        value={wo.status}
+                        disabled={updatingStatusId === wo.id}
+                        onChange={(e) => handleStatusChange(wo.id, e.target.value)}
+                        className={`appearance-none rounded border px-2 py-0.5 pr-5 text-[10px] font-medium cursor-pointer focus:outline-none transition-colors ${
+                          STATUS_CLASSES[wo.status] ?? 'bg-[#FAFAF8] text-[#686866] border-[#E4E4E1]'
+                        }`}
+                        title="Click to change status"
+                      >
+                        <option value="OPEN">OPEN</option>
+                        <option value="ISSUED">ISSUED</option>
+                        <option value="IN_PROGRESS">IN_PROGRESS</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CLOSED">CLOSED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                      </select>
+                      <div className="pointer-events-none absolute right-1.5 flex items-center">
+                        {updatingStatusId === wo.id ? (
+                          <Loader2 className="h-2.5 w-2.5 animate-spin text-zinc-500" />
+                        ) : (
+                          <ChevronDown className="h-2.5 w-2.5 opacity-60" />
+                        )}
+                      </div>
+                    </div>
                   </td>
                   <td className="px-4 py-3.5 text-right">
-                    <Link
-                      href={`/admin/operations/work-orders/${wo.id}`}
-                      className="text-[11.5px] font-medium text-[#EA580C] hover:underline"
-                    >
-                      View Order →
-                    </Link>
+                    <div className="flex items-center justify-end gap-2.5">
+                      <Link
+                        href={`/admin/operations/work-orders/${wo.id}`}
+                        className="text-[11.5px] font-medium text-[#EA580C] hover:underline"
+                      >
+                        View Order →
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDeleteError(null);
+                          setWoToDelete(wo);
+                        }}
+                        className="text-[#9B9B97] hover:text-rose-600 transition-colors p-1 rounded hover:bg-rose-50"
+                        title="Delete work order"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -333,6 +418,61 @@ export function WorkOrdersPageClient({ initialWorkOrders, sites }: Props) {
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {woToDelete && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] rounded-[12px] border border-[#E4E4E1] max-w-md w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-150">
+            <div className="flex items-center gap-3 text-rose-600">
+              <div className="p-2 rounded-full bg-rose-50 border border-rose-200">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-[#101010]">Delete Work Order</h3>
+                <p className="text-xs text-[#686866]">{woToDelete.work_order_number}</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#686866] leading-relaxed">
+              Are you sure you want to delete work order{' '}
+              <strong className="text-[#101010] font-medium">{woToDelete.work_order_number}</strong> ({woToDelete.title})?
+              This action will permanently remove the record. This action cannot be undone.
+            </p>
+
+            {deleteError && (
+              <div className="rounded-[6px] border border-rose-200 bg-rose-50 p-2.5 text-xs text-rose-700">
+                {deleteError}
+              </div>
+            )}
+
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#E4E4E1]">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={isDeleting}
+                onClick={() => setWoToDelete(null)}
+              >
+                Cancel
+              </Button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={handleDeleteWorkOrder}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-medium text-white bg-rose-600 hover:bg-rose-700 disabled:opacity-50 transition-colors shadow-xs"
+              >
+                {isDeleting ? (
+                  <>
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                    Deleting…
+                  </>
+                ) : (
+                  'Confirm Delete'
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

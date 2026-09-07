@@ -994,8 +994,10 @@ export async function createWorkOrder(params: {
 }
 
 export async function getWorkOrder(id: string): Promise<WorkOrder | null> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  const filter = isUuid ? `id=eq.${encodeURIComponent(id)}` : `work_order_number=eq.${encodeURIComponent(id)}`;
   const { data } = await dbQuery<WorkOrder[]>(
-    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code),lead_engineer:persons(first_name,last_name,email)&limit=1`
+    `work_orders?${filter}&select=*,organisation:organisations!work_orders_organisation_id_fkey(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations!work_orders_provider_organisation_id_fkey(name,code),lead_engineer:persons!work_orders_lead_engineer_id_fkey(first_name,last_name,email)&limit=1`
   );
   return data?.[0] || null;
 }
@@ -1273,6 +1275,113 @@ export async function assignWorkOrderContractor(params: {
   return assignment;
 }
 
+export async function updateWorkOrderStatus(
+  id: string,
+  status: WorkStatus,
+  metadata?: { session?: UserSession; notes?: string }
+): Promise<WorkOrder> {
+  const now = new Date().toISOString();
+  const patchBody: Record<string, any> = {
+    status,
+    updated_at: now,
+  };
+
+  if (status === 'COMPLETED') {
+    patchBody.actual_completion_at = now;
+    patchBody.billing_status = 'READY_FOR_BILLING';
+  } else if (status === 'CLOSED') {
+    patchBody.closed_at = now;
+    if (metadata?.session?.personId) {
+      patchBody.closed_by_id = metadata.session.personId;
+    }
+    if (metadata?.notes) {
+      patchBody.closure_notes = metadata.notes;
+    }
+  }
+
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  const filter = isUuid ? `id=eq.${encodeURIComponent(id)}` : `work_order_number=eq.${encodeURIComponent(id)}`;
+
+  const { data, error } = await dbQuery<WorkOrder[]>(`work_orders?${filter}`, {
+    method: 'PATCH',
+    body: patchBody,
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to update work order status: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+
+export async function deleteWorkOrder(id: string): Promise<boolean> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  let resolvedId = id;
+  if (!isUuid) {
+    const { data: wo } = await dbQuery<WorkOrder[]>(
+      `work_orders?work_order_number=eq.${encodeURIComponent(id)}&select=id&limit=1`
+    );
+    if (!wo?.[0]?.id) return false;
+    resolvedId = wo[0].id;
+  }
+
+  // Null out or remove non-cascading references
+  await Promise.all([
+    dbQuery(`quotes?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`quotes?converted_work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { converted_work_order_id: null },
+    }),
+    dbQuery(`purchase_orders?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`client_invoice_lines?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`supplier_invoices?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`supplier_invoices?matched_work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { matched_work_order_id: null },
+    }),
+    dbQuery(`supplier_invoice_lines?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`maintenance_occurrences?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'PATCH',
+      body: { work_order_id: null },
+    }),
+    dbQuery(`field_captures?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'DELETE',
+    }),
+    dbQuery(`revenue_exposures?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'DELETE',
+    }),
+    dbQuery(`cost_attributions?work_order_id=eq.${encodeURIComponent(resolvedId)}`, {
+      method: 'DELETE',
+    }),
+  ]);
+
+  const { error } = await dbQuery(`work_orders?id=eq.${encodeURIComponent(resolvedId)}`, {
+    method: 'DELETE',
+  });
+
+  if (error) {
+    throw new Error(`Failed to delete work order: ${error}`);
+  }
+
+  return true;
+}
+
 export * from './engineers';
 export * from './sla-resolver';
+
 

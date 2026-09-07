@@ -27,6 +27,7 @@ import {
   ChevronRight,
   CalendarClock,
 } from 'lucide-react';
+import { WorkOrderDetailActions } from './WorkOrderDetailActions';
 
 export const dynamic = 'force-dynamic';
 
@@ -152,6 +153,12 @@ export default async function WorkOrderDetailPage({ params }: { params: Promise<
 
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-6">
+      <WorkOrderDetailActions
+        workOrderId={workOrder.id}
+        workOrderNumber={snapshot.work_order_number}
+        currentStatus={workOrder.status || 'OPEN'}
+      />
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
