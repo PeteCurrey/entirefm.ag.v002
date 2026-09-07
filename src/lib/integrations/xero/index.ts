@@ -50,6 +50,7 @@ export {
   refreshConnectionTokens,
   getValidAccessToken,
   disconnectXeroConnection,
+  isXeroConfigured,
 } from './oauth';
 
 // HTTP client
