@@ -20,6 +20,7 @@ import {
   Layers,
   FileSpreadsheet,
   Gauge,
+  Crosshair,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -31,13 +32,14 @@ import type { TemplateProps } from '../types';
 interface ToolItem {
   title: string;
   slug: string;
-  category: 'Compliance & Safety' | 'Maintenance Planning' | 'Commercial & Strategy';
+  category: 'Compliance & Safety' | 'Maintenance Planning' | 'Commercial & Strategy' | 'Drone & Aerial';
   tag: string;
   timeEstimate: string;
   description: string;
   deliverables: string[];
   icon: React.ComponentType<{ className?: string }>;
   relatedService: { label: string; href: string };
+  bgImage: string;
 }
 
 const TOOLS_DATA: ToolItem[] = [
@@ -51,6 +53,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['Plant metadata extraction', 'SFG20 maintenance matching', 'Compliance observation log'],
     icon: Scan,
     relatedService: { label: 'Planned Maintenance (PPM)', href: '/ppm' },
+    bgImage: '/images/editorial/entirefm-engineers-office-testing-1200w.webp',
   },
   {
     title: 'FM Compliance Checker',
@@ -62,6 +65,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['10-discipline risk score', 'Statutory legal basis mapping', 'Downloadable PDF review report'],
     icon: ShieldCheck,
     relatedService: { label: 'Compliance Centre', href: '/compliance' },
+    bgImage: '/images/editorial/entirefm-switchgear-inspection-1200w.webp',
   },
   {
     title: 'FM Building Health Check',
@@ -73,6 +77,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['7-area gap analysis', 'Prioritised action points', 'Printable review report'],
     icon: Activity,
     relatedService: { label: 'Compliance Centre', href: '/compliance' },
+    bgImage: '/images/editorial/entirefm-distribution-board-testing-1200w.webp',
   },
   {
     title: 'PPM Schedule Builder',
@@ -84,6 +89,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['Custom maintenance matrix', 'Statutory vs practice tags', 'CSV & PDF export'],
     icon: Wrench,
     relatedService: { label: 'Planned Maintenance (PPM)', href: '/ppm' },
+    bgImage: '/images/editorial/entirefm-hvac-plant-deck-1200w.webp',
   },
   {
     title: 'Compliance Calendar Builder',
@@ -95,6 +101,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['12-month inspection roadmap', 'Governing legislation references', 'ICS calendar download'],
     icon: CalendarCheck,
     relatedService: { label: 'Fire & Emergency', href: '/fire-emergency-systems' },
+    bgImage: '/images/editorial/entirefm-hvac-refrigerant-check-1200w.webp',
   },
   {
     title: 'PPM Cost Estimator',
@@ -106,6 +113,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['Indicative budget range', 'Cost per sq ft / sq m breakdown', 'Transparent planning assumptions'],
     icon: Calculator,
     relatedService: { label: 'Mechanical & Electrical', href: '/mechanical-electrical' },
+    bgImage: '/images/editorial/entirefm-hvac-plantroom-pumps-1200w.webp',
   },
   {
     title: 'FM ROI / TCO Calculator',
@@ -117,6 +125,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['Reactive vs planned analysis', 'Management overhead savings', 'Model comparison breakdown'],
     icon: TrendingUp,
     relatedService: { label: 'Total FM Contracts', href: '/hard-services' },
+    bgImage: '/images/editorial/entirefm-client-review-1200w.webp',
   },
   {
     title: 'Contractor Consolidation Audit',
@@ -128,6 +137,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['Notice rollover risk alerts', 'Supplier fragmentation summary', 'Consolidation timeline'],
     icon: CalendarCheck,
     relatedService: { label: 'Planned Maintenance', href: '/ppm' },
+    bgImage: '/images/editorial/entirefm-entirefm-premises-vans-1200w.webp',
   },
   {
     title: 'Asset Lifecycle & CAPEX Planner',
@@ -139,6 +149,7 @@ const TOOLS_DATA: ToolItem[] = [
     deliverables: ['10-year capital cash flow chart', 'Urgent at-risk plant schedule', 'Downloadable multi-page appraisal pack'],
     icon: Calculator,
     relatedService: { label: 'Mechanical & Electrical', href: '/mechanical-electrical' },
+    bgImage: '/images/editorial/entirefm-rooftop-plant-night-1200w.webp',
   },
   {
     title: 'SLA & Response Benchmark Tool',
@@ -146,14 +157,27 @@ const TOOLS_DATA: ToolItem[] = [
     category: 'Commercial & Strategy',
     tag: 'Service Standards',
     timeEstimate: '1 min',
-    description: 'Compare your estate’s reactive attendance and resolution times against typical UK commercial FM contract bands across 7 critical disciplines.',
+    description: 'Compare your estate\u2019s reactive attendance and resolution times against typical UK commercial FM contract bands across 7 critical disciplines.',
     deliverables: ['Discipline SLA variance scorecard', 'UK commercial Helpdesk bands', 'Ungated PDF & CSV export'],
     icon: Gauge,
     relatedService: { label: 'Hard Facilities Management', href: '/hard-services' },
+    bgImage: '/images/editorial/entirefm-site-arrival-1200w.webp',
+  },
+  {
+    title: 'Drone Inspection Planner',
+    slug: '/tools/drone-inspection-planner',
+    category: 'Drone & Aerial',
+    tag: 'Aerial Survey Brief',
+    timeEstimate: '5 mins',
+    description: 'Answer 10 structured questions about your building, roof, or estate to receive a tailored aerial inspection scope, deliverables list, and EntireFM service recommendation.',
+    deliverables: ['Personalised inspection scope recommendation', 'Suggested survey deliverables & data outputs', 'Gated formal PDF specification pack'],
+    icon: Crosshair,
+    relatedService: { label: 'Drone Services', href: '/services/drone-services' },
+    bgImage: '/images/drone/inspection_poster.png',
   },
 ];
 
-const CATEGORIES = ['All Tools', 'Compliance & Safety', 'Maintenance Planning', 'Commercial & Strategy'] as const;
+const CATEGORIES = ['All Tools', 'Compliance & Safety', 'Maintenance Planning', 'Commercial & Strategy', 'Drone & Aerial'] as const;
 
 export function TemplateToolsHub({ route, content }: TemplateProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All Tools');
@@ -267,14 +291,29 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                 return (
                   <div
                     key={tool.slug}
-                    className="group relative flex flex-col justify-between rounded-sm border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:border-brand-electric"
+                    className="group relative flex flex-col justify-between rounded-sm border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-electric overflow-hidden"
                   >
-                    <div>
+                    {/* Background image — faintly visible at rest, reveals on hover */}
+                    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-sm">
+                      <Image
+                        src={tool.bgImage}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover object-center opacity-[0.05] group-hover:opacity-[0.14] transition-opacity duration-500"
+                        aria-hidden="true"
+                      />
+                      {/* Gradient overlay to keep text readable */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 to-white/75 group-hover:via-white/85 group-hover:to-white/60 transition-all duration-500" />
+                    </div>
+
+                    {/* Card content (above image) */}
+                    <div className="relative z-10">
                       <div className="flex items-center justify-between gap-2 mb-4">
                         <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                           <IconComponent className="h-5 w-5" />
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] font-light text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">
+                        <span className="flex items-center gap-1 text-[11px] font-light text-slate-500 bg-slate-50/80 backdrop-blur-sm px-2 py-0.5 rounded-sm border border-slate-200">
                           <Clock className="h-3 w-3" />
                           {tool.timeEstimate}
                         </span>
@@ -312,7 +351,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                       </div>
                     </div>
 
-                    <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <div className="relative z-10 mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
                       <Link
                         href={tool.relatedService.href}
                         className="text-[11px] text-slate-500 hover:text-slate-900 transition-colors font-normal"
