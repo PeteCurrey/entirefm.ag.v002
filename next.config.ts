@@ -49,6 +49,14 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: '/splats/:path*',
+        headers: [
+          { key: 'Content-Type', value: 'application/octet-stream' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
         source: '/((?!_next/static|_next/image|favicon.ico).*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },

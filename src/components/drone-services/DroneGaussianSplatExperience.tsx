@@ -79,12 +79,14 @@ export function DroneGaussianSplatExperience() {
         {/* Real Live Interactive 3D Gaussian Splat Viewer */}
         <div className="w-full">
           <GaussianSplatViewer
+            splatSrc="/assets/gaussian-splats/04_05_2026.ksplat"
             splatUrl="/assets/gaussian-splats/04_05_2026.ksplat"
+            posterSrc="/images/drone/gaussian-splat/casa-hotel.jpg"
             splatCount={540274}
             title="LIVE 3D SURVEY · ENTIREFM 3D"
             subtitle="Captured by EntireFM Drone Services · Interactive 3D Model"
-            initialCameraPosition={[0, 3.5, 6.5]}
-            initialCameraLookAt={[0, 0.8, 0]}
+            initialCameraPosition={[0.2, 1.8, 4.5]}
+            initialCameraLookAt={[0, 0.2, 0]}
           />
         </div>
 

@@ -545,12 +545,15 @@ export function ProofDigitalTwin3D() {
 
       <div className="w-full">
         <GaussianSplatViewer
+          splatSrc="/assets/gaussian-splats/04_05_2026.ksplat"
           splatUrl="/assets/gaussian-splats/04_05_2026.ksplat"
+          posterSrc="/images/drone/gaussian-splat/casa-hotel.jpg"
           splatCount={540274}
           title="LIVE 3D DIGITAL TWIN · ENTIREFM 3D"
           subtitle="Directly Navigable Interactive 3D Model · EntireFM 3D Capture"
-          initialCameraPosition={[0, 3.5, 6.5]}
-          initialCameraLookAt={[0, 0.8, 0]}
+          caption="Interactive EntireFM 3D model. Powered by advanced 3D Gaussian splatting and photogrammetric capture technology. Drag to orbit, scroll to zoom, right-click drag to pan."
+          initialCameraPosition={[0.2, 1.8, 4.5]}
+          initialCameraLookAt={[0, 0.2, 0]}
         />
       </div>
     </div>

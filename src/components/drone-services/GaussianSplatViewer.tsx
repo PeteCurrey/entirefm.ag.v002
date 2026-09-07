@@ -1,438 +1,433 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { 
-  Maximize2, 
-  Minimize2, 
-  RotateCcw, 
-  Box, 
-  AlertCircle,
-  HelpCircle
-} from 'lucide-react';
+/**
+ * GaussianSplatViewer — shell component (SSR-safe)
+ *
+ * Mirrors the battle-tested 3D visual feature from TFTS Drone (https://www.tfts.co.uk/tfts-3d).
+ *
+ * Handles: poster, real progress bar (driven by canvas onProgress + smooth animation),
+ * mobile/no-WebGL fallback, fullscreen toggle, control overlay.
+ *
+ * The heavy WebGL canvas is loaded via next/dynamic { ssr: false } so
+ * Three.js never runs server-side.
+ */
 
-interface GaussianSplatViewerProps {
-  splatUrl?: string;
-  splatCount?: number;
+import { useState, useEffect, useRef, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+import { Move, ZoomIn, Maximize2, Minimize2, RotateCcw, AlertCircle, HelpCircle } from 'lucide-react';
+
+const GaussianSplatCanvas = dynamic(
+  () => import('./GaussianSplatCanvas'),
+  { ssr: false, loading: () => null }
+);
+
+export interface GaussianSplatViewerProps {
+  splatSrc?: string;
+  splatUrl?: string; // backwards compatibility
+  posterSrc?: string;
   title?: string;
   subtitle?: string;
+  description?: string;
+  splatCount?: number;
+  caption?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  forceFallback?: boolean;
+  className?: string;
   initialCameraPosition?: [number, number, number];
   initialCameraLookAt?: [number, number, number];
-  className?: string;
   autoLoad?: boolean;
 }
 
-export function GaussianSplatViewer({
-  splatUrl = '/assets/gaussian-splats/04_05_2026.ksplat',
-  splatCount = 540274,
-  title = 'LIVE 3D SURVEY · ENTIREFM 3D',
-  subtitle = 'Captured by EntireFM Drone Services · EntireFM 3D Spatial Model',
-  initialCameraPosition = [0, 2.5, 6.0],
-  initialCameraLookAt = [0, -0.2, 0],
-  className = '',
-  autoLoad = true,
-}: GaussianSplatViewerProps) {
-  // outerRef — outer wrapper div (for IntersectionObserver + fullscreen)
-  const outerRef = useRef<HTMLDivElement>(null);
-  // canvasRef — inner div used as the GaussianSplats3D rootElement
-  // Kept isolated from overlay children so offsetWidth/offsetHeight is correct
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<any>(null);
-  const isInitializedRef = useRef<boolean>(false);
-  const rafRef = useRef<number | null>(null);
+const LOAD_LABELS: Record<number, string> = {
+  0: 'Connecting to spatial data server',
+  25: 'Downloading spatial splat data',
+  70: 'Processing Gaussian primitives',
+  90: 'Rendering 3D environment',
+};
 
-  const [loadingState, setLoadingState] = useState<'idle' | 'connecting' | 'downloading' | 'processing' | 'ready' | 'error'>('idle');
-  const [downloadProgress, setDownloadProgress] = useState<number>(0);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [showHelp, setShowHelp] = useState<boolean>(false);
-  const [isWebGlSupported, setIsWebGlSupported] = useState<boolean>(true);
+function getLabel(pct: number): string {
+  const keys = Object.keys(LOAD_LABELS).map(Number).sort((a, b) => b - a);
+  for (const k of keys) {
+    if (pct >= k) return LOAD_LABELS[k];
+  }
+  return LOAD_LABELS[0];
+}
 
-  // Check WebGL availability
+function useIsWebGLSupported() {
+  const [supported, setSupported] = useState<boolean | null>(null);
   useEffect(() => {
     try {
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-      if (!gl) {
-        setIsWebGlSupported(false);
-        setLoadingState('error');
-        setErrorMessage('WebGL 3D hardware acceleration is not supported on this browser or device.');
-      }
+      const ctx = canvas.getContext('webgl2') || canvas.getContext('webgl');
+      setSupported(!!ctx);
     } catch {
-      setIsWebGlSupported(false);
-      setLoadingState('error');
-      setErrorMessage('Unable to initialize WebGL hardware graphics context.');
+      setSupported(false);
     }
   }, []);
+  return supported;
+}
 
-  // Initialize Viewer
-  const initViewer = useCallback(async () => {
-    if (isInitializedRef.current || !canvasRef.current || !isWebGlSupported) return;
-    isInitializedRef.current = true;
-
-    // Wait for one rAF so the browser has painted layout and offsetWidth is real
-    await new Promise<void>((resolve) => {
-      rafRef.current = requestAnimationFrame(() => {
-        requestAnimationFrame(() => resolve());
-      });
-    });
-
-    if (!canvasRef.current) return;
-
-    // Sanity check: ensure the canvas root has real pixel dimensions before continuing
-    // If still 0, something is wrong with the parent layout — abort cleanly
-    const rootW = canvasRef.current.offsetWidth;
-    const rootH = canvasRef.current.offsetHeight;
-    if (rootW < 10 || rootH < 10) {
-      // Retry once more after a short delay to give layout more time
-      await new Promise<void>((r) => setTimeout(r, 200));
-      if (!canvasRef.current) return;
-      if (canvasRef.current.offsetWidth < 10) {
-        isInitializedRef.current = false;
-        return;
-      }
-    }
-
-    try {
-      setLoadingState('connecting');
-      setDownloadProgress(10);
-
-      const GaussianSplats3D = await import('@mkkellogg/gaussian-splats-3d');
-
-      if (!canvasRef.current) return;
-
-      // Viewer rootElement = canvasRef (the isolated inner div, not the outer wrapper)
-      // This ensures offsetWidth/offsetHeight used by getRenderDimensions() is correct
-      const viewer = new GaussianSplats3D.Viewer({
-        rootElement: canvasRef.current,
-        cameraUp: [0, 1, 0],
-        initialCameraPosition: initialCameraPosition,
-        initialCameraLookAt: initialCameraLookAt,
-        selfDrivenMode: true,
-        useBuiltInControls: true,
-        ignoreDevicePixelRatio: false,          // Use native DPR for crisp rendering on Retina/HiDPI
-        halfPrecisionCovariancesOnGPU: false,   // 32-bit floats: 100% WebGL compatibility
-        gpuAcceleratedSort: false,              // CPU WASM SIMD sort: reliable across all devices
-        sharedMemoryForWorkers: false,          // No COOP/COEP headers required
-        integerBasedSort: false,                // High-precision depth sorting
-        sphericalHarmonicsDegree: 1,            // SH degree 1: view-dependent colour & reflections
-        splatRenderMode: GaussianSplats3D.SplatRenderMode.ThreeD,
-        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Instant,
-        dynamicScene: false,
-        webXRMode: GaussianSplats3D.WebXRMode.None,
-        logLevel: GaussianSplats3D.LogLevel.None,
-        antialiased: true,
-        focalAdjustment: 1.0,
-      });
-
-      viewerRef.current = viewer;
-
-      setLoadingState('downloading');
-
-      await viewer.addSplatScene(splatUrl, {
-        format: GaussianSplats3D.SceneFormat.KSplat,
-        rotation: [0, 0, 0, 1],
-        position: [0, 0, 0],
-        scale: [1, 1, 1],
-        splatAlphaRemovalThreshold: 1,
-        showLoadingUI: false,
-        progressiveLoad: false,
-        onProgress: (percentComplete: number) => {
-          if (typeof percentComplete === 'number' && !isNaN(percentComplete) && isFinite(percentComplete)) {
-            const clamped = Math.max(5, Math.min(99, Math.round(percentComplete)));
-            setDownloadProgress(clamped);
-            if (clamped >= 95) setLoadingState('processing');
-          } else {
-            setDownloadProgress((prev) => {
-              const cur = typeof prev === 'number' && !isNaN(prev) ? prev : 10;
-              return Math.min(92, cur + 15);
-            });
-          }
-        },
-      });
-
-      // Start the render loop — the library's internal ResizeObserver on rootElement handles sizing
-      viewer.start();
-
-      // Pulse a resize on the next rAF so the library's ResizeObserver fires once more
-      // with the post-load final container dimensions (loading overlay is still covering it)
-      requestAnimationFrame(() => {
-        if (!canvasRef.current || !viewerRef.current) return;
-        const ev = new Event('resize');
-        // Trigger the library's ResizeObserver by dispatching a synthetic resize
-        // The cleanest way: temporarily resize then restore
-        const origWidth = canvasRef.current.style.width;
-        canvasRef.current.style.width = (canvasRef.current.offsetWidth + 1) + 'px';
-        requestAnimationFrame(() => {
-          if (!canvasRef.current) return;
-          canvasRef.current.style.width = origWidth;
-          viewerRef.current?.forceRenderNextFrame?.();
-        });
-      });
-
-      setDownloadProgress(100);
-      setLoadingState('ready');
-
-    } catch (err: any) {
-      console.error('GaussianSplatViewer load error:', err);
-      isInitializedRef.current = false;
-      setLoadingState('error');
-      setErrorMessage(err?.message || 'Failed to load EntireFM 3D asset.');
-    }
-  }, [splatUrl, initialCameraPosition, initialCameraLookAt, isWebGlSupported]);
-
-  // Lazy load when near viewport via IntersectionObserver
+function useInView(ref: React.RefObject<HTMLElement | null>, rootMargin = '200px') {
+  const [inView, setInView] = useState(false);
   useEffect(() => {
-    if (!autoLoad || !outerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!isInitializedRef.current) {
-              initViewer();
-            } else if (viewerRef.current) {
-              viewerRef.current.start();
-            }
-          } else if (viewerRef.current && isInitializedRef.current) {
-            viewerRef.current.stop();
-          }
-        });
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
       },
-      { threshold: 0.05, rootMargin: '200px' }
+      { rootMargin }
     );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref, rootMargin]);
+  return inView;
+}
 
-    observer.observe(outerRef.current);
-    return () => observer.disconnect();
-  }, [autoLoad, initViewer]);
+export function GaussianSplatViewer({
+  splatSrc,
+  splatUrl,
+  posterSrc = '/images/drone/gaussian-splat/casa-hotel.jpg',
+  title = 'EntireFM 3D — Live Spatial Site Survey',
+  subtitle = 'Captured by EntireFM Drone Services · EntireFM 3D Spatial Model',
+  description,
+  splatCount = 540274,
+  caption,
+  ctaLabel = 'Request EntireFM 3D Capture',
+  ctaHref = '/services/drone-services/digital-twin-3d-capture',
+  forceFallback = false,
+  className = '',
+  initialCameraPosition = [0.2, 1.8, 4.5],
+  initialCameraLookAt = [0, 0.2, 0],
+}: GaussianSplatViewerProps) {
+  const resolvedSplatSrc = splatSrc || splatUrl || '/assets/gaussian-splats/04_05_2026.ksplat';
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(wrapperRef as React.RefObject<HTMLElement | null>);
+  const webgl = useIsWebGLSupported();
 
-  // Clean up on component unmount
+  type Phase = 'idle' | 'loading' | 'live' | 'error' | 'fallback';
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [progress, setProgress] = useState(0);
+  const [isFullscreen, setIsFS] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
+  const [showHelp, setShowHelp] = useState(false);
+
+  const isMobile = typeof navigator !== 'undefined' &&
+    /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  const shouldFallback = forceFallback || isMobile || webgl === false;
+
   useEffect(() => {
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-      if (viewerRef.current) {
-        try {
-          viewerRef.current.stop();
-          viewerRef.current.dispose();
-        } catch {
-          // ignore cleanup errors
-        }
-        viewerRef.current = null;
-      }
-      isInitializedRef.current = false;
-    };
-  }, []);
-
-  // Handle Fullscreen — trigger a resize so the library resizes the canvas
-  const toggleFullscreen = useCallback(() => {
-    if (!outerRef.current) return;
-    if (!document.fullscreenElement) {
-      outerRef.current.requestFullscreen?.().catch(() => {});
-    } else {
-      document.exitFullscreen?.().catch(() => {});
+    if (inView && webgl !== null && phase === 'idle') {
+      setPhase(shouldFallback ? 'fallback' : 'loading');
     }
-  }, []);
+  }, [inView, webgl, phase, shouldFallback]);
+
+  // Continuous subtle progress simulation while loading so the UI never feels frozen
+  useEffect(() => {
+    if (phase !== 'loading') return;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev < 90) {
+          return prev + Math.random() * 3 + 1;
+        } else if (prev < 98) {
+          return prev + 0.4;
+        }
+        return prev;
+      });
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, [phase]);
 
   useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-      // Let the library's own ResizeObserver handle canvas resize
-      viewerRef.current?.forceRenderNextFrame?.();
+    if (!isFullscreen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsFS(false);
     };
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isFullscreen]);
+
+  const handleProgress = useCallback((pct: number) => {
+    setProgress((prev) => Math.max(prev, pct));
   }, []);
 
-  // Reset Camera View
-  const handleResetView = useCallback(() => {
-    if (!viewerRef.current) return;
-    try {
-      const viewer = viewerRef.current;
-      if (viewer.controls) {
-        viewer.controls.target.set(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
-        viewer.controls.update();
-      }
-      if (viewer.camera) {
-        viewer.camera.position.set(initialCameraPosition[0], initialCameraPosition[1], initialCameraPosition[2]);
-        viewer.camera.up.set(0, 1, 0);
-        viewer.camera.lookAt(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
-        if (viewer.camera.isPerspectiveCamera && canvasRef.current) {
-          const w = canvasRef.current.offsetWidth;
-          const h = canvasRef.current.offsetHeight;
-          if (w > 0 && h > 0) {
-            viewer.camera.aspect = w / h;
-            viewer.camera.updateProjectionMatrix();
-          }
-        }
-      }
-      viewer.forceRenderNextFrame();
-    } catch (e) {
-      console.warn('Could not reset camera controls:', e);
-    }
-  }, [initialCameraPosition, initialCameraLookAt]);
+  const handleReady = useCallback(() => {
+    setProgress(100);
+    // Small delay to let user see 100% before smooth reveal
+    setTimeout(() => {
+      setPhase('live');
+    }, 250);
+  }, []);
 
-  const displayPercent = typeof downloadProgress === 'number' && !isNaN(downloadProgress) && downloadProgress > 0
-    ? downloadProgress
-    : 45;
+  const handleError = useCallback(() => setPhase('error'), []);
+  const handleReset = useCallback(() => setResetKey((k) => k + 1), []);
+  const handleRetry = useCallback(() => {
+    setPhase('loading');
+    setProgress(0);
+    setResetKey((k) => k + 1);
+  }, []);
+
+  // Failsafe timeout: if loading has been ongoing for 18s and no error was thrown, open live
+  useEffect(() => {
+    if (phase !== 'loading') return;
+    const timer = setTimeout(() => {
+      setProgress(100);
+      setPhase('live');
+    }, 18000);
+    return () => clearTimeout(timer);
+  }, [phase]);
+
+  const displayProgress = Math.min(100, Math.round(progress));
 
   return (
     <div
-      ref={outerRef}
-      className={`relative w-full min-h-[420px] aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group font-sans ${className}`}
-      tabIndex={0}
-      aria-label={`${title} - Interactive EntireFM 3D drone reality capture model. Use mouse to orbit and scroll to zoom.`}
+      ref={wrapperRef}
+      className={
+        isFullscreen
+          ? 'fixed inset-0 z-[9999] bg-[#060A14] flex flex-col'
+          : `relative w-full ${className}`
+      }
+      role="region"
+      aria-label={`Interactive EntireFM 3D viewer: ${title}`}
     >
-      {/* ── Inner canvas root (isolated from overlay children so offsetWidth is correct) ── */}
       <div
-        ref={canvasRef}
-        className="absolute inset-0"
-        style={{ zIndex: 0 }}
-      />
+        className={`relative bg-[#060A14] border border-white/15 rounded-sm overflow-hidden shadow-2xl ${
+          isFullscreen ? 'flex-1' : 'aspect-[16/10] sm:aspect-[16/9] min-h-[420px]'
+        }`}
+      >
+        {/* Poster — always underneath, fades out smoothly when live */}
+        {posterSrc && (
+          <img
+            src={posterSrc}
+            alt={title}
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-1000 ${
+              phase === 'live' ? 'opacity-0' : 'opacity-70'
+            } ${phase === 'loading' ? 'scale-105 blur-sm' : ''}`}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none z-[1]" />
 
-      {/* ── Overlay: Top Left Metadata ──────────────────────────────────── */}
-      <div className="absolute top-4 left-4 z-20 pointer-events-none flex flex-col gap-1">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 shadow-md">
-          <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="text-xs font-medium uppercase tracking-wider text-white">
-            {title}
-          </span>
-        </div>
-        <span className="text-[11px] text-slate-300 font-light bg-brand-void/70 backdrop-blur-sm px-2.5 py-0.5 rounded-sm border border-white/10 w-fit">
-          {subtitle}
-        </span>
-      </div>
-
-      {/* ── Overlay: Top Right Controls ─────────────────────────────────── */}
-      <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-        <button
-          onClick={() => setShowHelp((prev) => !prev)}
-          title="Interaction Guide"
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
-          aria-label="Toggle navigation help"
-        >
-          <HelpCircle className="h-4 w-4" />
-        </button>
-
-        <button
-          onClick={handleResetView}
-          disabled={loadingState !== 'ready'}
-          title="Reset Camera View"
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-          aria-label="Reset camera view"
-        >
-          <RotateCcw className="h-4 w-4" />
-        </button>
-
-        <button
-          onClick={toggleFullscreen}
-          title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
-          aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-        >
-          {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
-        </button>
-      </div>
-
-      {/* ── Overlay: Bottom Interaction Bar ─────────────────────────────── */}
-      <div className="absolute bottom-4 inset-x-4 z-20 pointer-events-none flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300 font-light">
-        <div className="bg-brand-void/85 backdrop-blur-md px-3.5 py-1.5 rounded-sm border border-white/15 flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-white font-normal">
-            <span className="text-brand-pink font-medium">DRAG:</span> Orbit Scene
-          </span>
-          <span className="hidden sm:inline text-white/20">•</span>
-          <span className="hidden sm:flex items-center gap-1.5 text-white font-normal">
-            <span className="text-brand-pink font-medium">SCROLL:</span> Zoom
-          </span>
-          <span className="hidden sm:inline text-white/20">•</span>
-          <span className="hidden sm:flex items-center gap-1.5 text-white font-normal">
-            <span className="text-brand-pink font-medium">RIGHT-CLICK:</span> Pan
-          </span>
-        </div>
-
-        <div className="bg-brand-void/85 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/15 flex items-center gap-2 text-emerald-400 font-medium text-[11px] uppercase tracking-wider">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-          <span>Interactive EntireFM 3D Engine</span>
-        </div>
-      </div>
-
-      {/* ── Help Tooltip Modal ──────────────────────────────────────────── */}
-      {showHelp && (
-        <div className="absolute top-16 right-4 z-30 w-72 p-4 rounded-sm bg-brand-void/95 backdrop-blur-lg border border-brand-pink/40 shadow-2xl text-xs space-y-2.5 text-slate-200">
-          <div className="flex items-center justify-between text-white border-b border-white/10 pb-1.5">
-            <span className="text-brand-pink font-medium uppercase tracking-wider text-[11px]">NAVIGATION GUIDE</span>
-            <button onClick={() => setShowHelp(false)} className="text-slate-400 hover:text-white cursor-pointer">✕</button>
-          </div>
-          <div className="space-y-1.5 text-xs font-light">
-            <p><strong className="text-white font-normal">Left Mouse / 1-Finger Touch:</strong> Rotate and orbit around the structure.</p>
-            <p><strong className="text-white font-normal">Mouse Wheel / Pinch:</strong> Smooth zoom in and out.</p>
-            <p><strong className="text-white font-normal">Right Mouse / 2-Finger Touch:</strong> Pan the camera position.</p>
-            <p><strong className="text-white font-normal">Reset Button:</strong> Return to initial aerial 3/4 perspective.</p>
-          </div>
-        </div>
-      )}
-
-      {/* ── Loading Overlay Experience ──────────────────────────────────── */}
-      {loadingState !== 'ready' && loadingState !== 'error' && (
-        <div className="absolute inset-0 z-30 bg-[#060A14] flex flex-col items-center justify-center p-6 text-center space-y-6">
-          <div className="relative">
-            <div className="w-16 h-16 rounded-full border border-brand-pink/20 border-t-brand-pink animate-spin" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Box className="h-6 w-6 text-brand-pink animate-pulse" />
+        {/* IDLE */}
+        {phase === 'idle' && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center">
+            <div className="text-center px-8">
+              <div className="inline-flex items-center gap-2 text-brand-pink text-xs tracking-[0.25em] uppercase mb-2 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-pink animate-pulse" />
+                EntireFM 3D Spatial Data Ready
+              </div>
+              <p className="text-slate-400 text-xs tracking-widest uppercase font-light">
+                Scroll to activate 3D viewer
+              </p>
             </div>
           </div>
+        )}
 
-          <div className="space-y-2 max-w-md">
-            <span className="text-xs uppercase tracking-[0.2em] text-brand-pink block font-medium">
-              ENTIREFM 3D · DIGITAL TWIN CAPTURE
-            </span>
-            <h4 className="text-xl sm:text-2xl font-light text-white tracking-tight">
-              {loadingState === 'connecting' && 'Connecting to 3D Stream…'}
-              {loadingState === 'downloading' && `Downloading EntireFM 3D Model (${displayPercent}%)`}
-              {loadingState === 'processing' && 'Synthesizing EntireFM 3D Spatial Capture…'}
-            </h4>
-            <p className="text-xs text-slate-400 font-light leading-relaxed">
-              Streaming photorealistic interactive 3D spatial capture generated from high-overlap commercial drone flight.
+        {/* LOADING — dynamic circular & linear progress bar */}
+        {phase === 'loading' && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center bg-[#060A14]/75 backdrop-blur-sm">
+            <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mb-6 relative" aria-hidden="true">
+              <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="30" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
+                <circle
+                  cx="32"
+                  cy="32"
+                  r="30"
+                  fill="none"
+                  stroke="#ec4899"
+                  strokeWidth="2"
+                  strokeDasharray={`${2 * Math.PI * 30}`}
+                  strokeDashoffset={`${2 * Math.PI * 30 * (1 - displayProgress / 100)}`}
+                  className="transition-all duration-300"
+                />
+              </svg>
+              <span className="text-white text-xs tabular-nums font-light">{displayProgress}%</span>
+            </div>
+            <p className="text-xs tracking-[0.25em] uppercase text-brand-pink mb-2 font-medium">
+              {getLabel(displayProgress)}
             </p>
+            <p className="text-[11px] tracking-[0.18em] uppercase text-slate-400 font-light">
+              Preparing {splatCount.toLocaleString()} spatial splats
+            </p>
+            <div className="mt-6 w-64 h-1 bg-white/10 rounded-full overflow-hidden relative">
+              <div
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand-pink to-brand-pink-light transition-all duration-300 rounded-full"
+                style={{ width: `${displayProgress}%` }}
+              />
+            </div>
           </div>
+        )}
 
-          <div className="w-full max-w-xs h-1 bg-white/10 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-electric transition-all duration-300 ease-out"
-              style={{ width: `${displayPercent}%` }}
+        {/* WebGL canvas — mounted during loading, smoothly fades in when live */}
+        {(phase === 'loading' || phase === 'live') && !shouldFallback && (
+          <div
+            className={`absolute inset-0 z-10 transition-opacity duration-700 ${
+              phase === 'live' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <GaussianSplatCanvas
+              key={resetKey}
+              splatSrc={resolvedSplatSrc}
+              onReady={handleReady}
+              onError={handleError}
+              onProgress={handleProgress}
+              initialCameraPosition={initialCameraPosition}
+              initialCameraLookAt={initialCameraLookAt}
             />
           </div>
+        )}
 
-          <div className="text-xs text-slate-400 font-light">
-            EntireFM 3D Spatial Engine · WebGL Hardware Accelerated
+        {/* FALLBACK */}
+        {phase === 'fallback' && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-10 text-center bg-[#060A14]/90 backdrop-blur-md">
+            <div className="max-w-md space-y-4">
+              <div className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center mx-auto text-slate-300">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <h3 className="text-sm tracking-[0.2em] uppercase text-white font-medium">
+                3D Viewer Hardware Requirements
+              </h3>
+              <p className="text-xs text-slate-400 tracking-wider leading-relaxed">
+                The interactive EntireFM 3D viewer is optimised for desktop devices with WebGL 2 hardware graphics support.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* ── Error / Fallback State ──────────────────────────────────────── */}
-      {loadingState === 'error' && (
-        <div className="absolute inset-0 z-30 bg-[#060A14] flex flex-col items-center justify-center p-6 text-center space-y-4">
-          <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
-            <AlertCircle className="h-6 w-6" />
-          </div>
-          <div className="space-y-1 max-w-md">
-            <h4 className="text-lg font-light text-white">Interactive EntireFM 3D View Unavailable</h4>
-            <p className="text-xs text-slate-400 font-light leading-relaxed">
-              {errorMessage || 'Your browser or device does not meet the WebGL hardware requirements to render real-time EntireFM 3D spatial models.'}
+        {/* ERROR */}
+        {phase === 'error' && (
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-10 text-center bg-[#060A14]/95 backdrop-blur-md space-y-4">
+            <AlertCircle className="w-10 h-10 text-red-400" />
+            <h3 className="text-sm tracking-[0.2em] uppercase text-white font-medium">
+              3D Model Initialisation Error
+            </h3>
+            <p className="text-xs text-slate-400 tracking-wider max-w-md leading-relaxed">
+              The interactive spatial asset could not be loaded on this session.
             </p>
+            <button
+              onClick={handleRetry}
+              className="px-5 py-2 rounded-sm bg-brand-pink/20 hover:bg-brand-pink/30 border border-brand-pink/40 text-xs tracking-wider uppercase text-white transition-colors"
+            >
+              Retry Initialisation
+            </button>
           </div>
-          <button
-            onClick={() => {
-              isInitializedRef.current = false;
-              setLoadingState('idle');
-              setErrorMessage(null);
-              setDownloadProgress(0);
-              setTimeout(() => initViewer(), 100);
-            }}
-            className="px-4 py-2 rounded-sm bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-medium text-white transition-colors cursor-pointer"
-          >
-            Retry 3D Initialisation
-          </button>
+        )}
+
+        {/* Live overlay */}
+        {phase === 'live' && (
+          <>
+            {/* Top Left Metadata */}
+            <div className="absolute top-4 left-4 z-30 pointer-events-none flex flex-col gap-1">
+              <div className="bg-[#060A14]/85 backdrop-blur-md border border-white/15 px-3 py-1.5 rounded-sm flex items-center gap-2.5 shadow-md">
+                <span className="w-2 h-2 rounded-full bg-brand-pink animate-pulse" />
+                <span className="text-xs font-medium uppercase tracking-wider text-white">
+                  {title}
+                </span>
+                <span className="text-[11px] tracking-wider uppercase text-slate-400 hidden sm:inline">
+                  · {splatCount.toLocaleString()} splats
+                </span>
+              </div>
+              {subtitle && (
+                <span className="text-[11px] text-slate-300 font-light bg-[#060A14]/70 backdrop-blur-sm px-2.5 py-0.5 rounded-sm border border-white/10 w-fit">
+                  {subtitle}
+                </span>
+              )}
+            </div>
+
+            {/* Bottom Left Navigation Controls Guide */}
+            <div className="absolute bottom-4 left-4 z-30 pointer-events-none">
+              <div className="bg-[#060A14]/85 backdrop-blur-md border border-white/15 px-3.5 py-2 rounded-sm flex items-center gap-4 text-xs text-slate-300 font-light shadow-md">
+                <div className="flex items-center gap-1.5 text-white font-normal">
+                  <Move className="w-3.5 h-3.5 text-brand-pink" aria-hidden="true" />
+                  <span><strong className="text-brand-pink font-medium">DRAG:</strong> Orbit</span>
+                </div>
+                <div className="w-px h-3 bg-white/15" />
+                <div className="flex items-center gap-1.5 text-white font-normal">
+                  <ZoomIn className="w-3.5 h-3.5 text-brand-pink" aria-hidden="true" />
+                  <span><strong className="text-brand-pink font-medium">SCROLL:</strong> Zoom</span>
+                </div>
+                <div className="w-px h-3 bg-white/15 hidden sm:block" />
+                <span className="hidden sm:inline text-white/80">
+                  <strong className="text-brand-pink font-medium">RIGHT-CLICK:</strong> Pan
+                </span>
+              </div>
+            </div>
+
+            {/* Top Right Action Controls */}
+            <div className="absolute top-4 right-4 z-30 flex items-center gap-2">
+              <button
+                onClick={() => setShowHelp((prev) => !prev)}
+                title="Interaction Guide"
+                className="p-2.5 rounded-sm bg-[#060A14]/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
+                aria-label="Toggle navigation help"
+              >
+                <HelpCircle className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={handleReset}
+                title="Reset Camera View"
+                aria-label="Reset camera view"
+                className="p-2.5 rounded-sm bg-[#060A14]/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={() => setIsFS((f) => !f)}
+                title={isFullscreen ? 'Exit fullscreen (Esc)' : 'Fullscreen'}
+                aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                className="p-2.5 rounded-sm bg-[#060A14]/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
+              >
+                {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+              </button>
+            </div>
+
+            {/* Help Tooltip Modal */}
+            {showHelp && (
+              <div className="absolute top-16 right-4 z-40 w-72 p-4 rounded-sm bg-[#060A14]/95 backdrop-blur-lg border border-brand-pink/40 shadow-2xl text-xs space-y-2.5 text-slate-200">
+                <div className="flex items-center justify-between text-white border-b border-white/10 pb-1.5">
+                  <span className="text-brand-pink font-medium uppercase tracking-wider text-[11px]">
+                    3D NAVIGATION GUIDE
+                  </span>
+                  <button onClick={() => setShowHelp(false)} className="text-slate-400 hover:text-white cursor-pointer">
+                    ✕
+                  </button>
+                </div>
+                <div className="space-y-1.5 text-xs font-light">
+                  <p><strong className="text-white font-normal">Left Mouse / 1-Finger Touch:</strong> Orbit around asset.</p>
+                  <p><strong className="text-white font-normal">Mouse Wheel / Pinch:</strong> Zoom in / out.</p>
+                  <p><strong className="text-white font-normal">Right Mouse / 2-Finger Touch:</strong> Pan camera.</p>
+                  <p><strong className="text-white font-normal">Reset Button:</strong> Return to initial aerial view.</p>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {!isFullscreen && (
+        <div className="mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div className="text-[11px] tracking-wider uppercase text-slate-400 font-light flex items-center gap-2">
+            <span>EntireFM 3D Visualisation</span>
+            <span>·</span>
+            <span>Desktop with WebGL 2 recommended</span>
+          </div>
+          {caption && (
+            <p className="text-xs text-slate-400 font-light italic">
+              {caption}
+            </p>
+          )}
         </div>
       )}
     </div>
   );
 }
+
+export default GaussianSplatViewer;

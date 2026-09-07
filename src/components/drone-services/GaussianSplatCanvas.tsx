@@ -1,42 +1,38 @@
 'use client';
 
 /**
- * GaussianSplatCanvas — raw WebGL canvas
+ * GaussianSplatCanvas — raw WebGL canvas using @mkkellogg/gaussian-splats-3d
  *
- * Dynamically imported (ssr: false) — Three.js never runs server-side.
- * This component owns the full GaussianSplats3D viewer lifecycle.
+ * Dynamically imported with { ssr: false } so it only runs in the browser.
+ * Mounts and owns the Three.js / WebGL lifecycle.
  *
- * Key settings that produce a sharp, high-detail render:
- * - rotation: [1, 0, 0, 0]  — 180° X-axis flip for Polycam/ksplat Y-down convention
- * - splatAlphaRemovalThreshold: 5  — removes noisy near-transparent splats that cause haze
- * - gpuAcceleratedSort: false, sharedMemoryForWorkers: false  — broad device compatibility
- * - halfPrecisionCovariancesOnGPU: false  — full 32-bit float precision covariances
- * - The mount div uses w-full h-full so offsetWidth/offsetHeight are always real pixels
- *   when the library's internal ResizeObserver fires
+ * Polycam exports with Y-axis down. We compensate by setting:
+ *   rotation: [1, 0, 0, 0] (180° around X) with standard cameraUp [0, 1, 0]
+ * so the scene renders upright and properly framed on load.
  */
 
 import { useEffect, useRef, useCallback } from 'react';
 import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
 
-interface GaussianSplatCanvasProps {
+interface Props {
   splatSrc: string;
-  initialCameraPosition?: [number, number, number];
-  initialCameraLookAt?: [number, number, number];
   onReady: () => void;
   onError: () => void;
   onProgress?: (pct: number) => void;
+  initialCameraPosition?: [number, number, number];
+  initialCameraLookAt?: [number, number, number];
 }
 
 export default function GaussianSplatCanvas({
   splatSrc,
-  initialCameraPosition = [0.2, 1.8, 4.5],
-  initialCameraLookAt   = [0, 0.2, 0],
   onReady,
   onError,
   onProgress,
-}: GaussianSplatCanvasProps) {
-  const mountRef   = useRef<HTMLDivElement>(null);
-  const viewerRef  = useRef<InstanceType<typeof GaussianSplats3D.Viewer> | null>(null);
+  initialCameraPosition = [0.2, 1.8, 4.5],
+  initialCameraLookAt = [0, 0.2, 0],
+}: Props) {
+  const mountRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<InstanceType<typeof GaussianSplats3D.Viewer> | null>(null);
   const readyFired = useRef(false);
 
   const safeReady = useCallback(() => {
@@ -51,7 +47,7 @@ export default function GaussianSplatCanvas({
         viewerRef.current.stop();
         viewerRef.current.dispose();
       }
-    } catch { /* ignore cleanup errors */ }
+    } catch {}
     viewerRef.current = null;
   }, []);
 
@@ -76,21 +72,31 @@ export default function GaussianSplatCanvas({
           halfPrecisionCovariancesOnGPU: false,
           dynamicScene: false,
           logLevel: GaussianSplats3D.LogLevel.None,
+          orbitControls: {
+            enableDamping: true,
+            dampingFactor: 0.08,
+            enableZoom: true,
+            zoomSpeed: 0.8,
+            minDistance: 0.5,
+            maxDistance: 30,
+            enablePan: true,
+            panSpeed: 0.6,
+            autoRotate: false,
+            maxPolarAngle: Math.PI / 2 + 0.2, // Prevents flipping under the ground plane
+          },
         });
 
         viewerRef.current = viewer;
 
         await viewer.addSplatScene(splatSrc, {
-          // 180° X-axis rotation: corrects Polycam/ksplat Y-axis-down convention
+          splatAlphaRemovalThreshold: 5,
           rotation: [1, 0, 0, 0],
           position: [0, 0, 0],
-          scale:    [1, 1, 1],
-          // Remove near-transparent noisy splats that cause hazy/blurry appearance
-          splatAlphaRemovalThreshold: 5,
+          scale: [1, 1, 1],
           progressiveLoad: false,
           showLoadingUI: false,
           onProgress: (percentComplete: number) => {
-            if (!cancelled && typeof percentComplete === 'number' && !isNaN(percentComplete)) {
+            if (!cancelled && typeof percentComplete === 'number') {
               const clamped = Math.min(98, Math.max(1, Math.round(percentComplete)));
               onProgress?.(clamped);
             }
@@ -98,14 +104,19 @@ export default function GaussianSplatCanvas({
         });
 
         if (cancelled) {
-          try { viewer.stop(); viewer.dispose(); } catch { /* ignore */ }
+          try {
+            viewer.stop();
+            viewer.dispose();
+          } catch {}
           return;
         }
 
+        // Start viewer render loop
         viewer.start();
+
+        // Signal completion
         onProgress?.(100);
         safeReady();
-
       } catch (err) {
         if (!cancelled) {
           console.error('[GaussianSplatCanvas] init error:', err);
@@ -120,15 +131,13 @@ export default function GaussianSplatCanvas({
       cancelled = true;
       cleanup();
     };
-  // Stable refs — exclude from deps to avoid re-init on every render
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [splatSrc]);
+  }, [splatSrc, onReady, onError, onProgress, safeReady, cleanup, initialCameraPosition, initialCameraLookAt]);
 
   return (
     <div
       ref={mountRef}
       className="w-full h-full"
-      aria-label="Interactive EntireFM 3D viewer — drag to orbit, scroll to zoom"
+      aria-label="Interactive 3D viewer — drag to orbit, scroll to zoom"
       role="img"
       style={{ cursor: 'grab' }}
     />
