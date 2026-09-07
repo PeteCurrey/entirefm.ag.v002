@@ -260,3 +260,42 @@ For regulatory shifts or deadlines:
 1. Set `contentLifecycle: 'time-sensitive'`.
 2. Add `effectiveDate` and optional `actionDeadline` in the `complianceData` block.
 3. Schedule periodic quarterly review of all items where `contentLifecycle === 'time-sensitive'`.
+
+---
+
+## 14. Curated Slot Cadence & Staleness Guardrails
+
+While the **Briefing Wire** and **Compliance Watch** are powered by automated live data pipelines from `intelligence_items`, the long-form editorial modules on `/lobby` are human-curated. To prevent these slots from becoming stale, the platform enforces an observability guardrail.
+
+### Refresh Cadence
+
+| Editorial Slot | Franchise | Minimum Cadence | Rationale |
+|---|---|---|---|
+| **Lead Briefing** | `week-that-matters` | **Weekly (every Monday)** | Sets the dominant news hook for the current edition cycle. Must rotate every week. |
+| **The Engineer's Note** | `engineers-note` | **Bi-weekly (fortnightly)** | Technical diagnostics and field engineering best practices. |
+| **One Useful Thing** | `useful-thing` | **Monthly** | High-utility downloadable spreadsheets, checklists, or calculators. |
+| **From The Field** | `from-the-field` | **Bi-weekly** | Photographic site defect challenge and resolution. |
+| **Ask EntireFM** | `ask-entirefm` | **Bi-weekly** | Practical operational Q&A addressing duty-holder questions. |
+| **Worth Attending** | `worth-attending` | **Monthly / Per Event** | Upcoming CPD webinars, seminars, and technical conferences. |
+
+### How to Publish and Rotate Curated Content
+
+Publishing a new editorial rotation requires editing only **two files**:
+
+1. **`src/lib/lobby/content-store.ts`**:
+   Add the new article object to `LOBBY_ARTICLES` with current `publishedAt: 'YYYY-MM-DD'` and `status: 'published'`.
+
+2. **`src/lib/lobby/curation.ts`**:
+   Update `LOBBY_HOMEPAGE_CURATION` (or the `lobby_homepage_curation` database table via Admin Curation):
+   - Set `updatedAt: 'YYYY-MM-DD'` to today's date.
+   - Point the corresponding slot slug (e.g. `leadStorySlug`, `engineersNoteSlug`, etc.) to the new article's slug.
+
+### Automated Staleness Warnings
+
+The server-side data resolver (`src/lib/lobby/repository.ts`) inspects the `publishedAt` date of all resolved editorial items at request time:
+- If the resolved **Lead Story** (or any curated slot) exceeds **7 days** since publication, a server warning is emitted to Vercel/production logs:
+  ```
+  [Lobby] Lead story is 11 days stale: building-safety-act-what-fm-teams-need-to-know-now
+  ```
+- This warning does not break or hide content on the page—it provides operational visibility so editors and developers know a scheduled content refresh is overdue.
+

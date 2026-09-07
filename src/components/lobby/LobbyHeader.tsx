@@ -6,11 +6,31 @@ import { usePathname } from 'next/navigation';
 import { ArrowLeft, Sparkles, Menu, X, ShieldCheck, Briefcase, MessageSquare, Clock, BookOpen, Layers } from 'lucide-react';
 import { MemberNavControl } from '@/components/member/MemberNavControl';
 
-export function LobbyHeader() {
+interface LobbyHeaderProps {
+  initialDateStr?: string;
+}
+
+function getFormattedServerDate(): string {
+  try {
+    return new Intl.DateTimeFormat('en-GB', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'Europe/London',
+    }).format(new Date());
+  } catch {
+    return '';
+  }
+}
+
+export function LobbyHeader({ initialDateStr }: LobbyHeaderProps = {}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentDateStr, setCurrentDateStr] = useState<string>('Friday, 28 August 2026');
+  const [currentDateStr, setCurrentDateStr] = useState<string>(
+    initialDateStr || getFormattedServerDate()
+  );
 
   useEffect(() => {
     try {

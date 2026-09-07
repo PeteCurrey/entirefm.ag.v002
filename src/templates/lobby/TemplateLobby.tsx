@@ -46,27 +46,7 @@ export async function TemplateLobby() {
     imageAlt: 'Building Safety Golden Thread and commercial building envelope compliance inspection',
   };
 
-  const complianceWatchProps = {
-    id: data.complianceWatch.id,
-    statute: data.complianceWatch.complianceData?.statute || 'Building Safety Act 2022',
-    regulationTitle: data.complianceWatch.title,
-    urgency: data.complianceWatch.complianceData?.urgency || 'HIGH',
-    effectiveDate: data.complianceWatch.complianceData?.effectiveDate || 'Enforced Q4 2026',
-    whatChanged: data.complianceWatch.complianceData?.whatChanged || data.complianceWatch.standfirst,
-    whoItAffects:
-      data.complianceWatch.complianceData?.whoItAffects ||
-      'Commercial landlords, estates directors, corporate facilities heads, and responsible persons.',
-    whatYouNeedToDo:
-      data.complianceWatch.complianceData?.whatYouNeedToDo ||
-      'Audit your current CAFM asset change-log and verify contractor accreditations.',
-    whenItMatters:
-      data.complianceWatch.complianceData?.whenItMatters ||
-      'Immediate action required for active PPM cycles and planned Q4 works.',
-    governingBody: data.complianceWatch.complianceData?.governingBody || 'Building Safety Regulator (HSE)',
-    sourceDocUrl: `/lobby/${data.complianceWatch.slug}`,
-    imageUrl: '/images/editorial/commercial-switchgear-compliance.jpg',
-    imageAlt: 'Mandatory digital occurrence reporting and electrical switchroom verification',
-  };
+  const complianceWatchProps = data.complianceWatch;
 
   const engineersNoteProps = {
     id: data.engineersNote.id,
@@ -179,7 +159,7 @@ export async function TemplateLobby() {
             <div className="container-wide flex flex-wrap items-center justify-between gap-4 text-xs font-normal text-neutral-500">
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-neutral-900 font-medium">EDITION 2026.35</span>
+                <span className="text-neutral-900 font-medium">{data.curation.editionLabel.split('·')[0].trim().toUpperCase()}</span>
                 <span>·</span>
                 <span>STATUTORY COMPLIANCE &amp; HARD FM INTELLIGENCE</span>
               </div>

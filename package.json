@@ -32,7 +32,6 @@
     "test:asbestos-safety-gate": "tsx --env-file=.env.local scripts/test-asbestos-safety-gate.ts",
     "test:finance-pipeline": "tsx --env-file=.env.local scripts/test-finance-e2e-pipeline.ts",
     "audit:contractor-matching": "tsx --env-file=.env.local scripts/audit-contractor-matching-readiness.ts",
-
     "backfill:sites-geo": "tsx --env-file=.env.local scripts/backfill-site-geocodes.ts",
     "backfill:depots-geo": "tsx --env-file=.env.local scripts/backfill-provider-location-geocodes.ts",
     "test:field-intelligence": "tsx --env-file=.env.local scripts/test-field-intelligence.ts",
@@ -109,6 +108,7 @@
     "sharp": "^0.35.3",
     "stripe": "^22.5.0",
     "three": "^0.185.1",
+    "twilio": "^6.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

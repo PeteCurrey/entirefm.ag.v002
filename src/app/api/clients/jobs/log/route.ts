@@ -35,6 +35,7 @@ import {
 import { TradeCategory, UrgencyLevel } from '@/server/ai/helpdesk/types';
 import { recordAuditEvent } from '@/server/audit';
 import { saveLead, leadStoreConfigured } from '@/lib/leads/store';
+import { dispatchJobCreatedNotificationPipeline } from '@/server/notifications/job-created-pipeline';
 
 export const dynamic = 'force-dynamic';
 
@@ -276,6 +277,30 @@ export async function POST(req: NextRequest) {
             });
           } catch (err: any) {
             console.warn('[PUBLIC_DISPATCH_NOTICE]:', err?.message);
+          }
+
+          // Dispatch notifications for matched estate job
+          try {
+            await dispatchJobCreatedNotificationPipeline({
+              jobId: wo.id,
+              workOrderNumber: wo.work_order_number,
+              serviceRequestId: sr.id,
+              propertyId: estateCtx.siteId,
+              propertyName: triageResult?.resolved_site_name || property_address || 'Matched Estate Property',
+              clientName: managing_agent_name || company_name || 'Tenant Submission',
+              title: wo.title,
+              description: fullMessage,
+              priority: finalPriority,
+              isEmergency: finalPriority === 'P1_CRITICAL',
+              category,
+              contactEmail: publicEmail || undefined,
+              contactPhone: contact_phone || undefined,
+              createdByUserName: publicName || 'Tenant Reporter',
+              createdByEmail: publicEmail || undefined,
+              createdAt: wo.created_at || new Date().toISOString(),
+            });
+          } catch (notifErr: any) {
+            console.error('[PUBLIC_JOB_NOTIFICATION_ERROR]:', notifErr);
           }
 
           const slaHours = CANONICAL_SLA_HOURS[finalPriority] || 24;
@@ -594,6 +619,33 @@ export async function POST(req: NextRequest) {
       });
     } catch (err: any) {
       console.warn('[LOG_A_JOB_DISPATCH_NOTICE]:', err?.message);
+    }
+
+    // 12. Dispatch Job Created Notifications (In-App Admin, Operations Email, Emergency SMS)
+    try {
+      await dispatchJobCreatedNotificationPipeline({
+        jobId: wo.id,
+        workOrderNumber: wo.work_order_number,
+        serviceRequestId: sr.id,
+        propertyId: targetSite.id,
+        propertyName: targetSite.name,
+        propertyPostcode: targetSite.postcode || undefined,
+        clientName: session.orgName || undefined,
+        title: wo.title,
+        description: sr.description,
+        priority: finalPriority,
+        isEmergency: finalPriority === 'P1_CRITICAL',
+        category,
+        contactEmail: session.email || contact_email || undefined,
+        contactPhone: contact_phone || undefined,
+        createdByUserId: session.personId,
+        createdByUserName: session.name,
+        createdByEmail: session.email,
+        createdAt: wo.created_at || new Date().toISOString(),
+      });
+    } catch (notifErr: any) {
+      // Failure isolation: NEVER fail job creation if notifications fail
+      console.error('[JOB_LOG_NOTIFICATION_ERROR]:', notifErr);
     }
 
     return NextResponse.json({

@@ -8,6 +8,10 @@ export const metadata: Metadata = generateRouteMetadata('/lobby', {
     'The daily briefing room for UK facilities management professionals: regulatory updates, engineering notes, compliance watch, practical tools, Q&A, and industry intelligence.',
 });
 
+// Revalidate every 15 minutes so the briefing wire reflects the latest
+// approved intelligence items without requiring a full rebuild.
+export const revalidate = 900;
+
 export default function LobbyPage() {
   return <TemplateLobby />;
 }

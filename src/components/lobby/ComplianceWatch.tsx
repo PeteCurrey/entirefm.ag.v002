@@ -5,10 +5,32 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 import type { ComplianceWatchItem } from '@/data/lobby/types';
 
 interface ComplianceWatchProps {
-  data: ComplianceWatchItem;
+  data: ComplianceWatchItem | null;
 }
 
 export function ComplianceWatch({ data }: ComplianceWatchProps) {
+  if (!data) {
+    return (
+      <article className="flex flex-col justify-between h-full bg-[#181C24] text-white rounded-sm overflow-hidden p-8 sm:p-10 relative">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-400 font-medium">
+              COMPLIANCE WATCH
+            </span>
+            <span className="text-xs text-white/40 font-mono">FEED_OFFLINE</span>
+          </div>
+          <div className="flex items-center gap-3 py-8 text-sm text-neutral-400 font-light italic">
+            <span className="w-2 h-2 rounded-full bg-amber-400/80 shrink-0" />
+            <span>No verified regulatory or statutory compliance alerts in the current monitoring cycle.</span>
+          </div>
+        </div>
+        <div className="text-xs text-white/40 font-light pt-4 border-t border-white/10">
+          Continuous monitoring: HSE, Building Safety Regulator, Environment Agency &amp; Statutory Instruments.
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article className="flex flex-col justify-between h-full bg-[#181C24] text-white rounded-sm overflow-hidden p-8 sm:p-10 relative group">
       {/* Background Architectural Switchgear Plate with High Restraint */}

@@ -12,11 +12,23 @@ const HERO_PROMPTS = [
   'Who won major cleaning contracts this month?',
 ];
 
+function getIsoYearAndWeek(date: Date = new Date()): { year: number; week: number } {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+  return { year: d.getUTCFullYear(), week: weekNo };
+}
+
 export function LobbyMasthead() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [mode, setMode] = useState<'ask' | 'deep_research'>('ask');
   const bgRef = useRef<HTMLDivElement>(null);
+
+  const { year, week } = getIsoYearAndWeek();
+  const editionString = `Daily Intelligence Edition ${year}.${week.toString().padStart(2, '0')}`;
 
   useEffect(() => {
     let ticking = false;
@@ -208,7 +220,7 @@ export function LobbyMasthead() {
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
             <span className="text-[11px] tracking-wider uppercase text-brand-mist/80 font-extralight">
-              Daily Intelligence Edition 2026.35
+              {editionString}
             </span>
           </div>
 

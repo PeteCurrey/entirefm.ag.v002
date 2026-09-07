@@ -6,9 +6,17 @@ export default function LobbyLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const initialDateStr = new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Europe/London',
+  }).format(new Date());
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <LobbyHeader />
+      <LobbyHeader initialDateStr={initialDateStr} />
       <div className="flex-1 flex flex-col">
         {children}
       </div>

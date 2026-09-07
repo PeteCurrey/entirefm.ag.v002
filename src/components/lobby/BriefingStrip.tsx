@@ -10,11 +10,10 @@ interface BriefingStripProps {
 }
 
 export async function BriefingStrip({ items }: BriefingStripProps) {
-  if (!items || items.length === 0) return null;
-
-  const leadItem = items[0];
-  const secondaryItems = items.slice(1);
   const { items: liveWire } = await intelligenceStore.query({ limit: 4 });
+
+  const leadItem = items[0] ?? null;
+  const secondaryItems = items.slice(1);
 
   const LEAD_DEFAULT = '/images/editorial/entirefm-hvac-refrigerant-check-1200w.webp';
   const STACK1_DEFAULT = '/images/editorial/entirefm-plumbing-booster-set-1200w.webp';
@@ -48,10 +47,17 @@ export async function BriefingStrip({ items }: BriefingStripProps) {
         </div>
 
         {/* Asymmetric Editorial Index Grid */}
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-start">
-          
-          {/* LEAD STORY SPREAD */}
-          {leadItem && (
+        {!leadItem ? (
+          /* FEED_OFFLINE empty-state — mirrors wire ticker pattern */
+          <div className="flex items-center gap-3 py-10 text-sm text-neutral-500 font-light italic">
+            <span className="w-2 h-2 rounded-full bg-amber-400/80 shrink-0" />
+            <span>No verified regulatory updates in the current monitoring cycle.</span>
+            <span className="text-[10px] text-neutral-400 font-mono">FEED_OFFLINE</span>
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-start">
+
+            {/* LEAD STORY SPREAD */}
             <article className="group flex flex-col justify-between">
               <Link href={leadItem.url || '/lobby/news'} className="block overflow-hidden rounded-sm relative h-[280px] sm:h-[340px] bg-neutral-100 mb-5">
                 <Image
@@ -89,52 +95,52 @@ export async function BriefingStrip({ items }: BriefingStripProps) {
                 </p>
               </div>
             </article>
-          )}
 
-          {/* SECONDARY STORIES INDEX — Clean Editorial Dividers */}
-          <div className="divide-y divide-neutral-200 flex flex-col">
-            {secondaryItems.map((item, idx) => {
-              const defaultImg = idx === 0 ? STACK1_DEFAULT : STACK2_DEFAULT;
-              return (
-                <article key={item.id || idx} className="py-6 first:pt-0 last:pb-0 group">
-                  <Link href={item.url || '/lobby/news'} className="flex gap-5 items-start">
-                    {/* Small Sharp Crop */}
-                    <div className="relative w-24 sm:w-28 h-20 sm:h-24 shrink-0 rounded-sm overflow-hidden bg-neutral-100">
-                      <Image
-                        src={item.topicImage || item.sourceImage || defaultImg}
-                        alt={item.headline}
-                        fill
-                        sizes="120px"
-                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                      />
-                    </div>
-
-                    <div className="flex-1 space-y-1.5">
-                      <div className="flex items-center justify-between text-[11px] font-normal text-neutral-400">
-                        <span className="uppercase tracking-wider text-brand-electric font-medium">
-                          {item.category}
-                        </span>
-                        <span>{item.timestamp}</span>
+            {/* SECONDARY STORIES INDEX — Clean Editorial Dividers */}
+            <div className="divide-y divide-neutral-200 flex flex-col">
+              {secondaryItems.map((item, idx) => {
+                const defaultImg = idx === 0 ? STACK1_DEFAULT : STACK2_DEFAULT;
+                return (
+                  <article key={item.id || idx} className="py-6 first:pt-0 last:pb-0 group">
+                    <Link href={item.url || '/lobby/news'} className="flex gap-5 items-start">
+                      {/* Small Sharp Crop */}
+                      <div className="relative w-24 sm:w-28 h-20 sm:h-24 shrink-0 rounded-sm overflow-hidden bg-neutral-100">
+                        <Image
+                          src={item.topicImage || item.sourceImage || defaultImg}
+                          alt={item.headline}
+                          fill
+                          sizes="120px"
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        />
                       </div>
 
-                      <h4 className="text-sm sm:text-base font-light text-neutral-900 group-hover:text-brand-electric transition-colors leading-snug">
-                        {item.headline}
-                      </h4>
+                      <div className="flex-1 space-y-1.5">
+                        <div className="flex items-center justify-between text-[11px] font-normal text-neutral-400">
+                          <span className="uppercase tracking-wider text-brand-electric font-medium">
+                            {item.category}
+                          </span>
+                          <span>{item.timestamp}</span>
+                        </div>
 
-                      <div className="flex items-center justify-between text-xs text-neutral-500 pt-1">
-                        <span>{item.sector}</span>
-                        {item.sourcePublisher && (
-                          <span className="text-[10px] text-neutral-400">Via {item.sourcePublisher}</span>
-                        )}
+                        <h4 className="text-sm sm:text-base font-light text-neutral-900 group-hover:text-brand-electric transition-colors leading-snug">
+                          {item.headline}
+                        </h4>
+
+                        <div className="flex items-center justify-between text-xs text-neutral-500 pt-1">
+                          <span>{item.sector}</span>
+                          {item.sourcePublisher && (
+                            <span className="text-[10px] text-neutral-400">Via {item.sourcePublisher}</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </article>
-              );
-            })}
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+
           </div>
-
-        </div>
+        )}
 
         {/* LATEST NEWS STREAM WIRE TICKER */}
         <div className="pt-6 border-t border-neutral-200">

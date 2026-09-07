@@ -1,88 +1,140 @@
 /**
- * ENTIREFM FIREBASE AI LOGIC — SERVER-SIDE CLIENT (Phase 01)
- * ===========================================================
- * Initialises the Firebase AI Logic SDK using the GoogleAIBackend.
+ * ENTIREFM MULTIMODAL AI — SERVER-SIDE CLIENT
+ * ============================================
+ * Calls the Google Generative Language API directly using the GEMINI_API_KEY.
+ *
+ * WHY NOT firebase/ai SDK:
+ *   The firebase/ai GoogleAIBackend routes requests to firebasevertexai.googleapis.com
+ *   which only accepts OAuth2 credentials, not API keys. This caused a 401 Unauthorized
+ *   error: "API keys are not supported by this API". The correct endpoint for API-key
+ *   based access is generativelanguage.googleapis.com (Gemini Developer API).
  *
  * Architecture & Security Model:
- *   - Uses firebase/ai with GoogleAIBackend (Gemini Developer API via Firebase AI Logic)
- *   - Server-Mediated Invocation: Browsers never call Firebase AI Logic directly.
- *     All requests route through Next.js Route Handlers (/api/clients/jobs/analyze).
- *   - Why App Check is NOT required: App Check is designed to protect Firebase
- *     resources from unauthorized direct client SDK access. In EntireFM, all AI
- *     credentials (GEMINI_API_KEY / GOOGLE_AI_API_KEY) are held strictly in server
- *     environment variables. The browser authenticates via HMAC session cookies,
- *     RBAC, organisation isolation, and site-level scoping.
- *   - Model Pinned for Production: Defaults to explicit, immutable 'gemini-2.0-flash'.
+ *   - Calls generativelanguage.googleapis.com directly (Gemini Developer API).
+ *   - Server-Mediated Invocation: Browsers never call this directly.
+ *     All requests route through Next.js Route Handlers.
+ *   - Credentials: GEMINI_API_KEY held strictly in server environment variables.
+ *   - Model Pinned for Production: Defaults to 'gemini-2.0-flash'.
  *     Can be overridden at runtime via MULTIMODAL_AI_MODEL env var.
  *   - Returns null if the service is not configured (enables graceful fallback).
  *
- * This module is the ONLY place that imports from 'firebase/ai'.
- * All multimodal inference must go through getFirebaseAIModel().
+ * Exports the same interface (GenerativeModel, Part, getFirebaseAIModel,
+ * getMultimodalModelName) so callers (extractor.ts, service.ts) need no changes.
  */
 
-import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
-import { getAI, getGenerativeModel, GoogleAIBackend } from 'firebase/ai';
-import type { GenerativeModel, Part } from 'firebase/ai';
+// ─── TYPES ────────────────────────────────────────────────────────────────────
 
-export type { GenerativeModel, Part };
+export interface InlineDataPart {
+  inlineData: { mimeType: string; data: string };
+}
+
+export interface TextPart {
+  text: string;
+}
+
+export type Part = TextPart | InlineDataPart;
+
+export interface GenerateContentRequest {
+  contents: Array<{
+    role: 'user' | 'model';
+    parts: Part[];
+  }>;
+}
+
+export interface GenerateContentResponse {
+  text(): string;
+  usageMetadata?: {
+    promptTokenCount?: number;
+    candidatesTokenCount?: number;
+    totalTokenCount?: number;
+  };
+}
+
+export interface GenerateContentResult {
+  response: GenerateContentResponse;
+}
+
+/**
+ * Minimal GenerativeModel interface matching what extractor.ts and service.ts
+ * consume (generateContent only).
+ */
+export interface GenerativeModel {
+  generateContent(request: GenerateContentRequest): Promise<GenerateContentResult>;
+}
 
 // ─── PINNED PRODUCTION MODEL ──────────────────────────────────────────────────
-// Pinned to explicit GA stable model 'gemini-2.0-flash' to ensure deterministic
-// behavior. Override via MULTIMODAL_AI_MODEL env var when migrating versions.
-const DEFAULT_MODEL = 'gemini-2.0-flash';
+// Pinned to 'gemini-2.5-flash'. Override via MULTIMODAL_AI_MODEL env var.
+const DEFAULT_MODEL = 'gemini-2.5-flash';
 
-let firebaseApp: FirebaseApp | null = null;
+const GOOGLE_AI_BASE = 'https://generativelanguage.googleapis.com';
+const GOOGLE_AI_API_VERSION = 'v1beta';
 
-function getFirebaseApp(): FirebaseApp | null {
+// ─── DIRECT GOOGLE AI CLIENT ──────────────────────────────────────────────────
+
+/**
+ * Returns a GenerativeModel-compatible object that calls the
+ * generativelanguage.googleapis.com API directly with an API key.
+ * Returns null if no API key is configured (triggers deterministic fallback).
+ */
+export function getFirebaseAIModel(systemInstruction?: string): GenerativeModel | null {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || null;
 
   if (!apiKey) {
     return null;
   }
 
-  // Reuse existing Firebase app if already initialised
-  if (firebaseApp) return firebaseApp;
-  const existingApps = getApps();
-  if (existingApps.length > 0) {
-    firebaseApp = existingApps[0];
-    return firebaseApp;
-  }
+  const modelName = process.env.MULTIMODAL_AI_MODEL || DEFAULT_MODEL;
 
-  // Firebase config — for AI Logic with GoogleAIBackend, apiKey, appId and projectId are configured.
-  firebaseApp = initializeApp({
-    apiKey,
-    appId: process.env.FIREBASE_APP_ID || '1:100000000000:web:entirefm001',
-    projectId: process.env.FIREBASE_PROJECT_ID || 'entirefm-ai',
-  }, 'entirefm-multimodal');
+  return {
+    async generateContent(request: GenerateContentRequest): Promise<GenerateContentResult> {
+      const url = `${GOOGLE_AI_BASE}/${GOOGLE_AI_API_VERSION}/models/${modelName}:generateContent?key=${apiKey}`;
 
-  return firebaseApp;
-}
+      const payload: Record<string, any> = {
+        contents: request.contents,
+        generationConfig: {
+          temperature: 0.1,
+          maxOutputTokens: 2500,
+          responseMimeType: 'application/json',
+        },
+      };
 
-/**
- * Returns a configured Firebase AI Logic GenerativeModel instance,
- * or null if the service is not configured (triggers deterministic fallback).
- */
-export function getFirebaseAIModel(systemInstruction?: string): GenerativeModel | null {
-  const app = getFirebaseApp();
-  if (!app) return null;
+      if (systemInstruction) {
+        payload.systemInstruction = {
+          parts: [{ text: systemInstruction }],
+        };
+      }
 
-  try {
-    const ai = getAI(app, { backend: new GoogleAIBackend() });
-    const modelName = process.env.MULTIMODAL_AI_MODEL || DEFAULT_MODEL;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    return getGenerativeModel(ai, {
-      model: modelName,
-      systemInstruction: systemInstruction || undefined,
-      generationConfig: {
-        temperature: 0.1,
-        maxOutputTokens: 2500,
-        responseMimeType: 'application/json',
-      },
-    });
-  } catch (err) {
-    console.warn('[FIREBASE_AI] Failed to initialise Firebase AI Logic model:', err);
-    return null;
-  }
+      if (!res.ok) {
+        const errText = await res.text().catch(() => '');
+        throw new Error(`Gemini API HTTP ${res.status}: ${errText}`);
+      }
+
+      const data = await res.json();
+      const rawText: string = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
+      const usageMetadata = data?.usageMetadata;
+
+      return {
+        response: {
+          text(): string {
+            return rawText;
+          },
+          usageMetadata: usageMetadata
+            ? {
+                promptTokenCount: usageMetadata.promptTokenCount,
+                candidatesTokenCount: usageMetadata.candidatesTokenCount,
+                totalTokenCount: usageMetadata.totalTokenCount,
+              }
+            : undefined,
+        },
+      };
+    },
+  };
 }
 
 /**
@@ -92,3 +144,4 @@ export function getFirebaseAIModel(systemInstruction?: string): GenerativeModel 
 export function getMultimodalModelName(): string {
   return process.env.MULTIMODAL_AI_MODEL || DEFAULT_MODEL;
 }
+

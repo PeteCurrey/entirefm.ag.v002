@@ -27,6 +27,36 @@ function generateNotificationId(): string {
 }
 
 /**
+ * Helper to check if string is valid UUID
+ */
+function isValidUuid(val?: string | null): boolean {
+  if (!val) return false;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+}
+
+/**
+ * Map high-level notification type to DB check constraint values:
+ * 'ASSIGNMENT_OFFERED','ASSIGNMENT_CHANGED','VISIT_ASSIGNED',
+ * 'COMPLETION_REJECTED','COMPLETION_ACCEPTED','SCHEDULE_CHANGED',
+ * 'URGENT_WORK_ORDER','SLA_ESCALATION','COMPLIANCE_EXPIRY','MESSAGE_RECEIVED'
+ */
+function mapToDbNotificationType(type: NotificationType, severity: NotificationSeverity): string {
+  if (type === 'URGENT_WORK_ORDER' || type === 'EMERGENCY_WORK_ORDER' || severity === 'CRITICAL') {
+    return 'URGENT_WORK_ORDER';
+  }
+  if (type === 'NEW_WORK_ORDER') {
+    return 'URGENT_WORK_ORDER';
+  }
+  if (type === 'SLA_RISK' || type === 'SLA_BREACH') {
+    return 'SLA_ESCALATION';
+  }
+  if (type === 'COMPLIANCE_EXPIRING' || type === 'COMPLIANCE_OVERDUE') {
+    return 'COMPLIANCE_EXPIRY';
+  }
+  return 'MESSAGE_RECEIVED';
+}
+
+/**
  * Create or upsert a notification with deduplication.
  * Preserves canonical created_at timestamp.
  */
@@ -40,6 +70,7 @@ export async function createNotification(input: {
   entity_type: 'lead' | 'work_order' | 'compliance_obligation' | 'invoice' | 'quote' | 'system';
   entity_id: string;
   action_url: string;
+  recipient_person_id?: string;
   metadata?: Record<string, any>;
   dedupe_key?: string;
   created_at?: string;
@@ -81,27 +112,27 @@ export async function createNotification(input: {
   // 1. Save to memory store
   notificationMemoryStore.notifications.set(notification.id, notification);
 
-  // 2. Save to Supabase if configured
+  // 2. Save to Supabase if configured (matching the actual table schema in migration 0008)
   if (isDbConfigured()) {
     try {
+      const recipientId = isValidUuid(input.recipient_person_id)
+        ? input.recipient_person_id
+        : '00000000-0000-0000-0000-000000000001'; // Default system actor person
+
+      const dbRecord: Record<string, any> = {
+        recipient_person_id: recipientId,
+        notification_type: mapToDbNotificationType(notification.type, notification.severity),
+        title: notification.title,
+        body: notification.message,
+        related_entity_type: notification.entity_type,
+        related_entity_id: isValidUuid(notification.entity_id) ? notification.entity_id : null,
+        is_read: false,
+        created_at: notification.created_at,
+      };
+
       await dbQuery('notifications', {
         method: 'POST',
-        body: {
-          id: notification.id,
-          audience: notification.audience,
-          notification_type: notification.type,
-          category: notification.category,
-          severity: notification.severity,
-          title: notification.title,
-          message: notification.message,
-          entity_type: notification.entity_type,
-          entity_id: notification.entity_id,
-          action_url: notification.action_url,
-          is_read: false,
-          created_at: notification.created_at,
-          metadata: notification.metadata,
-          dedupe_key: notification.dedupe_key,
-        },
+        body: dbRecord,
       });
     } catch (err) {
       console.warn('[NOTIFICATIONS_STORE_WARN] Supabase sync failed, retained in memory', err);
@@ -131,10 +162,7 @@ export async function listNotifications(options: {
 
   if (isDbConfigured()) {
     try {
-      let q = 'notifications?select=*&order=created_at.desc';
-      if (options.category && options.category !== 'ALL') {
-        q += `&category=eq.${options.category}`;
-      }
+      let q = 'notifications?select=id,recipient_person_id,notification_type,title,body,related_entity_type,related_entity_id,is_read,read_at,created_at&order=created_at.desc';
       if (options.unreadOnly) {
         q += '&is_read=eq.false';
       }
@@ -144,24 +172,47 @@ export async function listNotifications(options: {
       if (data && data.length > 0) {
         // Merge into memory store
         for (const r of data) {
+          const isWorkOrder = r.related_entity_type === 'work_order';
+          const isCompliance = r.related_entity_type === 'compliance_obligation' || r.notification_type === 'COMPLIANCE_EXPIRY';
+          const category: NotificationCategory = isWorkOrder
+            ? 'OPERATIONS'
+            : isCompliance
+            ? 'COMPLIANCE'
+            : 'SYSTEM';
+
+          const isUrgent = r.notification_type === 'URGENT_WORK_ORDER';
+          const severity: NotificationSeverity = isUrgent
+            ? 'CRITICAL'
+            : r.notification_type === 'SLA_ESCALATION'
+            ? 'WARNING'
+            : 'INFO';
+
+          const actionUrl = isWorkOrder && r.related_entity_id
+            ? `/admin/operations/work-orders/${r.related_entity_id}`
+            : isCompliance
+            ? '/admin/compliance/obligations'
+            : '/admin';
+
           const record: NotificationRecord = {
             id: r.id,
-            audience: r.audience || 'ADMIN',
-            type: r.notification_type || r.type || 'SYSTEM_ALERT',
-            category: r.category || 'SYSTEM',
-            severity: r.severity || 'INFO',
+            audience: 'ADMIN',
+            type: (r.notification_type as any) || 'SYSTEM_ALERT',
+            category,
+            severity,
             title: r.title,
-            message: r.message,
-            entity_type: r.entity_type || 'system',
-            entity_id: r.entity_id || '',
-            action_url: r.action_url || '/admin',
+            message: r.body || r.title,
+            entity_type: r.related_entity_type || 'system',
+            entity_id: r.related_entity_id || '',
+            action_url: actionUrl,
             is_read: Boolean(r.is_read),
             created_at: r.created_at,
             read_at: r.read_at || null,
-            metadata: r.metadata || {},
-            dedupe_key: r.dedupe_key || r.id,
+            metadata: {},
+            dedupe_key: `db:${r.id}`,
           };
-          notificationMemoryStore.notifications.set(record.id, record);
+          if (!notificationMemoryStore.notifications.has(record.id)) {
+            notificationMemoryStore.notifications.set(record.id, record);
+          }
         }
         list = Array.from(notificationMemoryStore.notifications.values());
       }
@@ -390,6 +441,36 @@ export async function syncOperationalNotifications(): Promise<void> {
           created_at: obTimestamp,
         });
       }
+    }
+
+    // 4. Sync Recent Work Orders (New jobs logged within operational window)
+    const recentWorkOrders = await listWorkOrders({ limit: 25 }).catch(() => []);
+    for (const wo of recentWorkOrders) {
+      const isUrgent = wo.priority === 'P1_CRITICAL';
+      const woTimestamp = (wo as any).created_at || (wo as any).updated_at || new Date().toISOString();
+      const siteName = (wo as any).site?.name || 'Site';
+      const title = wo.title || 'Service Request';
+
+      await createNotification({
+        type: isUrgent ? 'URGENT_WORK_ORDER' : 'NEW_WORK_ORDER',
+        category: 'OPERATIONS',
+        severity: isUrgent ? 'CRITICAL' : wo.priority === 'P2_HIGH' ? 'WARNING' : 'ATTENTION',
+        title: isUrgent
+          ? `🚨 Emergency Job: ${wo.work_order_number || wo.id.slice(0, 8)}`
+          : `New Job Logged: ${wo.work_order_number || wo.id.slice(0, 8)}`,
+        message: `${wo.work_order_number || wo.id.slice(0, 8)} at ${siteName} (${wo.priority}) — ${title}`,
+        entity_type: 'work_order',
+        entity_id: wo.id,
+        action_url: `/admin/operations/work-orders/${wo.id}`,
+        dedupe_key: `workorder:${wo.id}:created`,
+        created_at: woTimestamp,
+        metadata: {
+          work_order_number: wo.work_order_number,
+          priority: wo.priority,
+          site_id: wo.site_id,
+          site_name: siteName,
+        },
+      });
     }
   } catch (err) {
     console.warn('[NOTIFICATIONS_SYNC_WARN]', err);
