@@ -28,6 +28,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ToolShell } from '@/components/tools/ToolShell';
 import { ExportToolbar } from '@/components/tools/ExportToolbar';
 import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
+import { TurnstileWidget } from '@/components/auth/TurnstileWidget';
 import { downloadPpmEstimatorPack, PpmEstimatorReportData } from '@/lib/pdf/ppm-estimator-pack-builder';
 import type { TemplateProps } from '../types';
 
@@ -154,6 +155,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
   const [gateErrors, setGateErrors] = useState<Partial<PdfGateFormData>>({});
   const [gateSubmitting, setGateSubmitting] = useState(false);
   const [gateSubmitted, setGateSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
@@ -356,7 +358,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
             ratePerSqFt: estimate.ratePerSqFt,
             reactiveMultiplier,
           },
-          turnstile_token: 'dev-bypass-token',
+          turnstile_token: turnstileToken,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -988,6 +990,14 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                         onChange={(e) => setGateForm((f) => ({ ...f, phone: e.target.value }))}
                         placeholder="e.g. 020 7946 0912"
                         className="w-full px-3.5 py-2.5 text-sm rounded-sm border border-slate-300 bg-slate-50 focus:bg-white focus:ring-1 focus:ring-brand-electric focus:border-brand-electric transition-colors"
+                      />
+                    </div>
+
+                    {/* Turnstile Anti-Bot Protection */}
+                    <div className="pt-1">
+                      <TurnstileWidget
+                        onVerify={(token) => setTurnstileToken(token)}
+                        onExpire={() => setTurnstileToken('')}
                       />
                     </div>
 

@@ -75,6 +75,17 @@ export async function POST(request: Request) {
     const result = EnquirySchema.safeParse(body);
 
     if (!result.success) {
+      console.error('[ENQUIRY_SUBMISSION_FAILED: Validation]', {
+        errors: result.error.flatten().fieldErrors,
+        leadSummary: {
+          email: body?.email,
+          name: body?.name,
+          company: body?.company,
+          form_id: body?.form_id,
+          lead_source: body?.lead_source,
+          service: body?.service,
+        },
+      });
       return NextResponse.json(
         {
           success: false,
@@ -108,6 +119,15 @@ export async function POST(request: Request) {
 
     // Hard bot rejection (e.g. Honeypot triggered, Turnstile failed, IP rate-limited)
     if (!guardResult.allowed) {
+      console.error('[ENQUIRY_SUBMISSION_FAILED: Guard Blocked]', {
+        enquiryId,
+        blockReason: guardResult.blockReason,
+        email: data.email,
+        company: data.company,
+        form_id: data.form_id,
+        lead_source: data.lead_source,
+        clientIp: guardResult.clientIp,
+      });
       return NextResponse.json(
         {
           success: false,
