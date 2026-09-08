@@ -35,6 +35,28 @@ const nextConfig: NextConfig = {
         hostname: '*.supabase.co',
         pathname: '/storage/v1/object/public/**',
       },
+      // BBC News RSS images
+      {
+        protocol: 'https',
+        hostname: 'ichef.bbci.co.uk',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bbci.co.uk',
+      },
+      // Sky News RSS images
+      {
+        protocol: 'https',
+        hostname: 'e3.365dm.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.365dm.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.skynews.com',
+      },
     ],
   },
 

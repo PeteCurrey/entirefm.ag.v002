@@ -82,6 +82,7 @@ export interface GeneralNewsItem {
   summary: string;
   source: 'BBC News' | 'Sky News';
   url: string;
+  imageUrl?: string;
   publishedAt: string;
   relativeTime: string;
 }
@@ -202,6 +203,13 @@ const FALLBACK_IMAGES = [
  * If the DB returns zero approved items, returns an empty array so the
  * FEED_OFFLINE empty-state in BriefingStrip renders instead of stale data.
  */
+/**
+ * Fetch the live Briefing Wire strip from `intelligence_items` (or `canonical_intelligence_items`).
+ *
+ * Returns up to `limit` items mapped to BriefingStripItem shape.
+ * Queries live intelligence_items for verified regulatory / statutory directives.
+ * If the DB returns zero approved items, renders FEED_OFFLINE state.
+ */
 export async function getHomepageBriefingStrip(limit = 3): Promise<BriefingStripItem[]> {
   if (!isDbConfigured()) {
     // Local dev without DB: use committed seed data — never in production
@@ -209,35 +217,51 @@ export async function getHomepageBriefingStrip(limit = 3): Promise<BriefingStrip
     return LOBBY_DATA.briefingStrip;
   }
 
-  const { items } = await intelligenceStore.query({ limit });
+  // 1. Direct live query against intelligence_items for approved regulatory notices
+  try {
+    const { data: rows } = await dbQuery<any[]>(
+      `intelligence_items?review_status=in.(APPROVED,AUTO_PUBLISHED)&source_id=not.in.(src-bbc-news,src-sky-news)&order=published_at.desc&limit=${limit}`
+    );
 
-  if (items.length === 0) {
-    // Production: live query returned nothing → render FEED_OFFLINE state
-    return [];
+    if (rows && rows.length > 0) {
+      return rows.map((r: any, idx: number): BriefingStripItem => ({
+        id: r.id,
+        category: tradeLabelFromTags(r.trade_tags),
+        headline: cleanHtmlEntities(r.title),
+        summary: cleanHtmlEntities(r.what_changed || r.entirefm_summary || r.title),
+        sector: r.jurisdictions?.[0] || 'Commercial FM',
+        impactLevel: impactLevelFromTier(r.authority_tier, r.legal_status === 'STATUTORY_DUTY'),
+        timestamp: formatRelativeTime(r.published_at),
+        topicImage: FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length],
+        topicImageAlt: cleanHtmlEntities(r.title),
+        sourcePublisher: r.source_name || 'Official Regulatory Body',
+        url: r.canonical_url?.startsWith('http') ? r.canonical_url : '/lobby/compliance',
+      }));
+    }
+  } catch (err: any) {
+    console.warn('[BriefingStrip] Querying intelligence_items failed:', err.message);
   }
 
-  return items.map((item, idx): BriefingStripItem => {
-    const provenanceImage = (item.provenance as any)?.imageUrl as string | undefined;
-    if (!provenanceImage) {
-      console.warn(
-        `[BriefingStrip] intelligence item "${item.id}" has no provenance.imageUrl — using fallback. Backfill needed.`
-      );
-    }
-
-    return {
+  // 2. Secondary query against canonical_intelligence_items store
+  const { items } = await intelligenceStore.query({ limit });
+  if (items.length > 0) {
+    return items.map((item, idx): BriefingStripItem => ({
       id: item.id,
       category: tradeLabelFromTags(item.tradeTags),
-      headline: item.title,
-      summary: item.standfirst || item.whyItMatters || item.title,
+      headline: cleanHtmlEntities(item.title),
+      summary: cleanHtmlEntities(item.standfirst || item.whyItMatters || item.title),
       sector: item.relevantSectors?.[0] || item.jurisdictions?.[0] || 'Commercial FM',
       impactLevel: impactLevelFromTier((item as any).authorityTier, (item as any).isStatutory),
       timestamp: formatRelativeTime(item.publishedAt),
-      topicImage: provenanceImage || FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length],
-      topicImageAlt: (item.provenance as any)?.altText || item.title,
+      topicImage: (item.provenance as any)?.imageUrl || FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length],
+      topicImageAlt: cleanHtmlEntities(item.title),
       sourcePublisher: item.primarySource?.name,
       url: item.canonicalUrl?.startsWith('http') ? item.canonicalUrl : '/lobby/compliance',
-    };
-  });
+    }));
+  }
+
+  // Zero fake data: return [] so FEED_OFFLINE empty state renders
+  return [];
 }
 
 // ---------------------------------------------------------------------------
@@ -256,6 +280,7 @@ function cleanHtmlEntities(text: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .trim();
 }
 
 /**
@@ -265,22 +290,29 @@ function cleanHtmlEntities(text: string): string {
  * 1. Checks intelligence_items for source_name in ('BBC News', 'Sky News').
  * 2. Fallback to direct live RSS parse if DB has no rows yet or in dev.
  * 3. Returns items strictly adhering to copyright bounds (headline, description, pubDate, outbound link).
- * 4. Zero-fake-data: returns [] on empty/offline so FEED_OFFLINE state renders.
+ * 4. Extracts and delivers high-resolution image thumbnails for rich visual presentation.
+ * 5. Zero-fake-data: returns [] on empty/offline so FEED_OFFLINE state renders.
  */
 export async function getHomepageGeneralNews(limit = 4): Promise<GeneralNewsItem[]> {
   // 1. Live database query if configured
   if (isDbConfigured()) {
     try {
       const { data: rows } = await dbQuery<any[]>(
-        `intelligence_items?source_name=in.(BBC News,Sky News)&review_status=in.(APPROVED,AUTO_PUBLISHED)&order=published_at.desc&limit=${limit}`
+        `intelligence_items?source_name=in.(BBC News,Sky News)&review_status=in.(APPROVED,AUTO_PUBLISHED)&order=published_at.desc&limit=16`
       );
       if (rows && rows.length > 0) {
-        return rows.map((r: any) => ({
+        // Prioritise items with real imagery for high-appeal visual layout
+        const withImages = rows.filter((r: any) => Boolean(r.raw_payload?.imageUrl));
+        const withoutImages = rows.filter((r: any) => !r.raw_payload?.imageUrl);
+        const candidates = [...withImages, ...withoutImages].slice(0, limit);
+
+        return candidates.map((r: any) => ({
           id: r.id,
           headline: cleanHtmlEntities(r.title),
           summary: cleanHtmlEntities(r.entirefm_summary || ''),
           source: r.source_name === 'Sky News' ? 'Sky News' : 'BBC News',
           url: r.canonical_url || 'https://www.bbc.co.uk/news',
+          imageUrl: r.raw_payload?.imageUrl || undefined,
           publishedAt: r.published_at,
           relativeTime: formatRelativeTime(r.published_at),
         }));
@@ -305,6 +337,11 @@ export async function getHomepageGeneralNews(limit = 4): Promise<GeneralNewsItem
         const linkMatch = block.match(/<link[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
         const descMatch = block.match(/<description[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i);
         const pubDateMatch = block.match(/<pubDate[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/pubDate>/i);
+        const mediaThumb = block.match(/<media:thumbnail[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+        const mediaContent = block.match(/<media:content[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+        const enclosure = block.match(/<enclosure[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+        const rawImg = mediaThumb?.[1] || mediaContent?.[1] || enclosure?.[1] || '';
+        const imageUrl = rawImg ? rawImg.replace('/standard/240/', '/standard/480/') : undefined;
 
         if (titleMatch && linkMatch) {
           const rawTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
@@ -318,6 +355,7 @@ export async function getHomepageGeneralNews(limit = 4): Promise<GeneralNewsItem
             summary: cleanHtmlEntities(desc),
             source: 'BBC News',
             url: link,
+            imageUrl,
             publishedAt: pubDate,
             relativeTime: formatRelativeTime(pubDate),
           });

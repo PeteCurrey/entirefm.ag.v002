@@ -11,12 +11,13 @@ interface ParsedRssItem {
   description: string;
   link: string;
   pubDate: string;
+  imageUrl?: string;
   source: 'BBC News' | 'Sky News';
 }
 
 /**
  * Minimal lightweight XML RSS parser for BBC and Sky News feeds.
- * Extracts only title, description, link, pubDate.
+ * Extracts only title, description, link, pubDate, and thumbnail/enclosure image.
  * Does NOT scrape article bodies (strict copyright/licensing compliance).
  */
 function parseRssFeed(xml: string, source: 'BBC News' | 'Sky News'): ParsedRssItem[] {
@@ -49,12 +50,24 @@ function parseRssFeed(xml: string, source: 'BBC News' | 'Sky News'): ParsedRssIt
     const description = extractTag('description');
     const pubDate = extractTag('pubDate');
 
+    // Extract thumbnail or enclosure image URL
+    let imageUrl = '';
+    const mediaThumb = itemContent.match(/<media:thumbnail[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+    const mediaContent = itemContent.match(/<media:content[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+    const enclosure = itemContent.match(/<enclosure[^>]+url=["\x27]([^"\x27]+)["\x27]/i);
+    const rawImg = mediaThumb?.[1] || mediaContent?.[1] || enclosure?.[1] || '';
+    if (rawImg) {
+      // If BBC standard 240 thumbnail, upgrade to 480 for crisp retina resolution
+      imageUrl = rawImg.replace('/standard/240/', '/standard/480/');
+    }
+
     if (title && link) {
       items.push({
         title,
         link,
         description,
         pubDate: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
+        imageUrl: imageUrl || undefined,
         source,
       });
     }
@@ -142,6 +155,7 @@ export async function ingestGeneralNewsFeed(): Promise<{
         work_type_tags: [],
         published_at: item.pubDate,
         updated_at: new Date().toISOString(),
+        raw_payload: item.imageUrl ? { imageUrl: item.imageUrl } : null,
         review_status: 'AUTO_PUBLISHED',
         audience_roles: ['ALL_CONTRACTOR_USERS'],
       };
