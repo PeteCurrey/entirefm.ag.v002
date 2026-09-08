@@ -65,7 +65,7 @@ export function LobbyMasthead() {
   };
 
   return (
-    <header className="relative h-full w-full bg-brand-void text-white overflow-hidden flex flex-col justify-between font-sans">
+    <header className="relative h-full w-full bg-[#0B1528] text-white overflow-hidden flex flex-col justify-between font-sans">
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Parallax Container with buffer margins for upward drift */}
@@ -81,24 +81,25 @@ export function LobbyMasthead() {
             priority
             sizes="100vw"
             quality={95}
-            className="object-cover object-center transform-gpu"
+            className="object-cover object-center transform-gpu brightness-105"
           />
         </div>
 
-        {/* Subtle dark gradient overlay allowing background photography to breathe */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/90 via-brand-void/40 to-black/40" />
-        <div className="absolute inset-0 bg-black/10" />
+        {/* Luminous midnight-slate gradient overlay matching ExploreNavigation mega menu */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/90 via-[#0B1528]/50 to-[#0B1528]/40" />
 
-        {/* Ambient brand glow accents */}
+        {/* Soft ambient brand glow accents to soften darkness and ease eye strain */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[10%] -top-[20%] h-[36rem] w-[36rem] rounded-full opacity-15 blur-[140px]"
-          style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 70%)' }}
+          className="pointer-events-none absolute -left-[10%] -top-[20%] h-[38rem] w-[38rem] rounded-full opacity-25 blur-[130px] bg-brand-electric/30"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute right-[5%] -bottom-[15%] h-[32rem] w-[32rem] rounded-full opacity-10 blur-[130px]"
-          style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
+          className="pointer-events-none absolute top-1/4 right-[5%] h-[34rem] w-[34rem] rounded-full opacity-20 blur-[140px] bg-brand-violet/25"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-[15%] left-1/3 h-[32rem] w-[32rem] rounded-full opacity-20 blur-[130px] bg-brand-pink/20"
         />
         <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-15" />
       </div>
@@ -109,8 +110,8 @@ export function LobbyMasthead() {
         {/* ── UPPER/MID AREA: THE LOBBY TITLE & INTRO (JUST ABOVE VERTICAL CENTRE) ── */}
         <div className="w-full pt-12 sm:pt-16 lg:pt-24 pb-4 sm:pb-6 my-auto text-left space-y-3">
           <div className="inline-flex items-center gap-2 mb-1">
-            <span className="h-px w-6 bg-brand-electric" />
-            <span className="text-[10px] sm:text-[11px] font-extralight uppercase tracking-[0.25em] text-brand-electric-bright">
+            <span className="h-px w-6 bg-brand-electric-bright" />
+            <span className="text-[10px] sm:text-[11px] font-normal uppercase tracking-[0.25em] text-brand-electric-bright">
               Grounded FM Intelligence Network
             </span>
           </div>
@@ -119,7 +120,7 @@ export function LobbyMasthead() {
             THE <span className="font-extralight text-white">LOBBY</span>
           </h1>
 
-          <p className="max-w-xl text-sm sm:text-base lg:text-lg font-extralight text-brand-mist/85 leading-relaxed">
+          <p className="max-w-xl text-sm sm:text-base lg:text-lg font-light text-white/90 leading-relaxed">
             Ask any question about UK building safety, statutory compliance, procurement tenders, or technical standards with sourced citations.
           </p>
         </div>
@@ -196,7 +197,7 @@ export function LobbyMasthead() {
 
           {/* Suggested Prompt Chips (Below the Composer) */}
           <div className="flex flex-wrap items-center justify-center gap-2 pt-0.5">
-            <span className="text-[10px] font-extralight uppercase tracking-widest text-white/50 mr-1">
+            <span className="text-[10px] font-normal uppercase tracking-widest text-white/70 mr-1">
               Ask about:
             </span>
             {HERO_PROMPTS.map((prompt, idx) => (
@@ -207,7 +208,7 @@ export function LobbyMasthead() {
                   setQuery(prompt);
                   handleSearchSubmit(undefined, prompt);
                 }}
-                className="bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white px-3 py-1.5 rounded-[6px] text-xs font-extralight transition-colors text-left"
+                className="bg-white/[0.12] hover:bg-white/20 border border-white/20 text-white px-3 py-1.5 rounded-[6px] text-xs font-light transition-colors text-left shadow-xs"
               >
                 {prompt}
               </button>
@@ -216,20 +217,20 @@ export function LobbyMasthead() {
         </div>
 
         {/* ── Bottom Bar: Edition Indicator & Scroll Prompt ────────────────── */}
-        <div className="border-t border-white/[0.10] pt-4 flex items-center justify-between text-xs text-brand-mist/70 font-extralight">
+        <div className="border-t border-white/15 pt-4 flex items-center justify-between text-xs text-white/80 font-light">
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
-            <span className="text-[11px] tracking-wider uppercase text-brand-mist/80 font-extralight">
+            <span className="h-2 w-2 rounded-full bg-brand-electric-bright animate-pulse" />
+            <span className="text-[11px] tracking-wider uppercase text-white/90 font-normal">
               {editionString}
             </span>
           </div>
 
           <a
             href="#week-that-matters"
-            className="group inline-flex items-center gap-2 text-brand-mist/80 hover:text-white transition-colors"
+            className="group inline-flex items-center gap-2 text-white/85 hover:text-white transition-colors"
           >
-            <span className="text-xs sm:text-sm font-extralight">Explore editorial briefings</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-white/5 group-hover:border-white/50 group-hover:bg-white/15 transition-all animate-bounce">
+            <span className="text-xs sm:text-sm font-light text-white/90">Explore editorial briefings</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/25 bg-white/10 group-hover:border-white/60 group-hover:bg-white/20 transition-all animate-bounce">
               <ChevronDown className="w-3.5 h-3.5 text-white" />
             </span>
           </a>

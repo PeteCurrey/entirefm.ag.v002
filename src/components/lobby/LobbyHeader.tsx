@@ -124,14 +124,14 @@ export function LobbyHeader({ initialDateStr }: LobbyHeaderProps = {}) {
             ? 'bg-transparent border-b border-transparent'
             : isLight
             ? 'bg-white/80 backdrop-blur-xl border-b border-neutral-200/80 shadow-2xs text-neutral-900'
-            : 'bg-[#07090E]/85 backdrop-blur-xl border-b border-white/10 shadow-md text-white'
+            : 'bg-[#0B1528]/85 backdrop-blur-xl border-b border-white/10 shadow-md text-white'
         }`}
       >
-        {/* Top subtle gradient scrim only on dark hero home when at very top of page */}
+        {/* Top subtle gradient scrim on dark hero home when at very top of page */}
         {isDarkHeroPage && !isScrolled && (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/40 to-transparent"
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1528]/70 via-[#0B1528]/30 to-transparent"
           />
         )}
 

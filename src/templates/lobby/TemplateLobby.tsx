@@ -145,7 +145,7 @@ export async function TemplateLobby() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-void text-brand-mist">
+    <div className="min-h-screen bg-[#0B1528] text-white">
       <main id="main" className="relative">
         {/* 01. Hero (Approved Benchmark Hero — Untouched) */}
         <div className="sticky top-0 z-0 h-screen min-h-[640px] lg:min-h-[720px] w-full overflow-hidden">
