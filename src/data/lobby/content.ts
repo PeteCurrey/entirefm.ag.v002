@@ -22,22 +22,25 @@ export const LOBBY_DATA: LobbyContent = {
   },
 
   complianceWatch: {
-    id: 'cw-2026-08',
-    statute: 'Building Safety Act 2022 / Golden Thread Regulations',
-    regulationTitle: 'Mandatory Digital Occurrence Reporting & Competency Verification',
+    id: 'cw-fgas-2026',
+    statute: 'F-Gas Regulation (EU) 2024/573 & GB F-Gas Regime',
+    regulationTitle: 'Virgin HFC Refrigerant Quota Cut & Mandatory Leak-Check Certification',
     urgency: 'HIGH',
-    effectiveDate: 'Enforced Q4 2026',
+    effectiveDate: 'Active Phase-Down Cycle',
     whatChanged:
-      'The Building Safety Regulator has clarified that duty holders cannot outsource ultimate legal liability for unrecorded structural, fire barrier, or M&E modifications to third-party managing agents. All physical changes must be indexed to the building’s digital Golden Thread within 48 hours of sign-off.',
+      'Virgin R410A and R404A quota reductions have restricted national wholesale supply by an additional 18%. Estates teams must ensure all stationary refrigeration, air conditioning, and heat pump equipment has verified digital leak-inspection records and certified engineer recovery logs.',
     whoItAffects:
-      'Commercial landlords, estates directors, corporate facilities heads, and responsible persons managing residential, student accommodation, or mixed-use multi-tenanted commercial buildings.',
+      'Estates managers, corporate facilities directors, and HVAC maintenance contractors operating commercial chillers, VRF systems, and rooftop packaged units.',
     whatYouNeedToDo:
-      'Audit your current CAFM asset change-log. Ensure every M&E maintenance contractor provides verified digital commissioning sheets, photographed fire-stopping penetrations, and traceable engineer credentials before work orders are closed out.',
+      'Audit your CAFM asset F-Gas register. Verify that every system containing >5 tonnes CO2 equivalent has an up-to-date logbook and that leak-detection equipment has been calibrated within the last 12 months.',
     whenItMatters:
-      'Immediate action required for active PPM cycles and planned Q4 remedial works. Non-compliant logbooks expose duty holders to formal enforcement notices and invalidate property insurance terms.',
-    governingBody: 'Building Safety Regulator (HSE)',
-    sourceDocUrl: '/compliance/fire-risk-assessment',
+      'Immediate compliance requirement. Operating uncertified or leaking equipment breaches statutory environmental duties and leads to severe Environment Agency fines.',
+    governingBody: 'Environment Agency / DEFRA',
+    sourceDocUrl: '/lobby/f-gas-r410a-phase-down-2026',
+    imageUrl: '/images/editorial/refrigerant-pressure-gauges-r410a.jpg',
+    imageAlt: 'Refrigerant pressure gauge manifold on commercial rooftop chiller',
   },
+
 
   briefingStrip: [
     {

@@ -6,6 +6,7 @@ import { LobbyMasthead } from '@/components/lobby/LobbyMasthead';
 import { LeadBriefing } from '@/components/lobby/LeadBriefing';
 import { ComplianceWatch } from '@/components/lobby/ComplianceWatch';
 import { BriefingStrip } from '@/components/lobby/BriefingStrip';
+import { GeneralNewsStrip } from '@/components/lobby/GeneralNewsStrip';
 import { IndustryMoves } from '@/components/lobby/IndustryMoves';
 import { EngineersNote } from '@/components/lobby/EngineersNote';
 import { UsefulThing } from '@/components/lobby/UsefulThing';
@@ -222,6 +223,9 @@ export async function TemplateLobby() {
           {/* 03. Briefing Wire & Latest News Stream Wire (White Neutral Canvas) */}
           <BriefingStrip items={data.briefingStrip} />
 
+          {/* 03a. General UK & Macro Business News (BBC News / Sky News) */}
+          <GeneralNewsStrip items={data.generalNews} />
+
           {/* 03b. The Six Core Lobby Destinations (Know / Check / Do / Find / Learn / Connect) */}
           <LobbyCoreDestinations />
 
@@ -390,8 +394,8 @@ export async function TemplateLobby() {
             </div>
           </section>
 
-          {/* 10. On The Horizon (Events, Award Deadlines & Compliance Milestones) */}
-          <OnTheHorizon />
+          {/* 10. On The Horizon & Operational Site Weather */}
+          <OnTheHorizon weather={data.weather} />
 
           {/* 11. FM Toolkit (Light Neutral Architectural Canvas) */}
           <section id="toolkit" className="py-16 sm:py-24 bg-[#F8F8F6] text-neutral-900 scroll-mt-20">

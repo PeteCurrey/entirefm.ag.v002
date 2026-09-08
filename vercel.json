@@ -19,6 +19,10 @@
       "schedule": "0 */4 * * *"
     },
     {
+      "path": "/api/cron/intelligence/general-news",
+      "schedule": "*/30 * * * *"
+    },
+    {
       "path": "/api/cron/intelligence/tenders",
       "schedule": "20 */12 * * *"
     },

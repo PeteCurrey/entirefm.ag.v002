@@ -12,6 +12,7 @@ import type { BriefingStripItem, ComplianceWatchItem } from '@/data/lobby/types'
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 import { intelligenceStore } from '@/server/intelligence/intelligence-store';
 import { dbQuery, isDbConfigured } from '@/server/db/client';
+import { getLobbyWeatherData, type LobbyWeatherData } from './weather';
 
 /**
  * LOBBY CONTENT REPOSITORY
@@ -75,6 +76,16 @@ export function getAllLobbyTopics(): Topic[] {
 
 export { getTopicBySlug };
 
+export interface GeneralNewsItem {
+  id: string;
+  headline: string;
+  summary: string;
+  source: 'BBC News' | 'Sky News';
+  url: string;
+  publishedAt: string;
+  relativeTime: string;
+}
+
 /**
  * Resolved Homepage Data Structure
  * Resolves curated slots with automatic fallback to latest published franchise items.
@@ -89,6 +100,8 @@ export interface ResolvedLobbyHomepageData {
   askEntireFM: LobbyArticle;
   worthAttending: LobbyArticle;
   briefingStrip: BriefingStripItem[];
+  generalNews: GeneralNewsItem[];
+  weather: LobbyWeatherData | null;
   toolkit: typeof LOBBY_DATA.toolkit;
   lobbyQuestion: typeof LOBBY_DATA.lobbyQuestion;
   lobbyPulse: typeof LOBBY_DATA.lobbyPulse;
@@ -243,7 +256,81 @@ function cleanHtmlEntities(text: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
-    .trim();
+}
+
+/**
+ * Fetch live General UK / Commercial Business News (BBC News / Sky News).
+ *
+ * Requirements (Prompt 10):
+ * 1. Checks intelligence_items for source_name in ('BBC News', 'Sky News').
+ * 2. Fallback to direct live RSS parse if DB has no rows yet or in dev.
+ * 3. Returns items strictly adhering to copyright bounds (headline, description, pubDate, outbound link).
+ * 4. Zero-fake-data: returns [] on empty/offline so FEED_OFFLINE state renders.
+ */
+export async function getHomepageGeneralNews(limit = 4): Promise<GeneralNewsItem[]> {
+  // 1. Live database query if configured
+  if (isDbConfigured()) {
+    try {
+      const { data: rows } = await dbQuery<any[]>(
+        `intelligence_items?source_name=in.(BBC News,Sky News)&review_status=in.(APPROVED,AUTO_PUBLISHED)&order=published_at.desc&limit=${limit}`
+      );
+      if (rows && rows.length > 0) {
+        return rows.map((r: any) => ({
+          id: r.id,
+          headline: cleanHtmlEntities(r.title),
+          summary: cleanHtmlEntities(r.entirefm_summary || ''),
+          source: r.source_name === 'Sky News' ? 'Sky News' : 'BBC News',
+          url: r.canonical_url || 'https://www.bbc.co.uk/news',
+          publishedAt: r.published_at,
+          relativeTime: formatRelativeTime(r.published_at),
+        }));
+      }
+    } catch {
+      // Fall through to real-time fetch if DB query fails
+    }
+  }
+
+  // 2. Real-time RSS fallback if DB is empty or unconfigured
+  try {
+    const res = await fetch('http://feeds.bbci.co.uk/news/business/rss.xml', {
+      headers: { 'User-Agent': 'EntireFM-Lobby/1.0' },
+      next: { revalidate: 1800 },
+    });
+    if (res.ok) {
+      const xml = await res.text();
+      const itemBlocks = xml.split(/<item[\s>]/i).slice(1, limit + 1);
+      const items: GeneralNewsItem[] = [];
+      for (const block of itemBlocks) {
+        const titleMatch = block.match(/<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
+        const linkMatch = block.match(/<link[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
+        const descMatch = block.match(/<description[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i);
+        const pubDateMatch = block.match(/<pubDate[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/pubDate>/i);
+
+        if (titleMatch && linkMatch) {
+          const rawTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
+          const link = linkMatch[1].replace(/<[^>]+>/g, '').trim();
+          const desc = descMatch ? descMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+          const pubDate = pubDateMatch ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString();
+
+          items.push({
+            id: `rss-bbc-${items.length}`,
+            headline: cleanHtmlEntities(rawTitle),
+            summary: cleanHtmlEntities(desc),
+            source: 'BBC News',
+            url: link,
+            publishedAt: pubDate,
+            relativeTime: formatRelativeTime(pubDate),
+          });
+        }
+      }
+      if (items.length > 0) return items;
+    }
+  } catch {
+    // Return empty array
+  }
+
+  // Zero fake data: return empty array so clean FEED_OFFLINE state renders
+  return [];
 }
 
 // ---------------------------------------------------------------------------
@@ -329,8 +416,109 @@ function mapIntelligenceItemToComplianceWatch(row: any): ComplianceWatchItem {
   };
 }
 
+/**
+ * TOPIC OVERLAP DETECTOR
+ * =======================
+ * Prevents the homepage Lead Story and Compliance Watch modules from covering
+ * the same underlying statutory topic or regulation (e.g. BSA digital occurrence reporting).
+ */
+export function hasTopicOverlap(
+  leadStory: { title: string; topics?: string[]; complianceData?: { statute?: string } },
+  complianceCandidate: ComplianceWatchItem
+): boolean {
+  const leadStatute = leadStory.complianceData?.statute || '';
+  const leadFull = `${leadStatute} ${leadStory.title}`.toLowerCase();
+  const candFull = `${complianceCandidate.statute} ${complianceCandidate.regulationTitle}`.toLowerCase();
+
+  // 1. Regulatory regime taxonomy matching
+  const regimes = [
+    {
+      id: 'building-safety',
+      patterns: [
+        'building safety act',
+        'building safety regulator',
+        'golden thread',
+        'digital occurrence',
+        'mandatory occurrence',
+        'safety case',
+        'higher-risk building',
+        'hrb',
+      ],
+    },
+    {
+      id: 'fire-safety',
+      patterns: [
+        'fire safety',
+        'fire risk assessment',
+        'regulatory reform (fire safety)',
+        'bs 5839',
+        'fire compartmentation',
+        'fire door',
+      ],
+    },
+    {
+      id: 'electrical',
+      patterns: ['bs 7671', 'wiring regulations', 'eicr', 'electrical safety', 'switchgear', 'thermographic'],
+    },
+    {
+      id: 'water-hygiene',
+      patterns: ['acop l8', 'legionella', 'legionnaires', 'water hygiene', 'hsgl274', 'calorifier'],
+    },
+    {
+      id: 'f-gas',
+      patterns: ['f-gas', 'refrigerant', 'r410a', 'r32', 'r404a', 'quota phase-down', 'leak check'],
+    },
+    {
+      id: 'lifting-pressure',
+      patterns: ['loler', 'puwer', 'pressure systems safety', 'pssr', 'passenger lift'],
+    },
+    {
+      id: 'asbestos',
+      patterns: ['control of asbestos', 'asbestos management', 'asbestos survey'],
+    },
+  ];
+
+  for (const regime of regimes) {
+    const leadMatch = regime.patterns.some((p) => leadFull.includes(p)) || leadStory.topics?.includes(regime.id);
+    const candMatch = regime.patterns.some((p) => candFull.includes(p));
+    if (leadMatch && candMatch) {
+      return true;
+    }
+  }
+
+  // 2. High-specificity keyword overlap
+  const stopWords = new Set([
+    'about', 'above', 'after', 'again', 'against', 'before', 'being', 'below', 'between',
+    'commercial', 'compliance', 'duties', 'duty', 'estate', 'estates', 'every', 'first',
+    'guidance', 'holder', 'holders', 'management', 'managing', 'mandatory', 'monitoring',
+    'operations', 'operational', 'planned', 'property', 'regulator', 'regulatory', 'requirement',
+    'requirements', 'review', 'safety', 'statutory', 'update', 'updates', 'verified', 'verify',
+    'what', 'when', 'where', 'which', 'with',
+  ]);
+
+  const extractWords = (str: string) =>
+    new Set(
+      str
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter((w) => w.length >= 4 && !stopWords.has(w))
+    );
+
+  const leadWords = extractWords(leadStory.title);
+  const candWords = extractWords(complianceCandidate.regulationTitle);
+
+  let shared = 0;
+  for (const w of candWords) {
+    if (leadWords.has(w)) shared++;
+  }
+
+  return shared >= 2;
+}
+
 export async function getHomepageComplianceWatch(
-  curation: typeof LOBBY_HOMEPAGE_CURATION
+  curation: typeof LOBBY_HOMEPAGE_CURATION,
+  leadStory?: LobbyArticle
 ): Promise<ComplianceWatchItem | null> {
   // 1. Check if an editorial pin is set and not stale
   const { isStale } = checkCurationStaleness(curation.updatedAt);
@@ -340,19 +528,34 @@ export async function getHomepageComplianceWatch(
         `intelligence_items?id=eq.${encodeURIComponent(curation.complianceWatchSlug)}&review_status=in.(APPROVED,AUTO_PUBLISHED)&limit=1`
       );
       if (data && data.length > 0) {
-        return mapIntelligenceItemToComplianceWatch(data[0]);
+        const item = mapIntelligenceItemToComplianceWatch(data[0]);
+        if (!leadStory || !hasTopicOverlap(leadStory, item)) {
+          return item;
+        }
+        console.warn(
+          `[Lobby Overlap Guard] Pinned compliance item "${curation.complianceWatchSlug}" overlaps with lead story topic ("${leadStory.title}"). Skipping pin.`
+        );
       }
     }
 
     const article = getAllPublishedLobbyArticles().find((a) => a.slug === curation.complianceWatchSlug);
     if (article && article.complianceData) {
-      return mapArticleToComplianceWatch(article);
+      const item = mapArticleToComplianceWatch(article);
+      if (!leadStory || !hasTopicOverlap(leadStory, item)) {
+        return item;
+      }
+      console.warn(
+        `[Lobby Overlap Guard] Pinned compliance article "${article.slug}" overlaps with lead story topic ("${leadStory.title}"). Skipping pin.`
+      );
     }
   }
 
   // 2. Query live intelligence_items for compliance-relevant items
   if (!isDbConfigured()) {
-    // Local dev without DB: fallback to static seed
+    // Local dev without DB: fallback to static seed if no topic overlap
+    if (leadStory && hasTopicOverlap(leadStory, LOBBY_DATA.complianceWatch)) {
+      return null;
+    }
     return LOBBY_DATA.complianceWatch;
   }
 
@@ -401,7 +604,19 @@ export async function getHomepageComplianceWatch(
     return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
   });
 
-  return mapIntelligenceItemToComplianceWatch(complianceItems[0]);
+  // Pick the highest-priority compliance item that does NOT overlap in topic with lead story
+  for (const row of complianceItems) {
+    const candidate = mapIntelligenceItemToComplianceWatch(row);
+    if (!leadStory || !hasTopicOverlap(leadStory, candidate)) {
+      return candidate;
+    }
+  }
+
+  // If every candidate overlaps, return null so clean FEED_OFFLINE renders rather than repeating the topic
+  console.warn(
+    `[Lobby Overlap Guard] All ${complianceItems.length} compliance items overlap with lead story topic. Rendering empty state.`
+  );
+  return null;
 }
 
 export async function getLobbyHomepageData(): Promise<ResolvedLobbyHomepageData> {
@@ -443,11 +658,14 @@ export async function getLobbyHomepageData(): Promise<ResolvedLobbyHomepageData>
   checkArticleStaleness('From the field', fromTheField, 7);
   checkArticleStaleness('Ask EntireFM', askEntireFM, 7);
 
-  // Fetch live briefing wire and live compliance watch concurrently.
-  // Both adhere to zero-fake-data: returns [] or null on empty/offline.
-  const [briefingStrip, complianceWatch] = await Promise.all([
+  // Fetch live briefing wire, compliance watch, general UK news, and weather concurrently.
+  // All adhere to zero-fake-data: returns [] or null on empty/offline.
+  // Compliance watch is guarded against topic overlap with the lead story.
+  const [briefingStrip, complianceWatch, generalNews, weather] = await Promise.all([
     getHomepageBriefingStrip(3),
-    getHomepageComplianceWatch(curation),
+    getHomepageComplianceWatch(curation, leadStory),
+    getHomepageGeneralNews(4),
+    getLobbyWeatherData(),
   ]);
 
   return {
@@ -460,6 +678,8 @@ export async function getLobbyHomepageData(): Promise<ResolvedLobbyHomepageData>
     askEntireFM,
     worthAttending,
     briefingStrip,
+    generalNews,
+    weather,
     toolkit: LOBBY_DATA.toolkit,
     lobbyQuestion: LOBBY_DATA.lobbyQuestion,
     lobbyPulse: LOBBY_DATA.lobbyPulse,
