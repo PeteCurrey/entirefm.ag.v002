@@ -588,63 +588,104 @@ export async function getHomepageComplianceWatch(
     }
   }
 
-  // 2. Query live intelligence_items for compliance-relevant items
-  if (!isDbConfigured()) {
-    // Local dev without DB: fallback to static seed if no topic overlap
-    if (leadStory && hasTopicOverlap(leadStory, LOBBY_DATA.complianceWatch)) {
-      return null;
-    }
-    return LOBBY_DATA.complianceWatch;
-  }
-
-  const { data: rows } = await dbQuery<any[]>(
-    'intelligence_items?review_status=in.(APPROVED,AUTO_PUBLISHED)&order=published_at.desc&limit=50'
-  );
-
-  const items = rows || [];
-  const complianceItems = items.filter((i: any) => {
-    const hasTrade =
-      Array.isArray(i.trade_tags) &&
-      i.trade_tags.some((t: string) =>
-        ['compliance', 'building-safety', 'fire-safety', 'water-hygiene', 'electrical', 'hvac', 'asbestos'].includes(t)
+  // 2. Query live intelligence_items for verified compliance directives
+  if (isDbConfigured()) {
+    try {
+      const { data: rows } = await dbQuery<any[]>(
+        'intelligence_items?review_status=in.(APPROVED,AUTO_PUBLISHED)&source_id=not.in.(src-bbc-news,src-sky-news,src-opss-recalls)&order=published_at.desc&limit=50'
       );
-    const isStatutoryEvent = [
-      'REGULATORY_CHANGE',
-      'LEGISLATION_PUBLISHED',
-      'LEGISLATION_AMENDED',
-      'HSE_ENFORCEMENT',
-      'PRODUCT_SAFETY_RECALL',
-      'PROSECUTION',
-      'STANDARDS_UPDATE',
-    ].includes(i.event_type);
-    const isStatutoryTier = i.authority_tier === 1;
-    return hasTrade || isStatutoryEvent || isStatutoryTier;
-  });
 
-  if (complianceItems.length === 0) {
-    // Zero-fake-data policy: return null so FEED_OFFLINE renders
-    return null;
+      const items = rows || [];
+      const complianceItems = items.filter((i: any) => {
+        // Exclude consumer product recalls
+        if (
+          i.source_id === 'src-opss-recalls' ||
+          i.event_type === 'PRODUCT_SAFETY_RECALL' ||
+          i.source_name?.includes('Product Safety')
+        ) {
+          return false;
+        }
+
+        // Exclude irrelevant non-FM government releases
+        const lowerTitle = (i.title || '').toLowerCase();
+        if (
+          lowerTitle.includes('firing times') ||
+          lowerTitle.includes('syrian') ||
+          lowerTitle.includes('touring') ||
+          lowerTitle.includes('police act') ||
+          lowerTitle.includes('traffic') ||
+          lowerTitle.includes('sentencing act') ||
+          lowerTitle.includes('highway')
+        ) {
+          return false;
+        }
+
+        // Compliance Watch requires statutory regulations, amendments, or standards updates
+        const isStatutoryDirective = [
+          'REGULATORY_CHANGE',
+          'LEGISLATION_PUBLISHED',
+          'LEGISLATION_AMENDED',
+          'STANDARDS_UPDATE',
+        ].includes(i.event_type);
+
+        const hasTrade =
+          Array.isArray(i.trade_tags) &&
+          i.trade_tags.some((t: string) =>
+            ['compliance', 'building-safety', 'fire-safety', 'water-hygiene', 'electrical', 'hvac', 'asbestos'].includes(t)
+          );
+
+        const isStatutoryTier = i.authority_tier === 1 || i.authority_tier === 2;
+
+        // Ensure publication quality: requires approved operational interpretation or explicit what_changed
+        const hasApprovedOperationalGuidance =
+          i.operational_interpretation === 'APPROVED_FOR_ACTION' || Boolean(i.what_changed);
+
+        return isStatutoryDirective && (hasTrade || isStatutoryTier) && hasApprovedOperationalGuidance;
+      });
+
+      if (complianceItems.length > 0) {
+        const severityRank: Record<string, number> = {
+          CRITICAL: 1,
+          ACTION_REQUIRED: 2,
+          ACTION_MAY_BE_REQUIRED: 3,
+          ADVISORY: 4,
+          TECHNICAL_UPDATE: 5,
+          INFORMATION: 6,
+        };
+
+        complianceItems.sort((a: any, b: any) => {
+          const rankA = severityRank[a.severity] || 99;
+          const rankB = severityRank[b.severity] || 99;
+          if (rankA !== rankB) return rankA - rankB;
+          return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+        });
+
+        // Pick the highest-priority compliance item that does NOT overlap in topic with lead story
+        for (const row of complianceItems) {
+          const candidate = mapIntelligenceItemToComplianceWatch(row);
+          if (!leadStory || !hasTopicOverlap(leadStory, candidate)) {
+            return candidate;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[Lobby Compliance Watch] Error fetching live compliance items, falling back to curated directive:', err);
+    }
   }
 
-  const severityRank: Record<string, number> = {
-    CRITICAL: 1,
-    ACTION_REQUIRED: 2,
-    ACTION_MAY_BE_REQUIRED: 3,
-    ADVISORY: 4,
-    TECHNICAL_UPDATE: 5,
-    INFORMATION: 6,
-  };
+  // 3. Fallback to curated authoritative statutory compliance directive (e.g. F-Gas Regulation)
+  if (LOBBY_DATA.complianceWatch) {
+    if (!leadStory || !hasTopicOverlap(leadStory, LOBBY_DATA.complianceWatch)) {
+      return LOBBY_DATA.complianceWatch;
+    }
+  }
 
-  complianceItems.sort((a: any, b: any) => {
-    const rankA = severityRank[a.severity] || 99;
-    const rankB = severityRank[b.severity] || 99;
-    if (rankA !== rankB) return rankA - rankB;
-    return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
-  });
-
-  // Pick the highest-priority compliance item that does NOT overlap in topic with lead story
-  for (const row of complianceItems) {
-    const candidate = mapIntelligenceItemToComplianceWatch(row);
+  // 4. Secondary fallback: check published Lobby articles with complianceData (e.g. BS 7671 Fixed Wire Testing)
+  const publishedCompliance = getAllPublishedLobbyArticles().filter(
+    (a) => a.complianceData && (!leadStory || a.id !== leadStory.id)
+  );
+  for (const article of publishedCompliance) {
+    const candidate = mapArticleToComplianceWatch(article);
     if (!leadStory || !hasTopicOverlap(leadStory, candidate)) {
       return candidate;
     }
@@ -652,7 +693,7 @@ export async function getHomepageComplianceWatch(
 
   // If every candidate overlaps, return null so clean FEED_OFFLINE renders rather than repeating the topic
   console.warn(
-    `[Lobby Overlap Guard] All ${complianceItems.length} compliance items overlap with lead story topic. Rendering empty state.`
+    `[Lobby Overlap Guard] All compliance candidates and fallbacks overlap with lead story topic. Rendering empty state.`
   );
   return null;
 }
